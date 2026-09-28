@@ -118,3 +118,9 @@ Tài khoản: `admin` (nhân vật `Bialk`, GUID 1010100001, GM), `hoang`. Mật
 - **Thử** chồng ngọc: `GemInfo.txt` `50412007` (Thuần tịnh dạ quang thạch cấp 4) quy tắc 1 → 6 (6 = 1 + cờ `重叠`). Ngọc không có cột số chồng tối đa, nhiều khả năng không có tác dụng.
 - Đã xếp thêm 2 cây Tạo Hóa `10303447` cho Bialklk để thử mẫu tạm (cây đầu ra Hỏa công thay vì Nội Lực dù cột 42 `火攻击` đã tắt và cột 76 `灵气` bật). **Phải nhận trước khi restart**, restart là mất mẫu tạm trong bộ nhớ.
 
+## 28/09 23:35 - ĐANG CHỜ RESTART (người dùng sẽ ra lệnh)
+
+- Đã lên server, **chưa restart**: chồng 250 (`82384c3`), tất cả 361 ngọc quy tắc 1 → 6 (`23c8b11`, chưa chắc có tác dụng), mẫu tạm Tạo Hóa lần 2 (`05f5caf`: Nội Lực = `定力` cột 78 thay `灵气` cột 76; lần 1 bật `灵气` thì ra Hỏa công).
+- Bialklk còn **2 cây Tạo Hóa** trong hàng đợi. **Nhận trước khi restart thì ra theo mẫu tạm lần 1** (vẫn dính Hỏa công), vì server đang giữ mẫu đó trong bộ nhớ từ 23:20.
+- Sau restart: người dùng nhận 2 cây, kiểm tra 11 dòng; rồi `git revert 05f5caf` + `./cap-nhat.sh` (không restart) để trả file mẫu về mặc định.
+
