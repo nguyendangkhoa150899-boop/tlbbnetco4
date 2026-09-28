@@ -78,7 +78,7 @@ Bản gốc trước khi dọn: `/opt/tlbb-backup/db-goc-*.sql.gz`, `home-goc.ta
    powershell -ExecutionPolicy Bypass -File .\sua-client.ps1 -ClientDir "D:\...\Thien Long Gate"
    ```
    Script trỏ client về VPS, tắt tự cập nhật từ web server cũ, xóa tên đăng nhập cũ đã lưu.
-3. Mở game bằng `NetCo4.cmd` (gói `NetCo4-Client.zip` đã sửa sẵn, không cần chạy script). **Không chạy `fixgame.cmd`.**
+3. Mở game bằng `NetCo4.cmd` (gói `NetCo4.zip` đã sửa sẵn, không cần chạy script). **Không chạy `fixgame.cmd`.**
 
 ## Đã dọn gì so với bản public
 
