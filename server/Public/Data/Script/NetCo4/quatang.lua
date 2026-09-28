@@ -13,9 +13,10 @@
 x950000_g_ScriptId = 950000
 x950000_g_Dir = "./txt/NetCo4Qua/"
 
--- Cap toi thieu toan server: panel ghi so cap vao _capmin.txt (0 = tat). Nhan vat da vao mon phai
--- ma duoi cap nay thi len cap khi dang nhap/doi ban do, ke ca nhan vat moi tao.
--- Bat vao phai truoc giong qua Tan Thu 8887 (oloulan_malan.lua), tranh pha phan tan thu.
+-- Cap toi thieu toan server: panel ghi so cap vao _capmin.txt (0 = tat). Nhan vat duoi cap nay
+-- thi len cap khi dang nhap/doi ban do, ke ca nhan vat moi tao (khong can vao phai).
+-- KHONG dat DefaultChar.ini level >= 100: scene.lua x888888_OnScenePlayerFirstLogin coi nhan vat moi
+-- cap >= 100 la hack va SetLevel 0. Ham nay chay trong OnScenePlayerLogin, SAU buoc kiem tra do.
 function x950000_CapMin( sceneId, selfId )
 	local h = openfile( x950000_g_Dir.."_capmin.txt", "r" )
 	if h == nil then
@@ -28,9 +29,6 @@ function x950000_CapMin( sceneId, selfId )
 	end
 	local n = tonumber( s )
 	if n == nil or n < 1 or n > 119 then
-		return
-	end
-	if GetMenPai( sceneId, selfId ) == 9 then
 		return
 	end
 	if GetLevel( sceneId, selfId ) < n then

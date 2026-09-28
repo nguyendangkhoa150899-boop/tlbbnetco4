@@ -253,7 +253,7 @@ def act(form):
             f.write(str(int(val)) + "\n")
         audit("cap toi thieu toan server = %s" % int(val))
         return ("Da tat cap toi thieu" if int(val) == 0 else
-                "Cap toi thieu = %s: nhan vat da vao mon phai se len cap khi dang nhap/doi ban do (ca nhan vat moi)" % int(val))
+                "Cap toi thieu = %s: nhan vat se len cap khi dang nhap/doi ban do (ca nhan vat moi)" % int(val))
     if a == "huy_qua":
         g = v("guid")
         if RE_INT.match(g):
@@ -385,7 +385,7 @@ def page(msg="", q=""):
         capmin = "0"
     out.append('<form method="post" class="row"><input type="hidden" name="t" value="%s"><input type="hidden" name="a" value="capmin">'
                '<b>Cap toi thieu toan server:</b><input name="gt" value="%s" size="4" required pattern="\\d{1,3}"><button>Luu</button>'
-               '<span class="muted">0 = tat. Nhan vat da vao mon phai ma thap hon se len cap khi dang nhap/doi ban do, ke ca nhan vat tao sau nay.'
+               '<span class="muted">0 = tat. Nhan vat thap hon se len cap khi dang nhap/doi ban do, ke ca nhan vat tao sau nay.'
                ' Can script moi (restart game sau lan deploy dau).</span></form><br>' % (TOKEN, esc(capmin)))
     out.append('<table><tr><th>GUID</th><th>Tai khoan</th><th>Nhan vat</th>'
                '<th>Cap</th><th>Online</th><th>GM</th><th>Qua dang cho</th><th>Phat qua</th></tr>')
