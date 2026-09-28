@@ -1,0 +1,149 @@
+--²ÉÒ©¼¼ÄÜÑ§Ï°
+
+--½Å±¾ºÅ
+x713509_g_ScriptId = 713509
+
+--Ñ§Ï°½çÃæÒªËµµÄ»°
+x713509_g_MessageStudy = "Nªu các hÕ ðÕt t¾i c¤p %d, phäi tiêu t¯n #{_EXCHG%d}¾Í¿ÉÒÔÑ§»á²ÉÒ© kÛ nång. Ngß½i quyªt ð¸nh h÷c không?"
+
+--¼¼ÄÜ±àºÅ
+x713509_g_AbilityID = ABILITY_CAIYAO
+
+--¼¼ÄÜÃû³Æ
+x713509_g_AbilityName = "Hái dßþc"
+
+--**********************************
+--ÈÎÎñÈë¿Úº¯Êý
+--**********************************
+function x713509_OnDefaultEvent( sceneId, selfId, targetId, ButtomNum,g_Npc_ScriptId,bid )
+	--Íæ¼Ò¼¼ÄÜµÄµÈ¼¶
+	AbilityLevel = QueryHumanAbilityLevel(sceneId, selfId, x713509_g_AbilityID)
+	--Íæ¼Ò¼Ó¹¤¼¼ÄÜµÄÊìÁ·¶È
+	ExpPoint = GetAbilityExp(sceneId, selfId, x713509_g_AbilityID)
+	--ÈÎÎñÅÐ¶Ï
+
+	--ÅÐ¶ÏÊÇ·ñÒÑ¾­Ñ§»áÁË²ÉÒ©,Èç¹ûÑ§»áÁË,ÔòÌáÊ¾ÒÑ¾­Ñ§»áÁË
+	if AbilityLevel >= 1 then
+		BeginEvent(sceneId)
+        	AddText(sceneId,"Các hÕ ðã h÷c ðßþc "..x713509_g_AbilityName.." kÛ nång");
+        	EndEvent(sceneId)
+        DispatchMissionTips(sceneId,selfId)
+		return
+	end
+
+	--ÔÚ³ÇÊÐÀïÑ§Ï°Õâ¸ö¼¼ÄÜ
+	if bid then
+		x713509_StudyInCity(sceneId, selfId, targetId, ButtomNum,g_Npc_ScriptId,bid)
+		return
+	end
+
+	--Èç¹ûµã»÷µÄÊÇ¡°Ñ§Ï°¼¼ÄÜ¡±£¨¼´²ÎÊý=0£©
+	if ButtomNum == 0 then
+		
+		local ret, demandMoney, demandExp, limitAbilityExp, limitAbilityExpShow, currentLevelAbilityExpTop, limitLevel = LuaFnGetAbilityLevelUpConfig(ABILITY_CAIYAO, 1);
+		if ret and ret == 1 then
+			BeginEvent(sceneId)
+			local addText = format(x713509_g_MessageStudy, limitLevel, demandMoney);
+			AddText(sceneId,addText)
+			--È·¶¨Ñ§Ï°°´Å¥
+					AddNumText(sceneId,x713509_g_ScriptId,"TÕi hÕ xác ð¸nh mu¯n h÷c", 6, 2)
+			--È¡ÏûÑ§Ï°°´Å¥
+					AddNumText(sceneId,x713509_g_ScriptId,"TÕi hÕ chï mu¯n coi", 8, 3)
+			EndEvent(sceneId)
+			DispatchEventList(sceneId,selfId,targetId)
+		end
+	elseif ButtomNum == 2 then			--Èç¹ûµã»÷µÄÊÇ¡°ÎÒÈ·¶¨ÒªÑ§Ï°¡±
+		local ret, demandMoney, demandExp, limitAbilityExp, limitAbilityExpShow, currentLevelAbilityExpTop, limitLevel = LuaFnGetAbilityLevelUpConfig(ABILITY_CAIYAO, 1);
+		if ret and ret == 1 then
+			--¼ì²éÍæ¼ÒÊÇ·ñÓÐÒ»¸öÒø±ÒµÄÏÖ½ð
+			if GetMoney(sceneId,selfId)+GetMoneyJZ(sceneId,selfId) < demandMoney then			
+				BeginEvent(sceneId)
+					AddText(sceneId,"Các hÕ không ðü ngân lßþng");
+					EndEvent(sceneId)
+				DispatchMissionTips(sceneId,selfId)
+				return
+			end
+			--¼ì²éÍæ¼ÒµÈ¼¶ÊÇ·ñ´ïµ½ÒªÇó
+			if GetLevel(sceneId,selfId) < limitLevel then
+				BeginEvent(sceneId)
+					AddText(sceneId,"ÐÆng c¤p cüa ngß½i không ðü");
+					EndEvent(sceneId)
+				DispatchMissionTips(sceneId,selfId)
+				return
+			end
+			--É¾³ý½ðÇ®
+			LuaFnCostMoneyWithPriority(sceneId,selfId,demandMoney)
+			--¼¼ÄÜÌáÉýµ½1
+			SetHumanAbilityLevel(sceneId,selfId,x713509_g_AbilityID,1)
+			--ÔÚnpcÁÄÌì´°¿ÚÍ¨ÖªÍæ¼ÒÒÑ¾­Ñ§»áÁË
+			BeginEvent(sceneId)
+				AddText(sceneId,"Các hÕ ðã h÷c ðßþc "..x713509_g_AbilityName.." kÛ nång")
+			EndEvent( )
+			DispatchEventList(sceneId,selfId,targetId)
+		end
+	else --Èç¹ûµã»÷¡°ÎÒÖ»ÊÇÀ´¿´¿´¡±
+		CallScriptFunction( g_Npc_ScriptId, "OnDefaultEvent",sceneId, selfId, targetId )
+	end
+end
+
+--**********************************
+--ÁÐ¾ÙÊÂ¼þ
+--**********************************
+function x713509_OnEnumerate( sceneId, selfId, targetId, bid )
+		if bid then
+			local ret = CallScriptFunction( CITY_BUILDING_ABILITY_SCRIPT, "OnCityCheck",sceneId, selfId, x713509_g_AbilityID, bid, 5)
+			if ret > 0 then AddNumText(sceneId,x713509_g_ScriptId,"H÷c "..x713509_g_AbilityName.." kÛ nång", 12, 0) end
+			return
+		end
+		--Èç¹û²»µ½µÈ¼¶Ôò²»ÏÔÊ¾Ñ¡Ïî
+		--if GetLevel(sceneId,selfId) >= LEVELUP_ABILITY_CAIYAO[1].HumanLevelLimit then
+		local ret, demandMoney, demandExp, limitAbilityExp, limitAbilityExpShow, currentLevelAbilityExpTop, limitLevel = LuaFnGetAbilityLevelUpConfig(ABILITY_CAIYAO, 1);
+		--if ret and ret == 1 and GetLevel(sceneId,selfId) >= limitLevel then
+		if ret and ret == 1 then
+			AddNumText(sceneId,x713509_g_ScriptId,"H÷c "..x713509_g_AbilityName.." kÛ nång", 12, 0)
+		end
+		return
+end
+
+--**********************************
+--¼ì²â½ÓÊÜÌõ¼þ
+--**********************************
+function x713509_CheckAccept( sceneId, selfId )
+end
+
+--**********************************
+--½ÓÊÜ
+--**********************************
+function x713509_OnAccept( sceneId, selfId, x713509_g_AbilityID )
+end
+
+--ÔÚ³ÇÊÐÀïÑ§Ï°´ËÉú»î¼¼ÄÜÊ±ÐèÒªÖ´ÐÐµÄº¯Êý
+function x713509_StudyInCity(sceneId, selfId, targetId, ButtomNum,g_Npc_ScriptId,bid)
+	if bid then
+		if 0 == ButtomNum then
+			--¼ì²é³ÇÊÐÊÇ·ñ´¦ÓÚµÍÎ¬»¤×´Ì¬
+			if CallScriptFunction( CITY_BUILDING_ABILITY_SCRIPT, "CheckCityStatus",sceneId, selfId,targetId) < 0 then
+				return
+			end
+			--Ìí¼ÓÌõ¼þÏÔÊ¾ÄÚÈÝ
+			BeginEvent(sceneId)
+			local lv,money,con
+			lv,money,con = CallScriptFunction( CITY_BUILDING_ABILITY_SCRIPT, "OnCityAction",sceneId, selfId, targetId, x713509_g_AbilityID, bid, 4)
+			local studyMsg = format("Nªu các hÕ ðÕt t¾i c¤p %d, phäi tiêu t¯n #{_EXCHG%d} và %d ði¬m bang hµi s¨ có th¬ h÷c ðßþc "..x713509_g_AbilityName.." kÛ nång. Ngß½i quyªt ð¸nh h÷c không?", lv, money, con)
+			AddText(sceneId,studyMsg)
+			--È·¶¨Ñ§Ï°°´Å¥
+					AddNumText(sceneId,x713509_g_ScriptId,"TÕi hÕ xác ð¸nh mu¯n h÷c", 6, 2)
+			--È¡ÏûÑ§Ï°°´Å¥
+					AddNumText(sceneId,x713509_g_ScriptId,"TÕi hÕ chï mu¯n coi", 8, 3)
+			EndEvent(sceneId)
+			DispatchEventList(sceneId,selfId,targetId)
+		elseif 2 == ButtomNum then
+			local ret = CallScriptFunction( CITY_BUILDING_ABILITY_SCRIPT, "OnCityCheck",sceneId, selfId, x713509_g_AbilityID, bid, 1)
+			if ret > 0 then
+				CallScriptFunction( CITY_BUILDING_ABILITY_SCRIPT, "OnCityAction",sceneId, selfId, targetId, x713509_g_AbilityID, bid, 1)
+			end
+		else
+			CallScriptFunction( g_Npc_ScriptId, "OnDefaultEvent",sceneId, selfId, targetId )
+		end
+	end
+end

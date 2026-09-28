@@ -1,0 +1,78 @@
+--Òý³æÊõ¼¼ÄÜÉý¼¶
+
+--½Å±¾ºÅ
+x760012_g_ScriptId = 760012
+
+--´Ënpc¿ÉÒÔÉýµ½µÄ×î¸ßµÈ¼¶
+x760012_g_nMaxLevel = 100
+
+--**********************************
+--ÈÎÎñÈë¿Úº¯Êý
+--**********************************
+function x760012_OnDefaultEvent( sceneId, selfId, targetId )
+	--Íæ¼Ò¼¼ÄÜµÄµÈ¼¶
+	AbilityLevel = QueryHumanAbilityLevel(sceneId, selfId, ABILITY_YINCHONGSHU)
+	--Íæ¼ÒÒý³æÊõ¼¼ÄÜµÄÊìÁ·¶È
+	ExpPoint = GetAbilityExp(sceneId, selfId, ABILITY_YINCHONGSHU)
+	--ÈÎÎñÅÐ¶Ï
+
+	--ÅÐ¶ÏÊÇ·ñÊÇÐÇËÞÅÉµÜ×Ó,²»ÊÇÐÇËÞµÜ×Ó²»ÄÜÑ§Ï°
+		if GetMenPai(sceneId,selfId) ~= MP_TANGMEN then
+			BeginEvent(sceneId)
+        		AddText(sceneId,"ngß¶i không phäi ngß¶i môn phái, ta không th¬ dÕy ngß¶i");
+        	EndEvent(sceneId)
+			DispatchEventList(sceneId,selfId,targetId)
+			return
+		end
+	--Èç¹û»¹Ã»ÓÐÑ§»á¸ÃÉú»î¼¼ÄÜ
+	if AbilityLevel < 1	then
+		BeginEvent(sceneId)
+			strText = "ngß½i chßa h÷c kÛ nång nÕp thu§t"
+			AddText(sceneId,strText)
+		EndEvent(sceneId)
+		DispatchEventList(sceneId,selfId,targetId)
+		return
+	end
+
+	--Èç¹ûÉú»î¼¼ÄÜµÈ¼¶ÒÑ¾­³¬³ö¸ÃnpcËùÄÜ½ÌµÄ·¶Î§
+	if AbilityLevel >= x760012_g_nMaxLevel then
+		BeginEvent(sceneId)
+			--[ QUFEI 2007-07-17 15:30 ÐÞ¸Ä ]
+			strText = "kÛ nång này chï có th¬ h÷c t¾i c¤p 100"
+			AddText(sceneId,strText)
+		EndEvent(sceneId)
+		DispatchEventList(sceneId,selfId,targetId)
+	else
+		--DispatchAbilityInfo(sceneId, selfId, targetId,x760012_g_ScriptId, ABILITY_YINCHONGSHU, LEVELUP_ABILITY_ASSISTANT[AbilityLevel+1].Money, LEVELUP_ABILITY_ASSISTANT[AbilityLevel+1].HumanExp, LEVELUP_ABILITY_ASSISTANT[AbilityLevel+1].AbilityExpLimitShow,LEVELUP_ABILITY_ASSISTANT[AbilityLevel+1].HumanLevelLimit)
+		local tempScriptId = x760012_g_ScriptId;
+		local tempAbilityId = ABILITY_YINCHONGSHU;
+		local tempAbilityLevel = AbilityLevel + 1;
+		local ret, demandMoney, demandExp, limitAbilityExp, limitAbilityExpShow, currentLevelAbilityExpTop, limitLevel = LuaFnGetAbilityLevelUpConfig(tempAbilityId, tempAbilityLevel);
+		if ret and ret == 1 then
+			DispatchAbilityInfo(sceneId, selfId, targetId,tempScriptId, tempAbilityId, demandMoney, demandExp, limitAbilityExpShow, limitLevel);
+		end
+	end
+end
+
+--**********************************
+--ÁÐ¾ÙÊÂ¼þ
+--**********************************
+function x760012_OnEnumerate( sceneId, selfId, targetId )
+		--Èç¹û²»µ½µÈ¼¶Ôò²»ÏÔÊ¾Ñ¡Ïî
+		if 1 then
+			AddNumText(sceneId,x760012_g_ScriptId,"Thång c¤p bách thäo", 12, 1)
+		end
+		return
+end
+
+--**********************************
+--¼ì²â½ÓÊÜÌõ¼þ
+--**********************************
+function x760012_CheckAccept( sceneId, selfId )
+end
+
+--**********************************
+--½ÓÊÜ
+--**********************************
+function x760012_OnAccept( sceneId, selfId, ABILITY_YINCHONGSHU )
+end

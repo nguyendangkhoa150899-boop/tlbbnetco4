@@ -1,0 +1,17 @@
+[common]
+[commonend]
+
+;Chú ý Vật lý Công kích Kỹ năng Ưu tiên Cấp Hẳn là So Viễn trình Kỹ năng Ưu tiên Cấp Cao 
+[skill]
+0:if(AIS_IsCanSkill(999)=1){AIS_ToSkill(999);AIS_SetTimes(-1);AIS_SetPRI(30);};Nếu có thể Sử dụng 0Hào Kỹ năng Tắc Phóng thích ，Số lần Không Hạn （Bình thường Công kích ）
+[skillend]
+
+[beskill]
+[beskillend]
+
+[damage]
+[damageend]
+
+[dead]
+[deadend]
+

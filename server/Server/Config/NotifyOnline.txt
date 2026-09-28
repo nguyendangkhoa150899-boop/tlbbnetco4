@@ -1,0 +1,18 @@
+INT	INT	INT	STRING
+index	isShow	mode	info$1$
+#<0>index	thÑ tñ		
+#<1>isShow	hi®n ho£c không hi®n		
+#<2>mode	Thông báo chính thÑc: 0, bình thß¶ng thông báo: 1, tu¥n thông báo [NotifyWeek]: 2, nh§t ký thông báo [NotifyDate]: 3, sinh nh§t thông báo - 4, ðång nh§p thông báo (cách thÑc c¯ ð¸nh)		
+#<3>info	Nµi dung		
+#			
+0	1	0	#gFFFF00Chào m×ng các hÕ ðªn v¾i NetCo4 !!!
+1	1	4	#WTh¶i gian l¥n trß¾c các hÕ ðång nh§p là #cff0000%d/%d/%d lúc %d gi¶#W. Ð¸a chï IP ðång nh§p là: #cff0000%d.%d.%d.%d#W.
+2	0	0	Thông báo tÕm th¶i
+3	0	1	
+4	1	2	
+5	1	3	Hôm nay là sinh nh§t cüa các hÕ, chúc các hÕ sinh nh§t vui vë!
+6	1	0	#gFFFF00Chào m×ng các hÕ ðã ðªn v¾i #GNetCo4#gFFFF00. Nhæng thông tin gì m¾i s¨ chÑa ðñng trong phiên bän 4.0, xin truy c§p vào trang chü #G ho£c  #gFFFF00Chúc các hÕ ch½i game vui vë !
+7	0	0	#GNetCo4 Chúc các b¢ng hæu nåm m¾i vui vë và g£p nhi«u may m¡n. R¤t mong sñ üng hµ cüa các bÕn ð¬ có th¬ tÕo ra mµt sân ch½i lâu dài và ±n ð¸nh.
+8	0	0	#YNetCo4 Chúc các b¢ng hæu nåm m¾i 2018 An Khang Th¸nh Vß½ng.
+9	1	0	#ef12345#YL¸ch bäo trì ð¸nh kÏ di­n ra vào lúc 6H Sáng và 6H T¯i h¢ng ngày, m²i l¥n kéo dài 5 phút.
+##10	1	0	#GNetCo4 khuyªn cáo các b¢ng hæu tránh xa các loÕi bug hack và các hành vi l×a ðäo chiªm ðoÕt tài sän trong game. M÷i trß¶ng hþp phát hi®n bug hack, l×a ðäo ho£c buôn bán, giao d¸ch v¾i NV hack bug s¨ b¸ khoá acc vînh vi­n! Xin các bÕn chú ý!

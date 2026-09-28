@@ -1,0 +1,21 @@
+;Cao cấp Sơ hở 631，Cao cấp Suy yếu 632，Bất kham Một kích 1011，Diệu thủ hồi xuân 604
+[common]
+[commonend]
+
+;Chú ý Vật lý Công kích Kỹ năng Ưu tiên Cấp Hẳn là So Viễn trình Kỹ năng Ưu tiên Cấp Cao 
+[skill]
+0:if(AIS_IsCanSkill(0)=1){AIS_ToSkill(0);AIS_SetTimes(-1);AIS_SetPRI(35);};Nếu có thể Sử dụng 0Hào Kỹ năng Tắc Phóng thích ，Số lần Không Hạn （Bình thường Công kích ）
+1:if(AIS_IsCanSkill(996)=1&AIS_Rand()<40&AIS_GetHP()<95){AIS_ToSkill(996);AIS_SetTimes(-1);AIS_SetPRI(40);};40％Có thể Sử dụng 995Hào Kỹ năng Tắc Phóng thích ，Số lần Không Hạn 
+
+
+[skillend]
+
+[beskill]
+[beskillend]
+
+[damage]
+[damageend]
+
+[dead]
+[deadend]
+

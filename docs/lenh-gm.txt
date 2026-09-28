@@ -1,0 +1,143 @@
+Tổng hợp lệnh GM
+dùng navicat vo phần xem chi tiếc acc ở t_char thuộc database tlbb trong mysql xong có id của acc sau đó copy lại id đó và dùng wincsp tìm đến phần tlbb/Server/Config/GMList.ini ùi dán vô
+
+Ví dụ:[gm]
+count=1 
+guid0=1010000001 id của acc
+!!createguard =id Gọi quái
+!!modifymenpai thay đổi môn phái .vd !!modifymenpai = id môn phái.
+!!modifyxinfa 
+!!levelupallxinfa up tâm pháp .vd !!levelupallxinfa = cấp tâm pháp
+!!syschat lệnh thông báo
+!!goto
+!!createmonster 
+!!deletemonster 
+!!modifymoney
+!!addmoney add vàng
+!!modifyyuanbao
+!!addyuanbao add kim nguyên bảo chỉ nên add tối đa 99999 trong một lần
+!!modifyzengdian
+!!addzengdian add điểm tặng //
+!!leveldown 
+!!addexp add kinh nghiệm//
+!!addskill add skill
+!!removeskill xoa skill
+!!syschat @*;SrvMsg;SCA:
+--> thông báo dòng chữ chạy phít trên
+!!syschat @*;SrvMsg;DBD:
+--> thông báo dòng chữ xuất hiện nhỏ 
+!!levelup
+!!leveldown
+!!modifyzengdian =900000
+!!modifymenpai =x
+!!modifyxinfa =x =y
+!!levelupallxinfa =x
+!!killOBJ =x
+!!full
+!!levelup=x
+!!LEVELDOWN
+!!addexp =x =y
+!!modifymoney =x
+!!iamgod
+!!iamdog
+!!goto =x,y =z
+!!tp =PlayerID =x,y =z
+!!relive
+!!createitem =x =y =z
+!!syschat =x
+!!WHO
+!!ALLWHO
+!!CATCHPLAYER
+!!PLAYERINFO
+!!debug_reloadconfig
+!!SAVE
+!!GETOBJINFO
+!!RELOAD_COMBAT_TABLES
+!!RELOADMONSTERATTR
+!!RELOADBASEVALUE
+!!loadlua =??ID
+!!abilityup =x =y
+!!FORGETRECIPE
+!!SETABILITYEXP
+!!SETVIGOR
+!!SETENERGY
+!!createitem =x =y =z
+!!slot =x
+!!use_gem =x =y
+!!conbound_gem =x =y =z =a =b =c
+SET_EQUIP_DUR
+!!createpet =x
+!!deletepet =x
+!!CALLUPPET
+!!FREEPETTONATURE
+!!RETURNTOCHILD
+!!SKILL_RELIVE
+!!setpethappiness =x
+!!setpetskill =x =y =z
+!!SETPETLIFE
+!!PETLEVELUP
+!!SETPETHP
+!!USEPETSK
+
+
+!!setgoodbad = set diem thiện ác
+!!SetMenpaiPoint = set diem mon phai
+(muốn set ID nào thì Cau lenh = ID = Diem phai)
+!!createitem = ID iteam = 2 = số lượng
+=> ID Trùng lâu : 10422016 Trùng lâu giới 10423024 trùng lâu ngọc
+add knb: !!addyuanbao = số knb
+
+add DT: !!addzengdian = số DT
+
+add exp: !!addexp = số exp 
+
+hồi phục máu và nộ: !!full
+
+!!syschat Thông báo <<< kênh hệ thống sẽ xuất hiện 2 chữ "thông báo"
+
+để thêm knb cho char khác thì như sau:
+!!addyuanbao = số knb = id char
+
+!!syschat @*;SrvMsg;SCA: #YServer ''ghi những gì bạn muốn ghi vào đây'' (đây là cái dòng đi phía trên của game)
+!!sys ''ghi những gì bạn muốn ghi vào đây'' (đây là kênh hệ thống)
+
+!!modifymenpai thay đổi môn phái .vd !!modifymenpai = id môn phái.
+!!modifyxinfa 
+
+!!levelupallxinfa up tâm pháp .vd !!levelupallxinfa = cấp tâm pháp
+!!syschat lệnh thông báo
+!!goto
+
+!!createmonster 
+!!deletemonster 
+
+!!modifymoney
+!!addmoney add vàng
+
+!!modifyyuanbao
+!!addyuanbao add kim nguyên bảo chỉ nên add tối đa 99999 trong một lần
+
+!!modifyzengdian
+!!addzengdian add điểm tặng //
+
+!!leveldown 
+!!addexp add kinh nghiệm//
+
+!!addskill add skill
+!!removeskill xoa skill
+
++ !!addexp = enter VD: mình muốn thêm cho nhân vật minh 1000 exp thì ghi như vầy
+!!addexp = 1000 nhân vật sẽ được cộng thêm 1000 exp
+
++ !!addmoney = enter. chú ý là số vàng sẽ được tính thế này: VD bạn nhập vào là 10000 nhân vật sẽ nhận được số tiền là 1v vì 2 số 00 tận cùng là số đồng, 2 số tiếp theo là số bạc, số vàng của bạn chỉ co 1v thôi.
+
++ !!createpet = ID pet . nó sẽ thả ra 1 con pét biến dị ngẫu nhiên tùy vào ID pet VD như 7708 là của con long miêu nó sẽ thả ra con long miêu biến dị ngẫu nhiên từ 1 đến 7.
+
++ !!createitem = commonitem ID = class = quality . cái này mình chỉ hiểu commonitem ID là ID của món đồ nào đó.
+class : thì ko hiểu là zì. quality: số lượng bạn mún tạo ra. VD !!createitem = 10514098 = 1 = 2 là tạo ra 1 món chiến thần của mg ( hộ uyển)
+
++ !!slot = 0 . **c 1 lỗ trên món đồ ở vị trí 0 trong túi hành trang. vị trí 0 bắt đầu từ ô thứ nhất tận cùng phía trên bên trái.
+
++ !!full . phục hồi 100% máu khí và nộ.
+
++ !!addyuanbao = < số lượng bạn muốn thêm vào> enter.

@@ -1,0 +1,525 @@
+-- 002054 套装兑换NPC
+ 
+ 
+--脚本号20310100
+x002054_g_ScriptId = 002054
+ 
+--所拥有的事件ID列表
+x002054_g_eventList={}
+ 
+x002054_g_EquipList={
+--重楼装备兑换
+{n=110,id=10553103},
+{n=110,id=10553104},
+{n=110,id=10553105},
+{n=110,id=10553107},
+{n=110,id=10553109},
+{n=110,id=10553111},
+
+-- 魂冰珠、润魂石
+{n=120,id=20310116},
+{n=120,id=20310117},
+{n=120,id=20310122},
+{n=120,id=20310131},
+{n=120,id=20310140},
+{n=120,id=20310149},
+ 
+-- 打孔、洗髓、天灵丹、金钢挫
+{n=130,id=20109010},
+{n=130,id=30008004},
+{n=130,id=30008017},
+{n=130,id=30008048},
+-- 机动未用
+{n=140,id=39910006},
+{n=140,id=30008105},
+
+-- 机动未用
+{n=150,id=30900016},
+-- 功力丹
+{n=160,id=38000655},
+-- 先天归心丹
+{n=170,id=31000004},
+-- 宝石雕刻、摘除
+{n=180,id=38000446},
+{n=180,id=30900012},
+-- 强化、龙玉等
+{n=190,id=30900006},
+{n=190,id=30900010},
+{n=190,id=30900034},
+{n=190,id=30900045},
+{n=190,id=30900048},
+{n=190,id=38000164},
+{n=190,id=38000165},
+-- 龙珠
+{n=200,id=30505085},
+{n=200,id=30505086},
+{n=200,id=30505087},
+{n=200,id=30505088},
+{n=200,id=30505089},
+{n=200,id=30505090},
+{n=200,id=30505091},
+-- 玄昊玉、寒冰星屑
+{n=210,id=20310021},
+{n=210,id=20310110},
+{n=210,id=20310111},
+{n=210,id=20310112},
+{n=210,id=20310114},
+{n=210,id=20310116},
+-- 神符
+{n=220,id=30505800},
+{n=220,id=30505801},
+{n=220,id=30505802},
+{n=220,id=30505803},
+{n=220,id=30505804},
+{n=220,id=30505805},
+{n=220,id=30505806},
+-- 龙魂玉、玉龙髓、爱心玩具、悟灵珠、觉灵珠、绛紫仙露
+{n=230,id=30004013},
+{n=230,id=20310176},
+{n=230,id=38000652},
+{n=230,id=38000657},
+{n=230,id=38000659},
+{n=230,id=38000656},
+-- 机动未用
+{n=2010,id=10400075},{n=511,id=10402075},{n=512,id=10404072},{n=513,id=10405071},{n=514,id=10412081},
+{n=2010,id=10412083},{n=516,id=10413084},{n=517,id=10413086},{n=518,id=10422122},{n=519,id=10422124},
+{n=2010,id=10423047},{n=521,id=10423049},
+ 
+--机动未用 
+{n=6110,id=30505085},{n=620,id=30505086},{n=630,id=30505087},{n=640,id=30505088},{n=650,id=30505089},
+{n=6610,id=30505091},
+ 
+--机动未用
+{n=711,id=10433306},{n=712,id=10433321},{n=713,id=10433336},{n=714,id=10433345},{n=715,id=10433327},
+{n=721,id=10433307},{n=722,id=10433322},{n=723,id=10433337},{n=724,id=10433328},{n=725,id=10433346}, 
+{n=731,id=10433309},{n=732,id=10433324},{n=733,id=10433339},{n=734,id=10433348},{n=735,id=10433330},
+{n=741,id=10433308},{n=742,id=10433323},{n=743,id=10433338},{n=744,id=10433347},{n=745,id=10433329},
+{n=751,id=10433305},{n=752,id=10433320},{n=753,id=10433335},{n=754,id=10433344},{n=755,id=10433326},
+{n=761,id=10433304},{n=762,id=10433319},{n=763,id=10433334},{n=764,id=10433343},{n=765,id=10433325},
+ 
+}
+ 
+x002054_g_StoneList={
+-- #cFF000099重楼★装备
+{n=1,id=40002108,num=3,str="#cFF0000联名推荐信"},
+-- #cFF0000魂冰珠、润魂石
+{n=2,id=30505260,num=40,str="#cFF0000鲜花的种子"},
+-- #cFF0000仙丹与日记，七夕花瓣，神器精魄
+{n=3,id=30505260,num=30,str="#cFF0000鲜花的种子"},
+-- 空
+{n=4,id=30505260,num=40,str="#cFF0000鲜花的种子"},
+-- 空
+{n=5,id=30505260,num=20,str="#cFF0000鲜花的种子"},
+-- 功力丹
+{n=6,id=30505260,num=20,str="#cFF0000鲜花的种子"},
+-- 先天归心丹
+{n=7,id=30505260,num=20,str="#cFF0000鲜花的种子"},
+-- 宝石雕刻#Y摘除符
+{n=8,id=30505260,num=20,str="#cFF0000鲜花的种子"},
+-- 强化露，龙玉、精玉
+{n=9,id=30505260,num=20,str="#cFF0000鲜花的种子"},
+-- 龙珠
+{n=10,id=30505260,num=10,str="#cFF0000鲜花的种子"},
+-- 玄冥玉，寒冰星屑
+{n=11,id=30505260,num=10,str="#cFF0000鲜花的种子"},
+-- 新莽神符
+{n=12,id=30505260,num=5,str="#cFF0000鲜花的种子"},
+-- 龙魂玉,玉龙髓、孩子用品
+{n=13,id=30505260,num=15,str="#cFF0000鲜花的种子"},
+
+}
+--**********************************
+--事件列表
+--**********************************
+function x002054_UpdateEventList( sceneId, selfId,targetId )
+local	id	= LuaFnGetMenPai( sceneId, selfId )
+local playerMenpai = GetMenPai(sceneId, selfId)
+if playerMenpai==0  then
+mpname="少林"
+elseif   playerMenpai==1  then
+mpname="明教"
+elseif   playerMenpai==2  then
+mpname="丐帮"
+elseif   playerMenpai==3  then
+mpname="武当"
+elseif   playerMenpai==4  then
+mpname="峨嵋"
+elseif   playerMenpai==5  then
+mpname="星宿"
+elseif   playerMenpai==6  then
+mpname="天龙"
+elseif   playerMenpai==7  then
+mpname="天山"
+elseif   playerMenpai==8  then
+mpname="逍遥"
+elseif   playerMenpai==9  or   playerMenpai<0 then
+mpname="无门派"
+elseif   playerMenpai==10  then
+mpname="慕容"
+elseif   playerMenpai==11  then
+mpname="唐门"
+end
+ BeginEvent(sceneId)
+  AddText(sceneId,"#{OBJ_dali_0031}")
+  AddText(sceneId,"#P    在我这里可以使用#Y联名推荐信#P兑换重楼装备。")
+  AddText(sceneId,"#cFF0000提示：#r#W    3件#Y联名推荐信#W可换一件重楼装备")
+  AddText(sceneId, "#c00ffff    你的门派是#Y"..mpname.."#c00ffff，门派id是"..id)
+  for i, eventId in x002054_g_eventList do
+   CallScriptFunction( eventId, "OnEnumerate",sceneId, selfId, targetId )
+  end
+  AddNumText( sceneId, x002054_g_ScriptId, "#cFF0000兑换#Y★#G重楼★装备#Y★", 3, 110 )
+  --AddNumText( sceneId, x002054_g_ScriptId, "#cFF0000兑换#Y★#G魂冰珠#Y★#G润魂石#Y★", 3, 120 )
+  --AddNumText( sceneId, x002054_g_ScriptId, "#cFF0000兑换#Y★#G打孔洗髓天灵丹金钢锉#Y★", 3, 130 )
+  --AddNumText( sceneId, x002054_g_ScriptId, "#cFF0000兑换#Y★#G门派转换与更名★", 3, 140 )
+  --AddNumText( sceneId, x002054_g_ScriptId, "#cFF0000兑换#Y★#G高级合成符#Y★", 3, 150 )
+  --AddNumText( sceneId, x002054_g_ScriptId, "#cFF0000兑换#Y★#G功力丹#Y修炼功力丹★", 3, 160 )
+  --AddNumText( sceneId, x002054_g_ScriptId, "#cFF0000兑换#Y★#G先天归心丹#Y★", 3, 170 )
+  --AddNumText( sceneId, x002054_g_ScriptId, "#cFF0000兑换#Y★#G宝石雕刻#Y摘除符★", 3, 180 )
+  --AddNumText( sceneId, x002054_g_ScriptId, "#cFF0000兑换#Y★#G强化露#Y龙玉、精玉★", 3, 190 )
+  --AddNumText( sceneId, x002054_g_ScriptId, "#cFF0000兑换#Y★#G龙珠#Y换龙宝宝★", 3, 200 )
+  --AddNumText( sceneId, x002054_g_ScriptId, "#cFF0000兑换#Y★#G玄冥玉#Y寒寒冰星屑★", 3, 210 )
+ -- AddNumText( sceneId, x002054_g_ScriptId, "#cFF0000兑换#Y★#G新莽神符#Y新莽神符★", 3, 220 )
+ -- AddNumText( sceneId, x002054_g_ScriptId, "#cFF0000兑换#Y★#G龙魂玉#Y玉龙髓#G孩子物品#Y★", 3, 230 )
+  --AddNumText( sceneId, x002054_g_ScriptId, "离开……", 14, 0 )
+ EndEvent(sceneId)
+ DispatchEventList(sceneId,selfId,targetId)
+end
+ 
+--**********************************
+--事件交互入口
+--**********************************
+function x002054_OnDefaultEvent( sceneId, selfId,targetId )
+ x002054_UpdateEventList( sceneId, selfId, targetId )
+end
+ 
+--**********************************
+--事件列表选中一项
+--**********************************
+function x002054_OnEventRequest( sceneId, selfId, targetId, eventId )
+ local nNumText = GetNumText()
+ if nNumText == 0  then
+  -- 关闭窗口
+  BeginUICommand(sceneId)
+  EndUICommand(sceneId)
+  DispatchUICommand(sceneId,selfId, 1000)
+  return
+ end
+    
+ 
+ if nNumText > 100 and nNumText < 800  then
+  BeginEvent(sceneId)
+   AddText(sceneId, "  不是白给的，用这个东西来换的哦！！")
+   
+   local nLevel = 0
+   if nNumText == 110 then    -- 兑换重楼装备
+    nLevel = 1
+   end
+   if nNumText == 120 then    -- 兑换飞蝗石
+    nLevel = 2
+   end
+   if nNumText == 130 then    -- 兑换梅花镖
+    nLevel = 3
+   end 
+   if nNumText == 140 then    -- 兑换梅花镖
+    nLevel = 4
+   end      
+   if nNumText == 150 then    -- 兑换冰魄神针
+    nLevel = 5
+   end 
+   if nNumText == 160 then    -- 兑换冰魄神针
+    nLevel = 6
+   end
+   if nNumText == 170 then    -- 兑换冰魄神针
+    nLevel = 7
+   end 
+   if nNumText == 180 then    -- 兑换冰魄神针
+    nLevel = 8
+   end 
+   if nNumText == 190 then    -- 兑换贵重石头1
+    nLevel = 9
+   end 
+   if nNumText == 200 then    -- 兑换贵重石头2
+    nLevel = 10
+   end 
+   if nNumText == 210 then    -- 兑换会员装备1
+    nLevel = 11
+   end 
+   if nNumText == 220 then    -- 兑换会员装备2
+    nLevel = 12
+   end 
+   if nNumText == 230 then    -- 兑换会员装备2
+    nLevel = 13
+   end 
+   if nNumText == 410 or nNumText == 411 or nNumText == 412 or nNumText == 413 then
+    nLevel = 7
+   end 
+      
+   if nNumText > 400 then
+    nLevel = 8
+   end
+   
+   local szStr = "  需要“" .. x002054_g_StoneList[nLevel].str
+          .. "”“".. tostring(x002054_g_StoneList[nLevel].num) .. "”个  #W"
+   AddText(sceneId, szStr)
+   
+   for i, item in x002054_g_EquipList do
+    if item.n == nNumText  then
+     AddRadioItemBonus( sceneId, item.id, 4 )
+    end
+   end
+      EndEvent(sceneId)
+      --DispatchMissionDemandInfo(sceneId,selfId,targetId, x002054_g_ScriptId, x210200_g_MissionId)
+     DispatchMissionContinueInfo(sceneId,selfId,targetId, x002054_g_ScriptId, 0)  
+ end
+ 
+ if nNumText == 800 then
+  BeginEvent(sceneId)
+   local bStoneOk = 0
+   if GetItemCount(sceneId, selfId, 10421021) >= 1  then
+   bStoneOk = 1
+   end
+   if  bStoneOk == 1 then
+    BeginEvent(sceneId)
+     strText = "你已有此道具，不能重复领取。"
+     AddText(sceneId,strText);
+    EndEvent(sceneId)
+    DispatchMissionTips(sceneId,selfId)
+    return
+   else 
+    TryRecieveItem( sceneId, selfId, 10421021, 1 )
+    BeginEvent(sceneId)
+     strText = "领取盟主腰带。"
+     AddText(sceneId,strText);
+    EndEvent(sceneId)
+    DispatchMissionTips(sceneId,selfId)    
+   end 
+  EndEvent(sceneId)
+  DispatchEventList(sceneId,selfId,targetId)  
+ end
+   
+ for i, findId in x002054_g_eventList do
+  if eventId == findId then   
+   CallScriptFunction( eventId, "OnDefaultEvent",sceneId, selfId, targetId )
+   return
+  end
+ end
+end
+ 
+--**********************************
+--接受此NPC的任务
+--**********************************
+function x002054_OnMissionAccept( sceneId, selfId, targetId, missionScriptId )
+ for i, findId in x002054_g_eventList do
+  if missionScriptId == findId then
+   ret = CallScriptFunction( missionScriptId, "CheckAccept", sceneId, selfId )
+   if ret > 0 then
+    CallScriptFunction( missionScriptId, "OnAccept", sceneId, selfId )
+   end
+   return
+  end
+ end
+ for i, findId in g_eventListTest do
+  if missionScriptId == findId then
+   ret = CallScriptFunction( missionScriptId, "CheckAccept", sceneId, selfId )
+   if ret > 0 then
+    CallScriptFunction( missionScriptId, "OnAccept", sceneId, selfId )
+   end
+   return
+  end
+ end
+end
+ 
+--**********************************
+--拒绝此NPC的任务
+--**********************************
+function x002054_OnMissionRefuse( sceneId, selfId, targetId, missionScriptId )
+ --拒绝之后，要返回NPC的事件列表
+ for i, findId in x002054_g_eventList do
+  if missionScriptId == findId then
+   x002054_UpdateEventList( sceneId, selfId, targetId )
+   return
+  end
+ end
+ for i, findId in g_eventListTest do
+  if missionScriptId == findId then
+   x002054_UpdateEventList( sceneId, selfId, targetId )
+   return
+  end
+ end
+end
+ 
+--**********************************
+--继续（已经接了任务）
+--**********************************
+function x002054_OnMissionContinue( sceneId, selfId, targetId, missionScriptId )
+ for i, findId in x002054_g_eventList do
+  if missionScriptId == findId then
+   CallScriptFunction( missionScriptId, "OnContinue", sceneId, selfId, targetId )
+   return
+  end
+ end
+ for i, findId in g_eventListTest do
+  if missionScriptId == findId then
+   CallScriptFunction( missionScriptId, "OnContinue", sceneId, selfId, targetId )
+   return
+  end
+ end
+end
+ 
+--**********************************
+--提交已做完的任务
+--**********************************
+function x002054_OnMissionSubmit( sceneId, selfId, targetId, missionScriptId, selectRadioId )
+ 
+ --处理提交后的显示情况
+ --为了安全，这里要仔细，不能出错
+ local nItemIndex = -1
+ 
+ for i, item in x002054_g_EquipList do
+  if item.id == selectRadioId  then
+   nItemIndex = i
+  end
+ end
+ 
+ if nItemIndex == -1  then
+  return
+ end
+ 
+ -- 看完家是不是够材料提交
+ local nLevel = 0
+ if x002054_g_EquipList[nItemIndex].n > 100 then
+  nLevel = 1
+ end
+ if x002054_g_EquipList[nItemIndex].n > 110 then
+  nLevel = 2
+ end
+ if x002054_g_EquipList[nItemIndex].n > 120 then
+  nLevel = 3
+ end 
+ if x002054_g_EquipList[nItemIndex].n > 130 then 
+  nLevel = 4
+ end
+ if x002054_g_EquipList[nItemIndex].n > 140 then
+  nLevel = 5
+ end
+ if x002054_g_EquipList[nItemIndex].n > 150 then
+  nLevel = 6
+ end
+ if x002054_g_EquipList[nItemIndex].n > 160 then
+  nLevel = 7
+ end
+ if x002054_g_EquipList[nItemIndex].n > 170 then
+  nLevel = 8
+ end
+ if x002054_g_EquipList[nItemIndex].n > 180 then
+  nLevel = 9
+ end
+ if x002054_g_EquipList[nItemIndex].n > 190 then
+  nLevel = 10
+ end
+ if x002054_g_EquipList[nItemIndex].n > 200 then
+  nLevel = 11
+ end
+ if x002054_g_EquipList[nItemIndex].n > 220 then
+  nLevel = 13
+ end   
+ local bStoneOk = 0
+ if GetItemCount(sceneId, selfId, x002054_g_StoneList[nLevel].id) >= x002054_g_StoneList[nLevel].num  then
+  bStoneOk = 1
+ end
+ 
+ if  bStoneOk == 0 then
+  BeginEvent(sceneId)
+   strText = "你没有足够的物品，不能换取装备。"
+   AddText(sceneId,strText);
+  EndEvent(sceneId)
+  DispatchMissionTips(sceneId,selfId)
+  return
+ end
+ 
+ -- 检查是不是有足够的石头可以扣除
+ if LuaFnGetAvailableItemCount(sceneId, selfId, x002054_g_StoneList[nLevel].id) < x002054_g_StoneList[nLevel].num   then
+  BeginEvent(sceneId)
+   strText = "你没有足够的物品可以被扣除，请检查物品是否上锁。"
+   AddText(sceneId,strText);
+  EndEvent(sceneId)
+  DispatchMissionTips(sceneId,selfId)
+  return
+  
+ end
+ 
+ -- 检查背包空间
+ BeginAddItem(sceneId)
+  AddItem(sceneId, selectRadioId, 1)
+ local bBagOk = EndAddItem(sceneId, selfId)
+ 
+ if bBagOk < 1 then
+  BeginEvent(sceneId)
+   strText = "你的背包没有空间了。"
+   AddText(sceneId,strText);
+  EndEvent(sceneId)
+  DispatchMissionTips(sceneId,selfId)
+  return
+ end
+ local nItemBagIndexStone = GetBagPosByItemSn(sceneId, selfId, x002054_g_StoneList[nLevel].id)
+ local szTransferStone = GetBagItemTransfer(sceneId,selfId, nItemBagIndexStone)
+ 
+ -- 删除相关的石头
+ local bDelOk = LuaFnDelAvailableItem(sceneId,selfId, x002054_g_StoneList[nLevel].id, x002054_g_StoneList[nLevel].num)
+ 
+ if bDelOk < 1  then
+  BeginEvent(sceneId)
+   strText = "扣出物品失败。"
+   AddText(sceneId,strText);
+  EndEvent(sceneId)
+  DispatchMissionTips(sceneId,selfId)
+  return
+ else
+  --给完家东西，完成
+  -- AddItemListToHuman(sceneId,selfId)
+  local nBagIndex = TryRecieveItem( sceneId, selfId, x002054_g_EquipList[nItemIndex].id, 1 );
+  
+  BeginEvent(sceneId)
+   strText = "兑换成功。"
+   AddText(sceneId,strText);
+  EndEvent(sceneId)
+  DispatchMissionTips(sceneId,selfId)
+  
+  local message; 
+  local randMessage = random(3);
+  local sItemName = GetItemName(sceneId, x002054_g_EquipList[nItemIndex].id)
+  
+  local szTransferEquip = GetBagItemTransfer(sceneId,selfId, nBagIndex)
+  
+  if randMessage == 1 then
+      message = format("#W#{_INFOUSR%s}#W#{WLS_08}#Y%d#W#{WLS_09}#{_INFOMSG%s}#{WLS_100}#{_INFOMSG%s}#{WLS_11}", LuaFnGetName(sceneId, selfId), x002054_g_StoneList[nLevel].num, szTransferStone, szTransferEquip);
+  elseif randMessage == 2 then
+   message = format("#W#{_INFOUSR%s}#W#{WLS_03}#Y%d#W#{WLS_04}#{_INFOMSG%s}#{WLS_050}#{_INFOMSG%s}#{WLS_06}#{_INFOMSG%s}#{WLS_07}", LuaFnGetName(sceneId, selfId), x002054_g_StoneList[nLevel].num, szTransferStone, szTransferStone, szTransferEquip);
+  else
+   message = format("#W#{WLS_000}#Y%d#cffffcc颗#W#{_INFOMSG%s}#cffffcc由衷的赞道：“#W#{_INFOUSR%s}#{WLS_01}#{_INFOMSG%s}#{WLS_02}", x002054_g_StoneList[nLevel].num, szTransferStone, LuaFnGetName(sceneId, selfId), szTransferEquip);
+  end
+  message = format("#W%s将#{WLS_000}#Y%d#cffffcc封#W#{_INFOMSG%s}交给了天仙妹妹，#cffffcc天仙妹妹由衷的赞道：“#W#{_INFOUSR%s}#{WLS_01}#{_INFOMSG%s}#{WLS_02}", x002054_g_StoneList[nLevel].num, szTransferStone, LuaFnGetName(sceneId, selfId), szTransferEquip);
+  BroadMsgByChatPipe(sceneId, selfId, message, 4);
+  
+  return
+ end
+ 
+ for i, findId in x002054_g_eventList do
+  if missionScriptId == findId then
+   CallScriptFunction( missionScriptId, "OnSubmit", sceneId, selfId, targetId, selectRadioId )
+   return
+  end
+ end
+ for i, findId in g_eventListTest do
+  if missionScriptId == findId then
+   CallScriptFunction( missionScriptId, "OnSubmit", sceneId, selfId, targetId, selectRadioId )
+   return
+  end
+ end
+end
+ 
+--**********************************
+--死亡事件
+--**********************************
+function x002054_OnDie( sceneId, selfId, killerId )
+end

@@ -1,0 +1,12 @@
+# File cua game: giu nguyen tung byte (bang ma VISCII/GBK, xuong dong CRLF lan LF).
+# KHONG de git doi xuong dong hay coi la text UTF-8.
+server/** -text
+*.lua     -text
+*.ini     -text
+*.dat     -text binary
+
+# Script chay tren VPS (Linux) phai la LF
+*.sh      text eol=lf
+deploy/*.list text eol=lf
+deploy/config.env.example text eol=lf
+tools/*.py text eol=lf

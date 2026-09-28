@@ -1,0 +1,21 @@
+NETCO4 - THIÊN LONG BÁT BỘ 3D
+=============================
+
+1. Giải nén vào ổ D: (hoặc ổ nào còn ~6GB). Đường dẫn KHÔNG nên có dấu tiếng Việt.
+
+2. Windows Defender sẽ báo virus file Bin\RSSParser.dll và tự xóa nó
+   -> game báo lỗi "rssparser.dll was not found" hoặc lỗi 0xc0000906.
+   Đây là file của client lậu, bị Defender nghi là Trojan. Admin đã kiểm tra
+   theo khả năng nhưng KHÔNG thể đảm bảo 100% file này sạch.
+   Nếu bạn chấp nhận rủi ro:
+     Windows Security > Virus & threat protection > Manage settings
+     > Exclusions > Add an exclusion > Folder > chọn thư mục Thien Long Gate\Bin
+   Sau đó giải nén lại file Bin\RSSParser.dll từ file zip.
+   Không muốn chấp nhận rủi ro thì đừng chơi trên máy chứa dữ liệu quan trọng.
+
+3. Mở game bằng Run.cmd. Chọn server NetCo4.
+
+4. Tài khoản: nhắn admin để được tạo. Server không cho tự đăng ký,
+   nút "Đăng ký" và "Nạp thẻ" trong game không dùng được (server chỉ cày, không nạp).
+
+5. KHÔNG chạy file fixgame nếu có ở đâu đó: nó reset tường lửa và mạng của Windows.

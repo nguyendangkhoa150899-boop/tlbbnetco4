@@ -1,0 +1,531 @@
+--**********************************
+-- Sñ ki®n Lçn nhau Nh§p kh¦u 
+--**********************************
+
+x760375_g_ScriptId	= 760375
+
+--Môn phái Tin tÑc (Môn phái Tên ,SceneID,PosX,PosY,Môn phái ID)
+x760375_g_mpInfo		= {}
+x760375_g_mpInfo[0]	= {"Tinh Túc", 16, 96, 152, MP_XINGSU }
+x760375_g_mpInfo[1]	= {"Tiêu Dao", 14, 67, 145, MP_XIAOYAO }
+x760375_g_mpInfo[2]	= {"Thiªu Lâm", 9, 96, 127, MP_SHAOLIN }
+x760375_g_mpInfo[3]	= {"Thiên S½n", 17, 95, 120, MP_TIANSHAN }
+x760375_g_mpInfo[4]	= {"Thiên Long", 13, 96, 120, MP_DALI }
+x760375_g_mpInfo[5]	= {"Nga Mi", 15, 89, 139, MP_EMEI }
+x760375_g_mpInfo[6]	= {"Võ Ðang", 12, 103, 140, MP_WUDANG }
+x760375_g_mpInfo[7]	= {"Minh Giáo", 11, 98, 167, MP_MINGJIAO }
+x760375_g_mpInfo[8]	= {"Cái Bang", 10, 91, 116, MP_GAIBANG }
+
+x760375_g_Yinpiao = 40002000
+--**********************************
+--Sñ ki®n Lçn nhau Nh§p kh¦u 
+--**********************************
+function x760375_OnDefaultEvent(sceneId, selfId, targetId)
+
+	-- Ki¬m tra ðo lß¶ng Ngß¶i ch½i Trên ngß¶i Có phäi hay không Có "Ngân phiªu "ThÑ này ,Có Li«n không th¬ SØ døng N½i này Công nång 
+	if GetItemCount(sceneId, selfId, x760375_g_Yinpiao)>=1 then
+		BeginEvent(sceneId)
+			AddText(sceneId,"Trên ngß¶i cüa ngß½i Có Ngân phiªu ,Ðang · Bào Thß½ng !Ngã Không th¬ giúp Trþ Ngß½i .")
+		EndEvent(sceneId)
+		DispatchEventList(sceneId, selfId, targetId)
+		return
+	end
+
+	local	mp
+	local	i		= 0
+	BeginEvent(sceneId)
+		if GetLevel(sceneId, selfId)>= 10 then
+			AddText(sceneId," Dao Tß·ng Tích Th¶i ,Công Thâu TØ Dæ M£c TØ Cüa Tuy®t thª Tài tình ,Khß¾c L®nh Lão phu Cäm giác sâu s¡c Khâm Ti®n .Th¶i Kinh Nhi«u nåm ,Lão phu Chung Phùng Ð¡c Mµt sþi C½ duyên ,Ðªn ngµ M£c gia H§u nhân Thân truy«n Giá Th± mµc Khôi Gi¾i Chi thu§t .Nhßþc Các hÕ Nhu SØa chæa Này ðó kiªn trúc ,Chï c¥n T¥m Ngã Có th¬ ,Lão phu T¤t nhiên S¨ không có S· Ðùn ð¦y .")
+			AddNumText(sceneId, x760375_g_ScriptId,"V« Xây dñng Chiªn Minh Kiªn trúc", 11, 99900)
+		end
+	EndEvent(sceneId)
+	DispatchEventList(sceneId, selfId, targetId)
+end
+
+--**********************************
+--Sñ ki®n Danh sách Lña ch÷n HÕng nh¤t 
+--**********************************
+function x760375_OnEventRequest(sceneId, selfId, targetId, eventId)
+	if GetNumText() == 99900 then
+		BeginEvent(sceneId)
+			AddText(sceneId,"#{WHOATN_12103151_01}")
+		EndEvent(sceneId)
+		DispatchEventList(sceneId, selfId, targetId)
+		return
+	end
+	if GetNumText() == 99901 then
+		BeginEvent(sceneId)
+			AddText(sceneId,"#{WHOATN_12103145_01}")
+		EndEvent(sceneId)
+		DispatchEventList(sceneId, selfId, targetId)
+		return
+	end	
+	if GetNumText() == 1011111 then
+	local	mp
+	local	i		= 0
+		BeginEvent(sceneId)
+			for i, mp in x760375_g_mpInfo do
+				AddNumText(sceneId, x000128_g_ScriptId,"Môn phái -"..mp[1], 9, i)
+			end
+	EndEvent(sceneId)
+	DispatchEventList(sceneId, selfId, targetId)
+end
+
+	if GetNumText() == 1110 then
+	local	mp
+	local	i		= 0
+		BeginEvent(sceneId)
+			for i, mp in x760375_g_mpInfo do
+				AddNumText(sceneId, x760375_g_ScriptId,"Môn phái -"..mp[1], 9, i)
+			end
+	EndEvent(sceneId)
+	DispatchEventList(sceneId, selfId, targetId)
+end
+		--Ðµi ngû Tß½ng quan 
+	if GetTeamId(sceneId,selfId)>=0 and
+		IsTeamFollow(sceneId, selfId)==1 and
+		LuaFnIsTeamLeader(sceneId,selfId)==1 then
+		num=LuaFnGetFollowedMembersCount(sceneId, selfId)
+		local mems = {}
+		for	i=0,num-1 do
+			mems[i] = GetFollowedMember(sceneId, selfId, i)
+			if mems[i] == -1 then
+				return
+			end
+			if IsHaveMission(sceneId,mems[i],4021)> 0 then
+				x760375_MsgBox(sceneId, selfId, targetId,"Ngß½i Ðµi ngû Thành viên trung Có ngß¶i Có ThuÖ v§n \Khoang chÑa hàng Trong ngß¶i ,Chúng ta D¸ch TrÕm không th¬ Vì ngß½i Cung c¤p Truy«n t¯ng Phøc vø .")
+				return
+			end
+		end
+	end
+
+	--ThuÖ v§n Tß½ng quan 
+	if IsHaveMission(sceneId,selfId,4021)> 0 then
+		x760375_MsgBox(sceneId, selfId, targetId,"Ngß½i Có ThuÖ v§n Khoang chÑa hàng Trong ngß¶i ,C¥n thiªt Ði bµ Träi qua -Tung S½n -Thái H° -Tô Châu #G(243,79)ThuÖ v§n XØ Giao Nhi®m vø .")
+		return
+	end
+
+	--Thu§n lþi Truy«n t¯ng 
+	local	arg	= GetNumText()
+	local	mp
+	local	i		= 0
+	local	id	= LuaFnGetMenPai(sceneId, selfId)
+	if arg == 1000 then		--Phän h°i Môn phái 
+		if id <0 or id>= 9 then
+			x760375_MsgBox(sceneId, selfId, targetId,"Ngß½i Hoàn Không có gia nh§p B¤t lu§n cái gì môn phái !")
+		else
+			mp	= x760375_GetMPInfo(id)
+			if mp ~= nil then
+				CallScriptFunction((400900),"TransferFunc", sceneId, selfId, mp[2], mp[3], mp[4], 10)
+			end
+		end
+		return
+	end
+
+	
+--Gia tång Truy®n t¯ng ði¬m Ð¯i Ñng Hß·ng Ñng Sñ ki®n Danh sách 
+	local	arg	= GetNumText()
+	local	mp
+	local	i		= 0
+	local	id	= LuaFnGetMenPai(sceneId, selfId)
+	if arg == 1000 then		--Phän h°i Môn phái 
+		if id <0 or id>= 9 then
+			x760375_MsgBox(sceneId, selfId, targetId,"Ngß½i Hoàn Không có gia nh§p B¤t lu§n cái gì môn phái !")
+		else
+			mp	= x760375_GetMPInfo(id)
+			if mp ~= nil then
+				CallScriptFunction((400900),"TransferFunc", sceneId, selfId, mp[2], mp[3], mp[4], 10)
+			end
+		end
+		return
+	end
+	if arg == 33330 then		--Kiªm Các 
+		CallScriptFunction((400900),"TransferFunc", sceneId, selfId, 7, 75, 261, 10)
+		return
+	end
+	if arg == 33331 then		--Tây H° 
+		CallScriptFunction((400900),"TransferFunc", sceneId, selfId, 30, 57, 59, 10)
+		return
+	end
+	if arg == 33332 then		--Nh¸ Häi 
+		CallScriptFunction((400900),"TransferFunc", sceneId, selfId, 24, 191, 66, 10)
+		return
+	end
+	if arg == 33333 then		--Thß½ng S½n 
+		CallScriptFunction((400900),"TransferFunc", sceneId, selfId, 25, 165, 181, 10)
+		return
+	end
+	if arg == 1001 then		--LÕc Dß½ng 
+		CallScriptFunction((400900),"TransferFunc", sceneId, selfId, 197, 159, 46, 10)
+		return
+	end
+	if arg == 1002 then		--Tô Châu 
+		CallScriptFunction((400900),"TransferFunc", sceneId, selfId, 1, 206,257, 10)
+		return
+	end
+	if arg == 3731 then		--Tô Châu Thþ rèn 
+		CallScriptFunction((400900),"TransferFunc", sceneId, selfId, 1, 350, 239, 10)
+		return
+	end
+	if arg == 5678 then		--LÕc Dß½ng - CØu Châu 
+		CallScriptFunction((400900),"TransferFunc", sceneId, selfId, 0, 232, 130, 10)
+		return
+	end
+	if arg == 56780 then		--LÕc Dß½ng - CØu Châu 
+		CallScriptFunction((400900),"TransferFunc", sceneId, selfId, 0, 0, 0, 10)
+		return
+	end
+	if arg == 8877 then		--Lâu Lan 
+		CallScriptFunction((400900),"TransferFunc", sceneId, selfId, 186, 286, 130, 10)
+		return
+	end
+	if arg == 8878 then		--Thái H° HÑa nguy®n thø 
+		CallScriptFunction((400900),"TransferFunc", sceneId, selfId, 4, 161, 182, 10)
+		return
+	end
+	if arg == 8879 then		--Thúc Hà C± tr¤n 
+		CallScriptFunction((400900),"TransferFunc", sceneId, selfId, 420, 201, 212, 10)
+		return
+	end
+	if arg == 1201 then		--Thái H° Thüy lao 
+		CallScriptFunction((400900),"TransferFunc", sceneId, selfId, 4, 63, 76, 10)
+	end
+	if arg == 1202 then		--ÐÕi lý Túc C¥u 
+		CallScriptFunction((400900),"TransferFunc", sceneId, selfId, 2, 278, 94, 10)
+	end
+	if arg == 1203 then		--ÐÕi lý Ván c¶ 
+		CallScriptFunction((400900),"TransferFunc", sceneId, selfId, 2, 278, 94, 10)
+	end
+	if arg == 1204 then		--Lâu Lan T¥m bäo 
+		CallScriptFunction((400900),"TransferFunc", sceneId, selfId, 186, 161, 76, 10)
+	end
+	if arg == 1205 then		--Tô Châu Lão tam Hoàn 
+		CallScriptFunction((400900),"TransferFunc", sceneId, selfId, 1, 133, 260, 10)
+	end
+	if arg == 1206 then		--Lâu Lan Tân Tam Hoàn 
+		CallScriptFunction((400900),"TransferFunc", sceneId, selfId, 186, 292, 68, 10)
+	end
+	if arg == 1207 then		--Thäo phÕt Chim én ‘ 
+		CallScriptFunction((400900),"TransferFunc", sceneId, selfId, 4, 78, 121, 10)
+		return
+	end
+	if arg == 1208 then		--Khiêu chiªn M¶ äo phong 
+		CallScriptFunction((400900),"TransferFunc", sceneId, selfId, 186, 190, 222, 10)
+		return
+	end
+	if arg == 1211 then		--Nga Mi 
+		CallScriptFunction((400900),"TransferFunc", sceneId, selfId, 145, 46, 40, 10)
+		return
+	end
+	if arg == 1212 then		--Tiêu Dao 
+		CallScriptFunction((400900),"TransferFunc", sceneId, selfId, 144, 140, 41, 10)
+		return
+	end
+	if arg == 1213 then		--Thiên S½n 
+		CallScriptFunction((400900),"TransferFunc", sceneId, selfId, 147, 93, 39, 10)
+		return
+	end
+	if arg == 1214 then		--Minh Giáo 
+		CallScriptFunction((400900),"TransferFunc", sceneId, selfId, 141, 98, 60, 10)
+		return
+	end
+	if arg == 1215 then		--Tinh Túc 
+		CallScriptFunction((400900),"TransferFunc", sceneId, selfId, 146, 142, 54, 10)
+		return
+	end
+	if arg == 1216 then		--Thiên Long 
+		CallScriptFunction((400900),"TransferFunc", sceneId, selfId, 143, 95, 35, 10)
+		return
+	end
+	if arg == 1217 then		--Thiªu Lâm 
+		CallScriptFunction((400900),"TransferFunc", sceneId, selfId, 139, 46, 41, 10)
+		return
+	end
+	if arg == 1218 then		--Cái Bang 
+		CallScriptFunction((400900),"TransferFunc", sceneId, selfId, 140, 44, 38, 10)
+		return
+	end
+	if arg == 1219 then		--Võ Ðang 
+		CallScriptFunction((400900),"TransferFunc", sceneId, selfId, 142, 88, 52, 10)
+		return
+	end
+	if arg == 1221 then		--C± mµ Mµt t¥ng 
+		CallScriptFunction((400900),"TransferFunc", sceneId, selfId, 159, 68, 93, 10)
+	end
+	if arg == 1222 then		--C± mµ T¥ng nåm 
+		CallScriptFunction((400900),"TransferFunc", sceneId, selfId, 163, 25, 25, 10)
+	end
+	if arg == 1223 then		--C± mµ Tám t¥ng 
+		CallScriptFunction((400900),"TransferFunc", sceneId, selfId, 166, 25, 12, 10)
+	end
+	if arg == 1224 then		--Ð¸a cung Mµt t¥ng 
+		CallScriptFunction((400900),"TransferFunc", sceneId, selfId, 400, 227, 221, 10)
+	end
+	if arg == 1225 then		--Ð¸a cung Ba t¥ng 
+		CallScriptFunction((400900),"TransferFunc", sceneId, selfId, 402, 225, 217, 10)
+	end
+	if arg == 1226 then		--Cao Xß½ng Mê cung 
+		CallScriptFunction((400900),"TransferFunc", sceneId, selfId, 520, 99, 102, 10)
+	end
+	if arg == 1227 then		--Hãn Huyªt Lînh 
+		CallScriptFunction((400900),"TransferFunc", sceneId, selfId, 432, 87, 89, 10)
+		return
+	end
+	if arg == 1228 then		--Tháp Cara Mã Càn 
+		CallScriptFunction((400900),"TransferFunc", sceneId, selfId, 427, 38, 24, 10)
+		return
+	end
+	if arg == 1231 then		--Lâu Lan Gieo tr°ng 
+		CallScriptFunction((400900),"TransferFunc", sceneId, selfId, 186, 49, 210, 10)
+		return
+	end
+	if arg == 1232 then		--Thäo nguyên Câu cá 
+		CallScriptFunction((400900),"TransferFunc", sceneId, selfId, 20, 215, 173, 10)
+		return
+	end
+	if arg == 1241 then		--Huy«n Vû Ðäo -Chí tôn Danh nhân 
+		CallScriptFunction((400900),"TransferFunc", sceneId, selfId, 0, 273, 175, 10)
+		return
+	end
+	if arg == 1242 then		--Vô lßþng S½n -Yêu H¥u Hi®n thª 
+		CallScriptFunction((400900),"TransferFunc", sceneId, selfId, 6, 43, 172, 10)
+		return
+	end
+	if arg == 1243 then		--Kính H° -Thßþng c± Ma thú 
+		CallScriptFunction((400900),"TransferFunc", sceneId, selfId, 5, 210, 58, 10)
+		return
+	end
+	if arg == 1244 then		--Kính H° -Tiên thäo Tranh ðoÕt 
+		CallScriptFunction((400900),"TransferFunc", sceneId, selfId, 5, 101, 41, 10)
+		return
+	end
+	if arg == 1245 then		--Thánh thú S½n Bäo sß½ng 
+		CallScriptFunction((400900),"TransferFunc", sceneId, selfId, 158, 142, 114, 10)
+		return
+	end
+	if arg == 1246 then		--Thánh thú S½n 
+		CallScriptFunction((400900),"TransferFunc", sceneId, selfId, 158, 140, 116, 10)
+		return
+	end
+	if arg == 1251 then		--Võ di Bång Yêu 
+		CallScriptFunction((400900),"TransferFunc", sceneId, selfId, 32, 99, 85, 10)
+	end
+	if arg == 1252 then		--Thß½ng S½n Kim cß½ng 
+		CallScriptFunction((400900),"TransferFunc", sceneId, selfId, 25, 165, 54, 10)
+	end
+	if arg == 1253 then		--Thäo nguyên Ti¬u bÕch 
+		CallScriptFunction((400900),"TransferFunc", sceneId, selfId, 20, 65, 165, 10)
+	end
+	if arg == 1254 then		--Huy«n Vû Cóc 
+		CallScriptFunction((400900),"TransferFunc", sceneId, selfId, 39, 214, 220, 10)
+		return
+	end
+	if arg == 1255 then		--Thánh thú S½n Long quy 
+		CallScriptFunction((400900),"TransferFunc", sceneId, selfId, 158, 178, 34, 10)
+		return
+	end
+	if arg == 1256 then		--Ngân Khäi Cánh ð°ng tuyªt Chim cánh cøt Vß½ng 
+		CallScriptFunction((400900),"TransferFunc", sceneId, selfId, 188, 78, 47, 10)
+		return
+	end
+	if arg == 1220 then		--Ti«n trang 
+		CallScriptFunction((400900),"TransferFunc", sceneId, selfId, 40, 208, 190, 10)
+		return
+	end
+	if arg == 6588 then		--Mai Lînh 
+		CallScriptFunction((400900),"TransferFunc", sceneId, selfId, 33, 64, 45, 10)
+		return
+	end
+	if arg == 6589 then		--Trong tháp Mµc 
+		CallScriptFunction((400900),"TransferFunc", sceneId, selfId, 425, 123, 127, 10)
+		return
+	end
+	if arg == 6590 then		--Trong tháp Mµc 
+		CallScriptFunction((400900),"TransferFunc", sceneId, selfId, 423, 64, 45, 10)
+		return
+	end
+	if arg ==22223 then		--Trong tháp Mµc 
+		CallScriptFunction((400900),"TransferFunc", sceneId, selfId, 2, 84, 47, 10)
+		return
+	end
+	--Tân Gia Truy«n t¯ng 
+	if arg ==22224 then		--Ðôn Hoàng BOSS
+		CallScriptFunction((400900),"TransferFunc", sceneId, selfId, 8, 157, 130, 10)
+		return
+	end
+	if arg ==22225 then		--Vô lßþng S½n BOSS
+		CallScriptFunction((400900),"TransferFunc", sceneId, selfId, 6, 84, 174, 10)
+		return
+	end
+	if arg ==22226 then		--Yªn Vß½ng C± mµ BOSS
+		CallScriptFunction((400900),"TransferFunc", sceneId, selfId, 159, 69, 90, 10)
+		return
+	end
+	if arg == 22227 then	--Ngân Khäi Cánh ð°ng tuyªt CØu Lê Tù trß·ng 
+		CallScriptFunction((400900),"TransferFunc", sceneId, selfId, 188, 47, 118, 10)
+		return
+	end
+	if arg == 22228 then		--Kính H° -Thßþng c± Ma thú 
+		CallScriptFunction((400900),"TransferFunc", sceneId, selfId, 5, 121,134, 10)
+		return
+	end
+	if arg == 22229 then		--Ð¸a cung Nh¸ t¥ng BOSS
+		CallScriptFunction((400900),"TransferFunc", sceneId, selfId, 401, 191, 166, 10)
+	end
+	if arg == 22230 then		--Thúc Hà C± tr¤n 
+		CallScriptFunction((400900),"TransferFunc", sceneId, selfId, 420, 201, 212, 10)
+		return
+	end
+	if arg == 22231 then		--Thúc Hà C± tr¤n 
+		CallScriptFunction((400900),"TransferFunc", sceneId, selfId, 123, 226, 227, 10)
+		return
+	end
+	if arg == 22232 then		--Thúc Hà C± tr¤n 
+		CallScriptFunction((400900),"TransferFunc", sceneId, selfId, 170, 24, 223, 10)
+		return
+	end
+	if arg ==22252 then		--Vô lßþng S½n BOSS
+		CallScriptFunction((400900),"TransferFunc", sceneId, selfId, 6, 84, 174, 10)
+		return
+	end
+	
+	
+	
+
+	
+	
+	
+	
+	
+	
+	
+	
+	if arg == 22222 then		--Trong tháp Mµc 
+		local posX, posZ;
+		posX, posZ = LuaFnGetWorldPos(sceneId, selfId);
+		nObjID = LuaFnCreateMonster(sceneId,3517, posX, posZ, 27, 23, 321);
+		if nObjID and nObjID ~= -1 then
+		--	SetCharacterDieTime(sceneId, nObjID, 600000);
+			SetCharacterTitle(sceneId, nObjID,"Thí nghi®m BOSS");
+		--	LuaFnSetMonsterExp(sceneId, nObjID, 0);
+		--	LuaFnDisableMonsterDropBox(sceneId, nObjID);
+		end
+      local nam= LuaFnGetName(sceneId, selfId)
+		local strText = format ("Thí nghi®m BOSSSinh thành Xong !", nam)						
+		  BroadMsgByChatPipe(sceneId, selfId, strText, 4)
+		
+		 return
+end
+	if arg == 1113 then		--ÐÕi lý 1
+		--Nªu Ngß¶i ch½i Li«n · ÐÕi lý 1T¡c B¤t truy«n T¯ng 
+		if sceneId == 2 then
+			x760375_MsgBox(sceneId, selfId, targetId,"Ngß½i Ðã TÕi ÐÕi lý R°i .")
+		else
+			CallScriptFunction((400900),"TransferFunc", sceneId, selfId, 2, 159, 174)
+		end
+		return
+	end
+	if arg == 1114 then		--ÐÕi lý 2
+		--Nªu Ngß¶i ch½i Li«n · ÐÕi lý 2T¡c B¤t truy«n T¯ng 
+		if sceneId == 71 then
+			x760375_MsgBox(sceneId, selfId, targetId,"Ngß½i Ðã TÕi ÐÕi lý 2R°i .")
+		else
+			CallScriptFunction((400900),"TransferFunc", sceneId, selfId, 71, 241, 138)
+		end
+		return
+	end
+	if arg == 1115 then		--ÐÕi lý 3
+		--Nªu Ngß¶i ch½i Li«n · ÐÕi lý 3T¡c B¤t truy«n T¯ng 
+		if sceneId == 72 then
+			x760375_MsgBox(sceneId, selfId, targetId,"Ngß½i Ðã TÕi ÐÕi lý 3R°i .")
+		else
+			CallScriptFunction((400900),"TransferFunc", sceneId, selfId, 72, 241, 138)
+		end
+		return
+	end
+
+	for i, mp in x760375_g_mpInfo do
+		if arg == i then
+			CallScriptFunction((400900),"TransferFunc", sceneId, selfId, mp[2], mp[3], mp[4], 10)
+			return
+		end
+	end
+
+	if arg == 1010 then		--Thúc Hà C± tr¤n 
+		-- add by zchw
+		BeginUICommand(sceneId)
+			UICommand_AddInt(sceneId, x760375_g_ScriptId);
+			-- zchw fix Transfer bug
+			UICommand_AddInt(sceneId, targetId);
+			UICommand_AddString(sceneId,"GotoShuHeGuZhen");
+			UICommand_AddString(sceneId,"Thúc Hà C± tr¤n Vi B¤t Gia Sát khí Cänh tßþng ,M¶i chú ý An toàn .Ngß½i Xác nh§n Mu¯n ði vào MÕ ?");
+		EndUICommand(sceneId)
+		DispatchUICommand(sceneId,selfId, 24)
+		return
+	end
+
+	if GetNumText() == 2000 then		--
+		BeginEvent(sceneId)
+			AddText(sceneId,"#{GOTO_DUNHUANF_SONGSHAN}")
+		EndEvent(sceneId)
+		DispatchEventList(sceneId, selfId, targetId)
+
+		return
+	end
+
+end
+-- add by zchw
+function x760375_GotoShuHeGuZhen(sceneId, selfId, targetId)
+	CallScriptFunction((400900),"TransferFunc", sceneId, selfId, 420, 200, 211, 20);
+	return
+end
+--**********************************
+--Cån cÑ Môn phái IDThu hoÕch Môn phái Tin tÑc 
+--**********************************
+function x760375_GetMPInfo(mpID)
+	local	mp
+	local	i		= 0
+	for i, mp in x760375_g_mpInfo do
+		if mp[5] == mpID then
+			return mp
+		end
+	end
+	return nil
+end
+
+--**********************************
+-- Ð¯i thoÕi CØa s± Tin tÑc Ð« kÏ 
+--**********************************
+function x760375_NotifyFailBox(sceneId, selfId, targetId, msg)
+	BeginEvent(sceneId)
+		AddText(sceneId, msg)
+	EndEvent(sceneId)
+	DispatchEventList(sceneId, selfId, targetId)
+end
+
+--**********************************
+-- Trong màn hình Gian Tin tÑc Ð« kÏ 
+--**********************************
+function x760375_NotifyFailTips(sceneId, selfId, Tip)
+	BeginEvent(sceneId)
+		AddText(sceneId, Tip)
+	EndEvent(sceneId)
+	DispatchMissionTips(sceneId, selfId)
+end
+--**********************************
+--Ð¯i thoÕi CØa s± Tin tÑc Ð« kÏ 
+--**********************************
+function x760375_MsgBox(sceneId, selfId, targetId, msg)
+	BeginEvent(sceneId)
+		AddText(sceneId, msg)
+	EndEvent(sceneId)
+	DispatchEventList(sceneId, selfId, targetId)
+end
+--**********************************
+--Khôi phøc Huyªt Hòa khí 
+--**********************************
+function x760375_Restore_hpmp(sceneId, selfId, targetId)
+	RestoreHp(sceneId, selfId)
+	RestoreMp(sceneId, selfId)
+	RestoreRage(sceneId, selfId)
+end

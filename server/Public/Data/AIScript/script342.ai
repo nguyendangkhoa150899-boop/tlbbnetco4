@@ -1,0 +1,25 @@
+;Thương Sơn BOSSĐàn ：Huyền Đánh Kim cương 。
+;1、Lấy 40%Cơ suất Phóng thích Đơn thể Phản ứng Trì độn (575)，Thân pháp Rơi chậm lại ，Số lần Không Hạn 
+;2、Lấy 80%Cơ suất Phóng thích Cao cấp Đả kích (551)，Số lần Không Hạn 
+;3、Lấy 70%Cơ suất Phóng ra Quần thể Huyền Công kích Lôi Bạo (559)，Số lần Không Hạn 
+;4、Huyết Thiếu với 50%Khi Có Phao phao Đề kỳ Một lần ，Bắt đầu Phóng thích Đơn thể Hồi huyết Kỹ năng Linh chi Cửu chuyển (589)，Hồi phục Tự thân 50%Huyết lượng ，Có thể Bị cáo Chế Kỹ năng Gián đoạn ，Số lần 1Thứ 
+
+[common]
+[commonend]
+
+;Chú ý Vật lý Công kích Kỹ năng Ưu tiên Cấp Hẳn là So Viễn trình Kỹ năng Ưu tiên Cấp Cao 
+[skill]
+0:if(AIS_GetAIState()=SATTACK&AIS_IsCanSkill(0)=1){AIS_ToSkill(0);AIS_SetTimes(-1);AIS_SetPRI(35);}
+1:if(AIS_GetAIState()=SATTACK&AIS_IsCanSkill(831)=1&AIS_Rand()<80){AIS_ToSkill(831);AIS_SetTimes(-1);AIS_SetPRI(37);}
+2:if(AIS_GetAIState()=SATTACK&AIS_IsCanSkill(830)=1&AIS_Rand()<70){AIS_ToSkill(830);AIS_SetTimes(-1);AIS_SetPRI(38);}
+[skillend]
+
+[beskill]
+[beskillend]
+
+[damage]
+[damageend]
+
+[dead]
+[deadend]
+

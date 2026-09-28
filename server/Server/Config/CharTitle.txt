@@ -1,0 +1,298 @@
+INT	INT	STRING	STRING	INT	INT	INT	STRING
+ID	lo?i hình (bày ra phân lo?i D?ng)	tên g?i $1$	miêu t? $1$	an kh?p lo?i hình (trình t? D?ng)	d?ng c?p 	th?i gian 	chú thích 
+0	1	h? th?ng chi?m d?ng 	thi?t trí d?ng c?p Danh hi?u Vi 0,T?c thanh tr? d?ng c?p Danh hi?u 	1	1	-1	thi?t trí d?ng c?p Danh hi?u Vi 0,T?c thanh tr? d?ng c?p Danh hi?u 
+1	1	Ðã v?t di 	Ðã v?t di 	0	0	-1	
+2	1	Ðã v?t di 	Ðã v?t di 	0	0	-1	
+3	1	Ðã v?t di 	Ðã v?t di 	0	0	-1	
+4	1	Ðã v?t di 	Ðã v?t di 	0	0	-1	
+5	1	Ðã v?t di 	Ðã v?t di 	0	0	-1	
+6	1	Ðã v?t di 	Ðã v?t di 	0	0	-1	
+7	1	Ðã v?t di 	Ðã v?t di 	0	0	-1	
+8	1	Ðã v?t di 	Ðã v?t di 	0	0	-1	
+9	1	Ðã v?t di 	Ðã v?t di 	0	0	-1	
+10	1	Ðã v?t di 	Ðã v?t di 	0	0	-1	
+11	1	Ðã v?t di 	Ðã v?t di 	0	0	-1	
+12	1	Ðã v?t di 	Ðã v?t di 	0	0	-1	
+13	1	Ðã v?t di 	Ðã v?t di 	0	0	-1	
+14	1	Ðã v?t di 	Ðã v?t di 	0	0	-1	
+15	1	Ðã v?t di 	Ðã v?t di 	0	0	-1	
+16	1	Ðã v?t di 	Ðã v?t di 	0	0	-1	
+17	1	Ðã v?t di 	Ðã v?t di 	0	0	-1	
+18	1	Ðã v?t di 	Ðã v?t di 	0	0	-1	
+19	1	Ðã v?t di 	Ðã v?t di 	0	0	-1	
+20	1	Ðã v?t di 	Ðã v?t di 	0	0	-1	
+21	1	Ðã v?t di 	Ðã v?t di 	0	0	-1	
+22	1	Ðã v?t di 	Ðã v?t di 	0	0	-1	
+23	1	Ðã v?t di 	Ðã v?t di 	0	0	-1	
+24	1	Ðã v?t di 	Ðã v?t di 	0	0	-1	
+25	1	Ðã v?t di 	Ðã v?t di 	0	0	-1	
+26	1	Ðã v?t di 	Ðã v?t di 	0	0	-1	
+27	1	Ðã v?t di 	Ðã v?t di 	0	0	-1	
+28	1	Ðã v?t di 	Ðã v?t di 	0	0	-1	
+29	1	Ðã v?t di 	Ðã v?t di 	0	0	-1	
+30	1	Ðã v?t di 	Ðã v?t di 	0	0	-1	
+31	1	Ðã v?t di 	Ðã v?t di 	0	0	-1	
+32	1	Ðã v?t di 	Ðã v?t di 	0	0	-1	
+33	1	Ðã v?t di 	Ðã v?t di 	0	0	-1	
+34	1	Ðã v?t di 	Ðã v?t di 	0	0	-1	
+35	1	Ðã v?t di 	Ðã v?t di 	0	0	-1	
+36	1	Ðã v?t di 	Ðã v?t di 	0	0	-1	
+37	1	Ðã v?t di 	Ðã v?t di 	0	0	-1	
+38	1	Ðã v?t di 	Ðã v?t di 	0	0	-1	
+39	1	Ðã v?t di 	Ðã v?t di 	0	0	-1	
+40	1	Ðã v?t di 	Ðã v?t di 	0	0	-1	
+41	1	Ðã v?t di 	Ðã v?t di 	0	0	-1	
+42	1	Ðã v?t di 	Ðã v?t di 	0	0	-1	
+43	1	Ðã v?t di 	Ðã v?t di 	0	0	-1	
+44	1	Ðã v?t di 	Ðã v?t di 	0	0	-1	
+45	1	Ðã v?t di 	Ðã v?t di 	0	0	-1	
+46	1	Ðã v?t di 	Ðã v?t di 	0	0	-1	
+47	1	Ðã v?t di 	Ðã v?t di 	0	0	-1	
+48	1	Ðã v?t di 	Ðã v?t di 	0	0	-1	
+49	1	Ðã v?t di 	Ðã v?t di 	0	0	-1	
+50	1	Ðã v?t di 	Ðã v?t di 	0	0	-1	
+51	1	Ðã v?t di 	Ðã v?t di 	0	0	-1	
+52	1	Ðã v?t di 	Ðã v?t di 	0	0	-1	
+53	1	Ðã v?t di 	Ðã v?t di 	0	0	-1	
+54	1	Ðã v?t di 	Ðã v?t di 	0	0	-1	
+55	1	Ðã v?t di 	Ðã v?t di 	0	0	-1	
+56	1	Ðã v?t di 	Ðã v?t di 	0	0	-1	
+57	1	Ðã v?t di 	Ðã v?t di 	0	0	-1	
+58	1	Ðã v?t di 	Ðã v?t di 	0	0	-1	
+59	1	Ðã v?t di 	Ðã v?t di 	0	0	-1	
+60	1	Ðã v?t di 	Ðã v?t di 	0	0	-1	
+61	1	Ðã v?t di 	Ðã v?t di 	0	0	-1	
+62	1	Ðã v?t di 	Ðã v?t di 	0	0	-1	
+63	1	Ðã v?t di 	Ðã v?t di 	0	0	-1	
+64	1	Ðã v?t di 	Ðã v?t di 	0	0	-1	
+65	1	Ðã v?t di 	Ðã v?t di 	0	0	-1	
+66	1	Ðã v?t di 	Ðã v?t di 	0	0	-1	
+67	1	Ðã v?t di 	Ðã v?t di 	0	0	-1	
+68	1	Ðã v?t di 	Ðã v?t di 	0	0	-1	
+69	1	Ðã v?t di 	Ðã v?t di 	0	0	-1	
+70	1	Ðã v?t di 	Ðã v?t di 	0	0	-1	
+71	1	Ðã v?t di 	Ðã v?t di 	0	0	-1	
+72	1	Ðã v?t di 	Ðã v?t di 	0	0	-1	
+73	1	Ðã v?t di 	Ðã v?t di 	0	0	-1	
+74	1	Ðã v?t di 	Ðã v?t di 	0	0	-1	
+75	1	Ðã v?t di 	Ðã v?t di 	0	0	-1	
+76	1	Ðã v?t di 	Ðã v?t di 	0	0	-1	
+77	1	Ðã v?t di 	Ðã v?t di 	0	0	-1	
+78	1	Ðã v?t di 	Ðã v?t di 	0	0	-1	
+79	1	C? M? ti?u bá vuong 	d? nh?t thiên h?,Chi?n không th? Ð?ch.	48	1	d? nh?t thiên h?,Chi?n không th? Ð?ch.	
+80	12	#e4400ff#c00ffff#bThi?u Lâm d? t? 	ti?n hành Ð?i Lý pho tu?ng x? xin thu du?c.	46	1	24	Thi?u Lâm d? nh?t 
+81	12	#e4400ff#c00ffff#bMinh Giáo d? t? 	ti?n hành Ð?i Lý pho tu?ng x? xin thu du?c.	46	1	24	Minh Giáo d? nh?t 
+82	12	#e4400ff#c00ffff#bNga My d? t? 	ti?n hành Ð?i Lý pho tu?ng x? xin thu du?c.	46	1	24	Nga My d? nh?t 
+83	12	#e4400ff#c00ffff#bVõ Ðang d? t? 	ti?n hành Ð?i Lý pho tu?ng x? xin thu du?c.	46	1	24	Võ Ðang d? nh?t 
+84	12	#e4400ff#c00ffff#bTinh Túc d? t? 	ti?n hành Ð?i Lý pho tu?ng x? xin thu du?c.	46	1	24	Tinh Túc d? nh?t 
+85	12	#e4400ff#c00ffff#bThiên Long d? t? 	ti?n hành Ð?i Lý pho tu?ng x? xin thu du?c.	46	1	24	Thiên Long d? nh?t 
+86	12	#e4400ff#c00ffff#bThiên Son d? t? 	ti?n hành Ð?i Lý pho tu?ng x? xin thu du?c.	46	1	24	Thiên Son d? nh?t 
+87	12	#e4400ff#c00ffff#bCái Bang d? t? 	ti?n hành Ð?i Lý pho tu?ng x? xin thu du?c.	46	1	24	Cái Bang d? nh?t 
+88	12	#e4400ff#c00ffff#bTiêu Dao d? t? 	ti?n hành Ð?i Lý pho tu?ng x? xin thu du?c.	46	1	24	Tiêu Dao d? nh?t 
+89	12	#e4400ff#c00ffff#bM? Dung d? t? 	ti?n hành Ð?i Lý pho tu?ng x? xin thu du?c.	46	1	-1	M? Dung d? nh?t 
+90	12	#e4400ff#c00ffff#bÐu?ng Môn d? t? 	ti?n hành Ð?i Lý pho tu?ng x? xin thu du?c.	46	1	-1	Ðu?ng Môn d? nh?t 
+91	2	#gB0E2FF#840$N Phu Quân #841	? trên tr?i Nguy?n T? chim li?n cánh,trên m?t d?t Nguy?n T? tình v? ch?ng.	2	1	-1	phu thê 
+92	2	#gB0E2FF#840$N Nuong T? #841	? trên tr?i Nguy?n T? chim li?n cánh,trên m?t d?t Nguy?n T? tình v? ch?ng.	2	1	-1	phu thê 
+93	2	#gB0E2FF#830$N Phu Quân #831	? trên tr?i Nguy?n T? chim li?n cánh,trên m?t d?t Nguy?n T? tình v? ch?ng.	2	1	-1	phu thê 
+94	2	#gB0E2FF#830$N Nuong T? #831	? trên tr?i Nguy?n T? chim li?n cánh,trên m?t d?t Nguy?n T? tình v? ch?ng.	2	1	-1	phu thê 
+95	2	#gB0E2FF#836$N V? Hôn Phu #837	kim phong ng?c l? nh?t tuong phùng,Ti?n Th?ng Khu?c nhân gian vô s?.	2	1	-1	v? hôn phu thê 
+96	2	#gB0E2FF#836$N V? Hôn Thê #837	kim phong ng?c l? nh?t tuong phùng,Ti?n Th?ng Khu?c nhân gian vô s?.	2	1	-1	v? hôn phu thê 
+97	3	th?n võ d?i tu?ng quân 	th?n võ d?i tu?ng,anh minh th?n võ,uy ch?n hoàn vu.	3	5	-1	tòng quân (Ðã v?t di)
+98	4	H? Ðàn Ð?ng nhi 	so c?p du?i qu? Su,m?i l?p công huân,ti?p t?c c? g?ng.	4	1	-1	du?i qu? (Ðã v?t di)
+99	4	l?c d?a phi tiên 	trung c?p du?i qu? Su,Lu Ki?n công huân,không ng?ng c? g?ng.	4	2	-1	du?i qu? (Ðã v?t di)
+100	4	Hàng Ma thu?ng tiên 	cao c?p du?i qu? Su,công huân Trác Tr?,không ng?ng c? g?ng.	4	3	-1	du?i qu? (Ðã v?t di)
+101	3	#701	danh ch?n giang h? d? nh?t danh 	3	1	168	danh ch?n giang h? d? nh?t danh 
+102	3	#702	danh ch?n giang h? tên th? hai 	3	2	168	danh ch?n giang h? tên th? hai 
+103	3	#703	danh ch?n giang h? tên th? ba 	3	3	168	danh ch?n giang h? tên th? ba 
+104	4	#730	cu?ng d?i tình thánh d? nh?t danh 	4	1	168	cu?ng d?i tình thánh d? nh?t danh 
+105	4	#731	cu?ng d?i tình thánh tên th? hai 	4	2	168	cu?ng d?i tình thánh tên th? hai 
+106	4	#732	cu?ng d?i tình thánh tên th? ba 	4	3	168	cu?ng d?i tình thánh tên th? ba 
+107	5	#727	cây hoa h?ng tình nhân d? nh?t danh 	5	1	168	cây hoa h?ng tình nhân d? nh?t danh 
+108	5	#728	cây hoa h?ng tình nhân tên th? hai 	5	2	168	cây hoa h?ng tình nhân tên th? hai 
+109	5	#729	cây hoa h?ng tình nhân tên th? ba 	5	3	168	cây hoa h?ng tình nhân tên th? ba 
+110	6	#709	gi?n gi?t chóc d? nh?t danh 	6	1	168	gi?n gi?t chóc d? nh?t danh 
+111	6	#710	gi?n gi?t chóc tên th? hai 	6	2	168	gi?n gi?t chóc tên th? hai 
+112	6	#715	gi?n gi?t chóc tên th? ba 	6	3	168	gi?n gi?t chóc tên th? ba 
+113	7	#717	m?t l?i kinh ngu?i d? nh?t danh 	7	1	168	m?t l?i kinh ngu?i d? nh?t danh 
+114	7	#716	m?t l?i kinh ngu?i tên th? hai 	7	2	168	m?t l?i kinh ngu?i tên th? hai 
+115	7	#gDC4C18#848thiên c? nói nhi?u d? nh?t #849	m?t l?i kinh ngu?i tên th? ba 	7	3	168	m?t l?i kinh ngu?i tên th? ba 
+116	8	#718	hùng bá thiên h? #Gth?n uy võ thánh 	8	1	168	Môn phái d? nh?t siêu c?p Danh hi?u 
+117	8	#723	hùng bá thiên h? 	8	2	168	Môn phái d? nh?t cao c?p Danh hi?u 
+118	9	#707	d?ng c?p b?ng x?p h?ng d? nh?t 	9	1	168	d?ng c?p b?ng x?p h?ng d? nh?t 
+119	9	#708	d?ng c?p b?ng x?p h?ng d? nh?t 	9	2	168	d?ng c?p b?ng x?p h?ng d? nh?t 
+120	9	#711	d?ng c?p b?ng x?p h?ng d? nh?t 	9	3	168	d?ng c?p b?ng x?p h?ng d? nh?t 
+121	7	thuong nghi?p d?u s? 	thuong nghi?p vòi nu?c,phú giáp m?t phuong.	7	1	-1	d?c thù (b?t x? lý)
+122	7	võ lâm Ð? Nd?i bang 	Nâm Ðích Môn phái Th? võ lâm Ð? Nd?i bang.	7	1	-1	d?c thù (b?t x? lý)
+123	7	mô ph?m phu thê 	tri tâm v?,phu thê di?n ph?m !	7	1	-1	d?c thù (b?t x? lý)
+124	8	thu? v?n Thuong 	so c?p thu? v?n Thuong Nhân,thu? v?n b?t d?u,ti?p t?c c? g?ng.	6	1	-1	thu? v?n 
+125	8	thu? v?n d?y t? 	nh? c?p thu? v?n Thuong Nhân,thu? v?n quen tay,ti?p t?c c? g?ng.	6	2	-1	thu? v?n 
+126	8	thu? v?n áp gi?i Quan 	ba c?p thu? v?n Thuong Nhân,thu? v?n nang th?,không ng?ng c? g?ng.	6	3	-1	thu? v?n 
+127	8	thu? v?n th?ng linh 	t? c?p thu? v?n Thuong Nhân,thu? v?n cao th?,không ng?ng c? g?ng.	6	4	-1	thu? v?n 
+128	8	thu? v?n di?u hành Phó S? 	c?p nam thu? v?n Thuong Nhân,thu? v?n danh nhân,không ng?ng c? g?ng.	6	5	-1	thu? v?n 
+129	8	thu? v?n di?u hành S? 	l?c c?p thu? v?n Thuong Nhân,thu? v?n quy?n uy,Nghi?p Gi?i di?n ph?m.	6	6	-1	thu? v?n 
+130	8	thu? v?n T?ng ch? huy di?u hành 	th?t c?p thu? v?n Thuong Nhân,thu? v?n th?n tho?i,b?t h? truy?n k?.	6	7	-1	thu? v?n 
+131	9	Bình T?c binh si 	Sát T?c dung mãnh,xung phong phía tru?c !	17	1	-1	T?c Binh xâm l?n 
+132	9	Bình T?c d?i tru?ng 	Sát T?c cao th?,m?i vi?c d?u thu?n l?i !	17	2	-1	T?c Binh xâm l?n 
+133	9	Bình T?c th?ng linh 	Sát T?c tinh anh,T?c Binh kh?c tinh !	17	3	-1	T?c Binh xâm l?n 
+134	9	Ðãng Kh?u chi?u tu?ng 	d?i tu?ng tài,d?p yên Qu?n T?c !	17	4	-1	T?c Binh xâm l?n 
+135	9	Ðãng Kh?u nguyên soái 	nguyên soái tài,d?p yên Qu?n T?c !	17	5	-1	T?c Binh xâm l?n 
+136	10	#901lu?n võ d?i h?i tr?ng nguyên #902	võ ngh? siêu qu?n,ng?o th? thiên h?.	18	3	168	lu?n võ d?i h?i 
+137	10	#905lu?n võ d?i h?i b?ng nhãn #906	võ công trác tuy?t,thiên h? d? nh?.	18	2	168	lu?n võ d?i h?i 
+138	10	#920lu?n võ d?i h?i thám hoa #921	Võ Lâm Cao Th?,thiên h? d? tam.	18	1	168	lu?n võ d?i h?i 
+139	11	Tr?ng Nguyên 	h?c th?c uyên bác,T?i khoa c? cu?c thi Trung l?c áp Qu?n Nho !	5	3	168	khoa c? 
+140	11	khoa c? b?ng nhãn 	h?c th?c hon ngu?i,T?i khoa c? cu?c thi Trung thu du?c d? nh? !	5	2	168	khoa c? 
+141	11	khoa c? thám hoa 	h?c th?c hon ngu?i,T?i khoa c? cu?c thi Trung thu du?c d? tam !	5	1	168	khoa c? 
+142	12	#Y#901vô lu?ng d?ng thiên phong mang Hi?n #902	vô lu?ng Ng?c Ð?ng Tàng thiên thu,m?i vào lang hoàn Tri?n phong mang 	272	1	-1	lang hoàn phúc d?a 
+143	12	#Y#901Tiêu Dao tiên ph? Vu th?ng t?i tr?i cao #902	Tiêu Dao võ h?c Tu V?n Nhân,giang h? l? v? Tiêu Dao Nhân 	272	2	-1	lang hoàn phúc d?a 
+144	12	#Y#901lang hoàn di?n ng?c Túng Càn Khôn #902	Ki?m Ðãng lang hoàn v?n pháp Huu,Ð?p Phá Càn Khôn Danh thiên thu 	272	3	-1	lang hoàn phúc d?a 
+145	12	#Y#901Ng?o Lang Thiên Son Ch?n C?u Châu #902	huy ki?m c?u th? trong thiên d?a,c?u tiêu th?ng t?i tr?i cao Ð?p C?u Châu 	272	4	-1	lang hoàn phúc d?a 
+146	12	Thi?u Lâm hi?p n? 	Thi?u Lâm so c?p N? Ð? T?.	21	1	-1	c?ng hi?n su môn 
+147	12	b?ch y b?i bàn 	Thi?u Lâm trung c?p N? Ð? T?.	21	2	-1	c?ng hi?n su môn 
+148	12	Ð? Th? Quan Th? Âm 	Thi?u Lâm cao c?p N? Ð? T?.	21	3	-1	c?ng hi?n su môn 
+149	12	Già Lam B? Tát 	Thi?u Lâm thâm niên N? Ð? T?.	21	4	-1	c?ng hi?n su môn 
+150	12	Minh Giáo hi?p si 	Minh Giáo so c?p Nam Ð? T?.	21	1	-1	c?ng hi?n su môn 
+151	12	Th? H?a hi?p si 	Minh Giáo trung c?p Nam Ð? T?.	21	2	-1	c?ng hi?n su môn 
+152	12	h? giáo Thích Ca Mâu Ni 	Minh Giáo cao c?p Nam Ð? T?.	21	3	-1	c?ng hi?n su môn 
+153	12	Quang Minh th?n S? 	Minh Giáo thâm niên Nam Ð? T?.	21	4	-1	c?ng hi?n su môn 
+154	12	Minh Giáo hi?p n? 	Minh Giáo so c?p N? Ð? T?.	21	1	-1	c?ng hi?n su môn 
+155	12	Th? H?a hi?p n? 	Minh Giáo trung c?p N? Ð? T?.	21	2	-1	c?ng hi?n su môn 
+156	12	h? giáo tán nhân 	Minh Giáo cao c?p N? Ð? T?.	21	3	-1	c?ng hi?n su môn 
+157	12	quang minh thánh n? 	Minh Giáo thâm niên N? Ð? T?.	21	4	-1	c?ng hi?n su môn 
+158	12	Cái Bang hi?p si 	Cái Bang so c?p Nam Ð? T?.	21	1	-1	c?ng hi?n su môn 
+159	12	Thanh Liên d? t? 	Cái Bang trung c?p Nam Ð? T?.	21	2	-1	c?ng hi?n su môn 
+160	12	Huy?n Vu tru?ng lão 	Cái Bang cao c?p Nam Ð? T?.	21	3	-1	c?ng hi?n su môn 
+161	12	Chu?ng B?ng vòi nu?c 	Cái Bang thâm niên Nam Ð? T?.	21	4	-1	c?ng hi?n su môn 
+162	12	Cái Bang hi?p n? 	Cái Bang so c?p N? Ð? T?.	21	1	-1	c?ng hi?n su môn 
+163	12	B?ch Liên d? t? 	Cái Bang trung c?p N? Ð? T?.	21	2	-1	c?ng hi?n su môn 
+164	12	chu tu?c ngu?i già 	Cái Bang cao c?p N? Ð? T?.	21	3	-1	c?ng hi?n su môn 
+165	12	Chu?ng Bát long n? 	Cái Bang thâm niên N? Ð? T?.	21	4	-1	c?ng hi?n su môn 
+166	12	Võ Ðang hi?p si 	Võ Ðang so c?p Nam Ð? T?.	21	1	-1	c?ng hi?n su môn 
+167	12	thanh minh cu si 	Võ Ðang trung c?p Nam Ð? T?.	21	2	-1	c?ng hi?n su môn 
+168	12	vô vi chân nhân 	Võ Ðang cao c?p Nam Ð? T?.	21	3	-1	c?ng hi?n su môn 
+169	12	Võ Ðang thiên tôn 	Võ Ðang thâm niên Nam Ð? T?.	21	4	-1	c?ng hi?n su môn 
+170	12	Võ Ðang hi?p n? 	Võ Ðang so c?p N? Ð? T?.	21	1	-1	c?ng hi?n su môn 
+171	12	mây tr?ng cu si 	Võ Ðang trung c?p N? Ð? T?.	21	2	-1	c?ng hi?n su môn 
+172	12	thanh tinh tán nhân 	Võ Ðang cao c?p N? Ð? T?.	21	3	-1	c?ng hi?n su môn 
+173	12	Võ Ðang tiên t? 	Võ Ðang thâm niên N? Ð? T?.	21	4	-1	c?ng hi?n su môn 
+174	12	Nga My hi?p si 	Nga My so c?p Nam Ð? T?.	21	1	-1	c?ng hi?n su môn 
+175	12	gió mát cu si 	Nga My trung c?p Nam Ð? T?.	21	2	-1	c?ng hi?n su môn 
+176	12	Ng?c Long hi?p si 	Nga My cao c?p Nam Ð? T?.	21	3	-1	c?ng hi?n su môn 
+177	12	Nga My tiên nhân 	Nga My thâm niên Nam Ð? T?.	21	4	-1	c?ng hi?n su môn 
+178	12	Nga My hi?p n? 	Nga My so c?p N? Ð? T?.	21	1	-1	c?ng hi?n su môn 
+179	12	trang sáng cu si 	Nga My trung c?p N? Ð? T?.	21	2	-1	c?ng hi?n su môn 
+180	12	Kim Phu?ng hi?p n? 	Nga My cao c?p N? Ð? T?.	21	3	-1	c?ng hi?n su môn 
+181	12	Nga My tiên t? 	Nga My thâm niên N? Ð? T?.	21	4	-1	c?ng hi?n su môn 
+182	12	Tinh Túc hi?p si 	Tinh Túc so c?p Nam Ð? T?.	21	1	-1	c?ng hi?n su môn 
+183	12	Hành Ôn lang quân 	Tinh Túc trung c?p Nam Ð? T?.	21	2	-1	c?ng hi?n su môn 
+184	12	dòi m?ng phán quan 	Tinh Túc cao c?p Nam Ð? T?.	21	3	-1	c?ng hi?n su môn 
+185	12	d?c th? Y Tiên 	Tinh Túc thâm niên Nam Ð? T?.	21	4	-1	c?ng hi?n su môn 
+186	12	Tinh Túc hi?p n? 	Tinh Túc so c?p N? Ð? T?.	21	1	-1	c?ng hi?n su môn 
+187	12	Hành Ôn nuong t? 	Tinh Túc trung c?p N? Ð? T?.	21	2	-1	c?ng hi?n su môn 
+188	12	do?t m?nh qu? d? xoa 	Tinh Túc cao c?p N? Ð? T?.	21	3	-1	c?ng hi?n su môn 
+189	12	d?c th? du?c vuong 	Tinh Túc thâm niên N? Ð? T?.	21	4	-1	c?ng hi?n su môn 
+190	12	Thiên Long hi?p si 	Thiên Long so c?p Nam Ð? T?.	21	1	-1	c?ng hi?n su môn 
+191	12	Tàng Kinh hi?p si 	Thiên Long trung c?p Nam Ð? T?.	21	2	-1	c?ng hi?n su môn 
+192	12	Sùng thánh thiên Su 	Thiên Long cao c?p Nam Ð? T?.	21	3	-1	c?ng hi?n su môn 
+193	12	thiên nam long vuong 	Thiên Long thâm niên Nam Ð? T?.	21	4	-1	c?ng hi?n su môn 
+194	12	Thiên Long hi?p n? 	Thiên Long so c?p N? Ð? T?.	21	1	-1	c?ng hi?n su môn 
+195	12	Tàng Kinh hi?p n? 	Thiên Long trung c?p N? Ð? T?.	21	2	-1	c?ng hi?n su môn 
+196	12	Sùng thánh thiên N? 	Thiên Long cao c?p N? Ð? T?.	21	3	-1	c?ng hi?n su môn 
+197	12	thiên nam long n? 	Thiên Long thâm niên N? Ð? T?.	21	4	-1	c?ng hi?n su môn 
+198	12	Thiên Son hi?p si 	Thiên Son so c?p Nam Ð? T?.	21	1	-1	c?ng hi?n su môn 
+199	12	Duong Thiên B? Chúng 	Thiên Son trung c?p Nam Ð? T?.	21	2	-1	c?ng hi?n su môn 
+200	12	Thiên Son chim di?u 	Thiên Son cao c?p Nam Ð? T?.	21	3	-1	c?ng hi?n su môn 
+201	12	h?n nguyên Son Th?n 	Thiên Son thâm niên Nam Ð? T?.	21	4	-1	c?ng hi?n su môn 
+202	12	Thiên Son hi?p n? 	Thiên Son so c?p N? Ð? T?.	21	1	-1	c?ng hi?n su môn 
+203	12	H?o Thiên B? Chúng 	Thiên Son trung c?p N? Ð? T?.	21	2	-1	c?ng hi?n su môn 
+204	12	Thiên Son pho tu?ng tuy?t 	Thiên Son cao c?p N? Ð? T?.	21	3	-1	c?ng hi?n su môn 
+205	12	h?n nguyên hoa th?n 	Thiên Son thâm niên N? Ð? T?.	21	4	-1	c?ng hi?n su môn 
+206	12	Tiêu Dao hi?p si 	Tiêu Dao so c?p Nam Ð? T?.	21	1	-1	c?ng hi?n su môn 
+207	12	dánh dàn cu si 	Tiêu Dao trung c?p Nam Ð? T?.	21	2	-1	c?ng hi?n su môn 
+208	12	L?c Th?n hi?p si 	Tiêu Dao cao c?p Nam Ð? T?.	21	3	-1	c?ng hi?n su môn 
+209	12	Tiêu Dao th?n long 	Tiêu Dao thâm niên Nam Ð? T?.	21	4	-1	c?ng hi?n su môn 
+210	12	Tiêu Dao hi?p n? 	Tiêu Dao so c?p N? Ð? T?.	21	1	-1	c?ng hi?n su môn 
+211	12	Thì Hoa cu si 	Tiêu Dao trung c?p N? Ð? T?.	21	2	-1	c?ng hi?n su môn 
+212	12	Lang Ba hi?p n? 	Tiêu Dao cao c?p N? Ð? T?.	21	3	-1	c?ng hi?n su môn 
+213	12	Tiêu Dao thánh n? 	Tiêu Dao thâm niên N? Ð? T?.	21	4	-1	c?ng hi?n su môn 
+214	13	so c?p su ph? 	So thái d? làm ngu?i Su,D? d? d? c?ng d?ng ti?n b?.#rKh? Thu 2Danh d? d? 	28	1	-1	Su Ð?c d?ng c?p 
+215	13	trung c?p su ph? 	vi nhân su bi?u,c?n tr?ng.#rKh? Thu 3Danh d? d? 	28	2	-1	Su Ð?c d?ng c?p 
+216	13	cao c?p su ph? 	vi nhân su bi?u,thanh danh lan xa.#rKh? Thu 5Danh d? d? 	28	3	-1	Su Ð?c d?ng c?p 
+217	13	m?t d?i danh su 	m?t d?i danh su,dào lý kh?p thiên h?.#rKh? Thu 8Danh d? d? 	28	4	-1	Su Ð?c d?ng c?p 
+218	14	#927_JIEBAI_#928	k?t nghia kim lan,cùng sinh cùng t? !	24	1	-1	k?t bái 
+219	15	#929$Nbang chúng #929	bang phái ph? thông thành viên.	115	1	-1	bang phái (b?t là thông qua Danh hi?u)
+220	15	#930$Ntinh anh #930	bang phái tinh anh thành viên.	115	2	-1	bang phái (b?t là thông qua Danh hi?u)
+221	15	#931$NThuong Nhân #931	bang phái Bào Thuong ngu?i ph? trách.	115	3	-1	bang phái (b?t là thông qua Danh hi?u)
+222	15	#932$Nn?i v? S? #932	bang phái n?i v? ngu?i ph? trách.	115	4	-1	bang phái (b?t là thông qua Danh hi?u)
+223	15	$NCông V? S? 	bang phái Công nông nghi?p ngu?i ph? trách.	115	5	-1	bang phái (b?t là thông qua Danh hi?u)
+224	15	$NHo?ng Hóa S? 	bang phái phát tri?n ngu?i ph? trách.	115	6	-1	bang phái (b?t là thông qua Danh hi?u)
+225	15	$NPhó bang ch? 	bang phái Phó bang ch?,bang ch? Ðích tr? th? d?c l?c.	115	7	-1	bang phái (b?t là thông qua Danh hi?u)
+226	15	$Nbang ch? 	bang h?i lão d?i,bang phái Ðích t?i cao ngu?i qu?n lý.	115	8	-1	bang phái (b?t là thông qua Danh hi?u)
+227	16	#gB0E2FF#903tình thánh #904	999Ðóa cây hoa h?ng.	19	1	1	"999Ðóa cây hoa h?ng,Nam"
+228	16	#gB0E2FF#903cây hoa h?ng tiên t? #904	999Ðóa cây hoa h?ng.	19	1	1	"999Ðóa cây hoa h?ng,N?"
+229	17	tiêu di?t nghia si 	hu?ng ?ng tri?u dình hi?u tri?u Chi tiêu di?t nghia si.	30	1	-1	Ti?n Hoành Vu Danh hi?u 
+230	17	Phá Ph? hi?p si 	hu?ng ?ng tri?u dình hi?u tri?u Chi Phá Ph? hi?p si.	30	2	-1	Ti?n Hoành Vu Danh hi?u 
+231	17	Tr?n Ph? Anh Hi?p 	hu?ng ?ng tri?u dình hi?u tri?u Chi Tr?n Ph? Anh Hi?p.	30	3	-1	Ti?n Hoành Vu Danh hi?u 
+232	17	thiên h? Ph? Ki?n S?u 	L?nh thiên h? Qu?n Ph? Van Chi táng d?m Chi Ph? Ki?n S?u.	30	4	-1	Ti?n Hoành Vu Danh hi?u 
+233	18	hành gi? vô song 	Ð?c V?n quy?n sách,Hành nghìn d?m du?ng,Thiên H? Vô Song !	31	1	-1	Anh Hùng nhi?m v? 
+234	18	t?ch m?ch cao th? 	Võ Lâm Cao Th?,d?c lai d?c vãng,v?n d?nh giang h? !	32	2	-1	Anh Hùng nhi?m v? 
+235	18	vô d?ch hi?p khách 	hi?p can nghia d?m,thiên h? vô d?ch,ch? c?u b?i m?t l?n !	33	3	-1	Anh Hùng nhi?m v? 
+236	18	cái th? Anh Hùng 	Anh Hùng cái th?,danh ch?n hoàn vu,muôn d?i luu danh !	34	4	-1	Anh Hùng nhi?m v? 
+237	19	tiêu di?t du kích chi?u tu?ng 	tiêu di?t Kính h? nu?c Ph? d?u linh sáu gã Ðích Anh Hùng !	35	1	-1	Kính H? tiêu di?t 
+238	19	tiêu di?t Phá L? chi?u tu?ng 	tiêu di?t Kính h? nu?c Ph? d?u linh mu?i tám Danh Ðích Anh Hùng !	35	2	-1	Kính H? tiêu di?t 
+239	19	tiêu di?t xa K? chi?u tu?ng 	tiêu di?t Kính h? nu?c Ph? d?u linh nam muoi Danh Ðích Anh Hùng !	35	3	-1	Kính H? tiêu di?t 
+240	19	tiêu di?t d?i tu?ng quân 	tiêu di?t Kính h? nu?c Ph? d?u linh tram tên Ðích Anh Hùng !	35	4	-1	Kính H? tiêu di?t 
+241	20	c?c ph?m phi mao th?i 	T?i Quy Th? thi ch?y trong ho?t d?ng thu du?c Ti?n 3Danh Ðích Anh Hùng.	37	1	168	Quy Th? thi ch?y 
+242	21	$U*quan n?i H?u 	bang h?i c?p th?p tu?c v?,Truong Liêu T?ng T? Tu?c quan n?i H?u.	38	1	-1	bang phái d? c?ng hi?n Danh hi?u 
+243	21	$U*Ðình H?u 	bang h?i c?p th?p tu?c v?,Quan Vu T?ng T? Tu?c Hán Th? Ðình H?u.	38	2	-1	bang phái d? c?ng hi?n Danh hi?u 
+244	21	$U*Huong H?u 	bang h?i trung c?p tu?c v?,Tu Mã Ý T?ng T? Tu?c an qu?c Huong H?u.	38	3	-1	bang phái d? c?ng hi?n Danh hi?u 
+245	21	$U*Huy?n H?u 	bang h?i trung c?p tu?c v?,Chu Cát Lu?ng T?ng T? Tu?c Vu huong huy?n H?u.	38	4	-1	bang phái d? c?ng hi?n Danh hi?u 
+246	21	$U*Qu?n H?u 	bang h?i trung c?p tu?c v?,Dê H? T?ng T? Tu?c nam thành Qu?n H?u.	38	5	-1	bang phái d? c?ng hi?n Danh hi?u 
+247	21	$U*Huy?n Công 	bang h?i cao c?p tu?c v?,Luu Thi?n T?ng T? Tu?c yên vui Huy?n Công.	38	6	-1	bang phái d? c?ng hi?n Danh hi?u 
+248	21	$U*qu?n công 	bang h?i cao c?p tu?c v?,Tôn Quy?n T?ng T? Tu?c Ngô Qu?n qu?n công.	38	7	-1	bang phái d? c?ng hi?n Danh hi?u 
+249	21	$U*qu?c công 	bang h?i cao c?p tu?c v?,h? Tu Mã Chiêu T?ng T? Tu?c T?n qu?c công.	38	8	-1	bang phái d? c?ng hi?n Danh hi?u 
+250	21	$U*qu?n vuong 	bang h?i siêu c?p tu?c v?,Luu B? T?ng T? Tu?c Hán Trung Vuong.	38	9	-1	bang phái d? c?ng hi?n Danh hi?u 
+251	21	$U*thân vuong 	bang h?i siêu c?p tu?c v?,Tào Tháo T?ng T? Tu?c Ng?y vuong.	38	10	-1	bang phái d? c?ng hi?n Danh hi?u 
+252	22	#926chém liên t?c Cu?ng Khách #926	m?t l?n bang h?i chinh ph?t Trung sát nhân s? l?n t?i da.	39	1	168	Bang Chi?n l?y du?c Danh hi?u 
+253	22	#932siêu c?p ngu?i tiên phong #932	m?t l?n bang h?i chinh ph?t Trung chi?m linh c? xí t?i da.	40	1	168	Bang Chi?n l?y du?c Danh hi?u 
+254	22	#924Suu B?o chuyên gia #925	m?t l?n bang h?i chinh ph?t Trung thu th?p tài nguyên t?i da.	41	1	168	Bang Chi?n l?y du?c Danh hi?u 
+255	23	#eaf0c14#Y#bphu?ng hoàng c? thành Ðích bá ch? 	T?i phu?ng hoàng c? thành tranh do?t chi?n Trung ngu?i th?ng Ðích Danh hi?u 	42	1	168	phu?ng hoàng c? thành tranh do?t chi?n l?y du?c Danh hi?u 
+256	24	Chi phong mang so hi?n 	thành công khiêu chi?n Phi?u Mi?u Phong Ðích Anh Hùng !	43	1	-1	khiêu chi?n Phi?u Mi?u Phong l?y du?c Danh hi?u 
+257	24	Chi hào hùng vô song 	Ða l?n thành công khiêu chi?n Phi?u Mi?u Phong Ðích Anh Hùng !	43	2	-1	khiêu chi?n Phi?u Mi?u Phong l?y du?c Danh hi?u 
+258	24	Chi bách chi?n bách th?ng 	T?i Phi?u Mi?u Phong bách chi?n bách th?ng Ðích Anh Hùng !	43	3	-1	khiêu chi?n Phi?u Mi?u Phong l?y du?c Danh hi?u 
+259	24	Chi Ngã ý ngang d?c 	T?i Phi?u Mi?u Phong oai phong m?t c?i Ðích Anh Hùng !	43	4	-1	khiêu chi?n Phi?u Mi?u Phong l?y du?c Danh hi?u 
+260	25	Hi?p Gi? Nhân Tâm 	Hi?p to l?n Gi? Nhân nhi?t tình,Kiêm Hoài thiên h? báo qu?c Dân.Dung Phá k? tr?n C? Cu?ng L?,giang h? s? sách Luu phuong danh.	44	1	-1	khiêu chi?n Binh Thánh k? tr?n l?y du?c Danh hi?u 
+261	25	sát tr?n hành gi? 	k? tr?n sát khí m?i noi Ph?c,h?i h?t phá d?ch xu?t.m?c cho nguoi Phong Lâm Kh?i huy?t s?c,san b?ng h?a son Ch?n Liêu T?c.	44	2	-1	khiêu chi?n Binh Thánh k? tr?n l?y du?c Danh hi?u 
+262	25	hùng tài vi lu?c 	thân là giang h? hào ki?t Khách,Khu?c Hi?u tôn t? Vu M?c Thu.hùng tài vi lu?c phù chính Ð?o,ru?ng c?t nu?c nhà Chú Bi Thu.	44	3	-1	khiêu chi?n Binh Thánh k? tr?n l?y du?c Danh hi?u 
+263	25	Tiên Thánh di phong 	Binh Thánh thiên c? Tr? Tr?n Thu,Khi?t Ðan T?p Di?n ý Nam Ð?.Co Quan 1 tính h?t Chung Tao Khí,Tôn Vu di phong H?u T?ng Th?.	44	4	-1	khiêu chi?n Binh Thánh k? tr?n l?y du?c Danh hi?u 
+264	25	Qu? C?c vô song 	tinh thông tr?n pháp V?n chi d?o,Thâm U?n phá d?ch Hành Chi Di?u.Th?n Ky có th? sánh b?ng Truong Qu? C?c,trí muu duong d?i Tái vô song.	44	5	-1	khiêu chi?n Binh Thánh k? tr?n l?y du?c Danh hi?u 
+265	25	uy danh l?n lao #GNg?o Chí nhân ki?t 	Hi?p to l?n Gi? Nhân nhi?t tình,Kiêm Hoài thiên h? báo qu?c Dân.Dung Phá k? tr?n C? Cu?ng L?,giang h? s? sách Luu phuong danh.	45	1	-1	khiêu chi?n Binh Thánh k? tr?n l?y du?c Danh hi?u 
+266	25	vu lu?c siêu phàm #Gduong d?i Hùng Ki?t 	k? tr?n sát khí m?i noi Ph?c,h?i h?t phá d?ch xu?t.m?c cho nguoi Phong Lâm Kh?i huy?t s?c,san b?ng h?a son Ch?n Liêu T?c.	45	2	-1	khiêu chi?n Binh Thánh k? tr?n l?y du?c Danh hi?u 
+267	25	Ki?m Ti?u nh?t phuong #Glang nhân tài gi?i d?p trai 	thân là giang h? hào ki?t Khách,Khu?c Hi?u tôn t? Vu M?c Thu.hùng tài vi lu?c phù chính Ð?o,ru?ng c?t nu?c nhà Chú Bi Thu.	45	3	-1	khiêu chi?n Binh Thánh k? tr?n l?y du?c Danh hi?u 
+268	25	uy ch?n qu?n hùng #GThu?ng Th?ng anh hào 	Binh Thánh thiên c? Tr? Tr?n Thu,Khi?t Ðan T?p Di?n ý Nam Ð?.Co Quan 1 tính h?t Chung Tao Khí,Tôn Vu di phong H?u T?ng Th?.	45	4	-1	khiêu chi?n Binh Thánh k? tr?n l?y du?c Danh hi?u 
+269	25	dung mãnh Tuy?t Nhân #Gsiêu phàm võ tông 	tinh thông tr?n pháp V?n chi d?o,Thâm U?n phá d?ch Hành Chi Di?u.Th?n Ky có th? sánh b?ng Truong Qu? C?c,trí muu duong d?i Tái vô song.	45	5	-1	khiêu chi?n Binh Thánh k? tr?n l?y du?c Danh hi?u 
+270	25	d?c b? giang h? #Gkinh th? vu tôn 	Hi?p to l?n Gi? Nhân nhi?t tình,Kiêm Hoài thiên h? báo qu?c Dân.Dung Phá k? tr?n C? Cu?ng L?,giang h? s? sách Luu phuong danh.	45	6	-1	khiêu chi?n Binh Thánh k? tr?n l?y du?c Danh hi?u 
+271	25	d? nh?t thiên h? #Gvô song võ thánh 	k? tr?n sát khí m?i noi Ph?c,h?i h?t phá d?ch xu?t.m?c cho nguoi Phong Lâm Kh?i huy?t s?c,san b?ng h?a son Ch?n Liêu T?c.	45	7	-1	khiêu chi?n Binh Thánh k? tr?n l?y du?c Danh hi?u 
+272	26	thành L?c Duong Ch? 	b?ng vào th?c l?c cu?ng d?i chi?m c? thành L?c Duong tài nang có quang vinh Danh hi?u.	47	1	-1	L?c Duong NPCChu Nhiên x? linh Ðích Thành Th? Danh hi?u 
+273	1012	#719	th?n tiên quy?n l? 	131	1	-1	cá tính Danh hi?u 
+274	1012	#720	tay m?i ch? d?o viên 	131	1	-1	cá tính Danh hi?u 
+275	1012	#704	th?n võ khai qu?c Công 	131	1	-1	cá tính Danh hi?u 
+276	1012	#705	Nhân Vu khai qu?c H?u 	131	1	-1	cá tính Danh hi?u 
+277	1012	#706	khai qu?c bá tu?c 	131	1	-1	cá tính Danh hi?u 
+278	1013	#712	tranh phách Tái #GToàn sao kim 	132	1	-1	cá tính Danh hi?u 
+279	1013	#713	ngu hành tôn ch? #GThiên Hoang d? quân 	133	1	-1	cá tính Danh hi?u 
+280	1014	#714	d? quân c?n v? 	131	1	-1	cá tính Danh hi?u 
+281	1014	#721	chí tôn vuong gi? 	131	1	-1	cá tính Danh hi?u 
+282	1014	#722	vô song chi?n th?n 	131	1	-1	cá tính Danh hi?u 
+283	1014	#724	phú giáp thiên h? 	131	1	-1	cá tính Danh hi?u 
+284	1014	#725	phú kh? d?ch qu?c 	131	1	-1	cá tính Danh hi?u 
+285	1014	#726	phú giáp m?t phuong 	131	1	-1	cá tính Danh hi?u 
+286	1014	#733	quân lâm thiên h? 	131	1	-1	cá tính Danh hi?u 
+287	1014	#734	Tuy?t Ð?nh Cao Th? 	131	1	-1	cá tính Danh hi?u 
+288	1014	#735	m?t d?i tông su 	131	1	-1	cá tính Danh hi?u 
+289	1014	#736	Li?t H?i Huy?n Tích 	131	1	-1	cá tính Danh hi?u 
+290	1014	#737	luy?n ng?c phu?ng hoàng 	131	1	-1	cá tính Danh hi?u 
+291	1014	#738	ph? h?n hoa yêu 	131	1	-1	cá tính Danh hi?u 
+292	1015	#496vô lu?ng d?ng thiên phong mang Hi?n #495	vô lu?ng Ng?c Ð?ng Tàng thiên thu,m?i vào lang hoàn Tri?n phong mang 	132	1	-1	t?p t? 10Cá Vô Nhai d? xanh,T?i Ð?i Lý (293,92)lý thanh La x? d?i thu du?c.
+293	1015	#498Tiêu Dao tiên ph? Vu th?ng t?i tr?i cao #497	Tiêu Dao võ h?c Tu V?n Nhân,giang h? l? v? Tiêu Dao Nhân 	132	2	-1	chính mình Danh hi?u: vô lu?ng d?ng thiên phong mang Hi?n,t?p t? 30Cá Vô Nhai d? xanh,T?i Ð?i Lý (293,92)lý thanh La x? d?i thu du?c.
+294	1015	#501lang hoàn di?n ng?c Túng Càn Khôn #502	Ki?m Ðãng lang hoàn v?n pháp Huu,Ð?p Phá Càn Khôn Danh thiên thu 	132	3	-1	chính mình Danh hi?u: Tiêu Dao tiên ph? Vu th?ng t?i tr?i cao,t?p t? 80Cá Vô Nhai d? xanh,T?i Ð?i Lý (293,92)lý thanh La x? d?i thu du?c.
+295	1015	#499Ng?o Lang Thiên Son Ch?n C?u Châu #500	huy ki?m c?u th? trong thiên d?a,c?u tiêu th?ng t?i tr?i cao Ð?p C?u Châu 	132	4	-1	chính mình Danh hi?u: lang hoàn di?n ng?c Túng Càn Khôn,t?p t? 200Cá Vô Nhai d? xanh,T?i Ð?i Lý (293,92)lý thanh La x? d?i thu du?c.

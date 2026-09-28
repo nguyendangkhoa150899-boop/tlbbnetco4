@@ -1,0 +1,30 @@
+;Hung thần ác sát ，Nhìn thấy Người Liền Nhào lên tới Chém ，Huyết Thiếu với 50%Khi Trị liệu (540)Chính mình,Cộng 5Thứ,Nhất định tỷ lệ Sử dụng Chịu trói (540)Cộng 3Thứ 
+[common]
+[commonend]
+
+;Chú ý Vật lý Công kích Kỹ năng Ưu tiên Cấp Hẳn là So Viễn trình Kỹ năng Ưu tiên Cấp Cao 
+[skill]
+0:if(AIS_IsCanSkill(160)=1){AIS_ToSkill(160);AIS_SetTimes(-1);AIS_SetPRI(30);};Nếu có thể Sử dụng 0Hào Kỹ năng Tắc Phóng thích ，Số lần Không Hạn （Bình thường Công kích ）
+1:if(AIS_GetAIState()=SATTACK&AIS_Rand()<10&AIS_IsCanSkill(161)=1){AIS_ToSkill(161);AIS_SetTimes(30);AIS_SetPRI(40);};Ở công kích Trạng thái 20%的Cơ suất Phóng thích 572Hào Kỹ năng ，Số lần 3
+2:if(AIS_GetAIState()=SATTACK&AIS_Rand()<10&AIS_IsCanSkill(163)=1){AIS_ToSkill(163);AIS_SetTimes(30);AIS_SetPRI(40);};Ở công kích Trạng thái 20%的Cơ suất Phóng thích 572Hào Kỹ năng ，Số lần 3
+
+3:if(AIS_GetAIState()=SATTACK&AIS_Rand()<10&AIS_IsCanSkill(165)=1){AIS_ToSkill(165);AIS_SetTimes(30);AIS_SetPRI(40);};Ở công kích Trạng thái 20%的Cơ suất Phóng thích 572Hào Kỹ năng ，Số lần 3
+4:if(AIS_GetAIState()=SATTACK&AIS_Rand()<10&AIS_IsCanSkill(173)=1){AIS_ToSkill(173);AIS_SetTimes(30);AIS_SetPRI(40);};Ở công kích Trạng thái 20%的Cơ suất Phóng thích 572Hào Kỹ năng ，Số lần 3
+5:if(AIS_GetAIState()=SATTACK&AIS_Rand()<10&AIS_IsCanSkill(171)=1){AIS_ToSkill(171);AIS_SetTimes(30);AIS_SetPRI(40);};Ở công kích Trạng thái 20%的Cơ suất Phóng thích 572Hào Kỹ năng ，Số lần 3
+6:if(AIS_GetAIState()=SATTACK&AIS_Rand()<10&AIS_IsCanSkill(175)=1){AIS_ToSkill(175);AIS_SetTimes(30);AIS_SetPRI(40);};Ở công kích Trạng thái 20%的Cơ suất Phóng thích 572Hào Kỹ năng ，Số lần 3
+7:if(AIS_GetAIState()=SATTACK&AIS_Rand()<10&AIS_IsCanSkill(180)=1){AIS_ToSkill(180);AIS_SetTimes(30);AIS_SetPRI(40);};Ở công kích Trạng thái 20%的Cơ suất Phóng thích 572Hào Kỹ năng ，Số lần 3
+8:if(AIS_GetAIState()=SATTACK&AIS_Rand()<10&AIS_IsCanSkill(181)=1){AIS_ToSkill(181);AIS_SetTimes(30);AIS_SetPRI(40);};Ở công kích Trạng thái 20%的Cơ suất Phóng thích 572Hào Kỹ năng ，Số lần 3
+9:if(AIS_GetAIState()=SATTACK&AIS_Rand()<10&AIS_IsCanSkill(182)=1){AIS_ToSkill(182);AIS_SetTimes(30);AIS_SetPRI(40);};Ở công kích Trạng thái 20%的Cơ suất Phóng thích 572Hào Kỹ năng ，Số lần 3
+10:if(AIS_GetAIState()=SATTACK&AIS_Rand()<10&AIS_IsCanSkill(183)=1){AIS_ToSkill(183);AIS_SetTimes(30);AIS_SetPRI(40);};Ở công kích Trạng thái 20%的Cơ suất Phóng thích 572Hào Kỹ năng ，Số lần 3
+
+[skillend]
+
+[beskill]
+[beskillend]
+
+[damage]
+[damageend]
+
+[dead]
+[deadend]
+

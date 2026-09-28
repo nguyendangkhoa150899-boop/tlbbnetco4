@@ -1,0 +1,27 @@
+;Hung thần ác sát ，Nhìn thấy Người Liền Nhào lên tới Chém ，Huyết Thiếu với 50%Khi Trị liệu (492)Chính mình,Cộng 5Thứ,Nhất định tỷ lệ Sử dụng Chịu trói (492)Cộng 3Thứ 
+[common]
+[commonend]
+
+;Chú ý Vật lý Công kích Kỹ năng Ưu tiên Cấp Hẳn là So Viễn trình Kỹ năng Ưu tiên Cấp Cao 
+[skill]
+0:if(AIS_IsCanSkill(108)=1){AIS_ToSkill(108);AIS_SetTimes(-1);AIS_SetPRI(30);};Nếu có thể Sử dụng 0Hào Kỹ năng Tắc Phóng thích ，Số lần Không Hạn （Bình thường Công kích ）
+1:if(AIS_GetAIState()=SATTACK&AIS_Rand()<10&AIS_IsCanSkill(492)=1){AIS_ToSkill(492);AIS_SetTimes(30);AIS_SetPRI(40);};Ở công kích Trạng thái 20%的Cơ suất Phóng thích 572Hào Kỹ năng ，Số lần 3
+2:if(AIS_GetAIState()=SATTACK&AIS_Rand()<30&AIS_IsCanSkill(493)=1){AIS_ToSkill(493);AIS_SetTimes(30);AIS_SetPRI(40);};Ở công kích Trạng thái 20%的Cơ suất Phóng thích 572Hào Kỹ năng ，Số lần 3
+3:if(AIS_GetAIState()=SATTACK&AIS_Rand()<20&AIS_IsCanSkill(498)=1){AIS_ToSkill(498);AIS_SetTimes(30);AIS_SetPRI(40);};Ở công kích Trạng thái 20%的Cơ suất Phóng thích 572Hào Kỹ năng ，Số lần 3
+4:if(AIS_GetAIState()=SATTACK&AIS_Rand()<20&AIS_IsCanSkill(501)=1){AIS_ToSkill(501);AIS_SetTimes(30);AIS_SetPRI(40);};Ở công kích Trạng thái 20%的Cơ suất Phóng thích 572Hào Kỹ năng ，Số lần 3
+5:if(AIS_GetAIState()=SATTACK&AIS_Rand()<20&AIS_IsCanSkill(505)=1){AIS_ToSkill(505);AIS_SetTimes(30);AIS_SetPRI(40);};Ở công kích Trạng thái 20%的Cơ suất Phóng thích 572Hào Kỹ năng ，Số lần 3
+6:if(AIS_GetAIState()=SATTACK&AIS_Rand()<20&AIS_IsCanSkill(513)=1){AIS_ToSkill(513);AIS_SetTimes(30);AIS_SetPRI(40);};Ở công kích Trạng thái 20%的Cơ suất Phóng thích 572Hào Kỹ năng ，Số lần 3
+7:if(AIS_GetAIState()=SATTACK&AIS_Rand()<20&AIS_IsCanSkill(507)=1){AIS_ToSkill(507);AIS_SetTimes(30);AIS_SetPRI(40);};Ở công kích Trạng thái 20%的Cơ suất Phóng thích 572Hào Kỹ năng ，Số lần 3
+8:if(AIS_GetAIState()=SATTACK&AIS_Rand()<20&AIS_IsCanSkill(516)=1){AIS_ToSkill(516);AIS_SetTimes(30);AIS_SetPRI(40);};Ở công kích Trạng thái 20%的Cơ suất Phóng thích 572Hào Kỹ năng ，Số lần 3
+
+[skillend]
+
+[beskill]
+[beskillend]
+
+[damage]
+[damageend]
+
+[dead]
+[deadend]
+

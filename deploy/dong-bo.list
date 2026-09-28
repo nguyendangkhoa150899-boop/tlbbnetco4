@@ -1,0 +1,49 @@
+# Cac duong dan (tinh tu /home/tlbb) duoc dong bo giua repo (thu muc server/) va server that.
+# Dong bat dau bang "-" la LOAI TRU (pattern cua rsync).
+#
+# Loai tru vi: chua mat khau / la du lieu dang chay (server tu ghi) / ten file lam hong Windows.
+
+# --- khong dong bo ---
+- *.goc
+- *.bak
+- *.truoc-doi-ten
+- Server/Config/LoginInfo.ini
+- Server/Config/ShareMemInfo.ini
+- Server/Config/GMList.ini
+- Server/Config/ItemSerial.ini
+- Server/Config/QianDao/
+- Server/Config/Paiming/
+- Server/Config/MingRenTang/
+- Server/Config/YbMarket/
+- Server/Config/DingWei/
+- Public/Data/Script/CDK/*.txt
+- Public/Data/Script/VanHoang/*.txt
+# Trung ten khi khong phan biet hoa/thuong (Windows): new <-> New, Open <-> OPEN
+- Public/Data/Script/new/
+- Public/Data/Script/MyLua/zhenyuan/ZhenYuaneventOpen.lua
+- Public/Data/Script/MyLua/zhenyuan/ZhenYuaneventOPEN.lua
+# Ten file tieng Trung (GBK) - Windows doc sai ten
+- *[!\ -~]*
+# Ky tu Windows cam trong ten file (vd ban do hong ten "?+-_monster.ini")
+- *\?*
+- *\**
+- *:*
+- *<*
+- *>*
+- *|*
+- *"*
+- *\\*
+
+# --- dong bo ---
++ Public/
++ Public/Data/
++ Public/Data/Script.dat
++ Public/Data/AIScript.dat
++ Public/Data/Script/***
++ Public/Data/AIScript/***
++ Public/Config/***
++ Public/Scene/
++ Public/Scene/*_monster.ini
++ Server/
++ Server/Config/***
+- *

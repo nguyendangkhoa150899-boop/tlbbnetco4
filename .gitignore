@@ -1,0 +1,17 @@
+# Mat khau va cau hinh rieng cua VPS - KHONG BAO GIO commit
+deploy/secrets.env
+deploy/config.env
+*.pem
+*.key
+id_*
+
+# Ban sao luu tao ra khi va/sua file
+*.goc
+*.bak
+*.truoc-doi-ten
+
+# Windows / editor
+Thumbs.db
+desktop.ini
+.vscode/
+__pycache__/
