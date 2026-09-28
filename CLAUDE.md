@@ -76,3 +76,6 @@ Xem `docs/PHAT-TRIEN.md`: cách đăng ký script, đặt NPC, bảng rơi đồ
 ## Đã vá so với bản public (đừng hoàn tác)
 
 Xem `docs/KIEM-TOAN.md`. Tóm tắt: tắt NPC phát Điểm Tặng/vàng/KNB vô hạn, lô đề số trúng viết cứng, Gift Code (mã VIP đã lộ), đổi thẻ cào, các handler ẩn, quyền gắn cứng theo GUID của server cũ, giới hạn cùng IP ở Thủy Lao. Dòng vá có chú thích `-- [don-dep]`.
+
+### 5. Tiến trình game và systemd (sự cố 28/09 17:40)
+Game chạy trong `tlbb.service`. **Không bao giờ** khởi động game từ tiến trình khác (panel, script tay qua SSH) rồi restart/stop tiến trình đó: systemd tắt cả nhóm con, kể cả MySQL và ShareMemory → mất dữ liệu nhân vật chưa lưu. Khởi động/restart game chỉ bằng `systemctl restart tlbb` (panel đã sửa để làm vậy). Nếu buộc phải chạy tay: `./tlbb.sh start` từ SSH thì trước khi đóng SSH hoặc restart panel, kiểm tra `systemctl status tlbb` xem game có nằm đúng unit không.

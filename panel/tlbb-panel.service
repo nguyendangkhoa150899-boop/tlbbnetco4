@@ -6,6 +6,8 @@ After=network.target
 ExecStart=/usr/bin/python3 /opt/tlbb-repo/panel/panel.py
 Restart=on-failure
 RestartSec=5
+# Chi tat chinh panel khi restart/stop, khong tat tien trinh con (phong khi lo spawn game tu panel)
+KillMode=process
 
 [Install]
 WantedBy=multi-user.target

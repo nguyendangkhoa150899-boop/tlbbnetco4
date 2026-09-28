@@ -228,8 +228,9 @@ def act(form):
         if running("Login"):
             subprocess.run(["pkill", "-9", "-x", "Login"])
             time.sleep(1)
-        subprocess.Popen(["setsid", "chroot", ROOT, "/bin/bash", "-c", "ulimit -n 65535; cd /home/tlbb/Server && exec ./Login"],
-                         stdin=subprocess.DEVNULL, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+        # systemd-run: Login chay trong unit rieng, khong dinh cgroup cua panel
+        subprocess.run(["systemd-run", "--quiet", "--collect", "--unit", "tlbb-login-%d" % int(time.time()),
+                        "chroot", ROOT, "/bin/bash", "-c", "ulimit -n 65535; cd /home/tlbb/Server && exec ./Login"])
         time.sleep(3)
         audit("go ket dang nhap %s (restart Login)" % (n or "tat ca"))
         return ("Da go ket %s. Doi 5-10 giay roi dang nhap lai. Neu van bi bao dang online, doi 1-2 phut "
@@ -237,8 +238,10 @@ def act(form):
             "Login KHONG len lai duoc - bam Restart server"
     if a == "restart":
         audit("restart server (online: %d)" % online_count())
-        subprocess.Popen(["setsid", os.path.join(DEPLOY, "tlbb.sh"), "restart"],
-                         stdout=open("/tmp/panel-restart.log", "w"), stderr=subprocess.STDOUT, stdin=subprocess.DEVNULL)
+        # QUA systemd: tien trinh game phai nam trong tlbb.service, KHONG nam trong cgroup cua panel.
+        # (28/09: restart game tu panel roi restart panel -> systemd tat luon ca game, mat du lieu.)
+        subprocess.Popen(["systemctl", "restart", "tlbb"], stdin=subprocess.DEVNULL,
+                         stdout=open("/tmp/panel-restart.log", "w"), stderr=subprocess.STDOUT)
         return "Dang restart (khoang 3 phut). Tai lai trang sau do."
     return "Hanh dong la: " + a
 
