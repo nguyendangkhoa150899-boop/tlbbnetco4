@@ -65,7 +65,7 @@ Repo có thể là public. Không commit `secrets.env`, `config.env`, `LoginInfo
 | `./cap-gm.sh <tên nv>` / `--tat-ca` / `--ds` | GM (ghi `GMList.ini`, cần restart) |
 | `./reset-choi-that.sh [--ca-tai-khoan]` | Xóa sạch dữ liệu chơi thử, bắt đầu chơi thật |
 | `./sao-luu.sh` | Sao lưu DB (cron 4h sáng, giữ 14 bản) |
-| Panel web | `panel/mo-panel.cmd` trên Windows → `http://127.0.0.1:8088` (tài khoản, online, phát quà, GM, restart) |
+| Panel web | https://103.216.118.123:8443 (mật khẩu `PANEL_PASS` trong secrets.env): tài khoản, online, phát quà, GM, restart |
 | `./04-doi-ten.sh` | Đổi tên server cũ thành `SERVER_NAME` |
 | `00`..`03-*.sh` | Dựng từ đầu từ `Ubuntu.vmdk` (đã chạy xong, xem `deploy/HUONG-DAN-VPS.md`) |
 
