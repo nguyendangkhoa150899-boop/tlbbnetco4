@@ -168,12 +168,14 @@ def act(form):
             msgs = [act(dict(form, guid=t)) for t in targets]
             bad = [m for m in msgs if not m.startswith("Da xep")]
             return bad[0] if bad else "Da xep hang qua cho %d nhan vat" % len(targets)
-        if not RE_INT.match(g) or kind not in ("item", "knb", "vang") or not RE_INT.match(val) or not RE_INT.match(cnt):
+        if not RE_INT.match(g) or kind not in ("item", "knb", "vang", "vip") or not RE_INT.match(val) or not RE_INT.match(cnt):
             return "Du lieu qua khong hop le"
         if kind == "item" and val not in ITEM_NAME:
             return "Khong co vat pham ID %s trong danh muc" % val
         if kind == "item" and not 1 <= int(cnt) <= 999:
             return "So luong 1-999"
+        if kind == "vip" and not 0 <= int(val) <= 10:
+            return "VIP 0-10"
         if kind == "knb" and not 1 <= int(val) <= 99999:
             return "KNB 1-99999 moi lan"
         os.makedirs(QUEUE, exist_ok=True)
@@ -181,7 +183,7 @@ def act(form):
         with open(os.path.join(QUEUE, g + ".txt"), "a", encoding="ascii", newline="\n") as f:
             f.write(line + "\n")
         audit("qua GUID %s: %s %s" % (g, line, ITEM_NAME.get(val, "") if kind == "item" else ""))
-        return "Da xep hang qua cho GUID %s: %s. Nhan vat nhan khi dang nhap (dang online thi thoat ra vao lai)." % (g, line)
+        return "Da xep hang qua cho GUID %s: %s. Nhan vat nhan khi dang nhap hoac doi ban do (dang online: dung truyen tong / qua cong)." % (g, line)
     if a == "huy_qua":
         g = v("guid")
         if RE_INT.match(g):
@@ -295,7 +297,7 @@ def page(msg="", q=""):
     # Nhan vat + phat qua
     give_form = ('<form method="post" class="row"><input type="hidden" name="t" value="%s"><input type="hidden" name="a" value="qua">'
                  '<input type="hidden" name="guid" value="%%s"><select name="loai"><option value="item">Vat pham (ID)</option>'
-                 '<option value="knb">KNB</option><option value="vang">Vang</option></select>'
+                 '<option value="knb">KNB</option><option value="vang">Vang</option><option value="vip">Cap VIP (0-10)</option></select>'
                  '<input name="gt" placeholder="ID / so" size="10" required pattern="\\d{1,10}">'
                  '<input name="sl" placeholder="SL" size="3" value="1" pattern="\\d{1,3}"><button%%s>%%s</button></form>') % TOKEN
     out.append('<section><h2>Nhan vat (%d) - phat qua / GM</h2>' % len(chs))
@@ -313,7 +315,7 @@ def page(msg="", q=""):
         on = '<b class="on">online</b>' if acc in online_acc else '<span class="muted">-</span>'
         out.append("<tr><td>%s</td><td>%s</td><td><b>%s</b></td><td>%s</td><td>%s</td><td>%s%s</td><td>%s</td><td>%s</td></tr>" % (
             esc(g), esc(acc), esc(name), esc(lv), on, "GM " if g in gms else "", gm, pend_s, give))
-    out.append('</table><p class="muted">Qua duoc phat khi nhan vat <b>dang nhap</b> (dang online: thoat ra vao lai). '
+    out.append('</table><p class="muted">Qua duoc phat khi nhan vat <b>dang nhap hoac doi ban do</b> (dang online: dung truyen tong / qua cong). '
                'Tui day thi phan con lai nhan o lan sau. Doi GM can restart.</p></section>')
 
     # Tim vat pham

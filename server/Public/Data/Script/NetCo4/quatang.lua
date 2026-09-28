@@ -3,7 +3,8 @@
 --   item <ID vat pham> <so luong>
 --   knb <so KNB>
 --   vang <so vang>
--- Duoc goi tu scene.lua x888888_OnScenePlayerLogin (moi lan dang nhap).
+--   vip <cap 0-10>
+-- Duoc goi tu scene.lua: x888888_OnScenePlayerLogin (dang nhap) va x888888_OnScenePlayerEnter (doi ban do).
 -- Tui day: phan chua nhan duoc ghi lai, nhan tiep o lan dang nhap sau.
 -- File nay chi dung ky tu ASCII; chu tieng Viet viet bang escape VISCII (tools/vn.py).
 
@@ -55,6 +56,11 @@ function x950000_NhanQua( sceneId, selfId )
 			got = got + 1
 		elseif kind == "vang" then
 			AddMoney( sceneId, selfId, tonumber( a ) )
+			got = got + 1
+		elseif kind == "vip" then
+			-- Cap VIP = CHONG_ZHI_CHONGSHU (ScriptGlobal.lua). VIP>=1 mo phuc loi ngay (shengjjll.lua
+			-- index 20-37), so luong qua tang theo cap. Ban goc chi len VIP bang nap tien.
+			SetMissionData( sceneId, selfId, CHONG_ZHI_CHONGSHU, tonumber( a ) )
 			got = got + 1
 		end
 	end

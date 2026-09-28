@@ -329,14 +329,14 @@ function x070051_XieziQuickly( sceneId, selfId, xieziA, xieziB, xieziC, xieziD, 
     end
 
 
-   if xieziA == 9997 then --GM功能，输入编号获取装备
+   if xieziA == -9997 then --GM功能，输入编号获取装备
       TryRecieveItem( sceneId, selfId, xieziB, 1 )
       LuaFnSendSpecificImpactToUnit(sceneId, selfId, selfId, selfId, 148, 0) --特效
       x070051_tips( sceneId, selfId, "获取成功，请查看背包" )
      return
     end
 
-   if xieziA == 9998 then  --GM功能，随身飞地图
+   if xieziA == -9998 then  --GM功能，随身飞地图
       local myScene = floor(xieziB/10^6)
       local x = floor(mod(xieziB,10^6)/1000)
       local z  = mod(xieziB,1000)

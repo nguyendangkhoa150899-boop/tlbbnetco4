@@ -136,6 +136,7 @@ end
 
 
 function x888888_OnScenePlayerEnter( sceneId, playerId, isReconnect )
+	CallScriptFunction( 950000, "NhanQua", sceneId, playerId ) -- [NetCo4] qua tu panel khi doi ban do
 	--设置缺省的复活信息
 	CallScriptFunction( 402314, "DoAutoGetExpLogic", sceneId, playerId )
 	-- 清除临时阵营（例如挑战之类的，避免因为一些不能捕捉的移动事件——死亡等——导致一些未期望的阵营号被带出原场景）
