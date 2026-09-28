@@ -31,7 +31,7 @@ Panel tìm được không dấu (`trung lau giap`). Sau khi đổi `EquipBase.t
 Ví dụ: `grep -i "Nhãn Thạch" docs/vat-pham/ngoc-bao-thach.tsv`, `grep 重楼 docs/vat-pham/trang-bi.tsv`.
 Một số ID đã biết: Trùng Lâu Giới `10422016`/`10422018`, Trùng Lâu Ngọc `10423024`/`10423026`, Chân·Trùng Lâu Ngọc `10423025`, Miêu Nhãn Thạch cấp 1 `50101001`.
 Bộ Trùng Lâu do server cũ thêm (tên đỏ, `EquipBase.txt`): Giáp `10553110`/Chân `10553111`, Đai `10553106`/`10553107`, Hộ kiên `10553108`/`10553109`, Liên `10553100`,`10553112`/Chân `10553103`, Giới `10553101`,`10553113`/Chân `10553104`, Ngọc `10553102`,`10553114`/Chân `10553105`. Code vòng quay cũ từng gỡ riêng `10553100` ("Trọng Liên đã xóa bỏ"), nên tạo thử bằng GM trước khi phát.
-Có sẵn (server cũ dịch là "Trọng Lâu", đã sửa thành "Trùng Lâu" 28/09): Trùng Lâu Chi Lệ `20310185`, Chi Mang `20310186`, Chi Thương `20310187`, Chi Dương `20310188` (bản cũ hơn `20310100`–`20310102`), Kim Tàm Ti `20310166`–`20310168`, Trùng Lâu Giới/Ngọc Lễ Hạp `38000642`–`38000645`. **Không có:** Nhuận Hồn Thạch, Mảnh đổi Yếu Quyết.
+Có sẵn (server cũ dịch là "Trọng Lâu", đã sửa thành "Trùng Lâu" 28/09): Trùng Lâu Chi Lệ `20310185`, Chi Mang `20310186`, Chi Thương `20310187`, Chi Dương `20310188` (bản cũ hơn `20310100`–`20310102`), Kim Tàm Ti `20310166`–`20310168`, Trùng Lâu Giới/Ngọc Lễ Hạp `38000642`–`38000645`. Nhuận Hồn Thạch có 36 bản `20310122`–`20310157` (Ngự/Kích/Phá/Bạo, cấp 1–9). **Không có:** Mảnh đổi Yếu Quyết.
 Thử nhanh trong game (tài khoản GM): `!!createitem =ID =số_lượng`. Nếu tên hiện trống hoặc client lỗi thì client không có vật phẩm đó.
 Làm lại danh mục sau khi đổi bảng: xem cách tạo trong lịch sử git (`docs/vat-pham/`, script python đọc GBK/VISCII).
 
