@@ -4,6 +4,7 @@
 --   knb <so KNB>
 --   vang <so vang>
 --   diemtang <so Diem Tang>
+--   level <cap 1-119>   (chi len cap, khong ha cap)
 --   vip <cap 0-10>
 -- Duoc goi tu scene.lua: x888888_OnScenePlayerLogin (dang nhap) va x888888_OnScenePlayerEnter (doi ban do).
 -- Tui day: phan chua nhan duoc ghi lai, nhan tiep o lan dang nhap sau.
@@ -60,6 +61,12 @@ function x950000_NhanQua( sceneId, selfId )
 			got = got + 1
 		elseif kind == "diemtang" then
 			ZengDian( sceneId, selfId, -1, 1, tonumber( a ) )
+			got = got + 1
+		elseif kind == "level" then
+			-- SetLevel giong qua Tan Thu 8887 (obj/loulangucheng/oloulan_malan.lua)
+			if GetLevel( sceneId, selfId ) < tonumber( a ) then
+				SetLevel( sceneId, selfId, tonumber( a ) )
+			end
 			got = got + 1
 		elseif kind == "vip" then
 			-- Cap VIP = CHONG_ZHI_CHONGSHU (ScriptGlobal.lua). VIP>=1 mo phuc loi ngay (shengjjll.lua
