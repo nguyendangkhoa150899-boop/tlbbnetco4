@@ -28,6 +28,7 @@ DEPLOY = os.path.join(REPO, "deploy")
 ROOT = "/opt/tlbb-root"
 GAME = ROOT + "/home/tlbb"
 QUEUE = GAME + "/Server/txt/NetCo4Qua"
+CAPMIN = QUEUE + "/_capmin.txt"            # cap toi thieu toan server (quatang.lua x950000_CapMin)
 POPUP = GAME + "/Server/txt/NetCo4Popup"   # qua popup (cua so Qua ngay le) do admin chon nguoi
 GMLIST = GAME + "/Server/Config/GMList.ini"
 MYSQL = "/usr/local/mysql5.0.45/bin/mysql"
@@ -220,6 +221,16 @@ def act(form):
             f.write(line + "\n")
         audit("qua GUID %s: %s %s" % (g, line, ITEM_NAME.get(val, "") if kind == "item" else ""))
         return "Da xep hang qua cho GUID %s: %s. Nhan vat nhan khi dang nhap hoac doi ban do (dang online: dung truyen tong / qua cong)." % (g, line)
+    if a == "capmin":
+        val = v("gt")
+        if not RE_INT.match(val) or not 0 <= int(val) <= 119:
+            return "Cap toi thieu 0-119 (0 = tat)"
+        os.makedirs(QUEUE, exist_ok=True)
+        with open(CAPMIN, "w", encoding="ascii", newline="\n") as f:
+            f.write(str(int(val)) + "\n")
+        audit("cap toi thieu toan server = %s" % int(val))
+        return ("Da tat cap toi thieu" if int(val) == 0 else
+                "Cap toi thieu = %s: nhan vat da vao mon phai se len cap khi dang nhap/doi ban do (ca nhan vat moi)" % int(val))
     if a == "huy_qua":
         g = v("guid")
         if RE_INT.match(g):
@@ -345,6 +356,14 @@ def page(msg="", q=""):
     out.append('<section><h2>Nhan vat (%d) - phat qua / GM</h2>' % len(chs))
     out.append('<div class="row"><b>Gui cho TAT CA nhan vat:</b> %s</div><br>' % (
         give_form % ("all", ' class="r" onclick="return confirm(\'Gui cho tat ca nhan vat?\')"', "Gui tat ca")))
+    try:
+        capmin = open(CAPMIN).read().strip() or "0"
+    except OSError:
+        capmin = "0"
+    out.append('<form method="post" class="row"><input type="hidden" name="t" value="%s"><input type="hidden" name="a" value="capmin">'
+               '<b>Cap toi thieu toan server:</b><input name="gt" value="%s" size="4" required pattern="\\d{1,3}"><button>Luu</button>'
+               '<span class="muted">0 = tat. Nhan vat da vao mon phai ma thap hon se len cap khi dang nhap/doi ban do, ke ca nhan vat tao sau nay.'
+               ' Can script moi (restart game sau lan deploy dau).</span></form><br>' % (TOKEN, esc(capmin)))
     out.append('<table><tr><th>GUID</th><th>Tai khoan</th><th>Nhan vat</th>'
                '<th>Cap</th><th>Online</th><th>GM</th><th>Qua dang cho</th><th>Phat qua</th></tr>')
     for g, acc, name, lv in chs:

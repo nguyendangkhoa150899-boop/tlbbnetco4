@@ -13,7 +13,34 @@
 x950000_g_ScriptId = 950000
 x950000_g_Dir = "./txt/NetCo4Qua/"
 
+-- Cap toi thieu toan server: panel ghi so cap vao _capmin.txt (0 = tat). Nhan vat da vao mon phai
+-- ma duoi cap nay thi len cap khi dang nhap/doi ban do, ke ca nhan vat moi tao.
+-- Bat vao phai truoc giong qua Tan Thu 8887 (oloulan_malan.lua), tranh pha phan tan thu.
+function x950000_CapMin( sceneId, selfId )
+	local h = openfile( x950000_g_Dir.."_capmin.txt", "r" )
+	if h == nil then
+		return
+	end
+	local s = read( h, "*l" )
+	closefile( h )
+	if s == nil then
+		return
+	end
+	local n = tonumber( s )
+	if n == nil or n < 1 or n > 119 then
+		return
+	end
+	if GetMenPai( sceneId, selfId ) == 9 then
+		return
+	end
+	if GetLevel( sceneId, selfId ) < n then
+		SetLevel( sceneId, selfId, n )
+		x950000_Tip( sceneId, selfId, "B\213n \240\227 \240\223\254c n\226ng l\234n c\164p "..n )
+	end
+end
+
 function x950000_NhanQua( sceneId, selfId )
+	x950000_CapMin( sceneId, selfId )
 	local guid = LuaFnGetGUID( sceneId, selfId )
 	local path = x950000_g_Dir..guid..".txt"
 	local h = openfile( path, "r" )
