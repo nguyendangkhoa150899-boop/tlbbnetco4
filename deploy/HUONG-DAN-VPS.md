@@ -5,7 +5,7 @@ Thay thế cho `../HUONG-DAN-DUNG-SERVER.md` (bản cũ chạy máy ảo trong m
 | Thông tin | Giá trị |
 |---|---|
 | VPS | `103.216.118.123`, Ubuntu 22.04, SSH cổng `24700` |
-| Thư mục script | `/opt/tlbb-deploy` |
+| Thư mục script | `/opt/tlbb-deploy` (symlink tới `/opt/tlbb-repo/deploy`, repo GitHub `tlbbnetco4`) |
 | Hệ điều hành game (Ubuntu 10.04 cũ, chạy chroot) | `/opt/tlbb-root` |
 | Server game | `/opt/tlbb-root/home/tlbb` |
 | Sao lưu | `/opt/tlbb-backup` |
@@ -42,6 +42,25 @@ Người chơi không tự đăng ký được (`auto_reg` đã tắt).
 2. `./cap-gm.sh --ds` để xem tên nhân vật.
 3. `./cap-gm.sh TenNhanVat`, rồi `./tlbb.sh restart`.
 
+Giai đoạn test, cho **tất cả** là GM: `./cap-gm.sh --tat-ca`, rồi `./tlbb.sh restart`.
+
+## Test xong, bắt đầu chơi thật
+
+```bash
+./tlbb.sh stop
+./reset-choi-that.sh                 # xóa nhân vật, đồ, bang, xếp hạng, GM list. GIỮ tài khoản
+# ./reset-choi-that.sh --ca-tai-khoan  # xóa cả tài khoản (trừ admin)
+./tlbb.sh start
+```
+Có sao lưu trước khi xóa (`/opt/tlbb-backup/truoc-reset-*.sql.gz`). Code và event đã làm vẫn giữ nguyên.
+
+## Cập nhật code từ GitHub
+
+```bash
+./cap-nhat.sh          # kéo code mới, xem trước, hỏi trước khi áp dụng và trước khi restart
+./lay-tu-server.sh --push   # khi có ai sửa trực tiếp trên server: đưa ngược về GitHub
+```
+
 ## Sao lưu
 
 ```bash
@@ -57,7 +76,7 @@ Bản gốc trước khi dọn: `/opt/tlbb-backup/db-goc-*.sql.gz`, `home-goc.ta
    powershell -ExecutionPolicy Bypass -File .\sua-client.ps1 -ClientDir "D:\...\Thien Long Gate"
    ```
    Script trỏ client về VPS, tắt tự cập nhật từ web server cũ, xóa tên đăng nhập cũ đã lưu.
-3. Mở game bằng `Run.cmd`. **Không chạy `fixgame.cmd`.**
+3. Mở game bằng `NetCo4.cmd` (gói `NetCo4-Client.zip` đã sửa sẵn, không cần chạy script). **Không chạy `fixgame.cmd`.**
 
 ## Đã dọn gì so với bản public
 

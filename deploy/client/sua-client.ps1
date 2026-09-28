@@ -45,4 +45,4 @@ Get-ChildItem (Join-Path $ClientDir 'Accounts') -Directory -Filter '#*' -ErrorAc
 Write-Host "Da xoa ten dang nhap cu trong Accounts\"
 
 Write-Host ""
-Write-Host "Xong. Mo game bang Run.cmd. KHONG chay fixgame.cmd (no reset tuong lua va mang Windows)."
+Write-Host "Xong. Mo game bang NetCo4.cmd (hoac Run.cmd). KHONG chay fixgame.cmd (no reset tuong lua va mang Windows)."

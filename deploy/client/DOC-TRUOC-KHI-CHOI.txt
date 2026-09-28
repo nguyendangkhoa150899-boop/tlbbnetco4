@@ -9,11 +9,11 @@ NETCO4 - THIÊN LONG BÁT BỘ 3D
    theo khả năng nhưng KHÔNG thể đảm bảo 100% file này sạch.
    Nếu bạn chấp nhận rủi ro:
      Windows Security > Virus & threat protection > Manage settings
-     > Exclusions > Add an exclusion > Folder > chọn thư mục Thien Long Gate\Bin
+     > Exclusions > Add an exclusion > Folder > chọn thư mục NetCo4\Bin
    Sau đó giải nén lại file Bin\RSSParser.dll từ file zip.
    Không muốn chấp nhận rủi ro thì đừng chơi trên máy chứa dữ liệu quan trọng.
 
-3. Mở game bằng Run.cmd. Chọn server NetCo4.
+3. Mở game bằng NetCo4.cmd. Chọn server NetCo4.
 
 4. Tài khoản: nhắn admin để được tạo. Server không cho tự đăng ký,
    nút "Đăng ký" và "Nạp thẻ" trong game không dùng được (server chỉ cày, không nạp).
