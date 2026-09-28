@@ -10,3 +10,4 @@ server/** -text
 deploy/*.list text eol=lf
 deploy/config.env.example text eol=lf
 tools/*.py text eol=lf
+*.service text eol=lf

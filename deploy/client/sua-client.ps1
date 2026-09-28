@@ -39,7 +39,18 @@ $ver = (Get-Content (Join-Path $ClientDir '(version)') -Raw).Trim()
 [IO.File]::WriteAllBytes($pi, $raw.GetBytes("[Version]`r`nLatest=$ver`r`nNewLaunch=1.0.0`r`n"))
 Write-Host "patchinfo.txt: da tat tu cap nhat (phien ban $ver)"
 
-# 3. Xoa ten dang nhap cua nguoi choi cu da luu
+# 3. Choi che do cua so (khong full man hinh) 1280x720. Doi trong game: He thong > Cai dat hien thi
+$cfg = Join-Path $ClientDir 'Accounts\System.cfg'
+if (Test-Path $cfg) {
+    Backup $cfg
+    $c = $raw.GetString([IO.File]::ReadAllBytes($cfg))
+    $c = $c -replace '(?m)^View_FullScreen=1', 'View_FullScreen=0'
+    $c = $c -replace '(?m)^View_Resoution=[^\r\n]*', 'View_Resoution=1280,720'
+    [IO.File]::WriteAllBytes($cfg, $raw.GetBytes($c))
+    Write-Host "System.cfg: che do cua so 1280x720"
+}
+
+# 4. Xoa ten dang nhap cua nguoi choi cu da luu
 Get-ChildItem (Join-Path $ClientDir 'Accounts') -Directory -Filter '#*' -ErrorAction SilentlyContinue |
     Remove-Item -Recurse -Force
 Write-Host "Da xoa ten dang nhap cu trong Accounts\"

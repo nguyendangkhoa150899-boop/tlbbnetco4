@@ -1,0 +1,16 @@
+[Unit]
+Description=TLBB NetCo4 game server (chroot /opt/tlbb-root)
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=oneshot
+RemainAfterExit=yes
+ExecStart=/opt/tlbb-deploy/tlbb.sh start
+ExecStop=/opt/tlbb-deploy/tlbb.sh stop
+# ShareMemory can thoi gian ghi du lieu xuong DB khi tat
+TimeoutStartSec=600
+TimeoutStopSec=900
+
+[Install]
+WantedBy=multi-user.target

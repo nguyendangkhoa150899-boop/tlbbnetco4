@@ -23,7 +23,9 @@ Mọi lệnh dưới đây chạy bằng root, trong thư mục `/opt/tlbb-deplo
 ./tlbb.sh restart
 ```
 
-**Không bấm Tắt máy / Khởi động cứng trên iNET khi server đang chạy.** ShareMemory giữ dữ liệu nhân vật trong RAM và chỉ ghi xuống database khi tắt đúng cách. Luôn `./tlbb.sh stop` trước.
+Server chạy bằng dịch vụ `tlbb.service`: tự bật khi VPS khởi động, tự lưu và tắt khi VPS tắt. `systemctl status tlbb` để xem.
+
+**Không bấm Khởi động cứng trên iNET khi server đang chạy.** Trước khi nâng cấp RAM/CPU: `./tlbb.sh stop`. Sau đó kiểm tra `ufw status` phải là `active`. ShareMemory giữ dữ liệu nhân vật trong RAM và chỉ ghi xuống database khi tắt đúng cách. Luôn `./tlbb.sh stop` trước.
 
 ## Tài khoản (chỉ admin tạo)
 
