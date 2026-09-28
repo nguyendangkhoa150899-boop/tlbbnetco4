@@ -183,6 +183,8 @@ def act(form):
             return "VIP 0-10"
         if kind == "knb" and not 1 <= int(val) <= 99999:
             return "KNB 1-99999 moi lan"
+        if kind == "vang" and not 1 <= int(val) <= 1000000000:  # AddMoney nhan int32
+            return "Vang 1-1000000000 moi lan"
         if kind == "popup":
             os.makedirs(POPUP, exist_ok=True)
             with open(os.path.join(POPUP, g + ".txt"), "w", encoding="ascii", newline="\n") as f:
@@ -313,9 +315,9 @@ def page(msg="", q=""):
 
     # Nhan vat + phat qua
     give_form = ('<form method="post" class="row"><input type="hidden" name="t" value="%s"><input type="hidden" name="a" value="qua">'
-                 '<input type="hidden" name="guid" value="%%s"><select name="loai"><option value="item">Vat pham (ID)</option>'
+                 '<input type="hidden" name="guid" value="%%s"><select name="loai" onchange="loai(this)"><option value="item">Vat pham (ID)</option>'
                  '<option value="knb">KNB</option><option value="vang">Vang</option><option value="vip">Cap VIP (0-10)</option><option value="popup">Qua popup (cua so, chon nguoi)</option></select>'
-                 '<input name="gt" placeholder="ID / so" size="10" required pattern="\\d{1,10}">'
+                 '<input name="gt" placeholder="ID vat pham" size="12" required pattern="\\d{1,10}">'
                  '<input name="sl" placeholder="SL" size="3" value="1" pattern="\\d{1,3}"><button%%s>%%s</button></form>') % TOKEN
     out.append('<section><h2>Nhan vat (%d) - phat qua / GM</h2>' % len(chs))
     out.append('<div class="row"><b>Gui cho TAT CA nhan vat:</b> %s</div><br>' % (
@@ -354,6 +356,11 @@ def page(msg="", q=""):
         btn("go_ket", "Go ket dang nhap (tat ca)", cls="g"),
         btn("restart", "Restart server", cls="r", confirm="Restart server? Nguoi dang choi se bi ngat."), online_count()))
     out.append("</main>")
+    # Form phat qua: o "gt" la ID (vat pham/popup) hoac so (KNB/vang/VIP); o SL chi dung cho vat pham
+    out.append('<script>function loai(s){var f=s.form,it=s.value=="item";'
+               'f.gt.placeholder={item:"ID vat pham",knb:"So KNB (1-99999)",vang:"So vang",vip:"Cap VIP 0-10",popup:"ID vat pham"}[s.value];'
+               'f.sl.style.display=it?"":"none";f.sl.disabled=!it}'
+               'document.querySelectorAll("select[name=loai]").forEach(loai)</script>')
     return "".join(out)
 
 
