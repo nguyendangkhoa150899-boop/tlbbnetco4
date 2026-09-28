@@ -1,0 +1,19 @@
+NETCO4 - BAN SUA CHO CLIENT DA TAI
+==================================
+
+Dung khi ban da tai client tu truoc (ban cu: toan man hinh / chua vao duoc NetCo4).
+Neu tai NetCo4-Client.zip moi thi KHONG can goi nay.
+
+1. Giai nen tat ca file trong goi nay VAO THU MUC GAME
+   (thu muc co san Bin, Data, Patch, Accounts). Chon "Replace/Ghi de" neu duoc hoi.
+2. Chay CAI-DAT-FIX.cmd. Windows hoi quyen admin thi bam Yes.
+3. Mo game bang NetCo4.cmd.
+
+Goi nay lam:
+- Tro ve server NetCo4 (103.216.118.123)
+- Choi che do cua so 1280x720 (khong full man hinh)
+- Tat tu cap nhat tu web server cu
+- Chan link la cua nut Nap the / Dang ky
+- Xoa ten dang nhap cu da luu
+
+Van loi rssparser.dll / 0xc0000906: xem muc 2 trong DOC-TRUOC-KHI-CHOI.txt.

@@ -34,6 +34,9 @@ start() {
         wait_mysql "-uroot -p'$MYSQL_ROOT_PASS'" || die "MySQL khong len. Xem $ROOT/usr/local/mysql5.0.45/var/*.err"
     fi
 
+    # Server vua bat thi chua ai online (billing chi xoa co online khi thoat dung cach)
+    mysql_root "-e 'UPDATE web.account SET is_online=0'" || true
+
     log "Billing"
     is_running billing || spawn_chroot "cd /home && exec ./billing >>/home/billing.log 2>&1"
     sleep 2

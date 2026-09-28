@@ -99,8 +99,10 @@ RE_INT = re.compile(r"^\d{1,10}$")
 
 
 def accounts():
-    # is_online do billing ghi khi dang nhap / thoat (crash server co the de lai gia tri cu)
-    return [(r[0].decode(), r[1].decode(), r[2].decode() == "1")
+    # is_online do billing ghi khi dang nhap / thoat. Restart/crash server de lai gia tri cu,
+    # nen neu khong co ket noi game nao thi coi nhu khong ai online.
+    anyone = online_count() > 0
+    return [(r[0].decode(), r[1].decode(), anyone and r[2].decode() == "1")
             for r in sql("SELECT id, name, is_online FROM web.account ORDER BY id")]
 
 
@@ -195,6 +197,28 @@ def act(form):
         write_gm(cur)
         audit("%s GUID %s" % (a, g))
         return "Da cap nhat GM list. Can RESTART server de co hieu luc."
+    if a == "go_ket":
+        # Bi disconnect ma khong vao lai duoc: xoa co online + chi khoi dong lai Login (~3 giay).
+        # Nguoi dang choi khong bi van (ho ket noi toi Server:3731, khong phai Login:7384).
+        n = v("ten")
+        if n and not RE_ACC.match(n):
+            return "Ten khong hop le"
+        sql("UPDATE web.account SET is_online=0" + (" WHERE name='%s'" % n if n else ""))
+        subprocess.run(["pkill", "-x", "Login"])
+        for _ in range(10):
+            if not running("Login"):
+                break
+            time.sleep(1)
+        if running("Login"):
+            subprocess.run(["pkill", "-9", "-x", "Login"])
+            time.sleep(1)
+        subprocess.Popen(["setsid", "chroot", ROOT, "/bin/bash", "-c", "ulimit -n 65535; cd /home/tlbb/Server && exec ./Login"],
+                         stdin=subprocess.DEVNULL, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+        time.sleep(3)
+        audit("go ket dang nhap %s (restart Login)" % (n or "tat ca"))
+        return ("Da go ket %s. Doi 5-10 giay roi dang nhap lai. Neu van bi bao dang online, doi 1-2 phut "
+                "(server con giu nhan vat cu) roi thu lai." % (n or "tat ca tai khoan")) if running("Login") else \
+            "Login KHONG len lai duoc - bam Restart server"
     if a == "restart":
         audit("restart server (online: %d)" % online_count())
         subprocess.Popen(["setsid", os.path.join(DEPLOY, "tlbb.sh"), "restart"],
@@ -263,8 +287,9 @@ def page(msg="", q=""):
                '<input type="hidden" name="ten" value="%s"><input name="mk" placeholder="mat khau moi" size="12" required>'
                '<button class="g">Doi MK</button></form> ') % (TOKEN, esc(n))
         xoa = btn("xoa_tk", "Xoa", {"ten": n}, "r", "Xoa tai khoan %s?" % n) if n != "admin" else ""
-        out.append("<tr><td>%s</td><td>%s</td><td>%s</td><td>%s%s</td></tr>" % (
-            esc(i), esc(n), '<b class="on">online</b>' if on else '<span class="muted">-</span>', doi, xoa))
+        ket = btn("go_ket", "Go ket", {"ten": n}, "g")
+        out.append("<tr><td>%s</td><td>%s</td><td>%s</td><td>%s%s %s</td></tr>" % (
+            esc(i), esc(n), '<b class="on">online</b>' if on else '<span class="muted">-</span>', doi, ket, xoa))
     out.append("</table></section>")
 
     # Nhan vat + phat qua
@@ -304,7 +329,10 @@ def page(msg="", q=""):
     out.append("</section>")
 
     # Server
-    out.append('<section><h2>Server</h2><div class="row">%s<span class="muted">Dang co %d nguoi online se bi ngat ket noi.</span></div></section>' % (
+    out.append('<section><h2>Server</h2><div class="row">%s<span class="muted">Bi disconnect ma khong vao lai duoc: '
+               'chi khoi dong lai Login, nguoi dang choi khong bi van.</span></div><br><div class="row">%s'
+               '<span class="muted">Dang co %d nguoi online se bi ngat ket noi (~3 phut).</span></div></section>' % (
+        btn("go_ket", "Go ket dang nhap (tat ca)", cls="g"),
         btn("restart", "Restart server", cls="r", confirm="Restart server? Nguoi dang choi se bi ngat."), online_count()))
     out.append("</main>")
     return "".join(out)

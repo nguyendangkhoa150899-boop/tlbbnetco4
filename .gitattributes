@@ -12,3 +12,5 @@ deploy/config.env.example text eol=lf
 tools/*.py text eol=lf
 *.service text eol=lf
 panel/*.cmd -text
+deploy/client/*.cmd -text
+deploy/client/*.txt -text
