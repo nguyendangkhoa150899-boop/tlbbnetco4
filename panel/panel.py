@@ -27,6 +27,7 @@ DEPLOY = os.path.join(REPO, "deploy")
 ROOT = "/opt/tlbb-root"
 GAME = ROOT + "/home/tlbb"
 QUEUE = GAME + "/Server/txt/NetCo4Qua"
+POPUP = GAME + "/Server/txt/NetCo4Popup"   # qua popup (cua so Qua ngay le) do admin chon nguoi
 GMLIST = GAME + "/Server/Config/GMList.ini"
 MYSQL = "/usr/local/mysql5.0.45/bin/mysql"
 LOG = "/opt/tlbb-backup/panel.log"
@@ -126,9 +127,13 @@ def write_gm(guids):
 
 def pending(guid):
     p = os.path.join(QUEUE, guid + ".txt")
-    if not os.path.exists(p):
-        return []
-    return [l.strip() for l in open(p, encoding="ascii", errors="replace") if l.strip()]
+    out = [l.strip() for l in open(p, encoding="ascii", errors="replace") if l.strip()] if os.path.exists(p) else []
+    pp = os.path.join(POPUP, guid + ".txt")
+    if os.path.exists(pp):
+        v = open(pp, encoding="ascii", errors="replace").read().strip()
+        if v:
+            out.append("popup " + v)
+    return out
 
 
 def act(form):
@@ -168,9 +173,9 @@ def act(form):
             msgs = [act(dict(form, guid=t)) for t in targets]
             bad = [m for m in msgs if not m.startswith("Da xep")]
             return bad[0] if bad else "Da xep hang qua cho %d nhan vat" % len(targets)
-        if not RE_INT.match(g) or kind not in ("item", "knb", "vang", "vip") or not RE_INT.match(val) or not RE_INT.match(cnt):
+        if not RE_INT.match(g) or kind not in ("item", "knb", "vang", "vip", "popup") or not RE_INT.match(val) or not RE_INT.match(cnt):
             return "Du lieu qua khong hop le"
-        if kind == "item" and val not in ITEM_NAME:
+        if kind in ("item", "popup") and val not in ITEM_NAME:
             return "Khong co vat pham ID %s trong danh muc" % val
         if kind == "item" and not 1 <= int(cnt) <= 999:
             return "So luong 1-999"
@@ -178,6 +183,12 @@ def act(form):
             return "VIP 0-10"
         if kind == "knb" and not 1 <= int(val) <= 99999:
             return "KNB 1-99999 moi lan"
+        if kind == "popup":
+            os.makedirs(POPUP, exist_ok=True)
+            with open(os.path.join(POPUP, g + ".txt"), "w", encoding="ascii", newline="\n") as f:
+                f.write(val + "\n")
+            audit("popup GUID %s: item %s %s" % (g, val, ITEM_NAME.get(val, "")))
+            return "Da dat qua popup cho GUID %s: %s. Nguoi choi thay cua so qua khi vao game (moi nguoi 1 mon, dat lai se thay mon cu)." % (g, ITEM_NAME.get(val, val))
         os.makedirs(QUEUE, exist_ok=True)
         line = "item %s %s" % (val, cnt) if kind == "item" else "%s %s" % (kind, val)
         with open(os.path.join(QUEUE, g + ".txt"), "a", encoding="ascii", newline="\n") as f:
@@ -188,6 +199,9 @@ def act(form):
         g = v("guid")
         if RE_INT.match(g):
             open(os.path.join(QUEUE, g + ".txt"), "w").close()
+            pp = os.path.join(POPUP, g + ".txt")
+            if os.path.exists(pp):
+                open(pp, "w").close()
             audit("huy qua GUID %s" % g)
             return "Da huy qua cho GUID %s" % g
     if a in ("gm_bat", "gm_tat"):
@@ -297,7 +311,7 @@ def page(msg="", q=""):
     # Nhan vat + phat qua
     give_form = ('<form method="post" class="row"><input type="hidden" name="t" value="%s"><input type="hidden" name="a" value="qua">'
                  '<input type="hidden" name="guid" value="%%s"><select name="loai"><option value="item">Vat pham (ID)</option>'
-                 '<option value="knb">KNB</option><option value="vang">Vang</option><option value="vip">Cap VIP (0-10)</option></select>'
+                 '<option value="knb">KNB</option><option value="vang">Vang</option><option value="vip">Cap VIP (0-10)</option><option value="popup">Qua popup (cua so, chon nguoi)</option></select>'
                  '<input name="gt" placeholder="ID / so" size="10" required pattern="\\d{1,10}">'
                  '<input name="sl" placeholder="SL" size="3" value="1" pattern="\\d{1,3}"><button%%s>%%s</button></form>') % TOKEN
     out.append('<section><h2>Nhan vat (%d) - phat qua / GM</h2>' % len(chs))
@@ -307,7 +321,7 @@ def page(msg="", q=""):
                '<th>Cap</th><th>Online</th><th>GM</th><th>Qua dang cho</th><th>Phat qua</th></tr>')
     for g, acc, name, lv in chs:
         pend = pending(g)
-        pend_s = "<br>".join(esc(p + ("  " + ITEM_NAME.get(p.split()[1], "") if p.startswith("item") else "")) for p in pend) or '<span class="muted">-</span>'
+        pend_s = "<br>".join(esc(p + ("  " + ITEM_NAME.get(p.split()[1], "") if p.startswith(("item", "popup")) else "")) for p in pend) or '<span class="muted">-</span>'
         if pend:
             pend_s += "<br>" + btn("huy_qua", "Huy", {"guid": g}, "g")
         gm = (btn("gm_tat", "Tat GM", {"guid": g}, "r") if g in gms else btn("gm_bat", "Cap GM", {"guid": g}, "g"))
@@ -449,6 +463,7 @@ if __name__ == "__main__":
     if not PANEL_PASS or len(PANEL_PASS) < 16:
         raise SystemExit("Thieu PANEL_PASS (>=16 ky tu) trong deploy/secrets.env")
     os.makedirs(QUEUE, exist_ok=True)
+    os.makedirs(POPUP, exist_ok=True)
     crt, key = CERT_DIR + "/panel.crt", CERT_DIR + "/panel.key"
     if not os.path.exists(crt):
         os.makedirs(CERT_DIR, mode=0o700, exist_ok=True)

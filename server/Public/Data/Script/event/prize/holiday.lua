@@ -47,7 +47,34 @@ end
 --**********************************
 --打开UI之前的检测
 --**********************************
+-- [NetCo4] Qua popup do admin chon nguoi (panel): Server/txt/NetCo4Popup/<GUID>.txt chua 1 dong = ID vat pham.
+-- Dung lai cua so Qua ngay le (UI 20170919): dang nhap thay cua so + icon, bam Nhan -> MyHolidayGet phat.
+function x888903_NetCo4Popup( sceneId, selfId )
+	local h = openfile( "./txt/NetCo4Popup/"..LuaFnGetGUID( sceneId, selfId )..".txt", "r" )
+	if h == nil then
+		return 0
+	end
+	local line = read( h, "*l" )
+	closefile( h )
+	local id = tonumber( line )
+	if id == nil then
+		return 0
+	end
+	return id
+end
+
 function x888903_MyHolidayGift( sceneId, selfId )
+   local nc4 = x888903_NetCo4Popup( sceneId, selfId ) -- [NetCo4]
+   if nc4 > 0 then
+	BeginUICommand( sceneId )
+	UICommand_AddInt( sceneId, 99 )
+	UICommand_AddInt( sceneId, nc4 )
+	UICommand_AddInt( sceneId, 0 )
+	EndUICommand( sceneId )
+	DispatchUICommand( sceneId, selfId, 20170919 )
+	return
+   end
+
    local happyday = 0
    local biaojiday = GetMissionData(sceneId,selfId,HOLIDAYDATA)
    local holTaday = mod(GetTime2Day(),10000)
@@ -71,6 +98,21 @@ end
 --节假日领奖
 --**********************************
 function x888903_MyHolidayGet( sceneId, selfId )
+   local nc4 = x888903_NetCo4Popup( sceneId, selfId ) -- [NetCo4]
+   if nc4 > 0 then
+	if LuaFnGetPropertyBagSpace( sceneId, selfId ) < 1 then
+		x888903_Tips( sceneId, selfId, "T\250i \240\165y, c\165n 1 \244 tr\175ng \240\172 nh\167n qu\224" )
+		return
+	end
+	TryRecieveItem( sceneId, selfId, nc4, 1 )
+	local h = openfile( "./txt/NetCo4Popup/"..LuaFnGetGUID( sceneId, selfId )..".txt", "w" )
+	if h then
+		closefile( h )
+	end
+	x888903_Tips( sceneId, selfId, "\208\227 nh\167n qu\224 t\215 admin NetCo4" )
+	return
+   end
+
    local biaojiday = GetMissionData(sceneId,selfId,HOLIDAYDATA)
    local holTaday = mod(GetTime2Day(),10000)
    if x888903_g_Holiday[holTaday] ~= nil then
