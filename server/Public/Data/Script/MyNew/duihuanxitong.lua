@@ -21,10 +21,10 @@ x112000_g_EquipList={
 }
 
 x112000_g_StoneList={
-{n=1,id=20310185,num=300,str="Tr÷ng Lâu Chi L®"},
-{n=2,id=20310186,num=300,str="Tr÷ng Lâu Chi Mang"},
-{n=3,id=20310187,num=300,str="Tr÷ng Lâu Chi Thß½ng"},
-{n=4,id=20310188,num=300,str="Tr÷ng Lâu Chi Dß½ng"},
+{n=1,id=20310185,num=300,str="Trùng Lâu Chi L®"},
+{n=2,id=20310186,num=300,str="Trùng Lâu Chi Mang"},
+{n=3,id=20310187,num=300,str="Trùng Lâu Chi Thß½ng"},
+{n=4,id=20310188,num=300,str="Trùng Lâu Chi Dß½ng"},
 {n=5,id=20310189,num=300,str="Thiên Ð¸a Minh Châu"},
 {n=6,id=20310190,num=300,str="Lßu Ly Minh Châu"},
 
@@ -68,10 +68,10 @@ local nam = LuaFnGetName(sceneId,selfId)
 	if key == 10 then
 	BeginEvent( sceneId )
 	AddText(sceneId," #c66ccff 1.#cFF0000Có th¬ dùng 20 nguyên li®u trùng các loÕi ð¬ ð±i th¶i trang thuµc tính")
-	AddNumText( sceneId, x112000_g_scriptId, "#g0f0ff0Tr÷ng Lâu Chi L® ð±i Th·i trang ", 6, 101 )
-	AddNumText( sceneId, x112000_g_scriptId, "#g0f0ff0Tr÷ng Lâu Chi Mang ð±i Th·i trang ", 6, 102 )
-	AddNumText( sceneId, x112000_g_scriptId, "#g0f0ff0Tr÷ng Lâu Chi Thß½ng ð±i Th·i trang ", 6, 103 )
-	AddNumText( sceneId, x112000_g_scriptId, "#g0f0ff0Tr÷ng Lâu Chi Dß½ng ð±i Th·i trang ", 6, 104 )
+	AddNumText( sceneId, x112000_g_scriptId, "#g0f0ff0Trùng Lâu Chi L® ð±i Th·i trang ", 6, 101 )
+	AddNumText( sceneId, x112000_g_scriptId, "#g0f0ff0Trùng Lâu Chi Mang ð±i Th·i trang ", 6, 102 )
+	AddNumText( sceneId, x112000_g_scriptId, "#g0f0ff0Trùng Lâu Chi Thß½ng ð±i Th·i trang ", 6, 103 )
+	AddNumText( sceneId, x112000_g_scriptId, "#g0f0ff0Trùng Lâu Chi Dß½ng ð±i Th·i trang ", 6, 104 )
 	AddNumText( sceneId, x112000_g_scriptId, "#g0f0ff0Thiên Ð¸a Minh Châu ð±i Th·i trang ", 6, 105 )
 	AddNumText( sceneId, x112000_g_scriptId, "#g0f0ff0Lßu Ly Minh Châu ð±i Th·i trang ", 6, 106 )
 	EndEvent( sceneId )
@@ -249,7 +249,7 @@ local nam = LuaFnGetName(sceneId,selfId)
 		UICommand_AddInt( sceneId, 10553103) --×°±¸¿ªÊ¼
 		UICommand_AddInt( sceneId, 10553111)  --×°±¸½áÊø
 		UICommand_AddInt( sceneId, 30505813)  --ÎïÆ·id
-		UICommand_AddString(sceneId,"#cFF0000Tr÷ng t¦y Tr÷ng Lâu");
+		UICommand_AddString(sceneId,"#cFF0000Tr÷ng t¦y Trùng Lâu");
 		UICommand_AddString(sceneId,"    #YN½i ðây ta chuy®n tr÷ng t¦y thuµc tính các loÕi trùng");
 		UICommand_AddString(sceneId,"#YTr÷ng lâu:");
 		UICommand_AddString(sceneId,"#YNguyên li®u:");

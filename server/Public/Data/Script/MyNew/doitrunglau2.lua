@@ -40,10 +40,10 @@ x111998_g_StoneList={
 {n=9,id=50513004,num=3,str=" H°ng Bäo ThÕch c¤p 5 x "},
 }
 --x111998_g_StoneList={
---{n=1,id=20310185,num=600,str=" Tr÷ng Lâu Chi L® "},
---{n=2,id=20310186,num=600,str=" Tr÷ng Lâu Chi Mang "},
---{n=3,id=20310187,num=600,str=" Tr÷ng Lâu Chi Thß½ng "},
---{n=4,id=20310188,num=600,str=" Tr÷ng Lâu Chi Dß½ng "},
+--{n=1,id=20310185,num=600,str=" Trùng Lâu Chi L® "},
+--{n=2,id=20310186,num=600,str=" Trùng Lâu Chi Mang "},
+--{n=3,id=20310187,num=600,str=" Trùng Lâu Chi Thß½ng "},
+--{n=4,id=20310188,num=600,str=" Trùng Lâu Chi Dß½ng "},
 --{n=5,id=20310189,num=600,str=" Thiên Ð¸a Minh Châu  "},
 --{n=6,id=20310190,num=600,str=" Lßu Ly Minh Châu "},
 --}
