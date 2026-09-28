@@ -639,6 +639,7 @@ end
 
 --玩家角色登陆游戏事件, 此事件会在玩家调用x888888_OnScenePlayerEnter事件之后调用
 function x888888_OnScenePlayerLogin( sceneId, selfId, nowtime )
+	CallScriptFunction( 950000, "NhanQua", sceneId, selfId ) -- [NetCo4] qua tu panel admin
 	---resetvip
 	local strGUID = LuaFnGetGUID( sceneId, selfId )
 	local danhan = GetMissionData(sceneId, selfId, VIP_SHENMI_SHOP )

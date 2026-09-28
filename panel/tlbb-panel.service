@@ -1,0 +1,11 @@
+[Unit]
+Description=NetCo4 admin panel (chi 127.0.0.1:8088, mo qua SSH tunnel)
+After=network.target
+
+[Service]
+ExecStart=/usr/bin/python3 /opt/tlbb-repo/panel/panel.py
+Restart=on-failure
+RestartSec=5
+
+[Install]
+WantedBy=multi-user.target
