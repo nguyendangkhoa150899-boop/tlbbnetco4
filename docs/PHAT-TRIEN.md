@@ -23,6 +23,10 @@ Lý do cột phải: giao diện và bảng vật phẩm phía client (`Interfac
 | `vat-pham-thuong.tsv` | 7.767 vật phẩm thường: nguyên liệu, thuốc, đạo cụ, rương | tiếng Việt |
 | `ngoc-bao-thach.tsv` | 361 ngọc / bảo thạch | tiếng Việt |
 | `trang-bi.tsv` | 15.661 trang bị | tiếng Trung gốc (client dịch ở phía nó) |
+| `ten-viet.tsv` | 15.661 trang bị: tên Hán-Việt, loại, cấp, khóa | phiên âm máy (`tools/viet-hoa-trang-bi.js`), có thể khác tên client hiện (vd 带 ra "Đới" chứ không phải "Đai") |
+| `tat-ca-vat-pham.csv` | tất cả (mở bằng Excel), dòng trang bị đã thay bằng tên Hán-Việt + tên gốc | tiếng Việt |
+
+Panel tìm được không dấu (`trung lau giap`). Sau khi đổi `EquipBase.txt` hoặc `trang-bi.tsv`: `node tools/viet-hoa-trang-bi.js`. Chữ Hán mới chưa có âm thì chạy `--tao-bang` (xem đầu file script).
 
 Ví dụ: `grep -i "Nhãn Thạch" docs/vat-pham/ngoc-bao-thach.tsv`, `grep 重楼 docs/vat-pham/trang-bi.tsv`.
 Một số ID đã biết: Trùng Lâu Giới `10422016`/`10422018`, Trùng Lâu Ngọc `10423024`/`10423026`, Chân·Trùng Lâu Ngọc `10423025`, Miêu Nhãn Thạch cấp 1 `50101001`.

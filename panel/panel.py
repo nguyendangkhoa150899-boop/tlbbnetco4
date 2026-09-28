@@ -14,6 +14,7 @@ import re
 import secrets
 import subprocess
 import time
+import unicodedata
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 from urllib.parse import parse_qs, urlencode, urlparse
 
@@ -90,7 +91,25 @@ for fn, kind in [("vat-pham-thuong.tsv", "Vat pham"), ("ngoc-bao-thach.tsv", "Ng
             c = line.rstrip("\n").split("\t")
             if len(c) >= 2 and c[0].isdigit():
                 ITEMS.append((c[0], c[1], kind))
+# Trang bi chi co ten tieng Trung: ghep ten Han-Viet tu ten-viet.tsv (tools/viet-hoa-trang-bi.js)
+VN = {}
+_p = os.path.join(REPO, "docs", "vat-pham", "ten-viet.tsv")
+if os.path.exists(_p):
+    for line in open(_p, encoding="utf-8"):
+        c = line.rstrip("\r\n").split("\t")
+        if len(c) >= 6 and c[0].isdigit():
+            VN[c[0]] = "%s [%s, cấp %s, %s] %s" % (c[1], c[2], c[3], c[4], c[5])
+ITEMS = [(i, VN.get(i, n), k) for i, n, k in ITEMS]
 ITEM_NAME = {i: n for i, n, _ in ITEMS}
+
+
+def khong_dau(s):
+    """Tim khong dau: 'Trùng Lâu Giáp' -> 'trung lau giap'."""
+    s = unicodedata.normalize("NFD", s.lower().replace("đ", "d"))
+    return re.sub(r"[-_·]+", " ", "".join(ch for ch in s if unicodedata.category(ch) != "Mn"))
+
+
+ITEM_KEY = {i: khong_dau(n) for i, n, _ in ITEMS}
 
 
 # ---------------------------------------------------------------- hanh dong
@@ -340,11 +359,11 @@ def page(msg="", q=""):
                'Tui day thi phan con lai nhan o lan sau. Doi GM can restart.</p></section>')
 
     # Tim vat pham
-    out.append('<section><h2>Tim ID vat pham</h2><form method="get" class="row"><input name="q" value="%s" placeholder="vd: Nhan Thach, 重楼, 10422016" size="40">'
+    out.append('<section><h2>Tim ID vat pham</h2><form method="get" class="row"><input name="q" value="%s" placeholder="vd: trung lau giap, nhan thach, 10553110 (khong can dau)" size="40">'
                '<button>Tim</button><span class="muted">%d vat pham trong danh muc</span></form>' % (esc(q), len(ITEMS)))
     if q:
-        ql = q.lower()
-        hits = [it for it in ITEMS if ql in it[1].lower() or ql == it[0]][:80]
+        ql = khong_dau(q.strip())
+        hits = [it for it in ITEMS if ql in ITEM_KEY[it[0]] or ql == it[0]][:80]
         out.append("<table><tr><th>ID</th><th>Ten</th><th>Loai</th></tr>")
         for i, n, k in hits:
             out.append("<tr><td><code>%s</code></td><td>%s</td><td>%s</td></tr>" % (esc(i), esc(n), esc(k)))
