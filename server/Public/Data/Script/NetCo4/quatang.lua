@@ -5,6 +5,7 @@
 --   vang <so vang>
 --   diemtang <so Diem Tang>
 --   level <cap 1-119>   (chi len cap, khong ha cap)
+--   xoa <ID vat pham> <so luong>   (admin xoa khoi tui, vd do khong vut duoc)
 --   vip <cap 0-10>
 -- Duoc goi tu scene.lua: x888888_OnScenePlayerLogin (dang nhap) va x888888_OnScenePlayerEnter (doi ban do).
 -- Tui day: phan chua nhan duoc ghi lai, nhan tiep o lan dang nhap sau.
@@ -93,6 +94,16 @@ function x950000_NhanQua( sceneId, selfId )
 				SetLevel( sceneId, selfId, tonumber( a ) )
 			end
 			got = got + 1
+		elseif kind == "xoa" then
+			-- Xoa toi da n cai, co bao nhieu xoa bay nhieu. Khong tinh la "nhan qua" (khong hien thong bao)
+			local id = tonumber( a )
+			local co = LuaFnGetAvailableItemCount( sceneId, selfId, id )
+			if co > n then
+				co = n
+			end
+			if co > 0 then
+				LuaFnDelAvailableItem( sceneId, selfId, id, co )
+			end
 		elseif kind == "vip" then
 			-- Cap VIP = CHONG_ZHI_CHONGSHU (ScriptGlobal.lua). VIP>=1 mo phuc loi ngay (shengjjll.lua
 			-- index 20-37), so luong qua tang theo cap. Ban goc chi len VIP bang nap tien.
