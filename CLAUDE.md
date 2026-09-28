@@ -1,6 +1,7 @@
 # NetCo4: server Thiên Long Bát Bộ 3D (private, ~10 người chơi)
 
 Đọc hết file này trước khi sửa bất cứ thứ gì. Các quy tắc ở đây có từ những lỗi đã gặp thật.
+**Tiến độ, việc tiếp theo, những gì chưa kiểm chứng: `docs/TRANG-THAI.md`.** Cập nhật file đó mỗi khi xong một việc.
 
 ## Hệ thống (dựng 28/09/2026)
 
