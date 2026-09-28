@@ -17,7 +17,11 @@ import time
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 from urllib.parse import parse_qs, urlencode, urlparse
 
-HOST, PORT = "127.0.0.1", 8088
+HOST, PORT = "0.0.0.0", 8443         # HTTPS, mo ra internet (ufw allow 8443), bat buoc dang nhap
+PUBLIC_IP = "103.216.118.123"
+CERT_DIR = "/etc/tlbb-panel"          # chung chi tu ky, KHONG nam trong repo
+SESSION_HOURS = 12
+MAX_FAIL, LOCK_MIN = 5, 15
 REPO = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 DEPLOY = os.path.join(REPO, "deploy")
 ROOT = "/opt/tlbb-root"
@@ -40,6 +44,9 @@ def load_env(path):
 
 
 SECRETS = load_env(os.path.join(DEPLOY, "secrets.env"))
+PANEL_PASS = SECRETS.get("PANEL_PASS", "")
+SESSIONS = {}   # cookie -> het han (epoch)
+FAILS = {}      # ip -> [so lan sai, khoa den (epoch)]
 REV = {v: k for k, v in json.load(open(os.path.join(REPO, "tools", "viscii-map.json"), encoding="utf-8")).items()}
 
 
@@ -234,7 +241,7 @@ def page(msg="", q=""):
     out = ['<!doctype html><meta charset="utf-8"><meta name="viewport" content="width=device-width">',
            '<title>NetCo4 Admin</title><style>%s</style>' % CSS,
            '<header><b>NetCo4 Admin</b><span class="st">%s</span><span class="st">Online: %d</span>'
-           '<span class="st">RAM: %d/%d MB</span></header><main>' % (procs, online_count(), tot - avail, tot)]
+           '<span class="st">RAM: %d/%d MB</span><a href="/logout" style="color:#fff;margin-left:auto">Dang xuat</a></header><main>' % (procs, online_count(), tot - avail, tot)]
     if msg:
         out.append('<div class="msg">%s</div>' % esc(msg))
     try:
@@ -303,9 +310,59 @@ def page(msg="", q=""):
     return "".join(out)
 
 
+LOGIN_PAGE = ('<!doctype html><meta charset="utf-8"><meta name="viewport" content="width=device-width">'
+              '<title>NetCo4 Admin</title><style>{CSS}</style><main style="max-width:360px;margin:12vh auto">'
+              '<section><h2>NetCo4 Admin</h2>{MSG}<form method="post" action="/login" class="row">'
+              '<input type="password" name="p" placeholder="mat khau panel" autofocus required style="flex:1">'
+              '<button>Dang nhap</button></form></section></main>').replace('{CSS}', CSS)
+
+
+def login_page(msg):
+    return LOGIN_PAGE.replace("{MSG}", msg)
+
+
 class H(BaseHTTPRequestHandler):
     def _host_ok(self):
-        return self.headers.get("Host", "") in ("127.0.0.1:%d" % PORT, "localhost:%d" % PORT)
+        return self.headers.get("Host", "") in ("%s:%d" % (h, PORT) for h in (PUBLIC_IP, "127.0.0.1", "localhost"))
+
+    def _ip(self):
+        return self.client_address[0]
+
+    def _cookie(self):
+        m = re.search(r"(?:^|;\s*)nc4=([A-Za-z0-9_-]+)", self.headers.get("Cookie", ""))
+        return m.group(1) if m else ""
+
+    def _authed(self):
+        c = self._cookie()
+        exp = SESSIONS.get(c)
+        if exp and exp > time.time():
+            return True
+        SESSIONS.pop(c, None)
+        return False
+
+    def _login(self):
+        ip = self._ip()
+        n, until = FAILS.get(ip, [0, 0])
+        if until > time.time():
+            return self._send(login_page('<p class="off">IP bi khoa %d phut do sai qua nhieu lan.</p>' % LOCK_MIN), 429)
+        ln = int(self.headers.get("Content-Length", 0) or 0)
+        p = parse_qs(self.rfile.read(min(ln, 2000)).decode("utf-8", "replace")).get("p", [""])[0]
+        if PANEL_PASS and secrets.compare_digest(p, PANEL_PASS):
+            FAILS.pop(ip, None)
+            c = secrets.token_urlsafe(32)
+            SESSIONS[c] = time.time() + SESSION_HOURS * 3600
+            audit("dang nhap panel tu %s" % ip)
+            self.send_response(303)
+            self.send_header("Set-Cookie", "nc4=%s; Path=/; Max-Age=%d; HttpOnly; Secure; SameSite=Strict" % (c, SESSION_HOURS * 3600))
+            self.send_header("Location", "/")
+            self.send_header("Content-Length", "0")
+            self.end_headers()
+            return
+        n += 1
+        FAILS[ip] = [n, time.time() + LOCK_MIN * 60 if n >= MAX_FAIL else 0]
+        audit("SAI mat khau panel tu %s (lan %d)" % (ip, n))
+        time.sleep(1)
+        self._send(login_page('<p class="off">Sai mat khau.</p>'), 401)
 
     def _send(self, body, code=200):
         b = body.encode("utf-8")
@@ -313,6 +370,8 @@ class H(BaseHTTPRequestHandler):
         self.send_header("Content-Type", "text/html; charset=utf-8")
         self.send_header("Content-Length", str(len(b)))
         self.send_header("X-Frame-Options", "DENY")
+        self.send_header("Cache-Control", "no-store")
+        self.send_header("Strict-Transport-Security", "max-age=86400")
         self.end_headers()
         self.wfile.write(b)
 
@@ -326,12 +385,21 @@ class H(BaseHTTPRequestHandler):
     def do_GET(self):
         if not self._host_ok():
             return self._send("Forbidden", 403)
+        if urlparse(self.path).path == "/logout":
+            SESSIONS.pop(self._cookie(), None)
+            return self._send(login_page(""))
+        if not self._authed():
+            return self._send(login_page(""))
         qs = parse_qs(urlparse(self.path).query)
         self._send(page(msg=qs.get("m", [""])[0], q=qs.get("q", [""])[0]))
 
     def do_POST(self):
         if not self._host_ok():
             return self._send("Forbidden", 403)
+        if urlparse(self.path).path == "/login":
+            return self._login()
+        if not self._authed():
+            return self._send(login_page(""), 401)
         n = int(self.headers.get("Content-Length", 0) or 0)
         form = {k: v[0] for k, v in parse_qs(self.rfile.read(min(n, 10000)).decode("utf-8", "replace")).items()}
         if not secrets.compare_digest(form.get("t", ""), TOKEN):
@@ -347,6 +415,21 @@ class H(BaseHTTPRequestHandler):
 
 
 if __name__ == "__main__":
+    import ssl
+    if not PANEL_PASS or len(PANEL_PASS) < 16:
+        raise SystemExit("Thieu PANEL_PASS (>=16 ky tu) trong deploy/secrets.env")
     os.makedirs(QUEUE, exist_ok=True)
-    print("NetCo4 panel: http://%s:%d" % (HOST, PORT))
-    ThreadingHTTPServer((HOST, PORT), H).serve_forever()
+    crt, key = CERT_DIR + "/panel.crt", CERT_DIR + "/panel.key"
+    if not os.path.exists(crt):
+        os.makedirs(CERT_DIR, mode=0o700, exist_ok=True)
+        subprocess.run(["openssl", "req", "-x509", "-newkey", "rsa:2048", "-nodes", "-days", "3650",
+                        "-subj", "/CN=%s" % PUBLIC_IP, "-addext", "subjectAltName=IP:%s" % PUBLIC_IP,
+                        "-keyout", key, "-out", crt], check=True, capture_output=True)
+        os.chmod(key, 0o600)
+    srv = ThreadingHTTPServer((HOST, PORT), H)
+    ctx = ssl.SSLContext(ssl.PROTOCOL_TLS_SERVER)
+    ctx.minimum_version = ssl.TLSVersion.TLSv1_2
+    ctx.load_cert_chain(crt, key)
+    srv.socket = ctx.wrap_socket(srv.socket, server_side=True)
+    print("NetCo4 panel: https://%s:%d" % (PUBLIC_IP, PORT))
+    srv.serve_forever()

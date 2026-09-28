@@ -1,5 +1,5 @@
 [Unit]
-Description=NetCo4 admin panel (chi 127.0.0.1:8088, mo qua SSH tunnel)
+Description=NetCo4 admin panel (HTTPS :8443, bat buoc dang nhap)
 After=network.target
 
 [Service]
