@@ -315,7 +315,7 @@ def page(msg="", q=""):
 
     # Nhan vat + phat qua
     give_form = ('<form method="post" class="row"><input type="hidden" name="t" value="%s"><input type="hidden" name="a" value="qua">'
-                 '<input type="hidden" name="guid" value="%%s"><select name="loai" onchange="loai(this)"><option value="item">Vat pham (ID)</option>'
+                 '<input type="hidden" name="guid" value="%%s"><select name="loai"><option value="item">Vat pham (ID)</option>'
                  '<option value="knb">KNB</option><option value="vang">Vang</option><option value="vip">Cap VIP (0-10)</option><option value="popup">Qua popup (cua so, chon nguoi)</option></select>'
                  '<input name="gt" placeholder="ID vat pham" size="12" required pattern="\\d{1,10}">'
                  '<input name="sl" placeholder="SL" size="3" value="1" pattern="\\d{1,3}"><button%%s>%%s</button></form>') % TOKEN
@@ -357,10 +357,11 @@ def page(msg="", q=""):
         btn("restart", "Restart server", cls="r", confirm="Restart server? Nguoi dang choi se bi ngat."), online_count()))
     out.append("</main>")
     # Form phat qua: o "gt" la ID (vat pham/popup) hoac so (KNB/vang/VIP); o SL chi dung cho vat pham
-    out.append('<script>function loai(s){var f=s.form,it=s.value=="item";'
+    # Gan su kien trong script, KHONG dung onchange="..." inline: trong handler inline, ten "loai" bi form.loai (chinh o select) che mat
+    out.append('<script>function doiLoai(s){var f=s.form,it=s.value=="item";'
                'f.gt.placeholder={item:"ID vat pham",knb:"So KNB (1-99999)",vang:"So vang",vip:"Cap VIP 0-10",popup:"ID vat pham"}[s.value];'
                'f.sl.style.display=it?"":"none";f.sl.disabled=!it}'
-               'document.querySelectorAll("select[name=loai]").forEach(loai)</script>')
+               'document.querySelectorAll("select[name=loai]").forEach(function(s){s.onchange=function(){doiLoai(s)};doiLoai(s)})</script>')
     return "".join(out)
 
 
