@@ -34,7 +34,7 @@ Mật khẩu không có trong repo (repo public). Tài khoản game `admin`: đ�
 ## Panel admin
 
 - Xem ai đang online. Tạo, đổi mật khẩu, xóa tài khoản.
-- Phát **vật phẩm (theo ID) / KNB / vàng** cho 1 hoặc **tất cả** nhân vật. Nhân vật nhận khi **đăng nhập** (đang online thì thoát ra vào lại).
+- Phát **vật phẩm (theo ID) / KNB / vàng / Điểm Tặng / cấp VIP** cho 1 hoặc **tất cả** nhân vật. Nhân vật nhận khi **đăng nhập** (đang online thì thoát ra vào lại).
 - Bật/tắt GM (cần restart), tìm ID vật phẩm, **Gỡ kẹt đăng nhập** (khi bị disconnect không vào lại được: chỉ khởi động lại Login, người đang chơi không bị văng), Restart server.
 - Mọi thao tác ghi vào `/opt/tlbb-backup/panel.log`.
 

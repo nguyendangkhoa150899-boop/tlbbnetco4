@@ -3,6 +3,7 @@
 --   item <ID vat pham> <so luong>
 --   knb <so KNB>
 --   vang <so vang>
+--   diemtang <so Diem Tang>
 --   vip <cap 0-10>
 -- Duoc goi tu scene.lua: x888888_OnScenePlayerLogin (dang nhap) va x888888_OnScenePlayerEnter (doi ban do).
 -- Tui day: phan chua nhan duoc ghi lai, nhan tiep o lan dang nhap sau.
@@ -56,6 +57,9 @@ function x950000_NhanQua( sceneId, selfId )
 			got = got + 1
 		elseif kind == "vang" then
 			AddMoney( sceneId, selfId, tonumber( a ) )
+			got = got + 1
+		elseif kind == "diemtang" then
+			ZengDian( sceneId, selfId, -1, 1, tonumber( a ) )
 			got = got + 1
 		elseif kind == "vip" then
 			-- Cap VIP = CHONG_ZHI_CHONGSHU (ScriptGlobal.lua). VIP>=1 mo phuc loi ngay (shengjjll.lua

@@ -173,7 +173,7 @@ def act(form):
             msgs = [act(dict(form, guid=t)) for t in targets]
             bad = [m for m in msgs if not m.startswith("Da xep")]
             return bad[0] if bad else "Da xep hang qua cho %d nhan vat" % len(targets)
-        if not RE_INT.match(g) or kind not in ("item", "knb", "vang", "vip", "popup") or not RE_INT.match(val) or not RE_INT.match(cnt):
+        if not RE_INT.match(g) or kind not in ("item", "knb", "vang", "diemtang", "vip", "popup") or not RE_INT.match(val) or not RE_INT.match(cnt):
             return "Du lieu qua khong hop le"
         if kind in ("item", "popup") and val not in ITEM_NAME:
             return "Khong co vat pham ID %s trong danh muc" % val
@@ -185,6 +185,8 @@ def act(form):
             return "KNB 1-99999 moi lan"
         if kind == "vang" and not 1 <= int(val) <= 1000000000:  # AddMoney nhan int32
             return "Vang 1-1000000000 moi lan"
+        if kind == "diemtang" and not 1 <= int(val) <= 10000000:
+            return "Diem Tang 1-10000000 moi lan"
         if kind == "popup":
             os.makedirs(POPUP, exist_ok=True)
             with open(os.path.join(POPUP, g + ".txt"), "w", encoding="ascii", newline="\n") as f:
@@ -316,7 +318,7 @@ def page(msg="", q=""):
     # Nhan vat + phat qua
     give_form = ('<form method="post" class="row"><input type="hidden" name="t" value="%s"><input type="hidden" name="a" value="qua">'
                  '<input type="hidden" name="guid" value="%%s"><select name="loai"><option value="item">Vat pham (ID)</option>'
-                 '<option value="knb">KNB</option><option value="vang">Vang</option><option value="vip">Cap VIP (0-10)</option><option value="popup">Qua popup (cua so, chon nguoi)</option></select>'
+                 '<option value="knb">KNB</option><option value="vang">Vang</option><option value="diemtang">Diem Tang</option><option value="vip">Cap VIP (0-10)</option><option value="popup">Qua popup (cua so, chon nguoi)</option></select>'
                  '<input name="gt" placeholder="ID vat pham" size="12" required pattern="\\d{1,10}">'
                  '<input name="sl" placeholder="SL" size="3" value="1" pattern="\\d{1,3}"><button%%s>%%s</button></form>') % TOKEN
     out.append('<section><h2>Nhan vat (%d) - phat qua / GM</h2>' % len(chs))
@@ -359,7 +361,7 @@ def page(msg="", q=""):
     # Form phat qua: o "gt" la ID (vat pham/popup) hoac so (KNB/vang/VIP); o SL chi dung cho vat pham
     # Gan su kien trong script, KHONG dung onchange="..." inline: trong handler inline, ten "loai" bi form.loai (chinh o select) che mat
     out.append('<script>function doiLoai(s){var f=s.form,it=s.value=="item";'
-               'f.gt.placeholder={item:"ID vat pham",knb:"So KNB (1-99999)",vang:"So vang",vip:"Cap VIP 0-10",popup:"ID vat pham"}[s.value];'
+               'f.gt.placeholder={item:"ID vat pham",knb:"So KNB (1-99999)",vang:"So vang",diemtang:"So Diem Tang",vip:"Cap VIP 0-10",popup:"ID vat pham"}[s.value];'
                'f.sl.style.display=it?"":"none";f.sl.disabled=!it}'
                'document.querySelectorAll("select[name=loai]").forEach(function(s){s.onchange=function(){doiLoai(s)};doiLoai(s)})</script>')
     return "".join(out)
