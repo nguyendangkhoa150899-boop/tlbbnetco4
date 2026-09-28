@@ -71,7 +71,7 @@ x338000_g_SkillBooks[30307211] = { type = 2, id = 303, menpaiId = MP_SHAOLIN, ne
 x338000_g_SkillBooks[30307217] = { type = 2, id = 333, menpaiId = MP_MINGJIAO, needLevel = 45, needXinfa = 56, needXinfaLevel = 1, specialEffectID = 18 }
 x338000_g_SkillBooks[30307215] = { type = 2, id = 362, menpaiId = MP_GAIBANG, needLevel = 45, needXinfa = 57, needXinfaLevel = 1, specialEffectID = 18 }
 x338000_g_SkillBooks[30307213] = { type = 2, id = 393, menpaiId = MP_WUDANG, needLevel = 45, needXinfa = 58, needXinfaLevel = 1, specialEffectID = 18 }
-x338000_g_SkillBooks[30307219] = { type = 2, id = 424, menpaiId = MP_EMEI, needLevel = 45, needXinfa = 59, needXinfaLevel = 1, specialEffectID = 18 }
+x338000_g_SkillBooks[30307219] = { type = 2, id = 422, menpaiId = MP_EMEI, needLevel = 45, needXinfa = 59, needXinfaLevel = 1, specialEffectID = 18 }
 x338000_g_SkillBooks[30307214] = { type = 2, id = 453, menpaiId = MP_XINGSU, needLevel = 45, needXinfa = 60, needXinfaLevel = 1, specialEffectID = 18 }
 x338000_g_SkillBooks[30307212] = { type = 2, id = 483, menpaiId = MP_DALI, needLevel = 45, needXinfa = 61, needXinfaLevel = 1, specialEffectID = 18 }
 x338000_g_SkillBooks[30307218] = { type = 2, id = 514, menpaiId = MP_TIANSHAN, needLevel = 45, needXinfa = 62, needXinfaLevel = 1, specialEffectID = 18 }
@@ -104,7 +104,7 @@ x338000_g_SkillBooks[30307222] = { type = 2, id = 304, menpaiId = MP_SHAOLIN, ne
 x338000_g_SkillBooks[30307228] = { type = 2, id = 334, menpaiId = MP_MINGJIAO, needLevel = 80, needXinfa = 56, needXinfaLevel = 1, specialEffectID = 18 }
 x338000_g_SkillBooks[30307226] = { type = 2, id = 363, menpaiId = MP_GAIBANG, needLevel = 80, needXinfa = 57, needXinfaLevel = 1, specialEffectID = 18 }
 x338000_g_SkillBooks[30307224] = { type = 2, id = 394, menpaiId = MP_WUDANG, needLevel = 80, needXinfa = 58, needXinfaLevel = 1, specialEffectID = 18 }
-x338000_g_SkillBooks[30307230] = { type = 2, id = 422, menpaiId = MP_EMEI, needLevel = 80, needXinfa = 59, needXinfaLevel = 1, specialEffectID = 18 }
+x338000_g_SkillBooks[30307230] = { type = 2, id = 424, menpaiId = MP_EMEI, needLevel = 80, needXinfa = 59, needXinfaLevel = 1, specialEffectID = 18 }
 x338000_g_SkillBooks[30307225] = { type = 2, id = 454, menpaiId = MP_XINGSU, needLevel = 80, needXinfa = 60, needXinfaLevel = 1, specialEffectID = 18 }
 x338000_g_SkillBooks[30307223] = { type = 2, id = 484, menpaiId = MP_DALI, needLevel = 80, needXinfa = 61, needXinfaLevel = 1, specialEffectID = 18 }
 x338000_g_SkillBooks[30307229] = { type = 2, id = 515, menpaiId = MP_TIANSHAN, needLevel = 80, needXinfa = 62, needXinfaLevel = 1, specialEffectID = 18 }
