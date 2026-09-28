@@ -229,7 +229,7 @@ function x070051_XieziQuickly( sceneId, selfId, xieziA, xieziB, xieziC, xieziD, 
 
    if xieziA == 8008 then  --首充和节日UI跳转
         CallScriptFunction( 888903, "MyHolidayGift", sceneId, selfId )
-        CallScriptFunction( 888903, "FirstMoney", sceneId, selfId )
+        --[don-dep] tat cua so "Nap lan dau" (server khong co nap): CallScriptFunction( 888903, "FirstMoney", sceneId, selfId )
      return
     end
 
