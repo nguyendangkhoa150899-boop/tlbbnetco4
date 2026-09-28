@@ -55,6 +55,7 @@ Giai đoạn test, cho **tất cả** là GM: `./cap-gm.sh --tat-ca`, rồi `./t
 ./tlbb.sh start
 ```
 Có sao lưu trước khi xóa (`/opt/tlbb-backup/truoc-reset-*.sql.gz`). Code và event đã làm vẫn giữ nguyên.
+Reset cũng tắt **"Cấp tối thiểu toàn server"** (xóa `Server/txt/NetCo4Qua/_capmin.txt`, lúc test đặt 119). Sau reset: panel phải ghi **0**, nhân vật mới bắt đầu cấp 1.
 
 ## Cập nhật code từ GitHub
 

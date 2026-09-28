@@ -145,6 +145,20 @@ def write_gm(guids):
             f.write("guid%d=%s\n" % (i, g))
 
 
+def tom_tat(pend):
+    """Hien qua dang cho cho gon: cong don knb/diemtang/vang (KNB bi chia dong 99999), vang doi tu dong ra vang."""
+    out, tong = [], {}
+    for p in pend:
+        k = p.split()
+        if len(k) >= 2 and k[0] in ("knb", "diemtang", "vang") and k[1].isdigit():
+            tong[k[0]] = tong.get(k[0], 0) + int(k[1])
+        else:
+            out.append(p + ("  " + ITEM_NAME.get(k[1], "") if k[0] in ("item", "popup") and len(k) > 1 else ""))
+    for k, n in tong.items():
+        out.append("vang %g" % (n / 10000.0) if k == "vang" else "%s %d" % (k, n))
+    return out
+
+
 def pending(guid):
     p = os.path.join(QUEUE, guid + ".txt")
     out = [l.strip() for l in open(p, encoding="ascii", errors="replace") if l.strip()] if os.path.exists(p) else []
@@ -201,10 +215,10 @@ def act(form):
             return "So luong 1-999"
         if kind == "vip" and not 0 <= int(val) <= 10:
             return "VIP 0-10"
-        if kind == "knb" and not 1 <= int(val) <= 99999:
-            return "KNB 1-99999 moi lan"
-        if kind == "vang" and not 1 <= int(val) <= 1000000000:  # AddMoney nhan int32
-            return "Vang 1-1000000000 moi lan"
+        if kind == "knb" and not 1 <= int(val) <= 10000000:
+            return "KNB 1-10000000 moi lan"
+        if kind == "vang" and not 1 <= int(val) <= 100000:  # don vi vang; AddMoney nhan dong (int32)
+            return "Vang 1-100000 moi lan"
         if kind == "diemtang" and not 1 <= int(val) <= 10000000:
             return "Diem Tang 1-10000000 moi lan"
         if kind == "level" and not 1 <= int(val) <= 119:
@@ -216,9 +230,18 @@ def act(form):
             audit("popup GUID %s: item %s %s" % (g, val, ITEM_NAME.get(val, "")))
             return "Da dat qua popup cho GUID %s: %s. Nguoi choi thay cua so qua khi vao game (moi nguoi 1 mon, dat lai se thay mon cu)." % (g, ITEM_NAME.get(val, val))
         os.makedirs(QUEUE, exist_ok=True)
-        line = "item %s %s" % (val, cnt) if kind == "item" else "%s %s" % (kind, val)
+        if kind == "item":
+            lines = ["item %s %s" % (val, cnt)]
+        elif kind == "knb":  # YuanBao chi nen cong toi da 99999 moi lan (docs/lenh-gm.txt): chia nhieu dong
+            n = int(val)
+            lines = ["knb %d" % min(99999, n - i) for i in range(0, n, 99999)]
+        elif kind == "vang":  # 1 vang = 100 bac = 10000 dong; AddMoney nhan dong
+            lines = ["vang %d" % (int(val) * 10000)]
+        else:
+            lines = ["%s %s" % (kind, val)]
         with open(os.path.join(QUEUE, g + ".txt"), "a", encoding="ascii", newline="\n") as f:
-            f.write(line + "\n")
+            f.write("".join(l + "\n" for l in lines))
+        line = "%s %s" % (kind, val) + (" (%d dong)" % len(lines) if len(lines) > 1 else "") if kind != "item" else lines[0]
         audit("qua GUID %s: %s %s" % (g, line, ITEM_NAME.get(val, "") if kind == "item" else ""))
         return "Da xep hang qua cho GUID %s: %s. Nhan vat nhan khi dang nhap hoac doi ban do (dang online: dung truyen tong / qua cong)." % (g, line)
     if a == "capmin":
@@ -368,7 +391,7 @@ def page(msg="", q=""):
                '<th>Cap</th><th>Online</th><th>GM</th><th>Qua dang cho</th><th>Phat qua</th></tr>')
     for g, acc, name, lv in chs:
         pend = pending(g)
-        pend_s = "<br>".join(esc(p + ("  " + ITEM_NAME.get(p.split()[1], "") if p.startswith(("item", "popup")) else "")) for p in pend) or '<span class="muted">-</span>'
+        pend_s = "<br>".join(esc(p) for p in tom_tat(pend)) or '<span class="muted">-</span>'
         if pend:
             pend_s += "<br>" + btn("huy_qua", "Huy", {"guid": g}, "g")
         gm = (btn("gm_tat", "Tat GM", {"guid": g}, "r") if g in gms else btn("gm_bat", "Cap GM", {"guid": g}, "g"))
@@ -401,7 +424,7 @@ def page(msg="", q=""):
     # Form phat qua: o "gt" la ID (vat pham/popup) hoac so (KNB/vang/VIP); o SL chi dung cho vat pham
     # Gan su kien trong script, KHONG dung onchange="..." inline: trong handler inline, ten "loai" bi form.loai (chinh o select) che mat
     out.append('<script>function doiLoai(s){var f=s.form,it=s.value=="item";'
-               'f.gt.placeholder={item:"ID vat pham",knb:"So KNB (1-99999)",vang:"So vang",diemtang:"So Diem Tang",level:"Cap (1-119)",vip:"Cap VIP 0-10",popup:"ID vat pham"}[s.value];'
+               'f.gt.placeholder={item:"ID vat pham",knb:"So KNB (1-10000000)",vang:"So vang (1-100000)",diemtang:"So Diem Tang",level:"Cap (1-119)",vip:"Cap VIP 0-10",popup:"ID vat pham"}[s.value];'
                'f.sl.style.display=it?"":"none";f.sl.disabled=!it}'
                'document.querySelectorAll("select[name=loai]").forEach(function(s){s.onchange=function(){doiLoai(s)};doiLoai(s)})</script>')
     return "".join(out)

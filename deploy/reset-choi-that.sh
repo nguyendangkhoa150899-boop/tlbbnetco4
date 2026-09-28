@@ -61,6 +61,7 @@ for g in "$C"/Paiming/*.txt "$C"/MingRenTang/*.txt "$C"/YbMarket/*.txt "$T"/Serv
          "$T"/Server/txt/ShiJianTx/*.txt "$T"/Server/LoDe/*.txt "$T"/Server/IP/*.txt; do
     [ -f "$g" ] && : > "$g"
 done
+log "Da xoa hang doi qua panel va _capmin.txt: TAT 'cap toi thieu toan server', nhan vat moi bat dau tu cap 1"
 printf '[gm]\ncount=0\n' > "$C/GMList.ini"
 log "Da xoa xep hang, diem danh, GM list. Cap GM lai sau khi tao nhan vat: ./cap-gm.sh <ten>"
 log "Bat server: ./tlbb.sh start"
