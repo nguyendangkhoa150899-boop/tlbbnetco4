@@ -19,3 +19,7 @@ NETCO4 - THIÊN LONG BÁT BỘ 3D
    nút "Đăng ký" và "Nạp thẻ" trong game không dùng được (server chỉ cày, không nạp).
 
 5. KHÔNG chạy file fixgame nếu có ở đâu đó: nó reset tường lửa và mạng của Windows.
+
+6. Chặn link lạ: nút "Nạp thẻ" / "Đăng ký" trong game mở web của server cũ
+   (hoatientu.tk... đã hết hạn, người khác có thể mua lại để lừa đảo).
+   Chuột phải file chan-link-la.ps1 > Run with PowerShell > bấm Yes.
