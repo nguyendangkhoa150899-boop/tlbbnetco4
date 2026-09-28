@@ -24,7 +24,7 @@ x111998_g_EquipList={
 {n=4200,id=10305029},{n=4200,id=10305030},{n=4200,id=10305031},{n=4200,id=10305032},
 {n=4200,id=10305033},{n=4200,id=10305034},{n=4200,id=10305035},
 -- thanh tam pho thien chu
-{n=7100,id=30307219},{n=7200,id=30307226},
+{n=7100,id=-30307219},{n=7200,id=30307226},
 -- Hanh Van Qua
 {n=8100,id=30070501},
 }
@@ -142,7 +142,7 @@ function  x111998_OnEventRequest(  sceneId,  selfId,  targetId,  eventId  )
 	 	 	 AddNumText(sceneId,  x111998_g_ScriptId,  "#cFF0000 Ð±i th¥n khí cá tính 102",  6,  nNumText+200)
 	 	 	 end
 		 	 if  nNumText  ==  7000    then		 
-			 AddNumText(sceneId,  x111998_g_ScriptId,  "#cFF0000 Thanh Tâm Ph± Thi®n Chú ",  6,  nNumText+100)
+--			 AddNumText(sceneId,  x111998_g_ScriptId,  "#cFF0000 Thanh Tâm Ph± Thi®n Chú ",  6,  nNumText+100)
 		 	 end
 		 	 if  nNumText  ==  7000    then		 
 			 AddNumText(sceneId,  x111998_g_ScriptId,  "#cFF0000 Hoành Täo Càn Khôn ",  6,  nNumText+200)
