@@ -15,7 +15,7 @@ import secrets
 import subprocess
 import time
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
-from urllib.parse import parse_qs, urlparse
+from urllib.parse import parse_qs, urlencode, urlparse
 
 HOST, PORT = "127.0.0.1", 8088
 REPO = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -316,11 +316,18 @@ class H(BaseHTTPRequestHandler):
         self.end_headers()
         self.wfile.write(b)
 
+    def _redirect(self, msg):
+        # Post/Redirect/Get: F5 sau khi gui form khong gui lai lan nua
+        self.send_response(303)
+        self.send_header("Location", "/?" + urlencode({"m": msg}))
+        self.send_header("Content-Length", "0")
+        self.end_headers()
+
     def do_GET(self):
         if not self._host_ok():
             return self._send("Forbidden", 403)
-        q = parse_qs(urlparse(self.path).query).get("q", [""])[0]
-        self._send(page(q=q))
+        qs = parse_qs(urlparse(self.path).query)
+        self._send(page(msg=qs.get("m", [""])[0], q=qs.get("q", [""])[0]))
 
     def do_POST(self):
         if not self._host_ok():
@@ -328,12 +335,12 @@ class H(BaseHTTPRequestHandler):
         n = int(self.headers.get("Content-Length", 0) or 0)
         form = {k: v[0] for k, v in parse_qs(self.rfile.read(min(n, 10000)).decode("utf-8", "replace")).items()}
         if not secrets.compare_digest(form.get("t", ""), TOKEN):
-            return self._send(page(msg="Phien het han (panel vua khoi dong lai). Thu lai."), 403)
+            return self._redirect("Phien het han (panel vua khoi dong lai). Thu lai.")
         try:
             msg = act(form)
         except Exception as e:
             msg = "Loi: %s" % e
-        self._send(page(msg=msg))
+        self._redirect(msg)
 
     def log_message(self, *a):
         pass
