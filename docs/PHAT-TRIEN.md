@@ -117,3 +117,10 @@ Ví dụ đã tra 28/09 (chưa sửa):
 - **Cao cấp Cộng Sinh** (pet, sách `30402036`, skill `687`): SkillData `15153` → impact `7034`, logic 57: tham số 1 = pet mất 50% máu, tham số 2 = chủ nhận 100% lượng đó (đổi thành 200 nếu muốn), tham số 3 = % chuyển sang MP. Chiều pet→chủ cố định trong binary, không đảo được. Hồi chiêu 120 s.
 
 Lưu ý: tooltip trong client (mô tả "hồi 12%") nằm phía client bị khóa, sẽ không đổi theo. Giá trị >100 ở tham số % chưa thử. Sau khi sửa: deploy + restart.
+
+## Pet (trân thú)
+
+- `Public/Config/PetAttrTable.txt`: 6.320 dòng, 1.039 họ pet. Cột: ID, tên (GBK), họ, cấp mang, phe, biến dị, bảo bảo, loại thức ăn, số kỹ năng, kỹ năng chủ động/bị động + tỉ lệ, tuổi thọ, 5 tư chất, trưởng thành. **Không có cột hình dáng**: họ pet trông ra sao là do client ánh xạ (dữ liệu bị khóa trong `OgreMain.dll`).
+- Vì vậy **không thêm được pet nhân hình / pet dáng boss** kiểu server khác (họ tự chế client). Tất cả 1.039 họ đều là pet gốc ChangYou; server cũ không thêm họ nào.
+- Có sẵn dáng người nhỏ: Hoa Tiên Tử (họ 2304–2310), Mỹ Nhân Ngư (2722–2728), Nhân Ngư Công Chúa (2946–2952), Thiết Phiến Công Chúa (2989–2995); dáng thần thú: Kỳ Lân (3330+), Sồ Phượng (3290+), Kiếm Long (3270+), Long Quy (3310+). Mỗi họ có bản trưởng thành / biến dị (7 bản) / bảo bảo, cấp 5→95.
+- Xem hình: gõ tên tiếng Trung lên Google hình, hoặc GM `!!createpet =<ID>` (chưa thử). Chỉnh tư chất/kỹ năng thì sửa được trong bảng trên.
