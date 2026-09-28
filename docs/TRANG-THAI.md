@@ -4,6 +4,8 @@ Cập nhật: 28/09/2026 (kết thúc phiên dựng server). Claude ở nhà: đ
 
 ## TỔNG HỢP THAY ĐỔI 28–29/09 (đọc mục này trước)
 
+**Kế hoạch (29/09):** còn test thêm 2–3 ngày, chủ yếu **phó bản**, rồi mới chơi thật (dự kiến khoảng 01–02/10). Chưa chạy các bước ở mục 2.
+
 Chi tiết từng việc ở các mục "Cập nhật ..." bên dưới. Mọi sửa file game đều ở mức byte (GBK/VISCII giữ nguyên).
 
 ### 1. Giữ lâu dài (dùng luôn cho server chính)
