@@ -103,3 +103,17 @@ Hàm mà client gọi thẳng qua giao diện phải có trong `Server/Config/Al
 - Giai đoạn test: `./cap-gm.sh --tat-ca` rồi restart, để mọi người đều là GM.
 - Trước khi chơi thật: `./tlbb.sh stop && ./reset-choi-that.sh && ./tlbb.sh start`. Lệnh này xóa nhân vật và đồ, giữ tài khoản và code, có sao lưu trước.
 - Lệnh GM trong game: xem `docs/lenh-gm.txt`.
+
+## Chỉnh sức mạnh kỹ năng (skill / chiêu pet)
+
+Chuỗi tra (tất cả phía server, chỉnh được bằng sửa số):
+1. Sách kỹ năng → ID kỹ năng: người chơi `obj/book/skillbook.lua` (`x338000_g_SkillBooks[<item>] = { id = ... }`), pet `Public/Config/PetSkillBook.txt`.
+2. `Public/Config/SkillTemplate_V1.txt` dòng = ID kỹ năng; cột 58–73 = ID dữ liệu thật theo cấp tâm pháp 1–16.
+3. `Public/Config/SkillData_V1.txt` dòng = ID dữ liệu: cột 6 hồi chiêu (ms), cột 10–11 điều kiện/tiêu hao (MP), các cặp cột từ 24 = hiệu ứng (impact) áp lên bản thân/mục tiêu.
+4. `Server/Config/StandardImpact.txt` dòng = ID impact: cột 2 logic (binary), cột 27–29 tham số 1 (mô tả, giá trị, bước), 30–32 tham số 2, 33–35 tham số 3...
+
+Ví dụ đã tra 28/09 (chưa sửa):
+- **Thanh Tâm Phổ Thiện Chú** (sách `30307219`, skill `424`, Nga Mi): SkillData `1997`–`2008` → impact `2838`–`2849`, logic 5 "HP修改百分率" = hồi **% máu tối đa**: cấp tâm pháp 1 → 2%, tăng 1%/cấp, cấp 12–16 → 12%. Đổi cột 29 của các dòng `2838`–`2849` trong `StandardImpact.txt`. Tham số 2 cùng dòng = % MP (đang 0, có thể bật). Hồi chiêu 1300 ms, tốn MP theo cấp (SkillData cột 11).
+- **Cao cấp Cộng Sinh** (pet, sách `30402036`, skill `687`): SkillData `15153` → impact `7034`, logic 57: tham số 1 = pet mất 50% máu, tham số 2 = chủ nhận 100% lượng đó (đổi thành 200 nếu muốn), tham số 3 = % chuyển sang MP. Chiều pet→chủ cố định trong binary, không đảo được. Hồi chiêu 120 s.
+
+Lưu ý: tooltip trong client (mô tả "hồi 12%") nằm phía client bị khóa, sẽ không đổi theo. Giá trị >100 ở tham số % chưa thử. Sau khi sửa: deploy + restart.
