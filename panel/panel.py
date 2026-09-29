@@ -548,7 +548,10 @@ class H(BaseHTTPRequestHandler):
             if method == "GET" and u.path == "/api/state":
                 return self._json({"ok": True, "state": api_state()})
             if method == "GET" and u.path == "/api/items":
-                return self._json({"ok": True, "items": api_items(parse_qs(u.query).get("q", [""])[0])})
+                qs = parse_qs(u.query)
+                if qs.get("all") == ["1"]:  # ca danh muc cho bot mini game (shop item / qua moi ngay)
+                    return self._json({"ok": True, "items": [{"id": i, "name": n, "kind": k} for i, n, k in ITEMS]})
+                return self._json({"ok": True, "items": api_items(qs.get("q", [""])[0])})
             if method == "POST" and u.path == "/api/act":
                 n = int(self.headers.get("Content-Length", 0) or 0)
                 form = json.loads(self.rfile.read(min(n, 10000)).decode("utf-8", "replace") or "{}")
