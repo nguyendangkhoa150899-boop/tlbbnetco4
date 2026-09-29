@@ -430,6 +430,43 @@ def page(msg="", q=""):
     return "".join(out)
 
 
+# ---------------------------------------------------------------- API noi bo (panel mini game)
+# 29/09: tab "GM Thien Long" trong panel mini game (admin.netco4.click, repo bialk) dung chung
+# logic nay qua JSON. Chi nhan ket noi THANG tu 127.0.0.1 (khong qua nginx: nginx luon them
+# X-Real-IP) + header X-NetCo4-Key = PANEL_PASS (bot cung VPS doc tu secrets.env).
+def api_state():
+    procs = {p: running(p) for p in ["mysqld", "billing", "ShareMemory", "Login", "World", "Server"]}
+    mem = open("/proc/meminfo").read()
+    tot = int(re.search(r"MemTotal:\s+(\d+)", mem).group(1)) // 1024
+    avail = int(re.search(r"MemAvailable:\s+(\d+)", mem).group(1)) // 1024
+    err = None
+    try:
+        accs, chs = accounts(), chars()
+    except Exception as e:  # MySQL tat
+        accs, chs, err = [], [], str(e)
+    online_acc = {n for _, n, on in accs if on}
+    gms = set(gm_guids())
+    try:
+        capmin = open(CAPMIN).read().strip() or "0"
+    except OSError:
+        capmin = "0"
+    out_chars = []
+    for g, acc, name, lv in chs:
+        pend = pending(g)
+        out_chars.append({"guid": g, "account": acc, "name": name, "level": lv, "online": acc in online_acc,
+                          "gm": g in gms, "pending": tom_tat(pend), "hasPending": bool(pend)})
+    return {"procs": procs, "online": online_count(), "ram": [tot - avail, tot], "dbError": err,
+            "accounts": [{"id": i, "name": n, "online": on} for i, n, on in accs],
+            "chars": out_chars, "capmin": capmin, "itemCount": len(ITEMS)}
+
+
+def api_items(q):
+    ql = khong_dau((q or "").strip())
+    if not ql:
+        return []
+    return [{"id": i, "name": n, "kind": k} for i, n, k in ITEMS if ql in ITEM_KEY[i] or ql == i][:80]
+
+
 LOGIN_PAGE = ('<!doctype html><meta charset="utf-8"><meta name="viewport" content="width=device-width">'
               '<title>NetCo4 Admin</title><style>{CSS}</style><main style="max-width:360px;margin:12vh auto">'
               '<section><h2>NetCo4 Admin</h2>{MSG}<form method="post" action="/login" class="row">'
@@ -489,6 +526,40 @@ class H(BaseHTTPRequestHandler):
         time.sleep(1)
         self._send(login_page('<p class="off">Sai mat khau.</p>'), 401)
 
+    def _internal_ok(self):
+        return (self.client_address[0] in ("127.0.0.1", "::1") and not self.headers.get("X-Real-IP")
+                and bool(PANEL_PASS) and secrets.compare_digest(self.headers.get("X-NetCo4-Key", ""), PANEL_PASS))
+
+    def _json(self, obj, code=200):
+        b = json.dumps(obj, ensure_ascii=False).encode("utf-8")
+        self.send_response(code)
+        self.send_header("Content-Type", "application/json; charset=utf-8")
+        self.send_header("Content-Length", str(len(b)))
+        self.send_header("Cache-Control", "no-store")
+        self.end_headers()
+        self.wfile.write(b)
+
+    def _api(self, method):
+        if not self._internal_ok():
+            audit("API noi bo bi tu choi tu %s" % self._ip())
+            return self._json({"ok": False, "error": "forbidden"}, 403)
+        u = urlparse(self.path)
+        try:
+            if method == "GET" and u.path == "/api/state":
+                return self._json({"ok": True, "state": api_state()})
+            if method == "GET" and u.path == "/api/items":
+                return self._json({"ok": True, "items": api_items(parse_qs(u.query).get("q", [""])[0])})
+            if method == "POST" and u.path == "/api/act":
+                n = int(self.headers.get("Content-Length", 0) or 0)
+                form = json.loads(self.rfile.read(min(n, 10000)).decode("utf-8", "replace") or "{}")
+                form = {str(k): str(v) for k, v in form.items()}
+                audit("[admin.netco4.click] %s" % json.dumps(form, ensure_ascii=False)[:200])
+                msg = act(form)
+                return self._json({"ok": True, "msg": msg, "done": msg.startswith(("Da ", "Dang "))})
+        except Exception as e:
+            return self._json({"ok": False, "error": "Loi: %s" % e}, 500)
+        return self._json({"ok": False, "error": "khong co API nay"}, 404)
+
     def _send(self, body, code=200):
         b = body.encode("utf-8")
         self.send_response(code)
@@ -511,6 +582,8 @@ class H(BaseHTTPRequestHandler):
     def do_GET(self):
         if not self._host_ok():
             return self._send("Forbidden", 403)
+        if urlparse(self.path).path.startswith("/api/"):
+            return self._api("GET")
         if urlparse(self.path).path == "/logout":
             SESSIONS.pop(self._cookie(), None)
             return self._send(login_page(""))
@@ -522,6 +595,8 @@ class H(BaseHTTPRequestHandler):
     def do_POST(self):
         if not self._host_ok():
             return self._send("Forbidden", 403)
+        if urlparse(self.path).path.startswith("/api/"):
+            return self._api("POST")
         if urlparse(self.path).path == "/login":
             return self._login()
         if not self._authed():
