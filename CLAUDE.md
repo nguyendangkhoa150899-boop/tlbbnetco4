@@ -79,6 +79,8 @@ Hộp rơi **90001** (`Server/Config/DropBoxContent.txt`) chứa 1 món, BoxValu
 
 Cùng 139 boss đó (29/09 chiều): đã gỡ hộp phiếu 1000 cũ và 54 hộp rác khỏi dòng boss (hộp gốc còn cho quái thường), và 14 hộp nguyên liệu được **sao riêng cho boss** thành `90002`–`90015` với BoxValue = ½ gốc (bảng đối chiếu ở `docs/TRANG-THAI.md` mục 0). Muốn chỉnh tỉ lệ nguyên liệu boss: sửa BoxValue dòng `9000x`, không đụng hộp gốc.
 
+**⚠ Tab 💥 Drop Boss (admin/mod.netco4.click, từ 29/09 tối)** sửa `MonsterDropBoxs.txt` + `DropBoxContent.txt` **trực tiếp trên VPS**, không qua repo (backup tự động ở `/opt/tlbb-backup/dropui-*`). Vì vậy **trước mỗi lần `cap-nhat.sh` phải chạy `./lay-tu-server.sh --push`** (hoặc kéo 2 file đó về repo) — quên là cap-nhat ghi đè mất chỉnh sửa của admin. Đóng tab cho mod: xem chú thích `29/09 tạm MỞ` trong `bialk/BotDoMin/panel.js`.
+
 **Đổi mệnh giá:** chỉ sửa cột thứ 5 của dòng `90001` thành ID phiếu khác: 1.000 = `39910001`, 2.000 = `39910002` (hiện tại), 5.000 = `39910003`, 10.000 = `39910004`, 50.000 = `39910005`, 100.000 = `39910006`. Sau đó `./cap-nhat.sh` và restart. Phiếu chuột phải ra KNB (script 100001 `New/item/YuanBaoPiao.lua`), KNB đó chuyển ra web qua NPC Ví Web không giới hạn.
 
 ## Đã vá so với bản public (đừng hoàn tác)
