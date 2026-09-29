@@ -25,7 +25,7 @@ Mở Claude Code trong thư mục repo rồi nhắn, ví dụ: *"đọc CLAUDE.m
 | | Địa chỉ | Đăng nhập |
 |---|---|---|
 | Game | `103.216.118.123:7384` (client đã trỏ sẵn) | tài khoản do admin tạo |
-| **Panel admin** | **https://103.216.118.123:8443** | mật khẩu `PANEL_PASS` trong `/opt/tlbb-deploy/secrets.env` |
+| **Panel admin** | **https://gm.netco4.click** (hoặc https://103.216.118.123:8443) | mật khẩu `PANEL_PASS` trong `/opt/tlbb-deploy/secrets.env` |
 | SSH VPS | `ssh -p 24700 root@103.216.118.123` | chỉ bằng key (cổng **24700**, không phải 22) |
 | Trang quản lý VPS | OneDash / iNET (Terminal, Console, nâng cấp) | tài khoản iNET của Khoa |
 
