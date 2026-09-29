@@ -220,3 +220,8 @@ Tài khoản: `admin` (nhân vật `Bialk`, GUID 1010100001, GM), `hoang`. Mật
 - Sửa: hộp phiếu theo Mvalue, **BoxValue = Mvalue** (tỉ lệ 1.0, giống ca 874/778 trong log): 90001 BV 60 (41 boss Mv 60), 90016–90028 cho Mv 10/20/22/26/27/32/41/52/70/90/100/200/3000; 149 boss gắn lại đúng hộp. 4 hộp nhân bản có tỉ lệ >1 đưa về ≤1: 90002 75→100, 90007 50→200, 90009 25→41, 90014 20→32 (chưa có bằng chứng tỉ lệ >1 chạy được).
 - Ý nghĩa tỉ lệ: **xác suất rơi ≈ Mvalue ÷ BoxValue** (phiếu 1000 cũ ở BV 2200–3000 với Mv 60 ≈ 2–3%). Tab Drop Boss trên web nên cảnh báo BV < 4 hoặc BV < Mv.
 - Chưa kiểm chứng sau restart: giết 1 boss Sát Tinh → Audit phải có `Dropped by ...,39910002`.
+
+## 30/09 01:20 - xác nhận rơi đồ chạy lại; phiếu 1000; Liên hoàn nhiệm vụ Tô Châu
+
+- Sau restart 00:54, Audit ghi Sát Tinh + PMF 95 rơi phiếu và đồ thường → **nguyên nhân BoxValue=1 đã xác nhận**. Người dùng: 1 boss ~2 phiếu (90001 + 90002), đổi ý dùng **phiếu 1000** (`39910001`) trong 15 hộp 900xx, giữ số lần rơi (`e3137fb`).
+- **Liên hoàn nhiệm vụ (任务链, `event/xunhuan/event_renwulian_fuben.lua` 229023) không rơi:** quái `1880`–`1889` (Tiểu Quái) và `1890`–`1899` (Đại Quái) có **Mvalue = 0** trong `MonsterDropBoxs.txt` → tỉ lệ 0. Đặt Mv 10 (tiểu) / 20 (đại); hộp gốc 680/660/620/35 giữ nguyên (620 BV20 → 50%/100%). ID quái = ID gốc + cấp/10 (cấp 119 → 1891). Chờ restart.
