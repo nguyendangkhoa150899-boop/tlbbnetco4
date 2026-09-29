@@ -25,7 +25,9 @@ Mở Claude Code trong thư mục repo rồi nhắn, ví dụ: *"đọc CLAUDE.m
 | | Địa chỉ | Đăng nhập |
 |---|---|---|
 | Game | `103.216.118.123:7384` (client đã trỏ sẵn) | tài khoản do admin tạo |
-| **Panel admin** | **https://gm.netco4.click** (hoặc https://103.216.118.123:8443) | mật khẩu `PANEL_PASS` trong `/opt/tlbb-deploy/secrets.env` |
+| **Panel admin (mini game + tab 🛠️ GM Thiên Long)** | **https://admin.netco4.click** | `PANEL_SUPER_PASSWORD` trong `/opt/minigame/BotDoMin/.env` |
+| Panel admin THƯỜNG (bạn bè đặt giá shop) | **https://mod.netco4.click** | `PANEL_PASSWORD` trong `.env` (29/09 chủ server đặt mật khẩu ngắn — đổi trước khi mở rộng) |
+| Panel GM cũ | https://gm.netco4.click (hoặc https://103.216.118.123:8443) | `PANEL_PASS` trong `/opt/tlbb-deploy/secrets.env` — chức năng đã có trong tab GM ở admin.netco4.click, giữ tạm |
 | SSH VPS | `ssh -p 24700 root@103.216.118.123` | chỉ bằng key (cổng **24700**, không phải 22) |
 | Trang quản lý VPS | OneDash / iNET (Terminal, Console, nâng cấp) | tài khoản iNET của Khoa |
 
