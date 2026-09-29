@@ -494,7 +494,8 @@ class H(BaseHTTPRequestHandler):
         self.send_response(code)
         self.send_header("Content-Type", "text/html; charset=utf-8")
         self.send_header("Content-Length", str(len(b)))
-        self.send_header("X-Frame-Options", "DENY")
+        # Chi cho panel mini game (admin.netco4.click, tab "Thien Long & KNB") nhung trang nay; trang khac bi chan
+        self.send_header("Content-Security-Policy", "frame-ancestors 'self' https://admin.netco4.click")
         self.send_header("Cache-Control", "no-store")
         self.send_header("Strict-Transport-Security", "max-age=86400")
         self.end_headers()
