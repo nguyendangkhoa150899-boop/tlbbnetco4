@@ -23,6 +23,7 @@ Checklist test ở `README.md` → "Đã làm chiều 29/09". Chi tiết kỹ th
 
 ### 1. Giữ lâu dài (dùng luôn cho server chính)
 
+- **Ngọc cấp 5 miễn phí** (29/09 19:59, `fc8516f`): Tiệm Nguyên Bảo → Tiệm Bảo Thạch → nút "Ngọc Cấp 3" (= shop 150, tiền Điểm Tặng) đổi 25 ngọc cấp 4 → cấp 5 (ID +100000), giá 0. Không giới hạn số lượng ("Mua nhiều" = vô hạn). **Chưa thử giá 0 có mua được không**; không được thì đổi giá 1. Bảng shop không giới hạn theo từng người (muốn thì làm NPC riêng).
 - **Panel** (`panel/panel.py`) + **`NetCo4/quatang.lua`** (hàng đợi `Server/txt/NetCo4Qua/<GUID>.txt`): phát vật phẩm, KNB (tới 10 triệu/lần, tự chia dòng 99.999), vàng (nhập theo **vàng**), Điểm Tặng, Lên cấp, VIP, Quà popup, **XOA vật phẩm** (xóa theo ID, không chọn được món cụ thể), ô **Cấp tối thiểu toàn server**. Tìm vật phẩm không dấu, tên Hán-Việt cho 15.661 trang bị (`docs/vat-pham/ten-viet.tsv`, `tat-ca-vat-pham.csv`, tạo bằng `tools/viet-hoa-trang-bi.js`).
 - **Thanh Tâm / Xuân Hoa (Nga Mi):** trả lại 422 = Thanh Tâm, 424 = Xuân Hoa cho khớp client (`20eef59`).
 - **Thanh Tâm Phổ Thiện Chú `30307219` chỉ admin phát:** gỡ khỏi boss rơi, cửa hàng KNB 146, đổi Trùng Lâu (`d4a9591`).
