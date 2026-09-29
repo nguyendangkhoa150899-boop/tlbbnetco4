@@ -117,6 +117,8 @@ Chi tiết từng mục ở `docs/TRANG-THAI.md` → "Cập nhật 29/09 chiều
 - [x] **Không đụng Liên hoàn nhiệm vụ Tô Châu** (quái 1880–1899 Mvalue 0 từ gốc = không rơi theo bảng; chủ server thấy vẫn có rơi nên giữ nguyên).
 - [x] Shop Tiệm Bảo Thạch (nút "Ngọc Cấp 3", shop 150): 25 ngọc cấp 4 → cấp 5, giá Điểm Tặng gốc. Panel GM: "Nâng ngọc trong túi lên cấp N", "XOA vật phẩm"; Trùng Lâu/quạt Phù Sinh/Tạo Hóa riêng cho nhân vật test (mẫu đã trả về mặc định).
 - [x] Tab 💥 Drop Boss: nhật ký không mất (`/opt/tlbb-backup/dropboss-audit.jsonl`, chattr +a), nút ↩ Rollback, mục 💥 trong tab 📜 Log, chặn BoxValue < 4.
+- [x] Đồ riêng cho nhân vật test (mẫu tạm → restart → phát/chế → trả mẫu về gốc): Tạo Hóa/quạt Phù Sinh 11 dòng, Chân-Trùng Lâu 15 dòng, bộ Huyễn Thế nội 9 dòng + hộ uyển 8 dòng (tư chất 250). Tẩy ám khí ép 3 dòng rồi trả về. **02:18 30/09: mọi mẫu đã về gốc**, chỉ giữ Tạo Hóa `10303447` làm chậm. Cách làm + bảng tên dòng: `docs/TRANG-THAI.md`.
+- [x] Ám khí: 3 ô mở ở cấp ám khí 40/70/90, dòng và tỉ lệ ở `Server/Config/DarkSkillStudy.txt` (trọng số) + `DarkSkillList.txt` (31 loại × 16 mức), hiệu ứng `StandardImpact` 32000–32406.
 - [ ] Ngọc không chồng được (engine), Võ Hồn tối đa cấp 8 theo ID (cấp 9 không làm được) — xem `docs/TRANG-THAI.md`.
 - [ ] **Cân bằng KNB:** 149 boss rớt chắc phiếu 1000, boss hồi sinh 30 phút → cày boss có thể ra vài chục nghìn KNB/ngày. Nếu muốn KNB khó kiếm: đặt BoxValue = 2×Mvalue (50%) hoặc chỉ giữ cho boss phó bản.
 
