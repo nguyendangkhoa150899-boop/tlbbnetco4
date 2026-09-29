@@ -470,7 +470,7 @@ function  x300109_OnCopySceneTimer(  sceneId,  nowTime  )
 
 	 if    (x300109_g_bEndTime  -  TickCount)  ==  20    then	 	 	 	 	 
 	 	 local  strend  =  " l¥n này t¯ng liêu ðÕi chiªn kªt thúc mÛ mãn   , xin/m¶i ngß¶i th¡ng · 1 gi¶ bên trong , ði ÐÕi Lý #G lßu bác #cFF0000 ch² dçn tß·ng !!!"	 
-	 	 AddGlobalCountNews  (  sceneId,  strend  )
+	 	 --[don-dep] AddGlobalCountNews  (  sceneId,  strend  )
 	 	   
 	 	 x300109_ClearMonster(sceneId)	     
 	     LuaFnSetCopySceneData_Param(  sceneId,  4,  1  )	 	 	 	 	 	     
@@ -481,7 +481,7 @@ function  x300109_OnCopySceneTimer(  sceneId,  nowTime  )
 	 	           if  TickCount  ==  10  then	 	   	 
 	 ---------------- cà trách b¯n tháp tØ cùng ðïnh -----------------------
 	                 local  message  =  format("#G t¯ng liêu ðÕi chiªn chính thÑc b¡t ð¥u , cà tháp cà binh ",  szName  );
-                    BroadMsgByChatPipe(sceneId,  selfId,  message,  4);	   
+                    --[don-dep] BroadMsgByChatPipe(sceneId,  selfId,  message,  4);	   
 	 	   	         x300109_UPCampMoster(sceneId)	 	   	   
 	               end
 	     ---------------- cà trách lính quèn -----------------------          
@@ -516,7 +516,7 @@ function  x300109_OnCopySceneTimer(  sceneId,  nowTime  )
                     local  szName  =  GetName(  sceneId,  x300109_g_HumanID[i]  );                                        
                     if    x300109_g_jifeng[1]  <1  then
                     local  message  =  format("#G · t¯ng liêu ðÕi chiªn trung ,#W trß¾c m¡t t¤t cä m÷i ngß¶i còn chßa ngü tïnh , tÕm vô ðÑng hàng ! ",  szName  );
-                    BroadMsgByChatPipe(sceneId,  selfId,  message,  4);	   
+                    --[don-dep] BroadMsgByChatPipe(sceneId,  selfId,  message,  4);	   
                     	 break
                     end	 
                     
@@ -525,7 +525,7 @@ function  x300109_OnCopySceneTimer(  sceneId,  nowTime  )
                     end	 
                                       
                     local  message  =  format("#Y t¯ng liêu ðÕi chiªn cuµc so tài trong sân #W , trß¾c m¡t ðÑng hàng : #G thÑ "..i.." tên #W chính là : #{_INFOUSR%s} , tích phân :#G  "..  x300109_g_jifeng[i].." phân   #W , kÏ tha không có ðÑng hàng nhà ch½i phäi c¯ g¡ng lên ",  szName  );
-                    BroadMsgByChatPipe(sceneId,  selfId,  message,  4);	       
+                    --[don-dep] BroadMsgByChatPipe(sceneId,  selfId,  message,  4);	       
                     end                    
                   end                    	 	   
 	 end	 	       
@@ -547,11 +547,11 @@ function  x300109_OnCopySceneTimer(  sceneId,  nowTime  )
 	                           local  mycamp  =  GetUnitCampID(sceneId,  x300109_g_HumanID[i],  x300109_g_HumanID[i])	                     	                       	                       	                       	                             
                               local  szName  =  GetName(  sceneId,  x300109_g_HumanID[i]  );                    
                             if  i  ==1  and  x300109_g_jifeng[i]>0    then	                   
-                            AddGlobalCountNews  (  sceneId,  "#b chúc m×ng ["..szName.."] l¤y ðßþc l¥n này t¯ng liêu ðÕi chiªn hoÕt ðµng #cff9966 ð® nh¤t danh #cFF0000 , xin/m¶i · mµt gi¶ bên trong ði Tô Châu lßu bác ch² dçn tß·ng "  )                    	                         
+                            --[don-dep] AddGlobalCountNews  (  sceneId,  "#b chúc m×ng ["..szName.."] l¤y ðßþc l¥n này t¯ng liêu ðÕi chiªn hoÕt ðµng #cff9966 ð® nh¤t danh #cFF0000 , xin/m¶i · mµt gi¶ bên trong ði Tô Châu lßu bác ch² dçn tß·ng "  )                    	                         
                             elseif  i==2  and  x300109_g_jifeng[i]>0  then
-                            AddGlobalCountNews  (  sceneId,  "#b  #cff99cc chúc m×ng ["..szName.."] l¤y ðßþc l¥n này t¯ng liêu ðÕi chiªn hoÕt ðµng #cff9966 tên thÑ hai   #cff99cc , xin/m¶i · mµt gi¶ bên trong ði Tô Châu lßu bác ch² dçn tß·ng "  )                      
+                            --[don-dep] AddGlobalCountNews  (  sceneId,  "#b  #cff99cc chúc m×ng ["..szName.."] l¤y ðßþc l¥n này t¯ng liêu ðÕi chiªn hoÕt ðµng #cff9966 tên thÑ hai   #cff99cc , xin/m¶i · mµt gi¶ bên trong ði Tô Châu lßu bác ch² dçn tß·ng "  )                      
                             elseif  i==3  and  x300109_g_jifeng[i]>0  then
-                            AddGlobalCountNews  (  sceneId,  "#b#G chúc m×ng ["..szName.."] l¤y ðßþc l¥n này t¯ng liêu ðÕi chiªn hoÕt ðµng #cff9966 tên thÑ ba #G , xin/m¶i · mµt gi¶ bên trong ði Tô Châu lßu bác ch² dçn tß·ng "  )                                                                                        
+                            --[don-dep] AddGlobalCountNews  (  sceneId,  "#b#G chúc m×ng ["..szName.."] l¤y ðßþc l¥n này t¯ng liêu ðÕi chiªn hoÕt ðµng #cff9966 tên thÑ ba #G , xin/m¶i · mµt gi¶ bên trong ði Tô Châu lßu bác ch² dçn tß·ng "  )                                                                                        
                             end  
                                                     
                                       ------------------ cån cÑ tích phân phán ðoán cái nào tr§n doanh cu¯i cùng chiªn th¡ng li­u cûng thêm d¤u hi®u   cûng ðem m²i tr§n doanh ðích ngß¶i · bên trong tiªn hành ðÑng hàng -------------------------

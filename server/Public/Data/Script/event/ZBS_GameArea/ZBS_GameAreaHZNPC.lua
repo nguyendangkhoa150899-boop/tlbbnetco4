@@ -246,7 +246,7 @@ SetMissionData( sceneId, selfId, MD_HUNZHAN_PAIMING,curDayTime)
 SetMissionData( sceneId, selfId, MD_HUNZHAN_LASTPLAY,0)
 
 local message = format("#W#{_INFOUSR%s}在个人混战赛中英勇杀敌,取得了,第#G"..paiming.."#W名，特给予 #G"..jiangliyuanbao.."元宝 #W作为奖励", GetName(sceneId, selfId) );
-BroadMsgByChatPipe(sceneId, selfId, message, 4);
+--[don-dep] BroadMsgByChatPipe(sceneId, selfId, message, 4);
 YuanBao(sceneId,selfId,targetId,1,jiangliyuanbao)
 x600056_BoxTip( sceneId, selfId, targetId,"恭喜您，成功领取奖励！#G"..jiangliyuanbao.."元宝#W,顺便说句，奖励钱多钱少没大关系，关键是大家玩的乐呵，#G玩的开心才是最重要的！")
 end
@@ -281,7 +281,7 @@ function x600056_OnSceneTimer( sceneId, selfId )
 			-- 向全组服务器发送新闻公告
 			
 		local strend = "本次混战活动圆满结束 ，请胜利者在1小时之内，去大理#G征战大使#cFF0000处领奖!!!"	
-	  AddGlobalCountNews ( sceneId, strend )
+	  --[don-dep] AddGlobalCountNews ( sceneId, strend )
 	  x600056_g_bEndTime = 0
 	  LuaFnSetCopySceneData_Param(sceneId, 2, 0);---设定
   end
@@ -322,7 +322,7 @@ function x600056_OnSceneTimer( sceneId, selfId )
           local szName = GetName( sceneId, x600056_g_HumanID[i] );                    
           if  x600056_g_jifeng[1] <1 then
           local message = format("#G在全服大混战赛场中,#W目前大家都在进行着#G你死我活#W的战斗，暂无排名！", szName );
-          BroadMsgByChatPipe(sceneId, selfId, message, 4);	 
+          --[don-dep] BroadMsgByChatPipe(sceneId, selfId, message, 4);	 
           	break
           end	
           
@@ -333,7 +333,7 @@ function x600056_OnSceneTimer( sceneId, selfId )
           
           
           local message = format("#Y天下第一赛场中#W，目前排：#G第"..i.."名#W的是：#{_INFOUSR%s}，积分:#G ".. x600056_g_jifeng[i].."分 #W，其它没有排名玩家要加油了", szName );
-          BroadMsgByChatPipe(sceneId, selfId, message, 4);	 
+          --[don-dep] BroadMsgByChatPipe(sceneId, selfId, message, 4);	 
          ---- SetMissionData( sceneId, x600056_g_HumanID[i], MD_HUNZHAN_PAIMING,i)       
           end 
           elseif cs3+1 <= gonggao  then
@@ -370,15 +370,15 @@ function x600056_OnSceneTimer( sceneId, selfId )
 	        for i = 1, 5 do                    	           	           	           	              
           local szName = GetName( sceneId, x600056_g_HumanID[i] );          
           if i ==1 and x600056_g_jifeng[i]>0  then	         
-           AddGlobalCountNews ( sceneId, "#b恭喜["..szName.."]取得了本次活动#cff9966第一名#cFF0000，他在江湖已是传说中的存在" )          	            
+           --[don-dep] AddGlobalCountNews ( sceneId, "#b恭喜["..szName.."]取得了本次活动#cff9966第一名#cFF0000，他在江湖已是传说中的存在" )          	            
           elseif i==2 and x600056_g_jifeng[i]>0 then
-           AddGlobalCountNews ( sceneId, "#b #cff99cc恭喜["..szName.."]取得了本次活动#cff9966第二名 #cff99cc，他已成就天下无敌" )           
+           --[don-dep] AddGlobalCountNews ( sceneId, "#b #cff99cc恭喜["..szName.."]取得了本次活动#cff9966第二名 #cff99cc，他已成就天下无敌" )           
           elseif i==3 and x600056_g_jifeng[i]>0 then
-           AddGlobalCountNews ( sceneId, "#b#G恭喜["..szName.."]取得了本次活动#cff9966第三名#G，他以后可以横着走了" )   
+           --[don-dep] AddGlobalCountNews ( sceneId, "#b#G恭喜["..szName.."]取得了本次活动#cff9966第三名#G，他以后可以横着走了" )   
           elseif i==4 and x600056_g_jifeng[i]>0 then
-           AddGlobalCountNews ( sceneId, "#b#W恭喜["..szName.."]#W取得了本次活动#cff9966第四名#G，他已成就武林的顶尖高手" )   
+           --[don-dep] AddGlobalCountNews ( sceneId, "#b#W恭喜["..szName.."]#W取得了本次活动#cff9966第四名#G，他已成就武林的顶尖高手" )   
           elseif i==5 and x600056_g_jifeng[i]>0  then
-           AddGlobalCountNews ( sceneId, "#b#W恭喜["..szName.."]#W取得了本次活动#cff9966第五名#W，他依然是个#G小混混" )   
+           --[don-dep] AddGlobalCountNews ( sceneId, "#b#W恭喜["..szName.."]#W取得了本次活动#cff9966第五名#W，他依然是个#G小混混" )   
           end
           end 
      

@@ -164,7 +164,7 @@ function x805041_OnTimer( sceneId, actId, uTime )
 	then
 		local cityName = LuaFnCityGetNameBySceneId( sceneId )
 		local cityDefaultName = LuaFnCityGetDefaultNameBySceneId( sceneId )
-		AddGlobalCountNews( sceneId, "@*;SrvMsg;SCA:#P"..cityDefaultName.." Tin kh¦n! Bang Hµi thành th¸ "..cityName.." bên trong ðµt nhiên xu¤t hi®n mµt ðám s½n th¥n s½n quÖ, mong các huynh ð® nhanh chóng quay v« bang hµi quªt sÕch k¨ ð¸ch!" )
+		--[don-dep] AddGlobalCountNews( sceneId, "@*;SrvMsg;SCA:#P"..cityDefaultName.." Tin kh¦n! Bang Hµi thành th¸ "..cityName.." bên trong ðµt nhiên xu¤t hi®n mµt ðám s½n th¥n s½n quÖ, mong các huynh ð® nhanh chóng quay v« bang hµi quªt sÕch k¨ ð¸ch!" )
 		
 		noticeTick = noticeTick + 1
 	end

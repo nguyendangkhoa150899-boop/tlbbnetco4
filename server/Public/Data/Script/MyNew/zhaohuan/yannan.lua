@@ -67,35 +67,35 @@ function  x100121_OnCharacterTimer(  sceneId,  objId,  dataId,  uTime  )
 
                 if  nMinute==15  then
                       local  strText  =  format("@*;SrvMsg;SCA: Chào m×ng các bÕn ðªn v¾i NetCo4! phiên bän hi®n ðang chÕy trên n«n ð° h÷a 3D song hành cùng bän 2D truy«n th¯ng. Server là n½i quy tø nhi«u tính nång ðµc ðáo, m¾i lÕ cùng ð° h÷a ð©p m¡t. Chúc các bÕn có nhæng phút giây vui vë cùng server!",  " thông báo ")
-                      BroadMsgByChatPipe(sceneId,  selfId,  strText,  4)
+                      --[don-dep] BroadMsgByChatPipe(sceneId,  selfId,  strText,  4)
 	 end
                 if  nMinute==19  then
                       local  strText  =  format("@*;SrvMsg;SCA: Server hi®n ðang khuyªn mãi nÕp thë Zing 50% và khuyªn mãi chuy¬n khoän lên ðªn 100% giá tr¸, ði¬m Khuyªn Mãi nÕp thë ðßþc tích lûy dùng ð¬ ð±i quà trong server thay cho l¶i cäm tÕ cüa Admin gØi ðªn các bÕn ðã üng hµ server!",  " thông báo ")
-                      BroadMsgByChatPipe(sceneId,  selfId,  strText,  4)
+                      --[don-dep] BroadMsgByChatPipe(sceneId,  selfId,  strText,  4)
 	 end	 
                 if  nMinute==25  then
                       local  strText  =  format("@*;SrvMsg;SCA: Chào m×ng các bÕn ðªn v¾i H°i ºc Thiên Long! phiên bän hi®n ðang chÕy trên n«n ð° h÷a 3D song hành cùng bän 2D truy«n th¯ng. Server là n½i quy tø nhi«u tính nång ðµc ðáo, m¾i lÕ cùng ð° h÷a ð©p m¡t. Chúc các bÕn có nhæng phút giây vui vë cùng server!",  " thông báo ")
-                      BroadMsgByChatPipe(sceneId,  selfId,  strText,  4)
+                      --[don-dep] BroadMsgByChatPipe(sceneId,  selfId,  strText,  4)
 	 end
                 if  nMinute==29  then
                       local  strText  =  format("@*;SrvMsg;SCA: Server hi®n ðang khuyªn mãi nÕp thë Zing 50% và khuyªn mãi chuy¬n khoän lên ðªn 100% giá tr¸, ði¬m Khuyªn Mãi nÕp thë ðßþc tích lûy dùng ð¬ ð±i quà trong server thay cho l¶i cäm tÕ cüa Admin gØi ðªn các bÕn ðã üng hµ server!",  " thông báo ")
-                      BroadMsgByChatPipe(sceneId,  selfId,  strText,  4)
+                      --[don-dep] BroadMsgByChatPipe(sceneId,  selfId,  strText,  4)
 	 end	 
                 if  nMinute==35  then
                       local  strText  =  format("@*;SrvMsg;SCA: Chào m×ng các bÕn ðªn v¾i NetCo4! phiên bän hi®n ðang chÕy trên n«n ð° h÷a 3D song hành cùng bän 2D truy«n th¯ng. Server là n½i quy tø nhi«u tính nång ðµc ðáo, m¾i lÕ cùng ð° h÷a ð©p m¡t. Chúc các bÕn có nhæng phút giây vui vë cùng server!",  " thông báo ")
-                      BroadMsgByChatPipe(sceneId,  selfId,  strText,  4)
+                      --[don-dep] BroadMsgByChatPipe(sceneId,  selfId,  strText,  4)
 	 end
                 if  nMinute==39  then
                       local  strText  =  format("@*;SrvMsg;SCA: Server hi®n ðang khuyªn mãi nÕp thë Zing 50% và khuyªn mãi chuy¬n khoän lên ðªn 100% giá tr¸, ði¬m Khuyªn Mãi nÕp thë ðßþc tích lûy dùng ð¬ ð±i quà trong server thay cho l¶i cäm tÕ cüa Admin gØi ðªn các bÕn ðã üng hµ server!",  " thông báo ")
-                      BroadMsgByChatPipe(sceneId,  selfId,  strText,  4)
+                      --[don-dep] BroadMsgByChatPipe(sceneId,  selfId,  strText,  4)
 	 end	 
                 if  nMinute==45  then
                       local  strText  =  format("@*;SrvMsg;SCA: Chào m×ng các bÕn ðªn v¾i H°i ºc Thiên Long! phiên bän hi®n ðang chÕy trên n«n ð° h÷a 3D song hành cùng bän 2D truy«n th¯ng. Server là n½i quy tø nhi«u tính nång ðµc ðáo, m¾i lÕ cùng ð° h÷a ð©p m¡t. Chúc các bÕn có nhæng phút giây vui vë cùng server!",  " thông báo ")
-                      BroadMsgByChatPipe(sceneId,  selfId,  strText,  4)
+                      --[don-dep] BroadMsgByChatPipe(sceneId,  selfId,  strText,  4)
 	 end
                 if  nMinute==49  then
                       local  strText  =  format("@*;SrvMsg;SCA: Server hi®n ðang khuyªn mãi nÕp thë Zing 50% và khuyªn mãi chuy¬n khoän lên ðªn 100% giá tr¸, ði¬m Khuyªn Mãi nÕp thë ðßþc tích lûy dùng ð¬ ð±i quà trong server thay cho l¶i cäm tÕ cüa Admin gØi ðªn các bÕn ðã üng hµ server!",  " thông báo ")
-                      BroadMsgByChatPipe(sceneId,  selfId,  strText,  4)
+                      --[don-dep] BroadMsgByChatPipe(sceneId,  selfId,  strText,  4)
 	 end	 
 	            --if  nMinute==46  then
                       --local  strText  =  format("@*;SrvMsg;SCA: Chào m×ng các bÕn ðªn v¾i NetCo4! phiên bän hi®n tÕi s¨ ðßþc c§p nh§t, sØa l²i và nâng c¤p trong th¶i gian t¾i, hi®n ðang ra m¡t Vòng Quay May M¡n, tñ theo ðµi và các chÑc nång m¾i khác. Chúc các bÕn hæu ch½i game vui vë!",  " thông báo ")
@@ -204,27 +204,27 @@ function  x100121_XieziTip(sceneId,  selfId)
 
                 if  mod(nHour,3)  ==  0  and  GetMinute()  ==  17  then
 	 	 local  strText  =  format("#cFF0000NetCo4: #H ðÕt t¾i 30 c¤p tr· lên ngß¶i ch½i , m²i ngày có th¬ · #G ÐÕi Lý #H loÕi hoa ðÕi sß #G a trong #{_INFOAIM185,65,2, a trong }#H ch² nh§n l¤y hoa loÕi , tr°ng tr÷t ra hoa tß½i xinh ð©p , t§p t« s¯ lßþng nh¤t ð¸nh ðích #G Ba Tß hoa h°ng #H , còn có th¬ ð±i phong phú tß·ng thß·ng nga ~")
-                                BroadMsgByChatPipe(sceneId,  selfId,  strText,  4);
+                                --[don-dep] BroadMsgByChatPipe(sceneId,  selfId,  strText,  4);
 
   	 elseif  mod(nHour,3)  ==  1  and  GetMinute()  ==  17  then
 	 	 local  strText  =  format("#cFF0000NetCo4: #H ðÕt t¾i 40 c¤p tr· lên ngß¶i ch½i , m²i ngày có th¬ · #B Tô Châu #G lß½ng ðÕo sî #{_INFOAIM281,276,1, lß½ng ðÕo sî }#H ch² nh§n l¤y #G“Nhi®m vø ¿¾c nguy®n”#HðÕo cø nhi®m vø , thông qua ðánh chªt phó bän BOSS thu t§p #G nguy®n linh tuy«n #H ði trß¾c thái h° hÑa nguy®n , nhßng ðÕt ðßþc phong phú tß·ng thß·ng nga ~")
-                                BroadMsgByChatPipe(sceneId,  selfId,  strText,  4);
+                                --[don-dep] BroadMsgByChatPipe(sceneId,  selfId,  strText,  4);
 
   	 elseif  mod(nHour,3)  ==  2  and  GetMinute()  ==  17  then
 	 	 local  strText  =  format("#cFF0000NetCo4: #H ðÕt t¾i 35 c¤p tr· lên ngß¶i ch½i , có th¬ · #B ÐÕi Lý #G chúc giàu sang #{_INFOAIM149,121,2, chúc giàu sang }#H ch² nh§n l¤y #G ti«n lß½ng nhi®m vø #H , m²i tu¥n hoàn thành ti«n lß½ng nhi®m vø , nhßng ðÕt ðßþc phong phú tß·ng thß·ng nga , còn có c½ hµi ðÕt ðßþc thành ph¦m tr÷ng lâu , m²i tu¥n chï có th¬ làm mµt l¥n , tay s¡p có , tay ch§m vô ~")
-                                BroadMsgByChatPipe(sceneId,  selfId,  strText,  4);
+                                --[don-dep] BroadMsgByChatPipe(sceneId,  selfId,  strText,  4);
 
   	 elseif  mod(nHour,3)  ==  0  and  GetMinute()  ==  37  then
 	 	 local  strText  =  format("#cFF0000NetCo4: #H giang h° hi¬m ác , ra cØa dña vào b¢ng hæu , nªu nhß ngß½i · ðây trong trò ch½i có chí ð°ng ðÕo hþp ðích b¢ng hæu , có th¬ dçn h¡n ði #B LÕc Dß½ng #G tr¥n phu chi #{_INFOAIM240,203,0, chúc giàu sang }#H ch² kªt nghîa kim lan a , kªt bái sau có th¬ kích hoÕt #G kim lan tr§n pháp #H kÛ nång , m²i ngày còn có th¬ mi­n phí nh§n l¤y tình nghîa tr¸ giá , dùng ð¬ thång c¤p tr§n pháp ~")
-                                BroadMsgByChatPipe(sceneId,  selfId,  strText,  4);
+                                --[don-dep] BroadMsgByChatPipe(sceneId,  selfId,  strText,  4);
 
   	 elseif  mod(nHour,3)  ==  1  and  GetMinute()  ==  37  then
 	 	 local  strText  =  format("#cFF0000NetCo4: #H ðÕt t¾i 45 c¤p tr· lên ngß¶i ch½i , có th¬ m· ra #B nguyên bäo th¸ trß¶ng giao d¸ch #H , ðang · hình cái ð¥u ¤n nút phía dß¾i . thß¶ng xuyên chú ý giao d¸ch thß¶ng xuyên , nói không ch×ng có th¬ giây ðªn häo hóa nga . khác v¯n dùng/u¯ng ðã m· thông nguyên bäo kim t® lçn nhau ð±i chÑc nång , ðang · ð±i nguyên bäo ðích UI gi¾i m£t nga ~")
-                                BroadMsgByChatPipe(sceneId,  selfId,  strText,  4);
+                                --[don-dep] BroadMsgByChatPipe(sceneId,  selfId,  strText,  4);
 
   	 elseif  mod(nHour,3)  ==  2  and  GetMinute()  ==  37  then
 	 	 local  strText  =  format("#cFF0000NetCo4: #HÐ¬ nâng c¤p tâm pháp vui lòng v« NPC các môn phái, ð¬ tu luy®n Vû Ý vui lòng ðên Vân Phù ho£c Mai Nha Ðäo")
-                                BroadMsgByChatPipe(sceneId,  selfId,  strText,  4);
+                                --[don-dep] BroadMsgByChatPipe(sceneId,  selfId,  strText,  4);
 
                 end
 end

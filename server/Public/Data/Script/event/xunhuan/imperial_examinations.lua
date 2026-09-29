@@ -258,7 +258,7 @@ function x801016_Broadcast_CANDIDATE_EXAM( sceneId, selfId )
 	local Day = LuaFnGetDayOfThisMonth()
 	
 	local str = "Cuµc thi châu vòng 1 ðã kªt thúc, nhæng ngß¶i ch½i ðßþc l÷t vào vòng 2 là: "
-	BroadMsgByChatPipe( sceneId,selfId,str,4)
+	--[don-dep] BroadMsgByChatPipe( sceneId,selfId,str,4)
 
 	for i,EachStudent in CANDIDATE_EXAM do
 		if EachStudent then 

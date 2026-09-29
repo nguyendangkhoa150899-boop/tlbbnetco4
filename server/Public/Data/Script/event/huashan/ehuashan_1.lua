@@ -1115,7 +1115,7 @@ function x001230_OnHuashanSceneTimer( sceneId, selfId )
 	local nNowTimeEX = LuaFnGetCurrentTime()
 	if x001230_g_bEndTime ~= 0 and nNowTimeEX > x001230_g_bEndTime+60    then
 		
-		BroadMsgByChatPipe(sceneId,0,"@*;SrvMsg;SCA:" .. "#PTrong l¥n Lu§n Kiªm Hoa S½n này, #Y" .. x001230_g_bMenpai .. "#PTräi qua nhæng n± lñc, cu¯i cùng ðã ðÕt ðßþc vinh quang, #YHoa S½n lu§n kiªm hÕng nh¤t#P, ð¬ khích l®, t¤t cä ð® tØ môn hÕ m²i ngày s¨ ðßþc t£ng thß·ng  #Yg¤p 3 l¥n kinh ngi®m khi làm vòng nhi®m vø sß môn ð¥u tiên cho ðªn kÏ Lu§n Kiªm Hoa S½n l¥n sau kªt thúc.",4)
+		--[don-dep] BroadMsgByChatPipe(sceneId,0,"@*;SrvMsg;SCA:" .. "#PTrong l¥n Lu§n Kiªm Hoa S½n này, #Y" .. x001230_g_bMenpai .. "#PTräi qua nhæng n± lñc, cu¯i cùng ðã ðÕt ðßþc vinh quang, #YHoa S½n lu§n kiªm hÕng nh¤t#P, ð¬ khích l®, t¤t cä ð® tØ môn hÕ m²i ngày s¨ ðßþc t£ng thß·ng  #Yg¤p 3 l¥n kinh ngi®m khi làm vòng nhi®m vø sß môn ð¥u tiên cho ðªn kÏ Lu§n Kiªm Hoa S½n l¥n sau kªt thúc.",4)
 		
 		local mingci = 1
 		local str = ""
@@ -1151,7 +1151,7 @@ function x001230_OnHuashanSceneTimer( sceneId, selfId )
 			end
 			
 			-- ÏòÈ«×é·þÎñÆ÷·¢ËÍÐÂÎÅ¹«¸æ
-			AddGlobalCountNews ( sceneId, str )
+			--[don-dep] AddGlobalCountNews ( sceneId, str )
 		end
 		
 		x001230_g_PlayerNum = 0
@@ -1263,7 +1263,7 @@ function x001230_OnHuashanSceneTimer( sceneId, selfId )
 				szStr = szStr .. x001230_Id2Menpai(x001230_g_nMenpaikills[2].id) .. x001230_g_nMenpaikills[2].kill .. "#{HSJL_090113_02}"
 				szStr = szStr .. x001230_Id2Menpai(x001230_g_nMenpaikills[3].id) .. x001230_g_nMenpaikills[3].kill .. "#{HSJL_090113_03}"
 				
-				AddGlobalCountNews(sceneId, szStr)
+				--[don-dep] AddGlobalCountNews(sceneId, szStr)
 				
 			end
 		end
@@ -1534,19 +1534,19 @@ function x001230_OnHuashanSceneTimer( sceneId, selfId )
 					-- PrintNum(x001230_g_nMenpaiQiansan[i].playerid02)
 					-- PrintNum(x001230_g_nMenpaiQiansan[i].playerid03)
 					if x001230_g_nMenpaiQiansan[i].playerid01 ~= 0 and x001230_g_nMenpaiQiansan[i].player01 ~= "" then
-						BroadMsgByChatPipe(sceneId,x001230_g_nMenpaiQiansan[i].playerid01, str, 7)
+						--[don-dep] BroadMsgByChatPipe(sceneId,x001230_g_nMenpaiQiansan[i].playerid01, str, 7)
 						str = "Giäi nh¤t: " .. x001230_g_nMenpaiQiansan[i].player01
-						BroadMsgByChatPipe(sceneId,x001230_g_nMenpaiQiansan[i].playerid01, str, 7)	
+						--[don-dep] BroadMsgByChatPipe(sceneId,x001230_g_nMenpaiQiansan[i].playerid01, str, 7)	
 					end
 					
 					if x001230_g_nMenpaiQiansan[i].playerid02 ~= 0 and x001230_g_nMenpaiQiansan[i].player02 ~= "" then
 						str = "Giäi nhì: " .. x001230_g_nMenpaiQiansan[i].player02
-						BroadMsgByChatPipe(sceneId,x001230_g_nMenpaiQiansan[i].playerid02, str, 7)			
+						--[don-dep] BroadMsgByChatPipe(sceneId,x001230_g_nMenpaiQiansan[i].playerid02, str, 7)			
 					end
 					
 					if x001230_g_nMenpaiQiansan[i].playerid03 ~= 0 and x001230_g_nMenpaiQiansan[i].player03 ~= "" then
 						str = "Giäi ba: " .. x001230_g_nMenpaiQiansan[i].player03
-						BroadMsgByChatPipe(sceneId,x001230_g_nMenpaiQiansan[i].playerid03, str, 7)							
+						--[don-dep] BroadMsgByChatPipe(sceneId,x001230_g_nMenpaiQiansan[i].playerid03, str, 7)							
 					end
 					
 					if x001230_g_nMenpaiQiansan[i].player01 ~= ""

@@ -89,7 +89,7 @@ function x808037_OnTimer( sceneId, actId, uTime )
 		if nDelta >= 60*14 and bBroardFlag15 == 0 then
 			szPlayerName = JINGHU_YAODING_CREATER_NAME;
 			local message = format("#{JingHu_LingYao_04}#{_INFOUSR%s}#{JingHu_LingYao_05}", szPlayerName);	
-			AddGlobalCountNews( sceneId, message )
+			--[don-dep] AddGlobalCountNews( sceneId, message )
 			
 			LuaFnDeleteMonster( sceneId, idMonster);
 	
@@ -106,13 +106,13 @@ function x808037_OnTimer( sceneId, actId, uTime )
 		elseif nDelta >= 60*9 and bBroardFlag10 == 0 then
 		
 			local message = format("#{JingHu_LingYao_06}");	
-			AddGlobalCountNews( sceneId, message )
+			--[don-dep] AddGlobalCountNews( sceneId, message )
 			SetActivityParam( sceneId, actId, x808037_LingYao["BroardFlag10"], 1 );
 			
 		elseif nDelta >= 60*4 and bBroardFlag5 == 0 then
 		
 			local message = format("#{JingHu_LingYao_07}");	
-			AddGlobalCountNews( sceneId, message )
+			--[don-dep] AddGlobalCountNews( sceneId, message )
 			SetActivityParam( sceneId, actId, x808037_LingYao["BroardFlag5"], 1 );
 		
 		end
