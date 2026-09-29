@@ -446,7 +446,12 @@ class H(BaseHTTPRequestHandler):
         return self.headers.get("Host", "") in ("%s:%d" % (h, PORT) for h in (PUBLIC_IP, "127.0.0.1", "localhost"))
 
     def _ip(self):
-        return self.client_address[0]
+        # Sau nginx (gm.netco4.click) moi ket noi deu tu 127.0.0.1: lay IP that tu X-Real-IP,
+        # chi tin header nay khi ket noi den tu chinh may (nguoi ngoai khong gia duoc).
+        ip = self.client_address[0]
+        if ip in ("127.0.0.1", "::1") and self.headers.get("X-Real-IP"):
+            return self.headers.get("X-Real-IP").strip()[:45]
+        return ip
 
     def _cookie(self):
         m = re.search(r"(?:^|;\s*)nc4=([A-Za-z0-9_-]+)", self.headers.get("Cookie", ""))
