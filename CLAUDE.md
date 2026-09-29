@@ -81,6 +81,8 @@ Cùng 139 boss đó (29/09 chiều): đã gỡ hộp phiếu 1000 cũ và 54 h�
 
 **⚠ Tab 💥 Drop Boss (admin/mod.netco4.click, từ 29/09 tối)** sửa `MonsterDropBoxs.txt` + `DropBoxContent.txt` **trực tiếp trên VPS**, không qua repo (backup tự động ở `/opt/tlbb-backup/dropui-*`). Vì vậy **trước mỗi lần `cap-nhat.sh` phải chạy `./lay-tu-server.sh --push`** (hoặc kéo 2 file đó về repo) — quên là cap-nhat ghi đè mất chỉnh sửa của admin. Đóng tab cho mod: xem chú thích `29/09 tạm MỞ` trong `bialk/BotDoMin/panel.js`.
 
+**📜 Nhật ký Drop Boss (29/09):** mọi lần lưu ở tab Drop Boss ghi 1 dòng JSON vào `/opt/tlbb-backup/dropboss-audit.jsonl` (ai: cổng + IP, lúc nào, trước → sau, nguyên dòng file để khôi phục), xem ở nút 📜 Lịch sử sửa (chỉ cổng SUPER). File gắn `chattr +a`: chỉ ghi thêm, **không được `chattr -a` / xóa / cắt**. Code ở repo `bialk` (`BotDoMin/dropboss.js`).
+
 **Đổi mệnh giá:** chỉ sửa cột thứ 5 của dòng `90001` thành ID phiếu khác: 1.000 = `39910001`, 2.000 = `39910002` (hiện tại), 5.000 = `39910003`, 10.000 = `39910004`, 50.000 = `39910005`, 100.000 = `39910006`. Sau đó `./cap-nhat.sh` và restart. Phiếu chuột phải ra KNB (script 100001 `New/item/YuanBaoPiao.lua`), KNB đó chuyển ra web qua NPC Ví Web không giới hạn.
 
 ## Đã vá so với bản public (đừng hoàn tác)
