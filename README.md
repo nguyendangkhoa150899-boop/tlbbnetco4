@@ -84,10 +84,10 @@ sửa server/...  →  git commit + push  →  VPS: cd /opt/tlbb-deploy && ./cap
 Chi tiết từng mục ở `docs/TRANG-THAI.md` → "Cập nhật 29/09 chiều". Tóm tắt và checklist test:
 
 **Server game (repo này, đã deploy file lên VPS, chờ restart):**
-- [ ] **Boss rớt Nguyên Bảo Phiếu 2000** (hộp `90001`, 139 boss phó bản + boss thế giới hồi sinh ≥ 30 phút). Test: đánh 1 boss Yến Tử Ổ (Cáp Đại Bá) và 1 boss thế giới (Bạch Đế / Tần Hoàng Chi Phách) → phải rớt đúng **1 tờ** phiếu 2000, không còn phiếu 1000 kèm theo. Chuột phải tờ phiếu → +2.000 KNB.
-- [ ] **Sinh Tử Lôi Đài (Sát Tinh):** chỉ **Võ Tòng** (NPC số 12) rớt phiếu 2000; 11 boss kia không. 12 NPC gọi boss độc lập, không cần đánh theo thứ tự. Test: gọi Võ Tòng → rớt phiếu; gọi Tống Giang → không rớt (và con xuất hiện thật ra là Ngô Vĩnh — lỗi script có sẵn, chưa sửa).
+- [x] **Boss rớt Nguyên Bảo Phiếu** (30/09: đã sửa và kiểm chứng qua Audit log): 149 boss (139 boss phó bản/boss thế giới + 11 boss Sinh Tử Lôi Đài) rớt **1 tờ phiếu 1000** mỗi lần giết (tỉ lệ 1.0), 23 boss trong đó có thêm tờ thứ 2 từ hộp nguyên liệu 90002. Hộp phiếu theo Mvalue: 90001 (Mv 60) và 90016–90028.
+- [x] **Sinh Tử Lôi Đài (Sát Tinh):** cả 11 boss (12 NPC; Tống Giang + Ngô Vĩnh cùng gọi 1 boss) rớt phiếu 1000, đã thấy trong Audit 30/09 00:5x.
 - [ ] **Dọn đồ rác boss:** gỡ 54 hộp trang bị cấp thấp / công thức nấu ăn / đá Thiểm Lượng khỏi 17 boss thế giới cấp thấp (Đạo Mộ Tiểu Tặc, Hộ Bảo Thần Thú, Vương Trực, Tần Bá Chiêu, Tát Lạp Phu, Tiêu Thiên Ngũ, Mộc Dũng Bá, nhóm Xé Phong Ma…). Quái thường vẫn rớt như cũ. Test: đánh Đạo Mộ Tiểu Tặc (Bảo Tàng 1) → không còn rớt vũ khí/giáp cấp 20–30.
-- [ ] **Đồ nguyên liệu rớt dễ gấp đôi:** 14 hộp đồ muốn (Chuế Long Thạch, Chú Văn ×3, Hàn Băng Tinh Tiết, Chí Tôn Cường Hóa Tinh Hoa, Long Hồn Ngọc, Long Văn +1, Miên Bố/Bí Ngân 8, Nữ Oa/Tụ Linh/Huyền Binh, Huyền Hạo Ngọc, Mệnh/Địa/Thiên Hồn Ngọc, Long Văn Thanh Từ Bình) được sao thành hộp `90002`–`90015` với BoxValue = ½, chỉ gắn cho boss. Test: đánh 5–10 lần Tang Thổ Công / Tiêu Dật Phong, đếm số lần rớt Hàn Băng Tinh Tiết, Chú Văn. **Chưa biết công thức rớt của server**, con số này là để so trước/sau.
+- [ ] **Đồ nguyên liệu rớt dễ gấp đôi:** 14 hộp 90002–90015 (BoxValue = ½ gốc). 30/09: 4 hộp có tỉ lệ > 1 (90002/90007/90009/90014) đã nâng BV lên = Mvalue lớn nhất của boss dùng nó (chưa có bằng chứng tỉ lệ > 1 chạy được). Test: đếm Hàn Băng Tinh Tiết / Chú Văn từ Tang Thổ Công.
 - [ ] **Giảm 35% máu toàn bộ 4.247 boss** (`MonsterAttrExTable.txt` cột HP + MaxHP, công/thủ giữ nguyên). Test: so máu Cáp Đại Bá / Tiêu Dật Phong trước–sau (Tiêu Dật Phong 120 phải ~3,05 triệu thay vì 4,7 triệu). Nếu vẫn trâu, nói hệ số mới (vd 50%) — chạy lại từ file gốc, không giảm chồng.
 - [ ] **Tắt tin hệ thống rác:** 4 tin đăng nhập (`NotifyOnline.txt`), quảng cáo Hồi Ức Thiên Long / nạp thẻ Zing / mẹo cấp 30–45 (`yannan.lua`), tin lỗi font khu ZBS, Hoa Sơn, Tống Liêu, Kính Hồ, bảo vệ bang, thi Hương (42 lệnh, gắn `--[don-dep]`). Giữ: lần đăng nhập trước + IP, chúc sinh nhật, thông báo boss xuất hiện, "chúc mừng người chơi X". Test: vào game 30 phút, không còn tin quảng cáo ở phút 15/19/25…; sự kiện vẫn chạy nhưng không báo.
 - [ ] **Chat Thế Giới vẫn bị chờ 3 phút:** đó là **client** (`Bin/OgreMain.dll` mã hóa), server đã để 0 giây. Không sửa được từ server. Giải pháp: kênh Loa, bang chung, Discord.
@@ -102,13 +102,23 @@ Chi tiết từng mục ở `docs/TRANG-THAI.md` → "Cập nhật 29/09 chiều
 
 **Thêm tối 29/09 (đã restart game 18:28, mọi thứ buổi chiều ĐÃ có hiệu lực):**
 - [ ] **Tab 💥 Drop Boss** ở admin.netco4.click **và mod.netco4.click** (tạm mở cho mod test chung — đóng lại: chú thích `29/09 tạm MỞ` trong `bialk/BotDoMin/panel.js`). Sửa đồ rơi 4.247 boss: bấm hộp để sửa BoxValue + món, 🧬 Tách riêng cho hộp dùng chung (⚠), + hộp / × gỡ hộp. Ghi thẳng file VPS (backup `dropui-*`), **hiệu lực sau restart**; sửa xong đợt lớn phải đồng bộ về repo (đã kéo về 21h: chưa ai đổi gì). Tìm boss gõ có dấu/không dấu đều được (sửa 21h — trước đó gõ có dấu không ra, không phải thiếu boss).
-- [ ] **BoxValue là gì:** mỗi hộp rơi ra 1 món ngẫu nhiên trong hộp; khả năng hộp RƠI phụ thuộc Mvalue của quái so với BoxValue của hộp — **BoxValue càng NHỎ càng dễ rơi**, BoxValue 1 ≈ chắc chắn (như hộp phiếu 90001), BoxValue lớn gấp nhiều lần Mvalue ≈ hiếm. Không có mã nguồn nên đây là suy luận từ dữ liệu — chỉnh xong nên đánh thử đếm.
-- [ ] **Test sau restart 18:28:** Võ Tòng (Sinh Tử Lôi Đài) rớt phiếu 2000? Tên vật phẩm phía server hết mất chữ "ấ"?
+- [x] **BoxValue là gì (đã chứng minh 30/09 bằng Audit log):** **xác suất rơi ≈ Mvalue của quái ÷ BoxValue của hộp** (mọi lần rơi ghi trong log đều có tỉ lệ ≤ 1.0; phiếu 1000 gốc ở BV 2200–3000 với Mv 60 ≈ 2–3%). **BoxValue = 1 làm boss KHÔNG rơi gì cả** (hỏng cả lượt rơi, đây là lý do 29/09–30/09 boss "không rớt gì hết"); dữ liệu gốc nhỏ nhất là 4 → tab Drop Boss giờ chặn BV < 4. Muốn "chắc chắn" thì đặt BoxValue = Mvalue.
+- [x] Test sau restart: Võ Tòng rớt phiếu (30/09). Tên vật phẩm server hết mất chữ "ấ" (chưa soi lại).
 - [ ] **Sửa ~4.170 dòng CommonItem mất chữ "ấ"** (Nhất/Thất/chất/lấy/xuất…) + danh mục + tên 23 món shop. Client vẫn hiện tên cũ (bảng trong client, không sửa được). Còn sót: GemInfo (30 chỗ), EquipBase111 (27) — chưa sửa.
 - [ ] **mod.netco4.click** (cổng admin thường, mật khẩu `1234567` — chủ server đặt): sửa được SHOP + Drop Boss, bị chặn GM/ví/liên kết. Nút Lưu shop có khoá phiên bản (409 nếu bảng cũ). **Cần quyết:** đổi mật khẩu dài hơn hoặc thêm khoá 5 lần sai; đóng Drop Boss cho mod sau khi test.
 - [ ] **Chưa quyết (phát hiện tối 29/09):** dòng chửi "SB" trong `scene.lua` (dòng 832) chửi nhầm người tạo nhân vật mới khi đang bật cấp tối thiểu 119 — nạn nhân đầu: EmVinh (bị về cấp 0 rồi lên lại 119, mất túi tân thủ). Tắt dòng chửi? Phát bù túi tân thủ cho EmVinh? NPC "Thẻ Tài Phú" (Đại Lý, phát KNB miễn phí theo mốc cấp): giữ hay tắt?
 
 **Quyết định còn treo (cần chủ server chốt):** giá 33 viên ngọc 6; hạn đổi vàng/ngày; có gắn Miên Bố/Bí Ngân cấp 6 cho Ác tặc/Ác bá/nhiệm vụ Tô Châu–Lâu Lan không (hiện chỉ boss Binh Thánh rớt); thời gian dự kiến để lên đồ cuối game (quyết số lượng nguyên liệu và giá shop); có mở ám khí (Mai Hoa Tiêu / Băng Phách Thần Châm — chưa có trong danh mục) không.
+
+## Đã làm đêm 29–30/09 (đã restart 00:54 và ~01:30, đã kiểm chứng phần rơi đồ)
+
+- [x] **Sửa "boss không rớt gì hết"**: nguyên nhân hộp phiếu BoxValue=1 (xem mục BoxValue ở trên). Bằng chứng: `Server/Log/Audit_*.log` dòng `ITEM_CREATED,...,Dropped by "<quái>",<ID>` — Sát Tinh rơi đều tới lúc gắn 90001, sau đó 0; 139 boss gắn 90001 từ 29/09 chưa từng rơi.
+- [x] Dọn 1.603 tham chiếu hộp rơi không tồn tại (821 quái, lỗi có sẵn từ bản gốc, gây 2.160 dòng `Search DropBoxs ... Get Errors`/giờ). Không phải nguyên nhân mất rơi (quái vẫn rơi khi có lỗi này) nhưng sạch log.
+- [x] **Không đụng Liên hoàn nhiệm vụ Tô Châu** (quái 1880–1899 Mvalue 0 từ gốc = không rơi theo bảng; chủ server thấy vẫn có rơi nên giữ nguyên).
+- [x] Shop Tiệm Bảo Thạch (nút "Ngọc Cấp 3", shop 150): 25 ngọc cấp 4 → cấp 5, giá Điểm Tặng gốc. Panel GM: "Nâng ngọc trong túi lên cấp N", "XOA vật phẩm"; Trùng Lâu/quạt Phù Sinh/Tạo Hóa riêng cho nhân vật test (mẫu đã trả về mặc định).
+- [x] Tab 💥 Drop Boss: nhật ký không mất (`/opt/tlbb-backup/dropboss-audit.jsonl`, chattr +a), nút ↩ Rollback, mục 💥 trong tab 📜 Log, chặn BoxValue < 4.
+- [ ] Ngọc không chồng được (engine), Võ Hồn tối đa cấp 8 theo ID (cấp 9 không làm được) — xem `docs/TRANG-THAI.md`.
+- [ ] **Cân bằng KNB:** 149 boss rớt chắc phiếu 1000, boss hồi sinh 30 phút → cày boss có thể ra vài chục nghìn KNB/ngày. Nếu muốn KNB khó kiếm: đặt BoxValue = 2×Mvalue (50%) hoặc chỉ giữ cho boss phó bản.
 
 ## Việc tiếp theo
 
