@@ -100,6 +100,14 @@ Chi tiết từng mục ở `docs/TRANG-THAI.md` → "Cập nhật 29/09 chiều
 - [ ] 30 icon ngọc `assets/itemimage/ngoc_<hàng>_<cột>.png` (cắt từ ảnh bảng ngọc), chưa gắn vào món nào — không biết viên nào là ngọc gì.
 - [ ] Cầu KNB game ↔ web: **đã test 8 case OK** (29/09). Thẻ "Chuyển KNB từ game ra web" trên web đã ẩn, chỉ dùng NPC Ví Web.
 
+**Thêm tối 29/09 (đã restart game 18:28, mọi thứ buổi chiều ĐÃ có hiệu lực):**
+- [ ] **Tab 💥 Drop Boss** ở admin.netco4.click **và mod.netco4.click** (tạm mở cho mod test chung — đóng lại: chú thích `29/09 tạm MỞ` trong `bialk/BotDoMin/panel.js`). Sửa đồ rơi 4.247 boss: bấm hộp để sửa BoxValue + món, 🧬 Tách riêng cho hộp dùng chung (⚠), + hộp / × gỡ hộp. Ghi thẳng file VPS (backup `dropui-*`), **hiệu lực sau restart**; sửa xong đợt lớn phải đồng bộ về repo (đã kéo về 21h: chưa ai đổi gì). Tìm boss gõ có dấu/không dấu đều được (sửa 21h — trước đó gõ có dấu không ra, không phải thiếu boss).
+- [ ] **BoxValue là gì:** mỗi hộp rơi ra 1 món ngẫu nhiên trong hộp; khả năng hộp RƠI phụ thuộc Mvalue của quái so với BoxValue của hộp — **BoxValue càng NHỎ càng dễ rơi**, BoxValue 1 ≈ chắc chắn (như hộp phiếu 90001), BoxValue lớn gấp nhiều lần Mvalue ≈ hiếm. Không có mã nguồn nên đây là suy luận từ dữ liệu — chỉnh xong nên đánh thử đếm.
+- [ ] **Test sau restart 18:28:** Võ Tòng (Sinh Tử Lôi Đài) rớt phiếu 2000? Tên vật phẩm phía server hết mất chữ "ấ"?
+- [ ] **Sửa ~4.170 dòng CommonItem mất chữ "ấ"** (Nhất/Thất/chất/lấy/xuất…) + danh mục + tên 23 món shop. Client vẫn hiện tên cũ (bảng trong client, không sửa được). Còn sót: GemInfo (30 chỗ), EquipBase111 (27) — chưa sửa.
+- [ ] **mod.netco4.click** (cổng admin thường, mật khẩu `1234567` — chủ server đặt): sửa được SHOP + Drop Boss, bị chặn GM/ví/liên kết. Nút Lưu shop có khoá phiên bản (409 nếu bảng cũ). **Cần quyết:** đổi mật khẩu dài hơn hoặc thêm khoá 5 lần sai; đóng Drop Boss cho mod sau khi test.
+- [ ] **Chưa quyết (phát hiện tối 29/09):** dòng chửi "SB" trong `scene.lua` (dòng 832) chửi nhầm người tạo nhân vật mới khi đang bật cấp tối thiểu 119 — nạn nhân đầu: EmVinh (bị về cấp 0 rồi lên lại 119, mất túi tân thủ). Tắt dòng chửi? Phát bù túi tân thủ cho EmVinh? NPC "Thẻ Tài Phú" (Đại Lý, phát KNB miễn phí theo mốc cấp): giữ hay tắt?
+
 **Quyết định còn treo (cần chủ server chốt):** giá 33 viên ngọc 6; hạn đổi vàng/ngày; có gắn Miên Bố/Bí Ngân cấp 6 cho Ác tặc/Ác bá/nhiệm vụ Tô Châu–Lâu Lan không (hiện chỉ boss Binh Thánh rớt); thời gian dự kiến để lên đồ cuối game (quyết số lượng nguyên liệu và giá shop); có mở ám khí (Mai Hoa Tiêu / Băng Phách Thần Châm — chưa có trong danh mục) không.
 
 ## Việc tiếp theo
