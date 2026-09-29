@@ -77,6 +77,27 @@ sửa server/...  →  git commit + push  →  VPS: cd /opt/tlbb-deploy && ./cap
 - **Windows Defender báo `Bin\RSSParser.dll` là Trojan và tự xóa file đó.** Người chơi phải tự thêm ngoại lệ cho thư mục `NetCo4\Bin`. Chưa xác minh được file này sạch.
 - Ai có client cũ: dùng `deploy/client/CAI-DAT-FIX.cmd` + `sua-client.ps1` + `chan-link-la.ps1` (giải nén vào thư mục game rồi chạy).
 
+## Đã làm chiều 29/09 — CẦN TEST khi về (chưa restart game, mọi thứ có hiệu lực sau `./tlbb.sh restart`)
+
+Chi tiết từng mục ở `docs/TRANG-THAI.md` → "Cập nhật 29/09 chiều". Tóm tắt và checklist test:
+
+**Server game (repo này, đã deploy file lên VPS, chờ restart):**
+- [ ] **Boss rớt Nguyên Bảo Phiếu 2000** (hộp `90001`, 139 boss phó bản + boss thế giới hồi sinh ≥ 30 phút). Test: đánh 1 boss Yến Tử Ổ (Cáp Đại Bá) và 1 boss thế giới (Bạch Đế / Tần Hoàng Chi Phách) → phải rớt đúng **1 tờ** phiếu 2000, không còn phiếu 1000 kèm theo. Chuột phải tờ phiếu → +2.000 KNB.
+- [ ] **Dọn đồ rác boss:** gỡ 54 hộp trang bị cấp thấp / công thức nấu ăn / đá Thiểm Lượng khỏi 17 boss thế giới cấp thấp (Đạo Mộ Tiểu Tặc, Hộ Bảo Thần Thú, Vương Trực, Tần Bá Chiêu, Tát Lạp Phu, Tiêu Thiên Ngũ, Mộc Dũng Bá, nhóm Xé Phong Ma…). Quái thường vẫn rớt như cũ. Test: đánh Đạo Mộ Tiểu Tặc (Bảo Tàng 1) → không còn rớt vũ khí/giáp cấp 20–30.
+- [ ] **Đồ nguyên liệu rớt dễ gấp đôi:** 14 hộp đồ muốn (Chuế Long Thạch, Chú Văn ×3, Hàn Băng Tinh Tiết, Chí Tôn Cường Hóa Tinh Hoa, Long Hồn Ngọc, Long Văn +1, Miên Bố/Bí Ngân 8, Nữ Oa/Tụ Linh/Huyền Binh, Huyền Hạo Ngọc, Mệnh/Địa/Thiên Hồn Ngọc, Long Văn Thanh Từ Bình) được sao thành hộp `90002`–`90015` với BoxValue = ½, chỉ gắn cho boss. Test: đánh 5–10 lần Tang Thổ Công / Tiêu Dật Phong, đếm số lần rớt Hàn Băng Tinh Tiết, Chú Văn. **Chưa biết công thức rớt của server**, con số này là để so trước/sau.
+- [ ] **Tắt tin hệ thống rác:** 4 tin đăng nhập (`NotifyOnline.txt`), quảng cáo Hồi Ức Thiên Long / nạp thẻ Zing / mẹo cấp 30–45 (`yannan.lua`), tin lỗi font khu ZBS, Hoa Sơn, Tống Liêu, Kính Hồ, bảo vệ bang, thi Hương (42 lệnh, gắn `--[don-dep]`). Giữ: lần đăng nhập trước + IP, chúc sinh nhật, thông báo boss xuất hiện, "chúc mừng người chơi X". Test: vào game 30 phút, không còn tin quảng cáo ở phút 15/19/25…; sự kiện vẫn chạy nhưng không báo.
+- [ ] **Chat Thế Giới vẫn bị chờ 3 phút:** đó là **client** (`Bin/OgreMain.dll` mã hóa), server đã để 0 giây. Không sửa được từ server. Giải pháp: kênh Loa, bang chung, Discord.
+
+**Mini game / admin (repo `bialk`, đã chạy trên VPS):**
+- [ ] Tab **🛠️ GM Thiên Long** trong admin.netco4.click (không cần đăng nhập gm.netco4.click nữa). Test: tạo tài khoản, phát 1 món, cấp/tắt GM.
+- [ ] **Shop Item** mở lại, giao qua hàng đợi quà (không cần online): 33 ngọc cấp 6 (đang **TẮT**, giá tạm 99.999 → phải đặt giá rồi tick Bán), 60 Yếu Quyết môn phái (đang bán: thường 60.000, tiến cấp 120.000). Nhóm 🔥 Hàng giới hạn / 💎 Ngọc 6 có hạn riêng mỗi người/ngày. Test: mua 1 món → đổi bản đồ → vào túi; mua lần 2 vượt hạn → bị chặn.
+- [ ] **Quà mỗi ngày** (tab 🎁 Quà tặng) mở lại. Test: thêm 1 quà, nhận trên web, đổi bản đồ.
+- [ ] **Đổi KNB → Vàng không khóa** (thẻ riêng trên web, 1:1, hạn riêng đặt ở panel, tạm 30.000/ngày). Test: đổi 1.000 → đổi bản đồ → nhận đúng **1.000 vàng** (không phải 1.000 đồng hay 10 triệu). Chiều vàng → web CHƯA làm.
+- [ ] 30 icon ngọc `assets/itemimage/ngoc_<hàng>_<cột>.png` (cắt từ ảnh bảng ngọc), chưa gắn vào món nào — không biết viên nào là ngọc gì.
+- [ ] Cầu KNB game ↔ web: **đã test 8 case OK** (29/09). Thẻ "Chuyển KNB từ game ra web" trên web đã ẩn, chỉ dùng NPC Ví Web.
+
+**Quyết định còn treo (cần chủ server chốt):** giá 33 viên ngọc 6; hạn đổi vàng/ngày; có gắn Miên Bố/Bí Ngân cấp 6 cho Ác tặc/Ác bá/nhiệm vụ Tô Châu–Lâu Lan không (hiện chỉ boss Binh Thánh rớt); thời gian dự kiến để lên đồ cuối game (quyết số lượng nguyên liệu và giá shop); có mở ám khí (Mai Hoa Tiêu / Băng Phách Thần Châm — chưa có trong danh mục) không.
+
 ## Việc tiếp theo
 
 Xem [docs/TRANG-THAI.md](docs/TRANG-THAI.md). Tóm tắt:
