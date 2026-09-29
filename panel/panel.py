@@ -152,10 +152,14 @@ def tom_tat(pend):
         k = p.split()
         if len(k) >= 2 and k[0] in ("knb", "diemtang", "vang") and k[1].isdigit():
             tong[k[0]] = tong.get(k[0], 0) + int(k[1])
+        elif len(k) >= 3 and k[0] == "doi":   # nang ngoc: moi loai 1 dong -> dem gop, ghi cap dich
+            tong["doi"] = tong.get("doi", 0) + 1
+            tong["_cap"] = k[2][2:3]
         else:
             out.append(p + ("  " + ITEM_NAME.get(k[1], "") if k[0] in ("item", "xoa", "popup") and len(k) > 1 else ""))
+    cap = tong.pop("_cap", "?")
     for k, n in tong.items():
-        out.append("vang %g" % (n / 10000.0) if k == "vang" else "%s %d" % (k, n))
+        out.append("vang %g" % (n / 10000.0) if k == "vang" else ("nang ngoc len cap %s (%d loai)" % (cap, n) if k == "doi" else "%s %d" % (k, n)))
     return out
 
 
@@ -207,7 +211,7 @@ def act(form):
             msgs = [act(dict(form, guid=t)) for t in targets]
             bad = [m for m in msgs if not m.startswith("Da xep")]
             return bad[0] if bad else "Da xep hang qua cho %d nhan vat" % len(targets)
-        if not RE_INT.match(g) or kind not in ("item", "xoa", "knb", "vang", "diemtang", "level", "vip", "popup") or not RE_INT.match(val) or not RE_INT.match(cnt):
+        if not RE_INT.match(g) or kind not in ("item", "xoa", "knb", "vang", "diemtang", "level", "nangngoc", "vip", "popup") or not RE_INT.match(val) or not RE_INT.match(cnt):
             return "Du lieu qua khong hop le"
         if kind in ("item", "xoa", "popup") and val not in ITEM_NAME:
             return "Khong co vat pham ID %s trong danh muc" % val
@@ -223,6 +227,8 @@ def act(form):
             return "Diem Tang 1-10000000 moi lan"
         if kind == "level" and not 1 <= int(val) <= 119:
             return "Cap 1-119"
+        if kind == "nangngoc" and not 2 <= int(val) <= 7:
+            return "Cap ngoc 2-7 (cap 7 la cao nhat)"
         if kind == "popup":
             os.makedirs(POPUP, exist_ok=True)
             with open(os.path.join(POPUP, g + ".txt"), "w", encoding="ascii", newline="\n") as f:
@@ -237,6 +243,12 @@ def act(form):
             lines = ["knb %d" % min(99999, n - i) for i in range(0, n, 99999)]
         elif kind == "vang":  # 1 vang = 100 bac = 10000 dong; AddMoney nhan dong
             lines = ["vang %d" % (int(val) * 10000)]
+        elif kind == "nangngoc":  # ngoc ID 50<cap><loai 5 so>: moi loai duoi cap N co ban cap N -> "doi" (quatang.lua)
+            lv = int(val)
+            lines = ["doi %s 50%d%s" % (i, lv, i[3:]) for i in sorted(ITEM_NAME)
+                     if re.match(r"^50[1-7]\d{5}$", i) and int(i[2]) < lv and ("50%d%s" % (lv, i[3:])) in ITEM_NAME]
+            if not lines:
+                return "Khong co loai ngoc nao nang len cap %d duoc" % lv
         else:
             lines = ["%s %s" % (kind, val)]
         with open(os.path.join(QUEUE, g + ".txt"), "a", encoding="ascii", newline="\n") as f:
@@ -372,7 +384,7 @@ def page(msg="", q=""):
 
     # Nhan vat + phat qua
     give_form = ('<form method="post" class="row"><input type="hidden" name="t" value="%s"><input type="hidden" name="a" value="qua">'
-                 '<input type="hidden" name="guid" value="%%s"><select name="loai"><option value="item">Vat pham (ID)</option><option value="xoa">XOA vat pham (ID)</option>'
+                 '<input type="hidden" name="guid" value="%%s"><select name="loai"><option value="item">Vat pham (ID)</option><option value="xoa">XOA vat pham (ID)</option><option value="nangngoc">Nang ngoc trong tui len cap (2-7)</option>'
                  '<option value="knb">KNB</option><option value="vang">Vang</option><option value="diemtang">Diem Tang</option><option value="level">Len cap (1-119)</option><option value="vip">Cap VIP (0-10)</option><option value="popup">Qua popup (cua so, chon nguoi)</option></select>'
                  '<input name="gt" placeholder="ID vat pham" size="12" required pattern="\\d{1,10}">'
                  '<input name="sl" placeholder="SL" size="3" value="1" pattern="\\d{1,3}"><button%%s>%%s</button></form>') % TOKEN
@@ -424,7 +436,7 @@ def page(msg="", q=""):
     # Form phat qua: o "gt" la ID (vat pham/popup) hoac so (KNB/vang/VIP); o SL chi dung cho vat pham
     # Gan su kien trong script, KHONG dung onchange="..." inline: trong handler inline, ten "loai" bi form.loai (chinh o select) che mat
     out.append('<script>function doiLoai(s){var f=s.form,it=s.value=="item"||s.value=="xoa";'
-               'f.gt.placeholder={item:"ID vat pham",xoa:"ID can xoa",knb:"So KNB (1-10000000)",vang:"So vang (1-100000)",diemtang:"So Diem Tang",level:"Cap (1-119)",vip:"Cap VIP 0-10",popup:"ID vat pham"}[s.value];'
+               'f.gt.placeholder={item:"ID vat pham",xoa:"ID can xoa",nangngoc:"Cap ngoc (2-7)",knb:"So KNB (1-10000000)",vang:"So vang (1-100000)",diemtang:"So Diem Tang",level:"Cap (1-119)",vip:"Cap VIP 0-10",popup:"ID vat pham"}[s.value];'
                'f.sl.style.display=it?"":"none";f.sl.disabled=!it}'
                'document.querySelectorAll("select[name=loai]").forEach(function(s){s.onchange=function(){doiLoai(s)};doiLoai(s)})</script>')
     return "".join(out)

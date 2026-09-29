@@ -6,6 +6,7 @@
 --   diemtang <so Diem Tang>
 --   level <cap 1-119>   (chi len cap, khong ha cap)
 --   xoa <ID vat pham> <so luong>   (admin xoa khoi tui, vd do khong vut duoc)
+--   doi <ID cu> <ID moi>   (doi TAT CA ID cu trong tui sang ID moi, giu so luong - vd nang cap ngoc)
 --   vip <cap 0-10>
 -- Duoc goi tu scene.lua: x888888_OnScenePlayerLogin (dang nhap) va x888888_OnScenePlayerEnter (doi ban do).
 -- Tui day: phan chua nhan duoc ghi lai, nhan tiep o lan dang nhap sau.
@@ -104,6 +105,30 @@ function x950000_NhanQua( sceneId, selfId )
 			end
 			if co > 0 then
 				LuaFnDelAvailableItem( sceneId, selfId, id, co )
+			end
+		elseif kind == "doi" then
+			-- Dem ID cu trong tui -> xoa dung so do -> phat lai dung so do bang ID moi (1 luot, khong lech so).
+			-- Tui day giua chung: phan chua phat duoc xep lai "item <ID moi> <con lai>" nhan lan sau.
+			local cu = tonumber( a )
+			local moi = tonumber( b )
+			local co = 0
+			if moi ~= nil and moi > 0 then
+				co = LuaFnGetAvailableItemCount( sceneId, selfId, cu )
+			end
+			if co > 0 then
+				LuaFnDelAvailableItem( sceneId, selfId, cu, co )
+				local k = 0
+				while k < co do
+					local r = TryRecieveItem( sceneId, selfId, moi, 1 )
+					if r == nil or r < 0 then
+						break
+					end
+					k = k + 1
+				end
+				got = got + k
+				if k < co then
+					tinsert( left, "item "..moi.." "..( co - k ) )
+				end
 			end
 		elseif kind == "vip" then
 			-- Cap VIP = CHONG_ZHI_CHONGSHU (ScriptGlobal.lua). VIP>=1 mo phuc loi ngay (shengjjll.lua
