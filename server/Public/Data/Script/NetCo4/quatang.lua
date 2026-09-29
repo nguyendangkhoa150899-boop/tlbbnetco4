@@ -40,6 +40,7 @@ end
 
 function x950000_NhanQua( sceneId, selfId )
 	x950000_CapMin( sceneId, selfId )
+	CallScriptFunction( 999999, "NhanWeb", sceneId, selfId )   -- KNB chuyen tu web mini game (CDK/CDK.lua)
 	local guid = LuaFnGetGUID( sceneId, selfId )
 	local path = x950000_g_Dir..guid..".txt"
 	local h = openfile( path, "r" )
