@@ -313,8 +313,8 @@ Tài khoản: `admin` (nhân vật `Bialk`, GUID 1010100001, GM), `hoang`. Mật
 - Ý nghĩa: phẩm chất/1000 = hệ số đổi thuộc tính gốc ám khí ra thuộc tính nhân vật (làm tròn lên), vd 2043 → Thể lực gốc 73 thành +150.
 - Có sẵn hàm Lua `LuaFnSetDarkQualityGrade` / `LuaFnGetDarkQualityGrade` (chưa script nào dùng) nếu sau này muốn admin đặt thẳng phẩm chất.
 
-## 30/09 23:40 - Yến Tử Ổ rút còn 5 đợt cuối (có Cưu Ma Trí) - hiệu lực ngay
+## 30/09 23:40 - Yến Tử Ổ rút còn 2 đợt cuối (đợt 2 có Cưu Ma Trí) - hiệu lực ngay
 - Phó bản đang dùng: `event/yanziwu/yanziwu_1.lua` (401040, NPC Lý Cương ở Thái Hồ `obj/taihu/otaihu_ligang.lua`). `yanziwu_2.lua`/`1yanziwu_2.lua` (401041) không NPC nào gọi.
 - Bản gốc, bước 11 (giữ Tiền Hoành Vũ): 10 đợt cách 30 giây → boss Diêu Bá Đương; nghỉ 90 giây; 10 đợt cách 60 giây → boss Tư Mã Lâm; nghỉ 90 giây; 5 đợt cách 90 giây, đợt cuối kèm **Cưu Ma Trí** → bước 12: Tiền Hoành Vũ còn sống thì ra 4 Môn Thần + Mộ Dung Phục + Vương Ngữ Yên/Đoàn Dự. Tổng ~25 phút. Cưu Ma Trí chết không chặn tiến trình (`obj/yanziwu/jiumozhi.lua`).
-- Sửa: cờ `x401040_g_ChiDot5 = 1` → vào bước 11 là nhảy thẳng `nStep1 = 22`: 5 đợt cách 90 giây (đợt 1 ra ngay, Cưu Ma Trí ở đợt 5 ≈ phút thứ 6) rồi sang Mộ Dung Phục. Thông báo đếm lại "đã trải qua 1..5, còn lại 4..0". **Mất 2 boss Diêu Bá Đương và Tư Mã Lâm** (và đồ rơi của chúng). Trả về bản gốc: đặt cờ = 0, hoặc tag `truoc-yzw-5dot-30-09`.
+- Sửa: biến `x401040_g_SoDotCuoi` (1–5 = số đợt cuối được đánh, 0 = bản gốc; **hiện = 2**, chốt lần 2 lúc 23:45 sau bản 5 đợt) → vào bước 11 là nhảy thẳng `nStep1 = 27 - N`: N đợt cách 90 giây, đợt 1 ra ngay, đợt cuối kèm Cưu Ma Trí (N=2: ở giây thứ 90) rồi sang Mộ Dung Phục. Thông báo đếm lại "đã trải qua 1..N, còn lại". **Mất 2 boss Diêu Bá Đương và Tư Mã Lâm** (và đồ rơi của chúng). Trả về bản gốc: đặt `x401040_g_SoDotCuoi = 0`, hoặc tag `truoc-yzw-5dot-30-09`.
 - Chưa test trong game. Không có trình kiểm cú pháp Lua 4, đã viết bằng lệnh cơ bản; nếu phó bản không chạy thì xem `Server/Log/luaerror.log`.

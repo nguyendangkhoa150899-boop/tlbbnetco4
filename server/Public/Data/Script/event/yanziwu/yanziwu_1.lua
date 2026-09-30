@@ -57,9 +57,9 @@ x401040_g_DuanAndWangFlag = 29
 x401040_g_CopySceneName = "Y™n Tÿ ë"
 x401040_g_CopySceneType = FUBEN_DAZHAN_YZW	--∏±±æ¿‡–Õ£¨∂®“Â‘⁄ScriptGlobal.lua¿Ô√Ê
 x401040_g_CopySceneMap = "yanziwu.nav"
--- [NetCo4 30/09] 1 = chi danh 5 dot cuoi (dot 5 co Cuu Ma Tri) roi sang Mo Dung Phuc,
---   bo 20 dot dau cung Dieu Ba Duong + Tu Ma Lam. 0 = ban goc 25 dot. Lua: sua xong co hieu luc ngay.
-x401040_g_ChiDot5 = 1
+-- [NetCo4 30/09] So dot cuoi duoc danh (1..5, dot cuoi co Cuu Ma Tri) roi sang Mo Dung Phuc.
+--   Bo cac dot truoc cung Dieu Ba Duong + Tu Ma Lam. 0 = ban goc 25 dot. Lua: sua xong co hieu luc ngay.
+x401040_g_SoDotCuoi = 2
 x401040_g_LimitMembers = 1				--ø…“‘Ω¯∏±±æµƒ◊Ó–°∂”ŒÈ»À ˝
 x401040_g_TickTime = 1						--ªÿµ˜Ω≈±æµƒ ±÷” ±º‰£®µ•Œª£∫√Î/¥Œ£©
 x401040_g_LimitTotalHoldTime = 360--∏±±æø…“‘¥ÊªÓµƒ ±º‰£®µ•Œª£∫¥Œ ˝£©,»Áπ˚¥À ±º‰µΩ¡À£¨‘Ú»ŒŒÒΩ´ª· ß∞‹
@@ -760,11 +760,11 @@ function x401040_OnCopySceneTimer( sceneId, nowTime )
 			end
 		end
 		
-		-- [NetCo4 30/09] nhay thang toi 5 dot cuoi (nStep1 22..26), dot dau ra ngay
-		if x401040_g_ChiDot5 == 1 and nStep1 < 22  then
-			nStep1 = 22
+		-- [NetCo4 30/09] nhay thang toi N dot cuoi (nStep1 27-N..26), dot dau ra ngay
+		if x401040_g_SoDotCuoi >= 1 and x401040_g_SoDotCuoi <= 5 and nStep1 < 27-x401040_g_SoDotCuoi  then
+			nStep1 = 27-x401040_g_SoDotCuoi
 			nPreTime = 0
-			LuaFnSetCopySceneData_Param(sceneId, x401040_g_SD_Monster_2, 22)
+			LuaFnSetCopySceneData_Param(sceneId, x401040_g_SD_Monster_2, nStep1)
 			LuaFnSetCopySceneData_Param(sceneId, x401040_g_SD_Monster_2_T, 0)
 		end
 		
@@ -828,9 +828,9 @@ function x401040_OnCopySceneTimer( sceneId, nowTime )
 				x401040_CreateMonster_7_2(sceneId)
 				local nDaQua = nStep1-1
 				local nConLai = 25-(nStep1-1)
-				if x401040_g_ChiDot5 == 1  then
-					nDaQua = nStep1-21
-					nConLai = 5-nDaQua
+				if x401040_g_SoDotCuoi >= 1 and x401040_g_SoDotCuoi <= 5  then
+					nDaQua = nStep1-(26-x401040_g_SoDotCuoi)
+					nConLai = x401040_g_SoDotCuoi-nDaQua
 				end
 				x401040_TipAllHuman(sceneId, "Y™n Tÿ ë „ tr„i qua " .. nDaQua .. " ˛t t§n cÙng, cÚn l’i " .. nConLai .. " ˛t t§n cÙng nÊa")
 				
