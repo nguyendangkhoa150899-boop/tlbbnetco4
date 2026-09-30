@@ -28,6 +28,7 @@ function  x990010_OnDefaultEvent(  sceneId,  selfId,  targetId  )
 	 	 AddNumText(  sceneId,  x990010_g_scriptId,  "#cff6633Tuy«n T¯ng T±ng Hþp",  6,  400)
 	 	 AddNumText(  sceneId,  x990010_g_scriptId,  "#GTr¸ li®u",  3,  500)
 		 AddNumText(sceneId, x990010_g_scriptId, "#c66ccccNh§n Skill S½ C¤p", 6, 918)
+		 AddNumText(sceneId, x990010_g_scriptId, "#GNh§n 80.000 Ði¬m T£ng (mi­n phí, chï mua ð° trong game)", 6, 919) -- [NetCo4 30/09]
 		 
 		--if LuaFnGetGUID( sceneId, selfId ) == 1010000020     then
 		--AddNumText(sceneId,x990010_g_scriptId,"#Y add diem GM",6,916)
@@ -207,6 +208,12 @@ if GetNumText() == 2000 then --danh hieu
 	     EndUICommand(  sceneId  )
 	     DispatchUICommand(  sceneId,  selfId,    20170503)
           end
+	if  GetNumText()  ==  919  then -- [NetCo4 30/09] Diem Tang mien phi, khong gioi han
+	 ZengDian( sceneId, selfId, targetId, 1, 80000 )
+	 LuaFnSendSpecificImpactToUnit( sceneId, selfId, selfId, selfId, 18, 0 )
+	 x990010_NotifyFailBox( sceneId, selfId, targetId, "Các hÕ ðã nh§n #Y80.000 #GÐi¬m T£ng#W. B¤m lÕi ð¬ nh§n tiªp." )
+	 return
+	 end
 	if  GetNumText()  ==  918  then
 	 AddSkill( sceneId, selfId, 21 )
 	 AddSkill( sceneId, selfId, 22 )
