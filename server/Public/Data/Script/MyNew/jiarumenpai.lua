@@ -12,8 +12,8 @@ x990010_g_scriptId  =  990010
 x990010_g_VangNgay = 2000        -- [NetCo4 30/09] vang khong khoa mien phi moi ngay (1 lan / nhan vat / ngay)
 x990010_g_VangDir = "./txt/NetCo4Web/"   -- trang thai <GUID>.vang = so ngay yyyymmdd
 -- [NetCo4 30/09] Gio mo cua Hau Hoa Vien (scene 62/82/182). Mo tu HHV_Mo gio den truoc HHV_Dong gio. Mo=0, Dong=24 = mo ca ngay.
-x990010_g_HHV_Mo = 20
-x990010_g_HHV_Dong = 23
+x990010_g_HHV_Mo = 0     -- TEST: mo 24/24. Ngay open chinh thuc: Mo = 19, Dong = 24 (19:00 - 23:59)
+x990010_g_HHV_Dong = 24
 function x990010_HHV_DangMo()
 	local h = GetHour()
 	if h >= x990010_g_HHV_Mo and h < x990010_g_HHV_Dong then

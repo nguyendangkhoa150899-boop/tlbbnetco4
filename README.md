@@ -150,7 +150,7 @@ Chi tiết từng mục ở `docs/TRANG-THAI.md` → "Cập nhật 29/09 chiều
 **Thứ tự làm (khoảng 30 phút, cần mình theo dõi vì `reset-choi-that.sh` chưa từng chạy thật):**
 1. Báo mọi người thoát game. `./tlbb.sh stop`.
 2. **Backup** (script tự dump `tlbbdb` + `web` trước khi xóa; kiểm file .sql.gz có kích thước > 0).
-3. Sửa cấu hình test → thật: `DefaultChar.ini` `level=99` → `level=1` (không bao giờ ≥100) · `ChatConfig.txt` kênh 2: 0 → 180000 (client vẫn chờ 3 phút, sửa cho đồng bộ) · xóa `Server/txt/NetCo4Qua/*.txt` (kể cả `_capmin.txt` → cấp tối thiểu về 0) và `NetCo4Web/*.in`, `*.done`, `*.vang` (mốc nhận 2.000 vàng/ngày), `out/*`.
+3. Sửa cấu hình test → thật: `MyNew/jiarumenpai.lua` `x990010_g_HHV_Mo = 19`, `x990010_g_HHV_Dong = 24` (Hậu Hoa Viên 19:00–23:59; đang 0/24 để test) · `DefaultChar.ini` `level=99` → `level=1` (không bao giờ ≥100) · `ChatConfig.txt` kênh 2: 0 → 180000 (client vẫn chờ 3 phút, sửa cho đồng bộ) · xóa `Server/txt/NetCo4Qua/*.txt` (kể cả `_capmin.txt` → cấp tối thiểu về 0) và `NetCo4Web/*.in`, `*.done`, `*.vang` (mốc nhận 2.000 vàng/ngày), `out/*`.
 4. `./reset-choi-that.sh` (gõ RESET): xóa nhân vật, đồ, pet, bang, thành, GM list, điểm danh; **giữ tài khoản** (thêm `--ca-tai-khoan` nếu muốn xóa cả tài khoản trừ admin). KEEP: t_var, t_global, t_guild_new/t_city_* (slot), t_itemkey, t_crc32.
 5. **Ví mini game:** reset toàn bộ ví về 0 (panel SUPER → 👥 → reset all), xóa `_bossKills`, `_dogDay`, giữ liên kết GUID nếu nhân vật giữ GUID (reset xóa nhân vật → GUID mới → **phải liên kết lại từ đầu**).
 6. `./tlbb.sh start` → tạo 1 nhân vật thử: phải cấp 1, không bị tin "SB", không nhận quà cũ. Panel: ô cấp tối thiểu = 0.
