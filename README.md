@@ -137,6 +137,24 @@ Chi tiết từng mục ở `docs/TRANG-THAI.md` → "Cập nhật 29/09 chiều
 - [ ] Ngọc không chồng được (engine), Võ Hồn tối đa cấp 8 theo ID (cấp 9 không làm được) — xem `docs/TRANG-THAI.md`.
 - [ ] **Cân bằng KNB:** 149 boss rớt chắc phiếu 1000, boss hồi sinh 30 phút → cày boss có thể ra vài chục nghìn KNB/ngày. Nếu muốn KNB khó kiếm: đặt BoxValue = 2×Mvalue (50%) hoặc chỉ giữ cho boss phó bản.
 
+## Ngày mở server — runbook (kiểm tra lại 30/09 12:20, trạng thái thật trên VPS)
+
+**Đang là chế độ TEST:** cấp tối thiểu 119 · nhân vật mới cấp 99 · chat Thế Giới 0 ms · GMList 9 dòng · 10 tài khoản, 8 nhân vật (max 119) · ví mini game 5 người, **tổng ~5.000 tỉ KNB test**, 5 đã liên kết · shop 245 món đang bán · 8 file quà chờ + 3 lệnh KNB web→game chưa nhận.
+
+**Sẽ CÓ khi mở (giữ nguyên, đã chạy):** cầu KNB game↔web qua NPC Ví Web (đã test 8 case) · đổi KNB→vàng · shop web (ngọc 6, Yếu Quyết, Tiến giai, Bí tịch…) giao qua hàng đợi quà · quà mỗi ngày · boss rớt Nguyên Bảo Phiếu 1000 (149 boss, BV = Mvalue) · dọn đồ rác boss, nguyên liệu dễ hơn · máu boss −35% · tin rác đã tắt · về thành 5 giây, chế đồ 0,5 giây · shop 150 ngọc cấp 5 giá Điểm Tặng gốc · tab GM + Drop Boss trong admin · mod.netco4.click cho bạn bè đặt giá · 🏹 Boss đã hạ trên web (nhiệm vụ boss bước 2 chưa có).
+
+**Thứ tự làm (khoảng 30 phút, cần mình theo dõi vì `reset-choi-that.sh` chưa từng chạy thật):**
+1. Báo mọi người thoát game. `./tlbb.sh stop`.
+2. **Backup** (script tự dump `tlbbdb` + `web` trước khi xóa; kiểm file .sql.gz có kích thước > 0).
+3. Sửa cấu hình test → thật: `DefaultChar.ini` `level=99` → `level=1` (không bao giờ ≥100) · `ChatConfig.txt` kênh 2: 0 → 180000 (client vẫn chờ 3 phút, sửa cho đồng bộ) · xóa `Server/txt/NetCo4Qua/*.txt` (kể cả `_capmin.txt` → cấp tối thiểu về 0) và `NetCo4Web/*.in`, `*.done`, `out/*`.
+4. `./reset-choi-that.sh` (gõ RESET): xóa nhân vật, đồ, pet, bang, thành, GM list, điểm danh; **giữ tài khoản** (thêm `--ca-tai-khoan` nếu muốn xóa cả tài khoản trừ admin). KEEP: t_var, t_global, t_guild_new/t_city_* (slot), t_itemkey, t_crc32.
+5. **Ví mini game:** reset toàn bộ ví về 0 (panel SUPER → 👥 → reset all), xóa `_bossKills`, `_dogDay`, giữ liên kết GUID nếu nhân vật giữ GUID (reset xóa nhân vật → GUID mới → **phải liên kết lại từ đầu**).
+6. `./tlbb.sh start` → tạo 1 nhân vật thử: phải cấp 1, không bị tin "SB", không nhận quà cũ. Panel: ô cấp tối thiểu = 0.
+7. Bảo mật: đổi `PANEL_PASS` (GM), `PANEL_SUPER_PASSWORD`, mật khẩu tài khoản `admin`; đổi/khóa `PANEL_PASSWORD` (mod, hiện `1234567`); **đóng Drop Boss cho mod**; tắt `tlbb-panel` (gm.netco4.click) nếu không dùng.
+8. Sau khi mở: theo dõi `./tlbb.sh status` (RAM) và log `[PANEL SHOP ITEM]`, `[DROP BOSS]`, `[RÚT WEB]` tuần đầu.
+
+**Phải quyết trước ngày mở:** dòng chửi "SB" `scene.lua:832` (tắt?) · NPC Thẻ Tài Phú (KNB miễn phí theo mốc cấp) · Túc Cầu tổ ≥3 (hạ?) + gắn phiếu Túc Cầu/Kính Hồ (40 boss chưa có) · hạn rút KNB / đổi vàng mỗi ngày · Rương Ích Kỷ trên web (tắt?) · shop 150 ngọc cấp 5 giữ hay bỏ · reset-choi-that chạy thử 1 lần trên bản sao DB trước ngày mở.
+
 ## Việc tiếp theo
 
 Xem [docs/TRANG-THAI.md](docs/TRANG-THAI.md). Tóm tắt:
