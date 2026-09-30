@@ -112,6 +112,16 @@ if os.path.exists(_p):
             PET_IDS.add(_c[0].decode())
 
 
+# 30/09 toi: pet Huyen Hoa V2 (tu chat goc) - danh sach ten de chon tren panel, doc tu docs/pet-huyen-hoa.md
+PET_V2 = []
+_p = os.path.join(REPO, "docs", "pet-huyen-hoa.md")
+if os.path.exists(_p):
+    for _line in open(_p, encoding="utf-8"):
+        _m = re.match(r"^\| (3\d{4}) \| ([^|]+) \| ([^|]+) \|", _line)
+        if _m and _m.group(1) in PET_IDS:
+            PET_V2.append((_m.group(1), "%s (%s)" % (_m.group(2).strip(), _m.group(3).strip())))
+
+
 def khong_dau(s):
     """Tim khong dau: 'Trùng Lâu Giáp' -> 'trung lau giap'."""
     s = unicodedata.normalize("NFD", s.lower().replace("đ", "d"))
@@ -220,6 +230,8 @@ def act(form):
         return "Da xoa tai khoan %s" % n
     if a == "qua":
         g, kind, val, cnt = v("guid"), v("loai"), v("gt"), v("sl") or "1"
+        if kind == "pet" and v("gtpet"):
+            val = v("gtpet")   # o chon pet V2 theo ten (panel GM)
         if g == "all":
             targets = [c[0] for c in chars()]
             if not targets:
@@ -403,8 +415,9 @@ def page(msg="", q=""):
     # Nhan vat + phat qua
     give_form = ('<form method="post" class="row"><input type="hidden" name="t" value="%s"><input type="hidden" name="a" value="qua">'
                  '<input type="hidden" name="guid" value="%%s"><select name="loai"><option value="item">Vat pham (ID)</option><option value="xoa">XOA vat pham (ID)</option><option value="nangngoc">Nang ngoc trong tui len cap (2-7)</option>'
-                 '<option value="knb">KNB</option><option value="vang">Vang</option><option value="diemtang">Diem Tang</option><option value="level">Len cap (1-119)</option><option value="vip">Cap VIP (0-10)</option><option value="popup">Qua popup (cua so, chon nguoi)</option></select>'
+                 '<option value="knb">KNB</option><option value="vang">Vang</option><option value="diemtang">Diem Tang</option><option value="level">Len cap (1-119)</option><option value="vip">Cap VIP (0-10)</option><option value="popup">Qua popup (cua so, chon nguoi)</option><option value="pet">Pet Huyen Hoa V2</option></select>'
                  '<input name="gt" placeholder="ID vat pham" size="12" required pattern="\\d{1,10}">'
+                 '<select name="gtpet" style="display:none;max-width:260px">' + "".join('<option value="%s">%s - %s</option>' % (esc(i), esc(i), esc(n)) for i, n in PET_V2) + '</select>'
                  '<input name="sl" placeholder="SL" size="3" value="1" pattern="\\d{1,3}"><button%%s>%%s</button></form>') % TOKEN
     out.append('<section><h2>Nhan vat (%d) - phat qua / GM</h2>' % len(chs))
     out.append('<div class="row"><b>Gui cho TAT CA nhan vat:</b> %s</div><br>' % (
@@ -455,6 +468,7 @@ def page(msg="", q=""):
     # Gan su kien trong script, KHONG dung onchange="..." inline: trong handler inline, ten "loai" bi form.loai (chinh o select) che mat
     out.append('<script>function doiLoai(s){var f=s.form,it=s.value=="item"||s.value=="xoa";'
                'f.gt.placeholder={item:"ID vat pham",xoa:"ID can xoa",nangngoc:"Cap ngoc (2-7)",knb:"So KNB (1-10000000)",vang:"So vang (1-100000)",diemtang:"So Diem Tang",level:"Cap (1-119)",vip:"Cap VIP 0-10",popup:"ID vat pham"}[s.value];'
+               'var pet=s.value=="pet";f.gt.style.display=pet?"none":"";f.gt.disabled=pet;f.gt.required=!pet;if(f.gtpet){f.gtpet.style.display=pet?"":"none";f.gtpet.disabled=!pet}'
                'f.sl.style.display=it?"":"none";f.sl.disabled=!it}'
                'document.querySelectorAll("select[name=loai]").forEach(function(s){s.onchange=function(){doiLoai(s)};doiLoai(s)})</script>')
     return "".join(out)
@@ -487,7 +501,8 @@ def api_state():
                           "gm": g in gms, "pending": tom_tat(pend), "hasPending": bool(pend)})
     return {"procs": procs, "online": online_count(), "ram": [tot - avail, tot], "dbError": err,
             "accounts": [{"id": i, "name": n, "online": on} for i, n, on in accs],
-            "chars": out_chars, "capmin": capmin, "itemCount": len(ITEMS)}
+            "chars": out_chars, "capmin": capmin, "itemCount": len(ITEMS),
+            "pets": [{"id": i, "name": n} for i, n in PET_V2]}
 
 
 def api_items(q):

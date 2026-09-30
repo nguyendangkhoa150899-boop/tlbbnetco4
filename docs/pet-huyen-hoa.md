@@ -109,3 +109,5 @@ ID = ID gốc **+ 10000** (25351 → 35351 …), tên thêm " V2", cùng họ n�
 | 35572 | Tống Khương | Tiểu Hồ Tiên | 1588/2383/4483/2543/3178 |
 | 35581 | Viễn Cổ Kỳ Hồn | Bỉ Dực Điểu | 2148/2453/4173/2453/3375 |
 | 35582 | Tống Khương | Bỉ Dực Điểu | 2225/2543/4323/2543/3495 |
+
+**Phát trên panel (30/09 tối):** cả panel GM (`panel.py`) và tab 🛠️ GM trên admin.netco4.click có loại **Pet Huyễn Hóa V2**: ô chọn theo tên `ID - Dạng boss (Pet nền)` (48 pet V2 ở bảng trên, lấy từ chính file này qua `/api/state` → `pets`), không cần nhập ID. Bản 12000 (ID 253xx) vẫn phát được bằng cách nhập ID ở loại Pet của tab GM web.
