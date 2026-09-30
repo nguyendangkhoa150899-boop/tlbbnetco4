@@ -11,6 +11,16 @@ x990010_MenPaiName  ={" Thiªu Lâm "," Minh Giáo "," Cái Bang "," Võ Ðang "," Nga
 x990010_g_scriptId  =  990010
 x990010_g_VangNgay = 2000        -- [NetCo4 30/09] vang khong khoa mien phi moi ngay (1 lan / nhan vat / ngay)
 x990010_g_VangDir = "./txt/NetCo4Web/"   -- trang thai <GUID>.vang = so ngay yyyymmdd
+-- [NetCo4 30/09] Gio mo cua Hau Hoa Vien (scene 62/82/182). Mo tu HHV_Mo gio den truoc HHV_Dong gio. Mo=0, Dong=24 = mo ca ngay.
+x990010_g_HHV_Mo = 20
+x990010_g_HHV_Dong = 23
+function x990010_HHV_DangMo()
+	local h = GetHour()
+	if h >= x990010_g_HHV_Mo and h < x990010_g_HHV_Dong then
+		return 1
+	end
+	return 0
+end
 ------**********************************
 ------ sñ ki®n ðóng h² nh§p kh¦u 
 ------**********************************
@@ -194,12 +204,16 @@ if GetNumText() == 2000 then --danh hieu
           end
 				if GetNumText() == 600 then		
 			    BeginEvent( sceneId )
-				AddText(sceneId,"Map #cFF0000H§u Hoa Viên #Wm· cØa vào lúc #Y20h t¯i h¢ng ngày#W và ðóng lÕi vào lúc #Y23h ðêm, #Wmap trian chü yªu r½i #GVäi Bông, Bí Ngân các loÕi, Nguyên Li®u Tinh Thông, Nguyên Li®u Ngû Hành Ng÷c, vàng khóa và vàng không không khóa!")
+				AddText(sceneId,"Map #cFF0000H§u Hoa Viên #Wm· cØa t× #Y"..x990010_g_HHV_Mo.."h#W ðªn #Y"..x990010_g_HHV_Dong.."h#W h¢ng ngày, #Wmap trian chü yªu r½i #GVäi Bông, Bí Ngân các loÕi, Nguyên Li®u Tinh Thông, Nguyên Li®u Ngû Hành Ng÷c, vàng khóa và vàng không không khóa!")
 					AddNumText( sceneId, x990010_g_ScriptId, "Ði ðªn H§u Hoa Viên",9,601)
 					AddNumText( sceneId, x990010_g_ScriptId, " Quay lÕi",8,602)
 		    	EndEvent( sceneId )
 				DispatchEventList( sceneId, selfId, targetId )	
 			elseif GetNumText() == 601 then
+			if x990010_HHV_DangMo() == 0 then -- [NetCo4 30/09]
+				x990010_NotifyFailBox( sceneId, selfId, targetId, "H§u Hoa Viên chï m· t× #Y"..x990010_g_HHV_Mo.."h#W ðªn #Y"..x990010_g_HHV_Dong.."h#W. Các hÕ quay lÕi sau nhé." )
+				return
+			end
 			CallScriptFunction((400900), "TransferFunc",sceneId, selfId, 182,50,50)			
 		end
 			    if GetNumText() == 602 then  
@@ -384,7 +398,7 @@ function x990010_OnSceneTimer(sceneId)
 		if LuaFnIsObjValid(sceneId, nHumanId) == 1 and LuaFnIsCanDoScriptLogic(sceneId, nHumanId) == 1 and LuaFnIsCharacterLiving(sceneId, nHumanId) == 1  then
 		local nHour	 = GetHour()--Ð¡Ê±
 		local nQuarter = mod(GetQuarterTime(),100); 
-		if  nHour < 20 or nHour > 22 then
+		if  x990010_HHV_DangMo() == 0 then -- [NetCo4 30/09] truoc: nHour < 20 or nHour > 22
 		x990010_NotifyTip( sceneId, nHumanId, "Th¶i gian m· cØa Map ðã hªt xin các hÕ lßþng thÑ " )
 		CallScriptFunction((400900), "TransferFunc",sceneId, nHumanId, 0,198,325)
 		end
