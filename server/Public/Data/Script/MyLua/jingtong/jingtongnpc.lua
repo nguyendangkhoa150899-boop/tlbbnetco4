@@ -31,7 +31,7 @@ function  x890088_OnDefaultEvent(  sceneId,  selfId,targetId  )
 	 	 --AddText(sceneId," #ef12345#YChÑc Nång tÕm chßa m·")	
 		--local ID = LuaFnGetGUID( sceneId, selfId )
 		--if ID == 1010000044  or	ID == 1010000003  	then		 
-	 	 --AddNumText(  sceneId,  x890088_g_scriptId,  " Lò Ly Höa ",  6,  1  )
+	 	 AddNumText(  sceneId,  x890088_g_scriptId,  " Lò Ly Höa ",  6,  1  )
 		 AddNumText(  sceneId,  x890088_g_scriptId,  " Hþp Kim Tinh ThÕch ",  6,  2  )
 	 	 AddNumText(  sceneId,  x890088_g_scriptId,  " Tinh Thông - T¦y Luy®n Trang B¸ ",  6,  3  )
 	 	 AddNumText(  sceneId,  x890088_g_scriptId,  " Thång C¤p Tinh Tông ",  6,  4  )
