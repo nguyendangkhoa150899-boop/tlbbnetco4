@@ -120,8 +120,8 @@ if os.path.exists(_p):
         _m = re.match(r"^\| (3\d{4}) \| ([^|]+) \| ([^|]+) \|", _line)
         if _m and _m.group(1) in PET_IDS:
             PET_V2.append((_m.group(1), "%s (%s)" % (_m.group(2).strip(), _m.group(3).strip())))
-# Ban 12000 (ID V2 - 10000) + tat ca pet (docs/pet-danh-sach.tsv: id, ten Han Viet, ..., truong thanh)
-PET_12000 = [(str(int(i) - 10000), n) for i, n in PET_V2 if str(int(i) - 10000) in PET_IDS]
+# Ban 12000 (ID V2 - 6000; V2 = goc + 6000, phai < 32767) + tat ca pet (docs/pet-danh-sach.tsv: id, ten Han Viet, ..., truong thanh)
+PET_12000 = [(str(int(i) - 6000), n) for i, n in PET_V2 if str(int(i) - 6000) in PET_IDS]
 PET_ALL = []
 _p = os.path.join(REPO, "docs", "pet-danh-sach.tsv")
 if os.path.exists(_p):
