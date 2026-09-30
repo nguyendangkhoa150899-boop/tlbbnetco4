@@ -159,6 +159,29 @@ Chi tiết từng mục ở `docs/TRANG-THAI.md` → "Cập nhật 29/09 chiều
 
 **Phải quyết trước ngày mở:** dòng chửi "SB" `scene.lua:832` (tắt?) · NPC Thẻ Tài Phú (KNB miễn phí theo mốc cấp) · Túc Cầu tổ ≥3 (hạ?) + gắn phiếu Túc Cầu/Kính Hồ (40 boss chưa có) · hạn rút KNB / đổi vàng mỗi ngày · Rương Ích Kỷ trên web (tắt?) · shop 150 ngọc cấp 5 giữ hay bỏ · reset-choi-that chạy thử 1 lần trên bản sao DB trước ngày mở.
 
+## Đã làm 30/09 (chiều–tối) — tất cả đã deploy, game đã restart 3 lần (cuối 18:xx), chi tiết từng mục ở docs/TRANG-THAI.md
+
+**Quy tắc mới phát hiện:** file `.lua` trong `Public/Data/Script/` **có hiệu lực ngay** khi `cap-nhat.sh` (engine nạp lại theo mtime), chỉ file `.txt/.ini` cấu hình mới cần `./tlbb.sh restart`. Múi giờ chroot đã đổi sang Việt Nam (trước là +08), giờ game = giờ VN.
+
+| Việc | Trạng thái | Rollback |
+|---|---|---|
+| Tinh Thông: mở lại "Lò Ly Hỏa" (`jingtongnpc.lua:34`), thêm Li Hỏa 20700063 + Tinh Kim Thạch 20700055 vào shop web (đang TẮT, giá tạm) | xong, chủ server test OK | tag `truoc-tinh-thong-30-09` |
+| scene.lua: bỏ nhánh phạt chống hack lúc đăng nhập đầu (chửi "SB", về cấp 0, mất túi tân thủ) | xong | cùng tag trên |
+| Điểm Tặng: NPC **Gia Nhập Môn Phái-Dịch** (Đại Lý 160,142 · Lạc Dương 199,320) "Nhận 80.000 ĐT" không giới hạn; "Nhận 2.000 vàng hôm nay" 1 lần/nhân vật/ngày (file `NetCo4Web/<GUID>.vang`) | xong, test OK (AddMoney tính bằng đồng ×10000) | tag `truoc-diem-tang-30-09` |
+| Hậu Hoa Viên: giờ mở/đóng thành biến `x990010_g_HHV_Mo/Dong` (đang 0/24 test; **ngày open đặt 19/24**) | xong | như trên |
+| Tin boss Võ Di "dẫn theo 9 thủ hạ": tắt 4 dòng ActivityNotice (810002). 3 nhóm boss khác (Thảo Nguyên, Kim Cương, Độc Cáp) vẫn báo | xong | git |
+| Tin "[Giúp] Lâu Lan (219,228) Trình Giảo Thiết…": **client-side** (ccore.dat), server không tắt được | không làm được | – |
+| 21 câu thông báo giết boss tiếng Trung (Viêm Ma Sơn / Tam Tài Hạp Cốc) → Việt hóa. Còn **98 câu / 32 file** tiếng Trung khác (gia nhập môn phái 12, đổi phái 9, Binh Thánh 5…) chưa dịch | một phần | git |
+| Web: đăng nhập bằng **tài khoản + mật khẩu game** (panel.py act `kiem_mk`), bỏ hẳn Discord ID + PIN; đổi mật khẩu trên web = đổi cho game; admin tạo tài khoản kèm Discord ID; nút 🌐 hiện tài khoản | xong (repo bialk) | git bialk |
+| Võ Hồn: Võ Hồn nâng bằng menu NetCo4 thiếu chuỗi `&WH` → vá tự ghi `&WH<số cuối ID>` (`odali_wuyazi.lua`) → đục lỗ / hợp thành chạy | xong, test OK | tag `truoc-vo-hon-30-09` |
+| Võ Ý: chuyển chỗ cày sang **toàn bộ quái thường Vô Lượng Sơn** (309 spawn gắn `guaiwu_die` 999998), 3.000 con/ngày, exp giữ nguyên (770+10×cấp). Ngưng Tức Hoàn 38002067/8 (gấp đôi) không bán ở đâu | xong, test OK | tag `truoc-vo-y-30-09` |
+| Pet: hàng đợi quà loại **pet** (`quatang.lua`, panel.py, tab GM 🐾 Pet) → admin phát 48 pet Huyễn Hóa ngoại hình boss (ID 25351–25582, `docs/pet-huyen-hoa.md`); 48 con này tư chất chuẩn **12000** cả 5 dòng, pet khác nguyên bản | xong, chờ chủ server test | tag `truoc-pet-5000-30-09` |
+| Danh sách toàn bộ pet: `docs/pet-danh-sach.tsv` (6.320 ID) + `.md` (1.039 họ) | xong | – |
+
+**Phát hiện cần biết:** trứng pet event **có bán trong game** 20.000 KNB (Hồ Ca → Mua Thương Phẩm → tab Trân thú, kệ 132/218/219); Võ Hồn cấp 0 + Phá Thiên Tiễn bán ở kệ 216 cùng bảng. Pet 24602 (Tuyền Linh Nhân Ngẫu, trưởng thành 1896) là pet gian của server cũ — không phát. Một lượt Phiêu Miểu Phong lúc phiếu 2.000 = 34.000 KNB (log Audit 30/09 của cuocdoibuon).
+
+**Chưa chốt (hỏi chủ server):** dịch/tắt 98 câu tiếng Trung; tắt tin 3 nhóm boss còn lại; giá trứng pet 20.000; bán Ngưng Tức Hoàn (web hay kệ game); hệ số Võ Ý (khỉ lv1–10 → cấp 20 mất 3,4 ngày/cấp, cấp 50 mất 14 ngày/cấp); bù túi tân thủ EmVinh; mật khẩu mod `1234567` (đã lộ, chủ server nói đóng portal khi open); menu "Thăng cấp võ hồn" NetCo4 song song với hợp thành gốc.
+
 ## Việc tiếp theo
 
 Xem [docs/TRANG-THAI.md](docs/TRANG-THAI.md). Tóm tắt:
