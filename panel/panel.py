@@ -102,6 +102,14 @@ if os.path.exists(_p):
             VN[c[0]] = "%s [%s, cấp %s, %s] %s" % (c[1], c[2], c[3], c[4], c[5])
 ITEMS = [(i, VN.get(i, n), k) for i, n, k in ITEMS]
 ITEM_NAME = {i: n for i, n, _ in ITEMS}
+# 30/09: ID pet hop le (PetAttrTable.txt, GBK) cho qua loai "pet" - chi admin phat event (docs/pet-huyen-hoa.md)
+PET_IDS = set()
+_p = os.path.join(ROOT, "home", "tlbb", "Public", "Config", "PetAttrTable.txt")
+if os.path.exists(_p):
+    for _line in open(_p, "rb"):
+        _c = _line.split(b"\t")
+        if _c and _c[0].isdigit():
+            PET_IDS.add(_c[0].decode())
 
 
 def khong_dau(s):
@@ -219,8 +227,10 @@ def act(form):
             msgs = [act(dict(form, guid=t)) for t in targets]
             bad = [m for m in msgs if not m.startswith("Da xep")]
             return bad[0] if bad else "Da xep hang qua cho %d nhan vat" % len(targets)
-        if not RE_INT.match(g) or kind not in ("item", "xoa", "knb", "vang", "diemtang", "level", "nangngoc", "vip", "popup") or not RE_INT.match(val) or not RE_INT.match(cnt):
+        if not RE_INT.match(g) or kind not in ("item", "xoa", "knb", "vang", "diemtang", "level", "nangngoc", "vip", "popup", "pet") or not RE_INT.match(val) or not RE_INT.match(cnt):
             return "Du lieu qua khong hop le"
+        if kind == "pet" and val not in PET_IDS:
+            return "Khong co pet ID %s trong PetAttrTable (xem docs/pet-huyen-hoa.md)" % val
         if kind in ("item", "xoa", "popup") and val not in ITEM_NAME:
             return "Khong co vat pham ID %s trong danh muc" % val
         if kind in ("item", "xoa") and not 1 <= int(cnt) <= 999:

@@ -8,6 +8,7 @@
 --   xoa <ID vat pham> <so luong>   (admin xoa khoi tui, vd do khong vut duoc)
 --   doi <ID cu> <ID moi>   (doi TAT CA ID cu trong tui sang ID moi, giu so luong - vd nang cap ngoc)
 --   vip <cap 0-10>
+--   pet <ID pet>   (tao pet theo PetAttrTable, o pet day thi giu lai; chi admin phat event)
 -- Duoc goi tu scene.lua: x888888_OnScenePlayerLogin (dang nhap) va x888888_OnScenePlayerEnter (doi ban do).
 -- Tui day: phan chua nhan duoc ghi lai, nhan tiep o lan dang nhap sau.
 -- File nay chi dung ky tu ASCII; chu tieng Viet viet bang escape VISCII (tools/vn.py).
@@ -129,6 +130,15 @@ function x950000_NhanQua( sceneId, selfId )
 				if k < co then
 					tinsert( left, "item "..moi.." "..( co - k ) )
 				end
+			end
+		elseif kind == "pet" then
+			-- [30/09] Pet theo ID PetAttrTable (vd 25351 = Huyen Hoa Tan Vuong, xem docs/pet-huyen-hoa.md). Cap -1 = theo bang.
+			-- Chi admin phat (event). O pet day -> giu lai dong, nhan lan dang nhap sau.
+			local r = LuaFnCreatePetToHuman( sceneId, selfId, tonumber( a ), -1, 0 )
+			if r ~= nil and r == 1 then
+				got = got + 1
+			else
+				tinsert( left, "pet "..a )
 			end
 		elseif kind == "vip" then
 			-- Cap VIP = CHONG_ZHI_CHONGSHU (ScriptGlobal.lua). VIP>=1 mo phuc loi ngay (shengjjll.lua
