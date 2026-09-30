@@ -125,6 +125,8 @@ Chi tiết từng mục ở `docs/TRANG-THAI.md` → "Cập nhật 29/09 chiều
 
 **Tinh Thông trang bị (30/09 trưa):** hệ custom `MyLua/jingtong/` (NPC Sào Nguyên / Mộ Bạch ở 3 thành) đang BẬT và có tác dụng thật (`ShuaXinClient.lua` đọc chuỗi `&JT` → buff 10675–10770). Nguyên liệu bị nghẽn vì server cũ tắt "Lò Ly Hỏa" → đã **mở lại** (bỏ comment `jingtongnpc.lua:34`; 5 lần chuyển vận → Ly Hỏa + 5 lần lấy đá → Toái Phiến mỗi ngày; hiệu lực sau restart) và **thêm Li Hỏa `20700063` + Tinh Kim Thạch `20700055` vào shop web** (đang TẮT, giá tạm 99.999 — đặt giá rồi tick Bán). "Phân giải trang bị" vẫn tắt. **Rollback:** tag `truoc-tinh-thong-30-09` (`git checkout truoc-tinh-thong-30-09 -- server/Public/Data/Script/MyLua/jingtong/jingtongnpc.lua` → cap-nhat → restart) hoặc `cp /opt/tlbb-backup/truoc-tinh-thong-*/jingtong/* …/MyLua/jingtong/`; snapshot toàn bộ Script: `Script-full.tgz` cùng thư mục. Chưa kiểm trong game: giao diện Lò Ly Hỏa (UI 890174) của client có mở không.
 
+**Điểm Tặng + vàng miễn phí (30/09 chiều):** ĐT không còn nguồn nào cho người chơi và chỉ mua vật liệu ở Hồ Ca → NPC **Gia Nhập Môn Phái-Dịch** có mục "Nhận 80.000 Điểm Tặng" (không giới hạn); NPC **Ví Web** có mục "Nhận 2.000 vàng hôm nay" (1 lần/nhân vật/ngày, file `NetCo4Web/<GUID>.vang`). Hiệu lực sau restart. Rollback: tag `truoc-diem-tang-30-09`. Chi tiết docs/TRANG-THAI.md.
+
 **Quyết định còn treo (cần chủ server chốt):** giá 33 viên ngọc 6; hạn đổi vàng/ngày; có gắn Miên Bố/Bí Ngân cấp 6 cho Ác tặc/Ác bá/nhiệm vụ Tô Châu–Lâu Lan không (hiện chỉ boss Binh Thánh rớt); thời gian dự kiến để lên đồ cuối game (quyết số lượng nguyên liệu và giá shop); có mở ám khí (Mai Hoa Tiêu / Băng Phách Thần Châm — chưa có trong danh mục) không.
 
 ## Đã làm đêm 29–30/09 (đã restart 00:54 và ~01:30, đã kiểm chứng phần rơi đồ)
@@ -148,7 +150,7 @@ Chi tiết từng mục ở `docs/TRANG-THAI.md` → "Cập nhật 29/09 chiều
 **Thứ tự làm (khoảng 30 phút, cần mình theo dõi vì `reset-choi-that.sh` chưa từng chạy thật):**
 1. Báo mọi người thoát game. `./tlbb.sh stop`.
 2. **Backup** (script tự dump `tlbbdb` + `web` trước khi xóa; kiểm file .sql.gz có kích thước > 0).
-3. Sửa cấu hình test → thật: `DefaultChar.ini` `level=99` → `level=1` (không bao giờ ≥100) · `ChatConfig.txt` kênh 2: 0 → 180000 (client vẫn chờ 3 phút, sửa cho đồng bộ) · xóa `Server/txt/NetCo4Qua/*.txt` (kể cả `_capmin.txt` → cấp tối thiểu về 0) và `NetCo4Web/*.in`, `*.done`, `out/*`.
+3. Sửa cấu hình test → thật: `DefaultChar.ini` `level=99` → `level=1` (không bao giờ ≥100) · `ChatConfig.txt` kênh 2: 0 → 180000 (client vẫn chờ 3 phút, sửa cho đồng bộ) · xóa `Server/txt/NetCo4Qua/*.txt` (kể cả `_capmin.txt` → cấp tối thiểu về 0) và `NetCo4Web/*.in`, `*.done`, `*.vang` (mốc nhận 2.000 vàng/ngày), `out/*`.
 4. `./reset-choi-that.sh` (gõ RESET): xóa nhân vật, đồ, pet, bang, thành, GM list, điểm danh; **giữ tài khoản** (thêm `--ca-tai-khoan` nếu muốn xóa cả tài khoản trừ admin). KEEP: t_var, t_global, t_guild_new/t_city_* (slot), t_itemkey, t_crc32.
 5. **Ví mini game:** reset toàn bộ ví về 0 (panel SUPER → 👥 → reset all), xóa `_bossKills`, `_dogDay`, giữ liên kết GUID nếu nhân vật giữ GUID (reset xóa nhân vật → GUID mới → **phải liên kết lại từ đầu**).
 6. `./tlbb.sh start` → tạo 1 nhân vật thử: phải cấp 1, không bị tin "SB", không nhận quà cũ. Panel: ô cấp tối thiểu = 0.
