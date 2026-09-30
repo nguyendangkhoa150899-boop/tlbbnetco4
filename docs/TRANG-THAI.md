@@ -392,3 +392,7 @@ Tài khoản: `admin` (nhân vật `Bialk`, GUID 1010100001, GM), `hoang`. Mật
 | Hư Không Huyền Cảnh (Bí Tịch) | theo tầng 1/2/5/10/25 + vé Ngũ Hành Pháp Thiếp (50/ngày) | `MyLua/MiJI/xukonghuanjing.lua` |
 | Kính Hồ thủy trại (Diệt phỉ) | 1, chỉ thứ 7 13:00–22:00 | `event/fuben/efuben_jiaofei.lua` |
 - Chưa đọc kỹ: Lâu Lan Tầm Bảo, Tân Sinh Thú Sơn, các phó bản môn phái (shimen_0901), Bảo Tàng. Đổi số lượt: sửa số trong dòng `lastDayCount >= N` (Lua, hiệu lực ngay).
+
+## 01/10 03:30 - Cưu Ma Trí rớt 6 phiếu: lỗi của tôi khi nâng Mv, đã sửa (chờ restart)
+- Audit 01:53: Cưu Ma Trí 39381 rớt **6 phiếu cho mỗi thành viên** (2 GUID × 6), Đoàn Diên Khánh 39321 rớt 1/thành viên. Nguyên nhân: lúc gắn gói boss 02:10 tôi nâng Mv 20 → 60 cho 13 dòng nhưng giữ hộp phiếu BV 20/10 → tỉ lệ 3–6 lần. **Quy tắc rút ra: hộp phiếu phải có BV = Mv đúng bằng** (ratio 1 = mỗi người 1 phiếu; ratio >1 = nhiều phiếu, quan sát 60/20 → 6 phiếu, chưa rõ công thức làm tròn). Đã đổi 13 dòng sang 90001 (BV 60); kiểm toàn file: mọi hộp phiếu BV == Mv, không dòng nào có 2 hộp phiếu.
+- **Rơi đồ tính theo từng thành viên trong đội** (mỗi người 1 lượt roll, log Audit ghi riêng từng GUID): "mỗi boss 1 phiếu" nghĩa là mỗi người 1 phiếu; đội 2 người = 2 phiếu/boss.
