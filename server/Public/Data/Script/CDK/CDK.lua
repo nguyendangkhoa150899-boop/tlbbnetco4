@@ -13,7 +13,6 @@
 x999999_g_ScriptId = 999999
 x999999_g_Dir = "./txt/NetCo4Web/"
 x999999_g_Amounts = { 1000, 10000, 50000, 100000, 500000, 1000000 }
-x999999_g_VangNgay = 2000   -- [30/09] vang khong khoa nhan mien phi moi ngay (1 lan / nhan vat / ngay), trang thai <GUID>.vang = so ngay
 
 function x999999_Balance( sceneId, selfId )
 	return YuanBao( sceneId, selfId, -1, 3, 0 )
@@ -27,7 +26,6 @@ function x999999_OnDefaultEvent( sceneId, selfId, targetId )
 		AddNumText( sceneId, x999999_g_ScriptId, "Chuy\172n ra web "..x999999_g_Amounts[i], 6, i )
 	end
 	AddNumText( sceneId, x999999_g_ScriptId, "Chuy\172n ra web ".."To\224n b\181", 6, 99 )
-	AddNumText( sceneId, x999999_g_ScriptId, "Nh\167n 2.000 v\224ng h\244m nay (mi\173n ph\237, 1 l\165n/ng\224y)", 6, 50 )
 	EndEvent( sceneId )
 	DispatchEventList( sceneId, selfId, targetId )
 end
@@ -36,10 +34,7 @@ function x999999_OnEventRequest( sceneId, selfId, targetId, eventId )
 	local key = GetNumText()
 	local have = x999999_Balance( sceneId, selfId )
 	local n = 0
-	if key == 50 then
-		x999999_VangNgay( sceneId, selfId, targetId )
-		return
-	elseif key == 99 then
+	if key == 99 then
 		n = have
 	elseif key >= 1 and key <= getn( x999999_g_Amounts ) then
 		n = x999999_g_Amounts[key]
@@ -65,36 +60,6 @@ function x999999_OnEventRequest( sceneId, selfId, targetId, eventId )
 	closefile( h )
 	x999999_Tips( sceneId, selfId, "\208\227 chuy\172n ra web: "..n.." Kim Nguy\234n B\228o" )
 	x999999_OnDefaultEvent( sceneId, selfId, targetId )
-end
-
--- Vang khong khoa mien phi moi ngay. Khoa ngay = nam*10000 + thang*100 + ngay, luu trong <GUID>.vang.
-function x999999_NgayKey()
-	return GetTodayYear() * 10000 + GetTodayMonth() * 100 + GetTodayDate()
-end
-
-function x999999_VangNgay( sceneId, selfId, targetId )
-	local guid = LuaFnGetGUID( sceneId, selfId )
-	local path = x999999_g_Dir..guid..".vang"
-	local today = x999999_NgayKey()
-	local h = openfile( path, "r" )
-	if h then
-		local s = read( h, "*l" )
-		closefile( h )
-		if s and tonumber( s ) == today then
-			x999999_Tips( sceneId, selfId, "H\244m nay \240\227 nh\167n r\176i, mai quay l\213i nh\233" )
-			return
-		end
-	end
-	-- Ghi ngay TRUOC khi phat: loi ghi thi khong phat (khong bao gio phat 2 lan)
-	h = openfile( path, "w" )
-	if h == nil then
-		x999999_Tips( sceneId, selfId, "L\178i ghi file, b\225o GM" )
-		return
-	end
-	write( h, today.."\n" )
-	closefile( h )
-	AddMoney( sceneId, selfId, x999999_g_VangNgay )
-	x999999_Tips( sceneId, selfId, "\208\227 nh\167n "..x999999_g_VangNgay.." v\224ng kh\244ng kh\243a h\244m nay" )
 end
 
 -- WEB -> GAME. Goi tu x950000_NhanQua (quatang.lua).
