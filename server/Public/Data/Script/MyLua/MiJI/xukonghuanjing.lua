@@ -69,7 +69,7 @@ function  x900048_OnDefaultEvent(  sceneId,  selfId,targetId  )
 	 	 AddNumText(sceneId,x900048_g_scriptId,"#cFF0000 Ð±i Võ Lâm Bí T¸ch ",6,2)
 	 	 --AddNumText(sceneId,x900048_g_scriptId," Xem  v¯n chu hß không khiêu chiªn t¯t nh¤t ðµi ngû ",6,3)
 	 	 --AddNumText(sceneId,x900048_g_scriptId," Nh§n l¤y tu¥n trß¾c hß không khiêu chiªn vinh dñ tß·ng thß·ng ",6,4)
-	 	 --AddNumText(sceneId,x900048_g_scriptId," xªp vào nåm tuy®t ",6,8)
+	 	 AddNumText(sceneId,x900048_g_scriptId,"#cFF0000X\170p v\224o t\244ng (Ph\167t/Kh\237/Ki\170m/Ma/Nho) - c\165n cho B\237 T\184ch",6,8) -- [NetCo4 01/10] mo lai menu chon tong
                                 AddNumText(sceneId,x900048_g_scriptId," Khiêu Chiªn Hß Không Huy«n Cänh ",10,5)
                                 AddNumText(sceneId,x900048_g_scriptId," liên quan t¾i Hß Không Huy«n Cänh ",11,6)
                                 AddNumText(sceneId,x900048_g_scriptId," liên quan t¾i bí t¸ch ",11,7)
@@ -182,9 +182,7 @@ function  x900048_OnEventRequest(  sceneId,  selfId,  targetId,  eventId  )
                                 end
                                 end
 	   elseif  GetNumText()  ==  8  then
-	   if  GetNumText()then
-	   return
-	   end
+	   -- [NetCo4 01/10] bo chan 'if GetNumText() then return end' (luon return, menu chet)
 	   local  Menpaimis  =  {"#cFF0000( hi®n ph§t tông )","#cFF0000( hi®n khí tông )","#cFF0000( hi®n kiªm tông )","#cFF0000( hi®n ma tông )","#cFF0000( hi®n nho tông )"}
 	   local  msiesejisd  =  ""
 	   local  missionisdsall  =  GetMissionData(  sceneId,  selfId,  ZHOUTIANWUXUEJUEXUE  )
@@ -203,14 +201,13 @@ function  x900048_OnEventRequest(  sceneId,  selfId,  targetId,  eventId  )
 	 EndEvent(sceneId)
 	 DispatchEventList(sceneId,selfId,targetId)
                 elseif  GetNumText()  >=  201  and  GetNumText()  <=  205  then
-                if  GetNumText()then
-	 return
-	 end
+                -- [NetCo4 01/10] bo chan 'if GetNumText() then return end' (luon return, menu chet)
                 local  Menpaimis  =  {" ph§t tông "," khí tông "," kiªm tông "," ma tông "," nho tông "}
                 local  menpaistr  =  " không biªt "
                 if  mod(GetNumText(),10)  >=  1  and  mod(GetNumText(),10)  <=  5  then
                 menpaistr  =  Menpaimis[  mod(GetNumText(),10)]
                 end
+                local  missionisdsall  =  GetMissionData(  sceneId,  selfId,  ZHOUTIANWUXUEJUEXUE  ) -- [NetCo4 01/10] bien nay o nhanh 8 la local, o day la nil
                 if  missionisdsall  ~=  0  then
                 if  GetMissionData(  sceneId,  selfId,  ZHOUTIANWUXUEXINDE  )  <  800  then
                 x900048_MsgBox(  sceneId,  selfId,  targetId," ngài bây gi¶ có ðßþc "..GetMissionData(  sceneId,  selfId,  ZHOUTIANWUXUEXINDE  ).." ði¬m võ h÷c tâm ð¡c , chßa ðü 800 ði¬m tâm phäi không th¬ xªp vào nåm tuy®t "..menpaistr.."")  
