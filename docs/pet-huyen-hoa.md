@@ -52,6 +52,12 @@ Tạo bằng hàng đợi quà `pet <ID>` (NetCo4/quatang.lua). 48 con, đều c
 | 25572 | Tống Khương | Tiểu Hồ Tiên |
 | 25581 | Viễn Cổ Kỳ Hồn | Bỉ Dực Điểu |
 | 25582 | Tống Khương | Bỉ Dực Điểu |
+| 25001 | Băng Yêu (cấp 85, TT 1357) | Băng Yêu |
+| 25002 | Công Tôn Thánh (cấp 85, TT 1357) | Công Tôn Thánh |
+| 25011 | Tôn Mỹ Mỹ (cấp 85, TT 1357) | Tôn Mỹ Mỹ |
+| 25012 | Lâm Sung (cấp 85, TT 1357) | Lâm Sung |
+| 25021 | Thủy Phỉ Đầu Lãnh (cấp 85, TT 1357) | Thủy Phỉ Đầu Lãnh |
+| 25022 | Lộ Quân Dật (cấp 85, TT 1357) | Lộ Quân Dật |
 
 Các ID khác trong PetAttrTable cũng phát được (vd 24602 Tuyền Linh Nhân Ngẫu trưởng thành 1896 - KHÔNG phát, lệch cân bằng). Trứng pet event thường bán sẵn 20.000 KNB ở Hồ Ca → Mua Thương Phẩm → tab Trân thú.
 
@@ -109,7 +115,15 @@ ID = ID gốc **+ 10000** (25351 → 35351 …), tên thêm " V2", cùng họ n�
 | 35572 | Tống Khương | Tiểu Hồ Tiên | 1588/2383/4483/2543/3178 |
 | 35581 | Viễn Cổ Kỳ Hồn | Bỉ Dực Điểu | 2148/2453/4173/2453/3375 |
 | 35582 | Tống Khương | Bỉ Dực Điểu | 2225/2543/4323/2543/3495 |
+| 35001 | Băng Yêu (cấp 85, TT 1357) | Băng Yêu | 2083/2380/3870/2380/3275 |
+| 35002 | Công Tôn Thánh (cấp 85, TT 1357) | Công Tôn Thánh | 2168/2478/4028/2478/3408 |
+| 35011 | Tôn Mỹ Mỹ (cấp 85, TT 1357) | Tôn Mỹ Mỹ | 3870/3275/2083/2678/2083 |
+| 35012 | Lâm Sung (cấp 85, TT 1357) | Lâm Sung | 4028/3408/2168/2788/2168 |
+| 35021 | Thủy Phỉ Đầu Lãnh (cấp 85, TT 1357) | Thủy Phỉ Đầu Lãnh | 2678/3870/2380/2380/2678 |
+| 35022 | Lộ Quân Dật (cấp 85, TT 1357) | Lộ Quân Dật | 2788/4028/2478/2478/2788 |
 
 **Phát trên panel (30/09 tối):** panel GM (`panel.py`) và tab 🛠️ GM trên admin.netco4.click có 3 loại quà pet, **cùng ô chọn theo tên** (không nhập ID): **Pet Huyễn Hóa 12000 (admin cấp)** = ID 253xx, **Pet Huyễn Hóa V2 (chỉ số bình thường)** = ID 353xx, **Pet khác (tất cả)** = 6.320 pet gốc (tên Hán-Việt + cấp + trưởng thành, từ `docs/pet-danh-sach.tsv`). Web tải danh sách 1 lần qua `/api/gm/pets` → panel.py `/api/pets`.
 
 **Vì sao tư chất không đúng 12000 mà lẻ (12602, 12755…):** khi tạo pet, engine nhân tư chất chuẩn với bậc phẩm chất ngẫu nhiên `PerParam0–10` (×1.000–1.404) và cộng dao động `IntelligenceRange=50` (`Server/Config/PetConfigTable.ini`, đang bản gốc). Muốn đúng 12000 phải đặt mọi `PerParam*=1.000` và `IntelligenceRange=0` → **mọi pet trên server mất ngẫu nhiên** (phiên chiều 30/09 đã thử rồi trả về). Chưa quyết.
+
+**30/09 tối: thêm 6 skin cấp 85** (đủ 12 skin boss của game): Băng Yêu 25001, Công Tôn Thánh 25002, Tôn Mỹ Mỹ 25011, Lâm Sung 25012, Thủy Phỉ Đầu Lãnh 25021, Lộ Quân Dật 25022 (bản 12000) và +10000 (bản V2, tư chất gốc). Cấp mang 85, trưởng thành 1357 giữ như gốc.
