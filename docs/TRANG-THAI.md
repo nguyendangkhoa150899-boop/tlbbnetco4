@@ -305,3 +305,10 @@ Tài khoản: `admin` (nhân vật `Bialk`, GUID 1010100001, GM), `hoang`. Mật
 ## 30/09 tối - Võ Ý: nội tức mỗi quái ×4 (hiệu lực ngay, không cần restart)
 - Chủ server yêu cầu "tăng exp của 3.000 quái Võ Ý lên gấp 4". Sửa 1 dòng `MyNew/guaiwu_die.lua` (999998): `Neixi = (770 + GuaiLev*10) * 4`. Giới hạn 3.000 quái/ngày và +500 ở Thông Thiên Tháp giữ nguyên (`odali_fanhua.lua` `x002015_WuyiExpUp` không có trần mỗi lần giết). Khỉ Vô Lượng Sơn lv1–2: ~3.140 nội tức/con → ~9,4 triệu/ngày (cấp 8 trong ~6 giờ cày, cấp 50 ≈ 3,5 ngày, cấp 150 ≈ 30 ngày).
 - Tag trước khi sửa: `truoc-vo-y-30-09` vẫn là bản gốc của Vô Lượng Sơn; hệ số gốc ghi trong chú thích cùng dòng.
+
+## 30/09 23:20 - Phẩm chất ám khí: công thức tẩy (đọc từ binary, không đổi gì)
+- Binary `Server` nén UPX, còn debug symbol. Bản giải nén để tra cứu: `/root/re/Server.elf` trên VPS (ngoài thư mục game, `objdump -d -C` được). Không dùng để chạy.
+- `Item::ResetDarkQuality(type)`: phẩm chất mới = **cột 102 "品阶" EquipBase** (ám khí cấp 90 = 2000, cấp 70 = 1000, cấp 50 = 600, cấp 30 = 500, cấp 10 = 200) **+ bậc×40 + rand(0..39)**. Bậc chọn theo `DarkConfigTable.ini`: type 2 = Thiên Thối Thần Ngọc 30503120 dùng `HighDark` (0/875/100/20/5 phần nghìn), type khác = Bách Thối 30503119 dùng `LowDark` (738/200/50/10/2). Phí: 1 vàng + 1 viên (`obj/item/darkitem.lua`).
+- Ám khí cấp 90: bậc 0 = 2000–2039, bậc 1 = 2040–2079, bậc 2 = 2080–2119, bậc 3 = 2120–2159, bậc 4 = 2160–2199. **Max 2199.** Thiên Thối không bao giờ ra bậc 0.
+- Ý nghĩa: phẩm chất/1000 = hệ số đổi thuộc tính gốc ám khí ra thuộc tính nhân vật (làm tròn lên), vd 2043 → Thể lực gốc 73 thành +150.
+- Có sẵn hàm Lua `LuaFnSetDarkQualityGrade` / `LuaFnGetDarkQualityGrade` (chưa script nào dùng) nếu sau này muốn admin đặt thẳng phẩm chất.
