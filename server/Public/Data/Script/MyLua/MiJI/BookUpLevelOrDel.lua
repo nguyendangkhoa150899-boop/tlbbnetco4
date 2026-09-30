@@ -70,6 +70,20 @@ function x890099_CheckUpLevelBook( sceneId, selfId,targetId )
         if targetId < 0 or targetId > 2 then
         return
         end
+        -- [NetCo4 01/10] Chua xep tong -> nut len cap (mui ten) o tab Bi tich mo hop chon tong tai cho (hop thoai tu than,
+        --   cac muc goi x900048_OnEventRequest nhanh 201-205 cua NPC Kim Uc Phong). Doi tong sau nay van qua NPC.
+        if GetMissionData( sceneId, selfId, ZHOUTIANWUXUEJUEXUE ) == 0 then
+                BeginEvent( sceneId )
+                AddText( sceneId, "#cFF0000C\225c h\213 ch\223a x\170p v\224o t\244ng n\224o.#W Ch\247n t\244ng \240\172 h\247c B\237 T\184ch (l\165n \240\165u mi\173n ph\237, \240\177i t\244ng sau n\224y t\175n 800 V\245 H\247c T\226m \208\161c v\224 m\164t tuy\174t h\247c \240\227 h\247c):" )
+                AddNumText( sceneId, 900048, "Ph\167t t\244ng", 6, 201 )
+                AddNumText( sceneId, 900048, "Kh\237 t\244ng", 6, 202 )
+                AddNumText( sceneId, 900048, "Ki\170m t\244ng", 6, 203 )
+                AddNumText( sceneId, 900048, "Ma t\244ng", 6, 204 )
+                AddNumText( sceneId, 900048, "Nho t\244ng", 6, 205 )
+                EndEvent( sceneId )
+                DispatchEventList( sceneId, selfId, selfId )
+                return
+        end
 
       local jisumiji = mod(GetMissionData( sceneId, selfId, ZHOUTIANWUXUEJUEXUE ),1000000)
       local skillbook1 = floor(jisumiji/10000)
