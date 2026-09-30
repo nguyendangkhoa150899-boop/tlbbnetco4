@@ -44,6 +44,7 @@ function  x990010_OnDefaultEvent(  sceneId,  selfId,  targetId  )
 		 AddNumText(sceneId, x990010_g_scriptId, "#GNh§n 80.000 Ði¬m T£ng (mi­n phí)", 6, 919) -- [NetCo4 30/09]
 		 AddNumText(sceneId, x990010_g_scriptId, "#YNh§n 2.000 vàng hôm nay (1 l¥n/ngày)", 6, 920) -- [NetCo4 30/09]
 		 AddNumText(sceneId, x990010_g_scriptId, "#YNh\167n 8.000 v\224ng kh\243a h\244m nay (1 l\165n/ng\224y)", 6, 921) -- [NetCo4 01/10]
+		 AddNumText(sceneId, x990010_g_scriptId, "#cFF00FFT\244ng B\237 T\184ch (xem / x\170p / \240\177i)", 6, 922) -- [NetCo4 01/10]
 		 
 		--if LuaFnGetGUID( sceneId, selfId ) == 1010000020     then
 		--AddNumText(sceneId,x990010_g_scriptId,"#Y add diem GM",6,916)
@@ -233,6 +234,10 @@ if GetNumText() == 2000 then --danh hieu
 	 end
 	if  GetNumText()  ==  921  then -- [NetCo4 01/10] vang khoa mien phi moi ngay
 	 x990010_VangKhoaNgay( sceneId, selfId, targetId )
+	 return
+	 end
+	if  GetNumText()  ==  922  then -- [NetCo4 01/10] Tong Bi Tich: xem tong hien tai + chon tong (goi nhanh 201-205 cua 900048 Kim Uc Phong)
+	 x990010_TongBiTich( sceneId, selfId, targetId )
 	 return
 	 end
 	if  GetNumText()  ==  919  then -- [NetCo4 30/09] Diem Tang mien phi, khong gioi han
@@ -464,6 +469,25 @@ function x990010_VangKhoaNgay( sceneId, selfId, targetId )
 	AddMoneyJZ( sceneId, selfId, x990010_g_VangKhoaNgay * 10000 )
 	LuaFnSendSpecificImpactToUnit( sceneId, selfId, selfId, selfId, 18, 0 )
 	x990010_NotifyFailBox( sceneId, selfId, targetId, "C\225c h\213 \240\227 nh\167n #Y8.000 v\224ng kh\243a#W h\244m nay." )
+end
+
+-- [NetCo4 01/10] Tong Bi Tich (mission 443 = tong x 1.000.000 + sach). Cac muc chon goi x900048_OnEventRequest key 201-205.
+function x990010_TongBiTich( sceneId, selfId, targetId )
+	local ten = { "Ph\167t t\244ng", "Kh\237 t\244ng", "Ki\170m t\244ng", "Ma t\244ng", "Nho t\244ng" }
+	local tong = floor( GetMissionData( sceneId, selfId, ZHOUTIANWUXUEJUEXUE ) / 1000000 )
+	local hien = "ch\223a v\224o t\244ng n\224o"
+	if tong >= 1 and tong <= 5 then
+		hien = ten[tong]
+	end
+	BeginEvent( sceneId )
+	AddText( sceneId, "#cFF0000T\244ng hi\174n t\213i: #W"..hien.."#r#YCh\247n t\244ng cho B\237 T\184ch. L\165n \240\165u mi\173n ph\237. \208\177i t\244ng t\175n 800 V\245 H\247c T\226m \208\161c v\224 m\164t tuy\174t h\247c \240\227 h\247c." )
+	AddNumText( sceneId, 900048, "X\170p v\224o Ph\167t t\244ng", 6, 201 )
+	AddNumText( sceneId, 900048, "X\170p v\224o Kh\237 t\244ng", 6, 202 )
+	AddNumText( sceneId, 900048, "X\170p v\224o Ki\170m t\244ng", 6, 203 )
+	AddNumText( sceneId, 900048, "X\170p v\224o Ma t\244ng", 6, 204 )
+	AddNumText( sceneId, 900048, "X\170p v\224o Nho t\244ng", 6, 205 )
+	EndEvent( sceneId )
+	DispatchEventList( sceneId, selfId, targetId )
 end
 
 function x990010_NotifyFailBox( sceneId, selfId, targetId, msg )
