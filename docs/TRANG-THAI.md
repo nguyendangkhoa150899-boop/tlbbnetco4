@@ -373,3 +373,22 @@ Tài khoản: `admin` (nhân vật `Bialk`, GUID 1010100001, GM), `hoang`. Mật
 - `MyLua/MiJI/xukonghuanjing.lua`: bỏ comment menu 8; **bỏ 2 chốt `if GetNumText() then return end`** (luôn return nên menu 8 và 201–205 chết, đây là cách server cũ tắt); nhánh 201–205 thêm `local missionisdsall` (biến này chỉ tồn tại trong nhánh 8, ở nhánh 201 là nil → trước đây sẽ trừ 800 tâm đắc cả lần đầu). Lần đầu xếp tông miễn phí, đổi tông tốn 800 tâm đắc và xóa kỹ năng tuyệt học 850–897. Tag `truoc-mo-tong-01-10`. Chưa test.
 - Tooltip "6%" của Trùng Lâu Ngọc nằm trong gói client `.axp` (mã hóa), server không sửa được; giữ tỉ lệ thật 4/2 theo chủ server.
 - **02:55 mở tông ngay trong tab Bí tịch (cá nhân):** tab này chỉ có 2 nút gọi server (`AllowableScriptFunc.txt` 209/210 → `x890099_CheckUpLevelBook/CheckDeleteBook`), không thêm nút được (client). Vá `CheckUpLevelBook`: chưa có tông (mission 443 = 0) mà bấm ▲ ở ô Chưa học → mở hộp thoại tự thân chọn 5 tông (AddNumText script 900048 key 201–205, `DispatchEventList(sceneId,selfId,selfId)` như `event_enterarea.lua`). Chưa test: cần xác nhận bấm mục trong hộp thoại tự thân có gọi `x900048_OnEventRequest` không; nếu không thì dùng NPC Kim Ức Phong.
+
+## 01/10 03:10 - Số lượt phó bản mỗi ngày (đọc từ script, tính theo nhân vật, reset theo ngày server)
+| Phó bản | Lượt/ngày | Script |
+|---|---|---|
+| Phiêu Miểu Phong (lớn) | 2 | `event/piaomiaofeng/epiaomiaofeng.lua` |
+| Phiêu Miểu Phong (nhỏ) | 2 | `event/piaomiaofengsmall/epiaomiaofeng_small.lua` |
+| Binh Thánh Trận (lớn) | 3 | `event/bingshen/ebingshen.lua` |
+| Binh Thánh Trận (nhỏ) | 3 | `event/bingshensmall/ebingshensmall.lua` |
+| Tứ Tuyệt Trang | 3 | `event/sijuezhuang/esijuezhuang.lua` |
+| Thiếu Thất Sơn | 3 (nhánh 2: 5) | `event/shaoshi/eshaoshishan.lua` |
+| Huyết Chiến Nhạn Môn Quan | 5 | `event/xuezhanymg/exiao.lua` |
+| Tam Thần Huyễn Cảnh | 5 (>20 = đá ra, coi là hack) | `New/sanshen/efuben_sanshen.lua` |
+| Sinh Tử Lôi Đài (Thủy Hử) | 3 | `obj/shengsi/shengsileitai.lua` |
+| Yến Tử Ổ | 8 (cả tổ đội phải còn lượt) | `event/yanziwu/yanziwu_1.lua` |
+| Lang Hoàn Phúc Địa | 3 | `obj/dali/odali_lanlan.lua` |
+| Thiên Long Huyễn Cảnh | 5 | `event/xunhuan/TianlongHuanjing.lua` |
+| Hư Không Huyền Cảnh (Bí Tịch) | theo tầng 1/2/5/10/25 + vé Ngũ Hành Pháp Thiếp (50/ngày) | `MyLua/MiJI/xukonghuanjing.lua` |
+| Kính Hồ thủy trại (Diệt phỉ) | 1, chỉ thứ 7 13:00–22:00 | `event/fuben/efuben_jiaofei.lua` |
+- Chưa đọc kỹ: Lâu Lan Tầm Bảo, Tân Sinh Thú Sơn, các phó bản môn phái (shimen_0901), Bảo Tàng. Đổi số lượt: sửa số trong dòng `lastDayCount >= N` (Lua, hiệu lực ngay).
