@@ -849,6 +849,7 @@ elseif  NumText  ==  50  then
 	
 	
 	
+	x892101_NetCo4_FixWH( sceneId, selfId, 0 )  -- [NetCo4 30/09]
 	if  (mod(gem_index,10)==8)    then
                 	 BeginEvent(sceneId)
 	 	 AddText(sceneId," Võ H°n Ðã ÐÕt T¾i C¤p Ðµ T¯i Ða, Không Th¬ Tång Thêm Næa ");
@@ -1202,6 +1203,8 @@ function  x892101_GetWh_XinXT(  sceneId,  selfId,keyids,  m_Equip_Idx,  m_Equip_
 	 	 return
           end
 	 
+	 x892101_NetCo4_FixWH( sceneId, selfId, m_Equip_Idx )  -- [NetCo4 30/09]
+	 x892101_NetCo4_FixWH( sceneId, selfId, m_Equip_Item )
 	 if  (mod(gem_index,10)==8)    then
                 	 BeginEvent(sceneId)
 	 	 AddText(sceneId," Võ H°n ðã ðÕt c¤p b§c cao nh¤t, không th¬ hþp thành næa ");
@@ -2344,7 +2347,34 @@ end
 --*************************************************************
 -- Võ H°n m· ra phát tri¬n lan phán ðoán 
 --*************************************************************
+-- [NetCo4 30/09] Vo Hon nang cap bang menu "Thang cap vo hon" (new/event/wuhun/wuyazi.lua) chi doi ID
+-- (10156101 -> 102...) ma KHONG ghi chuoi &WH<cap hop thanh>, nen duc lo / hop thanh coi no la cap 0.
+-- Ham nay: chua co &WH thi ghi &WH<so cuoi ID> + 24 so 0 (dung dinh dang isgsub==0 cua hop thanh goc).
+function x892101_NetCo4_FixWH( sceneId, selfId, pos )
+	if pos == nil or pos < 0 or pos > 29 then
+		return
+	end
+	local itemid = LuaFnGetItemTableIndexByIndex( sceneId, selfId, pos )
+	if itemid < 10156100 or itemid > 10156208 then
+		return
+	end
+	local _, cur = LuaFnGetItemCreator( sceneId, selfId, pos )
+	if cur ~= nil and strfind( cur, "&WH" ) ~= nil then
+		return
+	end
+	local lvl = mod( itemid, 10 )
+	if lvl > 8 then
+		lvl = 8
+	end
+	local moi = "&WH" .. lvl .. strrep( "0", 24 )
+	if cur ~= nil and cur ~= "" then
+		moi = cur .. moi
+	end
+	LuaFnSetItemCreator( sceneId, selfId, pos, moi )
+end
+
 function  x892101_wuhunskuozhuan(sceneId,  selfId,pos)    ---- Võ H°n m· ra phát tri¬n lan phán ðoán 
+x892101_NetCo4_FixWH( sceneId, selfId, pos )  -- [NetCo4 30/09]
 if  pos  <  0  or  pos  >  29  then
 pos  =  0
 end
