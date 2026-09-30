@@ -78,10 +78,10 @@ id	opt_type	time_type	time_start	sceneid	scriptid	time_slice	reserve1	reserve2	r
 56	0	1	89	158	402103	0	0	0	0	0	0	4	4	#{YZW_20080317_02}	3	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	Sñ ki®n sñ tháo chÕy cüa Dã trß ðã kªt thúc	95
 57	1	2	676	0	402042	88	0	0	0	0	0	4	60	#{MDW_20080317_01}	240	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	HoÕt ðµng túc c¥u thông báo	695
 58	1	2	12	0	402043	75	0	0	0	0	0	4	120	#PTr§n ð¤u C¥u Mây ðßþc mong ðþi nh¤t trong tháng vào lúc #Y19:00 #Ps¨ chính thÑc khai mÕc! Xin m¶i các v¸ anh hùng chu¦n b¸ t± ðµi, lînh song kinh nghi®m, thu¯c dßþc... ð¬ tham gia sñ ki®n ðÕt ðßþc thành công!	840	60	#PTr§n ð¤u C¥u Mây ðßþc mong ðþi nh¤t trong tháng vào lúc #Y19:00 #Ps¨ chính thÑc khai mÕc! Xin m¶i các v¸ anh hùng chu¦n b¸ t± ðµi, lînh song kinh nghi®m, thu¯c dßþc... ð¬ tham gia sñ ki®n ðÕt ðßþc thành công!	960	30	#PSñ ki®n ðÕi hµi C¥u Mây ðã b¡t ð¥u! Xin m¶i b¢ng hæu hãy ðªn #Gthành LÕc Dß½ng Ðoan Vß½ng Phü [204,57] #Ptìm #YÐ°ng Quán #PðÕi nhân, #GÐÕi Lý [282,84] #YHÕ Thanh Thanh#P, #GTô Châu [187,147] #YVu Thiên Thiên #Ptham gia sñ ki®n!	1140	30	#PTr§n ð¤u C¥u Mây s¨ ðßþc kªt thúc vào lúc #Y23:00 #Pngày hôm nay, mong các v¸ anh hùng mau mau kªt thúc tr§n ð¤u!	1200	5	#PTr§n ð¤u C¥u May hôm nay ðªn ðây kªt thúc, mong các anh hùng hãy ðón xem tr§n ð¤u kª tiªp trong tháng sau, cám ½n!	1205	-1	Thông báo hoÕt ðµng túc c¥u cüa chü nh§t này	95
-59	0	1	2	32	810002	0	0	0	0	0	0	4	11	#{XJJG_20080317_01}	10	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	BOSS Nga My	95
-60	0	1	42	32	810002	0	0	0	0	0	0	4	11	#{XJJG_20080317_01}	10	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	BOSS Nga My	95
-61	0	1	62	32	810002	0	0	0	0	0	0	4	11	#{XJJG_20080317_01}	10	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	BOSS Nga My	95
-62	0	1	79	32	810002	0	0	0	0	0	0	4	11	#{XJJG_20080317_01}	10	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	BOSS Nga My	95
+59	0	1	2	32	810002	0	0	0	0	0	0	4	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	BOSS Nga My	95
+60	0	1	42	32	810002	0	0	0	0	0	0	4	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	BOSS Nga My	95
+61	0	1	62	32	810002	0	0	0	0	0	0	4	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	BOSS Nga My	95
+62	0	1	79	32	810002	0	0	0	0	0	0	4	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	BOSS Nga My	95
 63	0	1	6	20	810003	0	0	0	0	0	0	4	11	#{BQM_20080317_01}	10	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	BOSS Thäo Nguyên	95
 64	0	1	54	20	810003	0	0	0	0	0	0	4	11	#{BQM_20080317_01}	10	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	BOSS Thäo Nguyên	95
 65	0	1	74	20	810003	0	0	0	0	0	0	4	11	#{BQM_20080317_01}	10	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	BOSS Thäo Nguyên	95
