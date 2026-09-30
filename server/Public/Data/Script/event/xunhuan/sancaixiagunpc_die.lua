@@ -11,9 +11,9 @@ x001130_g_BossGroup = 3						-- Boss Group ID
 x001130_g_Token = 40004315					-- ÁîÅÆºÅ
 x001130_g_MissionId = 1260					-- 1260 - 1269
 x001130_g_BroadcastMsg = {
-"#Y £º#{_BOSS45}#PÒÑ¾­ËÀÁË£¡Ëû±»ÎÒÃÇµÄÓ¢ÐÛ#{_INFOUSR$N}#P¸ÉµôÁË£¡ÏÂÒ»¸öËÍËÀµÄ»áÊÇË­£¿#{_BOSS46}£¿»¹ÊÇ#{_BOSS47}£¿¹þ¹þ£¡",
-"#Y £º#PÎÒÃÇµÄÓ¢ÐÛ#{_INFOUSR$N}#P£¬´Ó#GËÎÁÉ±ß¾³#P´øÀ´ÁËÕñ·ÜÈËÐÄµÄÏûÏ¢£¡ÄÇ¸öÎÞ¶ñ²»×÷µÄÂí·Ë#{_BOSS45}#P£¬ÒÑ¾­±»¸ÉµôÁË£¡",
-"#Y £º#P´ó¼Ò¿ìÀ´¿´¿´ÎÒÃÇµÄÓ¢ÐÛ£¡#{_INFOUSR$N}#P£¡Ò»¸ö»î×ÅµÄ´«Ææ£¬´óÏÀÖÐµÄÕ½¶·ÏÀ£¬Å¶Ò®£¡"
+"#Y #{_BOSS45}#P ðã chªt! H¡n b¸ anh hùng cüa chúng ta #{_INFOUSR$N}#P hÕ gøc! Kë tiªp theo nµp mÕng s¨ là ai? #{_BOSS46}? Hay #{_BOSS47}? Ha ha!",
+"#P Anh hùng cüa chúng ta #{_INFOUSR$N}#P mang v« tin m×ng t× #GT¯ng Liêu biên cänh#P: tên mã t£c #{_BOSS45}#P ðã b¸ hÕ gøc!",
+"#P M÷i ngß¶i mau xem anh hùng cüa chúng ta! #{_INFOUSR$N}#P! Mµt huy«n thoÕi s¯ng, ðÕi hi®p trong ðÕi hi®p!"
 }
 
 x001130_g_Param_sceneid = 6					-- 6 ºÅ£ºµ±Ç°¸±±¾ÈÎÎñµÄ³¡¾°ºÅ
@@ -146,9 +146,9 @@ function x001130_OnDie( sceneId, selfId, killerId )
 	elseif LuaFnGetCopySceneData_Param( sceneId, 21 ) ==1  then  -----µÚ¶þ¹Ø
 		-- ¹ã²¥ÏûÏ¢
 		local tow_BroadcastMsg = {
-		"#Y »¨½£Óê£º#W#{_INFOUSR$N}#P´óÏÀÕæÊÇÇ¿£¬Ò»È­´ò±â#{_BOSS46}#P¡£ÓÐÁË#{_INFOUSR$N}#P´óÏÀÔÚ£¬ÄÄ¸öÃ«Ôô¸Ò³«¿ñ£¿",
-		"#Y »¨½£Óê£º#W#{_INFOUSR$N}#P´óÏÀÕæÊÇÐÐ£¬ºáÉ¨ËÕÖÝÐ¡ÖñÁÖ¡£Ò»¶ÙÅÖ×á´·ÏÂÈ¥£¬Ã»ÓÐ#GºìÐÜ#P°Ú²»Æ½¡£",
-		"#Y »¨½£Óê£º#W#{_INFOUSR$N}#P´óÏÀÕæÊÇÇ¿£¬ÏÀÒåÖ®ÃûÍò¹ÅÁ÷¡£Îä¹¦¸üÊÇÃ»µÃËµ£¬·²ÊÇ#GºìÐÜ#PÈ«±¬Í·¡£"
+		"#Y Hoa Kiªm Vû: #W#{_INFOUSR$N}#P ðÕi hi®p th§t mÕnh, mµt quy«n ðánh b©p #{_BOSS46}#P. Có #{_INFOUSR$N}#P ðÕi hi®p · ðây, ti¬u t£c nào dám càn rÞ?",
+		"#Y Hoa Kiªm Vû: #W#{_INFOUSR$N}#P ðÕi hi®p th§t lþi hÕi, quét sÕch Ti¬u Trúc Lâm Tô Châu. Mµt tr§n ðòn giáng xu¯ng, #GH°ng Hùng#P cûng phäi quy hàng.",
+		"#Y Hoa Kiªm Vû: #W#{_INFOUSR$N}#P ðÕi hi®p th§t mÕnh, hi®p nghîa lßu danh vÕn c±. Võ công khöi phäi nói, g£p #GH°ng Hùng#P là n± ð¥u."
 		}
 		too_DemandKill = { { id = 4120, num = 1 }, { id = 4110, num = 80 } }			-- 1 ~ 2 ºÅ£¬¹ÖÎïÐÅÏ¢
 		too_DemandKillGroup = { 2, 1 }		-- 1 ~ 2 ºÅ¹ÖÎï¶ÔÓ¦µÄ GroupID ºÅ£¬Óë too_DemandKill Ò»Ò»¶ÔÓ¦
@@ -227,9 +227,9 @@ function x001130_OnDie( sceneId, selfId, killerId )
 	elseif LuaFnGetCopySceneData_Param( sceneId, 21 ) ==2  then  -----µÚ3¹Ø
 		-- ¹ã²¥ÏûÏ¢
 		local three_BroadcastMsg = {
-		"#Y£º#P¸æËß´ó¼ÒÒ»¸öºÃÏûÏ¢£¬¶ñÃûÕÑÕÃµÄ·ËÍ½Ê×Áì#{_BOSS47}#P£¬½ñÌìÖÕÓÚ±»#{_INFOUSR$N}#P´ò°ÜÁË£¡´ó¼Ò¹ÄÕÆ£¡",
-		"#Y£º#PÈÃÎÒÃÇ¾¡ÇéµÄ»¶ºô°É£¬·ËÍ½Ê×Áì#{_BOSS47}#P²»ÄÜÔÙÎªº¦Ò»·½ÁË£¬ËûÒÑ¾­ËÀÔÚÁË#{_INFOUSR$N}#PµÄÊÖÖÐ£¬´ó¼Ò»¶ºô°É£¡",
-		"#Y£º#{_BOSS47}#PËÀÁË£¡´Ó½ñÌìÆð£¬ÎÒÃÇÔÙÒ²²»ÓÃÌáÐÄµõµ¨µÄÉú»îÁË£¡ÈÃÎÒÃÇÔÞÃÀÎÒÃÇµÄÓ¢ÐÛ°É£º#{_INFOUSR$N}#P£¬ÄãÌ«Ìì²ÅÁË£¡"
+		"#P Báo m÷i ngß¶i mµt tin vui: thü lînh phï ð° khét tiªng #{_BOSS47}#P hôm nay ðã b¸ #{_INFOUSR$N}#P ðánh bÕi! M÷i ngß¶i v² tay!",
+		"#P Hãy cùng hoan hô! Thü lînh phï ð° #{_BOSS47}#P không còn tác oai tác quái ðßþc næa, h¡n ðã chªt dß¾i tay #{_INFOUSR$N}#P!",
+		"#Y#{_BOSS47}#P ðã chªt! T× hôm nay không còn phäi s¯ng trong lo sþ! Hãy ca ngþi anh hùng cüa chúng ta: #{_INFOUSR$N}#P, ngß½i quá thiên tài!"
 		}
 		
 		if GroupID == 0 then

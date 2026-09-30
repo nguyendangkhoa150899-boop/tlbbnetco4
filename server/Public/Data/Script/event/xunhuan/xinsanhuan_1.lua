@@ -159,9 +159,9 @@ x050220_g_YaoWangTalk = "ºÎ·½Ð¡±²¸ÒÉ±Îáº¢¶ù£¬¿É¸ÒÇ°À´ÊÜËÀ£¿£¡"			-- bossºé¼¬ÑýÍõ
 
 -- ¹ã²¥ÏûÏ¢
 x050220_g_BroadcastMsg = {
-"#Y"..x050220_g_Name.."£º#{_BOSS45}#PÒÑ¾­ËÀÁË£¡Ëû±»ÎÒÃÇµÄÓ¢ÐÛ#{_INFOUSR$N}#P¸ÉµôÁË£¡ÏÂÒ»¸öËÍËÀµÄ»áÊÇË­£¿#{_BOSS46}£¿»¹ÊÇ#{_BOSS47}£¿¹þ¹þ£¡",
-"#Y"..x050220_g_Name.."£º#PÎÒÃÇµÄÓ¢ÐÛ#{_INFOUSR$N}#P£¬´Ó#GÑ×Ä§É½#P´øÀ´ÁËÕñ·ÜÈËÐÄµÄÏûÏ¢£¡ÄÇ¸öÎÞ¶ñ²»×÷µÄÑýÄ§#{_BOSS45}#P£¬ÒÑ¾­±»¸ÉµôÁË£¡",
-"#Y"..x050220_g_Name.."£º#P´ó¼Ò¿ìÀ´¿´¿´ÎÒÃÇµÄÓ¢ÐÛ£¡#{_INFOUSR$N}#P£¡Ò»¸ö»î×ÅµÄ´«Ææ£¬´óÏÀÖÐµÄÕ½¶·ÏÀ£¬Å¶Ò®£¡"
+"#Y"..x050220_g_Name..": #{_BOSS45}#P ðã chªt! H¡n b¸ anh hùng cüa chúng ta #{_INFOUSR$N}#P hÕ gøc! Kë tiªp theo nµp mÕng s¨ là ai? #{_BOSS46}? Hay #{_BOSS47}? Ha ha!",
+"#Y"..x050220_g_Name..": #P Anh hùng cüa chúng ta #{_INFOUSR$N}#P mang v« tin m×ng t× #GViêm Ma S½n#P: tên yêu ma #{_BOSS45}#P ðã b¸ hÕ gøc!",
+"#Y"..x050220_g_Name..": #P M÷i ngß¶i mau xem anh hùng cüa chúng ta! #{_INFOUSR$N}#P! Mµt huy«n thoÕi s¯ng, ðÕi hi®p trong ðÕi hi®p!"
 }
 
 x050220_g_TakeTimes = 5											-- Ã¿Ìì×î¶àÁìÈ¡´ÎÊý

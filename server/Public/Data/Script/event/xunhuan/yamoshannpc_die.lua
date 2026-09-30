@@ -12,9 +12,9 @@ x001129_g_BossGroup = 3						-- Boss Group ID
 x001129_g_Token = 40004315					-- ÁîÅÆºÅ
 x001129_g_MissionId = 1256					-- 1260 - 1269
 x001129_g_BroadcastMsg = {
-"#Y £ºÍõÑÖ#PÒÑ¾­ËÀÁË£¡Ëû±»ÎÒÃÇµÄÓ¢ÐÛ#{_INFOUSR$N}#P¸ÉµôÁË£¡ÏÂÒ»¸öËÍËÀµÄ»áÊÇË­£¿ £¡",
-"#Y £º#PÎÒÃÇµÄÓ¢ÐÛ#{_INFOUSR$N}#P£¬´Ó#GËÎÁÉ±ß¾³#P´øÀ´ÁËÕñ·ÜÈËÐÄµÄÏûÏ¢£¡ÄÇ¸öÎÞ¶ñ²»×÷µÄÍõÑÖ#P£¬ÒÑ¾­±»¸ÉµôÁË£¡",
-"#Y £º#P´ó¼Ò¿ìÀ´¿´¿´ÎÒÃÇµÄÓ¢ÐÛ£¡#{_INFOUSR$N}#P£¡Ò»¸ö»î×ÅµÄ´«Ææ£¬´óÏÀÖÐµÄÕ½¶·ÏÀ£¬Å¶Ò®£¡"
+"#Y Vß½ng Diêm#P ðã chªt! H¡n b¸ anh hùng cüa chúng ta #{_INFOUSR$N}#P hÕ gøc! Kë tiªp theo nµp mÕng s¨ là ai?",
+"#P Anh hùng cüa chúng ta #{_INFOUSR$N}#P mang v« tin m×ng t× #GT¯ng Liêu biên cänh#P: tên ác t£c Vß½ng Diêm#P ðã b¸ hÕ gøc!",
+"#P M÷i ngß¶i mau xem anh hùng cüa chúng ta! #{_INFOUSR$N}#P! Mµt huy«n thoÕi s¯ng, ðÕi hi®p trong ðÕi hi®p!"
 }
 
 x001129_g_Param_sceneid = 6					-- 6 ºÅ£ºµ±Ç°¸±±¾ÈÎÎñµÄ³¡¾°ºÅ
@@ -130,9 +130,9 @@ function x001129_OnDie( sceneId, selfId, killerId )
 		if GroupID == 2 then -- Boss Group ID
 			-- ¹ã²¥ÏûÏ¢
 			local tow_BroadcastMsg = {
-			"#Y »¨½£Óê£º#W#{_INFOUSR$N}#P´óÏÀÕæÊÇÇ¿£¬Ò»È­´ò±âºé¼¬ÑýÍõ#P¡£ÓÐÁË#{_INFOUSR$N}#P´óÏÀÔÚ£¬ÄÄ¸öÃ«Ôô¸Ò³«¿ñ£¿",
-			"#Y »¨½£Óê£º#W#{_INFOUSR$N}#P´óÏÀÕæÊÇÐÐ£¬ºáÉ¨Ñ×Ä§É½ ¡£Ò»¶ÙÅÖ×á´·ÏÂÈ¥£¬Ã»ÓÐ#Gºé¼¬ÑýÍõ#P°Ú²»Æ½¡£",
-			"#Y »¨½£Óê£º#W#{_INFOUSR$N}#P´óÏÀÕæÊÇÇ¿£¬ÏÀÒåÖ®ÃûÍò¹ÅÁ÷¡£Îä¹¦¸üÊÇÃ»µÃËµ£¬·²ÊÇ#Gºé¼¬ÑýÍõ#PÈ«±¬Í·¡£"
+			"#Y Hoa Kiªm Vû: #W#{_INFOUSR$N}#P ðÕi hi®p th§t mÕnh, mµt quy«n ðánh b©p H°ng Kích Yêu Vß½ng#P. Có #{_INFOUSR$N}#P ðÕi hi®p · ðây, ti¬u t£c nào dám càn rÞ?",
+			"#Y Hoa Kiªm Vû: #W#{_INFOUSR$N}#P ðÕi hi®p th§t lþi hÕi, quét sÕch Viêm Ma S½n. Mµt tr§n ðòn giáng xu¯ng, #GH°ng Kích Yêu Vß½ng#P cûng phäi quy hàng.",
+			"#Y Hoa Kiªm Vû: #W#{_INFOUSR$N}#P ðÕi hi®p th§t mÕnh, hi®p nghîa lßu danh vÕn c±. Võ công khöi phäi nói, g£p #GH°ng Kích Yêu Vß½ng#P là n± ð¥u."
 			}
 			LuaFnSetCopySceneData_Param( sceneId, 21,2)   -----ÉèÖÃµÚ3¹Ø
 			LuaFnSetCopySceneData_Param( sceneId, 2, 0 )
@@ -153,9 +153,9 @@ function x001129_OnDie( sceneId, selfId, killerId )
 	elseif LuaFnGetCopySceneData_Param( sceneId, 21 ) ==2  then  -----µÚ3¹Ø
 		-- ¹ã²¥ÏûÏ¢
 		local three_BroadcastMsg = {
-		"#Y£º#P¸æËß´ó¼ÒÒ»¸öºÃÏûÏ¢£¬¶ñÃûÕÑÕÃµÄ·ËÍ½Ê×Áì¡¾»ðÑæÑýÄ§¡¿#P£¬½ñÌìÖÕÓÚ±»#{_INFOUSR$N}#P´ò°ÜÁË£¡´ó¼Ò¹ÄÕÆ£¡",
-		"#Y£º#PÈÃÎÒÃÇ¾¡ÇéµÄ»¶ºô°É£¬·ËÍ½Ê×Áì¡¾»ðÑæÑýÄ§¡¿²»ÄÜÔÙÎªº¦Ò»·½ÁË£¬ËûÒÑ¾­ËÀÔÚÁË#{_INFOUSR$N}#PµÄÊÖÖÐ£¬´ó¼Ò»¶ºô°É£¡",
-		"#Y£º¡¾»ðÑæÑýÄ§¡¿#PËÀÁË£¡´Ó½ñÌìÆð£¬ÎÒÃÇÔÙÒ²²»ÓÃÌáÐÄµõµ¨µÄÉú»îÁË£¡ÈÃÎÒÃÇÔÞÃÀÎÒÃÇµÄÓ¢ÐÛ°É£º#{_INFOUSR$N}#P£¬ÄãÌ«Ìì²ÅÁË£¡"
+		"#P Báo m÷i ngß¶i mµt tin vui: thü lînh phï ð° khét tiªng [Höa Di­m Yêu Ma]#P hôm nay ðã b¸ #{_INFOUSR$N}#P ðánh bÕi! M÷i ngß¶i v² tay!",
+		"#P Hãy cùng hoan hô! Thü lînh phï ð° [Höa Di­m Yêu Ma] không còn tác oai tác quái ðßþc næa, h¡n ðã chªt dß¾i tay #{_INFOUSR$N}#P!",
+		"#Y[Höa Di­m Yêu Ma]#P ðã chªt! T× hôm nay không còn phäi s¯ng trong lo sþ! Hãy ca ngþi anh hùng cüa chúng ta: #{_INFOUSR$N}#P, ngß½i quá thiên tài!"
 		}
 		
 		if GroupID == 0 then
