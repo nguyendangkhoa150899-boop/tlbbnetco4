@@ -108,6 +108,21 @@ Chi tiết từng mục ở `docs/TRANG-THAI.md` → "Cập nhật 29/09 chiều
 - [ ] **mod.netco4.click** (cổng admin thường, mật khẩu `1234567` — chủ server đặt): sửa được SHOP + Drop Boss, bị chặn GM/ví/liên kết. Nút Lưu shop có khoá phiên bản (409 nếu bảng cũ). **Cần quyết:** đổi mật khẩu dài hơn hoặc thêm khoá 5 lần sai; đóng Drop Boss cho mod sau khi test.
 - [ ] **Chưa quyết (phát hiện tối 29/09):** dòng chửi "SB" trong `scene.lua` (dòng 832) chửi nhầm người tạo nhân vật mới khi đang bật cấp tối thiểu 119 — nạn nhân đầu: EmVinh (bị về cấp 0 rồi lên lại 119, mất túi tân thủ). Tắt dòng chửi? Phát bù túi tân thủ cho EmVinh? NPC "Thẻ Tài Phú" (Đại Lý, phát KNB miễn phí theo mốc cấp): giữ hay tắt?
 
+## Nhiệm vụ boss (30/09) — trạng thái và kế hoạch test khi đủ team
+
+**Đã xong (bước 1):** bot đọc Audit log game → web (🪪 Cá nhân → 🏹 Boss đã hạ) hiện từng lượt boss của người chơi (giờ, boss, số người tổ). Không cần restart game cho bất kỳ bước test nào dưới đây — Audit game ghi sẵn, bot đọc 10 giây/lần.
+
+**Đã chốt với chủ server:** quà = ID vật phẩm có sẵn trong game (vd `30009951` 95 Trân Thú Sáo Lễ Hạp - Côn Bằng Dị Vũ), bấm Nhận trên web → hàng đợi quà → nhận khi đổi bản đồ · số lượt/ngày theo giới hạn vào phó bản của game (admin đặt thêm trần nếu muốn) · **tính cả tổ còn ở trong phó bản lúc boss cuối chết**, bỏ giữa chừng không tính (làm bằng hook `OnDie` script boss cuối; boss ngoài bản đồ dùng Audit).
+
+**Cần test khi đủ team (thay vì tự đăng nhập nhiều acc — 1 người đi nhiều acc thì Audit chia đồ lệch, không thấy được cách chia cho tổ):**
+1. Tổ 3–6 người, **liên kết ví ↔ nhân vật** cho từng người trước (admin → 🐉 → Liên kết), ai chưa liên kết thì lượt của họ chỉ nằm trong log chưa hiện.
+2. Đi lần lượt từng phó bản định làm nhiệm vụ. Với mỗi phó bản ghi lại (nhắn Discord là đủ): **tên phó bản** · **giờ vào / giờ boss cuối chết** · **tên boss cuối theo game** · **ai trong tổ** · **ai rời giữa chừng** (cố ý cho 1 người ra sớm ở 1 phó bản để kiểm tra "bỏ cuộc không tính").
+3. Danh sách phó bản nên đi: Phiêu Miểu Phong (lớn + nhỏ) · Binh Thánh / bản nhỏ · Tứ Tuyệt Trang · Thiếu Thất Sơn · Huyết Chiến Nhạn Môn Quan · Tam Thần · Sinh Tử Lôi Đài (12 NPC, chọn 1 boss) · Thông Thiên Tháp · Yến Tử Ổ · và phó bản nào khác nhóm hay chơi. Tên thư mục script tương ứng: `piaomiaofeng*`, `bingshen*`, `sijuezhuang`, `shaoshishan`/`shaoshi`, `xuezhanymg`, `New/sanshen`, `obj/shengsi`, scene `tongtianta*`.
+4. Đi xong nhắn "xong phó bản" → Claude đọc `/opt/tlbb-root/home/tlbb/Server/Log/Audit_*.log` + `_bossKills` của bot, đối chiếu giờ, ra bảng **phó bản → ID boss cuối (đúng bậc cấp script gọi) → ai được tính**. Bảng đó là cấu hình cho bước 2.
+5. Ghi luôn số lượt/ngày game cho phép mỗi phó bản (NPC báo "hôm nay đã đủ x lần") để đặt trần.
+
+**Bước 2 sẽ làm sau khi có bảng trên:** hook `OnDie` boss cuối ghi file cả tổ → bot; admin đặt nhiệm vụ (phó bản, số lượt/ngày, ID quà); web nút Nhận quà; log ai nhận gì.
+
 **Quyết định còn treo (cần chủ server chốt):** giá 33 viên ngọc 6; hạn đổi vàng/ngày; có gắn Miên Bố/Bí Ngân cấp 6 cho Ác tặc/Ác bá/nhiệm vụ Tô Châu–Lâu Lan không (hiện chỉ boss Binh Thánh rớt); thời gian dự kiến để lên đồ cuối game (quyết số lượng nguyên liệu và giá shop); có mở ám khí (Mai Hoa Tiêu / Băng Phách Thần Châm — chưa có trong danh mục) không.
 
 ## Đã làm đêm 29–30/09 (đã restart 00:54 và ~01:30, đã kiểm chứng phần rơi đồ)
