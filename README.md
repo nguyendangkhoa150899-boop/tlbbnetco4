@@ -150,7 +150,7 @@ Chi tiết từng mục ở `docs/TRANG-THAI.md` → "Cập nhật 29/09 chiều
 **Thứ tự làm (khoảng 30 phút, cần mình theo dõi vì `reset-choi-that.sh` chưa từng chạy thật):**
 1. Báo mọi người thoát game. `./tlbb.sh stop`.
 2. **Backup** (script tự dump `tlbbdb` + `web` trước khi xóa; kiểm file .sql.gz có kích thước > 0).
-3. Sửa cấu hình test → thật: `MyNew/jiarumenpai.lua` `x990010_g_HHV_Mo = 19`, `x990010_g_HHV_Dong = 24` (Hậu Hoa Viên 19:00–23:59; đang 0/24 để test) · `DefaultChar.ini` `level=99` → `level=1` (không bao giờ ≥100) · `ChatConfig.txt` kênh 2: 0 → 180000 (client vẫn chờ 3 phút, sửa cho đồng bộ) · xóa `Server/txt/NetCo4Qua/*.txt` (kể cả `_capmin.txt` → cấp tối thiểu về 0) và `NetCo4Web/*.in`, `*.done`, `*.vang` (mốc nhận 2.000 vàng/ngày), `out/*`.
+3. Sửa cấu hình test → thật: `MyNew/jiarumenpai.lua` `x990010_g_HHV_Mo = 19`, `x990010_g_HHV_Dong = 24` (Hậu Hoa Viên 19:00–23:59; đang 0/24 để test) · `DefaultChar.ini` `level=99` → `level=1` (không bao giờ ≥100) · `ChatConfig.txt` kênh 2: 0 → 180000 (client vẫn chờ 3 phút, sửa cho đồng bộ) · xóa `Server/txt/NetCo4Qua/*.txt` (kể cả `_capmin.txt` → cấp tối thiểu về 0) và `NetCo4Web/*.in`, `*.done`, `*.vang`, `*.vangkhoa`, `*.tanthu` (cờ nhận/ngày; 3 loại sau script reset đã xóa), `out/*` · Yến Tử Ổ: `x401040_g_SoDotCuoi` 2 → 0 nếu muốn 25 đợt gốc.
 4. `./reset-choi-that.sh` (gõ RESET): xóa nhân vật, đồ, pet, bang, thành, GM list, điểm danh; **giữ tài khoản** (thêm `--ca-tai-khoan` nếu muốn xóa cả tài khoản trừ admin). KEEP: t_var, t_global, t_guild_new/t_city_* (slot), t_itemkey, t_crc32.
 5. **Ví mini game:** reset toàn bộ ví về 0 (panel SUPER → 👥 → reset all), xóa `_bossKills`, `_dogDay`, giữ liên kết GUID nếu nhân vật giữ GUID (reset xóa nhân vật → GUID mới → **phải liên kết lại từ đầu**).
 6. `./tlbb.sh start` → tạo 1 nhân vật thử: phải cấp 1, không bị tin "SB", không nhận quà cũ. Panel: ô cấp tối thiểu = 0.
@@ -181,6 +181,38 @@ Chi tiết từng mục ở `docs/TRANG-THAI.md` → "Cập nhật 29/09 chiều
 **Phát hiện cần biết:** trứng pet event **có bán trong game** 20.000 KNB (Hồ Ca → Mua Thương Phẩm → tab Trân thú, kệ 132/218/219); Võ Hồn cấp 0 + Phá Thiên Tiễn bán ở kệ 216 cùng bảng. Pet 24602 (Tuyền Linh Nhân Ngẫu, trưởng thành 1896) là pet gian của server cũ — không phát. Một lượt Phiêu Miểu Phong lúc phiếu 2.000 = 34.000 KNB (log Audit 30/09 của cuocdoibuon).
 
 **Chưa chốt (hỏi chủ server):** dịch/tắt 98 câu tiếng Trung; tắt tin 3 nhóm boss còn lại; giá trứng pet 20.000; bán Ngưng Tức Hoàn (web hay kệ game); hệ số Võ Ý (khỉ lv1–10 → cấp 20 mất 3,4 ngày/cấp, cấp 50 mất 14 ngày/cấp); bù túi tân thủ EmVinh; mật khẩu mod `1234567` (đã lộ, chủ server nói đóng portal khi open); menu "Thăng cấp võ hồn" NetCo4 song song với hợp thành gốc.
+
+## Đã làm 01/10 (đêm) — tất cả đã deploy, game đã restart 02:05, chi tiết từng mục ở docs/TRANG-THAI.md
+
+| Việc | Trạng thái | Rollback |
+|---|---|---|
+| **Bảng rơi đồ sắp lại theo ID tăng dần** (engine tìm nhị phân): 41 boss gốc nằm cuối file (Cưu Ma Trí, Mộ Dung Phục, Tụ Hiền Trang ở PMF; Tiêu Dật Phong, Gia Luật Liên Thành ở Nhạn Môn; Tiêu Phong) **chưa bao giờ rớt gì** trên server này → giờ rớt. Cùng lỗi ở `PetAttrTable.txt` (6 pet V2) | xong, log Audit xác nhận | git `c38856e` |
+| Yến Tử Ổ cấp 100+: 46 dòng rơi (bản +30000/+30001/+30002), Đoàn Diên Khánh rớt thuốc giải Bi Tô Thanh Phong + phiếu, Cưu Ma Trí + Mộ Dung Phục rớt phiếu; **rút còn 2 đợt cuối** (`x401040_g_SoDotCuoi`, 0 = gốc 25 đợt); **3 lượt/ngày** (`x401040_g_LuotNgay`, gốc 8) | xong, đã đi test | tag `truoc-yzw-5dot-30-09` |
+| Gói rơi chuẩn 8 hộp cho 89 boss "chỉ có phiếu" (PMF, Nhạn Môn, Thủy Hử, Mộ Dung Phục…), boss Mv < 60 nâng lên 60; **hộp phiếu BV = Mv đúng bằng** (mỗi người 1 phiếu); hộp 90029 thuốc giải / 90030 nguyên liệu cấp 8 BV 60 chống rớt ×6 | xong | git `9cfa850`, `acb9cd8` |
+| Cộng Sinh: chủ nhận 200% (thường) / 400% (cao cấp) máu pet mất (`StandardImpact` 7033/7034 cột 32, binary không có trần) | xong, chưa test | git `170d45c` |
+| NPC Hồi Ức Thiên Long / Hỗ Trợ Tân Thủ: mục 8886 phát lại hộp Tân Thủ Trang Bị [10 cấp] (set 12 món + Thanh Đồng Đao, khóa), 1 lần/ngày | xong, chưa test | git |
+| NPC NetCo4: "Nhận 8.000 vàng khóa hôm nay" (921), "Tông Bí Tịch xem/xếp/đổi" (922) | xong | git |
+| Võ Lâm Bí Tịch: hệ thống server cũ còn nguyên (`MyLua/MiJI/`, NPC Kim Ức Phong), **mở lại menu chọn tông** (server cũ chặn bằng `if GetNumText() then return end`), nút ▲ ở tab Bí tịch khi chưa có tông cũng mở hộp chọn | xong, chưa test | tag `truoc-mo-tong-01-10` |
+| Tắt tab **Quà Nạp Thẻ** (mốc N chỉ cần VIP ≥ N mà VIP do admin cấp) | xong | tag `truoc-tat-qua-nap-30-09` |
+| Võ Ý: nội tức ×4 (`guaiwu_die.lua`) | xong | git |
+| Sửa exp âm của bia1 (`!!addexp` tràn int32): stop game → sửa DB → start | xong | – |
+| Tạm thời rồi đã hoàn: template Thần Ẩn 11 dòng (đã tẩy xong), Công Lực Đan +100.000, Trùng Lâu Ngọc 6% (chủ server giữ gốc 4/2) | đã về gốc | – |
+| Docs: công thức tẩy phẩm chất ám khí (max 2199, Thiên Thối bậc 4 = 0,5%), số lượt phó bản/ngày, lịch Phượng Hoàng Cổ Thành (T4 + T7 20:00–21:15) | xong | – |
+
+## Bẫy dễ dính khi phát triển (đúc kết 28/09–01/10, đọc trước khi sửa file game)
+
+1. **Bảng `.txt` dạng DBC phải sắp ID tăng dần.** Engine tra bằng tìm kiếm nhị phân (`DBCFile::Search_Posistion`): dòng nào nằm sai thứ tự là **không bao giờ được tìm thấy**, không báo lỗi (`MonsterDropBoxs`, `DropBoxContent`, `PetAttrTable`, `StandardImpact`, `EquipBase`, `CommonItem`…). Thêm dòng = chèn đúng vị trí, không append cuối file. Kiểm nhanh: node đọc file, so ID dòng sau với dòng trước. Tab Drop Boss trên web thêm hộp mới cũng phải theo quy tắc này.
+2. **Rơi đồ: số món mỗi người ≈ Mvalue(quái) ÷ BoxValue(hộp).** Tỉ lệ 1 = chắc chắn 1 món; tỉ lệ 3 = 3–6 món **cho mỗi thành viên tổ đội** (mỗi người roll riêng). BoxValue = 1 làm hỏng cả lượt rơi. Nâng Mvalue của boss thì phải đổi hộp phiếu sang hộp BV = Mv tương ứng (90001 = 60, 90016–90028 = 10…3000).
+3. **Lua có hiệu lực ngay khi `cap-nhat.sh`, `.txt/.ini` cần restart.** Restart chỉ bằng `systemctl restart tlbb`, kiểm `ss -Htn state established '( sport = :3731 )'` trước.
+4. **Mission data (`t_char.mdata`)** là chuỗi hex, ô N = 8 ký tự ở vị trí N×8+1, int32 little-endian. Đọc: `SELECT SUBSTRING(mdata, N*8+1, 8)`. Chỉ đọc khi cần xác minh; sửa phải stop game (ShareMemory giữ RAM).
+5. **`!!addexp` / mọi tham số GM là int32** (tối đa 2.147.483.647, gõ dính liền `!!createitem=…` không nhận, phải `!!createitem =ID =1 =1`). Exp tổng vượt int32 → âm → client hiện 0. Cấp tối đa = `HumanMaxDefaultLevel=119` trong `Server/Config/ConfigInfo.ini`.
+6. **Chuỗi VISCII trong node**: viết escape bằng `String.raw` hoặc `String.fromCharCode(92)+"n"`; `"\244"` và `"\n"` trong heredoc đều đã ghi sai byte một lần. Luôn kiểm `git diff` + đếm byte >127 và CR trước/sau. Máy nhà không có Python: dùng `tools/viscii-map.json` từ node.
+7. **Menu NPC bị "chặn ngầm"** kiểu `if GetNumText() then return end` là cách server cũ tắt tính năng — bỏ comment menu chưa đủ, phải xóa cả chốt. Biến `local` khai báo trong nhánh này không thấy được ở nhánh khác (Lua 4).
+8. **Tooltip / giao diện client không sửa được** (`.axp` mã hóa): tỉ lệ 6% Trùng Lâu Ngọc, mô tả 12% Thanh Tâm, tên vật phẩm… Chỉ đổi được số thật phía server (`StandardImpact.txt` cột 29/32).
+9. **Số lượt phó bản** đếm ở `OnPlayerEnter` (mỗi lần vào +1, lưu mission data); thông báo trong game có thể ghi số khác với số thật trong code (Yến Tử Ổ báo 3, code 8). Xem bảng trong docs/TRANG-THAI.md 01/10 03:10.
+10. **Script phó bản tạo quái theo cấp người chơi** (`CreateNpc`: cấp 100–109 +30000, 110–119 +30001, 120+ +30002): mọi bảng theo ID quái (rơi đồ, thuộc tính) phải có đủ các bậc này, không thì cấp 119 vào không rớt gì.
+11. **Binary `Server` nén UPX nhưng còn debug symbol.** Bản giải nén để tra cứu: `/root/re/Server.elf` trên VPS (`objdump -d -C`), `str.txt` trong scratchpad. Tra được hàm Lua nào tồn tại (vd `LuaFnSetDarkQualityGrade`, `LuaFnAddMoneyJZ`), công thức (tẩy ám khí, Cộng Sinh), key ini.
+12. **Hàng đợi quà** (`Server/txt/NetCo4Qua/<GUID>.txt`) và cờ ngày (`NetCo4Web/*.vang|.vangkhoa|.tanthu`) là file thường: reset ngày mở phải xóa (đã đưa vào `reset-choi-that.sh`).
 
 ## Việc tiếp theo
 

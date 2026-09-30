@@ -89,5 +89,10 @@ Cùng 139 boss đó (29/09 chiều): đã gỡ hộp phiếu 1000 cũ và 54 h�
 
 Xem `docs/KIEM-TOAN.md`. Tóm tắt: tắt NPC phát Điểm Tặng/vàng/KNB vô hạn, lô đề số trúng viết cứng, Gift Code (mã VIP đã lộ), đổi thẻ cào, các handler ẩn, quyền gắn cứng theo GUID của server cũ, giới hạn cùng IP ở Thủy Lao. Dòng vá có chú thích `-- [don-dep]`.
 
+### 6. Bảng .txt và rơi đồ (01/10)
+- Mọi bảng `.txt` dạng DBC (`MonsterDropBoxs`, `DropBoxContent`, `PetAttrTable`, `StandardImpact`, `EquipBase`, `CommonItem`…) **phải sắp ID tăng dần**: engine tìm nhị phân, dòng sai thứ tự = không tồn tại, không báo lỗi. Thêm dòng = chèn đúng chỗ, kiểm bằng node trước khi commit.
+- Số món rơi mỗi người ≈ Mvalue ÷ BoxValue, tính **cho từng thành viên tổ đội**. Hộp phiếu phải có BV = Mv đúng bằng. BV = 1 làm hỏng cả lượt rơi.
+- Danh sách bẫy đầy đủ: README mục "Bẫy dễ dính".
+
 ### 5. Tiến trình game và systemd (sự cố 28/09 17:40)
 Game chạy trong `tlbb.service`. **Không bao giờ** khởi động game từ tiến trình khác (panel, script tay qua SSH) rồi restart/stop tiến trình đó: systemd tắt cả nhóm con, kể cả MySQL và ShareMemory → mất dữ liệu nhân vật chưa lưu. Khởi động/restart game chỉ bằng `systemctl restart tlbb` (panel đã sửa để làm vậy). Nếu buộc phải chạy tay: `./tlbb.sh start` từ SSH thì trước khi đóng SSH hoặc restart panel, kiểm tra `systemctl status tlbb` xem game có nằm đúng unit không.
