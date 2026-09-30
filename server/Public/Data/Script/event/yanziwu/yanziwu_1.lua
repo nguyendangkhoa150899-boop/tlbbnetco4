@@ -60,6 +60,7 @@ x401040_g_CopySceneMap = "yanziwu.nav"
 -- [NetCo4 30/09] So dot cuoi duoc danh (1..5, dot cuoi co Cuu Ma Tri) roi sang Mo Dung Phuc.
 --   Bo cac dot truoc cung Dieu Ba Duong + Tu Ma Lam. 0 = ban goc 25 dot. Lua: sua xong co hieu luc ngay.
 x401040_g_SoDotCuoi = 2
+x401040_g_LuotNgay = 3    -- [NetCo4 01/10] so luot vao Yen Tu O moi ngay / nhan vat (goc 8). Dem o OnPlayerEnter, luu mission 195.
 x401040_g_LimitMembers = 1				--可以进副本的最小队伍人数
 x401040_g_TickTime = 1						--回调脚本的时钟时间（单位：秒/次）
 x401040_g_LimitTotalHoldTime = 360--副本可以存活的时间（单位：次数）,如果此时间到了，则任务将会失败
@@ -343,7 +344,7 @@ function x401040_OnDefaultEvent( sceneId, selfId, targetId )
 			SetMissionData(sceneId, nPlayerId, MD_PRE_YANZIWU_TIME, nPreTime)
 		end
 		
-		if nTimes >= 8  then
+		if nTimes >= x401040_g_LuotNgay  then -- [NetCo4 01/10] goc 8; thong bao trong game ghi 3
 			bOk = 0
 			strName[i+1] = GetName(sceneId, nPlayerId)
 		end
