@@ -123,6 +123,8 @@ Chi tiết từng mục ở `docs/TRANG-THAI.md` → "Cập nhật 29/09 chiều
 
 **Bước 2 sẽ làm sau khi có bảng trên:** hook `OnDie` boss cuối ghi file cả tổ → bot; admin đặt nhiệm vụ (phó bản, số lượt/ngày, ID quà); web nút Nhận quà; log ai nhận gì.
 
+**Tinh Thông trang bị (30/09 trưa):** hệ custom `MyLua/jingtong/` (NPC Sào Nguyên / Mộ Bạch ở 3 thành) đang BẬT và có tác dụng thật (`ShuaXinClient.lua` đọc chuỗi `&JT` → buff 10675–10770). Nguyên liệu bị nghẽn vì server cũ tắt "Lò Ly Hỏa" → đã **mở lại** (bỏ comment `jingtongnpc.lua:34`; 5 lần chuyển vận → Ly Hỏa + 5 lần lấy đá → Toái Phiến mỗi ngày; hiệu lực sau restart) và **thêm Li Hỏa `20700063` + Tinh Kim Thạch `20700055` vào shop web** (đang TẮT, giá tạm 99.999 — đặt giá rồi tick Bán). "Phân giải trang bị" vẫn tắt. **Rollback:** tag `truoc-tinh-thong-30-09` (`git checkout truoc-tinh-thong-30-09 -- server/Public/Data/Script/MyLua/jingtong/jingtongnpc.lua` → cap-nhat → restart) hoặc `cp /opt/tlbb-backup/truoc-tinh-thong-*/jingtong/* …/MyLua/jingtong/`; snapshot toàn bộ Script: `Script-full.tgz` cùng thư mục. Chưa kiểm trong game: giao diện Lò Ly Hỏa (UI 890174) của client có mở không.
+
 **Quyết định còn treo (cần chủ server chốt):** giá 33 viên ngọc 6; hạn đổi vàng/ngày; có gắn Miên Bố/Bí Ngân cấp 6 cho Ác tặc/Ác bá/nhiệm vụ Tô Châu–Lâu Lan không (hiện chỉ boss Binh Thánh rớt); thời gian dự kiến để lên đồ cuối game (quyết số lượng nguyên liệu và giá shop); có mở ám khí (Mai Hoa Tiêu / Băng Phách Thần Châm — chưa có trong danh mục) không.
 
 ## Đã làm đêm 29–30/09 (đã restart 00:54 và ~01:30, đã kiểm chứng phần rơi đồ)
