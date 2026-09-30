@@ -18,6 +18,7 @@ function x001113_OnDefaultEvent( sceneId, selfId, targetId )
 		--AddNumText( sceneId, x001113_g_scriptId, "#cFF0000 –±i Th∂i Trang Thuµc TÌnh", 6, 10 )
 		--AddNumText( sceneId, x001113_g_scriptId, "#e0000ff#G Nhßn V‡ng + KNB (TEST)", 6, 7777 )
 		  AddNumText( sceneId, x002084_g_scriptId, "Hu÷ hiÆu —ng thﬂΩng nh‚n+ t‡o vßn", 6, 30030 )
+		AddNumText( sceneId, x001113_g_scriptId, "#g0f0ff0 Nh\167n l\213i T\226n Th\252 Trang B\184 [10 c\164p] (set + v\251 kh\237, 1 l\165n/ng\224y) ", 6, 8886 ) -- [NetCo4 01/10]
 		if GetLevel( sceneId, selfId ) <= 99 then
 		AddNumText( sceneId, x001113_g_scriptId, "#g0f0ff0 Nhßn qu‡ T‚n Th¸ (v‡ level 99) ", 6, 8887 )
 		end
@@ -37,7 +38,11 @@ local nam = LuaFnGetName(sceneId,selfId)
 	local strGUID = LuaFnGetGUID( sceneId, selfId )
 
 	local key = GetNumText()
-if key ~= 8887 and key ~= 15000 and key ~= 30030 then return end -- [don-dep] chan qua cua server cu
+if key ~= 8886 and key ~= 8887 and key ~= 15000 and key ~= 30030 then return end -- [don-dep] chan qua cua server cu ([NetCo4 01/10] them 8886)
+	if key == 8886 then -- [NetCo4 01/10] nhan lai Tan Thu Trang Bi [10 cap], 1 lan/ngay
+		x001113_TanThuTrangBi( sceneId, selfId, targetId )
+		return
+	end
 	if key == 8887 then
 	local menpai = GetMenPai( sceneId, selfId )
 if menpai == 9 then 
@@ -482,6 +487,47 @@ function x001113_NotifyFailBox( sceneId, selfId, targetId, msg )
 	EndEvent( sceneId )
 	DispatchEventList( sceneId, selfId, targetId )
 end
+-- [NetCo4 01/10] Nhan lai hop Tan Thu Trang Bi [10 cap] (30008080, obj/item/UBagsongtim.lua): mo ra 12 mon set Tan Thu + Thanh Dong Dao, tat ca khoa.
+-- 1 lan / nhan vat / ngay, trang thai ./txt/NetCo4Web/<GUID>.tanthu = yyyymmdd (giong vang moi ngay o NPC NetCo4). Ghi ngay TRUOC khi phat.
+function x001113_TanThuTrangBi( sceneId, selfId, targetId )
+	local guid = LuaFnGetGUID( sceneId, selfId )
+	local path = "./txt/NetCo4Web/"..guid..".tanthu"
+	local today = GetTodayYear() * 10000 + GetTodayMonth() * 100 + GetTodayDate()
+	local h = openfile( path, "r" )
+	if h then
+		local s = read( h, "*l" )
+		closefile( h )
+		if s and tonumber( s ) == today then
+			x001113_NotifyFailBox( sceneId, selfId, targetId, "H\244m nay \240\227 nh\167n T\226n Th\252 Trang B\184 r\176i, mai quay l\213i nh\233." )
+			return
+		end
+	end
+	if LuaFnGetPropertyBagSpace( sceneId, selfId ) < 1 then
+		x001113_NotifyFailBox( sceneId, selfId, targetId, "Tay n\228i c\165n 1 \244 tr\175ng." )
+		return
+	end
+	h = openfile( path, "w" )
+	if h == nil then
+		x001113_NotifyFailBox( sceneId, selfId, targetId, "L\178i ghi file, b\225o GM." )
+		return
+	end
+	write( h, today.."\n" )
+	closefile( h )
+	local idx = TryRecieveItem( sceneId, selfId, 30008080, 1 )
+	if idx == nil or idx < 0 then
+		h = openfile( path, "w" )
+		if h then
+			write( h, "0" )
+			closefile( h )
+		end
+		x001113_NotifyFailBox( sceneId, selfId, targetId, "Tay n\228i c\165n 1 \244 tr\175ng." )
+		return
+	end
+	LuaFnItemBind( sceneId, selfId, idx )
+	LuaFnSendSpecificImpactToUnit( sceneId, selfId, selfId, selfId, 18, 0 )
+	x001113_NotifyFailBox( sceneId, selfId, targetId, "\208\227 \240\223a #YT\226n Th\252 Trang B\184 [10 c\164p]#W. C\165n c\164p 10, \240\227 v\224o m\244n ph\225i v\224 14 \244 tr\175ng \240\172 m\183, ra set 12 m\243n + Thanh \208\176ng \208ao (kh\243a)." )
+end
+
 function x001113_NotifyFailTips(sceneId,selfId,Tip)
 
 	BeginEvent(sceneId)

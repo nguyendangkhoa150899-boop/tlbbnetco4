@@ -119,7 +119,7 @@ Chuỗi tra (tất cả phía server, chỉnh được bằng sửa số):
 
 Ví dụ đã tra 28/09 (chưa sửa):
 - **Thanh Tâm Phổ Thiện Chú** (sách `30307219`, skill `424`, Nga Mi): SkillData `1997`–`2008` → impact `2838`–`2849`, logic 5 "HP修改百分率" = hồi **% máu tối đa**: cấp tâm pháp 1 → 2%, tăng 1%/cấp, cấp 12–16 → 12%. Đổi cột 29 của các dòng `2838`–`2849` trong `StandardImpact.txt`. Tham số 2 cùng dòng = % MP (đang 0, có thể bật). Hồi chiêu 1300 ms, tốn MP theo cấp (SkillData cột 11).
-- **Cao cấp Cộng Sinh** (pet, sách `30402036`, skill `687`): SkillData `15153` → impact `7034`, logic 57: tham số 1 = pet mất 50% máu, tham số 2 = chủ nhận 100% lượng đó (đổi thành 200 nếu muốn), tham số 3 = % chuyển sang MP. Chiều pet→chủ cố định trong binary, không đảo được. Hồi chiêu 120 s.
+- **Cao cấp Cộng Sinh** (pet, sách `30402036`, skill `687`): SkillData `15153` → impact `7034`, logic 57: tham số 1 = pet mất 50% máu, tham số 2 = chủ nhận 100% lượng đó (**01/10 đã đổi: 7033 Cộng Sinh 75→200, 7034 Cao cấp 100→400**; binary không có trần), tham số 3 = % chuyển sang MP. Chiều pet→chủ cố định trong binary, không đảo được. Hồi chiêu 120 s.
 
 Lưu ý: tooltip trong client (mô tả "hồi 12%") nằm phía client bị khóa, sẽ không đổi theo. Giá trị >100 ở tham số % chưa thử. Sau khi sửa: deploy + restart.
 

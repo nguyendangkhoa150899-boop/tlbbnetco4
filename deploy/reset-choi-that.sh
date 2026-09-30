@@ -56,6 +56,8 @@ for i in $(seq 1 30); do is_running mysqld || break; sleep 1; done
 # Du lieu script ghi ra file (theo GUID / xep hang) + GM list
 T="$ROOT/home/tlbb"; C="$T/Server/Config"
 find "$C/QianDao" "$T/Server/txt/DBShopData" "$T/Server/txt/NetCo4Qua" "$T/Server/txt/NetCo4Popup" -type f -delete 2>/dev/null || true
+# Co "da nhan hom nay" cua NPC NetCo4 (vang, vang khoa) va NPC tan thu (hop Tan Thu Trang Bi) - 01/10
+find "$T/Server/txt/NetCo4Web" -maxdepth 1 -type f \( -name '*.vang' -o -name '*.vangkhoa' -o -name '*.tanthu' \) -delete 2>/dev/null || true
 for d in HQYZ YiRong TuiJian HuiShou; do find "$T/Server/txt/$d" -type f -delete 2>/dev/null || true; done
 for g in "$C"/Paiming/*.txt "$C"/MingRenTang/*.txt "$C"/YbMarket/*.txt "$T"/Server/txt/JuDian/*.txt \
          "$T"/Server/txt/ShiJianTx/*.txt "$T"/Server/LoDe/*.txt "$T"/Server/IP/*.txt; do

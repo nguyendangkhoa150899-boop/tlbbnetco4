@@ -167,7 +167,7 @@ Chi tiết từng mục ở `docs/TRANG-THAI.md` → "Cập nhật 29/09 chiều
 |---|---|---|
 | Tinh Thông: mở lại "Lò Ly Hỏa" (`jingtongnpc.lua:34`), thêm Li Hỏa 20700063 + Tinh Kim Thạch 20700055 vào shop web (đang TẮT, giá tạm) | xong, chủ server test OK | tag `truoc-tinh-thong-30-09` |
 | scene.lua: bỏ nhánh phạt chống hack lúc đăng nhập đầu (chửi "SB", về cấp 0, mất túi tân thủ) | xong | cùng tag trên |
-| Điểm Tặng: NPC **Gia Nhập Môn Phái-Dịch** (Đại Lý 160,142 · Lạc Dương 199,320) "Nhận 80.000 ĐT" không giới hạn; "Nhận 2.000 vàng hôm nay" 1 lần/nhân vật/ngày (file `NetCo4Web/<GUID>.vang`) | xong, test OK (AddMoney tính bằng đồng ×10000) | tag `truoc-diem-tang-30-09` |
+| Điểm Tặng: NPC **Gia Nhập Môn Phái-Dịch** (Đại Lý 160,142 · Lạc Dương 199,320) "Nhận 80.000 ĐT" không giới hạn; "Nhận 2.000 vàng hôm nay" 1 lần/nhân vật/ngày (file `NetCo4Web/<GUID>.vang`); **01/10 thêm "Nhận 8.000 vàng khóa hôm nay"** (`AddMoneyJZ`, file `.vangkhoa`, giữ cho server thật) | xong, test OK (AddMoney tính bằng đồng ×10000); vàng khóa chưa test | tag `truoc-diem-tang-30-09` |
 | Hậu Hoa Viên: giờ mở/đóng thành biến `x990010_g_HHV_Mo/Dong` (đang 0/24 test; **ngày open đặt 19/24**) | xong | như trên |
 | Tin boss Võ Di "dẫn theo 9 thủ hạ": tắt 4 dòng ActivityNotice (810002). 3 nhóm boss khác (Thảo Nguyên, Kim Cương, Độc Cáp) vẫn báo | xong | git |
 | Tin "[Giúp] Lâu Lan (219,228) Trình Giảo Thiết…": **client-side** (ccore.dat), server không tắt được | không làm được | – |

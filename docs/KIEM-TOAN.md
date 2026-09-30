@@ -16,7 +16,7 @@ Bộ source gốc là bản leak của server "Tân Thần Long" (admin cũ ký 
 | `event/xunhuan/shuilao_12.lua` | Thủy Lao cấm đội có ≥3 người cùng IP (bạn bè chơi chung nhà) | 3 → 99 |
 | `Server/Config/NotifyOnline.txt` + 16 file khác | Link và tên server cũ | → `NetCo4` |
 
-Còn giữ, chưa xử lý: quà Tân Thủ 8887 (lên thẳng cấp 99, giới hạn 100 người); `phieuvan/TaiXiu.lua` và `Tomcua.lua` quảng cáo tỉ lệ 50:50 nhưng thật ra chỉ 30%/10% (chỉ để đốt vàng); `event/misc/couplequestion.lua` bắt vợ chồng khác MAC.
+Còn giữ, chưa xử lý: quà Tân Thủ 8887 (lên thẳng cấp 99, giới hạn 100 người; 01/10 thêm 8886 phát hộp Tân Thủ Trang Bị khóa 1 lần/ngày, chủ server yêu cầu); `phieuvan/TaiXiu.lua` và `Tomcua.lua` quảng cáo tỉ lệ 50:50 nhưng thật ra chỉ 30%/10% (chỉ để đốt vàng); `event/misc/couplequestion.lua` bắt vợ chồng khác MAC.
 Code chết (không đăng ký trong `Script.dat`, không chạy được): `MyLua/Jiarumenpai.lua` (GM cho GUID 1010000001/2), `event/misc/danhhieu.lua`, `obj/dali/odali_freshbird.lua`, `new/00jianceChongBUG.lua`. Đừng đăng ký lại các file này.
 
 ## Dữ liệu và bảo mật
