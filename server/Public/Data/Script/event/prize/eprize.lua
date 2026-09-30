@@ -472,6 +472,13 @@ end
 
 
 function  x888899_GetGiftsForCostYuanBao(  sceneId,  selfId,  nIndex)
+-- [NetCo4 30/09] Server khong co nap the: tat tab "Qua Nap The" (moc N can VIP >= N; VIP o day do admin cap,
+--   khong duoc dung de lay qua nap, gom ca bo Trung Lau o moc 5-6). Mo lai: dat x888899_g_TatQuaNap = 0.
+x888899_g_TatQuaNap = 1
+if x888899_g_TatQuaNap == 1  then
+	x888899_Tips(sceneId, selfId, "Server kh\244ng c\243 n\213p th\235 n\234n Qu\224 N\213p Th\235 \240\227 t\161t.")
+	return
+end
 g_ServerNew_SaveUp_Gifts={  
 [1]  =  {38001111,38512001,50713004,50721101},  --5
 [2]  =  {38001111,38506001,50721104,50721204},  ---150
