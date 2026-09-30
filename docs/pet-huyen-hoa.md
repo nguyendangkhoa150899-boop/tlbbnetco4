@@ -110,4 +110,6 @@ ID = ID gốc **+ 10000** (25351 → 35351 …), tên thêm " V2", cùng họ n�
 | 35581 | Viễn Cổ Kỳ Hồn | Bỉ Dực Điểu | 2148/2453/4173/2453/3375 |
 | 35582 | Tống Khương | Bỉ Dực Điểu | 2225/2543/4323/2543/3495 |
 
-**Phát trên panel (30/09 tối):** cả panel GM (`panel.py`) và tab 🛠️ GM trên admin.netco4.click có loại **Pet Huyễn Hóa V2**: ô chọn theo tên `ID - Dạng boss (Pet nền)` (48 pet V2 ở bảng trên, lấy từ chính file này qua `/api/state` → `pets`), không cần nhập ID. Bản 12000 (ID 253xx) vẫn phát được bằng cách nhập ID ở loại Pet của tab GM web.
+**Phát trên panel (30/09 tối):** panel GM (`panel.py`) và tab 🛠️ GM trên admin.netco4.click có 3 loại quà pet, **cùng ô chọn theo tên** (không nhập ID): **Pet Huyễn Hóa 12000 (admin cấp)** = ID 253xx, **Pet Huyễn Hóa V2 (chỉ số bình thường)** = ID 353xx, **Pet khác (tất cả)** = 6.320 pet gốc (tên Hán-Việt + cấp + trưởng thành, từ `docs/pet-danh-sach.tsv`). Web tải danh sách 1 lần qua `/api/gm/pets` → panel.py `/api/pets`.
+
+**Vì sao tư chất không đúng 12000 mà lẻ (12602, 12755…):** khi tạo pet, engine nhân tư chất chuẩn với bậc phẩm chất ngẫu nhiên `PerParam0–10` (×1.000–1.404) và cộng dao động `IntelligenceRange=50` (`Server/Config/PetConfigTable.ini`, đang bản gốc). Muốn đúng 12000 phải đặt mọi `PerParam*=1.000` và `IntelligenceRange=0` → **mọi pet trên server mất ngẫu nhiên** (phiên chiều 30/09 đã thử rồi trả về). Chưa quyết.
