@@ -355,3 +355,16 @@ Tài khoản: `admin` (nhân vật `Bialk`, GUID 1010100001, GM), `hoang`. Mật
 - `!!addexp` đọc số bằng strtol 32-bit; cộng dồn vượt 2.147.483.647 → `t_char.exp` âm (bia1 = -1.026.169.005 trong DB, -25.646.705 sau khi ShareMemory lưu) → client hiện 0, không tăng. Sửa: `systemctl stop tlbb` (đợi ShareMemory lưu xong) → bật mysqld riêng → `UPDATE t_char SET exp=0 WHERE charguid=1010100008 AND exp<0` → tắt mysqld → `systemctl start tlbb`. Không nhân vật nào khác exp âm.
 - Công Lực Đan đã trả về gốc (+100, trần 99.999) trước khi restart; công lực đã ăn giữ nguyên.
 - Restart này áp luôn: gói rơi 89 boss, phiếu chắc chắn Yến Tử Ổ, thuốc giải Đoàn Diên Khánh, Cộng Sinh ×2/×4 đã áp từ 00:25.
+
+## 01/10 02:30 - Chân Trùng Lâu Ngọc: tỉ lệ dính trúng thật = tooltip 6% (chờ restart)
+- Tooltip client ghi 6% nhưng server dùng `StandardImpact.txt` cột 29 (tỉ lệ kích hoạt khi gây sát thương, logic 88): 7503 Chân Trùng Lâu Ngọc đỏ `10553105` (Bialklk, bia1 đeo 2 cái) = **4**, 5965 Chân Trùng Lâu Ngọc `10423025` (Bialk) = **2**. Đã đổi cả 2 thành **6** cho khớp tooltip. Trùng Lâu Ngọc thường (7501 = 2, 5953 = 3) chưa ai đeo, giữ nguyên. Đeo 2 cái có cộng dồn hay không do binary quyết, chưa kiểm.
+- Thanh Tâm Phổ Thiện Chú: 2838–2849 cột 29 = 2%…12% (cấp tâm pháp 11–16 = 12%) đúng như tooltip, chỉnh được nếu muốn; cột 32 = % MP (0).
+
+## 01/10 02:30 - Võ Lâm Bí Tịch (tab "Bí tịch"): hệ thống của server cũ, đầy đủ script, chưa ai chơi
+- **Cơ chế** (`MyLua/MiJI/*.lua`, NPC **Kim Ức Phong** "Hư Không Huyễn Cảnh Tiếp Dẫn Sứ" / "Bí Tịch Ngũ Tông" ở Đại Lý (2 điểm), Lạc Dương (2), Tô Châu (1), script 900048):
+  1. Cấp ≥105 nhận **50 Ngũ Hành Pháp Thiếp** `38000527` mỗi ngày (vé vào).
+  2. **Khiêu chiến Hư Không Huyền Cảnh** (phó bản đơn `MiJI/1.lua`–`3.lua`, FUBEN_ZHOUTIAN): mỗi tầng thắng +**Võ Học Tâm Đắc** = tầng×5+5 (mission data 442, trần UI 999.999) và boss rơi **Bí Tịch Tàn Hiệt** `38000529`; số lượt/ngày theo tầng (1/2/5/10/25 lượt ở tầng 1–5) + thêm lượt bằng vé.
+  3. **Đổi Tàn Hiệt → sách**: Sơ cấp 10 (Vân Dao Thượng Thủy Kiếm, Bạch Hồng Chưởng, Đoạt Mệnh Liên Hoàn Tam Tiên Kiếm, Độc Kinh, Đạt Ma Quyền), Hy Hữu 20 (Hàn Băng Chân Khí, Hàm Cốc Bát Tuyệt, Vân Vụ Thập Tam Kiếm, Ngũ Độc Mật Truyện, Thụy Mộng La Hán Quyền), Truyền Thế 50 (Thái Ất Huyền Môn Kiếm, Cửu Dương Chân Kinh, Long Tượng Bàn Nhược Kinh), Tuyệt Thế 100 (Độc Cô Cửu Kiếm, Cửu Âm Chân Kinh, Thần Chiếu Kinh) — 16 sách `30311001`–`30311031` (lẻ), mỗi sách thuộc 1 trong 5 tông (Phật/Khí/Kiếm/Ma/Nho).
+  4. **Xếp vào tông** (menu ẩn 8 → 201–205, tốn 800 tâm đắc nếu đổi tông): chỉ học được sách cùng tông. Dùng sách (`zengdian1Y.lua` 890100) → vào 1 trong 3 ô "Nhất/Nhị/Tam"; **lên cấp sách** tốn tâm đắc theo bảng `BookUpLevelOrDel.lua` (10.000 → 1.440.000 mỗi cấp, 12 cấp); kỹ năng tuyệt học 850–897, hiệu ứng `wujue.lua` 899040.
+  5. **Vũ Học Tâm Đắc** `38000531` (+1.000 tâm đắc/viên): chỉ có ở quà VIP mốc 14, hộp Tam Thần (`yehuo.lua`), quà Đại Nhân (`XieziNewServer.lua`); shop 181 bán 1.200 KNB/viên nhưng **không NPC nào gắn shop 181**. Không hộp rơi nào chứa Tàn Hiệt/tâm đắc/sách.
+- Kết luận: **không có "người trước để lại"** — mọi nhân vật đều 0/999999, "Chưa học", vì trên server này chưa ai đi Hư Không Huyền Cảnh. Hệ thống chạy được bằng đúng NPC Kim Ức Phong, chưa test.
