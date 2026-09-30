@@ -776,7 +776,7 @@ function x888888_OnScenePlayerFirstLogin( sceneId, selfId, nowtime )
 	SetMissionData(sceneId,selfId,449,5000)
 	CallScriptFunction( 808065, "SendMail", sceneId, selfId )
         YuanBao(sceneId,selfId,targetId,1,200)	-- 加元宝
-     if GetLevel(sceneId,selfId) < 100 and GetMaxHp(sceneId,selfId) < 20000000 and YuanBao(sceneId,selfId,targetId,3,0) < 500 then
+     if true then -- [NetCo4 30/09] bo kiem tra chong hack (cap<100, HP<20tr, KNB<500): server ban be, cap toi thieu 119 lam nguoi moi bi chui SB + ve cap 0 + mat tui tan thu
 	--x888888_KKGG_rm( sceneId, selfId )
 	--新手上线赠送一个新蓝光环
         LuaFnSendSpecificImpactToUnit(sceneId, selfId, selfId, selfId, 8000, 0)
@@ -828,9 +828,9 @@ function x888888_OnScenePlayerFirstLogin( sceneId, selfId, nowtime )
 	EndAddItem(sceneId,selfId)
 	AddItemListToHuman(sceneId,selfId)
 	else
-	SetLevel( sceneId, selfId, 0)	  --修改角色等级
-	BroadMsgByChatPipe( sceneId, selfId, "#B号外号外,玩家#G"..GetName(sceneId, selfId ).."#B是个SB来此服卡元宝已被系统收押到小黑屋", 4 )
-	LuaFnSendSpecificImpactToUnit(sceneId,selfId,selfId, selfId, 41, 0 )
+	--[NetCo4 30/09] SetLevel( sceneId, selfId, 0)	  --修改角色等级
+	--[NetCo4 30/09] BroadMsgByChatPipe( sceneId, selfId, "#B号外号外,玩家#G"..GetName(sceneId, selfId ).."#B是个SB来此服卡元宝已被系统收押到小黑屋", 4 )
+	--[NetCo4 30/09] LuaFnSendSpecificImpactToUnit(sceneId,selfId,selfId, selfId, 41, 0 )
      end
 	--增加领取干坤袋标志
 	SetMissionFlag(sceneId, selfId, MF_GetQianKunDai, 1)
