@@ -299,7 +299,7 @@ Tài khoản: `admin` (nhân vật `Bialk`, GUID 1010100001, GM), `hoang`. Mật
 - Dòng ép được: mọi cột 33–90 mà `ItemSegValue.txt` dòng 3009 (segment vũ khí 102) ≠ -1. Không ép được: hồi HP/MP, giảm thời gian băng/hỏa/huyền/độc, cột 71–74, 82–86.
 - **Sửa lại 22:35 (chốt cuối):** món chủ server muốn ép là **Thần Ẩn `10305454`** (神隐, hoàn cấp 102, tự chế, ô 0 túi bia1 1010100008), không phải Phù Sinh/Vô Tướng hay Tạo Hóa → chỉ 10305454 mang template, 3 món kia về gốc. 10305454 có trong danh sách TaiGu nên tẩy được.
 - Đã chốt 11 dòng: %HP, Hỏa công, Độc công, Nội công, Chính xác, Hội tâm, Thể lực, Thân pháp, Tất cả thuộc tính, Bỏ qua kháng Hỏa, Bỏ qua kháng Độc (cột 34,42,48,59,68,70,77,79,81,88,90), dòng 11-11, tư chất 250-250. Các cột khác `-1`.
-- **Việc còn lại:** restart (chờ lệnh) → Bialklk tẩy mỗi món 1 lần → `git checkout f058729 -- server/Public/Config/EquipBase.txt` trả về gốc (giữ lại 10303447 col20 9150) → deploy, restart lần sau.
+- **22:45 đã tẩy xong Thần Ẩn** → EquipBase.txt trả về gốc (= f058729, chỉ còn 10303447 col20 9150 giảm tốc), đã deploy, **chờ lệnh restart** của chủ server. Trước restart, ai chế/tẩy 10305454 vẫn ra 11 dòng này.
 - Yêu cầu khác cùng lúc: "tăng exp của 3000 quái Võ Ý lên 4 lần" — chưa xác định được quái nào (Võ Di chỉ có 154 quái, không có quái tên Võ Ý), đang chờ chủ server chỉ rõ.
 
 ## 30/09 tối - Võ Ý: nội tức mỗi quái ×4 (hiệu lực ngay, không cần restart)
