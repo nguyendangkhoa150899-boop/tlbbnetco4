@@ -4,7 +4,7 @@ function x999998_OnDie( sceneId, selfId, killerId )
 		return
 	end
         local GuaiLev = GetLevel(sceneId, selfId) --怪物等级
-        local Neixi = 770 + GuaiLev*10
+        local Neixi = (770 + GuaiLev*10) * 4  -- [NetCo4 30/09] x4 noi tuc Vo Y theo yeu cau chu server (goc: 770 + GuaiLev*10)
 	---宠物则获取其主人的名字
 	local playerID = killerId
 	local objType = GetCharacterType( sceneId, killerId )

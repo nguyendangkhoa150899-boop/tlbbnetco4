@@ -174,7 +174,7 @@ Chi tiết từng mục ở `docs/TRANG-THAI.md` → "Cập nhật 29/09 chiều
 | 21 câu thông báo giết boss tiếng Trung (Viêm Ma Sơn / Tam Tài Hạp Cốc) → Việt hóa. Còn **98 câu / 32 file** tiếng Trung khác (gia nhập môn phái 12, đổi phái 9, Binh Thánh 5…) chưa dịch | một phần | git |
 | Web: đăng nhập bằng **tài khoản + mật khẩu game** (panel.py act `kiem_mk`), bỏ hẳn Discord ID + PIN; đổi mật khẩu trên web = đổi cho game; admin tạo tài khoản kèm Discord ID; nút 🌐 hiện tài khoản | xong (repo bialk) | git bialk |
 | Võ Hồn: Võ Hồn nâng bằng menu NetCo4 thiếu chuỗi `&WH` → vá tự ghi `&WH<số cuối ID>` (`odali_wuyazi.lua`) → đục lỗ / hợp thành chạy | xong, test OK | tag `truoc-vo-hon-30-09` |
-| Võ Ý: chuyển chỗ cày sang **toàn bộ quái thường Vô Lượng Sơn** (309 spawn gắn `guaiwu_die` 999998), 3.000 con/ngày, exp giữ nguyên (770+10×cấp). Ngưng Tức Hoàn 38002067/8 (gấp đôi) không bán ở đâu | xong, test OK | tag `truoc-vo-y-30-09` |
+| Võ Ý: chuyển chỗ cày sang **toàn bộ quái thường Vô Lượng Sơn** (309 spawn gắn `guaiwu_die` 999998), 3.000 con/ngày, nội tức **×4** từ 30/09 tối = (770+10×cấp)×4 (`guaiwu_die.lua`, hiệu lực ngay). Ngưng Tức Hoàn 38002067/8 (gấp đôi) không bán ở đâu | xong, test OK | tag `truoc-vo-y-30-09` |
 | Pet: hàng đợi quà loại **pet** (`quatang.lua`, panel.py, tab GM 🐾 Pet) → admin phát 48 pet Huyễn Hóa ngoại hình boss (ID 25351–25582, `docs/pet-huyen-hoa.md`); 48 con này tư chất chuẩn **12000** cả 5 dòng, pet khác nguyên bản | xong, chờ chủ server test | tag `truoc-pet-5000-30-09` |
 | Danh sách toàn bộ pet: `docs/pet-danh-sach.tsv` (6.320 ID) + `.md` (1.039 họ) | xong | – |
 
