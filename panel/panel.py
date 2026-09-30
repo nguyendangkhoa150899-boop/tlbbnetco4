@@ -195,6 +195,14 @@ def act(form):
         sql("UPDATE web.account SET password=MD5('%s') WHERE name='%s'" % (pw, n))
         audit("doi mat khau %s" % n)
         return "Da doi mat khau %s" % n
+    if a == "kiem_mk":
+        # 30/09: bot mini game (BotDoMin) cho nguoi choi dang nhap web bang TAI KHOAN GAME.
+        # Bot gui MD5 (khong gui mat khau tho); tra "Da khop <id>" hoac "Sai mat khau". Khong audit noi dung.
+        n, h = v("ten"), v("md5").lower()
+        if not (RE_ACC.match(n) and re.fullmatch(r"[0-9a-f]{32}", h)):
+            return "Ten hoac ma bam khong hop le"
+        r = sql("SELECT id FROM web.account WHERE name='%s' AND password='%s'" % (n, h))
+        return ("Da khop %s" % r[0][0].decode()) if r else "Sai mat khau"
     if a == "xoa_tk":
         n = v("ten")
         if not RE_ACC.match(n) or n == "admin":
@@ -568,7 +576,8 @@ class H(BaseHTTPRequestHandler):
                 n = int(self.headers.get("Content-Length", 0) or 0)
                 form = json.loads(self.rfile.read(min(n, 10000)).decode("utf-8", "replace") or "{}")
                 form = {str(k): str(v) for k, v in form.items()}
-                audit("[admin.netco4.click] %s" % json.dumps(form, ensure_ascii=False)[:200])
+                if form.get("a") != "kiem_mk":  # 30/09: khong ghi ma bam mat khau vao audit
+                    audit("[admin.netco4.click] %s" % json.dumps(form, ensure_ascii=False)[:200])
                 msg = act(form)
                 return self._json({"ok": True, "msg": msg, "done": msg.startswith(("Da ", "Dang "))})
         except Exception as e:
