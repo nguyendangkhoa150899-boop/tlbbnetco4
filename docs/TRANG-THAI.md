@@ -344,3 +344,4 @@ Tài khoản: `admin` (nhân vật `Bialk`, GUID 1010100001, GM), `hoang`. Mật
 
 ## 01/10 01:35 - Đoàn Diên Khánh cấp 100+ (39320–39322) thêm hộp 3021 Bi Tô Thanh Phong Giải Dược + 3005 (chờ restart)
 - Dòng 39320 gốc của server cũ (và 39321/39322 sao từ nó) chỉ có phiếu/Công Lực Đan/Cửu Thiên Ngọc Toái, thiếu hộp 3021 (thuốc giải trói Bi Tô Thanh Phong, cần để đánh Mộ Dung Phục) mà bản cấp 90 (9329) có. Đã thêm 3005 + 3021; Mv 60 / BV 10 → thuốc giải rơi chắc chắn. Sửa tại chỗ, thứ tự ID giữ nguyên.
+- **01/10 01:50, chốt của chủ server:** Yến Tử Ổ cấp 100+ có **phiếu 1000 rơi chắc chắn** ở 3 boss: Đoàn Diên Khánh 39320–39322 (hộp 90001, Mv 60/BV 60), Cưu Ma Trí 39380–39382 và Mộ Dung Phục 39430–39432 (hộp 90017, Mv 20/BV 20). Tổng boss có phiếu chắc chắn: 158. Kiểm toàn file: 3.524 dòng, thứ tự ID đúng, không hộp chết; 15 ID quái không có trong MonsterAttrExTable là dòng gốc (không đụng). Boss Yến Tử Ổ bản cấp 10–40 không có dòng rơi là thiết kế gốc.
