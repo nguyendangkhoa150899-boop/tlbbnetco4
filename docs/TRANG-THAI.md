@@ -408,7 +408,7 @@ Tài khoản: `admin` (nhân vật `Bialk`, GUID 1010100001, GM), `hoang`. Mật
 
 ## 01/10 - Bộ 144 pet skin Huyễn Hóa: mỗi skin đủ Ngoại / Nội / Cân bằng, cấp 85 và 95, bản Admin + V2 (đã restart)
 - Kiểu tấn công pet (chữ Ngoại/Nội trên bảng pet) = `MonsterAttrExTable.txt` cột 62 của dòng quái **cùng ID pet** (`AttackTraits.txt` 11/12/13); engine đọc bảng quái theo ID pet ở 5 chỗ (kiểu, cờ đánh NPC, triệu hồi, hoàn đồng, chi tiết chỉ số). Game gốc khóa mỗi skin vào 1 kiểu.
-- Huyễn Hóa = **pet nền + skin**: skin chỉ là cột 1/44/50 (+61/65) của dòng quái; còn lại theo pet nền. Đã ghép pet nền vào 144 ID Huyễn Hóa có sẵn (không tạo ID mới vì client không biết ID mới): 12 skin × 3 kiểu × cấp 85/95 × bản Admin 12000 / V2 tư chất gốc. Bảng ID: `docs/pet-huyen-hoa.md` mục đầu + `docs/pet-skin.tsv`. Panel GM 2 nhóm Huyễn Hóa đọc từ `pet-skin.tsv`, nhãn "Skin cấp Kiểu" (vd "Cáp Đại Bá 85 Nội").
+- Huyễn Hóa = **pet nền + skin**: skin chỉ là cột 1/44/50 (+61/65) của dòng quái; còn lại theo pet nền. Đã ghép pet nền vào 180 ID (144 + 36 Tân Thủ) Huyễn Hóa có sẵn (không tạo ID mới vì client không biết ID mới): 12 skin × 3 kiểu × cấp 85/95 × bản Admin 12000 / V2 tư chất gốc. Bảng ID: `docs/pet-huyen-hoa.md` mục đầu + `docs/pet-skin.tsv`. Panel GM 2 nhóm Huyễn Hóa đọc từ `pet-skin.tsv`, nhãn "Skin cấp Kiểu" (vd "Cáp Đại Bá 85 Nội").
 - Đã thử 25601 (Cáp Đại Bá 95 Nội) trong game: đúng. Không đụng 13 ID đã phát cho bia1. Bản V2 cũ 31xxx (+6000) bỏ khỏi panel — client không biết các ID đó, 18 ID trùng quái phó bản; còn nằm trong PetAttrTable, vô hại. Rollback: tag `truoc-ghep-skin-all-01-10` (bộ 143 con) / `truoc-ghep-skin-01-10` (cả con thử).
 
 ## 01/10 - Điêu văn Cường lực / Nội lực bị dịch ngược tên (đã sửa)
