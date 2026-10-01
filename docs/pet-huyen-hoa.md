@@ -4,6 +4,16 @@
 
 12 skin × Ngoại/Nội/Cân bằng × cấp mang 85/95, mỗi tổ hợp 2 bản: **Admin** (tư chất chuẩn 12000) và **V2** (tư chất gốc của pet nền). Làm bằng cách ghép **pet nền** vào ID Huyễn Hóa có sẵn, giữ nguyên skin: bảng quái giữ cột 0/1/44/50/61/65 (tên, mã ngoại hình, chân dung…), còn lại chép từ pet nền (kiểu tấn công cột 62, chỉ số); bảng pet lấy cấp mang, tuổi thọ, tư chất, trưởng thành, tính cách, cột 50 từ pet nền. Pet nền: cấp 95 Kỳ Lân 3330 (Ngoại) / Giao Long 3340 (Nội) / Hùng Miêu 7840 (Cân bằng), TT 1459; cấp 85 Niên Thú 3300 / Sồ Phượng 3290 / Long Quy 3310, TT 1357. Đã thử Cáp Đại Bá 95 Nội (25601) trong game: đúng ngoại hình, chữ Nội, cấp 95. Máy đọc: `docs/pet-skin.tsv` (panel GM đọc file này). Script: `ghep_all.js` (scratchpad 01/10), không dùng lại ID đã phát cho bia1.
 
+### Tư chất CỐ ĐỊNH cho 144 pet Huyễn Hóa (01/10, cần restart vì sửa PetConfigTable.ini)
+
+- Engine (, đọc từ Server.elf) tính tư chất = chuẩn PetAttrTable × hệ số ngẫu nhiên trong [PerParam bậc i, PerParam bậc i+1] của **ruler** do Lua truyền vào (: 0 thường, 1 RMB, 2 SuperRMB).  không dùng ở đây.
+- : ruler 2 (SuperRMB) mọi  = 1.000,  = 999/1, trưởng thành  = 1000 (luôn bậc cao nhất). Ruler 0/1 (pet thường, trứng, bắt ngoài map) giữ nguyên random.
+- : bảng  (144 ID, cả V2 lẫn Admin 12000) → quà  trong bảng tạo với ruler 2 → ra **đúng** số trong bảng (V2 5000/2500, Admin 12000). Pet đã phát trước đó giữ tư chất cũ (lưu trong DB).
+- Hoàn Đồng 4834/4907/4908 từ chối pet Huyễn Hóa (nếu không người chơi hoàn đồng là random lại ×1,0–1,4).
+- Người dùng ruler 2 khác: chỉ Huyễn Hóa Đan gốc  (30309150…, ra skin gốc 25009/25049…) — giờ ra tư chất chuẩn ×1.000 thay vì ×1,145+. Đan này không bán ở đâu (chỉ có trong túi quay trứng 30504007/017/045/048/049, 30504119/120 — cũng không bán).
+- **Không có đường mua**: đã quét shop web (itemShop 257 món, rương, vòng quay), ShopTable, mọi script/bảng và 22.994 điểm spawn quái → không chỗ nào ra 144 ID này, chỉ quà admin (panel).
+- Rollback: tag .
+
 ### Bản Admin (12000)
 
 | Skin | 95 Ngoại | 95 Nội | 95 Cân bằng | 85 Ngoại | 85 Nội | 85 Cân bằng |
@@ -21,7 +31,7 @@
 | Cáp Đại Bá | 25411 | 25601 | 25461 | 25471 | 25631 | 25781 |
 | Lỗ Chí Sinh | 25412 | 25442 | 25462 | 25472 | 25602 | 25632 |
 
-### Bản V2 — tư chất theo kiểu (01/10): Ngoại = Cường lực 5000, Nội = Nội lực 5000, Cân bằng = Thể lực 5000; 4 dòng còn lại 2500 (cột 34 力量 / 36 灵气 / 35 体质 PetAttrTable). Random của game vẫn nhân thêm (bậc ×1,0–1,4, ±5%, ngộ tính)
+### Bản V2 — tư chất theo kiểu (01/10): Ngoại = Cường lực 5000, Nội = Nội lực 5000, Cân bằng = Thể lực 5000; 4 dòng còn lại 2500 (cột 34 力量 / 36 灵气 / 35 体质 PetAttrTable). ~~Random của game vẫn nhân thêm~~ → **01/10: đã tắt random, xem mục dưới**
 
 | Skin | 95 Ngoại | 95 Nội | 95 Cân bằng | 85 Ngoại | 85 Nội | 85 Cân bằng |
 |---|---|---|---|---|---|---|

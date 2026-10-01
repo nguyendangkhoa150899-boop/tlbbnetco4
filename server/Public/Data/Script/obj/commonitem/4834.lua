@@ -50,6 +50,14 @@ function x334834_OnConditionCheck( sceneId, selfId )
 	end
 	
 	local petDataID = LuaFnGetPetDataIDByGUID(sceneId, selfId, petGUID_H, petGUID_L);
+	-- [NetCo4 01/10] pet Huyen Hoa tu chat co dinh (NetCo4/quatang.lua) -> khong cho hoan dong random lai
+	if CallScriptFunction( 950000, "LaHuyenHoa", sceneId, petDataID ) == 1 then
+		BeginEvent( sceneId )
+			AddText( sceneId, "Trân thú Huy­n Hóa có tß ch¤t c¯ ð¸nh, không th¬ hoàn ð°ng" )
+		EndEvent( sceneId )
+		DispatchMissionTips( sceneId, selfId )
+		return 0
+	end
 	if not petDataID or petDataID < 0 then
 		BeginEvent( sceneId )
 			AddText( sceneId, "Không th¬ xác ð¸nh trân thú tiªn hành hoàn ð°ng" )
