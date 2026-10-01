@@ -1,0 +1,41 @@
+﻿NETCO4 - TỰ ĐỘNG VÀO TỔ
+=======================
+
+Công cụ tự bấm "Đồng ý" khi có người mời bạn vào tổ đội
+(bảng "... hy vọng các hạ cùng nhóm, đồng ý không?").
+
+CÁCH DÙNG
+1. Chép cả thư mục TuDongVaoTo vào máy (để đâu cũng được).
+2. Mở game như bình thường, rồi chạy CHAY.cmd. Một cửa sổ đen hiện "Dang chay...".
+3. Để cửa sổ đó mở trong lúc chơi. Đóng cửa sổ là tắt.
+
+Công cụ chỉ bấm khi cửa sổ game đang được chọn (bạn đang ở trong game).
+Đang ở cửa sổ khác thì bảng mời vẫn chờ đó, quay lại game là nó bấm.
+Lúc bấm, chuột nhảy tới nút "Đồng ý" rồi về chỗ cũ trong chớp mắt.
+Mở 2 game cùng lúc: game nào đang được chọn thì game đó được bấm.
+
+PHÍM TẮT (bấm khi đang ở trong game)
+  Ctrl+F8   tạm tắt / bật lại
+  Ctrl+F9   lấy lại mẫu nút (xem mục KHÔNG BẤM)
+  Ctrl+F10  thêm chữ nhận diện
+
+CHỈ BẤM BẢNG MỜI TỔ
+Chữ "Đồng ý" còn có ở bảng xác nhận mua đồ trong Tiệm, nút cộng điểm tiềm năng...
+Công cụ chỉ bấm khi thấy đủ 3 thứ: nút "Đồng ý", nút "Cự tuyệt" ngay bên phải,
+và chữ "nhóm," trong bảng. Thiếu một thứ là không bấm.
+
+KHÔNG BẤM?
+- Cửa sổ đen báo đỏ "Game dang chay bang quyen ADMIN": tắt nó, chuột phải CHAY.cmd > Run as administrator.
+- Windows để Scale 125% / 150%, hoặc chữ trong game to nhỏ khác máy admin: lấy mẫu lại.
+  a. Nhờ ai đó mời vào tổ. Khi bảng mời hiện ra, ĐỪNG bấm gì.
+  b. Để chuột ngay giữa nút "Đồng ý", bấm Ctrl+F9.
+  c. Để chuột lên chữ "nhóm," trong bảng, bấm Ctrl+F10.
+  Cửa sổ đen báo "Da luu mau..." rồi bảng được bấm luôn. Mẫu lưu trong thư mục mau\,
+  lần sau không phải làm lại. Muốn về mẫu gốc: chép lại thư mục mau\ từ gói.
+- Game để toàn màn hình thật (không phải cửa sổ phóng to): chuyển sang chế độ cửa sổ.
+
+LƯU Ý
+- Ai mời cũng vào, kể cả người lạ. Không muốn thì Ctrl+F8 để tắt.
+- Muốn tự bấm cả bảng khác có nút "Đồng ý" + "Cự tuyệt" (ví dụ bảng mời đi theo): mở bảng đó,
+  để chuột lên một chữ chỉ bảng đó có (nằm phía trên nút), bấm Ctrl+F10.
+  Đừng chọn chữ có ở bảng mua đồ, giao dịch, thách đấu.

@@ -78,6 +78,7 @@ sửa server/...  →  git commit + push  →  VPS: cd /opt/tlbb-deploy && ./cap
 - Trong gói có `DOC-TRUOC-KHI-CHOI.txt` và `chan-link-la.ps1` (chặn link lạ của nút Nạp thẻ/Đăng ký, cần chạy 1 lần bằng quyền admin).
 - **Windows Defender báo `Bin\RSSParser.dll` là Trojan và tự xóa file đó.** Người chơi phải tự thêm ngoại lệ cho thư mục `NetCo4\Bin`. Chưa xác minh được file này sạch.
 - Ai có client cũ: dùng `deploy/client/CAI-DAT-FIX.cmd` + `sua-client.ps1` + `chan-link-la.ps1` (giải nén vào thư mục game rồi chạy).
+- **Tự vào tổ** (01/10): `deploy/client/TuDongVaoTo/` (chạy `CHAY.cmd` trên máy người chơi, tự bấm "Đồng ý" ở bảng mời tổ, nhận bảng bằng 3 mẫu ảnh để không bấm nhầm bảng mua đồ). Hướng dẫn trong `HUONG-DAN.txt` của thư mục đó. Server không làm được việc này (lời mời tổ do World + client xử lý).
 
 ## Đã làm chiều 29/09 — CẦN TEST khi về (chưa restart game, mọi thứ có hiệu lực sau `./tlbb.sh restart`)
 
