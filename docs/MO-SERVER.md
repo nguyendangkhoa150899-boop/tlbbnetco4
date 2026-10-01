@@ -112,7 +112,7 @@ Mẫu tạm 11–15 dòng: Tạo Hóa, Trùng Lâu Liên/Giới/Ngọc, quạt P
 | 5 | Rương Ích Kỷ | **Tắt** (công tắc chức năng trên web admin). |
 | 6 | Shop 150 ngọc cấp 5 | **Giữ**: nhóm chơi dưới 2 tháng, cần lên đồ nhanh. |
 | 7 | 33 ngọc cấp 6 web | Chủ server tự chỉnh giá trên web admin. |
-| 8 | Miên Bố / Bí Ngân cấp 6 | **Rơi 40%** ở quái phó bản **Q Tô Châu + Q Lâu Lan** (`roimap.lua`, cùng chỗ Cửu Thiên Ngọc Toái). ID: Miên Bố 6 `20501006`, Bí Ngân 6 `20502006`. Chưa rõ: rơi cả 2 hay bốc 1; Ác tặc/Ác bá ngoài map có tính không. |
+| 8 | Miên Bố / Bí Ngân cấp 6 | **Rơi 10%** (đổi từ 40%, 01/10 tối) ở quái phó bản **Q Tô Châu + Q Lâu Lan** (`roimap.lua`, cùng chỗ Cửu Thiên Ngọc Toái). ID: Miên Bố 6 `20501006`, Bí Ngân 6 `20502006`. Chưa rõ: rơi cả 2 hay bốc 1; Ác tặc/Ác bá ngoài map có tính không. |
 | 9 | Ám khí | Để sau. |
 | 10 | 98 câu tiếng Trung | Dịch dần sau khi mở. |
 | 11 | Tin 3 nhóm boss (810000/810001/810003) | **Tắt.** |
@@ -127,7 +127,7 @@ Mẫu tạm 11–15 dòng: Tạo Hóa, Trùng Lâu Liên/Giới/Ngọc, quạt P
 > **Bẫy phải tránh:** `cap-nhat.sh` rsync theo checksum, file nào trên server khác repo là bị ghi đè. Vì vậy mọi sửa cấu hình ngày mở **phải là commit trong repo**, không sửa tay trên VPS. Nhưng commit sớm thì lần deploy kế tiếp đẩy lên server đang test. → Làm trong **nhánh `mo-server`** từ máy nhà (VPS không push được), ngày mở merge vào `main` rồi `cap-nhat.sh`.
 
 **Trước ngày mở (không ảnh hưởng server đang chạy):**
-1. Nhánh `mo-server` chứa: `DefaultChar.ini` level 1; `ConfigInfo.ini` ExpParam 10.0; `ChatConfig.txt` kênh 2 = 180000; `jiarumenpai.lua` HHV 19/24, tắt menu 80.000 Điểm Tặng; NPC 8886 hộp 1 lần duy nhất; `MonsterAttrExTable` máu boss 80%; `GemInfo` 50412007 = 1; xóa 54 pet 31xxx khỏi `PetAttrTable` (+ dòng tương ứng trong `MonsterAttrExTable` nếu là pet thuần); tắt cổng mod (admin thường) của bot; tắt công tắc Rương Ích Kỷ; tắt tin boss 810000/810001/810003 (`ActivityNotice.txt`); `roimap.lua` thêm Miên Bố/Bí Ngân 6 40% cho 50100/50220. Mỗi file kiểm bằng script byte-safe như các lần trước.
+1. Nhánh `mo-server` chứa: `DefaultChar.ini` level 1; `ConfigInfo.ini` ExpParam 10.0; `ChatConfig.txt` kênh 2 = 180000; `jiarumenpai.lua` HHV 19/24, tắt menu 80.000 Điểm Tặng; NPC 8886 hộp 1 lần duy nhất; `MonsterAttrExTable` máu boss 80%; `GemInfo` 50412007 = 1; xóa 54 pet 31xxx khỏi `PetAttrTable` (+ dòng tương ứng trong `MonsterAttrExTable` nếu là pet thuần); tắt cổng mod (admin thường) của bot; tắt công tắc Rương Ích Kỷ; tắt tin boss 810000/810001/810003 (`ActivityNotice.txt`); `roimap.lua` thêm Miên Bố/Bí Ngân 6 10% cho 50100/50220. Mỗi file kiểm bằng script byte-safe như các lần trước.
 2. `deploy/mo-server.sh` dựa trên `reset-choi-that.sh`: sao lưu DB; xóa `web.account` trừ `bialk1`; xóa `tlbbdb.*` trừ dòng `charguid = 1010100008` ở mọi bảng có cột đó (kiểm `information_schema`), gỡ bia1 khỏi bang (`guildid = 0`); `GMList.ini` chỉ còn 1010100008; xóa `NetCo4Web/*.in|*.done|*.vang|*.vangkhoa|*.tanthu|out/*` **trừ của 1010100008**; xóa `_capmin.txt`, QianDao, Paiming…
 3. Thêm `database.json` vào `sao-luu.sh` (sao lưu cùng lúc với MySQL).
 4. **Chạy thử** `mo-server.sh` trên bản sao DB (MySQL trong chroot, DB tạm), đếm dòng còn lại từng bảng, kiểm bia1 còn đủ pet/đồ/kỹ năng.
