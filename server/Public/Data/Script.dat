@@ -6110,4 +6110,5 @@ MGR_TXT
 895100=\new\event\wuhun\wuyazi.lua
 895101=\new\event\wuhun\zhuangtai.lua
 950000=\NetCo4\quatang.lua
+950001=\NetCo4\roimap.lua
 070053=\MyNew\item\XieziQianDao.lua
