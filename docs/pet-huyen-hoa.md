@@ -14,6 +14,25 @@
 - **Không có đường mua**: đã quét shop web (itemShop 257 món, rương, vòng quay), ShopTable, mọi script/bảng và 22.994 điểm spawn quái → không chỗ nào ra 144 ID này, chỉ quà admin (panel).
 - Rollback: tag `truoc-v2-codinh-01-10`.
 
+### Bản Tân Thủ — cấp mang 5 (01/10, 36 con, cần restart)
+
+Để tân thủ mang ngoại hình boss từ cấp 5. Ghép giống bản 85/95 (script `ghep_tanthu.js`, scratchpad 01/10) vào 36 ID Huyễn Hóa còn trống (client đã biết ngoại hình các ID này). Pet nền cấp mang 5: **Ngoại** Cùng Kỳ 22000, **Nội** Tiểu Hồ Tiên 22070, **Cân bằng** Trân Kỳ Thử 8700. Tư chất = bản biến dị cao nhất của nền (dòng nền+2): Ngoại 4268/3048/1523/2743/2133, Nội 1523/2285/4298/2438/3048, Cân bằng 2935 ×5; trưởng thành theo nền (TT tối đa 1269 / 1269 / 1422). Tư chất cố định (có trong bảng `x950000_g_HuyenHoa`), chỉ admin phát: panel loại **Pet Huyễn Hóa Tân Thủ** (nhóm thứ 4 của `/api/pets`). `docs/pet-skin.tsv` ban=`tanthu`. Rollback: tag `truoc-pet-tanthu-01-10`.
+
+| Skin | Ngoại | Nội | Cân bằng |
+|---|---|---|---|
+| Băng Yêu | 25341 | 25681 | 25721 |
+| Công Tôn Thánh | 25342 | 25682 | 25722 |
+| Tôn Mỹ Mỹ | 25311 | 25661 | 25701 |
+| Lâm Sung | 25312 | 25662 | 25702 |
+| Thủy Phỉ Đầu Lãnh | 26561 | 26601 | 26641 |
+| Lộ Quân Dật | 26522 | 26562 | 26602 |
+| Viễn Cổ Kỳ Hồn | 25731 | 25751 | 25861 |
+| Tống Khương | 25732 | 25752 | 25862 |
+| Tần Vương | 25801 | 25821 | 25841 |
+| Quan Thắng | 25712 | 25802 | 25822 |
+| Cáp Đại Bá | 26531 | 26571 | 26611 |
+| Lỗ Chí Sinh | 26432 | 26532 | 26572 |
+
 ### Bản Admin (12000)
 
 | Skin | 95 Ngoại | 95 Nội | 95 Cân bằng | 85 Ngoại | 85 Nội | 85 Cân bằng |
