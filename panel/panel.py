@@ -129,6 +129,26 @@ if os.path.exists(_p):
         _c = _line.rstrip("\r\n").split("\t")
         if len(_c) >= 8 and _c[0].isdigit() and _c[0] in PET_IDS:
             PET_ALL.append((_c[0], "%s [cấp %s, TT %s]" % (_c[1], _c[4], _c[7])))
+# 01/10: kieu tan cong pet = MonsterAttrExTable cot 62 (AttackTraits 11 Ngoai cong / 12 Noi cong / 13 Can bang),
+# engine doc theo dong quai CUNG ID voi pet. V2 (= goc + 6000) lay kieu cua ban goc. Chi de HIEN THI tren o chon.
+PET_KIEU = {}
+_p = os.path.join(ROOT, "home", "tlbb", "Public", "Config", "MonsterAttrExTable.txt")
+if os.path.exists(_p):
+    _ten = {b"11": "Ngoại công", b"12": "Nội công", b"13": "Cân bằng"}
+    for _line in open(_p, "rb"):
+        _c = _line.split(b"\t")
+        if len(_c) > 62 and _c[0].isdigit() and _c[62].strip() in _ten:
+            PET_KIEU[_c[0].decode()] = _ten[_c[62].strip()]
+
+
+def _kieu(i, v2=False):
+    k = PET_KIEU.get(str(int(i) - 6000) if v2 else i, "")
+    return " · " + k if k else ""
+
+
+PET_V2 = [(i, n + _kieu(i, True)) for i, n in PET_V2]
+PET_12000 = [(i, n.rsplit(" · ", 1)[0] + _kieu(i)) for i, n in PET_12000]
+PET_ALL = [(i, n + _kieu(i)) for i, n in PET_ALL]
 PET_GROUPS = [("Huyễn Hóa V2 (tư chất gốc)", PET_V2), ("Huyễn Hóa bản 12000", PET_12000), ("Tất cả pet", PET_ALL)]
 
 
