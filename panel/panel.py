@@ -151,16 +151,20 @@ PET_12000 = [(i, n.rsplit(" · ", 1)[0] + _kieu(i)) for i, n in PET_12000]
 PET_ALL = [(i, n + _kieu(i)) for i, n in PET_ALL]
 # 01/10: bo 144 pet skin (12 skin x Ngoai/Noi/Can bang x cap 85/95, ban admin 12000 + ban V2 tu chat goc), ghep pet nen
 # vao ID Huyen Hoa co san - docs/pet-skin.tsv (id, skin, cap, kieu, ban, nen, nhan). Co file nay thi thay 2 nhom Huyen Hoa.
+PET_TANTHU = []   # 01/10: ban Tan Thu (cap mang 5) - pet-skin.tsv ban=tanthu
 _p = os.path.join(REPO, "docs", "pet-skin.tsv")
 if os.path.exists(_p):
-    _a, _v = [], []
+    _a, _v, _t = [], [], []
     for _line in open(_p, encoding="utf-8"):
         _c = _line.rstrip("\r\n").split("\t")
         if len(_c) >= 7 and _c[0].isdigit() and _c[0] in PET_IDS:
-            (_a if _c[4] == "admin" else _v).append((_c[0], _c[6]))
+            {"admin": _a, "tanthu": _t}.get(_c[4], _v).append((_c[0], _c[6]))
     if _a and _v:
         PET_12000, PET_V2 = _a, _v
-PET_GROUPS = [("Huyễn Hóa V2 (tư chất gốc, 72 con)", PET_V2), ("Huyễn Hóa Admin 12000 (72 con)", PET_12000), ("Tất cả pet", PET_ALL)]
+    PET_TANTHU = _t
+# 01/10: them nhom Tan Thu (cap mang 5) o CUOI - web panel.js chon nhom theo chi so (0 V2, 1 12000, 2 tat ca, 3 Tan Thu)
+PET_GROUPS = [("Huyễn Hóa V2 (8000/4000, 72 con)", PET_V2), ("Huyễn Hóa Admin 12000 (72 con)", PET_12000), ("Tất cả pet", PET_ALL),
+              ("Huyễn Hóa Tân Thủ (cấp mang 5, %d con)" % len(PET_TANTHU), PET_TANTHU)]
 
 
 def khong_dau(s):
@@ -271,7 +275,7 @@ def act(form):
         return "Da xoa tai khoan %s" % n
     if a == "qua":
         g, kind, val, cnt = v("guid"), v("loai"), v("gt"), v("sl") or "1"
-        if kind in ("pet12", "petv2", "petall"):   # 3 o chon pet (cung danh sach ten, khac ban) -> loai "pet"
+        if kind in ("pet12", "petv2", "petall", "pettt"):   # 4 o chon pet (cung danh sach ten, khac ban) -> loai "pet"
             kind, val = "pet", v("gtpet") or val
         if g == "all":
             targets = [c[0] for c in chars()]
@@ -456,7 +460,7 @@ def page(msg="", q=""):
     # Nhan vat + phat qua
     give_form = ('<form method="post" class="row"><input type="hidden" name="t" value="%s"><input type="hidden" name="a" value="qua">'
                  '<input type="hidden" name="guid" value="%%s"><select name="loai"><option value="item">Vat pham (ID)</option><option value="xoa">XOA vat pham (ID)</option><option value="nangngoc">Nang ngoc trong tui len cap (2-7)</option>'
-                 '<option value="knb">KNB</option><option value="vang">Vang</option><option value="diemtang">Diem Tang</option><option value="level">Len cap (1-119)</option><option value="vip">Cap VIP (0-10)</option><option value="popup">Qua popup (cua so, chon nguoi)</option><option value="pet12">Pet Huyen Hoa 12000 (admin cap)</option><option value="petv2">Pet Huyen Hoa V2 (chi so binh thuong)</option><option value="petall">Pet khac (tat ca)</option></select>'
+                 '<option value="knb">KNB</option><option value="vang">Vang</option><option value="diemtang">Diem Tang</option><option value="level">Len cap (1-119)</option><option value="vip">Cap VIP (0-10)</option><option value="popup">Qua popup (cua so, chon nguoi)</option><option value="pet12">Pet Huyen Hoa 12000 (admin cap)</option><option value="petv2">Pet Huyen Hoa V2 (chi so binh thuong)</option><option value="pettt">Pet Huyen Hoa Tan Thu (cap mang 5)</option><option value="petall">Pet khac (tat ca)</option></select>'
                  '<input name="gt" placeholder="ID vat pham" size="12" required pattern="\\d{1,10}">'
                  '<select name="gtpet" style="display:none;max-width:300px"></select>'
                  '<input name="sl" placeholder="SL" size="3" value="1" pattern="\\d{1,3}"><button%%s>%%s</button></form>') % TOKEN
@@ -508,11 +512,11 @@ def page(msg="", q=""):
     # Form phat qua: o "gt" la ID (vat pham/popup) hoac so (KNB/vang/VIP); o SL chi dung cho vat pham
     # Gan su kien trong script, KHONG dung onchange="..." inline: trong handler inline, ten "loai" bi form.loai (chinh o select) che mat
     # danh sach pet render 1 lan (6.368 lua chon), JS sao chep vao form khi chon Pet
-    for tid, glist in (("petTpl12", PET_12000), ("petTplV2", PET_V2), ("petTplAll", PET_ALL)):
+    for tid, glist in (("petTpl12", PET_12000), ("petTplV2", PET_V2), ("petTplAll", PET_ALL), ("petTplTT", PET_TANTHU)):
         out.append('<select id="%s" style="display:none">%s</select>' % (tid, "".join('<option value="%s">%s - %s</option>' % (esc(i), esc(i), esc(n)) for i, n in glist)))
     out.append('<script>function doiLoai(s){var f=s.form,it=s.value=="item"||s.value=="xoa";'
                'f.gt.placeholder={item:"ID vat pham",xoa:"ID can xoa",nangngoc:"Cap ngoc (2-7)",knb:"So KNB (1-10000000)",vang:"So vang (1-100000)",diemtang:"So Diem Tang",level:"Cap (1-119)",vip:"Cap VIP 0-10",popup:"ID vat pham"}[s.value];'
-               'var tpl={pet12:"petTpl12",petv2:"petTplV2",petall:"petTplAll"}[s.value],pet=!!tpl;f.gt.style.display=pet?"none":"";f.gt.disabled=pet;f.gt.required=!pet;if(f.gtpet){f.gtpet.style.display=pet?"":"none";f.gtpet.disabled=!pet;if(pet&&f.gtpet.dataset.tpl!=tpl){f.gtpet.innerHTML=document.getElementById(tpl).innerHTML;f.gtpet.dataset.tpl=tpl}}'
+               'var tpl={pet12:"petTpl12",petv2:"petTplV2",petall:"petTplAll",pettt:"petTplTT"}[s.value],pet=!!tpl;f.gt.style.display=pet?"none":"";f.gt.disabled=pet;f.gt.required=!pet;if(f.gtpet){f.gtpet.style.display=pet?"":"none";f.gtpet.disabled=!pet;if(pet&&f.gtpet.dataset.tpl!=tpl){f.gtpet.innerHTML=document.getElementById(tpl).innerHTML;f.gtpet.dataset.tpl=tpl}}'
                'f.sl.style.display=it?"":"none";f.sl.disabled=!it}'
                'document.querySelectorAll("select[name=loai]").forEach(function(s){s.onchange=function(){doiLoai(s)};doiLoai(s)})</script>')
     return "".join(out)

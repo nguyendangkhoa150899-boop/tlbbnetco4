@@ -8,12 +8,31 @@
 
 - Engine (`PetRuler::CreatePerception`, đọc từ Server.elf) tính tư chất = chuẩn PetAttrTable × hệ số ngẫu nhiên trong [PerParam bậc i, PerParam bậc i+1] của **ruler** do Lua truyền vào (`LuaFnCreatePetToHuman(..., ruler)`: 0 thường, 1 RMB, 2 SuperRMB). `IntelligenceRange` không dùng ở đây.
 - `PetConfigTable.ini`: ruler 2 (SuperRMB) mọi `SuperRMBPerParam*` = 1.000, `SuperRMBPerRate0/1` = 999/1, trưởng thành `SuperRMB_GrowRate4` = 1000 (luôn bậc cao nhất). Ruler 0/1 (pet thường, trứng, bắt ngoài map) giữ nguyên random.
-- `NetCo4/quatang.lua`: bảng `x950000_g_HuyenHoa` (144 ID, cả V2 lẫn Admin 12000) → quà `pet <ID>` trong bảng tạo với ruler 2 → ra **đúng** số trong bảng (V2 5000/2500, Admin 12000). Pet đã phát trước đó giữ tư chất cũ (lưu trong DB).
+- `NetCo4/quatang.lua`: bảng `x950000_g_HuyenHoa` (180 ID: V2, Admin 12000, Tân Thủ) → quà `pet <ID>` trong bảng tạo với ruler 2 → ra **đúng** số trong bảng (V2 8000/4000, Admin 12000, Tân Thủ 4000/2000). Pet đã phát trước đó giữ tư chất cũ (lưu trong DB).
 - Hoàn Đồng 4834/4907/4908 từ chối pet Huyễn Hóa (nếu không, người chơi hoàn đồng là random lại ×1,0–1,4).
 - Ruler 2 còn được **Hoàn Đồng Đan theo loài** `huantongdan_4.lua` dùng (30309150–30309193, "Sơ/Cao cấp Hoàn Đồng Đan: Long Miêu/Hùng Miêu…" — KHÔNG phải Huyễn Hóa Đan): giờ ra tư chất chuẩn ×1.000 thay vì ×1,145+. Các đan này không bán ở đâu (chỉ có trong túi quay trứng 30504007/017/045/048/049, 30504119/120, cũng không bán). **Cảnh báo:** 12 đan Sơ cấp 30309150–30309161 trỏ tới ID pet KHÔNG TỒN TẠI (25009, 25049…) mà script xóa pet cũ TRƯỚC rồi mới tạo → dùng là mất pet. Chưa sửa (không ai lấy được đan).
 - **Huyễn Hóa Đan thật không có trong server này**: chỉ còn mảnh 20310115 "Trân Thú Huyễn Hóa Đan Toái Phiến" (mô tả bảo 10 mảnh ghép ở Vân Hề Hề Lâu Lan / Vân Tư Nhi Tô Châu) — NPC Vân Hề Hề (script 1111 `oloulan_yunxixi.lua`) chỉ có shop 27 + kiểm tra trưởng thành, không có menu ghép, CommonItem không có món Huyễn Hóa Đan nào. Câu "Vật này không được dùng cho Trân Thú" là client báo khi dùng mảnh (nguyên liệu) lên pet.
 - **Không có đường mua**: đã quét shop web (itemShop 257 món, rương, vòng quay), ShopTable, mọi script/bảng và 22.994 điểm spawn quái → không chỗ nào ra 144 ID này, chỉ quà admin (panel).
 - Rollback: tag `truoc-v2-codinh-01-10`.
+
+### Bản Tân Thủ — cấp mang 5 (01/10, 36 con, cần restart)
+
+Để tân thủ mang ngoại hình boss từ cấp 5. Ghép giống bản 85/95 (script `ghep_tanthu.js`, scratchpad 01/10) vào 36 ID Huyễn Hóa còn trống (client đã biết ngoại hình các ID này). Pet nền cấp mang 5: **Ngoại** Cùng Kỳ 22000, **Nội** Tiểu Hồ Tiên 22070, **Cân bằng** Trân Kỳ Thử 8700. Tư chất chuẩn: dòng chính 4000, các dòng còn lại 2000 (Ngoại = Cường lực, Nội = Nội lực, Cân bằng = Thể lực; script tuchat_ban.js); trưởng thành theo nền (TT tối đa 1269 / 1269 / 1422). Tư chất cố định (có trong bảng `x950000_g_HuyenHoa`), chỉ admin phát: panel loại **Pet Huyễn Hóa Tân Thủ** (nhóm thứ 4 của `/api/pets`). `docs/pet-skin.tsv` ban=`tanthu`. Rollback: tag `truoc-tanthu-v2-8000-01-10`.
+
+| Skin | Ngoại | Nội | Cân bằng |
+|---|---|---|---|
+| Băng Yêu | 25341 | 25681 | 25721 |
+| Công Tôn Thánh | 25342 | 25682 | 25722 |
+| Tôn Mỹ Mỹ | 25311 | 25661 | 25701 |
+| Lâm Sung | 25312 | 25662 | 25702 |
+| Thủy Phỉ Đầu Lãnh | 26561 | 26601 | 26641 |
+| Lộ Quân Dật | 26522 | 26562 | 26602 |
+| Viễn Cổ Kỳ Hồn | 25731 | 25751 | 25861 |
+| Tống Khương | 25732 | 25752 | 25862 |
+| Tần Vương | 25801 | 25821 | 25841 |
+| Quan Thắng | 25712 | 25802 | 25822 |
+| Cáp Đại Bá | 26531 | 26571 | 26611 |
+| Lỗ Chí Sinh | 26432 | 26532 | 26572 |
 
 ### Bản Admin (12000)
 
@@ -32,7 +51,7 @@
 | Cáp Đại Bá | 25411 | 25601 | 25461 | 25471 | 25631 | 25781 |
 | Lỗ Chí Sinh | 25412 | 25442 | 25462 | 25472 | 25602 | 25632 |
 
-### Bản V2 — tư chất theo kiểu (01/10): Ngoại = Cường lực 5000, Nội = Nội lực 5000, Cân bằng = Thể lực 5000; 4 dòng còn lại 2500 (cột 34 力量 / 36 灵气 / 35 体质 PetAttrTable). ~~Random của game vẫn nhân thêm~~ → **01/10: đã tắt random, xem mục dưới**
+### Bản V2 — tư chất theo kiểu (01/10, chiều: nâng 5000/2500 → 8000/4000): Ngoại = Cường lực 8000, Nội = Nội lực 8000, Cân bằng = Thể lực 8000; 4 dòng còn lại 4000 (cột 34 力量 / 36 灵气 / 35 体质 PetAttrTable). ~~Random của game vẫn nhân thêm~~ → **01/10: đã tắt random, xem mục dưới**
 
 | Skin | 95 Ngoại | 95 Nội | 95 Cân bằng | 85 Ngoại | 85 Nội | 85 Cân bằng |
 |---|---|---|---|---|---|---|
