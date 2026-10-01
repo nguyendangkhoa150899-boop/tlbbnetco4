@@ -120,18 +120,49 @@ x950001_TB_Them( { 9430, 9431, 9432, 9433, 9434, 9435, 9436, 9437, 9438, 9439, 3
 x950001_TB_Them( { 15175, 15073 } )  -- Binh Thanh Ky Tran lon / nho: boss cuoi
 x950001_TB_Them( { 14145 } )         -- Tu Tuyet Trang: Bang Xi
 x950001_TB_Them( { 9666, 9546 } )    -- Phieu Mieu Phong thuong / khieu chien: Ly Thu Thuy
-x950001_TB_Them( { 13447, 13456, 13465, 13474, 13483, 13492, 13501, 13510, 13519, 13528, 13537 } )  -- Sat Tinh (Sinh Tu Loi Dai)
+x950001_TB_Them( { 13456 } )         -- Sat Tinh (Sinh Tu Loi Dai): CHI Ngo Vinh, 1 tui / luot (xem x950001_TB_SatTinhDuoc)
 x950001_TB_Them( { 14234 } )         -- Thieu That Son: Dinh Xuan Thu
 x950001_TB_Them( { 11353 } )         -- Long Quy (Thanh Thu Son)
 x950001_TB_Them( { 12138, 12139, 12140, 12141, 12142, 12143, 12144, 12145, 12146 } )  -- Lau Lan Tam Bao: Tran Bao Long Vuong
 x950001_TB_Them( { 473 } )           -- Ac Tac Tao Phan (su kien Tac binh)
 x950001_TB_Them( { 1910, 1911, 1912, 1913, 1914, 1915, 1916, 1917, 1918, 1919 } )  -- Ac Ba (nhiem vu thanh thi, Thi Tap)
 
+-- [01/10 23:40] Sat Tinh = Sinh Tu Loi Dai, 12 NPC goi 12 tran lan luot (truoc day moi tran 1 tui -> 11 tui / luot).
+-- Chu server chot: chi tinh boss cuoi Ngo Vinh 13456. NPC Tong Giang (obj/shengsi/songjiang.lua) CUNG goi ra 13456
+-- (loi cua server cu) -> con Ngo Vinh chet khi NPC Ngo Vinh 13552 van con dung = con cua Tong Giang -> khong tinh.
+-- NPC bien mat khi bi khieu chien va khong hoi sinh trong luot (respawn 10000 giay). O du lieu pho ban 24 = da ghi luot nay
+-- (dat 0 khi tao pho ban: shengsileitai.lua MakeCopyScene).
+x950001_TB_g_SatTinhBoss = 13456
+x950001_TB_g_SatTinhNpc  = 13552
+x950001_TB_g_SatTinhO    = 24
+
+function x950001_TB_SatTinhDuoc( sceneId )
+	if LuaFnGetSceneType( sceneId ) ~= 1 then
+		return 0
+	end
+	if LuaFnGetCopySceneData_Param( sceneId, x950001_TB_g_SatTinhO ) == 1 then
+		return 0
+	end
+	local n = GetMonsterCount( sceneId )
+	for i = 0, n - 1 do
+		local m = GetMonsterObjID( sceneId, i )
+		if GetMonsterDataID( sceneId, m ) == x950001_TB_g_SatTinhNpc and LuaFnIsCharacterLiving( sceneId, m ) == 1 then
+			return 0
+		end
+	end
+	LuaFnSetCopySceneData_Param( sceneId, x950001_TB_g_SatTinhO, 1 )
+	return 1
+end
+
 function x950001_TB_Ghi( sceneId, monsterId, killerId )
 	if LuaFnIsObjValid( sceneId, monsterId ) ~= 1 then
 		return
 	end
-	x950001_TB_GhiId( sceneId, GetMonsterDataID( sceneId, monsterId ), killerId )
+	local dataId = GetMonsterDataID( sceneId, monsterId )
+	if dataId == x950001_TB_g_SatTinhBoss and x950001_TB_SatTinhDuoc( sceneId ) ~= 1 then
+		return
+	end
+	x950001_TB_GhiId( sceneId, dataId, killerId )
 end
 
 function x950001_TB_GhiId( sceneId, dataId, killerId )

@@ -195,4 +195,375 @@ end
 
 
 --**********************************
---ËÀ
+--ËÀÍö....
+--**********************************
+function x894067_OnDie( sceneId, selfId, killerId )
+
+	--ÖØÖÃAI....
+	x894067_ResetMyAI( sceneId, selfId )
+
+	--Èç¹û»¹Ã»ÓÐÌôÕ½¹ýÎÚÀÏTheo Ôò¿ÉÒÔÌôÕ½ÎÚÀÏTheo ....
+	if 1 ~= CallScriptFunction( x894067_g_FuBenScriptId, "GetBossBattleFlag", sceneId, "YeLvYan" )	then
+		CallScriptFunction( x894067_g_FuBenScriptId, "SetBossBattleFlag", sceneId, "YeLvYan", 1 )
+	end
+	
+	-- zchw È«Çò¹«¸æ
+	local	playerName	= GetName( sceneId, killerId )
+	
+	--É±ËÀ¹ÖÎïµÄÊÇ³èÎïÔò»ñÈ¡ÆäÖ÷ÈËµÄÃû×Ö....
+	local playerID = killerId
+	local objType = GetCharacterType( sceneId, killerId )
+	if objType == 3 then
+		playerID = GetPetCreator( sceneId, killerId )
+		playerName = GetName( sceneId, playerID )
+	end
+	
+	--Èç¹ûÍæ¼Ò×é¶ÓÁËÔò»ñÈ¡¶Ó³¤µÄÃû×Ö....
+	local leaderID = GetTeamLeader( sceneId, playerID )
+	if leaderID ~= -1 then
+		playerName = GetName( sceneId, leaderID )
+	       LuaFnSendSpecificImpactToUnit( sceneId, leaderID, leaderID, leaderID, 8813, 0 )
+	end
+	
+	if playerName ~= nil then
+		str = format(" #cff99ccSan b¢ng lâm tr§n sau, #{_INFOUSR%s}#P ðang mu¯n xoay ngß¶i r¶i ði, lÕi phát hi®n ch¸u #cff0000 Tiêu Nhß Úy #W#cff99cc tan tác s· ð±  r×ng trúc trung nhßng lÕi có d¤u tuy®t thª bäo v§t #p, vì thª li«n vui vë ðem thu vào trong túi, thúc ngña thÆng ðªn höa tr§n mà ði.", playerName); --É£ÍÁ¹«
+		AddGlobalCountNews( sceneId, str )
+	end
+
+	CallScriptFunction( x894067_g_FuBenScriptId, "TipAllHuman", sceneId, "Tr¥n Nhân Dûng nói:  Tuy nói Tiêu Nhß Úy  ðã bÕi cho trß¾c tr§n, nhßng còn thïnh nhanh chóng ðánh chªt  Tiêu Nhß Quân nªu không  Tiêu Nhß Úy  30 giây sau s¨ s¯ng lÕi. ." )
+
+	-- [NetCo4 01/10] bo roi do qua script (ban goc: LootItem_1..4 gom phieu KNB 39910003/39910004 60%/nguoi;
+	-- bang LootItem khong con trong file). Giong Tieu Nhu Quan ban lon (ai_sangtugong.lua) khong roi qua script.
+
+	--ÉèÖÃÒÑ¾­ÌôÕ½¹ýÉ£ÍÁ¹«....
+	CallScriptFunction( x894067_g_FuBenScriptId, "SetBossBattleFlag", sceneId, "ShuangZi", 2 )
+end
+
+
+--**********************************
+--ÖØÖÃAI....
+--**********************************
+function x894067_ResetMyAI( sceneId, selfId )
+
+	--ÖØÖÃ²ÎÊý....
+	MonsterAI_SetIntParamByIndex( sceneId, selfId, x894067_IDX_KuangBaoMode, 0 )
+	MonsterAI_SetIntParamByIndex( sceneId, selfId, x894067_IDX_CD_SkillFH, x894067_SkillCD_FH )
+	MonsterAI_SetIntParamByIndex( sceneId, selfId, x894067_IDX_CD_SkillG, x894067_SkillCD_G )
+	MonsterAI_SetIntParamByIndex( sceneId, selfId, x894067_IDX_CD_SkillH, x894067_SkillCD_H )
+	MonsterAI_SetIntParamByIndex( sceneId, selfId, x894067_IDX_CD_SkillI, x894067_SkillCD_I )
+	MonsterAI_SetIntParamByIndex( sceneId, selfId, x894067_IDX_CD_Talk, 0 )
+	MonsterAI_SetBoolParamByIndex( sceneId, selfId, x894067_IDX_CombatFlag, 0 )
+
+	--¸øËùÓÐÍæ¼ÒÇå³ýFHµÄbuff....
+	local nHumanCount = LuaFnGetCopyScene_HumanCount(sceneId)
+	for i=0, nHumanCount-1 do
+		local nHumanId = LuaFnGetCopyScene_HumanObjId(sceneId, i)
+		if LuaFnIsObjValid(sceneId, nHumanId) == 1 and LuaFnIsCanDoScriptLogic(sceneId, nHumanId) == 1 then
+			LuaFnCancelSpecificImpact( sceneId, nHumanId, x894067_BuffID_F1 )
+			LuaFnCancelSpecificImpact( sceneId, nHumanId, x894067_BuffID_H )
+		end
+	end
+
+end
+
+
+--**********************************
+--FH¼¼ÄÜÐÄÌø....
+--**********************************
+function x894067_TickSkillFH( sceneId, selfId, nTick )
+
+	local CurPercent = GetHp( sceneId, selfId ) / GetMaxHp( sceneId, selfId )
+	if CurPercent > 0.8555 then
+		return 0
+	end
+
+	--¸üÐÂ¼¼ÄÜCD....
+	local cd = MonsterAI_GetIntParamByIndex( sceneId, selfId, x894067_IDX_CD_SkillFH )
+	if cd > nTick then
+
+		MonsterAI_SetIntParamByIndex( sceneId, selfId, x894067_IDX_CD_SkillFH, cd-nTick )
+		return 0
+
+	else
+		MonsterAI_SetIntParamByIndex( sceneId, selfId, x894067_IDX_CD_SkillFH, x894067_SkillCD_FH-(nTick-cd) )
+		return x894067_UseSkillF( sceneId, selfId )
+	end
+
+end
+
+
+--**********************************
+--G¼¼ÄÜÐÄÌø....
+--**********************************
+function x894067_TickSkillG( sceneId, selfId, nTick )
+
+	local CurPercent = GetHp( sceneId, selfId ) / GetMaxHp( sceneId, selfId )
+	if CurPercent > 0.8333 then
+		return 0
+	end
+
+	--¸üÐÂ¼¼ÄÜCD....
+	local cd = MonsterAI_GetIntParamByIndex( sceneId, selfId, x894067_IDX_CD_SkillG )
+	if cd > nTick then
+		MonsterAI_SetIntParamByIndex( sceneId, selfId, x894067_IDX_CD_SkillG, cd-nTick )
+		return 0
+	else
+		MonsterAI_SetIntParamByIndex( sceneId, selfId, x894067_IDX_CD_SkillG, x894067_SkillCD_G-(nTick-cd) )
+		return x894067_UseSkillG( sceneId, selfId )
+	end
+
+end
+
+--**********************************
+--H¼¼ÄÜÐÄÌø....
+--**********************************
+function x894067_TickSkillH( sceneId, selfId, nTick )
+
+	local CurPercent = GetHp( sceneId, selfId ) / GetMaxHp( sceneId, selfId )
+	if CurPercent > 0.3333 then
+		return 0
+	end
+
+	--¸üÐÂ¼¼ÄÜCD....
+	local cd = MonsterAI_GetIntParamByIndex( sceneId, selfId, x894067_IDX_CD_SkillH )
+	if cd > nTick then
+		MonsterAI_SetIntParamByIndex( sceneId, selfId, x894067_IDX_CD_SkillH, cd-nTick )
+		return 0
+	else
+		MonsterAI_SetIntParamByIndex( sceneId, selfId, x894067_IDX_CD_SkillH, x894067_SkillCD_H-(nTick-cd) )
+		return x894067_UseSkillH( sceneId, selfId )
+	end
+
+end
+
+--**********************************
+--I¼¼ÄÜÐÄÌø....
+--**********************************
+function x894067_TickSkillI( sceneId, selfId, nTick )
+
+	--¸üÐÂ¼¼ÄÜCD....
+	local cd = MonsterAI_GetIntParamByIndex( sceneId, selfId, x894067_IDX_CD_SkillI )
+	if cd > nTick then
+		MonsterAI_SetIntParamByIndex( sceneId, selfId, x894067_IDX_CD_SkillI, cd-nTick )
+		return 0
+	else
+		MonsterAI_SetIntParamByIndex( sceneId, selfId, x894067_IDX_CD_SkillI, x894067_SkillCD_I-(nTick-cd) )
+		return x894067_UseSkillI( sceneId, selfId )
+	end
+
+end
+
+
+--**********************************
+--Ê¹ÓÃF¼¼ÄÜ....
+--**********************************
+function x894067_UseSkillF( sceneId, selfId )
+
+	--¸±±¾ÖÐÓÐÐ§µÄÍæ¼ÒµÄÁÐ±í....
+	local PlayerList = {}
+
+	--½«ÓÐÐ§µÄÈË¼ÓÈëÁÐ±í....
+	local numPlayer = 0
+	local nHumanCount = LuaFnGetCopyScene_HumanCount(sceneId)
+	for i=0, nHumanCount-1 do
+		local nHumanId = LuaFnGetCopyScene_HumanObjId(sceneId, i)
+		if LuaFnIsObjValid(sceneId, nHumanId) == 1 and LuaFnIsCanDoScriptLogic(sceneId, nHumanId) == 1 and LuaFnIsCharacterLiving(sceneId, nHumanId) == 1 then
+			PlayerList[numPlayer+1] = nHumanId
+			numPlayer = numPlayer + 1
+		end
+	end
+
+	--Ëæ»úÌôÑ¡Ò»¸öÍæ¼Ò....
+	if numPlayer <= 0 then
+		return 0
+	end
+	local PlayerId = PlayerList[ random(numPlayer) ]
+
+	--¶ÔÆäÊ¹ÓÃ¼¼ÄÜ....
+	local x,z = GetWorldPos( sceneId, PlayerId )
+	LuaFnUnitUseSkill( sceneId, selfId, x894067_SkillID_F, PlayerId, x, z, 0, 1 )
+
+	CallScriptFunction((200060), "Paopao",sceneId, "Tiêu Nhß Úy ", "Binh Thánh KÏ Tr§n", "Tiêu Nhß Úy : B¸ lÕc cho lâm,, "..GetName( sceneId, PlayerId ).." Nhìn ngß½i nhß thª nào thoát thân." )
+	CallScriptFunction( x894067_g_FuBenScriptId, "TipAllHuman", sceneId, "Tr¥n Nhân Dûng nói:  Tiêu Nhß Úy   ðã phóng ra vây kh¯n chi kî, thân trung lâm dã mê tung trÕng thái ngß¶i t¯c t¯c r¶i xa ðám ngß¶i, ð¬ tránh ngß¶i khác ðang mê say núi r×ng.!" )
+
+	--¸øÍæ¼Ò¼Ó½áÊøºó»Øµ÷½Å±¾µÄbuff....
+	LuaFnSendSpecificImpactToUnit( sceneId, PlayerId, PlayerId, PlayerId, x894067_BuffID_F1, 0 )
+
+	return 1
+
+end
+
+
+--**********************************
+--Ê¹ÓÃG¼¼ÄÜ....
+--**********************************
+function x894067_UseSkillG( sceneId, selfId )
+
+
+	--¸±±¾ÖÐÓÐÐ§µÄÍæ¼ÒµÄÁÐ±í....
+	local PlayerList = {}
+
+	--½«ÓÐÐ§µÄÈË¼ÓÈëÁÐ±í....
+	local numPlayer = 0
+	local nHumanCount = LuaFnGetCopyScene_HumanCount(sceneId)
+	for i=0, nHumanCount-1 do
+		local nHumanId = LuaFnGetCopyScene_HumanObjId(sceneId, i)
+		if LuaFnIsObjValid(sceneId, nHumanId) == 1 and LuaFnIsCanDoScriptLogic(sceneId, nHumanId) == 1 and LuaFnIsCharacterLiving(sceneId, nHumanId) == 1 then
+			PlayerList[numPlayer+1] = nHumanId
+			numPlayer = numPlayer + 1
+		end
+	end
+
+	--Ëæ»úÌôÑ¡Ò»¸öÍæ¼Ò....
+	if numPlayer <= 0 then
+		return 0
+	end
+
+	local PlayerIdA = PlayerList[ random(numPlayer) ]
+	local PlayerIdB = PlayerList[ random(numPlayer) ]
+
+	--Ê¹ÓÃ¿Õ¼¼ÄÜ....
+	local x,z = GetWorldPos( sceneId, selfId )
+	LuaFnUnitUseSkill( sceneId, selfId, x894067_SkillID_G, selfId, x, z, 0, 1 )
+
+	CallScriptFunction((200060), "Paopao",sceneId, "Tiêu Nhß Úy ", "Binh Thánh KÏ Tr§n", "Tiêu Nhß Úy : Núi r×ng bích thúy, cänh ð©p di nhân,#c2ebeff"..GetName( sceneId, PlayerIdA ).."¡¢"..GetName( sceneId, PlayerIdB )..",#Wvài v¸ sao không mê say cho này lâm dã bên trong." )
+	CallScriptFunction( x894067_g_FuBenScriptId, "TipAllHuman", sceneId, "Tr¥n Nhân Dûng nói:  Tiêu Nhß Úy   phóng ra  thÑ trúc cÕm bçy sinh cho dß¾i chân, còn thïnh chß v¸ t¯c t¯c tránh né." )
+
+	local x,z = GetWorldPos( sceneId, PlayerIdA )
+	CreateSpecialObjByDataIndex(sceneId, selfId, x894067_SkillID_G_SpecObj, x, z, 0)
+
+	local x,z = GetWorldPos( sceneId, PlayerIdB )
+	CreateSpecialObjByDataIndex(sceneId, selfId, x894067_SkillID_G_SpecObj, x, z, 0)
+
+	return 1
+
+end
+
+
+--**********************************
+--Ê¹ÓÃH¼¼ÄÜ....
+--**********************************
+function x894067_UseSkillH( sceneId, selfId )
+
+		local Last = CallScriptFunction( x894067_g_FuBenScriptId, "GetBossBattleFlag", sceneId, "PlayHp" )
+		if Last > 1 then
+			return 0
+		end
+
+		CallScriptFunction( x894067_g_FuBenScriptId, "SetBossBattleFlag", sceneId, "PlayHp", 2 )
+
+	       --Ê¹ÓÃ¿Õ¼¼ÄÜ....
+		local x,z = GetWorldPos( sceneId, selfId )
+		LuaFnUnitUseSkill( sceneId, selfId, x894067_SkillID_H, selfId, x, z, 0, 1 )
+
+		CallScriptFunction((200060), "Paopao",sceneId, "Tiêu Nhß Úy ", "Binh Thánh KÏ Tr§n", "Tiêu Nhß Úy Ð°ng tâm løc trúc, ðón gió mà ðÑng, ngñ ta thân hình, cho ta hµ th¬, nghï ng½i l¤y lÕi sÑc, ra sÑc giªt ð¸ch." )
+		CallScriptFunction( x894067_g_FuBenScriptId, "TipAllHuman", sceneId, "Tr¥n Nhân Dûng nói:  Tiêu Nhß Úy  : Ð°ng tâm løc trúc, ðón gió mà ðÑng, ngñ ta thân hình, cho ta hµ th¬, nghï ng½i l¤y lÕi sÑc, ra sÑc giªt ð¸ch." )
+
+		CallScriptFunction( x894067_g_FuBenScriptId, "CreateBOSS", sceneId, "ZhuBai_BOSS", -1, -1 )
+		CallScriptFunction( x894067_g_FuBenScriptId, "CreateBOSS", sceneId, "ZhuHong_BOSS", -1, -1 )
+		CallScriptFunction( x894067_g_FuBenScriptId, "CreateBOSS", sceneId, "ZhuHuang_BOSS", -1, -1 )
+		CallScriptFunction( x894067_g_FuBenScriptId, "CreateBOSS", sceneId, "ZhuLan_BOSS", -1, -1 )
+		CallScriptFunction( x894067_g_FuBenScriptId, "CreateBOSS", sceneId, "ZhuLv_BOSS", -1, -1 )
+		CallScriptFunction( x894067_g_FuBenScriptId, "CreateBOSS", sceneId, "ZhuZi_BOSS", -1, -1 )
+		CallScriptFunction( x894067_g_FuBenScriptId, "CreateBOSS", sceneId, "Bai_BOSS", -1, -1 )
+		CallScriptFunction( x894067_g_FuBenScriptId, "CreateBOSS", sceneId, "Hong_BOSS", -1, -1 )
+		CallScriptFunction( x894067_g_FuBenScriptId, "CreateBOSS", sceneId, "Huang_BOSS", -1, -1 )
+		CallScriptFunction( x894067_g_FuBenScriptId, "CreateBOSS", sceneId, "Lan_BOSS", -1, -1 )
+		CallScriptFunction( x894067_g_FuBenScriptId, "CreateBOSS", sceneId, "Lv_BOSS", -1, -1 )
+		CallScriptFunction( x894067_g_FuBenScriptId, "CreateBOSS", sceneId, "Zi_BOSS", -1, -1 )
+
+	return 1
+
+end
+
+
+--**********************************
+--Ê¹ÓÃI¼¼ÄÜ....
+--**********************************
+function x894067_UseSkillI( sceneId, selfId )
+
+	local x,z = GetWorldPos( sceneId, selfId )
+	LuaFnUnitUseSkill( sceneId, selfId, x894067_SkillID_I, selfId, x, z, 0, 1 )
+
+	return 1
+
+end
+
+
+--**********************************
+--°µÀ×ºÍÑÌ»¨µÄbuff½áÊøµÄÊ±ºò»Øµ÷±¾½Ó¿Ú....
+--**********************************
+function x894067_OnImpactFadeOut( sceneId, selfId, impactId )
+
+	--Ñ°ÕÒBOSS....
+	local bossId = -1
+	local MonsterId = -1
+	local nMonsterNum = GetMonsterCount(sceneId)
+	for i=0, nMonsterNum-1 do
+		local MonsterId = GetMonsterObjID(sceneId,i)
+		if GetName( sceneId, MonsterId ) == "Tiêu Nhß Úy " then
+			bossId = MonsterId
+		end
+	end
+
+	--Ã»ÕÒµ½Ôò·µ»Ø....
+	if bossId == -1 then
+		return
+	end
+
+	--Èç¹ûÊÇÑÌ»¨µÄbuffÔòÈÃBOSSº°»°....
+	if impactId == 8812 then
+
+		local bok = 0
+		local MosDataID = 0
+		local nCount = GetMonsterCount(sceneId)
+		for i=0, nCount-1  do
+			local nObjId = GetMonsterObjID(sceneId, i)
+			local MosDataID = GetMonsterDataID( sceneId, nObjId )
+			if MosDataID == 15135 then
+				bok = 1
+			end
+		end
+
+		if bok == 0 then
+			return
+		end
+
+		if bok == 1 then
+			local MonsterId = CallScriptFunction( x894067_g_FuBenScriptId, "CreateBOSS", sceneId, "XiaoRuJun_BOSS", -1, -1 )
+			LuaFnSendSpecificImpactToUnit( sceneId, MonsterId, MonsterId, MonsterId, 8814, 0 )
+
+			CallScriptFunction( x894067_g_FuBenScriptId, "TipAllHuman", sceneId, "Tr¥n Nhân Dûng nói:  Huynh ð® ð°ng tâm, này lñc ð°ng tâm......B·i vì chßa 30 giây có th¬ tiêu di®t Tiêu Nhß Quân  hi®n ðã s¯ng lÕi......." )
+
+			return
+		end
+
+		return
+	end
+
+	--Èç¹ûÊÇ°µÀ×µÄbuff....ÔòÈÃBOSS¸ø¸½½üµÄÍæ¼Ò¼ÓÒ»¸öÉËº¦µÄbuff²¢º°»°....
+
+	if impactId == x894067_BuffID_F1 then
+
+		local x = 0
+		local z = 0
+		local xx = 0
+		local zz = 0
+		x,z = GetWorldPos( sceneId,selfId )
+		local nHumanNum = LuaFnGetCopyScene_HumanCount(sceneId)
+		for i=0, nHumanNum-1  do
+			local PlayerId = LuaFnGetCopyScene_HumanObjId(sceneId, i)
+			if LuaFnIsObjValid(sceneId, PlayerId) == 1 and LuaFnIsCanDoScriptLogic(sceneId, PlayerId) == 1 and LuaFnIsCharacterLiving(sceneId, PlayerId) == 1 then
+				xx,zz = GetWorldPos(sceneId,PlayerId)
+				if (x-xx)*(x-xx) + (z-zz)*(z-zz) < 12*12 then
+					LuaFnSendSpecificImpactToUnit( sceneId, bossId, bossId, PlayerId, 8818, 0 )
+				end
+			end
+		end
+
+		return
+
+	end
+
+
+end

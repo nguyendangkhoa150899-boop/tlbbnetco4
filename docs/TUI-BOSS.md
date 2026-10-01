@@ -31,7 +31,7 @@ Yêu cầu của chủ server (nguyên văn rút gọn): mỗi hoạt động, n
 
 ## Hoạt động ↔ boss cuối (đã biết)
 - Yến Tử Ổ: Mộ Dung Phục `39430–39432` (cấp 100+), script chết `obj/yanziwu/murongfu.lua`.
-- Sát Tinh bang = Sinh Tử Lôi Đài Thủy Hử (`obj/shengsi/shengsileitai.lua`, 11 boss, chọn 1/lượt).
+- Sát Tinh bang = Sinh Tử Lôi Đài Thủy Hử (`obj/shengsi/shengsileitai.lua`): 12 NPC, khiêu chiến lần lượt từng người (mỗi NPC gọi 1 boss, NPC biến mất sau khi khiêu chiến). NPC Tống Giang (`songjiang.lua`) gọi ra **Ngô Vĩnh 13456** giống NPC Ngô Vĩnh (lỗi server cũ), nên 1 lượt có 2 con 13456.
 - PMF, Binh Thánh, Tứ Tuyệt Trang, Thiếu Thất Sơn: có script phó bản riêng (`event/piaomiaofeng*`, `bingshen*`, `sijuezhuang`, `shaoshi`), cần đọc boss cuối từng bản.
 - Q Tô Châu / Q Lâu Lan: script quái 1130 / 1129 (`sancaixiagunpc_die.lua`, `yamoshannpc_die.lua`).
 - **Chưa xác định:** "Long Quy" (game chỉ có pet Long Quy 3310), "Cờ 12h", "LLTB 11h30" (Lâu Lan Tầm Bảo, NPC Kim Cửu Linh, không có trong lịch `ActivityNotice`), "Ác Tặc" (chỉ có "Ác Tặc Tạo Phản" 473 cấp 50 thường; "Ác Bá" là boss `1910–1919` cấp 13–103).
@@ -40,7 +40,7 @@ Yêu cầu của chủ server (nguyên văn rút gọn): mỗi hoạt động, n
 ## ĐÃ LÀM 01/10 tối (game `33d048d` + bot bialk `9682593`) — chủ server đã chốt
 **Luồng:** boss cuối chết → game ghi `Server/txt/NetCo4Web/tuiboss.log` (`<unix> TAB <scene> TAB <ID quái> TAB <GUID,...>`) → bot (`BotDoMin/tuiboss.js`, đọc 10 giây/lần) tạo 1 túi cho mỗi GUID, **bốc đồ ngay lúc tạo** → web 🪪 Cá nhân › **🎒 Túi đồ boss** hiện từng túi + nút **Nhận** → đồ vào hàng đợi quà (nhận khi **đổi bản đồ**), **4.000 KNB vào ví web** (sổ KNB loại `tuiboss`). Túi giữ 7 ngày, tối đa 60 túi/người.
 - **Ai nhận:** trong phó bản = **mọi người đang trong phó bản** lúc boss cuối chết; ngoài map (Long Quy, Ác Tặc, Ác Bá ngoài phó bản…) = người giết + tổ đội ở gần. Dòng trùng trong 20 giây (cùng scene + boss) gộp lại.
-- **Code game:** `NetCo4/roimap.lua` `x950001_TB_Ghi` / `x950001_TB_GhiId` (đặt trong 950001 vì script mới cần restart để đăng ký) + 1 dòng gọi ở đầu 14 hàm: `ai_liqiushui` (PMF 402269, PMF nhỏ 402282, Tứ Tuyệt 893069, Thiếu Thất 890069), `ai_wulaoda` (Binh Thánh 894066 / 895066), `murongfu` 402254, `shengsileitai` 892009, `petdropper` 501000 (Long Quy), `seek_treasure` 808039, `oDynamicNPC_ThiefSoldier` 50012 (Ác Tặc), `sancaixiagunpc_die` 1130 (Q Tô Châu), `yamoshannpc_die` 1129 (Q Lâu Lan), `ecity_0402chuckoutvillain` `OnKillObject` (Ác Bá). Boss cuối xác định bằng câu `AddGlobalCountNews` (thông quan) trong hàm chết. Rollback: tag `truoc-tuiboss-01-10`.
+- **Code game:** `NetCo4/roimap.lua` `x950001_TB_Ghi` / `x950001_TB_GhiId` (đặt trong 950001 vì script mới cần restart để đăng ký) + 1 dòng gọi ở đầu 14 hàm: `ai_liqiushui` (PMF 402269, PMF nhỏ 402282, Tứ Tuyệt 893069, Thiếu Thất 890069), `ai_wulaoda` (Binh Thánh 894066 / 895066), `murongfu` 402254, `petdropper` 501000 (Long Quy, **và Sát Tinh**: `shengsileitai` 892009 OnDie gọi 501000 OnDie, nên không gắn thêm ở 892009, gắn 2 chỗ = mỗi boss ghi 2 dòng như lượt 22:57–23:00 ngày 01/10), `seek_treasure` 808039, `oDynamicNPC_ThiefSoldier` 50012 (Ác Tặc), `sancaixiagunpc_die` 1130 (Q Tô Châu), `yamoshannpc_die` 1129 (Q Lâu Lan), `ecity_0402chuckoutvillain` `OnKillObject` (Ác Bá). Boss cuối xác định bằng câu `AddGlobalCountNews` (thông quan) trong hàm chết. Rollback: tag `truoc-tuiboss-01-10`.
 
 | Hoạt động | Boss cuối (ID) | Đồ trong túi (bot `HD` trong `tuiboss.js`) | Trần túi/ngày |
 |---|---|---|---|
@@ -51,7 +51,7 @@ Yêu cầu của chủ server (nguyên văn rút gọn): mỗi hoạt động, n
 | Tứ Tuyệt Trang | Bàng Xí 14145 | chung + Thiên/Địa/Mệnh Hồn Ngọc ×10 trộn | |
 | PMF thường (nhỏ, cấp 75) | Lý Thu Thủy 9666 | chung + Ngũ Độc Châu ×20 + Giảm Kháng Điêu Văn cấp 6 ×1 (Băng/Hỏa/Huyền/Độc) | |
 | PMF khiêu chiến (lớn, cấp 95) | Lý Thu Thủy 9546 | chung + Ngũ Độc Châu ×20 + Điêu Văn Công cấp 5 ×1 (Băng/Hỏa/Huyền/Độc Công) | |
-| Sát Tinh | 11 boss Thủy Hử 13447…13537 | chung + Ngũ Độc Châu ×20 + TBP cấp 1–3 ×5 + Ma Huyết Thạch ×1–3 | |
+| Sát Tinh | **chỉ Ngô Vĩnh 13456 của NPC Ngô Vĩnh, 1 túi/lượt** (từ 01/10 23:40; trước đó 11 boss = 11 túi/lượt) | chung + Ngũ Độc Châu ×20 + TBP cấp 1–3 ×5 + Ma Huyết Thạch ×1–3 | (3 lượt/ngày) |
 | Thiếu Thất Sơn | Đinh Xuân Thu 14234 | chung + CCHTP ×5 | |
 | Long Quy (Thánh Thú Sơn) | 11353 | chung + CCHTP ×3 + Chí Tôn Cường Hóa ×5 + CLD ×3–5 | 3 |
 | Lâu Lan Tầm Bảo | Trấn Bảo Long Vương 12138–12146 | Vũ Học Tâm Đắc ×15 + Bí Tịch Tàn Hiệt ×10 + Võ Hồn cấp 2–4 ×1 (Ngự Dao Bàn/Lưu Ly Diễm) | 2 |
