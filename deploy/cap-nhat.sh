@@ -48,7 +48,7 @@ git -C "$REPO" rev-parse HEAD > "$BACKUP_DIR/da-deploy-commit"
 CAPMAX="$DST/Server/txt/NetCo4Cfg/capmax.txt"
 if [ -s "$CAPMAX" ]; then
     n=$(tr -dc 0-9 < "$CAPMAX")
-    if [ -n "$n" ] && [ "$n" -ge 10 ] && [ "$n" -le 118 ]; then
+    if [ -n "$n" ] && [ "$n" -ge 10 ] && [ "$n" -le 119 ]; then
         LC_ALL=C sed -i -E "s/^HumanMaxDefaultLevel=[0-9]+/HumanMaxDefaultLevel=$((n + 1))/" "$DST/Server/Config/ConfigInfo.ini"
         log "Giu khoa cap toi da $n theo panel (HumanMaxDefaultLevel=$((n + 1)))"
     fi

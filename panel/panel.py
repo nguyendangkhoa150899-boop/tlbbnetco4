@@ -373,10 +373,10 @@ def act(form):
         audit("cap toi thieu toan server = %s" % int(val))
         return ("Da tat cap toi thieu" if int(val) == 0 else
                 "Cap toi thieu = %s: nhan vat se len cap khi dang nhap/doi ban do (ca nhan vat moi)" % int(val))
-    if a == "capmax":   # 01/10: khoa cap - cay exp toi da cap N (10-118), admin mo dan; restart=1 thi restart luon
+    if a == "capmax":   # 01/10: khoa cap - cay exp toi da cap N (10-119; bang cap engine cung 255 nen 120 trong ini van an toan), admin mo dan; restart=1 thi restart luon
         val = v("gt")
-        if not RE_INT.match(val) or not 10 <= int(val) <= 118:
-            return "Cap toi da 10-118 (118 = mo het, nhu hien tai)"
+        if not RE_INT.match(val) or not 10 <= int(val) <= 119:
+            return "Cap toi da 10-119 (119 = mo het)"
         n = int(val)
         capmax_set(n)
         rs = v("restart") == "1"
@@ -524,7 +524,7 @@ def page(msg="", q=""):
     out.append('<form method="post" class="row" onsubmit="return confirm(\'Luu cap toi da va RESTART server? Nguoi dang choi se bi ngat.\')">'
                '<input type="hidden" name="t" value="%s"><input type="hidden" name="a" value="capmax"><input type="hidden" name="restart" value="1">'
                '<b>Cap toi da (khoa cap):</b><input name="gt" value="%d" size="4" required pattern="\\d{2,3}"><button class="r">Luu + Restart</button>'
-               '<span class="muted">10-118 (118 = mo het). Nguoi choi cay exp toi da toi cap nay; nhan vat da cao hon giu nguyen.</span></form><br>' % (TOKEN, capmax_get()))
+               '<span class="muted">10-119 (119 = mo het). Nguoi choi cay exp toi da toi cap nay; nhan vat da cao hon giu nguyen.</span></form><br>' % (TOKEN, capmax_get()))
     out.append('<table><tr><th>GUID</th><th>Tai khoan</th><th>Nhan vat</th>'
                '<th>Cap</th><th>Online</th><th>GM</th><th>Qua dang cho</th><th>Phat qua</th></tr>')
     for g, acc, name, lv in chs:
