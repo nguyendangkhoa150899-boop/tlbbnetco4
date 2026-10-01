@@ -28,8 +28,17 @@ function x950001_Roll( sceneId, selfId, playerId, r )
 	end
 end
 
+-- Pho ban: quai tao bang LuaFnCreateMonster(..., 950001) -> tra theo script cua pho ban (CopySceneData_Param 1)
+x950001_g_RoiPhoBan = {
+	[50100] = { 20800034, 40 },   -- Lien Hoan Q To Chau (quai dot 3)
+	[50220] = { 20800034, 40 },   -- Lien Hoan Q Lau Lan / Viem Ma Son (quai nho dot 3)
+}
+
 function x950001_OnDie( sceneId, selfId, killerId )
 	local r = x950001_g_Roi[sceneId]
+	if r == nil and LuaFnGetSceneType( sceneId ) == 1 then
+		r = x950001_g_RoiPhoBan[ LuaFnGetCopySceneData_Param( sceneId, 1 ) ]
+	end
 	if r == nil then
 		return
 	end

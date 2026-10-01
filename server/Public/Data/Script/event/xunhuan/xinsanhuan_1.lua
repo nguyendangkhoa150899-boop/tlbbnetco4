@@ -99,16 +99,16 @@ x050220_g_MissionKind = 8
 x050220_g_MissionLevel = 10000
 
 -- ÈÎÎñÎÄ±¾ÃèÊö
-x050220_g_MissionName = "Hoàn Kim Chi Liên"
-x050220_g_MissionInfo = "    ´Ó#GÂ¥À¼#RºÎÔÃ#{_INFOAIM295,68,246, ºÎÔÃ}#W´¦£¬½øÈë#GÑ×Ä§É½#W£¬´³¹ı·ËÊ×#RÍõÑÖ#W¿´ÊØµÄ#GĞşÀ×ÆÂ#WºÍ#Rºé¼¬ÑıÍõ#W×øÕòµÄ#G¶¾ÕÏÔóµØ#W£¬×îÖÕÕ¶³ıÉ½¶¥#GÈÛÑÒÖ®µØ#WµÄ#R»ğÑæÑıÄ§#W¡£"				-- ÈÎÎñÃèÊö
-x050220_g_MissionTarget = "    ÈÎÎñÄ¿±ê£º#G½øÈëÑ×Ä§É½#W£¬´³¹ı·ËÊ×#RÍõÑÖ#W¿´ÊØµÄĞşÀ×ÆÂºÍ#Rºé¼¬ÑıÍõ#W×øÕòµÄ¶¾ÕÏÔóµØ£¬×îÖÕÕ¶³ıÈÛÑÒÖ®µØµÄ#R»ğÑæÑıÄ§#W¡£"						-- ÈÎÎñÄ¿±ê
-x050220_g_ContinueInfo = "    ÓëÆä×øÒÔ´ı±Ğ£¬²»ÈôÖ÷¶¯³ö»÷£¡ÄÇ#R»ğÑæÑıÄ§#W±»À§ÓÚ½á½çÖĞÒÑÊı°ÙÄê£¬ÔçÒÑ²»¸´µ±ÄêÖ®ÓÂ£¬Èç½ñÕıÊÇ³ıÈ¥´ËÄ§µÄ´óºÃÊ±»ú¡£Ö»Òª´³¹ı·ËÊ×#RÍõÑÖ#W¿´ÊØµÄ#GĞşÀ×ÆÂ#WºÍ#Rºé¼¬ÑıÍõ#W×øÕòµÄ#G¶¾ÕÏÔóµØ#W£¬¾Í¿ÉÌ¤ÉÏÑ×Ä§É½¶¥µÄ#GÈÛÑÒÖ®µØ#W£¬Õ¶³ı#R»ğÑæÑıÄ§#W£¡"	-- Î´Íê³ÉÈÎÎñµÄnpc¶Ô»°
+x050220_g_MissionName = "Liên Hoàn Q Lâu Lan(#cFF0000 3 trong 1)"
+x050220_g_MissionInfo = "    T× ch² #RHà Duy®t#{_INFOAIM295,68,246, Hà Duy®t}#W · #GLâu Lan#W, tiªn vào #GViêm Ma S½n#W, vßşt qua #GHuy«n Lôi Pha#W do thü lînh phï #RVß½ng Diêm#W canh giæ và #GĞµc Chß¾ng TrÕch Ğ¸a#W do #RH°ng Kích Yêu Vß½ng#W tr¤n thü, cu¯i cùng chém #RHöa Di­m Yêu Ma#W · #GDung Nham Chi Ğ¸a#W trên ğïnh núi."				-- ÈÎÎñÃèÊö
+x050220_g_MissionTarget = "    Møc tiêu: #Gtiªn vào Viêm Ma S½n#W, vßşt qua Huy«n Lôi Pha do thü lînh phï #RVß½ng Diêm#W canh giæ và Ğµc Chß¾ng TrÕch Ğ¸a do #RH°ng Kích Yêu Vß½ng#W tr¤n thü, cu¯i cùng chém #RHöa Di­m Yêu Ma#W · Dung Nham Chi Ğ¸a."						-- ÈÎÎñÄ¿±ê
+x050220_g_ContinueInfo = "    Ng°i ch¶ chªt chi b¢ng chü ğµng ra tay! #RHöa Di­m Yêu Ma#W b¸ phong ¤n trong kªt gi¾i ğã m¤y tråm nåm, sÑc mÕnh không còn nhß xßa, nay chính là th¶i c½ di®t tr×. Chï c¥n vßşt qua #GHuy«n Lôi Pha#W do #RVß½ng Diêm#W canh giæ và #GĞµc Chß¾ng TrÕch Ğ¸a#W do #RH°ng Kích Yêu Vß½ng#W tr¤n thü, là lên ğßşc #GDung Nham Chi Ğ¸a#W trên ğïnh Viêm Ma S½n, chém #RHöa Di­m Yêu Ma#W!"	-- Î´Íê³ÉÈÎÎñµÄnpc¶Ô»°
 x050220_g_SubmitInfo = "    #{LLFB_80816_19}"										-- Ìá½»Ê±µÄ´ğ¸´
-x050220_g_MissionComplete = "    °¡£¡ÉÙÏÀ¾¹ÕæµÄÕ¶³ıÁË´ËÄ§£¬ÕæÄËµ±ÊÀÖ®ºÀ½ÜÒ²£¡´Ë·¬Ïû³ıÁËÎÒÂ¥À¼µÄ»ö»¼£¬ÉÙÏÀ¾Ó¹¦ÖÁÎ°£¬ÀÏĞàÌæÈ«³Ç°ÙĞÕ¶àĞ»ÉÙÏÀµÄ´ó¶÷´óµÂ£¡"	--Íê³ÉÈÎÎñnpcËµµÄ»°
+x050220_g_MissionComplete = "    A! Thiªu hi®p quä th§t ğã chém ğßşc yêu ma này, ğúng là hào ki®t ğß½ng th¶i! L¥n này tr× ğßşc tai h÷a cho Lâu Lan, công lao r¤t l¾n, lão phu thay m£t bách tính cä thành ğa tÕ ğÕi ân ğÕi ğÑc!"	--Íê³ÉÈÎÎñnpcËµµÄ»°
 x050220_g_IsMissionOkFail = 0				-- 0 ºÅ£ºµ±Ç°ÈÎÎñÊÇ·ñÍê³É(0Î´Íê³É£»1Íê³É£»2Ê§°Ü)
 x050220_g_Param_sceneid = 6					-- 6 ºÅ£ºµ±Ç°¸±±¾ÈÎÎñµÄ³¡¾°ºÅ
 -- ÈÎÎñÍê³ÉÇé¿ö,ÄÚÈİ¶¯Ì¬Ë¢ĞÂ,´ÓÈÎÎñ²ÎÊıµÄµÚ1Î»¿ªÊ¼
-x050220_g_Custom = { {id="ÒÑÉ±ËÀ£º#r  ĞşÀ×ÆÂÍÁ·Ë",num=60},{id="  Å£Çú",num=1},{id="  Å£Ææ",num=1},{id="  ÍõÑÖ",num=1},{id="ÒÑÕÒµ½£º#r  »Æ½ğÖ®Á´",num=1} }
+x050220_g_Custom = { {id="Ğã giªt:#r  Th± phï Huy«n Lôi Pha",num=60},{id="  Ngßu Khúc",num=1},{id="  Ngßu KÏ",num=1},{id="  Vß½ng Diêm",num=1},{id="Ğã tìm th¤y:#r  Hoàng Kim Chi Liên",num=1} }
 
 -- ÈÎÎñ½±Àø
 
@@ -145,16 +145,16 @@ x050220_g_Back_Z = 73
 x050220_g_Fuben_Relive_X = 186
 x050220_g_Fuben_Relive_Z = 193
 x050220_g_BossTalk = {
-"ºÎÈË¸Ò´òÈÅÎáĞİÏ¢£¿£¡",  
-"´Ë´¦½«ÊÇ¶ûµÈ³¤ÃßÖ®µØ£¡",
-"ÉÃ´³ÎáÖ®ÁìµØÕßËÀ£¡",
-"ÓÖÀ´Ò»¸öËÍËÀµÄ£¡",
-"¹ş¹ş£¬ÖÕì¶ÓÖ¿ÉÒÔÉìÕ¹ÊÖ½ÅÁË£¡",
-"¹ş¹ş£¬ÖÕì¶ÓÖ¿ÉÒÔÉìÕ¹ÊÖ½ÅÁË£¡",
-"¹ş¹ş£¬ÖÕì¶ÓÖ¿ÉÒÔÉìÕ¹ÊÖ½ÅÁË£¡",
+"Kë nào dám qu¤y r¥y gi¤c ngü cüa ta?!",  
+"N½i này s¨ là ch¯n yên nghï cüa các ngß½i!",
+"Kë nào xông vào lãnh ğ¸a cüa ta phäi chªt!",
+"LÕi thêm mµt kë ğªn nµp mÕng!",
+"Ha ha, cu¯i cùng cûng ğßşc du²i chân du²i tay r°i!",
+"Ha ha, cu¯i cùng cûng ğßşc du²i chân du²i tay r°i!",
+"Ha ha, cu¯i cùng cûng ğßşc du²i chân du²i tay r°i!",
 }
 
-x050220_g_YaoWangTalk = "ºÎ·½Ğ¡±²¸ÒÉ±Îáº¢¶ù£¬¿É¸ÒÇ°À´ÊÜËÀ£¿£¡"			-- bossºé¼¬ÑıÍõËµ»°
+x050220_g_YaoWangTalk = "Lû ti¬u b¯i nào dám giªt con ta, có dám lên ğây ch¸u chªt không?!"			-- bossºé¼¬ÑıÍõËµ»°
 
 
 -- ¹ã²¥ÏûÏ¢
@@ -181,8 +181,8 @@ function x050220_OnDefaultEvent( sceneId, selfId, targetId )	-- µã»÷¸ÃÈÎÎñºóÖ´ĞĞ
 				--·¢ËÍÈÎÎñ½ÓÊÜÊ±ÏÔÊ¾µÄĞÅÏ¢
 				BeginEvent( sceneId )
 				AddText( sceneId, x050220_g_MissionName )
-				AddText( sceneId, "    ×ÜËãÓĞÈËÀ´³ÍÖÎÕâĞ©¶ñÔôÁË£¡" )
-				AddText( sceneId, "    Õâ»ï·ËÍ½ÔÚÑ×Ä§É½Ê®·Ö²şâ±£¬Í·Ä¿ÊÇÒ»¸ö½Ğ×öÍõÑÖµÄÂí·Ë¡£´ËÈËÄËØ¤°ïÆúÍ½£¬Îä¹¦¸ßÇ¿ÇÒ¼«ÉÆÓÃ¶¾£¬Ö»ÓĞ°ÑÆäÊÖÏÂà¶†ªÒ»¾ÙÉ±¹â²ÅÄÜÒıËû³öÏÖ¡£" .. GetName( sceneId, selfId ) .. "£¬ÎªÁË½«ÕâĞ©·ËÍ½Á¬¸ù²ù³ı£¬Äã±ØĞëÒÔ×î¿ìµÄËÙ¶È½«ËûÃÇÏûÃğ£¬²¢ÇÒ²»ÄÜ·Å×ßÒ»¸ö»î¿Ú£¡" )
+				AddText( sceneId, "    Cu¯i cùng cûng có ngß¶i ğªn tr×ng tr¸ b÷n ác t£c này!" )
+				AddText( sceneId, "    B÷n phï này hoành hành · Viêm Ma S½n, ğ¥u sö là tên mã t£c Vß½ng Diêm. H¡n là ğ® tØ b¸ Cái Bang trøc xu¤t, võ công cao cß¶ng lÕi giöi dùng ğµc, phäi giªt sÕch lâu la thü hÕ m¾i dø ğßşc h¡n ra. " .. GetName( sceneId, selfId ) .. ", mu¯n nh± t§n g¯c b÷n phï này, các hÕ phäi tiêu di®t chúng th§t nhanh và không ğ¬ sót mµt tên nào!" )
 				AddText( sceneId, "#{M_MUBIAO}" )
 				AddText( sceneId, x050220_g_MissionTarget )
 				EndEvent( )
@@ -271,7 +271,7 @@ function x050220_CheckAccept( sceneId, selfId )
 	--end modified by zhangguoxin 090207
 	
 	if iTime+1 >= CurTime then
-		x050220_NotifyFailTips( sceneId, selfId, "·ÅÆúÈÎÎñ30·ÖÖÓºó²ÅÄÜÔÙ´Î½ÓÈ¡" )
+		x050220_NotifyFailTips( sceneId, selfId, "Bö nhi®m vø 30 phút sau m¾i nh§n lÕi ğßşc" )
 		return 0
 	end
 	
@@ -288,7 +288,7 @@ function x050220_CheckAccept( sceneId, selfId )
 	end
 	
 	if takenTimes >= x050220_g_TakeTimes then
-		x050220_NotifyFailTips( sceneId, selfId, "Äú½ñÌìÁìÈ¡ÈÎÎñµÄ´ÎÊıÒÑ¾­³¬¹ı" .. x050220_g_TakeTimes .. "´Î£¬ÇëÃ÷ÌìÔÙÀ´ÁìÈ¡¡£" )
+		x050220_NotifyFailTips( sceneId, selfId, "Hôm nay các hÕ ğã nh§n nhi®m vø quá " .. x050220_g_TakeTimes .. " l¥n, mai hãy quay lÕi." )
 		return 0
 	else
 		DayTimes = nowDate + takenTimes * 100000
@@ -302,7 +302,7 @@ end
 -- ÇëÇó½øÈë¸±±¾³¡¾°
 --**********************************
 function x050220_AskEnterCopyScene( sceneId, selfId, targetId )
-	AddNumText( sceneId, x050220_g_ScriptId, "Ç°ÍùÑ×Ä§É½", 10, x050220_g_NumText_EnterCopyScene )
+	AddNumText( sceneId, x050220_g_ScriptId, "Ğªn Viêm Ma S½n", 10, x050220_g_NumText_EnterCopyScene )
 end
 
 --**********************************
@@ -311,12 +311,12 @@ end
 function x050220_OnAccept( sceneId, selfId, targetId )
 	if IsHaveMission( sceneId, selfId, x050220_g_MissionId ) == 0 then					-- Ã»ÓĞÈÎÎñ²Å¿ÉÒÔ×ßÕâÀï
 		if GetMissionCount( sceneId, selfId ) >= 20 then						-- ÉíÉÏÈÎÎñÊıÁ¿ÊÇ·ñ´ïµ½ÉÏÏŞ20¸ö
-			x050220_NotifyFailBox( sceneId, selfId, targetId, "    ÈÎÎñ¼ÇÂ¼ÒÑÂú£¬ÎŞ·¨½ÓÈ¡¸ü¶àµÄÈÎÎñ¡£" )
+			x050220_NotifyFailBox( sceneId, selfId, targetId, "    S± nhi®m vø ğã ğ¥y, không th¬ nh§n thêm." )
 			return
 		end
 		
 		if GetLevel( sceneId, selfId ) < x050220_g_LevelLimit then
-			x050220_NotifyFailBox( sceneId, selfId, targetId, "    ÄãµÄµÈ¼¶»¹²»×ã30¼¶£¬ÎŞ·¨Ê¤ÈÎ¡£" )
+			x050220_NotifyFailBox( sceneId, selfId, targetId, "    C¤p cüa các hÕ chßa ğü 30, chßa th¬ ğäm nh§n." )
 			return
 		end
 		
@@ -349,7 +349,7 @@ function x050220_OnAccept( sceneId, selfId, targetId )
 		BeginEvent( sceneId )
 		AddText( sceneId, x050220_g_MissionName )
 		AddText( sceneId, x050220_g_ContinueInfo )
-		AddText( sceneId, "#r    Äã½ÓÊÜÁËÈÎÎñ£º" .. x050220_g_MissionName )
+		AddText( sceneId, "#r    Các hÕ ğã nh§n nhi®m vø: " .. x050220_g_MissionName )
 		
 		x050220_AskEnterCopyScene( sceneId, selfId, targetId )
 		EndEvent( sceneId )
@@ -369,19 +369,19 @@ function x050220_AcceptEnterCopyScene( sceneId, selfId, targetId )
 			if IsCanEnterCopyScene( copysceneid, GetHumanGUID( sceneId, selfId ) ) == 1 then
 				NewWorld( sceneId, selfId, copysceneid, x050220_g_Fuben_X, x050220_g_Fuben_Z )
 			else
-				x050220_NotifyFailBox( sceneId, selfId, targetId, "    ºÜ±§Ç¸£¬ÄãµÄÈÎÎñÒÑ¾­Ê§°ÜÁË¡£" )
+				x050220_NotifyFailBox( sceneId, selfId, targetId, "    R¤t tiªc, nhi®m vø cüa các hÕ ğã th¤t bÕi." )
 			end
 			
 			return
 		end
 		
 		if LuaFnHasTeam( sceneId, selfId ) == 0 then
-			x050220_NotifyFailBox( sceneId, selfId, targetId, "    ÃğÄ§Ò»ÊÂ·ÇÍ¬Ğ¡¿É£¬ÄãĞèÒªÓĞÒ»Ö§Ç¿´óµÄ¶ÓÎé¡£" )
+			x050220_NotifyFailBox( sceneId, selfId, targetId, "    Di®t ma không phäi chuy®n nhö, các hÕ c¥n mµt ğµi ngû hùng mÕnh." )
 			return
 		end
 		
 		if LuaFnIsTeamLeader( sceneId, selfId ) == 0 then
-			x050220_NotifyFailBox( sceneId, selfId, targetId, "    ÎÒĞèÒªµÃµ½¶Ó³¤µÄÈ·ÈÏ²ÅÄÜ·ÅĞÄÈÃÄãÃÇÇ°Íù±ß¾³¡£" )
+			x050220_NotifyFailBox( sceneId, selfId, targetId, "    Ta c¥n ğµi trß·ng xác nh§n m¾i yên tâm cho các ngß½i ği." )
 			return
 		end
 		
@@ -391,7 +391,7 @@ function x050220_AcceptEnterCopyScene( sceneId, selfId, targetId )
 		local teamMemberCount = GetTeamMemberCount(sceneId, selfId);
 		local nearMemberCount = GetNearTeamCount(sceneId, selfId);
 		if not teamMemberCount or not nearMemberCount or teamMemberCount ~= nearMemberCount then
-			x050220_NotifyFailBox( sceneId, selfId, targetId, "    Äã»¹ÓĞ¶ÓÔ±²»ÔÚ¸½½ü¡£" )
+			x050220_NotifyFailBox( sceneId, selfId, targetId, "    Các hÕ còn ğ°ng ğµi không · g¥n ğây." )
 			return
 		end
 		
@@ -440,15 +440,15 @@ function x050220_AcceptEnterCopyScene( sceneId, selfId, targetId )
 		--end
 		
 		if nearMemberCount < x050220_g_LimitMembers then
-			x050220_NotifyFailBox( sceneId, selfId, targetId, "    ½ËÔôÒ»ÊÂ·ÇÍ¬Ğ¡¿É£¬ÄãĞèÒªÒ»Ğ©±¾ÁìÓëÄãÏàµ±µÄ°ïÊÖÎÒ²Å·ÅĞÄ¡££¨¶ÓÎéÖĞÖÁÉÙĞèÒªÈı¸ö75¼¶ÒÔÉÏ½ÇÉ«£©" )
+			x050220_NotifyFailBox( sceneId, selfId, targetId, "    Di®t t£c không phäi chuy®n nhö, các hÕ c¥n vài trş thü ngang sÑc thì ta m¾i yên tâm. (T± ğµi c¥n ít nh¤t ba nhân v§t c¤p 75 tr· lên)" )
 			return
 		end
 		
 		-- ¼ì²âĞ¡¶ÓÖĞÊÇ·ñÓĞÈËÈÎÎñ¼ÇÂ¼ÒÑÂú, ¶ÓÓÑÊÇ·ñÒÑ¾­½Ó¹ı´ËÈÎÎñ
 		local member, mylevel, numerator, denominator = 0, 0, 0, 0
-		local outNotAcceptMissionStr = "Äú¶ÓÎéÖĞÓĞ³ÉÔ±£¨";
+		local outNotAcceptMissionStr = "Ğµi cüa các hÕ có thành viên (";
 		local notAcceptMissionCount = 0;
-		local outDoingMissionStr = "Äú¶ÓÎéÖĞÓĞ³ÉÔ±£¨";
+		local outDoingMissionStr = "Ğµi cüa các hÕ có thành viên (";
 		local doingMissionCount = 0;
 		for	i = 0, nearMemberCount - 1 do
 			member = GetNearTeamMember( sceneId, selfId, i )
@@ -479,13 +479,13 @@ function x050220_AcceptEnterCopyScene( sceneId, selfId, targetId )
 		end
 		
 		if notAcceptMissionCount > 0 then
-			outNotAcceptMissionStr = outNotAcceptMissionStr.."£©»¹Ã»ÓĞ½ÓÈÎÎñ¡£";
+			outNotAcceptMissionStr = outNotAcceptMissionStr..") chßa nh§n nhi®m vø.";
 			x050220_NotifyFailBox( sceneId, selfId, targetId, outNotAcceptMissionStr);
 			return
 		end
 		
 		if doingMissionCount > 0 then
-			outDoingMissionStr = outDoingMissionStr.."£©ÒÑ¾­ÔÚ×ö¸ÃÈÎÎñÁË¡£";
+			outDoingMissionStr = outDoingMissionStr..") ğang làm nhi®m vø này r°i.";
 			x050220_NotifyFailBox( sceneId, selfId, targetId, outDoingMissionStr);
 			return
 		end
@@ -538,9 +538,9 @@ function x050220_AcceptEnterCopyScene( sceneId, selfId, targetId )
 		
 		local bRetSceneID = LuaFnCreateCopyScene( sceneId )						-- ³õÊ¼»¯Íê³Éºóµ÷ÓÃ´´½¨¸±±¾º¯Êı
 		if bRetSceneID > 0 then
-			x050220_NotifyFailTips( sceneId, selfId, "¸±±¾´´½¨³É¹¦£¡" )
+			x050220_NotifyFailTips( sceneId, selfId, "TÕo phó bän thành công!" )
 		else
-			x050220_NotifyFailTips( sceneId, selfId, "¸±±¾ÊıÁ¿ÒÑ´ïÉÏÏŞ£¬ÇëÉÔºòÔÙÊÔ£¡" )
+			x050220_NotifyFailTips( sceneId, selfId, "S¯ phó bän ğã ğÕt gi¾i hÕn, xin thØ lÕi sau!" )
 		end
 	end
 end
@@ -576,7 +576,7 @@ function x050220_OnCopySceneReady( sceneId, destsceneId )
 	end
 	
 	if validmembercount < x050220_g_LimitMembers then
-		x050220_NotifyFailTips( sceneId, leaderObjId, "    ÃğÄ§Ò»ÊÂ·ÇÍ¬Ğ¡¿É£¬ÄãĞèÒªÒ»Ğ©±¾ÁìÓëÄãÏàµ±µÄ°ïÊÖÎÒ²Å·ÅĞÄ¡££¨¶ÓÎéÖĞÖÁÉÙĞèÒªÈı¸ö75¼¶ÒÔÉÏ½ÇÉ«£©" )
+		x050220_NotifyFailTips( sceneId, leaderObjId, "    Di®t ma không phäi chuy®n nhö, các hÕ c¥n vài trş thü ngang sÑc thì ta m¾i yên tâm. (T± ğµi c¥n ít nh¤t ba nhân v§t c¤p 75 tr· lên)" )
 		return
 	end
 	
@@ -648,7 +648,7 @@ function x050220_OnAbandon( sceneId, selfId )
 	local fubentype = LuaFnGetCopySceneData_Param( sceneId, 0 )
 	
 	if sceneId == copyscene and fubentype == x050220_g_CopySceneType then											-- Èç¹ûÔÚ¸±±¾ÀïÉ¾³ıÈÎÎñ£¬ÔòÖ±½Ó´«ËÍ»Ø
-		x050220_NotifyFailTips( sceneId, selfId, "ÈÎÎñÊ§°Ü£¡" )
+		x050220_NotifyFailTips( sceneId, selfId, "Nhi®m vø th¤t bÕi!" )
 		local oldsceneId = LuaFnGetCopySceneData_Param( sceneId, 3 )		-- È¡µÃ¸±±¾Èë¿Ú³¡¾°ºÅ
 		NewWorld( sceneId, selfId, oldsceneId, x050220_g_Back_X, x050220_g_Back_Z )
 	end
@@ -689,7 +689,7 @@ function x050220_OnCopySceneTimer( sceneId, nowTime )
 			end
 		else
 			--Í¨Öªµ±Ç°¸±±¾³¡¾°ÀïµÄËùÓĞÈË£¬³¡¾°¹Ø±Õµ¹¼ÆÊ±¼ä
-			local strText = format( "Äã½«ÔÚ %d ÃëºóÀë¿ª³¡¾°", ( x050220_g_CloseTick - leaveTickCount ) * x050220_g_TickTime )
+			local strText = format( "Các hÕ s¨ r¶i khöi khu vñc sau %d giây", ( x050220_g_CloseTick - leaveTickCount ) * x050220_g_TickTime )
 			for i=0, membercount-1 do
 				if LuaFnIsObjValid( sceneId, mems[i] ) == 1 then
 					x050220_NotifyFailTips( sceneId, mems[i], strText )
@@ -700,7 +700,7 @@ function x050220_OnCopySceneTimer( sceneId, nowTime )
 		--´Ë´¦ÉèÖÃ¸±±¾ÈÎÎñÓĞÊ±¼äÏŞÖÆµÄÇé¿ö£¬µ±Ê±¼äµ½ºó´¦Àí...
 		for	i = 0, membercount - 1 do
 			if LuaFnIsObjValid( sceneId, mems[i] ) == 1 then
-				x050220_NotifyFailTips( sceneId, mems[i], "ÈÎÎñÊ±¼äÒÑµ½£¬Àë¿ª³¡¾°...." )
+				x050220_NotifyFailTips( sceneId, mems[i], "Hªt th¶i gian nhi®m vø, r¶i khöi khu vñc...." )
 				x050220_Exit( sceneId, mems[i] )
 			end
 		end
@@ -713,14 +713,14 @@ function x050220_OnCopySceneTimer( sceneId, nowTime )
 		
 		for	i = 0, membercount - 1 do
 			if LuaFnIsObjValid( sceneId, mems[i] ) == 1 and oldteamid ~= GetTeamId( sceneId, mems[i] ) then
-				x050220_NotifyFailTips( sceneId, mems[i], "Äã²»ÔÚÕıÈ·µÄ¶ÓÎéÖĞ£¬Àë¿ª³¡¾°...." )
+				x050220_NotifyFailTips( sceneId, mems[i], "Các hÕ không · ğúng t± ğµi, r¶i khöi khu vñc...." )
 				x050220_Exit( sceneId, mems[i] )
 			end
 		end
 		
 		-- Ã¿·ÖÖÓÌáÊ¾Íæ¼ÒÊ£ÓàÊ±¼ä
 		if mod( x050220_g_TickTime * TickCount, 60 ) < x050220_g_TickTime and TickCount < x050220_g_LimitTotalHoldTime then
-			local str = "µÚ"..(sept+1).."¹Ø£¬Ê£Óà " .. ( x050220_g_LimitTotalHoldTime - TickCount ) * x050220_g_TickTime / 60 .. " ·ÖÖÓ..."
+			local str = "Äi "..(sept+1)..", còn " .. ( x050220_g_LimitTotalHoldTime - TickCount ) * x050220_g_TickTime / 60 .. " phút..."
 			for	i = 0, membercount - 1 do
 				if LuaFnIsObjValid( sceneId, mems[i] ) == 1 then
 					x050220_NotifyFailTips( sceneId, mems[i], str )
@@ -795,7 +795,7 @@ function x050220_OnCopySceneTimer( sceneId, nowTime )
 					SetLevel( sceneId, dogfaceId, GetLevel( sceneId, dogfaceId ) + LevelGap )
 					SetMonsterGroupID( sceneId, dogfaceId, 2 )
 					LuaFnSetCopySceneData_Param( sceneId, 15,0 )
-					MonsterTalk(sceneId,dogfaceId,"Ñ×Ä§É½",x050220_g_YaoWangTalk)
+					MonsterTalk(sceneId,dogfaceId,"Viêm Ma S½n",x050220_g_YaoWangTalk)
 					return
 				end
 				if not guai_pos then
@@ -809,7 +809,7 @@ function x050220_OnCopySceneTimer( sceneId, nowTime )
 						dogfaceId = LuaFnCreateMonster( sceneId,two_BOSS[boshu][bossGrade], guai_pos[i][1], guai_pos[i][2], 14, addai, x050220_g_DieScriptId )
 						SetMonsterGroupID( sceneId, dogfaceId, 1 )
 						SetLevel( sceneId, dogfaceId, GetLevel( sceneId, dogfaceId ) + LevelGap )
-						MonsterTalk(sceneId,dogfaceId,"Ñ×Ä§É½",x050220_g_BossTalk[boshu+1])
+						MonsterTalk(sceneId,dogfaceId,"Viêm Ma S½n",x050220_g_BossTalk[boshu+1])
 					else
 						dogfaceId = LuaFnCreateMonster( sceneId, two_xiaoguai[bossGrade], guai_pos[i][1], guai_pos[i][2], 14, -1, x050220_g_DieScriptId )
 						SetMonsterGroupID( sceneId, dogfaceId, 0 )
@@ -827,7 +827,7 @@ function x050220_OnCopySceneTimer( sceneId, nowTime )
 					return
 				end
 				for i = 1, getn( three_pos ) do
-					local dogfaceId = LuaFnCreateMonster( sceneId, three_xiaogua_pos[bossGrade], three_pos[i][1], three_pos[i][2], 14, -1, -1 )
+					local dogfaceId = LuaFnCreateMonster( sceneId, three_xiaogua_pos[bossGrade], three_pos[i][1], three_pos[i][2], 14, -1, 950001 )  -- [NetCo4 01/10] quai dot 3 roi do (roimap.lua)
 					SetLevel( sceneId, dogfaceId, GetLevel( sceneId, dogfaceId ) + LevelGap )
 				end
 				local BossHuoYanYaoIDTbl = {13260,13261,13262,13263,13264,13265,13266,13267,13268,13269}		-- boss»ğÑæÑıÄ§
@@ -836,7 +836,7 @@ function x050220_OnCopySceneTimer( sceneId, nowTime )
 				end
 				local bossId = LuaFnCreateMonster( sceneId, BossHuoYanYaoIDTbl[bossGrade], 211, 40, 14, 269, x050220_g_DieScriptId )
 				SetLevel( sceneId, bossId, GetLevel( sceneId, bossId ) + LevelGap )
-				SetCharacterTitle(sceneId, bossId, "ÀÏÑı¹Ö")
+				SetCharacterTitle(sceneId, bossId, "Lão Yêu Quái")
 				SetMonsterGroupID( sceneId, bossId, 0 )
 			end
 		end
@@ -889,7 +889,7 @@ function x050220_OnSubmit( sceneId, selfId, targetId, selectRadioId )
 		DelMission( sceneId, selfId, x050220_g_MissionId )
 		-- ÈÎÎñ»ò»î¶¯Í³¼Æ
 		LuaFnAuditQuest(sceneId, selfId, "Ñ×Ä§É½")
-		local strText = x050220_g_MissionName .. "ÈÎÎñÒÑÍê³É¡£"
+		local strText = x050220_g_MissionName .. " - nhi®m vø ğã hoàn thành."
 		x050220_NotifyFailTips( sceneId, selfId, strText )
 		Msg2Player( sceneId, selfId, strText, MSG2PLAYER_PARA )
 

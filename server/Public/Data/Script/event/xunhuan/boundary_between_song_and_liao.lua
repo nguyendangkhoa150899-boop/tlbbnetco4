@@ -823,7 +823,7 @@ function x050100_OnCopySceneTimer( sceneId, nowTime )
 					return
 				end
 				for i = 1, getn( three_pos ) do
-					local dogfaceId = LuaFnCreateMonster( sceneId, three_pos[i][3], three_pos[i][1], three_pos[i][2], 14, 131, -1 )
+					local dogfaceId = LuaFnCreateMonster( sceneId, three_pos[i][3], three_pos[i][1], three_pos[i][2], 14, 131, 950001 )  -- [NetCo4 01/10] roi do
 					SetLevel( sceneId, dogfaceId, GetLevel( sceneId, dogfaceId ) + LevelGap )
 				end
 				local boss_id = x050100_g_three_Boss[bossGrade]
