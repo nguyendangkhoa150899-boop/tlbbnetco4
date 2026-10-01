@@ -140,7 +140,7 @@ Mẫu tạm 11–15 dòng: Tạo Hóa, Trùng Lâu Liên/Giới/Ngọc, quạt P
 4. `mo-server.sh` (tự sao lưu `truoc-reset-*.sql.gz` trước khi xóa).
 5. Bot: `systemctl stop minigame`; sao lưu `database.json`; xóa 4 ví + `_bossKills`, `_dogDay`, `_webSessions`, `_tuiBoss`, `_tuiBossPos`, `_tuiBossGop` (túi boss test; `tuiboss.log` đã bị `mo-server.sh` xóa); đổi mật khẩu SUPER/mod trong `.env`; bật lại.
 6. Đổi `PANEL_PASS` trong `secrets.env`, restart `tlbb-panel`; đổi mật khẩu `admin` (`tao-account.sh --doi admin …`).
-7. `tlbb.sh start`. Panel GM: ô Cấp tối thiểu = **0**; đặt **Cấp tối đa = 89**, Lưu + Restart.
+7. **Reboot VPS thay cho `tlbb.sh start`** (Ubuntu tự cài kernel `5.15.0-194` + `libc6` lúc 01/10 06:07, máy đang chạy kernel `5.15.0-91`, `/var/run/reboot-required` đã báo): game đã stop ở bước 3 thì gõ `reboot`. Game, bot, panel đều `enabled` nên tự bật. Kiểm sau khi lên: `uname -r` = `5.15.0-194-generic`, `systemctl is-active tlbb minigame tlbb-panel` đủ 3 `active`, `ss -Htln` có cổng 7384 + 3731, `./tlbb.sh status` đủ 6 tiến trình. Máy không lên → console iNET chọn kernel cũ `5.15.0-91` trong menu GRUB. Sau đó Panel GM: ô Cấp tối thiểu = **0**; đặt **Cấp tối đa = 89**, Lưu + Restart.
 8. Web admin: bật thẻ Chọn Pet Boss (Tân Thủ, giá 0).
 9. Kiểm bằng 1 tài khoản mới: cấp **1**; không nhận được 80.000 Điểm Tặng; hộp tân thủ 1 lần; nhận pet Tân Thủ trên web và bấm **Chiến** được ở cấp thấp; exp có tích khi chạm 89 không; bia1 còn đủ đồ + GM; cổng mod không còn vào được.
 10. Theo dõi tuần đầu: RAM, `luaerror.log`, lượng phiếu rơi (Audit `ITEM_CREATED … 39910001`).
