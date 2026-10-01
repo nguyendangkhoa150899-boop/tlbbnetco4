@@ -457,3 +457,9 @@ Tài khoản: `admin` (nhân vật `Bialk`, GUID 1010100001, GM), `hoang`. Mật
 
 ## 01/10 21:20 - VPS báo cần reboot (kernel + libc6) → để tới ngày mở
 - Ubuntu tự cài `linux-image-5.15.0-194` + `libc6` lúc 01/10 06:07; đang chạy `5.15.0-91`. Không ảnh hưởng game. Chủ server chốt: **reboot vào ngày mở**, thay cho bước `tlbb.sh start` (đã ghi `docs/MO-SERVER.md` mục 3 bước 7, kèm cách kiểm và cách cứu nếu máy không lên).
+
+## 01/10 22:50 - Túi đồ boss: chạy thật + 2 việc
+- **Đã chạy thật:** 22:36 PMF thường (9666) và 22:43 PMF khiêu chiến (9546), tổ 4 người (1010100002/4/6/8) → `tuiboss.log` 2 dòng, bot tạo 8 túi đúng người. Nút **Nhận** trên web chữ trắng nền xám (nút mặc định không có nền) → thêm class `tbBtn` xanh lá (bialk `9c2e83b`).
+- **Cấu hình đã bị sửa qua cổng mod** (IP 42.115.248.156, 21:53–22:28, cả 13 hoạt động, xem 📜 Lịch sử sửa): vd PMF thêm CCHTP 1–2, PMF khiêu chiến 8.000 KNB, Yến Tử Ổ thêm Nữ Oa Thần Thạch `30505814` ×25–30 + `30505815` ×25–30, Q Tô Châu thêm Cửu Thiên Ngọc Toái ×20–35, Ác Tặc/Ác Bá bỏ CCHTP/CLD/Hồn Băng Châu/Nhuận Hồn Thạch, thêm MB/BN ×10. Chưa xác nhận người sửa là chủ server.
+- **Tự vào tổ / tự đi theo không cần bảng hỏi: KHÔNG làm được.** Server `Server` chỉ chuyển lời mời sang `World` (`CGTeamInviteHandler` → `ServerManager::SendPacket`), bảng "X hy vọng các hạ cùng nhóm" do World + client hiện. `ConfigInfo.ini [Team]` chỉ có `AvailableFollowDist`, `TimeForLoseFollow`; Lua không có hàm thêm người vào tổ. Muốn đổi phải sửa binary World/client (không làm).
+- Miên Bố / Bí Ngân / Tinh Thiết cấp 8 ở PMF: chủ server chốt **giữ nguyên**. Câu hỏi `DropParam=2.0` (mọi hộp ×2) vẫn chờ chốt.
