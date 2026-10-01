@@ -433,3 +433,8 @@ Tài khoản: `admin` (nhân vật `Bialk`, GUID 1010100001, GM), `hoang`. Mật
 - Phát hiện cũ, chưa sửa: `StandardImpact.txt` dòng 5724 (Tọa kỵ Xe trượt tuyết) nằm sau 5919 → engine không tìm thấy (tìm nhị phân).
 
 - **01/10 tiếp:** 72 pet V2 đổi tư chất chuẩn: dòng chính theo kiểu = 5000 (Ngoại: Cường lực cột 34, Nội: Nội lực cột 36, Cân bằng: Thể lực cột 35), 4 dòng còn lại 2500. Bản Admin 12000 giữ nguyên. Chỉ pet tạo mới sau restart. Rollback: tag `truoc-v2-tuchat-01-10`.
+
+## 01/10 tối - Tắt "Càn Khôn Hồ / Kiền Khôn Bôi" tự gắn (tự nhặt đồ) - hiệu lực ngay
+- Hiệu ứng tự nhặt đồ là impact **8500 干坤杯** (logic 38, 2 giờ online, client hiện tên "Càn Khôn Hồ"). Đọc `t_impact` (mỗi dòng `imdata` hex, byte 9–12 = ID hiệu ứng LE): 8/10 nhân vật đang mang 8500, kể cả nhân vật chưa từng dùng vật phẩm.
+- Nguồn: `MyLua/ShuaXinClient.lua` `x892002_AHa_ShiZhuangDianZhui` (gọi từ `AHa_ReMyBuff` — chạy mỗi lần làm mới buff: Thần Đỉnh, Thần Khí, bảo giám…) có sẵn từ bản gốc dòng `LuaFnSendSpecificImpactToUnit(...,8500,0)` → gắn cho **mọi người**. Đã comment dòng đó. Vật phẩm Kiền Khôn Bôi `30008033` / Kiền Khôn Hồ `30008009` (impact 57 + 8500) vẫn dùng được bình thường.
+- Buff đang có trên người sẽ tự hết sau tối đa 2 giờ online (không tính thời gian offline). Muốn xóa ngay: stop game, xóa dòng `t_impact` có `SUBSTRING(imdata,9,4)='3421'`. Rollback: tag `truoc-tat-kienkhon-01-10`.
