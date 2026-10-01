@@ -11,7 +11,7 @@ Nguồn đối chiếu: 199 commit repo game (`tlbbnetco4`) và 45 commit repo b
 ### 1.1 Boss và rơi đồ
 | Việc | Chi tiết | Commit |
 |---|---|---|
-| **Máu boss −35%** | 4.247 dòng boss (`MonsterAttrExTable` cột 14 = 1): HP cột 19 và MaxHP cột 59 nhân 0,65. Công và thủ giữ nguyên. Áp cho mọi bậc phó bản. | `da6cce6` |
+| **Máu boss −35%** (ngày mở: **−20%**, xem mục 2) | 4.247 dòng boss (`MonsterAttrExTable` cột 14 = 1): HP cột 19 và MaxHP cột 59 nhân 0,65. Công và thủ giữ nguyên. Áp cho mọi bậc phó bản. | `da6cce6` |
 | Boss rơi Nguyên Bảo Phiếu 1000 | 139 boss phó bản và thế giới, hộp phiếu BV = Mv, khoảng 2 phiếu mỗi boss. 13 boss Mv 60 dùng `90001`. | `c817818` `86466a5` `e3137fb` `9cfa850` |
 | Sinh Tử Lôi Đài | 12 boss Sát Tinh (cấp 120) rơi phiếu. | `17ea78b` `9a38401` |
 | Dọn hộp rơi boss | Gỡ 54 hộp rác. 14 hộp nguyên liệu riêng cho boss (`90002`–`90015`): Hàn Băng Tinh Tiết, Chí Tôn Cường Hóa, Long Hồn Ngọc, Chú Văn, Long Văn +1, Miên Bố/Bí Ngân 8, Thần Binh Phù, Huyền Hạo Ngọc, Chuế Long Thạch, Hồn Ngọc… | `d17a313` |
@@ -85,6 +85,7 @@ Các mẫu tạm 11–15 dòng (Tạo Hóa, Trùng Lâu, quạt Phù Sinh, bộ 
 | Kim Tàm Ti | Giữ 30%. |
 | Hậu Hoa Viên | **19:00–23:59** (`MyNew/jiarumenpai.lua` `x990010_g_HHV_Mo = 19`, `Dong = 24`). |
 | Chat Thế giới | Trả về **180000 ms** (`ChatConfig.txt` kênh 2, cột 4). |
+| Máu boss | **80% máu gốc** (giảm 20%, thay cho 65% đang chạy). Tính từ máu GỐC: `git show da6cce6^:server/Public/Config/MonsterAttrExTable.txt`, mọi dòng cột 14 = 1, cột 19 và cột 59 = round(gốc × 0,8). Đã đối chiếu 01/10: cả 4.247 dòng boss hiện = gốc × 0,65, không dòng nào bị sửa thêm. Cần restart. |
 | Thẻ Chọn Pet Boss | **Bật**, bản **Tân Thủ**, miễn phí. |
 | Điểm môn phái âm | Bỏ qua (người dùng: lỗi cũ tự hết). |
 
@@ -99,7 +100,7 @@ Các mẫu tạm 11–15 dòng (Tạo Hóa, Trùng Lâu, quạt Phù Sinh, bộ 
    - Giữ `bialk1` và mọi dòng có `charguid = 1010100008` ở mọi bảng `tlbbdb`.
    - Gỡ bia1 khỏi bang (vì bang bị reset).
    - Giữ dòng bia1 trong `GMList.ini`.
-2. Các sửa cấu hình của mục 2 (DefaultChar, ExpParam, chat, Hậu Hoa Viên, 80.000 Điểm Tặng, hộp tân thủ) **không commit vào `server/`** trước ngày mở, vì `cap-nhat.sh` sẽ đẩy lên ngay. Để trong `mo-server.sh` hoặc một nhánh riêng.
+2. Các sửa cấu hình của mục 2 (DefaultChar, ExpParam, chat, Hậu Hoa Viên, 80.000 Điểm Tặng, hộp tân thủ, máu boss 80%) **không commit vào `server/`** trước ngày mở, vì `cap-nhat.sh` sẽ đẩy lên ngay. Để trong `mo-server.sh` hoặc một nhánh riêng.
 3. Script reset ví bot: giữ ví có `gameAcc = bialk1` hoặc `tlbbGuid = 1010100008`, xóa mọi ví khác trong `database.json` (sao lưu trước).
 4. Chạy thử toàn bộ trên bản sao database và bản sao `database.json`. Đối chiếu số dòng còn lại.
 
