@@ -1,4 +1,4 @@
-# Túi đồ thưởng boss cuối phó bản / hoạt động (01/10, ĐANG CHỜ CHỐT — chưa code)
+# Túi đồ thưởng boss cuối phó bản / hoạt động (01/10 — ĐÃ LÀM, chưa test trong game)
 
 Yêu cầu của chủ server (nguyên văn rút gọn): mỗi hoạt động, người giết boss nhận thêm một "túi đồ" gồm các món dưới. Viết tắt: VB = Miên Bố, BN = Bí Ngân, TBP = Thần Binh Phù, CCHTP = Cao cấp Hợp Thành Phù, CLD = Công Lực Đan, YQ = Yếu Quyết (mọi môn phái, **trừ** Thanh Tâm Phổ Thiện Chú Nga My `30307219`).
 
@@ -36,4 +36,28 @@ Yêu cầu của chủ server (nguyên văn rút gọn): mỗi hoạt động, n
 - Q Tô Châu / Q Lâu Lan: script quái 1130 / 1129 (`sancaixiagunpc_die.lua`, `yamoshannpc_die.lua`).
 - **Chưa xác định:** "Long Quy" (game chỉ có pet Long Quy 3310), "Cờ 12h", "LLTB 11h30" (Lâu Lan Tầm Bảo, NPC Kim Cửu Linh, không có trong lịch `ActivityNotice`), "Ác Tặc" (chỉ có "Ác Tặc Tạo Phản" 473 cấp 50 thường; "Ác Bá" là boss `1910–1919` cấp 13–103).
 
-## Câu hỏi đã gửi chủ server (01/10 tối) — xem tin nhắn
+
+## ĐÃ LÀM 01/10 tối (game `33d048d` + bot bialk `9682593`) — chủ server đã chốt
+**Luồng:** boss cuối chết → game ghi `Server/txt/NetCo4Web/tuiboss.log` (`<unix> TAB <scene> TAB <ID quái> TAB <GUID,...>`) → bot (`BotDoMin/tuiboss.js`, đọc 10 giây/lần) tạo 1 túi cho mỗi GUID, **bốc đồ ngay lúc tạo** → web 🪪 Cá nhân › **🎒 Túi đồ boss** hiện từng túi + nút **Nhận** → đồ vào hàng đợi quà (nhận khi **đổi bản đồ**), **4.000 KNB vào ví web** (sổ KNB loại `tuiboss`). Túi giữ 7 ngày, tối đa 60 túi/người.
+- **Ai nhận:** trong phó bản = **mọi người đang trong phó bản** lúc boss cuối chết; ngoài map (Long Quy, Ác Tặc, Ác Bá ngoài phó bản…) = người giết + tổ đội ở gần. Dòng trùng trong 20 giây (cùng scene + boss) gộp lại.
+- **Code game:** `NetCo4/roimap.lua` `x950001_TB_Ghi` / `x950001_TB_GhiId` (đặt trong 950001 vì script mới cần restart để đăng ký) + 1 dòng gọi ở đầu 14 hàm: `ai_liqiushui` (PMF 402269, PMF nhỏ 402282, Tứ Tuyệt 893069, Thiếu Thất 890069), `ai_wulaoda` (Binh Thánh 894066 / 895066), `murongfu` 402254, `shengsileitai` 892009, `petdropper` 501000 (Long Quy), `seek_treasure` 808039, `oDynamicNPC_ThiefSoldier` 50012 (Ác Tặc), `sancaixiagunpc_die` 1130 (Q Tô Châu), `yamoshannpc_die` 1129 (Q Lâu Lan), `ecity_0402chuckoutvillain` `OnKillObject` (Ác Bá). Boss cuối xác định bằng câu `AddGlobalCountNews` (thông quan) trong hàm chết. Rollback: tag `truoc-tuiboss-01-10`.
+
+| Hoạt động | Boss cuối (ID) | Đồ trong túi (bot `HD` trong `tuiboss.js`) | Trần túi/ngày |
+|---|---|---|---|
+| Q Tô Châu | Biên Cảnh Đại Vương 4130–4139, 34130–34139 | chung + Cửu Thiên Ngọc Toái ×1 | (lượt game) |
+| Q Lâu Lan | boss đợt 5 13220–13229 | chung + Cửu Thiên Ngọc Toái ×1 | |
+| Yến Tử Ổ | Mộ Dung Phục 9430–9439, 39430–39432 | chung + TBP3 ×2–3 + Ma Huyết Thạch ×2–5 | |
+| Binh Thánh lớn/nhỏ | 15175 / 15073 | chung + Long Văn +5 ×1 + Chuế Long Thạch Nguyên/Bạo/Thương ×10 trộn | |
+| Tứ Tuyệt Trang | Bàng Xí 14145 | chung + Thiên/Địa/Mệnh Hồn Ngọc ×10 trộn | |
+| PMF thường (nhỏ, cấp 75) | Lý Thu Thủy 9666 | chung + Ngũ Độc Châu ×20 + Giảm Kháng Điêu Văn cấp 6 ×1 (Băng/Hỏa/Huyền/Độc) | |
+| PMF khiêu chiến (lớn, cấp 95) | Lý Thu Thủy 9546 | chung + Ngũ Độc Châu ×20 + Điêu Văn Công cấp 5 ×1 (Băng/Hỏa/Huyền/Độc Công) | |
+| Sát Tinh | 11 boss Thủy Hử 13447…13537 | chung + Ngũ Độc Châu ×20 + TBP cấp 1–3 ×5 + Ma Huyết Thạch ×1–3 | |
+| Thiếu Thất Sơn | Đinh Xuân Thu 14234 | chung + CCHTP ×5 | |
+| Long Quy (Thánh Thú Sơn) | 11353 | chung + CCHTP ×3 + Chí Tôn Cường Hóa ×5 + CLD ×3–5 | 3 |
+| Lâu Lan Tầm Bảo | Trấn Bảo Long Vương 12138–12146 | Vũ Học Tâm Đắc ×15 + Bí Tịch Tàn Hiệt ×10 + Võ Hồn cấp 2–4 ×1 (Ngự Dao Bàn/Lưu Ly Diễm) | 2 |
+| Ác Tặc Tạo Phản | 473 (30 con/đợt) | YQ cấp 45 hoặc 80 ×1 + CCHTP ×1–2 + CLD ×1–3 + Hồn Băng Châu cấp 2–4 ×1–3 | 3 |
+| Ác Bá | 1910–1919 | YQ cấp 65 hoặc Tiến Cấp ×1 + CCHTP ×1–2 + CLD ×1–3 + Nhuận Hồn Thạch (4 loại × cấp 1/3/5) ×1–3 | 3 |
+| Cờ 12h | — | chưa làm (chủ server chốt sau) | |
+"Chung" = Miên Bố/Bí Ngân 6 ×10 trộn + Phiếu rút thăm `30070501` ×2 + 4.000 KNB (web).
+
+**Giả định tự chốt (đổi được trong `tuiboss.js`):** Cửu Thiên Ngọc Toái ×1; "Điêu văn thuộc tính" = Công nguyên tố; YQ 1 cuốn bốc trong cả 2 cấp (45+80, 65+Tiến Cấp), không phải mỗi cấp 1 cuốn; Lâu Lan Tầm Bảo / Ác Tặc / Ác Bá không có phần "chung" và KNB (danh sách gốc không ghi); trần túi/ngày cho 4 hoạt động không có giới hạn lượt của game. **Chưa test trong game.**

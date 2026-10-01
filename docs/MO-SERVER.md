@@ -138,7 +138,7 @@ Mẫu tạm 11–15 dòng: Tạo Hóa, Trùng Lâu Liên/Giới/Ngọc, quạt P
 2. Merge `mo-server` → `main`, push. Trên VPS `cap-nhat.sh -y` (chưa restart).
 3. `tlbb.sh stop`, đợi ShareMemory tắt hẳn.
 4. `mo-server.sh` (tự sao lưu `truoc-reset-*.sql.gz` trước khi xóa).
-5. Bot: `systemctl stop minigame`; sao lưu `database.json`; xóa 4 ví + `_bossKills`, `_dogDay`, `_webSessions`; đổi mật khẩu SUPER/mod trong `.env`; bật lại.
+5. Bot: `systemctl stop minigame`; sao lưu `database.json`; xóa 4 ví + `_bossKills`, `_dogDay`, `_webSessions`, `_tuiBoss`, `_tuiBossPos`, `_tuiBossGop` (túi boss test; `tuiboss.log` đã bị `mo-server.sh` xóa); đổi mật khẩu SUPER/mod trong `.env`; bật lại.
 6. Đổi `PANEL_PASS` trong `secrets.env`, restart `tlbb-panel`; đổi mật khẩu `admin` (`tao-account.sh --doi admin …`).
 7. `tlbb.sh start`. Panel GM: ô Cấp tối thiểu = **0**; đặt **Cấp tối đa = 89**, Lưu + Restart.
 8. Web admin: bật thẻ Chọn Pet Boss (Tân Thủ, giá 0).

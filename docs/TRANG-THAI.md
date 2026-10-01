@@ -451,3 +451,6 @@ Tài khoản: `admin` (nhân vật `Bialk`, GUID 1010100001, GM), `hoang`. Mật
 ## 01/10 tối - Tuyết Lang Hồ rơi Phục Hi Ngọc 30% (giữ cho server chính, chờ restart)
 - `NetCo4/roimap.lua` (950001) thêm `[179] = { 38002049, 30 }`; `Public/Scene/xuelanghu_monster.ini` 533 điểm spawn quái thường `script_id=-1` → `950001` (Tuyết Sơn Lang, Tuyết Sơn Mãng Cái, Trọng Giáp Mãng Cái, Ba Luân Mãng Cái, Gấu Đen Lớn cấp 100–105). 5 boss 11299–11303 giữ script riêng 325001–325005 (không rơi Phục Hi Ngọc). Mỗi thành viên tổ đội roll riêng, đồ rơi trên xác quái. Đổi % sửa Lua có hiệu lực ngay; file ini cần restart. Rollback: tag `truoc-phuchi-tuyetlang-01-10`.
 - Cân nhắc: Phục Hi Ngọc dùng ở "Thượng Cổ Thần Khí Dục Linh" (`shenqichongxi.lua` FuXiCost 2 → 242 viên/cấp, tổng ~1.700 viên lên cấp 19). 538 quái cấp 100+ × 30% → cày 1 giờ ra hàng trăm viên.
+
+## 01/10 21:00 - Túi đồ giết boss (game + web bot) — chi tiết `docs/TUI-BOSS.md`
+- Game `33d048d` (Lua, hiệu lực ngay, không restart), bot bialk `9682593` (đã chép lên `/opt/minigame/BotDoMin` kiểm hash, `systemctl restart minigame`, thẻ 🎒 có trên cổng 3002, bot đọc log không lỗi). Chưa có `tuiboss.log` vì chưa ai hạ boss cuối sau 20:54. Test đề nghị: đi Yến Tử Ổ 1 lượt → web 🪪 Cá nhân › 🎒 Túi đồ boss → Nhận → đổi bản đồ.
