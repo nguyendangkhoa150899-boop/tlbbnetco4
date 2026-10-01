@@ -20,6 +20,9 @@
 body { background: var(--bg); color: var(--ink); font-family: var(--f-body); font-size: 15px; line-height: 1.5; }
 .wrap { max-width: 980px; margin: 0 auto; padding-inline: 16px; padding-block: 20px 60px; }
 h1 { font-family: var(--f-display); font-weight: 600; font-size: clamp(26px, 4vw, 34px); margin: 0; letter-spacing: -0.01em; text-wrap: balance; }
+.top { display: flex; flex-wrap: wrap; gap: 8px 16px; align-items: baseline; justify-content: space-between; }
+.play { font-weight: 600; color: var(--jade); text-decoration: none; border: 1px solid var(--jade); border-radius: 8px; padding: 6px 12px; font-size: 14px; }
+.play:hover { background: var(--jade-soft); }
 .lead { color: var(--mute); margin: 6px 0 0; max-width: 68ch; }
 .note { margin: 14px 0 0; padding: 10px 14px; background: var(--gold-soft); border-radius: 8px; font-size: 13.5px; max-width: 80ch; }
 .note b { color: var(--gold); }
@@ -76,9 +79,9 @@ label.chk { display: inline-flex; gap: 6px; align-items: center; font-size: 14px
 </style>
 
 <div class="wrap">
-  <h1>Bảng Rơi NetCo4</h1>
+  <div class="top"><h1>Bảng Rơi NetCo4</h1><a id="play" class="play" href="https://play.netco4.click/" hidden>Vào trang chơi →</a></div>
   <p class="lead">Mọi quái và boss có điểm spawn hoặc có dòng rơi trong server: rơi món gì, tỉ lệ bao nhiêu cho <b>mỗi người</b> trong tổ khi hạ một con. Đổi cấp nhân vật để tính giảm rơi theo chênh cấp.</p>
-  <p class="note"><b>Theo file đang có trên server lúc dựng trang.</b> Ba thay đổi chỉ có hiệu lực sau lần restart game tới, trang đã tính sẵn theo bản mới: quái rơi ngọc cấp 6 (thay cấp 5), Tuyết Lang Hồ chỉ rơi Phục Hi Ngọc, Xích Tiêu Hỏa Hồn ở Hậu Hoa Viên hồi sinh 30 phút.</p>
+  <p class="note"><b>Theo file đang có trên server lúc dựng trang<span id="built"></span>.</b> Ba thay đổi chỉ có hiệu lực sau lần restart game tới, trang đã tính sẵn theo bản mới: quái rơi ngọc cấp 6 (thay cấp 5), Tuyết Lang Hồ chỉ rơi Phục Hi Ngọc, Xích Tiêu Hỏa Hồn ở Hậu Hoa Viên hồi sinh 30 phút.</p>
 
   <div class="bar">
     <div class="row">
@@ -109,7 +112,7 @@ label.chk { display: inline-flex; gap: 6px; align-items: center; font-size: 14px
   <div class="legend">
     <div><b>Cách tính.</b> Mỗi hộp rơi: X = Mvalue ÷ BoxValue × 2 (<code>DropParam=2.0</code>) × hệ số giảm rơi theo (cấp quái − cấp nhân vật). X dưới 1 là tỉ lệ ra 1 món; X trên 1 là trung bình X món. Mỗi lần ra hộp, game bốc 1 món trong hộp. Công thức đọc từ binary game, không phải số đo thực tế.</div>
     <div><b>Mỗi thành viên tổ đội</b> ở gần đều được tính riêng một lần. Món ghi "script bản đồ" rơi theo bản đồ (<code>NetCo4/roimap.lua</code>), không bị giảm rơi theo cấp.</div>
-    <div><b>Chưa có trong trang:</b> đồ boss tự rơi bằng script riêng (Binh Thánh nhỏ, Thiếu Thất Sơn, Tứ Tuyệt Trang, Q Tô Châu/Lâu Lan: Cửu Thiên Ngọc Toái 30%, Miên Bố/Bí Ngân 10%), túi đồ boss trên web, tên trang bị (file server còn tiếng Trung, ghi kèm cấp). "Boss" là ước đoán: boss cuối các hoạt động có túi, quái hồi sinh từ 30 phút, hoặc quái phó bản có Mvalue từ 60.</div>
+    <div><b>Chưa có trong trang:</b> đồ boss tự rơi bằng script riêng (Binh Thánh nhỏ, Thiếu Thất Sơn, Tứ Tuyệt Trang, Q Tô Châu/Lâu Lan: Cửu Thiên Ngọc Toái 20%, Miên Bố/Bí Ngân 10%), túi đồ boss trên web, tên trang bị (file server còn tiếng Trung, ghi kèm cấp). "Boss" là ước đoán: boss cuối các hoạt động có túi, quái hồi sinh từ 30 phút, hoặc quái phó bản có Mvalue từ 60.</div>
   </div>
 </div>
 
@@ -119,6 +122,8 @@ label.chk { display: inline-flex; gap: 6px; align-items: center; font-size: 14px
   "use strict";
   var D = JSON.parse(document.getElementById("data").textContent);
   var PAGE = 40;
+  try { var bt = new Date(D.built); document.getElementById("built").textContent = " (" + bt.toLocaleString("vi-VN", { timeZone: "Asia/Ho_Chi_Minh", hour: "2-digit", minute: "2-digit", day: "2-digit", month: "2-digit" }) + ")"; } catch (e) {}
+  if (/(^|\.)netco4\.click$/.test(location.hostname)) document.getElementById("play").hidden = false;
   var st = { mode: "mon", q: "", plv: 119, map: "", boss: true, drop: true, sort: "exp", shown: PAGE };
   try { var sv = JSON.parse(localStorage.getItem("bangroi") || "{}"); if (sv.plv) st.plv = sv.plv; } catch (e) {}
 

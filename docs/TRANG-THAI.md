@@ -517,3 +517,7 @@ Tài khoản: `admin` (nhân vật `Bialk`, GUID 1010100001, GM), `hoang`. Mật
 - Túc Cầu (mọi quả túc cầu, `efuben_cuju_4.lua`): Tử Vi Linh Phách 50% → **30%**.
 - Liên Hoàn Q Tô Châu / Q Lâu Lan - Viêm Ma Sơn: Cửu Thiên Ngọc Toái 40% → **30%** (`sancaixiagunpc_die.lua`, `yamoshannpc_die.lua`, `roimap.lua` `x950001_g_RoiPhoBan` [50100]/[50220]).
 - Giữ nguyên (đã ≤ 30%): Tuyết Lang Hồ Phục Hi Ngọc 30%, Hậu Hoa Viên Chí Tôn Cường Hóa Tinh Hoa 30%, Hàn Huyết Lĩnh Kim Tàm Ti 30%, Q Tô Châu / Q Lâu Lan Miên Bố–Bí Ngân 6 bốc 1 10%.
+
+## 02/10 01:35 - CHỐT: mọi món rơi thêm qua script = 20% (Lua, hiệu lực ngay)
+- Chủ server: 30% vẫn rơi rất nhiều → chốt 20% cho tất cả quái chạy cấu hình riêng: Túc Cầu Tử Vi Linh Phách, Q Tô Châu / Q Lâu Lan - Viêm Ma Sơn Cửu Thiên Ngọc Toái, Tuyết Lang Hồ Phục Hi Ngọc, Hậu Hoa Viên Chí Tôn Cường Hóa Tinh Hoa, Hàn Huyết Lĩnh Kim Tàm Ti (`roimap.lua` `x950001_g_Roi` / `x950001_g_RoiPhoBan`, `efuben_cuju_4.lua`, `sancaixiagunpc_die.lua`, `yamoshannpc_die.lua`). Miên Bố / Bí Ngân 6 bốc 1 giữ 10%.
+- Tỉ lệ là cho **mỗi người** trong tổ ở gần, mỗi con.
