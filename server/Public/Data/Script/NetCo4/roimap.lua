@@ -9,17 +9,17 @@ x950001_g_ScriptId = 950001
 
 -- [sceneId] = { ID vat pham, % roi moi nguoi }
 x950001_g_Roi = {
-	[432] = { 20310166, 25 },   -- Han Huyet Linh: Kim Tam Ti (cuong hoa dieu van)
-	[62]  = { 38000571, 25 },   -- Hau Hoa Vien: Chi Ton Cuong Hoa Tinh Hoa (map chi mo theo gio, MyNew/jiarumenpai.lua x990010_g_HHV_Mo/Dong)
-	[82]  = { 38000571, 25 },   -- Hau Hoa Vien 2
-	[182] = { 38000571, 25 },   -- Hau Hoa Vien 3
-	[179] = { 38002049, 25 },   -- [01/10] Tuyet Lang Ho: Phuc Hi Ngoc (533 diem spawn quai thuong + [02/10] 5 con 11299-11303 qua obj/elite/xuelanghu_N_baby.lua).
-	                            -- [02/10] moi mon roi them qua script chot 25% (30 -> 20 -> 25). Tuyet Lang Ho CHI roi mon nay: 15 loai quai 11154-11163, 11299-11303 da bo het hop trong MonsterDropBoxs.txt
+	[432] = { 20310166, 30 },   -- Han Huyet Linh: Kim Tam Ti (cuong hoa dieu van)
+	[62]  = { 38000571, 30 },   -- Hau Hoa Vien: Chi Ton Cuong Hoa Tinh Hoa (map chi mo theo gio, MyNew/jiarumenpai.lua x990010_g_HHV_Mo/Dong)
+	[82]  = { 38000571, 30 },   -- Hau Hoa Vien 2
+	[182] = { 38000571, 30 },   -- Hau Hoa Vien 3
+	[179] = { 38002049, 30 },   -- [01/10] Tuyet Lang Ho: Phuc Hi Ngoc (533 diem spawn quai thuong + [02/10] 5 con 11299-11303 qua obj/elite/xuelanghu_N_baby.lua).
+	                            -- [02/10] moi mon roi them qua script chot 30% (30 -> 20 -> 25 -> 30). Tuyet Lang Ho CHI roi mon nay: 15 loai quai 11154-11163, 11299-11303 da bo het hop trong MonsterDropBoxs.txt
 }
 
 -- Pho ban (scene tao dong, sceneId moi luot khac nhau): goi tu ham OnDie cua quai pho ban
 --   CallScriptFunction( 950001, "RoiDo", sceneId, selfId, killerId, <ID vat pham>, <%> )
--- Dang goi: Lien Hoan Q To Chau (event/xunhuan/sancaixiagunpc_die.lua, quai script 1130) -> Cuu Thien Ngoc Toai 20800034 25% (02/10: 40 -> 30 -> 20 -> 25).
+-- Dang goi: Lien Hoan Q To Chau (event/xunhuan/sancaixiagunpc_die.lua, quai script 1130) -> Cuu Thien Ngoc Toai 20800034 30% (02/10: 40 -> 30 -> 20 -> 25 -> 30).
 function x950001_RoiDo( sceneId, selfId, killerId, itemId, pct )
 	x950001_Chia( sceneId, selfId, killerId, { itemId, pct } )
 end
@@ -49,8 +49,8 @@ end
 
 -- Pho ban: quai tao bang LuaFnCreateMonster(..., 950001) -> tra theo script cua pho ban (CopySceneData_Param 1)
 x950001_g_RoiPhoBan = {
-	[50100] = { 20800034, 25 },   -- Lien Hoan Q To Chau (quai dot 3)
-	[50220] = { 20800034, 25 },   -- Lien Hoan Q Lau Lan / Viem Ma Son (quai nho dot 3)
+	[50100] = { 20800034, 30 },   -- Lien Hoan Q To Chau (quai dot 3)
+	[50220] = { 20800034, 30 },   -- Lien Hoan Q Lau Lan / Viem Ma Son (quai nho dot 3)
 }
 -- [01/10 toi] roi them (roll rieng): Mien Bo 6 / Bi Ngan 6 10% boc 1
 x950001_g_RoiPhoBan2 = {

@@ -530,3 +530,6 @@ Tài khoản: `admin` (nhân vật `Bialk`, GUID 1010100001, GM), `hoang`. Mật
 
 ## 02/10 01:55 - CHỐT LẠI: mọi món rơi thêm qua script = 25% (Lua, hiệu lực ngay)
 - Chủ server đổi từ 20% lên 25%, cùng 5 nhóm: Túc Cầu Tử Vi Linh Phách, Q Tô Châu / Q Lâu Lan Cửu Thiên Ngọc Toái, Tuyết Lang Hồ Phục Hi Ngọc, Hậu Hoa Viên Chí Tôn Cường Hóa Tinh Hoa, Hàn Huyết Lĩnh Kim Tàm Ti. Miên Bố / Bí Ngân 6 giữ 10%. Trang https://netco4.click/ đã dựng lại theo 25%.
+
+## 02/10 02:05 - CHỐT LẠI: mọi món rơi thêm qua script = 30% (Lua, hiệu lực ngay)
+- Chủ server đổi 25% → 30%, cùng 5 nhóm (Túc Cầu Tử Vi Linh Phách, Q Tô Châu / Q Lâu Lan Cửu Thiên Ngọc Toái, Tuyết Lang Hồ Phục Hi Ngọc, Hậu Hoa Viên Chí Tôn Cường Hóa Tinh Hoa, Hàn Huyết Lĩnh Kim Tàm Ti). Miên Bố / Bí Ngân 6 giữ 10%. Trang https://netco4.click/ dựng lại theo 30%.
