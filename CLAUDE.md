@@ -30,6 +30,7 @@ Máy nhà: sửa server/...  →  git commit + push  →  VPS: cd /opt/tlbb-depl
 - Ai đó sửa trực tiếp trên VPS thì chạy `./lay-tu-server.sh --push` để đưa thay đổi về repo, nếu không lần `cap-nhat` sau sẽ ghi đè.
 - **Không tự động deploy khi push.** Restart sẽ đá người đang chơi. Trước khi restart, hỏi người dùng hoặc kiểm tra: `ss -tn state established '( sport = :3731 )'`.
 - Lần đầu clone trên Windows: `git config core.autocrlf false`. `.gitattributes` đã giữ nguyên byte cho `server/**`.
+- Web: https://netco4.click/ = Bảng Rơi (file tĩnh `/var/www/netco4/index.html`, dựng bằng `node tools/bang-roi/lam.js`), https://play.netco4.click/ = trang chơi (bot 3002), admin. = panel bot, gm. = panel game.
 - GitHub: `https://github.com/nguyendangkhoa150899-boop/tlbbnetco4` (đang **public**). VPS kéo code qua HTTPS nên không cần key. Nếu chuyển repo sang private, VPS cần deploy key: `/root/.ssh/github_deploy.pub` (đã tạo sẵn, thêm vào repo → Settings → Deploy keys, tích write), rồi `git -C /opt/tlbb-repo remote set-url origin git@github.com:nguyendangkhoa150899-boop/tlbbnetco4.git`.
 - VPS **chưa push được** lên GitHub (chưa có deploy key), nên `./lay-tu-server.sh --push` sẽ lỗi. Tạm thời: chạy `./lay-tu-server.sh` rồi commit trên VPS, sau đó trên máy nhà `git pull ssh://root@103.216.118.123:24700/opt/tlbb-repo main` và push lên GitHub.
 

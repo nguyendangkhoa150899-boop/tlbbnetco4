@@ -521,3 +521,9 @@ Tài khoản: `admin` (nhân vật `Bialk`, GUID 1010100001, GM), `hoang`. Mật
 ## 02/10 01:35 - CHỐT: mọi món rơi thêm qua script = 20% (Lua, hiệu lực ngay)
 - Chủ server: 30% vẫn rơi rất nhiều → chốt 20% cho tất cả quái chạy cấu hình riêng: Túc Cầu Tử Vi Linh Phách, Q Tô Châu / Q Lâu Lan - Viêm Ma Sơn Cửu Thiên Ngọc Toái, Tuyết Lang Hồ Phục Hi Ngọc, Hậu Hoa Viên Chí Tôn Cường Hóa Tinh Hoa, Hàn Huyết Lĩnh Kim Tàm Ti (`roimap.lua` `x950001_g_Roi` / `x950001_g_RoiPhoBan`, `efuben_cuju_4.lua`, `sancaixiagunpc_die.lua`, `yamoshannpc_die.lua`). Miên Bố / Bí Ngân 6 bốc 1 giữ 10%.
 - Tỉ lệ là cho **mỗi người** trong tổ ở gần, mỗi con.
+
+## 02/10 01:45 - https://netco4.click/ = trang Bảng Rơi, https://play.netco4.click/ = trang chơi
+- nginx `/etc/nginx/sites-available/netco4` (bản cũ: `/opt/tlbb-backup/nginx-netco4-20261002-010611`): tách khối `netco4.click play.netco4.click` thành 2. `play.` giữ nguyên proxy 3002. `netco4.click`: `location = /` (và `/index.html`) trả file tĩnh `/var/www/netco4/index.html`, **mọi đường dẫn khác vẫn proxy 3002** (tab cũ đang mở ở netco4.click, `/api/...` không hỏng). Đã kiểm: `/` 200 Bảng Rơi, `/api/state` 401 (như cũ khi chưa đăng nhập), play 200, admin 200.
+- Trang: tra quái / boss / bản đồ / vật phẩm, tỉ lệ mỗi người mỗi con, ô cấp nhân vật (giảm rơi theo chênh cấp), nút "Vào trang chơi". Cũng có bản Artifact riêng tư https://claude.ai/artifact/3KCmXU8gXkLYXMazGZwzmw.
+- **Cập nhật trang khi đổi bảng rơi / script rơi:**
+  `node tools/bang-roi/lam.js` rồi `scp -P 24700 tools/bang-roi/web/index.html root@103.216.118.123:/var/www/netco4/index.html` (không cần reload nginx). Trang đọc file trong repo, nên dựng sau khi đã commit thay đổi game.
