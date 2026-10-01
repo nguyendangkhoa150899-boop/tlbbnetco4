@@ -29,11 +29,38 @@ ROOT = "/opt/tlbb-root"
 GAME = ROOT + "/home/tlbb"
 QUEUE = GAME + "/Server/txt/NetCo4Qua"
 CAPMIN = QUEUE + "/_capmin.txt"            # cap toi thieu toan server (quatang.lua x950000_CapMin)
+# 01/10: KHOA CAP - cap toi da cay bang exp, admin chon tren web. Luu NGOAI repo (cap-nhat.sh ap lai sau rsync,
+# reset-choi-that.sh khong xoa). ConfigInfo.ini HumanMaxDefaultLevel = cap + 1 vi engine tru 1 luc nap.
+CFGDIR = GAME + "/Server/txt/NetCo4Cfg"
+CAPMAX = CFGDIR + "/capmax.txt"
+CONFIGINFO = GAME + "/Server/Config/ConfigInfo.ini"
 POPUP = GAME + "/Server/txt/NetCo4Popup"   # qua popup (cua so Qua ngay le) do admin chon nguoi
 GMLIST = GAME + "/Server/Config/GMList.ini"
 MYSQL = "/usr/local/mysql5.0.45/bin/mysql"
 LOG = "/opt/tlbb-backup/panel.log"
 TOKEN = secrets.token_urlsafe(24)  # doi moi lan khoi dong panel (chong CSRF)
+
+
+def capmax_get():
+    """Cap toi da dang ghi trong ConfigInfo.ini (HumanMaxDefaultLevel - 1). Co hieu luc tu lan restart game sau khi ghi."""
+    try:
+        m = re.search(rb"(?m)^HumanMaxDefaultLevel=(\d+)", open(CONFIGINFO, "rb").read())
+        return int(m.group(1)) - 1 if m else 0
+    except OSError:
+        return 0
+
+
+def capmax_set(n):
+    """Sua dung so tren dong HumanMaxDefaultLevel (file GBK, giu nguyen moi byte khac) + ghi capmax.txt."""
+    raw = open(CONFIGINFO, "rb").read()
+    new, k = re.subn(rb"(?m)^(HumanMaxDefaultLevel=)\d+", lambda m: m.group(1) + str(n + 1).encode(), raw, count=1)
+    if k != 1:
+        raise RuntimeError("khong thay HumanMaxDefaultLevel trong ConfigInfo.ini")
+    with open(CONFIGINFO, "wb") as f:
+        f.write(new)
+    os.makedirs(CFGDIR, exist_ok=True)
+    with open(CAPMAX, "w", encoding="ascii", newline="\n") as f:
+        f.write("%d\n" % n)
 
 
 def load_env(path):
@@ -346,6 +373,20 @@ def act(form):
         audit("cap toi thieu toan server = %s" % int(val))
         return ("Da tat cap toi thieu" if int(val) == 0 else
                 "Cap toi thieu = %s: nhan vat se len cap khi dang nhap/doi ban do (ca nhan vat moi)" % int(val))
+    if a == "capmax":   # 01/10: khoa cap - cay exp toi da cap N (10-118), admin mo dan; restart=1 thi restart luon
+        val = v("gt")
+        if not RE_INT.match(val) or not 10 <= int(val) <= 118:
+            return "Cap toi da 10-118 (118 = mo het, nhu hien tai)"
+        n = int(val)
+        capmax_set(n)
+        rs = v("restart") == "1"
+        audit("cap toi da (khoa cap) = %d%s (online: %d)" % (n, ", restart" if rs else "", online_count()))
+        msg = "Da dat cap toi da = %d (ConfigInfo.ini HumanMaxDefaultLevel=%d). Nhan vat da cao hon giu nguyen cap." % (n, n + 1)
+        if rs:
+            subprocess.Popen(["systemctl", "restart", "tlbb"], stdin=subprocess.DEVNULL,
+                             stdout=open("/tmp/panel-restart.log", "w"), stderr=subprocess.STDOUT)
+            return msg + " Dang restart server (khoang 3 phut)."
+        return msg + " Co hieu luc sau khi restart server."
     if a == "huy_qua":
         g = v("guid")
         if RE_INT.match(g):
@@ -480,6 +521,10 @@ def page(msg="", q=""):
                '<b>Cap toi thieu toan server:</b><input name="gt" value="%s" size="4" required pattern="\\d{1,3}"><button>Luu</button>'
                '<span class="muted">0 = tat. Nhan vat thap hon se len cap khi dang nhap/doi ban do, ke ca nhan vat tao sau nay.'
                ' Can script moi (restart game sau lan deploy dau).</span></form><br>' % (TOKEN, esc(capmin)))
+    out.append('<form method="post" class="row" onsubmit="return confirm(\'Luu cap toi da va RESTART server? Nguoi dang choi se bi ngat.\')">'
+               '<input type="hidden" name="t" value="%s"><input type="hidden" name="a" value="capmax"><input type="hidden" name="restart" value="1">'
+               '<b>Cap toi da (khoa cap):</b><input name="gt" value="%d" size="4" required pattern="\\d{2,3}"><button class="r">Luu + Restart</button>'
+               '<span class="muted">10-118 (118 = mo het). Nguoi choi cay exp toi da toi cap nay; nhan vat da cao hon giu nguyen.</span></form><br>' % (TOKEN, capmax_get()))
     out.append('<table><tr><th>GUID</th><th>Tai khoan</th><th>Nhan vat</th>'
                '<th>Cap</th><th>Online</th><th>GM</th><th>Qua dang cho</th><th>Phat qua</th></tr>')
     for g, acc, name, lv in chs:
@@ -554,7 +599,7 @@ def api_state():
                           "gm": g in gms, "pending": tom_tat(pend), "hasPending": bool(pend)})
     return {"procs": procs, "online": online_count(), "ram": [tot - avail, tot], "dbError": err,
             "accounts": [{"id": i, "name": n, "online": on} for i, n, on in accs],
-            "chars": out_chars, "capmin": capmin, "itemCount": len(ITEMS),
+            "chars": out_chars, "capmin": capmin, "capmax": capmax_get(), "itemCount": len(ITEMS),
             "pets": [{"id": i, "name": n} for i, n in PET_V2]}
 
 

@@ -44,6 +44,15 @@ stamp=$(date +%Y%m%d-%H%M%S)
 bk="$BACKUP_DIR/cap-nhat-$stamp"
 rsync -rlt --checksum --backup --backup-dir="$bk" --filter="$FILTER" "$SRC" "$DST"
 git -C "$REPO" rev-parse HEAD > "$BACKUP_DIR/da-deploy-commit"
+# 01/10: KHOA CAP admin chon tren web (panel act capmax) nam NGOAI repo -> ap lai, khong thi ConfigInfo.ini cua repo de len
+CAPMAX="$DST/Server/txt/NetCo4Cfg/capmax.txt"
+if [ -s "$CAPMAX" ]; then
+    n=$(tr -dc 0-9 < "$CAPMAX")
+    if [ -n "$n" ] && [ "$n" -ge 10 ] && [ "$n" -le 118 ]; then
+        LC_ALL=C sed -i -E "s/^HumanMaxDefaultLevel=[0-9]+/HumanMaxDefaultLevel=$((n + 1))/" "$DST/Server/Config/ConfigInfo.ini"
+        log "Giu khoa cap toi da $n theo panel (HumanMaxDefaultLevel=$((n + 1)))"
+    fi
+fi
 log "Da cap nhat. Ban cu cua cac file bi thay: $bk"
 log "Quay lai: rsync -a $bk/ $DST"
 
