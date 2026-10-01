@@ -1,5 +1,44 @@
 # Pet Huyễn Hóa (ngoại hình boss) - chỉ admin phát qua tab GM, loại **Pet**
 
+## Bộ 144 pet skin (01/10) — dùng bộ này, các bảng phía dưới là bản cũ
+
+12 skin × Ngoại/Nội/Cân bằng × cấp mang 85/95, mỗi tổ hợp 2 bản: **Admin** (tư chất chuẩn 12000) và **V2** (tư chất gốc của pet nền). Làm bằng cách ghép **pet nền** vào ID Huyễn Hóa có sẵn, giữ nguyên skin: bảng quái giữ cột 0/1/44/50/61/65 (tên, mã ngoại hình, chân dung…), còn lại chép từ pet nền (kiểu tấn công cột 62, chỉ số); bảng pet lấy cấp mang, tuổi thọ, tư chất, trưởng thành, tính cách, cột 50 từ pet nền. Pet nền: cấp 95 Kỳ Lân 3330 (Ngoại) / Giao Long 3340 (Nội) / Hùng Miêu 7840 (Cân bằng), TT 1459; cấp 85 Niên Thú 3300 / Sồ Phượng 3290 / Long Quy 3310, TT 1357. Đã thử Cáp Đại Bá 95 Nội (25601) trong game: đúng ngoại hình, chữ Nội, cấp 95. Máy đọc: `docs/pet-skin.tsv` (panel GM đọc file này). Script: `ghep_all.js` (scratchpad 01/10), không dùng lại ID đã phát cho bia1.
+
+### Bản Admin (12000)
+
+| Skin | 95 Ngoại | 95 Nội | 95 Cân bằng | 85 Ngoại | 85 Nội | 85 Cân bằng |
+|---|---|---|---|---|---|---|
+| Băng Yêu | 25041 | 25071 | 25101 | 25151 | 25171 | 25181 |
+| Công Tôn Thánh | 25042 | 25072 | 25102 | 25152 | 25172 | 25182 |
+| Tôn Mỹ Mỹ | 25051 | 25061 | 25091 | 25121 | 25131 | 25161 |
+| Lâm Sung | 25052 | 25062 | 25092 | 25122 | 25132 | 25162 |
+| Thủy Phỉ Đầu Lãnh | 25031 | 25081 | 25111 | 25141 | 25291 | 25321 |
+| Lộ Quân Dật | 25022 | 25032 | 25082 | 25112 | 25142 | 25292 |
+| Viễn Cổ Kỳ Hồn | 25401 | 25431 | 25481 | 25501 | 25511 | 25551 |
+| Tống Khương | 25402 | 25432 | 25482 | 25502 | 25512 | 25552 |
+| Tần Vương | 25381 | 25391 | 25421 | 25451 | 25491 | 25521 |
+| Quan Thắng | 25382 | 25392 | 25422 | 25452 | 25492 | 25522 |
+| Cáp Đại Bá | 25411 | 25601 | 25461 | 25471 | 25631 | 25781 |
+| Lỗ Chí Sinh | 25412 | 25442 | 25462 | 25472 | 25602 | 25632 |
+
+### Bản V2 (tư chất gốc)
+
+| Skin | 95 Ngoại | 95 Nội | 95 Cân bằng | 85 Ngoại | 85 Nội | 85 Cân bằng |
+|---|---|---|---|---|---|---|
+| Băng Yêu | 25201 | 25241 | 25261 | 25271 | 25301 | 25331 |
+| Công Tôn Thánh | 25202 | 25242 | 25262 | 25272 | 25302 | 25332 |
+| Tôn Mỹ Mỹ | 25191 | 25211 | 25221 | 25231 | 25251 | 25281 |
+| Lâm Sung | 25192 | 25212 | 25222 | 25232 | 25252 | 25282 |
+| Thủy Phỉ Đầu Lãnh | 25771 | 25961 | 26081 | 26361 | 26421 | 26521 |
+| Lộ Quân Dật | 25322 | 25772 | 25962 | 26082 | 26362 | 26422 |
+| Viễn Cổ Kỳ Hồn | 25571 | 25581 | 25611 | 25641 | 25651 | 25691 |
+| Tống Khương | 25572 | 25582 | 25612 | 25642 | 25652 | 25692 |
+| Tần Vương | 25541 | 25561 | 25591 | 25621 | 25671 | 25711 |
+| Quan Thắng | 25532 | 25542 | 25562 | 25592 | 25622 | 25672 |
+| Cáp Đại Bá | 25971 | 26091 | 26371 | 26401 | 26411 | 26431 |
+| Lỗ Chí Sinh | 25782 | 25972 | 26092 | 26372 | 26402 | 26412 |
+
+
 Tạo bằng hàng đợi quà `pet <ID>` (NetCo4/quatang.lua). 48 con, đều cấp 95, biến dị, trưởng thành 1459. Cột "pet nền" là ngoại hình gốc bảng tham chiếu.
 
 **Cột Kiểu (01/10):** kiểu tấn công = chữ Ngoại/Nội trên bảng pet trong game. Engine lấy từ `MonsterAttrExTable.txt` cột 62 "Công kích đặc tính ID" của dòng quái **cùng ID với pet** (`AttackTraits.txt`: 11 = Ngoại công, 12 = Nội công, 13 = Cân bằng). Kiểu đi theo pet nền, tư chất không đổi được kiểu. Bản V2 hiển thị kiểu của bản gốc; 36 ID V2 không có dòng quái riêng và 18 ID V2 (315xx) trùng ID quái phó bản thật, chủ server chốt 01/10 **không sửa**, chỉ hiển thị. Panel GM ghi kiểu sau tên trong ô chọn pet.

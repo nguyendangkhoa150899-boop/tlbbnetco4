@@ -149,7 +149,18 @@ def _kieu(i, v2=False):
 PET_V2 = [(i, n + _kieu(i, True)) for i, n in PET_V2]
 PET_12000 = [(i, n.rsplit(" · ", 1)[0] + _kieu(i)) for i, n in PET_12000]
 PET_ALL = [(i, n + _kieu(i)) for i, n in PET_ALL]
-PET_GROUPS = [("Huyễn Hóa V2 (tư chất gốc)", PET_V2), ("Huyễn Hóa bản 12000", PET_12000), ("Tất cả pet", PET_ALL)]
+# 01/10: bo 144 pet skin (12 skin x Ngoai/Noi/Can bang x cap 85/95, ban admin 12000 + ban V2 tu chat goc), ghep pet nen
+# vao ID Huyen Hoa co san - docs/pet-skin.tsv (id, skin, cap, kieu, ban, nen, nhan). Co file nay thi thay 2 nhom Huyen Hoa.
+_p = os.path.join(REPO, "docs", "pet-skin.tsv")
+if os.path.exists(_p):
+    _a, _v = [], []
+    for _line in open(_p, encoding="utf-8"):
+        _c = _line.rstrip("\r\n").split("\t")
+        if len(_c) >= 7 and _c[0].isdigit() and _c[0] in PET_IDS:
+            (_a if _c[4] == "admin" else _v).append((_c[0], _c[6]))
+    if _a and _v:
+        PET_12000, PET_V2 = _a, _v
+PET_GROUPS = [("Huyễn Hóa V2 (tư chất gốc, 72 con)", PET_V2), ("Huyễn Hóa Admin 12000 (72 con)", PET_12000), ("Tất cả pet", PET_ALL)]
 
 
 def khong_dau(s):

@@ -199,6 +199,8 @@ Chi tiết từng mục ở `docs/TRANG-THAI.md` → "Cập nhật 29/09 chiều
 | Tạm thời rồi đã hoàn: template Thần Ẩn 11 dòng (đã tẩy xong), Công Lực Đan +100.000, Trùng Lâu Ngọc 6% (chủ server giữ gốc 4/2) | đã về gốc | – |
 | Docs: công thức tẩy phẩm chất ám khí (max 2199, Thiên Thối bậc 4 = 0,5%), số lượt phó bản/ngày, lịch Phượng Hoàng Cổ Thành (T4 + T7 20:00–21:15) | xong | – |
 
+**01/10 chiều:** bộ **144 pet skin Huyễn Hóa** (12 skin × Ngoại/Nội/Cân bằng × cấp 85/95 × bản Admin 12000 / V2 tư chất gốc) — ghép pet nền vào ID Huyễn Hóa có sẵn, panel GM chọn theo nhãn "Skin cấp Kiểu". Kiểu Nội/Ngoại = `MonsterAttrExTable` cột 62 của dòng quái cùng ID pet. Chi tiết `docs/pet-huyen-hoa.md` + TRANG-THAI 01/10. Rollback tag `truoc-ghep-skin-all-01-10`.
+
 ## Bẫy dễ dính khi phát triển (đúc kết 28/09–01/10, đọc trước khi sửa file game)
 
 1. **Bảng `.txt` dạng DBC phải sắp ID tăng dần.** Engine tra bằng tìm kiếm nhị phân (`DBCFile::Search_Posistion`): dòng nào nằm sai thứ tự là **không bao giờ được tìm thấy**, không báo lỗi (`MonsterDropBoxs`, `DropBoxContent`, `PetAttrTable`, `StandardImpact`, `EquipBase`, `CommonItem`…). Thêm dòng = chèn đúng vị trí, không append cuối file. Kiểm nhanh: node đọc file, so ID dòng sau với dòng trước. Tab Drop Boss trên web thêm hộp mới cũng phải theo quy tắc này.
