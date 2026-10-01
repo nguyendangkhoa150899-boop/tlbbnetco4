@@ -21,7 +21,7 @@
 | Cáp Đại Bá | 25411 | 25601 | 25461 | 25471 | 25631 | 25781 |
 | Lỗ Chí Sinh | 25412 | 25442 | 25462 | 25472 | 25602 | 25632 |
 
-### Bản V2 (tư chất gốc)
+### Bản V2 — tư chất theo kiểu (01/10): Ngoại = Cường lực 5000, Nội = Nội lực 5000, Cân bằng = Thể lực 5000; 4 dòng còn lại 2500 (cột 34 力量 / 36 灵气 / 35 体质 PetAttrTable). Random của game vẫn nhân thêm (bậc ×1,0–1,4, ±5%, ngộ tính)
 
 | Skin | 95 Ngoại | 95 Nội | 95 Cân bằng | 85 Ngoại | 85 Nội | 85 Cân bằng |
 |---|---|---|---|---|---|---|

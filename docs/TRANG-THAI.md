@@ -427,3 +427,5 @@ Tài khoản: `admin` (nhân vật `Bialk`, GUID 1010100001, GM), `hoang`. Mật
 - EquipBase cột 19 = hiệu ứng **7505** "Trùng Lâu Phá Quân" (logic 88: 3% khi đánh trúng) → con **7506** (logic 64, bỏ qua phòng thủ, 1 lần kích). Thời gian thật ở `StandardImpact.txt` 7506 cột 20 = **15000 ms** (tooltip client ghi 10 giây, sai sẵn) → đổi **5000**. Tooltip vẫn ghi 10 giây (client, không sửa được). Chân Trùng Lâu Đới (7507 → 7508) giữ 30000 ms. Rollback: tag `truoc-trunglau-dai-01-10`.
 - "Cố định dòng": 10553106 đã cố định sẵn đúng 11 dòng (cờ =1 ở cột 32, 54, 61, 68, 74–80; số dòng min = max = 11) — mọi món ra đúng 11 dòng như ảnh, chỉ **con số** random theo quy tắc phẩm chất 9, đoạn 100.
 - Phát hiện cũ, chưa sửa: `StandardImpact.txt` dòng 5724 (Tọa kỵ Xe trượt tuyết) nằm sau 5919 → engine không tìm thấy (tìm nhị phân).
+
+- **01/10 tiếp:** 72 pet V2 đổi tư chất chuẩn: dòng chính theo kiểu = 5000 (Ngoại: Cường lực cột 34, Nội: Nội lực cột 36, Cân bằng: Thể lực cột 35), 4 dòng còn lại 2500. Bản Admin 12000 giữ nguyên. Chỉ pet tạo mới sau restart. Rollback: tag `truoc-v2-tuchat-01-10`.
