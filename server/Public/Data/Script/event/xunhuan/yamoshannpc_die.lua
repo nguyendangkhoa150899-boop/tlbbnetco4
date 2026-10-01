@@ -33,7 +33,7 @@ end
 
 function x001129_OnDie( sceneId, selfId, killerId )
 	CallScriptFunction( 950001, "TB_Ghi", sceneId, selfId, killerId )   -- [NetCo4 01/10] tui do giet boss (roimap.lua, chi ghi khi ID co trong danh sach)
-	CallScriptFunction( 950001, "RoiDo", sceneId, selfId, killerId, 20800034, 20 )  -- [NetCo4 01/10] Cuu Thien Ngoc Toai 20% (02/10: 40 -> 30 -> 20), NetCo4/roimap.lua
+	CallScriptFunction( 950001, "RoiDo", sceneId, selfId, killerId, 20800034, 25 )  -- [NetCo4 01/10] Cuu Thien Ngoc Toai 25% (02/10: 40 -> 30 -> 20 -> 25), NetCo4/roimap.lua
 	CallScriptFunction( 950001, "RoiBoc", sceneId, selfId, killerId, 1, 10 )  -- [NetCo4 01/10 toi] Mien Bo 6 / Bi Ngan 6 10% boc 1
 	--是否是副本
 	local sceneType = LuaFnGetSceneType( sceneId )

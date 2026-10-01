@@ -4,7 +4,7 @@ x402045_g_KillNum = 30
 -- ×ãÇòËÀÍö
 --**********************************
 function x402045_OnDie(sceneId, objId, killerId)
-	CallScriptFunction( 950001, "RoiDo", sceneId, objId, killerId, 30600084, 20 )   -- [NetCo4 02/10] moi qua tuc cau: Tu Vi Linh Phach 20% / nguoi (02/10: 50 -> 30 -> 20) (to doi o gan roll rieng). Boss Ton My My (402040) giu roi goc
+	CallScriptFunction( 950001, "RoiDo", sceneId, objId, killerId, 30600084, 25 )   -- [NetCo4 02/10] moi qua tuc cau: Tu Vi Linh Phach 25% / nguoi (02/10: 50 -> 30 -> 20 -> 25) (to doi o gan roll rieng). Boss Ton My My (402040) giu roi goc
 	
 	local szName = GetName(sceneId, objId)
 

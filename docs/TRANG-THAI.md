@@ -527,3 +527,6 @@ Tài khoản: `admin` (nhân vật `Bialk`, GUID 1010100001, GM), `hoang`. Mật
 - Trang: tra quái / boss / bản đồ / vật phẩm, tỉ lệ mỗi người mỗi con, ô cấp nhân vật (giảm rơi theo chênh cấp), nút "Vào trang chơi". Cũng có bản Artifact riêng tư https://claude.ai/artifact/3KCmXU8gXkLYXMazGZwzmw.
 - **Cập nhật trang khi đổi bảng rơi / script rơi:**
   `node tools/bang-roi/lam.js` rồi `scp -P 24700 tools/bang-roi/web/index.html root@103.216.118.123:/var/www/netco4/index.html` (không cần reload nginx). Trang đọc file trong repo, nên dựng sau khi đã commit thay đổi game.
+
+## 02/10 01:55 - CHỐT LẠI: mọi món rơi thêm qua script = 25% (Lua, hiệu lực ngay)
+- Chủ server đổi từ 20% lên 25%, cùng 5 nhóm: Túc Cầu Tử Vi Linh Phách, Q Tô Châu / Q Lâu Lan Cửu Thiên Ngọc Toái, Tuyết Lang Hồ Phục Hi Ngọc, Hậu Hoa Viên Chí Tôn Cường Hóa Tinh Hoa, Hàn Huyết Lĩnh Kim Tàm Ti. Miên Bố / Bí Ngân 6 giữ 10%. Trang https://netco4.click/ đã dựng lại theo 25%.
