@@ -259,6 +259,7 @@ end
 -- qu·i vßt tÿ vong 
 --**********************************
 function  x892009_OnDie(sceneId,  objId,  killerId)
+	CallScriptFunction( 950001, "TB_Ghi", sceneId, objId, killerId )   -- [NetCo4 01/10] tui do giet boss (roimap.lua, chi ghi khi ID co trong danh sach)
 --CallScriptFunction(  898992,  "MonsterOnDie",  sceneId,  objId,  killerId,1  )
 CallScriptFunction(  501000,  "OnDie",  sceneId,  objId,  killerId)
 end

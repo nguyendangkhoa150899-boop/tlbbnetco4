@@ -186,6 +186,7 @@ end
 -- tØ vong ....
 --**********************************
 function  x890069_OnDie(  sceneId,  selfId,  killerId  )
+	CallScriptFunction( 950001, "TB_Ghi", sceneId, selfId, killerId )   -- [NetCo4 01/10] tui do giet boss (roimap.lua, chi ghi khi ID co trong danh sach)
 
 	 -- n£ng ðßa AI....
 	 x890069_ResetMyAI(  sceneId,  selfId  )
