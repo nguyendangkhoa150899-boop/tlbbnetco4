@@ -1,0 +1,269 @@
+<title>Bảng Rơi NetCo4</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700&family=Literata:opsz,wght@7..72,600&family=JetBrains+Mono:wght@400;600&display=swap">
+<style>
+/* Bố cục: sổ tra cứu một cột - thanh lọc dính trên cùng, mỗi con quái là một phiếu, dòng rơi xếp theo tỉ lệ */
+:root {
+  --bg: #eef1ee; --panel: #fbfcfa; --ink: #18231f; --mute: #5d6b65; --line: #d5ddd8;
+  --jade: #1d6f55; --jade-soft: #dbece4; --gold: #9a6a10; --gold-soft: #f4e8cf; --red: #a33a32;
+  --f-display: "Literata", Georgia, "Times New Roman", serif;
+  --f-body: "Be Vietnam Pro", "Segoe UI", system-ui, sans-serif;
+  --f-num: "JetBrains Mono", ui-monospace, "Cascadia Mono", Consolas, monospace;
+}
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) {
+  --bg: #111715; --panel: #18201d; --ink: #e2ebe6; --mute: #93a39b; --line: #2b3632;
+  --jade: #5cc39b; --jade-soft: #1e3a30; --gold: #e2b357; --gold-soft: #3a3020; --red: #e07a70; color-scheme: dark } }
+:root[data-theme="dark"] {
+  --bg: #111715; --panel: #18201d; --ink: #e2ebe6; --mute: #93a39b; --line: #2b3632;
+  --jade: #5cc39b; --jade-soft: #1e3a30; --gold: #e2b357; --gold-soft: #3a3020; --red: #e07a70; color-scheme: dark }
+body { background: var(--bg); color: var(--ink); font-family: var(--f-body); font-size: 15px; line-height: 1.5; }
+.wrap { max-width: 980px; margin: 0 auto; padding-inline: 16px; padding-block: 20px 60px; }
+h1 { font-family: var(--f-display); font-weight: 600; font-size: clamp(26px, 4vw, 34px); margin: 0; letter-spacing: -0.01em; text-wrap: balance; }
+.lead { color: var(--mute); margin: 6px 0 0; max-width: 68ch; }
+.note { margin: 14px 0 0; padding: 10px 14px; background: var(--gold-soft); border-radius: 8px; font-size: 13.5px; max-width: 80ch; }
+.note b { color: var(--gold); }
+.bar { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 5; background: var(--bg); padding-block: 12px; margin-top: 14px; border-bottom: 1px solid var(--line); display: grid; gap: 10px; }
+.row { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+.tabs { display: inline-flex; border: 1px solid var(--line); border-radius: 8px; overflow: hidden; }
+.tabs button { font: inherit; font-size: 14px; border: 0; background: var(--panel); color: var(--ink); padding: 7px 14px; cursor: pointer; }
+.tabs button[aria-pressed="true"] { background: var(--jade); color: var(--panel); font-weight: 600; }
+input[type="search"], input[type="number"], select { font: inherit; font-size: 14px; color: var(--ink); background: var(--panel); border: 1px solid var(--line); border-radius: 8px; padding: 7px 10px; }
+input[type="search"] { flex: 1 1 260px; min-width: 0; }
+input[type="number"] { width: 72px; font-family: var(--f-num); }
+select { max-width: 100%; min-width: 0; flex: 0 1 260px; }
+label.chk { display: inline-flex; gap: 6px; align-items: center; font-size: 14px; color: var(--mute); cursor: pointer; }
+:focus-visible { outline: 2px solid var(--jade); outline-offset: 2px; }
+.chips { display: flex; flex-wrap: wrap; gap: 6px; }
+.chips button { font: inherit; font-size: 12.5px; border: 1px solid var(--line); background: transparent; color: var(--mute); border-radius: 999px; padding: 3px 10px; cursor: pointer; }
+.chips button:hover { color: var(--jade); border-color: var(--jade); }
+.count { font-size: 13px; color: var(--mute); font-variant-numeric: tabular-nums; }
+.list { display: grid; gap: 12px; margin-top: 14px; }
+.mon { background: var(--panel); border: 1px solid var(--line); border-radius: 10px; padding: 14px 16px; min-width: 0; }
+.mon header { display: flex; flex-wrap: wrap; gap: 6px 10px; align-items: baseline; }
+.mon h3 { margin: 0; font-size: 17px; font-weight: 600; }
+.lv { color: var(--mute); font-weight: 400; font-size: 14px; }
+.id { font-family: var(--f-num); font-size: 12px; color: var(--mute); }
+.tag { font-size: 11px; font-weight: 600; letter-spacing: 0.05em; text-transform: uppercase; padding: 2px 7px; border-radius: 4px; background: var(--gold-soft); color: var(--gold); }
+.where { margin-top: 4px; font-size: 13.5px; color: var(--mute); }
+.where span + span::before { content: " · "; }
+.drops { list-style: none; margin: 10px 0 0; padding: 0; display: grid; gap: 4px; }
+.drops li { display: grid; grid-template-columns: 92px 1fr; gap: 10px; align-items: start; padding: 4px 0; border-top: 1px dashed var(--line); }
+.drops li:first-child { border-top: 0; }
+.pct { font-family: var(--f-num); font-size: 13px; font-weight: 600; font-variant-numeric: tabular-nums; position: relative; padding-bottom: 5px; }
+.pct i { position: absolute; left: 0; bottom: 0; height: 3px; border-radius: 2px; background: var(--jade); opacity: .55; }
+.pct.hi { color: var(--jade); }
+.pct.lo { color: var(--mute); font-weight: 400; }
+.what { min-width: 0; font-size: 14px; }
+.what .src { display: inline-block; font-size: 11.5px; color: var(--jade); background: var(--jade-soft); border-radius: 4px; padding: 0 6px; margin-left: 6px; }
+.what .gem { display: inline-block; font-size: 11.5px; color: var(--gold); background: var(--gold-soft); border-radius: 4px; padding: 0 6px; margin-left: 6px; }
+.what details summary { cursor: pointer; color: var(--mute); font-size: 12.5px; }
+.what details div { font-size: 13px; color: var(--mute); margin-top: 4px; }
+.box { font-family: var(--f-num); font-size: 11.5px; color: var(--mute); margin-left: 6px; }
+.mon footer { margin-top: 8px; font-size: 13px; color: var(--mute); font-variant-numeric: tabular-nums; }
+.none { color: var(--mute); font-size: 14px; margin-top: 8px; }
+.more { margin-top: 14px; font: inherit; font-size: 14px; padding: 8px 16px; border-radius: 8px; border: 1px solid var(--jade); color: var(--jade); background: transparent; cursor: pointer; }
+.irow { display: grid; grid-template-columns: 92px 1fr; gap: 10px; padding: 8px 12px; background: var(--panel); border: 1px solid var(--line); border-radius: 8px; }
+.irow .m { min-width: 0; }
+.irow .m b { font-weight: 600; }
+.irow .m small { display: block; color: var(--mute); font-size: 12.5px; }
+.ihead { margin-top: 14px; font-size: 14px; }
+.ihead b { font-weight: 600; }
+.legend { margin-top: 22px; font-size: 13px; color: var(--mute); max-width: 80ch; display: grid; gap: 6px; }
+.legend code { font-family: var(--f-num); font-size: 12px; }
+@media (max-width: 520px) { .drops li, .irow { grid-template-columns: 74px 1fr; } }
+@media (prefers-reduced-motion: no-preference) { .mon { transition: border-color .15s; } .mon:hover { border-color: var(--jade); } }
+</style>
+
+<div class="wrap">
+  <h1>Bảng Rơi NetCo4</h1>
+  <p class="lead">Mọi quái và boss có điểm spawn hoặc có dòng rơi trong server: rơi món gì, tỉ lệ bao nhiêu cho <b>mỗi người</b> trong tổ khi hạ một con. Đổi cấp nhân vật để tính giảm rơi theo chênh cấp.</p>
+  <p class="note"><b>Theo file đang có trên server lúc dựng trang.</b> Ba thay đổi chỉ có hiệu lực sau lần restart game tới, trang đã tính sẵn theo bản mới: quái rơi ngọc cấp 6 (thay cấp 5), Tuyết Lang Hồ chỉ rơi Phục Hi Ngọc, Xích Tiêu Hỏa Hồn ở Hậu Hoa Viên hồi sinh 30 phút.</p>
+
+  <div class="bar">
+    <div class="row">
+      <div class="tabs" role="group" aria-label="Chế độ tra">
+        <button id="tab-mon" type="button" aria-pressed="true">Quái &amp; boss</button>
+        <button id="tab-item" type="button" aria-pressed="false">Tìm theo vật phẩm</button>
+      </div>
+      <input id="q" type="search" placeholder="Tên quái, ID, bản đồ…" autocomplete="off" aria-label="Tìm">
+      <label class="chk" for="plv">Cấp nhân vật <input id="plv" type="number" min="1" max="150" value="119"></label>
+    </div>
+    <div class="row" id="monfilters">
+      <select id="map" aria-label="Bản đồ"><option value="">Mọi bản đồ và phó bản</option></select>
+      <label class="chk" for="fboss"><input id="fboss" type="checkbox" checked> Chỉ boss</label>
+      <label class="chk" for="fdrop"><input id="fdrop" type="checkbox" checked> Chỉ con có rơi</label>
+      <select id="sort" aria-label="Sắp xếp">
+        <option value="exp">Rơi nhiều nhất</option>
+        <option value="lv">Cấp cao nhất</option>
+        <option value="id">Theo ID</option>
+      </select>
+      <span class="count" id="count"></span>
+    </div>
+    <div class="chips" id="chips"></div>
+  </div>
+
+  <div id="out" class="list" aria-live="polite"></div>
+  <button id="more" class="more" type="button" hidden>Xem thêm</button>
+
+  <div class="legend">
+    <div><b>Cách tính.</b> Mỗi hộp rơi: X = Mvalue ÷ BoxValue × 2 (<code>DropParam=2.0</code>) × hệ số giảm rơi theo (cấp quái − cấp nhân vật). X dưới 1 là tỉ lệ ra 1 món; X trên 1 là trung bình X món. Mỗi lần ra hộp, game bốc 1 món trong hộp. Công thức đọc từ binary game, không phải số đo thực tế.</div>
+    <div><b>Mỗi thành viên tổ đội</b> ở gần đều được tính riêng một lần. Món ghi "script bản đồ" rơi theo bản đồ (<code>NetCo4/roimap.lua</code>), không bị giảm rơi theo cấp.</div>
+    <div><b>Chưa có trong trang:</b> đồ boss tự rơi bằng script riêng (Binh Thánh nhỏ, Thiếu Thất Sơn, Tứ Tuyệt Trang, Q Tô Châu/Lâu Lan: Cửu Thiên Ngọc Toái 40%, Miên Bố/Bí Ngân 10%), túi đồ boss trên web, tên trang bị (file server còn tiếng Trung, ghi kèm cấp). "Boss" là ước đoán: boss cuối các hoạt động có túi, quái hồi sinh từ 30 phút, hoặc quái phó bản có Mvalue từ 60.</div>
+  </div>
+</div>
+
+<script id="data" type="application/json">/*DATA*/</script>
+<script>
+(function () {
+  "use strict";
+  var D = JSON.parse(document.getElementById("data").textContent);
+  var PAGE = 40;
+  var st = { mode: "mon", q: "", plv: 119, map: "", boss: true, drop: true, sort: "exp", shown: PAGE };
+  try { var sv = JSON.parse(localStorage.getItem("bangroi") || "{}"); if (sv.plv) st.plv = sv.plv; } catch (e) {}
+
+  var $ = function (id) { return document.getElementById(id); };
+  var esc = function (s) { return String(s).replace(/[&<>"]/g, function (c) { return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]; }); };
+  var fold = function (s) { return String(s).normalize("NFD").replace(/[̀-ͯ]/g, "").replace(/đ/g, "d").replace(/Đ/g, "d").toLowerCase(); };
+
+  // chỉ mục
+  var mapName = D.maps.map(function (m) { return m[0]; });
+  var mapKind = D.maps.map(function (m) { return m[1]; });
+  D.mons.forEach(function (m) {
+    m.key = fold(m[1] + " " + m[0] + " " + m[5].map(function (s) { return mapName[s[0]]; }).join(" "));
+  });
+  var itemName = function (id) { var it = D.items[id]; if (!it) return "#" + id; return it[1] === "e" ? "Trang bị cấp " + it[2] + " · " + it[0] : it[0]; };
+
+  function att(mlv) {
+    var d = Math.max(-200, Math.min(200, mlv - st.plv));
+    var r = D.att[String(d)]; return r === undefined ? 1 : r;
+  }
+  function boxX(m, b) { var bx = D.boxes[b]; if (!bx || !bx[0]) return 0; return m[3] / bx[0] * D.dropParam * att(m[2]); }
+  function fmtPct(x) {
+    if (x >= 1) return "100%";
+    var p = x * 100;
+    return (p >= 10 ? p.toFixed(0) : p >= 1 ? p.toFixed(1) : p >= 0.1 ? p.toFixed(2) : "<0.1") + "%";
+  }
+  function pctCell(x, sub) {
+    var cls = x >= 0.3 ? "pct hi" : x < 0.02 ? "pct lo" : "pct";
+    var w = Math.min(1, x) * 100;
+    return '<span class="' + cls + '">' + fmtPct(x) + (x > 1.05 ? '<br><small>≈' + x.toFixed(1) + ' món</small>' : "") + (sub || "") + '<i style="width:' + w.toFixed(0) + '%"></i></span>';
+  }
+  function tomHop(it) {
+    var eq = it.filter(function (i) { return D.items[i] && D.items[i][1] === "e"; });
+    var rest = it.filter(function (i) { return !(D.items[i] && D.items[i][1] === "e"); });
+    var cnt = {}; var order = [];
+    rest.forEach(function (i) { var n = itemName(i).replace(/\s*\(cấp \d+\)/, ""); if (!(n in cnt)) { cnt[n] = 0; order.push(n); } cnt[n]++; });
+    var parts = order.map(function (n) { return cnt[n] > 1 ? n + " ×" + cnt[n] : n; });
+    if (eq.length) {
+      var lvs = eq.map(function (i) { return D.items[i][2]; }); var a = Math.min.apply(null, lvs), b = Math.max.apply(null, lvs);
+      parts.unshift(eq.length + " món trang bị cấp " + (a === b ? a : a + "–" + b));
+    }
+    return parts;
+  }
+  function gemLv(it) {
+    var s = {}; it.forEach(function (i) { var x = D.items[i]; if (x && x[1] === "g") s[x[2]] = 1; });
+    var k = Object.keys(s); return k.length ? "ngọc cấp " + k.join("/") : "";
+  }
+  function expOf(m) {
+    var t = 0; m[4].forEach(function (b) { t += boxX(m, b); });
+    var sc = m[5].find(function (s) { return s[4]; }); if (sc) t += sc[4][1] / 100;
+    return t;
+  }
+
+  function monCard(m) {
+    var rows = [];
+    var sc = []; m[5].forEach(function (s) { if (s[4] && !sc.some(function (x) { return x[0] === s[4][0]; })) sc.push(s[4]); });
+    sc.forEach(function (r) { rows.push({ x: r[1] / 100, html: esc(itemName(r[0])) + '<span class="src">script bản đồ</span>' }); });
+    m[4].forEach(function (b) {
+      var bx = D.boxes[b]; var x = boxX(m, b); var parts = tomHop(bx[1]); var g = gemLv(bx[1]);
+      var head = parts.slice(0, 4).join(", ");
+      var body = esc(head) + (g ? '<span class="gem">' + g + '</span>' : "") + '<span class="box">hộp ' + b + '</span>';
+      if (parts.length > 4) body += '<details><summary>' + (parts.length - 4) + ' món nữa trong hộp</summary><div>' + esc(parts.slice(4).join(", ")) + '</div></details>';
+      rows.push({ x: x, html: body });
+    });
+    rows.sort(function (a, b) { return b.x - a.x; });
+    var where = m[5].map(function (s) {
+      var n = esc(mapName[s[0]]); if (mapKind[s[0]] !== "map" && !s[1]) return n + " (script gọi ra)";
+      var rs = s[2] === s[3] ? s[2] : s[2] + "–" + s[3];
+      var rsTxt = rs >= 60 && s[2] === s[3] && rs % 60 === 0 ? rs / 60 + " phút" : rs + " giây";
+      return n + " ×" + s[1] + (s[2] ? " · hồi sinh " + rsTxt : "");
+    });
+    var shown = rows.filter(function (r) { return r.x >= 0.0005; });
+    var hidden = rows.length - shown.length;
+    return '<article class="mon"><header><h3>' + esc(m[1]) + ' <span class="lv">cấp ' + m[2] + '</span></h3><span class="id">#' + m[0] + '</span>' + (m[6] ? '<span class="tag">Boss</span>' : "") + '</header>'
+      + '<div class="where">' + (where.length ? where.map(function (w) { return "<span>" + w + "</span>"; }).join("") : "<span>Không rõ nơi xuất hiện (gọi bằng script)</span>") + '</div>'
+      + (shown.length ? '<ul class="drops">' + shown.map(function (r) { return "<li>" + pctCell(r.x) + '<span class="what">' + r.html + "</span></li>"; }).join("") + "</ul>" : '<div class="none">Không rơi gì từ bảng rơi.</div>')
+      + '<footer>Trung bình ' + expOf(m).toFixed(2) + ' món/người/con · Mvalue ' + m[3] + ' · giảm rơi ×' + att(m[2]) + (hidden ? " · " + hidden + " hộp gần như không rơi" : "") + '</footer></article>';
+  }
+
+  function renderMon() {
+    var q = fold(st.q.trim()); var mapI = st.map === "" ? -1 : +st.map;
+    var ds = D.mons.filter(function (m) {
+      if (st.boss && !m[6]) return false;
+      if (st.drop && !m[4].length && !m[5].some(function (s) { return s[4]; })) return false;
+      if (mapI >= 0 && !m[5].some(function (s) { return s[0] === mapI; })) return false;
+      if (q && m.key.indexOf(q) < 0) return false;
+      return true;
+    });
+    if (st.sort === "exp") ds.forEach(function (m) { m.e = expOf(m); });
+    ds.sort(st.sort === "exp" ? function (a, b) { return b.e - a.e; } : st.sort === "lv" ? function (a, b) { return b[2] - a[2] || a[0] - b[0]; } : function (a, b) { return a[0] - b[0]; });
+    $("count").textContent = ds.length + " con";
+    $("out").innerHTML = ds.length ? ds.slice(0, st.shown).map(monCard).join("") : '<div class="none">Không có con nào khớp. Thử bỏ "Chỉ boss" hoặc đổi từ khóa.</div>';
+    $("more").hidden = ds.length <= st.shown;
+    $("more").textContent = "Xem thêm (" + (ds.length - st.shown) + " con nữa)";
+  }
+
+  function renderItem() {
+    var q = fold(st.q.trim());
+    if (q.length < 2) { $("out").innerHTML = '<div class="none">Gõ tên hoặc ID vật phẩm, ví dụ "phục hi", "ngọc cấp 6", "39910001".</div>'; $("more").hidden = true; $("count").textContent = ""; return; }
+    var hit = {}; Object.keys(D.items).forEach(function (id) { if (id === q || fold(itemName(id)).indexOf(q) >= 0) hit[id] = 1; });
+    var rows = [];
+    D.mons.forEach(function (m) {
+      var per = {};
+      m[4].forEach(function (b) { var bx = D.boxes[b]; var n = bx[1].length; if (!n) return; var x = boxX(m, b);
+        bx[1].forEach(function (i) { if (hit[i]) per[i] = (per[i] || 0) + x / n; }); });
+      m[5].forEach(function (s) { if (s[4] && hit[s[4][0]]) per[s[4][0]] = Math.max(per[s[4][0]] || 0, s[4][1] / 100); });
+      Object.keys(per).forEach(function (i) { if (per[i] >= 0.0001) rows.push([per[i], m, i]); });
+    });
+    rows.sort(function (a, b) { return b[0] - a[0]; });
+    var nItem = Object.keys(hit).length;
+    $("count").textContent = rows.length + " nguồn rơi";
+    var lim = rows.slice(0, st.shown);
+    $("out").innerHTML = '<div class="ihead">Khớp <b>' + nItem + '</b> vật phẩm. Tỉ lệ ra <b>đúng món đó</b> cho mỗi người khi hạ 1 con.</div>'
+      + (lim.length ? lim.map(function (r) { var m = r[1];
+        var where = m[5].slice(0, 2).map(function (s) { return mapName[s[0]]; }).join(", ") || "gọi bằng script";
+        return '<div class="irow">' + pctCell(r[0]) + '<div class="m">' + esc(itemName(r[2])) + ' — <b>' + esc(m[1]) + '</b> <span class="lv">cấp ' + m[2] + '</span> <span class="id">#' + m[0] + '</span>' + (m[6] ? ' <span class="tag">Boss</span>' : "") + '<small>' + esc(where) + '</small></div></div>'; }).join("") : '<div class="none">Không quái nào rơi món này từ bảng rơi.</div>');
+    $("more").hidden = rows.length <= st.shown;
+    $("more").textContent = "Xem thêm (" + (rows.length - st.shown) + " nguồn nữa)";
+  }
+
+  function render() {
+    $("monfilters").hidden = st.mode !== "mon";
+    $("q").placeholder = st.mode === "mon" ? "Tên quái, ID, bản đồ…" : "Tên hoặc ID vật phẩm…";
+    (st.mode === "mon" ? renderMon : renderItem)();
+  }
+
+  // bản đồ
+  var opts = D.maps.map(function (m, i) { return [m[0], i, m[1]]; }).filter(function (x) { return D.mons.some(function (m) { return m[5].some(function (s) { return s[0] === x[1]; }); }); });
+  opts.sort(function (a, b) { return a[0].localeCompare(b[0], "vi"); });
+  $("map").insertAdjacentHTML("beforeend", opts.map(function (o) { return '<option value="' + o[1] + '">' + esc(o[0]) + (o[2] === "map" ? "" : " · phó bản") + "</option>"; }).join(""));
+
+  var CHIPS = { mon: ["Túc Cầu", "Binh Thánh", "Phiêu Miểu Phong", "Yến Tử Ổ", "Sát Tinh", "Hậu hoa viên", "Tuyết Lang Hồ", "Lâu Lan Tầm Bảo"], item: ["Phục Hi Ngọc", "Nguyên Bảo Phiếu", "Chí Tôn Cường Hóa", "Long Hồn Ngọc", "Tử Vi Linh Phách", "Công Lực Đan", "Hợp Thành Phù", "Miên Bố"] };
+  function chips() { $("chips").innerHTML = CHIPS[st.mode].map(function (c) { return '<button type="button">' + esc(c) + "</button>"; }).join(""); }
+  $("chips").addEventListener("click", function (e) { if (e.target.tagName !== "BUTTON") return; st.q = e.target.textContent; $("q").value = st.q; if (st.mode === "mon") { st.boss = false; $("fboss").checked = false; } st.shown = PAGE; render(); });
+
+  function setMode(m) { st.mode = m; st.shown = PAGE; $("tab-mon").setAttribute("aria-pressed", m === "mon"); $("tab-item").setAttribute("aria-pressed", m === "item"); st.q = ""; $("q").value = ""; chips(); render(); }
+  $("tab-mon").onclick = function () { setMode("mon"); };
+  $("tab-item").onclick = function () { setMode("item"); };
+  var t; $("q").addEventListener("input", function () { clearTimeout(t); t = setTimeout(function () { st.q = $("q").value; st.shown = PAGE; render(); }, 160); });
+  $("plv").value = st.plv;
+  $("plv").addEventListener("change", function () { var v = Math.max(1, Math.min(150, parseInt($("plv").value, 10) || 119)); $("plv").value = v; st.plv = v; try { localStorage.setItem("bangroi", JSON.stringify({ plv: v })); } catch (e) {} render(); });
+  $("map").onchange = function () { st.map = $("map").value; st.shown = PAGE; if (st.map !== "") { st.boss = false; $("fboss").checked = false; } render(); };
+  $("fboss").onchange = function () { st.boss = $("fboss").checked; st.shown = PAGE; render(); };
+  $("fdrop").onchange = function () { st.drop = $("fdrop").checked; st.shown = PAGE; render(); };
+  $("sort").onchange = function () { st.sort = $("sort").value; render(); };
+  $("more").onclick = function () { st.shown += PAGE; render(); };
+  chips(); render();
+})();
+</script>
