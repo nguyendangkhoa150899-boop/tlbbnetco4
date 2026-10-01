@@ -6,13 +6,13 @@
 
 ### Tư chất CỐ ĐỊNH cho 144 pet Huyễn Hóa (01/10, cần restart vì sửa PetConfigTable.ini)
 
-- Engine (, đọc từ Server.elf) tính tư chất = chuẩn PetAttrTable × hệ số ngẫu nhiên trong [PerParam bậc i, PerParam bậc i+1] của **ruler** do Lua truyền vào (: 0 thường, 1 RMB, 2 SuperRMB).  không dùng ở đây.
-- : ruler 2 (SuperRMB) mọi  = 1.000,  = 999/1, trưởng thành  = 1000 (luôn bậc cao nhất). Ruler 0/1 (pet thường, trứng, bắt ngoài map) giữ nguyên random.
-- : bảng  (144 ID, cả V2 lẫn Admin 12000) → quà  trong bảng tạo với ruler 2 → ra **đúng** số trong bảng (V2 5000/2500, Admin 12000). Pet đã phát trước đó giữ tư chất cũ (lưu trong DB).
-- Hoàn Đồng 4834/4907/4908 từ chối pet Huyễn Hóa (nếu không người chơi hoàn đồng là random lại ×1,0–1,4).
-- Người dùng ruler 2 khác: chỉ Huyễn Hóa Đan gốc  (30309150…, ra skin gốc 25009/25049…) — giờ ra tư chất chuẩn ×1.000 thay vì ×1,145+. Đan này không bán ở đâu (chỉ có trong túi quay trứng 30504007/017/045/048/049, 30504119/120 — cũng không bán).
+- Engine (`PetRuler::CreatePerception`, đọc từ Server.elf) tính tư chất = chuẩn PetAttrTable × hệ số ngẫu nhiên trong [PerParam bậc i, PerParam bậc i+1] của **ruler** do Lua truyền vào (`LuaFnCreatePetToHuman(..., ruler)`: 0 thường, 1 RMB, 2 SuperRMB). `IntelligenceRange` không dùng ở đây.
+- `PetConfigTable.ini`: ruler 2 (SuperRMB) mọi `SuperRMBPerParam*` = 1.000, `SuperRMBPerRate0/1` = 999/1, trưởng thành `SuperRMB_GrowRate4` = 1000 (luôn bậc cao nhất). Ruler 0/1 (pet thường, trứng, bắt ngoài map) giữ nguyên random.
+- `NetCo4/quatang.lua`: bảng `x950000_g_HuyenHoa` (144 ID, cả V2 lẫn Admin 12000) → quà `pet <ID>` trong bảng tạo với ruler 2 → ra **đúng** số trong bảng (V2 5000/2500, Admin 12000). Pet đã phát trước đó giữ tư chất cũ (lưu trong DB).
+- Hoàn Đồng 4834/4907/4908 từ chối pet Huyễn Hóa (nếu không, người chơi hoàn đồng là random lại ×1,0–1,4).
+- Ruler 2 còn được Huyễn Hóa Đan gốc `huantongdan_4.lua` dùng (30309150…, ra skin gốc 25009/25049…): giờ ra tư chất chuẩn ×1.000 thay vì ×1,145+. Đan này không bán ở đâu (chỉ có trong túi quay trứng 30504007/017/045/048/049, 30504119/120, các túi này cũng không bán).
 - **Không có đường mua**: đã quét shop web (itemShop 257 món, rương, vòng quay), ShopTable, mọi script/bảng và 22.994 điểm spawn quái → không chỗ nào ra 144 ID này, chỉ quà admin (panel).
-- Rollback: tag .
+- Rollback: tag `truoc-v2-codinh-01-10`.
 
 ### Bản Admin (12000)
 
