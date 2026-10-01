@@ -101,21 +101,24 @@ Mẫu tạm 11–15 dòng: Tạo Hóa, Trùng Lâu Liên/Giới/Ngọc, quạt P
 | Dọn sót test | `GemInfo` 50412007 cột 6 → 1. Xóa 54 pet `31001–31582`. |
 | Điểm môn phái âm | Người dùng: lỗi cũ tự hết, bỏ qua. (Nguồn chưa tìm ra; nếu âm mà vẫn mua được thì là lỗ hổng.) |
 
-### 2b. Còn phải chốt (README "quyết định treo", chưa hỏi)
-1. **Bảo mật ngày mở:** đổi `PANEL_PASS` (GM), `PANEL_SUPER_PASSWORD`, mật khẩu tài khoản `admin`; đổi/khóa mật khẩu mod `1234567`; **đóng Drop Boss cho mod**; tắt `tlbb-panel` (gm.netco4.click) nếu không dùng riêng.
-2. NPC Thẻ Tài Phú (KNB miễn phí theo mốc cấp): giữ hay tắt?
-3. Túc Cầu: điều kiện tổ đội ≥ 3; có thêm phiếu cho 40 boss Túc Cầu / Kính Hồ không?
-4. Hạn rút KNB web → game (30.000/ngày) và đổi KNB → vàng: giữ số này?
-5. Rương Ích Kỷ: giữ?
-6. Shop 150 ngọc cấp 5 bằng Điểm Tặng: giữ khi Điểm Tặng không còn miễn phí?
-7. Giá 33 ngọc cấp 6 trên shop web (đang tắt, 99.999).
-8. Miên Bố / Bí Ngân cấp 6 cho Ác tặc / Ác bá / Tô Châu–Lâu Lan: có thêm không?
-9. Ám khí (Mai Hoa Tiêu / Băng Phách): mở không?
-10. 98 câu tiếng Trung trong 32 file: dịch hay tắt?
-11. Tin 3 nhóm boss còn lại (Thảo Nguyên 810003, Kim Cương 810001, Độc Cáp 810000): tắt?
-12. Trứng pet event bán 20.000 KNB trong game: giữ?
-13. Ngưng Tức Hoàn chưa có chỗ bán: web hay kệ game?
-14. Pet V2 (85/95) có bán trên web giai đoạn sau không, hay chỉ admin phát?
+### 2b. Chốt thêm 01/10 tối (14 điểm từ README)
+
+| # | Điểm | Chốt |
+|---|---|---|
+| 1 | Bảo mật | **Bỏ cổng mod** (mod.netco4.click, mật khẩu `1234567`): tắt cổng admin thường, Drop Boss cho mod theo đó cũng đóng. **Giữ SUPER** (admin.netco4.click). Vẫn đổi `PANEL_PASS`, `PANEL_SUPER_PASSWORD`, mật khẩu `admin` ngày mở. |
+| 2 | NPC Thẻ Tài Phú (`odali_youxituiguang.lua` 002084) | KNB theo mốc cấp, mỗi mốc 1 lần/nhân vật: 10 → 100, 30 → 500, 50 → **6.000** (thông báo ghi 1.000, lỗi gốc), 70 → 5.000, 90 → 10.000, 100 → 50.000, 110 → 100.000, 149 → 400.000 (không tới được). Tổng tới 110 = **171.600 KNB/nhân vật**; tới 89 = 11.600. **Chờ chủ server chốt.** |
+| 3 | Túc Cầu | Giữ nguyên. |
+| 4 | Hạn KNB web → game, đổi vàng | Giữ như đã đặt (30.000/ngày). |
+| 5 | Rương Ích Kỷ | **Tắt** (công tắc chức năng trên web admin). |
+| 6 | Shop 150 ngọc cấp 5 | **Giữ**: nhóm chơi dưới 2 tháng, cần lên đồ nhanh. |
+| 7 | 33 ngọc cấp 6 web | Chủ server tự chỉnh giá trên web admin. |
+| 8 | Miên Bố / Bí Ngân cấp 6 | **Rơi 40%** ở quái phó bản **Q Tô Châu + Q Lâu Lan** (`roimap.lua`, cùng chỗ Cửu Thiên Ngọc Toái). ID: Miên Bố 6 `20501006`, Bí Ngân 6 `20502006`. Chưa rõ: rơi cả 2 hay bốc 1; Ác tặc/Ác bá ngoài map có tính không. |
+| 9 | Ám khí | Để sau. |
+| 10 | 98 câu tiếng Trung | Dịch dần sau khi mở. |
+| 11 | Tin 3 nhóm boss (810000/810001/810003) | **Tắt.** |
+| 12 | Trứng pet 20.000 KNB (kệ 132/218/219 Hồ Ca) | Giữ trong game; giá web chủ server tự chỉnh. |
+| 13 | Ngưng Tức Hoàn `38002067`/`38002068` | Viên cộng **+500 lượt** vào bộ đếm "giết quái x2 nội tức" (Võ Ý). Không bán ở đâu. Chờ chủ server chọn: web / kệ game / không bán. |
+| 14 | Pet V2 (85/95) | **Chỉ admin tặng**, không bán. |
 
 ---
 
@@ -124,7 +127,7 @@ Mẫu tạm 11–15 dòng: Tạo Hóa, Trùng Lâu Liên/Giới/Ngọc, quạt P
 > **Bẫy phải tránh:** `cap-nhat.sh` rsync theo checksum, file nào trên server khác repo là bị ghi đè. Vì vậy mọi sửa cấu hình ngày mở **phải là commit trong repo**, không sửa tay trên VPS. Nhưng commit sớm thì lần deploy kế tiếp đẩy lên server đang test. → Làm trong **nhánh `mo-server`** từ máy nhà (VPS không push được), ngày mở merge vào `main` rồi `cap-nhat.sh`.
 
 **Trước ngày mở (không ảnh hưởng server đang chạy):**
-1. Nhánh `mo-server` chứa: `DefaultChar.ini` level 1; `ConfigInfo.ini` ExpParam 10.0; `ChatConfig.txt` kênh 2 = 180000; `jiarumenpai.lua` HHV 19/24, tắt menu 80.000 Điểm Tặng; NPC 8886 hộp 1 lần duy nhất; `MonsterAttrExTable` máu boss 80%; `GemInfo` 50412007 = 1; xóa 54 pet 31xxx khỏi `PetAttrTable` (+ dòng tương ứng trong `MonsterAttrExTable` nếu là pet thuần); `panel.js` đóng Drop Boss cho mod. Mỗi file kiểm bằng script byte-safe như các lần trước.
+1. Nhánh `mo-server` chứa: `DefaultChar.ini` level 1; `ConfigInfo.ini` ExpParam 10.0; `ChatConfig.txt` kênh 2 = 180000; `jiarumenpai.lua` HHV 19/24, tắt menu 80.000 Điểm Tặng; NPC 8886 hộp 1 lần duy nhất; `MonsterAttrExTable` máu boss 80%; `GemInfo` 50412007 = 1; xóa 54 pet 31xxx khỏi `PetAttrTable` (+ dòng tương ứng trong `MonsterAttrExTable` nếu là pet thuần); tắt cổng mod (admin thường) của bot; tắt công tắc Rương Ích Kỷ; tắt tin boss 810000/810001/810003 (`ActivityNotice.txt`); `roimap.lua` thêm Miên Bố/Bí Ngân 6 40% cho 50100/50220. Mỗi file kiểm bằng script byte-safe như các lần trước.
 2. `deploy/mo-server.sh` dựa trên `reset-choi-that.sh`: sao lưu DB; xóa `web.account` trừ `bialk1`; xóa `tlbbdb.*` trừ dòng `charguid = 1010100008` ở mọi bảng có cột đó (kiểm `information_schema`), gỡ bia1 khỏi bang (`guildid = 0`); `GMList.ini` chỉ còn 1010100008; xóa `NetCo4Web/*.in|*.done|*.vang|*.vangkhoa|*.tanthu|out/*` **trừ của 1010100008**; xóa `_capmin.txt`, QianDao, Paiming…
 3. Thêm `database.json` vào `sao-luu.sh` (sao lưu cùng lúc với MySQL).
 4. **Chạy thử** `mo-server.sh` trên bản sao DB (MySQL trong chroot, DB tạm), đếm dòng còn lại từng bảng, kiểm bia1 còn đủ pet/đồ/kỹ năng.
@@ -139,7 +142,7 @@ Mẫu tạm 11–15 dòng: Tạo Hóa, Trùng Lâu Liên/Giới/Ngọc, quạt P
 6. Đổi `PANEL_PASS` trong `secrets.env`, restart `tlbb-panel`; đổi mật khẩu `admin` (`tao-account.sh --doi admin …`).
 7. `tlbb.sh start`. Panel GM: ô Cấp tối thiểu = **0**; đặt **Cấp tối đa = 89**, Lưu + Restart.
 8. Web admin: bật thẻ Chọn Pet Boss (Tân Thủ, giá 0).
-9. Kiểm bằng 1 tài khoản mới: cấp **1**; không nhận được 80.000 Điểm Tặng; hộp tân thủ 1 lần; nhận pet Tân Thủ trên web và bấm **Chiến** được ở cấp thấp; exp có tích khi chạm 89 không; bia1 còn đủ đồ + GM; mod không còn thấy Drop Boss.
+9. Kiểm bằng 1 tài khoản mới: cấp **1**; không nhận được 80.000 Điểm Tặng; hộp tân thủ 1 lần; nhận pet Tân Thủ trên web và bấm **Chiến** được ở cấp thấp; exp có tích khi chạm 89 không; bia1 còn đủ đồ + GM; cổng mod không còn vào được.
 10. Theo dõi tuần đầu: RAM, `luaerror.log`, lượng phiếu rơi (Audit `ITEM_CREATED … 39910001`).
 11. Rollback: `truoc-reset-*.sql.gz`, bản sao `database.json`, `git revert` merge.
 
