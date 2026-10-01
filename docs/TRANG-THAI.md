@@ -507,3 +507,8 @@ Tài khoản: `admin` (nhân vật `Bialk`, GUID 1010100001, GM), `hoang`. Mật
 - Sửa (`floor`): `event/fuben/efuben_cuju.lua` (Túc Cầu 402040), `event/fuben/efuben_jiaofei.lua` (402030), `event/olympicgames/eGodFireTransfer_fuben.lua` (có dự phòng nên vẫn ra quái cấp thấp nhất, giờ đúng cấp), `event/huodong/seek_treasure.lua` + `seek_treasure2.lua` (**Lâu Lan Tầm Bảo** 808039: nhánh thường `floor(cấp/10) - 6`, nhánh tối đa sửa thành `floor(119/10) - 6` = 5 như cấp 110–119; trước ra 11,9 → không ra quái/boss Trấn Bảo Long Vương).
 - Túc Cầu ghi giờ vào (`MD_CUJU_PRE_TIME`) ngay khi vào → lượt hỏng vẫn khóa 24 giờ. Thêm `x402040_g_MocSuaLoi = 1790876753` (02/10 00:45): lần vào trước mốc không tính.
 - Lượt Túc Cầu đang mở (tạo trước khi sửa) không cứu được: ra rồi vào lại.
+
+## 02/10 01:10 - Túc Cầu: mọi quả túc cầu rơi Tử Vi Linh Phách 50% (Lua, hiệu lực ngay)
+- `event/fuben/efuben_cuju_4.lua` (402045, script của quả túc cầu nhỏ / Hoa Sắc / quả lớn): đầu `OnDie` gọi `CallScriptFunction( 950001, "RoiDo", ..., 30600084, 50 )` → mỗi người trong tổ ở gần roll 50%, đồ trên xác. Bảng rơi các quả này vốn trống (log `Search Obj_Monster DropBox MonsterType:33680 Get Errors` = không có dòng, nhưng đường tạo hộp vẫn chạy nên món script vẫn rơi). Boss Tôn Mỹ Mỹ (script 402040) giữ bảng rơi gốc.
+- Ghi chú: bộ đếm "Đã giết chết túc cầu N/149" trong `OnDie` so tên kiểu "Song song yến", còn quả túc cầu được đặt tên "Hoàng Sắc Túc Cầu"… nên bộ đếm không bao giờ tăng (chỉ là thông báo, không ảnh hưởng ra boss).
+- **Mở:** log 02/10 00:42–00:51 Binh Thánh lớn (scene 36) gọi ra 71 con quái `Type=0` cách 12–15 giây (ID rỗng). Mọi ID quái phụ của 3 boss cuối đều có trong bảng; chưa tìm ra nguồn. Không chặn phó bản (Gia Luật Diễm, Gia Luật Liên Thành vẫn ra).
