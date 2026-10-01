@@ -64,7 +64,7 @@ x899040_g_SkillImpact[12862] = {skill =897,tarobj1 = {12815},tarobj2={12813},Spe
 x899040_g_SkillImpact[12863] = {skill =-1,tarobj1 = {12788},tarobj2={-1},SpecialObjData = {-1},myobj1={-1},myobj2={}}
 x899040_g_wujuemijitoxingdenum = {WULIMIJIXUEJUEBOOK1,WULIMIJIXUEJUEBOOK2,WULIMIJIXUEJUEBOOK3}
 x899040_g_jinjueLevel={10000,60000,70000,90000,120000,160000,260000,338000,530000,780000,1080000,1440000}
-x899040_g_sum = {40424,40424,40424,40424,40424,56207,56207,56207,56207,56207,77803,77803,77803,112785,112785,112785}
+x899040_g_sum = {40424,40424,40424,40424,40424,40424,40424,40424,40424,40424,56207,56207,56207,56207,56207,56207,56207,56207,56207,56207,77803,77803,77803,77803,77803,77803,112785,112785,112785,112785,112785,112785}   -- [NetCo4 02/10] 32 muc nhu BookUpLevelOrDel.lua: ma sach la so le 1,3,...,31 (vat pham 30311001-30311031); bang cu 16 muc -> sach > 16 ti le 0
 x899040_g_isornotflat = MF_WUJUESKILL_DO
 x899040_g_juesimiji = {}
 x899040_g_juesimiji[12782] = 1
@@ -114,8 +114,9 @@ function x899040_OnImpactFadeOut( sceneId, selfId, impactId )
 		
  		local mynowkaili = 0
                 if x899040_g_SkillImpact[impactId].skill ~= -1 then
-                if kailu[floor((x899040_g_SkillImpact[impactId].skill-848)/3)] ~= nil then
-                mynowkaili = kailu[floor((x899040_g_SkillImpact[impactId].skill-848)/3)] 
+                -- [NetCo4 02/10] chieu 850+3k..852+3k thuoc sach so 2k+1 (truoc: floor((chieu-848)/3) = k+1 chi dung cho sach 1 -> chieu Nhi/Tam cac sach khac khong bao gio ra)
+                if kailu[floor((x899040_g_SkillImpact[impactId].skill-850)/3)*2+1] ~= nil then
+                mynowkaili = kailu[floor((x899040_g_SkillImpact[impactId].skill-850)/3)*2+1] 
                 end
                 end
                 local ret = random(1,100)
