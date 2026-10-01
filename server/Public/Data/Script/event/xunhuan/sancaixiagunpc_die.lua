@@ -31,6 +31,7 @@ function x001130_NotifyFailTips( sceneId, selfId, Tip )
 end
 
 function x001130_OnDie( sceneId, selfId, killerId )
+	CallScriptFunction( 950001, "RoiDo", sceneId, selfId, killerId, 20800034, 40 )  -- [NetCo4 01/10] Cuu Thien Ngoc Toai 40%, NetCo4/roimap.lua
 	--是否是副本
 	local sceneType = LuaFnGetSceneType( sceneId )
 	if sceneType ~= 1 then

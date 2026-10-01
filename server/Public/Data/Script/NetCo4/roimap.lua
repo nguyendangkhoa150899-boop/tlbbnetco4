@@ -15,6 +15,13 @@ x950001_g_Roi = {
 	[182] = { 38000571, 30 },   -- Hau Hoa Vien 3
 }
 
+-- Pho ban (scene tao dong, sceneId moi luot khac nhau): goi tu ham OnDie cua quai pho ban
+--   CallScriptFunction( 950001, "RoiDo", sceneId, selfId, killerId, <ID vat pham>, <%> )
+-- Dang goi: Lien Hoan Q To Chau (event/xunhuan/sancaixiagunpc_die.lua, quai script 1130) -> Cuu Thien Ngoc Toai 20800034 40%.
+function x950001_RoiDo( sceneId, selfId, killerId, itemId, pct )
+	x950001_Chia( sceneId, selfId, killerId, { itemId, pct } )
+end
+
 function x950001_Roll( sceneId, selfId, playerId, r )
 	if random( 1, 100 ) <= r[2] then
 		AddMonsterDropItem( sceneId, selfId, playerId, r[1] )
@@ -26,6 +33,11 @@ function x950001_OnDie( sceneId, selfId, killerId )
 	if r == nil then
 		return
 	end
+	x950001_Chia( sceneId, selfId, killerId, r )
+end
+
+-- moi thanh vien to doi o gan roll rieng
+function x950001_Chia( sceneId, selfId, killerId, r )
 	if LuaFnIsObjValid( sceneId, killerId ) ~= 1 then
 		return
 	end
