@@ -13,7 +13,7 @@ x990010_g_VangNgay = 2000        -- [NetCo4 30/09] vang khong khoa mien phi moi 
 x990010_g_VangDir = "./txt/NetCo4Web/"   -- trang thai <GUID>.vang = so ngay yyyymmdd
 x990010_g_VangKhoaNgay = 8000    -- [NetCo4 01/10] vang KHOA mien phi moi ngay (1 lan / nhan vat / ngay), them ngoai 2.000 vang khong khoa. Trang thai <GUID>.vangkhoa
 -- [NetCo4 30/09] Gio mo cua Hau Hoa Vien (scene 62/82/182). Mo tu HHV_Mo gio den truoc HHV_Dong gio. Mo=0, Dong=24 = mo ca ngay.
-x990010_g_HHV_Mo = 0     -- TEST: mo 24/24. Ngay open chinh thuc: Mo = 19, Dong = 24 (19:00 - 23:59)
+x990010_g_HHV_Mo = 19    -- [mo-server] 19:00-23:59. Truoc: TEST mo 24/24. Ngay open chinh thuc: Mo = 19, Dong = 24 (19:00 - 23:59)
 x990010_g_HHV_Dong = 24
 function x990010_HHV_DangMo()
 	local h = GetHour()
@@ -41,7 +41,7 @@ function  x990010_OnDefaultEvent(  sceneId,  selfId,  targetId  )
 	 	 AddNumText(  sceneId,  x990010_g_scriptId,  "#cff6633Tuy«n T¯ng T±ng Hþp",  6,  400)
 	 	 AddNumText(  sceneId,  x990010_g_scriptId,  "#GTr¸ li®u",  3,  500)
 		 AddNumText(sceneId, x990010_g_scriptId, "#c66ccccNh§n Skill S½ C¤p", 6, 918)
-		 AddNumText(sceneId, x990010_g_scriptId, "#GNh§n 80.000 Ði¬m T£ng (mi­n phí)", 6, 919) -- [NetCo4 30/09]
+		 -- [mo-server] tat 80.000 Diem Tang: AddNumText(sceneId, x990010_g_scriptId, "#GNh§n 80.000 Ði¬m T£ng (mi­n phí)", 6, 919) -- [NetCo4 30/09]
 		 AddNumText(sceneId, x990010_g_scriptId, "#YNh§n 2.000 vàng hôm nay (1 l¥n/ngày)", 6, 920) -- [NetCo4 30/09]
 		 AddNumText(sceneId, x990010_g_scriptId, "#YNh\167n 8.000 v\224ng kh\243a h\244m nay (1 l\165n/ng\224y)", 6, 921) -- [NetCo4 01/10]
 		 AddNumText(sceneId, x990010_g_scriptId, "#cFF00FFT\244ng B\237 T\184ch (xem / x\170p / \240\177i)", 6, 922) -- [NetCo4 01/10]
@@ -240,7 +240,7 @@ if GetNumText() == 2000 then --danh hieu
 	 x990010_TongBiTich( sceneId, selfId, targetId )
 	 return
 	 end
-	if  GetNumText()  ==  919  then -- [NetCo4 30/09] Diem Tang mien phi, khong gioi han
+	if  GetNumText()  ==  -919  then -- [mo-server] TAT (goc 919). [NetCo4 30/09] Diem Tang mien phi, khong gioi han
 	 ZengDian( sceneId, selfId, targetId, 1, 80000 )
 	 LuaFnSendSpecificImpactToUnit( sceneId, selfId, selfId, selfId, 18, 0 )
 	 x990010_NotifyFailBox( sceneId, selfId, targetId, "Các hÕ ðã nh§n #Y80.000 #GÐi¬m T£ng#W. B¤m lÕi ð¬ nh§n tiªp." )

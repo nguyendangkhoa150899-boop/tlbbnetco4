@@ -18,7 +18,7 @@ function x001113_OnDefaultEvent( sceneId, selfId, targetId )
 		--AddNumText( sceneId, x001113_g_scriptId, "#cFF0000 –±i Th∂i Trang Thuµc TÌnh", 6, 10 )
 		--AddNumText( sceneId, x001113_g_scriptId, "#e0000ff#G Nhßn V‡ng + KNB (TEST)", 6, 7777 )
 		  AddNumText( sceneId, x002084_g_scriptId, "Hu÷ hiÆu —ng thﬂΩng nh‚n+ t‡o vßn", 6, 30030 )
-		AddNumText( sceneId, x001113_g_scriptId, "#g0f0ff0 Nh\167n l\213i T\226n Th\252 Trang B\184 [10 c\164p] (set + v\251 kh\237, 1 l\165n/ng\224y) ", 6, 8886 ) -- [NetCo4 01/10]
+		AddNumText( sceneId, x001113_g_scriptId, "#g0f0ff0 Nh\167n l\213i T\226n Th\252 Trang B\184 [10 c\164p] (set + v\251 kh\237, 1 l\165n duy nh\164t) ", 6, 8886 ) -- [NetCo4 01/10]
 		if GetLevel( sceneId, selfId ) <= 99 then
 		AddNumText( sceneId, x001113_g_scriptId, "#g0f0ff0 Nhßn qu‡ T‚n Th¸ (v‡ level 99) ", 6, 8887 )
 		end
@@ -497,8 +497,8 @@ function x001113_TanThuTrangBi( sceneId, selfId, targetId )
 	if h then
 		local s = read( h, "*l" )
 		closefile( h )
-		if s and tonumber( s ) == today then
-			x001113_NotifyFailBox( sceneId, selfId, targetId, "H\244m nay \240\227 nh\167n T\226n Th\252 Trang B\184 r\176i, mai quay l\213i nh\233." )
+		if s and tonumber( s ) ~= nil and tonumber( s ) > 0 then -- [mo-server] 1 lan duy nhat (goc: == today). Phat loi ghi "0" nen van nhan lai duoc
+			x001113_NotifyFailBox( sceneId, selfId, targetId, "C\225c h\213 \240\227 nh\167n T\226n Th\252 Trang B\184 r\176i (m\178i nh\226n v\167t ch\239 1 l\165n)." )
 			return
 		end
 	end
