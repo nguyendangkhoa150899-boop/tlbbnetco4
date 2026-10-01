@@ -19,7 +19,7 @@ x950001_g_Roi = {
 
 -- Pho ban (scene tao dong, sceneId moi luot khac nhau): goi tu ham OnDie cua quai pho ban
 --   CallScriptFunction( 950001, "RoiDo", sceneId, selfId, killerId, <ID vat pham>, <%> )
--- Dang goi: Lien Hoan Q To Chau (event/xunhuan/sancaixiagunpc_die.lua, quai script 1130) -> Cuu Thien Ngoc Toai 20800034 40%.
+-- Dang goi: Lien Hoan Q To Chau (event/xunhuan/sancaixiagunpc_die.lua, quai script 1130) -> Cuu Thien Ngoc Toai 20800034 30% (02/10: 40 -> 30).
 function x950001_RoiDo( sceneId, selfId, killerId, itemId, pct )
 	x950001_Chia( sceneId, selfId, killerId, { itemId, pct } )
 end
@@ -49,8 +49,8 @@ end
 
 -- Pho ban: quai tao bang LuaFnCreateMonster(..., 950001) -> tra theo script cua pho ban (CopySceneData_Param 1)
 x950001_g_RoiPhoBan = {
-	[50100] = { 20800034, 40 },   -- Lien Hoan Q To Chau (quai dot 3)
-	[50220] = { 20800034, 40 },   -- Lien Hoan Q Lau Lan / Viem Ma Son (quai nho dot 3)
+	[50100] = { 20800034, 30 },   -- Lien Hoan Q To Chau (quai dot 3)
+	[50220] = { 20800034, 30 },   -- Lien Hoan Q Lau Lan / Viem Ma Son (quai nho dot 3)
 }
 -- [01/10 toi] roi them (roll rieng): Mien Bo 6 / Bi Ngan 6 10% boc 1
 x950001_g_RoiPhoBan2 = {

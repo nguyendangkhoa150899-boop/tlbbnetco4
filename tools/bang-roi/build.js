@@ -124,7 +124,7 @@ for (const id in scriptMon) for (const lab of scriptMon[id]) { if (!MA[id] || !M
   for (const v of ['SmallMonsterId_1', 'SmallMonsterId_2', 'SmallMonsterId_3', 'MiddleMonsterId']) { const m = t.match(new RegExp('x402040_g_' + v + '\s*=\s*\{([^}]*)\}')); if (m) for (const n of m[1].match(/\d+/g)) ids.add(n); }
   const big = t.match(/x402040_g_BigFootBall\s*=\s*\{([^}]*)\}/); if (big) for (const n of big[1].match(/\d+/g)) for (let k = 0; k < 10; k++) ids.add(String(+n + k));
   const key = 'sc:Túc Cầu'; if (!(key in mapIdx)) { mapIdx[key] = maps.length; maps.push(['Túc Cầu', 'sc', '']); }
-  for (const id of ids) if (MA[id]) (spawn[id] = spawn[id] || []).push([mapIdx[key], 0, 0, 0, [30600084, 50]]); }
+  for (const id of ids) if (MA[id]) (spawn[id] = spawn[id] || []).push([mapIdx[key], 0, 0, 0, [30600084, 30]]); }
 
 // ---- ghep: chi quai co dong roi (co it nhat 1 hop) hoac co diem spawn
 const mons = []; const usedBox = new Set(), usedItem = new Set();
