@@ -202,6 +202,24 @@ Chi tiết từng mục ở `docs/TRANG-THAI.md` → "Cập nhật 29/09 chiều
 
 **01/10 chiều:** bộ **144 pet skin Huyễn Hóa** (12 skin × Ngoại/Nội/Cân bằng × cấp 85/95 × bản Admin 12000 / V2 tư chất gốc) — ghép pet nền vào ID Huyễn Hóa có sẵn, panel GM chọn theo nhãn "Skin cấp Kiểu". Kiểu Nội/Ngoại = `MonsterAttrExTable` cột 62 của dòng quái cùng ID pet. Chi tiết `docs/pet-huyen-hoa.md` + TRANG-THAI 01/10. Rollback tag `truoc-ghep-skin-all-01-10`.
 
+## Đã làm 02/10 (đêm) — tất cả đã deploy, game restart cuối buổi; chi tiết từng mục ở docs/TRANG-THAI.md
+
+Bản dễ nhìn của toàn bộ việc 28/09–02/10: trang "Sổ Việc NetCo4" (Artifact riêng tư của chủ server).
+
+| Việc | Trạng thái |
+|---|---|
+| **Binh Thánh lớn:** khôi phục `ai_xiaoruwei.lua` (Tiêu Như Úy) bị cắt cụt từ bản leak, lấy phần đuôi từ đĩa máy ảo gốc `/root/Ubuntu.vmdk` → Gia Luật Diễm khiêu chiến được; 2 anh em hạ cùng lúc không còn sống lại (xác vẫn bị tính là còn) | xong, đã qua trong game |
+| **Sát Tinh:** 1 túi/lượt khi hạ Ngô Vĩnh (trước 11 túi); bỏ ghi túi trùng | xong |
+| **Đội cấp 119 vào phó bản không ra quái** (`PlayerMaxLevel/10` = 11,9): Túc Cầu, Lâu Lan Tầm Bảo, Tiễu Phỉ, Thần Hỏa | xong, Túc Cầu ra quái |
+| Túc Cầu: mọi quả túc cầu rơi Tử Vi Linh Phách | xong |
+| **Chốt mọi món rơi thêm qua script 30%/người/con:** Túc Cầu, Q Tô Châu / Q Lâu Lan (Cửu Thiên Ngọc Toái), Tuyết Lang Hồ (Phục Hi Ngọc), Hậu Hoa Viên (Chí Tôn Cường Hóa Tinh Hoa), Hàn Huyết Lĩnh (Kim Tàm Ti); Miên Bố/Bí Ngân 10% | xong |
+| Quái rơi **ngọc cấp 6** thay cấp 5 (178 hộp + 9 script boss) | áp sau restart |
+| **Tuyết Lang Hồ chỉ rơi Phục Hi Ngọc** (bỏ hộp 15 loại quái); Hậu Hoa Viên Xích Tiêu Hỏa Hồn hồi sinh 30 phút | áp sau restart |
+| **Võ Lâm Bí Tịch:** chiêu Nhị/Tam không ra — `wujue.lua` tra tỉ lệ theo mã sách cũ 1..16 (sách thật là số lẻ 1..31) → sửa; "Tầng 8" là trần (3 sách cấp 99 = 338.355 < 530.000) | xong, chưa test |
+| **Kỳ Cuộc = "Cờ 12h":** Việt hóa NPC + chế độ nhanh; giờ thường 11:30–14:30 / 20:30–22:00; túi boss (Tâm Đắc ×15, Tàn Hiệt ×5, Võ Hồn 2–4) | xong, chưa test |
+| **https://netco4.click/ = trang Bảng Rơi** (tra 4.193 quái, tỉ lệ mỗi người, theo vật phẩm); play.netco4.click = trang chơi. Dựng lại: `node tools/bang-roi/lam.js` rồi chép `web/index.html` lên `/var/www/netco4/` | xong |
+| Công cụ client **tự vào tổ** (`deploy/client/TuDongVaoTo/`) | xong, chưa test |
+
 ## Bẫy dễ dính khi phát triển (đúc kết 28/09–01/10, đọc trước khi sửa file game)
 
 1. **Bảng `.txt` dạng DBC phải sắp ID tăng dần.** Engine tra bằng tìm kiếm nhị phân (`DBCFile::Search_Posistion`): dòng nào nằm sai thứ tự là **không bao giờ được tìm thấy**, không báo lỗi (`MonsterDropBoxs`, `DropBoxContent`, `PetAttrTable`, `StandardImpact`, `EquipBase`, `CommonItem`…). Thêm dòng = chèn đúng vị trí, không append cuối file. Kiểm nhanh: node đọc file, so ID dòng sau với dòng trước. Tab Drop Boss trên web thêm hộp mới cũng phải theo quy tắc này.
@@ -216,10 +234,18 @@ Chi tiết từng mục ở `docs/TRANG-THAI.md` → "Cập nhật 29/09 chiều
 10. **Script phó bản tạo quái theo cấp người chơi** (`CreateNpc`: cấp 100–109 +30000, 110–119 +30001, 120+ +30002): mọi bảng theo ID quái (rơi đồ, thuộc tính) phải có đủ các bậc này, không thì cấp 119 vào không rớt gì.
 11. **Binary `Server` nén UPX nhưng còn debug symbol.** Bản giải nén để tra cứu: `/root/re/Server.elf` trên VPS (`objdump -d -C`), `str.txt` trong scratchpad. Tra được hàm Lua nào tồn tại (vd `LuaFnSetDarkQualityGrade`, `LuaFnAddMoneyJZ`), công thức (tẩy ám khí, Cộng Sinh), key ini.
 12. **Hàng đợi quà** (`Server/txt/NetCo4Qua/<GUID>.txt`) và cờ ngày (`NetCo4Web/*.vang|.vangkhoa|.tanthu`) là file thường: reset ngày mở phải xóa (đã đưa vào `reset-choi-that.sh`).
+13. **Cấp tối đa 119 không chia hết cho 10.** Script gốc viết cho cấp tối đa 100: `iniLevel = PlayerMaxLevel/10` = 11,9 → `bảng[11.9]` = nil → phó bản không ra quái với đội cấp 119. Thấy `PlayerMaxLevel/10` phải bọc `floor(...)` (đã sửa 5 file 02/10).
+14. **Xác quái vẫn nằm trong danh sách quái.** `GetMonsterCount` / `GetMonsterObjID` trả cả con đã chết; kiểm "con kia còn không" phải thêm `LuaFnIsCharacterLiving(sceneId, id) == 1` (lỗi hồi sinh 2 anh em Binh Thánh).
+15. **Không dùng `LuaFnDisableMonsterDropBox` để bỏ đồ rác:** nó tắt cả món script `AddMonsterDropItem` (hộp trên xác tạo chung ở `CaculateBossDropRuler`). Muốn quái chỉ rơi món script → để `-1` mọi cột hộp của quái trong `MonsterDropBoxs.txt`.
+16. **File bản leak có thể bị cắt cụt** (vd `ai_xiaoruwei.lua` 198/616 dòng). Bản gốc còn trong `/root/Ubuntu.vmdk`: `grep -abo "function x<id>_OnDie" /root/Ubuntu.vmdk` → `dd` lấy vùng quanh offset → cắt giữa các byte 0. Quét file gọi hàm của chính nó mà không định nghĩa: còn 41 file (hàm phụ, chưa sửa).
+17. **Git Bash nuốt dấu `\`** trong heredoc và `node -e` (regex, `"\n"`, `\\` thành ký tự thật). Script có `\` thì viết ra file bằng công cụ Write rồi `node file.js`.
 
 ## Việc tiếp theo
 
 Xem [docs/TRANG-THAI.md](docs/TRANG-THAI.md). Tóm tắt:
+- [ ] **03/10: nghiên cứu vòng quay trong game → chuyển ra web cho dễ thao tác** (phần thưởng + tỉ lệ + phiếu Hạnh Vận Quả `30070501`; làm trang quay trên web, giao đồ qua hàng đợi quà)
+- [ ] Thử trong game: chiêu Nhị/Tam Bí Tịch, túi Kỳ Cuộc, Túc Cầu đủ 149 quả + boss, Binh Thánh lớn hạ Gia Luật Diễm ra túi, ngọc cấp 6 sau restart
+- [ ] Còn mở: tham số rơi `DropParam=2.0` (mọi hộp ×2), mật khẩu cổng mod + 13 túi bị sửa qua mod 01/10, quái loại 0 ở Binh Thánh lớn
 - [ ] Xác nhận phát quà qua panel hoạt động trong game (đã xếp hàng Chân·Trùng Lâu cho `Bialk`, chưa đăng nhập lại để nhận)
 - [ ] Tạo tài khoản cho bạn bè → test (`./cap-gm.sh --tat-ca`) → `./reset-choi-that.sh` trước khi chơi thật
 - [ ] Làm event: bảng drop boss theo khu vực, vòng quay dạng menu NPC

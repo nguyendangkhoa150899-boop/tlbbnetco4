@@ -14,21 +14,21 @@ function x000090_UpdateEventList( sceneId, selfId,targetId )
 
 	BeginEvent(sceneId)
 	
-		AddNumText( sceneId, x000090_g_scriptId, "棋局介绍", 11, 10 )
+		AddNumText( sceneId, x000090_g_scriptId, "Gi\190i thi\174u K\207 Cu\181c", 11, 10 )
 	
 		if sceneId == 0 then
-			AddNumText( sceneId, x000090_g_scriptId, "进入洛阳第一休息室", 9, 20 )
-			AddNumText( sceneId, x000090_g_scriptId, "进入洛阳第二休息室", 9, 21 )
-			AddNumText( sceneId, x000090_g_scriptId, "关于休息室", 11, 30 )
+			AddNumText( sceneId, x000090_g_scriptId, "V\224o Ph\242ng ngh\239 1 L\213c D\223\189ng", 9, 20 )
+			AddNumText( sceneId, x000090_g_scriptId, "V\224o Ph\242ng ngh\239 2 L\213c D\223\189ng", 9, 21 )
+			AddNumText( sceneId, x000090_g_scriptId, "V\171 Ph\242ng ngh\239", 11, 30 )
 		elseif sceneId == 1 then
-			AddNumText( sceneId, x000090_g_scriptId, "进入苏州休息室", 9, 22 )
-			AddNumText( sceneId, x000090_g_scriptId, "关于休息室", 11, 31 )
+			AddNumText( sceneId, x000090_g_scriptId, "V\224o Ph\242ng ngh\239 T\244 Ch\226u", 9, 22 )
+			AddNumText( sceneId, x000090_g_scriptId, "V\171 Ph\242ng ngh\239", 11, 31 )
 		elseif sceneId == 2 then
-			AddNumText( sceneId, x000090_g_scriptId, "进入大理休息室", 9, 23 )
-			AddNumText( sceneId, x000090_g_scriptId, "关于休息室", 11, 32 )
+			AddNumText( sceneId, x000090_g_scriptId, "V\224o Ph\242ng ngh\239 \208\213i L\253", 9, 23 )
+			AddNumText( sceneId, x000090_g_scriptId, "V\171 Ph\242ng ngh\239", 11, 32 )
 		end
 
-		AddNumText( sceneId, x000090_g_scriptId, "如何在刷棋中获得更多的经验", 11, 519 )
+		AddNumText( sceneId, x000090_g_scriptId, "L\224m sao nh\167n th\234m kinh nghi\174m khi \240\225nh c\182", 11, 519 )
 		--[tx45411]AddNumText(sceneId, x000090_g_scriptId, "#{NSRQ_081110_2}", 11, 999); --zchw
 
 		for i, findId in x000090_g_eventList do
@@ -135,7 +135,7 @@ function x000090_CheckCanEnterRest( sceneId, selfId, targetId, s, x, y )
 
 		if LuaFnIsTeamLeader(sceneId, selfId) == 0 then
 			BeginEvent(sceneId)	
-				AddText( sceneId, "  只有队长才能带领队友进入休息室。" )
+				AddText( sceneId, "  Ch\239 nh\243m tr\223\183ng m\190i \240\223a \240\223\254c c\228 nh\243m v\224o Ph\242ng ngh\239." )
 			EndEvent(sceneId)
 			DispatchEventList(sceneId,selfId,targetId)
 			return
@@ -145,7 +145,7 @@ function x000090_CheckCanEnterRest( sceneId, selfId, targetId, s, x, y )
 		local nearMemberCount = GetNearTeamCount(sceneId, selfId)
 		if teamMemberCount ~= nearMemberCount then
 			BeginEvent(sceneId)	
-				AddText( sceneId, "  你的队伍中有人不在附近。" )
+				AddText( sceneId, "  C\243 th\224nh vi\234n trong nh\243m kh\244ng \183 g\165n \240\226y." )
 			EndEvent(sceneId)
 			DispatchEventList(sceneId,selfId,targetId)
 			return

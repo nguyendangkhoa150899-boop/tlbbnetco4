@@ -127,6 +127,11 @@ x950001_TB_Them( { 11353 } )         -- Long Quy (Thanh Thu Son)
 x950001_TB_Them( { 12138, 12139, 12140, 12141, 12142, 12143, 12144, 12145, 12146 } )  -- Lau Lan Tam Bao: Tran Bao Long Vuong
 x950001_TB_Them( { 473 } )           -- Ac Tac Tao Phan (su kien Tac binh)
 x950001_TB_Them( { 1910, 1911, 1912, 1913, 1914, 1915, 1916, 1917, 1918, 1919 } )  -- Ac Ba (nhiem vu thanh thi, Thi Tap)
+-- [02/10] Ky Cuoc = Co 12h (Tran Long Ky Cuoc thuong 401001 + che do nhanh 401002): boss cuoi Vien Co Ky Hon,
+-- 3 muc x 20 bac cap: thuong 1850-1859 / 31850-31859, tan thu 3 12040-12049 / 42040-42049, tan thu 6 12090-12099 / 42090-42099
+for x950001_i = 1850, 1859 do
+	x950001_TB_Them( { x950001_i, x950001_i + 30000, x950001_i + 10190, x950001_i + 40190, x950001_i + 10240, x950001_i + 40240 } )
+end
 
 -- [01/10 23:40] Sat Tinh = Sinh Tu Loi Dai, 12 NPC goi 12 tran lan luot (truoc day moi tran 1 tui -> 11 tui / luot).
 -- Chu server chot: chi tinh boss cuoi Ngo Vinh 13456. NPC Tong Giang (obj/shengsi/songjiang.lua) CUNG goi ra 13456

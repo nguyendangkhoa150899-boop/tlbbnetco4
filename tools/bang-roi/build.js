@@ -90,7 +90,8 @@ const HD = [
   ['Liên Hoàn Q Tô Châu (boss cuối)', [[4130,4139],[34130,34139]]], ['Liên Hoàn Q Lâu Lan / Viêm Ma Sơn (boss đợt 5)', [[13220,13229]]],
   ['Yến Tử Ổ', [[9430,9439],[39430,39432]]], ['Binh Thánh Kỳ Trận', [[15175,15175],[15073,15073]]], ['Tứ Tuyệt Trang', [[14145,14145]]],
   ['Phiêu Miểu Phong', [[9666,9666],[9546,9546]]], ['Sinh Tử Lôi Đài (Sát Tinh)', [[13456,13456]]], ['Thiếu Thất Sơn', [[14234,14234]]],
-  ['Thánh Thú Sơn (Long Quy)', [[11353,11353]]], ['Lâu Lan Tầm Bảo', [[12138,12146]]], ['Ác Tặc Tạo Phản', [[473,473]]], ['Ác Bá (nhiệm vụ thành thị)', [[1910,1919]]] ];
+  ['Thánh Thú Sơn (Long Quy)', [[11353,11353]]], ['Lâu Lan Tầm Bảo', [[12138,12146]]], ['Ác Tặc Tạo Phản', [[473,473]]], ['Ác Bá (nhiệm vụ thành thị)', [[1910,1919]]],
+  ['Kỳ Cuộc (Cờ 12h)', [[1850,1859],[31850,31859],[12040,12049],[42040,42049],[12090,12099],[42090,42099]]] ];
 const bossTui = new Set();
 for (const [lab, ds] of HD) for (const [a, b] of ds) for (let id = a; id <= b; id++) { bossTui.add(String(id)); (scriptMon[id] = scriptMon[id] || new Set()).add(lab); }
 

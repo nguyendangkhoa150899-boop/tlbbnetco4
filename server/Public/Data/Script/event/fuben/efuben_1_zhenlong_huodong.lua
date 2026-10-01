@@ -1027,6 +1027,7 @@ function x401001_OnDie(sceneId, selfId, killerId)						-- ³¡¾°ID, ±»É±µÄObjId, É
 	end
 	
 	if objType and objType == LastBoss[mgroup] then
+		CallScriptFunction( 950001, "TB_GhiId", sceneId, objType, killerId )   -- [NetCo4 02/10] tui do boss Ky Cuoc (Co 12h): moi nguoi trong ban co (NetCo4/roimap.lua)
 		local membercount = LuaFnGetCopyScene_HumanCount(sceneId);
 		local memId
 		local teamLeaderName;
