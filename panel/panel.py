@@ -104,12 +104,15 @@ ITEMS = [(i, VN.get(i, n), k) for i, n, k in ITEMS]
 ITEM_NAME = {i: n for i, n, _ in ITEMS}
 # 30/09: ID pet hop le (PetAttrTable.txt, GBK) cho qua loai "pet" - chi admin phat event (docs/pet-huyen-hoa.md)
 PET_IDS = set()
+PET_TC = {}   # 01/10: tu chat chuan (cot 34-38: Cuong/The/Noi/Than/Tri) cho shop Pet Boss cua bot
 _p = os.path.join(ROOT, "home", "tlbb", "Public", "Config", "PetAttrTable.txt")
 if os.path.exists(_p):
     for _line in open(_p, "rb"):
         _c = _line.split(b"\t")
         if _c and _c[0].isdigit():
             PET_IDS.add(_c[0].decode())
+            if len(_c) > 38:
+                PET_TC[_c[0].decode()] = [int(x) if x.strip().isdigit() else 0 for x in _c[34:39]]
 
 
 # 30/09 toi: pet Huyen Hoa V2 (tu chat goc) - danh sach ten de chon tren panel, doc tu docs/pet-huyen-hoa.md
@@ -152,6 +155,7 @@ PET_ALL = [(i, n + _kieu(i)) for i, n in PET_ALL]
 # 01/10: bo 144 pet skin (12 skin x Ngoai/Noi/Can bang x cap 85/95, ban admin 12000 + ban V2 tu chat goc), ghep pet nen
 # vao ID Huyen Hoa co san - docs/pet-skin.tsv (id, skin, cap, kieu, ban, nen, nhan). Co file nay thi thay 2 nhom Huyen Hoa.
 PET_TANTHU = []   # 01/10: ban Tan Thu (cap mang 5) - pet-skin.tsv ban=tanthu
+PET_SKINS = []    # 01/10: moi dong pet-skin.tsv dang dict (bot dung cho shop "Chon Pet Boss")
 _p = os.path.join(REPO, "docs", "pet-skin.tsv")
 if os.path.exists(_p):
     _a, _v, _t = [], [], []
@@ -159,6 +163,7 @@ if os.path.exists(_p):
         _c = _line.rstrip("\r\n").split("\t")
         if len(_c) >= 7 and _c[0].isdigit() and _c[0] in PET_IDS:
             {"admin": _a, "tanthu": _t}.get(_c[4], _v).append((_c[0], _c[6]))
+            PET_SKINS.append({"id": _c[0], "skin": _c[1], "cap": _c[2], "kieu": _c[3], "ban": _c[4], "tc": PET_TC.get(_c[0], [])})
     if _a and _v:
         PET_12000, PET_V2 = _a, _v
     PET_TANTHU = _t
@@ -641,7 +646,7 @@ class H(BaseHTTPRequestHandler):
             if method == "GET" and u.path == "/api/state":
                 return self._json({"ok": True, "state": api_state()})
             if method == "GET" and u.path == "/api/pets":   # 30/09: danh sach pet theo nhom cho o chon tren tab GM web (tai 1 lan)
-                return self._json({"ok": True, "groups": [{"name": g, "pets": [{"id": i, "name": n} for i, n in l]} for g, l in PET_GROUPS]})
+                return self._json({"ok": True, "groups": [{"name": g, "pets": [{"id": i, "name": n} for i, n in l]} for g, l in PET_GROUPS], "skins": PET_SKINS})
             if method == "GET" and u.path == "/api/items":
                 qs = parse_qs(u.query)
                 if qs.get("all") == ["1"]:  # ca danh muc cho bot mini game (shop item / qua moi ngay)
