@@ -33,6 +33,7 @@ end
 
 function x001129_OnDie( sceneId, selfId, killerId )
 	CallScriptFunction( 950001, "RoiDo", sceneId, selfId, killerId, 20800034, 40 )  -- [NetCo4 01/10] Cuu Thien Ngoc Toai 40%, NetCo4/roimap.lua
+	CallScriptFunction( 950001, "RoiBoc", sceneId, selfId, killerId, 1, 10 )  -- [NetCo4 01/10 toi] Mien Bo 6 / Bi Ngan 6 10% boc 1
 	--是否是副本
 	local sceneType = LuaFnGetSceneType( sceneId )
 	if sceneType ~= 1 then

@@ -21,7 +21,7 @@ Nguồn: 201 commit repo game (`tlbbnetco4`) và 45 commit repo bot (`bialk`) t�
 | Yến Tử Ổ cấp 100+ | 46 dòng rơi mới (trước đó 110+ không rơi gì). Đoàn Diên Khánh chắc chắn rơi phiếu + thuốc giải. Cửu Ma Trí, Mộ Dung Phục rơi phiếu. | `09fb6d0` `72a1335` `ec8a42f` |
 | Drop Boss qua web | Lý Thu Thủy 9546 thêm hộp `90002`; sửa hộp `308`. | `9a6b9de` `1d6cacc` |
 | Rơi theo map (`NetCo4/roimap.lua`) | Hạn Huyết Lĩnh: Kim Tàm Ti `20310166` **30%**. Hậu Hoa Viên: Chí Tôn Cường Hóa `38000571` 30%. Mỗi người roll riêng. | `d7678c8` |
-| Q Tô Châu, Q Lâu Lan | Mọi quái phó bản rơi Cửu Thiên Ngọc Toái `20800034` **40%**. Q Lâu Lan vốn không khóa (chỉ ẩn khi đang cầm liên hoàn 1256–1269), Việt hóa 51 câu. | `0e04927` `253c796` |
+| Q Tô Châu, Q Lâu Lan | Mọi quái phó bản rơi Cửu Thiên Ngọc Toái `20800034` **40%** + Miên Bố 6 / Bí Ngân 6 **10%** bốc 1 (01/10 tối). Q Lâu Lan vốn không khóa (chỉ ẩn khi đang cầm liên hoàn 1256–1269), Việt hóa 51 câu. | `0e04927` `253c796` |
 | Võ Ý | Mọi quái thường Vô Lượng Sơn (**309** spawn) cộng Võ Ý, nội tức x4. | `f04343f` `8b0c532` `a4b5469` |
 
 **Cân bằng KNB cần theo dõi tuần đầu:** 158 boss rơi phiếu chắc chắn cho **từng** thành viên, nhiều boss hồi 30 phút → có thể hàng chục nghìn KNB/ngày. Các cặp BV < Mv gốc giữ nguyên: Kính Hồ ×5, Túc Cầu ×4, Đế Thích Thiên 15445 ngọc 5 ×10.
@@ -112,7 +112,7 @@ Mẫu tạm 11–15 dòng: Tạo Hóa, Trùng Lâu Liên/Giới/Ngọc, quạt P
 | 5 | Rương Ích Kỷ | **Tắt** (công tắc chức năng trên web admin). |
 | 6 | Shop 150 ngọc cấp 5 | **Giữ**: nhóm chơi dưới 2 tháng, cần lên đồ nhanh. |
 | 7 | 33 ngọc cấp 6 web | Chủ server tự chỉnh giá trên web admin. |
-| 8 | Miên Bố / Bí Ngân cấp 6 | **Rơi 10%** (đổi từ 40%, 01/10 tối) ở quái phó bản **Q Tô Châu + Q Lâu Lan** (`roimap.lua`, cùng chỗ Cửu Thiên Ngọc Toái). ID: Miên Bố 6 `20501006`, Bí Ngân 6 `20502006`. **Chốt: roll 10% rồi bốc 1 trong 2** (mỗi quái tối đa 1 món). Chỉ quái phó bản 50100/50220, Ác tặc/Ác bá ngoài map không tính. |
+| 8 | Miên Bố / Bí Ngân cấp 6 | **Rơi 10%** (đổi từ 40%, 01/10 tối) ở quái phó bản **Q Tô Châu + Q Lâu Lan** (`roimap.lua`, cùng chỗ Cửu Thiên Ngọc Toái). ID: Miên Bố 6 `20501006`, Bí Ngân 6 `20502006`. **ĐÃ LÀM 01/10 tối trên main** (hiệu lực ngay, Lua): roll 10% rồi bốc 1 trong 2, mỗi quái tối đa 1 món, chỉ quái phó bản 50100/50220 (`roimap.lua` RoiBoc nhóm 1 + RoiPhoBan2; 1130/1129 gọi thêm). Rollback tag `truoc-mienbo6-01-10`. |
 | 9 | Ám khí | Để sau. |
 | 10 | 98 câu tiếng Trung | Dịch dần sau khi mở. |
 | 11 | Tin 3 nhóm boss (810000/810001/810003) | **Tắt.** |
@@ -127,7 +127,7 @@ Mẫu tạm 11–15 dòng: Tạo Hóa, Trùng Lâu Liên/Giới/Ngọc, quạt P
 > **Bẫy phải tránh:** `cap-nhat.sh` rsync theo checksum, file nào trên server khác repo là bị ghi đè. Vì vậy mọi sửa cấu hình ngày mở **phải là commit trong repo**, không sửa tay trên VPS. Nhưng commit sớm thì lần deploy kế tiếp đẩy lên server đang test. → Làm trong **nhánh `mo-server`** từ máy nhà (VPS không push được), ngày mở merge vào `main` rồi `cap-nhat.sh`.
 
 **Trước ngày mở (không ảnh hưởng server đang chạy):**
-1. Nhánh `mo-server` chứa: `DefaultChar.ini` level 1; `ConfigInfo.ini` ExpParam 10.0; `ChatConfig.txt` kênh 2 = 180000; `jiarumenpai.lua` HHV 19/24, tắt menu 80.000 Điểm Tặng; NPC 8886 hộp 1 lần duy nhất; `MonsterAttrExTable` máu boss 80%; `GemInfo` 50412007 = 1; xóa 54 pet 31xxx khỏi `PetAttrTable` (+ dòng tương ứng trong `MonsterAttrExTable` nếu là pet thuần); tắt cổng mod (admin thường) của bot; tắt công tắc Rương Ích Kỷ; tắt tin boss 810000/810001/810003 (`ActivityNotice.txt`); `roimap.lua` thêm Miên Bố/Bí Ngân 6 10% bốc 1 cho 50100/50220; `odali_youxituiguang.lua` bỏ mốc 100/110/149; shop web thêm Ngưng Tức Hoàn `38002067`. Mỗi file kiểm bằng script byte-safe như các lần trước.
+1. Nhánh `mo-server` chứa: `DefaultChar.ini` level 1; `ConfigInfo.ini` ExpParam 10.0; `ChatConfig.txt` kênh 2 = 180000; `jiarumenpai.lua` HHV 19/24, tắt menu 80.000 Điểm Tặng; NPC 8886 hộp 1 lần duy nhất; `MonsterAttrExTable` máu boss 80%; `GemInfo` 50412007 = 1; xóa 54 pet 31xxx khỏi `PetAttrTable` (+ dòng tương ứng trong `MonsterAttrExTable` nếu là pet thuần); tắt cổng mod (admin thường) của bot; tắt công tắc Rương Ích Kỷ; tắt tin boss 810000/810001/810003 (`ActivityNotice.txt`); `odali_youxituiguang.lua` bỏ mốc 100/110/149; shop web thêm Ngưng Tức Hoàn `38002067`. Mỗi file kiểm bằng script byte-safe như các lần trước.
 2. `deploy/mo-server.sh` dựa trên `reset-choi-that.sh`: sao lưu DB; xóa `web.account` trừ `bialk1`; xóa `tlbbdb.*` trừ dòng `charguid = 1010100008` ở mọi bảng có cột đó (kiểm `information_schema`), gỡ bia1 khỏi bang (`guildid = 0`); `GMList.ini` chỉ còn 1010100008; xóa `NetCo4Web/*.in|*.done|*.vang|*.vangkhoa|*.tanthu|out/*` **trừ của 1010100008**; xóa `_capmin.txt`, QianDao, Paiming…
 3. Thêm `database.json` vào `sao-luu.sh` (sao lưu cùng lúc với MySQL).
 4. **Chạy thử** `mo-server.sh` trên bản sao DB (MySQL trong chroot, DB tạm), đếm dòng còn lại từng bảng, kiểm bia1 còn đủ pet/đồ/kỹ năng.

@@ -22,9 +22,26 @@ function x950001_RoiDo( sceneId, selfId, killerId, itemId, pct )
 	x950001_Chia( sceneId, selfId, killerId, { itemId, pct } )
 end
 
+-- [01/10 toi] roll pct% roi BOC 1 trong danh sach (moi nguoi toi da 1 mon). Goi: CallScriptFunction( 950001, "RoiBoc", sceneId, selfId, killerId, <nhom>, <%> )
+--   nhom 1 = Mien Bo 6 / Bi Ngan 6 (Q To Chau 1130, Q Lau Lan 1129 + quai dot 3 qua OnDie)
+x950001_g_Boc = {
+	[1] = { 20501006, 20502006 },   -- 6 cap Mien Bo, 6 cap Bi Ngan
+}
+function x950001_RoiBoc( sceneId, selfId, killerId, nhom, pct )
+	local ds = x950001_g_Boc[nhom]
+	if ds == nil then
+		return
+	end
+	x950001_Chia( sceneId, selfId, killerId, { ds, pct } )
+end
+
 function x950001_Roll( sceneId, selfId, playerId, r )
 	if random( 1, 100 ) <= r[2] then
-		AddMonsterDropItem( sceneId, selfId, playerId, r[1] )
+		local item = r[1]
+		if type( item ) == "table" then
+			item = item[ random( 1, getn( item ) ) ]   -- boc 1 trong danh sach
+		end
+		AddMonsterDropItem( sceneId, selfId, playerId, item )
 	end
 end
 
@@ -32,6 +49,11 @@ end
 x950001_g_RoiPhoBan = {
 	[50100] = { 20800034, 40 },   -- Lien Hoan Q To Chau (quai dot 3)
 	[50220] = { 20800034, 40 },   -- Lien Hoan Q Lau Lan / Viem Ma Son (quai nho dot 3)
+}
+-- [01/10 toi] roi them (roll rieng): Mien Bo 6 / Bi Ngan 6 10% boc 1
+x950001_g_RoiPhoBan2 = {
+	[50100] = { x950001_g_Boc[1], 10 },
+	[50220] = { x950001_g_Boc[1], 10 },
 }
 
 function x950001_OnDie( sceneId, selfId, killerId )
@@ -43,6 +65,12 @@ function x950001_OnDie( sceneId, selfId, killerId )
 		return
 	end
 	x950001_Chia( sceneId, selfId, killerId, r )
+	if LuaFnGetSceneType( sceneId ) == 1 then
+		local r2 = x950001_g_RoiPhoBan2[ LuaFnGetCopySceneData_Param( sceneId, 1 ) ]
+		if r2 ~= nil then
+			x950001_Chia( sceneId, selfId, killerId, r2 )
+		end
+	end
 end
 
 -- moi thanh vien to doi o gan roll rieng
