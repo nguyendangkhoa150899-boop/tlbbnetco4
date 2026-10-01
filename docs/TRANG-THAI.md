@@ -447,3 +447,7 @@ Tài khoản: `admin` (nhân vật `Bialk`, GUID 1010100001, GM), `hoang`. Mật
 
 ## 01/10 tối - Tiệm Nguyên Bảo › Nam Bắc Kỳ Hóa › Kỳ Trân Dị Bảo: bán 2 món tự nhặt đồ (chờ restart)
 - Kệ này là **shop 137** trong `Public/Config/ShopTable.txt` (đơn vị tiền cột 8 = 6 = Điểm Tặng; mỗi món 6 cột: ID, số/lần, giới hạn, giá, chiết khấu %, màu; 26 món cũ, trang 2 = món 19–26). Thêm ô 27 **Kiền Khôn Hồ** `30008009` (12 giờ online) và ô 28 **Kiền Khôn Bôi** `30008033` (2 giờ online), **1.000 Điểm Tặng**, màu `#G`. Cột 12 "Num" = 50 ở mọi shop, không phải số món. Server chỉ nạp `ShopTable.txt` (các bản `ShopTable9999/OPENCu/TEST` không dùng). Rollback: tag `truoc-shop-kienkhon-01-10`.
+
+## 01/10 tối - Tuyết Lang Hồ rơi Phục Hi Ngọc 30% (giữ cho server chính, chờ restart)
+- `NetCo4/roimap.lua` (950001) thêm `[179] = { 38002049, 30 }`; `Public/Scene/xuelanghu_monster.ini` 533 điểm spawn quái thường `script_id=-1` → `950001` (Tuyết Sơn Lang, Tuyết Sơn Mãng Cái, Trọng Giáp Mãng Cái, Ba Luân Mãng Cái, Gấu Đen Lớn cấp 100–105). 5 boss 11299–11303 giữ script riêng 325001–325005 (không rơi Phục Hi Ngọc). Mỗi thành viên tổ đội roll riêng, đồ rơi trên xác quái. Đổi % sửa Lua có hiệu lực ngay; file ini cần restart. Rollback: tag `truoc-phuchi-tuyetlang-01-10`.
+- Cân nhắc: Phục Hi Ngọc dùng ở "Thượng Cổ Thần Khí Dục Linh" (`shenqichongxi.lua` FuXiCost 2 → 242 viên/cấp, tổng ~1.700 viên lên cấp 19). 538 quái cấp 100+ × 30% → cày 1 giờ ra hàng trăm viên.

@@ -13,6 +13,7 @@ x950001_g_Roi = {
 	[62]  = { 38000571, 30 },   -- Hau Hoa Vien: Chi Ton Cuong Hoa Tinh Hoa (map chi mo theo gio, MyNew/jiarumenpai.lua x990010_g_HHV_Mo/Dong)
 	[82]  = { 38000571, 30 },   -- Hau Hoa Vien 2
 	[182] = { 38000571, 30 },   -- Hau Hoa Vien 3
+	[179] = { 38002049, 30 },   -- [01/10] Tuyet Lang Ho: Phuc Hi Ngoc (533 diem spawn quai thuong; 5 boss 11299-11303 co script rieng, khong roi)
 }
 
 -- Pho ban (scene tao dong, sceneId moi luot khac nhau): goi tu ham OnDie cua quai pho ban
