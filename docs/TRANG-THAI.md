@@ -444,3 +444,6 @@ Tài khoản: `admin` (nhân vật `Bialk`, GUID 1010100001, GM), `hoang`. Mật
 - Nói chuyện với NPC → `event/huodong/FB_cangjinge_FB.lua` (807005): tổ đội, mọi thành viên ở gần và **cấp ≥ 40**; vào xong **NPC bị xóa** (mỗi NPC 1 đội). **Không giới hạn lượt/ngày** — giới hạn thật là số NPC (18 × 4 đợt).
 - Bên trong 30 phút: Ngụy Quan Quân 13583+, Trộm Sách Ác Tăng 13574+ (**không có dòng rơi**), boss **Che Mặt Ác Tăng** 13592–13600 (Mv 60): phiếu 1000 (~3%), ngọc cấp 5 (~20%), Yếu Quyết (~8%), Yếu Quyết/phiếu 1000/phiếu 5000 (~3%), Điêu Văn Đồ Dạng (~15%). Bậc quái = cấp trung bình tổ / 10 (cấp 110+ dùng bản +8 = cấp 110).
 - Log: chưa từng có ai vào (boss 13592–13600 chưa spawn lần nào).
+
+## 01/10 tối - Tiệm Nguyên Bảo › Nam Bắc Kỳ Hóa › Kỳ Trân Dị Bảo: bán 2 món tự nhặt đồ (chờ restart)
+- Kệ này là **shop 137** trong `Public/Config/ShopTable.txt` (đơn vị tiền cột 8 = 6 = Điểm Tặng; mỗi món 6 cột: ID, số/lần, giới hạn, giá, chiết khấu %, màu; 26 món cũ, trang 2 = món 19–26). Thêm ô 27 **Kiền Khôn Hồ** `30008009` (12 giờ online) và ô 28 **Kiền Khôn Bôi** `30008033` (2 giờ online), **1.000 Điểm Tặng**, màu `#G`. Cột 12 "Num" = 50 ở mọi shop, không phải số món. Server chỉ nạp `ShopTable.txt` (các bản `ShopTable9999/OPENCu/TEST` không dùng). Rollback: tag `truoc-shop-kienkhon-01-10`.
