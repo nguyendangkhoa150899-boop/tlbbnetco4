@@ -43,7 +43,7 @@ Nguồn: 201 commit repo game (`tlbbnetco4`) và 45 commit repo bot (`bialk`) t�
 - Tạo Hóa 10303447: hiệu ứng làm chậm (`98c63e7`).
 - Chồng 250: Nhuận Hồn Thạch (36 bản), Hợp Thành Phù (`82384c3`).
 - Chế đồ niệm 0,5 giây (`2bf5688`). Về thành và bùa Hồi Thành hồi chiêu 5 giây, niệm như gốc (`b8592cc`).
-- Shop 150 bán ngọc cấp 5 bằng Điểm Tặng, giá gốc (`fc8516f` `d8c682d`).
+- Shop 150 bán ngọc cấp 5 bằng Điểm Tặng (`fc8516f` `d8c682d`) → **02/10 trả về cấp 4 như gốc** (`bd73440`).
 - Việt hóa 15.661 tên trang bị, 6 hộp quà trân thú, sửa chữ "ấ/ợ" trong CommonItem (`11251be` `aeff4e2` `0c4a307`); "Trọng Lâu" → "Trùng Lâu" (`5768f95`). Chữ "ấ" trong `GemInfo` (30 dòng) và `EquipBase111` (27 dòng) **chưa sửa**.
 - **Sót từ test:** `GemInfo.txt` dòng `50412007` cột 6 vẫn = **6** (360 ngọc khác = 1), do `957307e` chỉ revert `23c8b11`. **Trả về 1 ngày mở.**
 
@@ -110,7 +110,7 @@ Mẫu tạm 11–15 dòng: Tạo Hóa, Trùng Lâu Liên/Giới/Ngọc, quạt P
 | 3 | Túc Cầu | Giữ nguyên. |
 | 4 | Hạn KNB web → game, đổi vàng | Giữ như đã đặt (30.000/ngày). |
 | 5 | Rương Ích Kỷ | **Tắt** (công tắc chức năng trên web admin). |
-| 6 | Shop 150 ngọc cấp 5 | **Giữ**: nhóm chơi dưới 2 tháng, cần lên đồ nhanh. |
+| 6 | Shop 150 ngọc cấp 5 | ~~Giữ~~ → **02/10: trả về ngọc cấp 4 như gốc** (`bd73440`, giá Điểm Tặng gốc). Kệ 151 (ngọc cấp 6 gốc của game, 30.000/10.000) không đổi. |
 | 7 | 33 ngọc cấp 6 web | Chủ server tự chỉnh giá trên web admin. |
 | 8 | Miên Bố / Bí Ngân cấp 6 | **Rơi 10%** (đổi từ 40%, 01/10 tối) ở quái phó bản **Q Tô Châu + Q Lâu Lan** (`roimap.lua`, cùng chỗ Cửu Thiên Ngọc Toái). ID: Miên Bố 6 `20501006`, Bí Ngân 6 `20502006`. **ĐÃ LÀM 01/10 tối trên main** (hiệu lực ngay, Lua): roll 10% rồi bốc 1 trong 2, mỗi quái tối đa 1 món, chỉ quái phó bản 50100/50220 (`roimap.lua` RoiBoc nhóm 1 + RoiPhoBan2; 1130/1129 gọi thêm). Rollback tag `truoc-mienbo6-01-10`. |
 | 9 | Ám khí | Để sau. |
