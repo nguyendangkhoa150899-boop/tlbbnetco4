@@ -452,6 +452,42 @@ def act(form):
             restart_game()
             return msg + " Dang restart server (khoang 3 phut)."
         return msg + " Co hieu luc sau khi restart server."
+    if a == "luu_chung":   # 03/10: luu nhieu o 1 lan (cap toi thieu / khoa cap / EXP) - kiem het truoc roi moi ghi, restart 1 lan neu can
+        cmin, cmax, ex = v("capmin"), v("capmax"), v("exp")
+        if not (cmin or cmax or ex):
+            return "Khong co o nao thay doi"
+        if cmin and (not RE_INT.match(cmin) or not 0 <= int(cmin) <= 119):
+            return "Cap toi thieu 0-119 (0 = tat). Chua luu gi."
+        if cmax and (not RE_INT.match(cmax) or not 10 <= int(cmax) <= 119):
+            return "Cap toi da 10-119 (119 = mo het). Chua luu gi."
+        if ex and ex != "macdinh" and (not RE_EXP.match(ex) or not 0.1 <= float(ex) <= 50):
+            return "EXP 0.1-50, toi da 1 so le (vd 3 hoac 2.5). Chua luu gi."
+        try:
+            cmin_cu = int(open(CAPMIN).read().strip() or "0")
+        except (OSError, ValueError):
+            cmin_cu = 0
+        lo = int(cmin) if cmin else cmin_cu
+        hi = int(cmax) if cmax else capmax_get()
+        if lo > 0 and hi > 0 and lo > hi:
+            return "Cap toi thieu (%d) cao hon cap toi da (%d). Chua luu gi." % (lo, hi)
+        doi = []
+        if cmin:
+            os.makedirs(QUEUE, exist_ok=True)
+            with open(CAPMIN, "w", encoding="ascii", newline="\n") as f:
+                f.write(str(int(cmin)) + "\n")
+            doi.append("cap toi thieu %d" % int(cmin))
+        if cmax:
+            capmax_set(int(cmax))
+            doi.append("cap toi da %d" % int(cmax))
+        if ex:
+            s = exp_set(exp_macdinh(), giu=False) if ex == "macdinh" else exp_set(float(ex), giu=True)
+            doi.append("EXP x%s%s" % (s, " (mac dinh)" if ex == "macdinh" else ""))
+        rs = bool(cmax or ex)   # cap toi thieu la script, khong can restart
+        audit("luu chung: %s%s (online: %d)" % (", ".join(doi), ", restart" if rs else "", online_count()))
+        if rs:
+            restart_game()
+            return "Da luu: %s. Dang restart server (khoang 3 phut)." % ", ".join(doi)
+        return "Da luu: %s. Khong can restart." % ", ".join(doi)
     if a in ("doche_ap", "doche_tra"):   # 02/10: mau do che 8x/9x - doi EquipBase cua game (ngoai repo), restart=1 thi restart luon
         id_ = v("id")
         if a == "doche_ap":
