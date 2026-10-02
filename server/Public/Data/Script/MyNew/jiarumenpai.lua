@@ -332,7 +332,7 @@ function  x990010_AddMenPai(  sceneId,  selfId,  MenPaiId  )
 
 if  GetMenPai(sceneId,selfId)  ~=  9  then
  --x990010_NotifyTip(  sceneId,  selfId,  " Các hÕ ðã gia nh§p môn phái, mu¯n chuy¬n phái sao? R¤t tiªc là ta chßa cho chuy¬n phái... "  )
- x990010_NotifyTip(  sceneId,  selfId,  " Các hÕ ðã gia nh§p môn phái, Mu¯n chuy¬n ð±i môn phái hay mua 1 phiªu KNB 200.000, tâm pháp s¨ v« 90 lßu ý nhé "  )
+ x990010_NotifyTip(  sceneId,  selfId,  " Các hÕ ðã gia nh§p môn phái, Mu¯n chuy¬n ð±i môn phái hay mua 1 phiªu KNB 200.000, tâm pháp s¨ v« 1 lßu ý nhé "  )
  if LuaFnDelAvailableItem(sceneId,selfId,39900000,1)<1 then
 		BeginEvent(sceneId)
 			AddText(sceneId,"Các hÕ không có KNB phiªu 200.000 ko th¬ chuy¬n phái!")
@@ -342,14 +342,14 @@ if  GetMenPai(sceneId,selfId)  ~=  9  then
 	end
 	x990010_NotifyTip(  sceneId,  selfId,  " Chuy¬n ð±i môn phái thành công"  )
 	LuaFnJoinMenpai(sceneId,  selfId,  1,  MenPaiId)
-	LuaFnSetXinFaLevel(sceneId,selfId,x990010_XinFaList[MenPaiId+1][1],90)
-	LuaFnSetXinFaLevel(sceneId,selfId,x990010_XinFaList[MenPaiId+1][2],90)
-	LuaFnSetXinFaLevel(sceneId,selfId,x990010_XinFaList[MenPaiId+1][3],90)
-	 LuaFnSetXinFaLevel(sceneId,selfId,x990010_XinFaList[MenPaiId+1][4],90)
-	 LuaFnSetXinFaLevel(sceneId,selfId,x990010_XinFaList[MenPaiId+1][5],90)
-	LuaFnSetXinFaLevel(sceneId,selfId,x990010_XinFaList[MenPaiId+1][6],90)
-	 LuaFnSetXinFaLevel(sceneId,selfId,x990010_XinFaList[MenPaiId+1][7],90)
-	 LuaFnSetXinFaLevel(sceneId,selfId,x990010_XinFaList[MenPaiId+1][8],90)
+	LuaFnSetXinFaLevel(sceneId,selfId,x990010_XinFaList[MenPaiId+1][1],1)   -- [NetCo4 03/10] tam phap 90 -> 1
+	LuaFnSetXinFaLevel(sceneId,selfId,x990010_XinFaList[MenPaiId+1][2],1)   -- [NetCo4 03/10] tam phap 90 -> 1
+	LuaFnSetXinFaLevel(sceneId,selfId,x990010_XinFaList[MenPaiId+1][3],1)   -- [NetCo4 03/10] tam phap 90 -> 1
+	 LuaFnSetXinFaLevel(sceneId,selfId,x990010_XinFaList[MenPaiId+1][4],1)   -- [NetCo4 03/10] tam phap 90 -> 1
+	 LuaFnSetXinFaLevel(sceneId,selfId,x990010_XinFaList[MenPaiId+1][5],1)   -- [NetCo4 03/10] tam phap 90 -> 1
+	LuaFnSetXinFaLevel(sceneId,selfId,x990010_XinFaList[MenPaiId+1][6],1)   -- [NetCo4 03/10] tam phap 90 -> 1
+	 LuaFnSetXinFaLevel(sceneId,selfId,x990010_XinFaList[MenPaiId+1][7],1)   -- [NetCo4 03/10] tam phap 90 -> 1
+	 LuaFnSetXinFaLevel(sceneId,selfId,x990010_XinFaList[MenPaiId+1][8],1)   -- [NetCo4 03/10] tam phap 90 -> 1
 	 local	 nam	 =  LuaFnGetName(  sceneId,  selfId  )
 	 BroadMsgByChatPipe(  sceneId,  selfId,  " #985 #G Chúc m×ng#cFF0000 ["..nam.."] #G Chuy¬n ð±i  môn phái #cFF0000"..x990010_MenPaiName[MenPaiId+1].."#Gtoàn th¬ giang h° cùng truy sát! #411 ",  4  )	
      return
@@ -375,14 +375,14 @@ end
 		--x001113_NotifyFailTips( sceneId, selfId, "Ngß½i C¤p cao r°i nhÕn gì næa" )
 		--end
 	 LuaFnJoinMenpai(sceneId,  selfId,  1,  MenPaiId)
-	 LuaFnSetXinFaLevel(sceneId,selfId,x990010_XinFaList[MenPaiId+1][1],90)
-	 LuaFnSetXinFaLevel(sceneId,selfId,x990010_XinFaList[MenPaiId+1][2],90)
-	 LuaFnSetXinFaLevel(sceneId,selfId,x990010_XinFaList[MenPaiId+1][3],90)
-	 LuaFnSetXinFaLevel(sceneId,selfId,x990010_XinFaList[MenPaiId+1][4],90)
-	 LuaFnSetXinFaLevel(sceneId,selfId,x990010_XinFaList[MenPaiId+1][5],90)
-	 LuaFnSetXinFaLevel(sceneId,selfId,x990010_XinFaList[MenPaiId+1][6],90)
-	 LuaFnSetXinFaLevel(sceneId,selfId,x990010_XinFaList[MenPaiId+1][7],90)
-	 LuaFnSetXinFaLevel(sceneId,selfId,x990010_XinFaList[MenPaiId+1][8],90)
+	 LuaFnSetXinFaLevel(sceneId,selfId,x990010_XinFaList[MenPaiId+1][1],1)   -- [NetCo4 03/10] tam phap 90 -> 1
+	 LuaFnSetXinFaLevel(sceneId,selfId,x990010_XinFaList[MenPaiId+1][2],1)   -- [NetCo4 03/10] tam phap 90 -> 1
+	 LuaFnSetXinFaLevel(sceneId,selfId,x990010_XinFaList[MenPaiId+1][3],1)   -- [NetCo4 03/10] tam phap 90 -> 1
+	 LuaFnSetXinFaLevel(sceneId,selfId,x990010_XinFaList[MenPaiId+1][4],1)   -- [NetCo4 03/10] tam phap 90 -> 1
+	 LuaFnSetXinFaLevel(sceneId,selfId,x990010_XinFaList[MenPaiId+1][5],1)   -- [NetCo4 03/10] tam phap 90 -> 1
+	 LuaFnSetXinFaLevel(sceneId,selfId,x990010_XinFaList[MenPaiId+1][6],1)   -- [NetCo4 03/10] tam phap 90 -> 1
+	 LuaFnSetXinFaLevel(sceneId,selfId,x990010_XinFaList[MenPaiId+1][7],1)   -- [NetCo4 03/10] tam phap 90 -> 1
+	 LuaFnSetXinFaLevel(sceneId,selfId,x990010_XinFaList[MenPaiId+1][8],1)   -- [NetCo4 03/10] tam phap 90 -> 1
 
 	 local	 nam	 =  LuaFnGetName(  sceneId,  selfId  )
 	 BroadMsgByChatPipe(  sceneId,  selfId,  " #985 #G Chúc m×ng#cFF0000 ["..nam.."] #G gia nh§p thành công vào môn phái #cFF0000"..x990010_MenPaiName[MenPaiId+1].." #G và nh§n ðßþc #cFF0000#{_EXCHG30000000} #Gtoàn th¬ giang h° k¸ch li®t phän ð¯i! #411 ",  4  )	 	 

@@ -68,8 +68,52 @@ function x950000_CapMin( sceneId, selfId )
 	end
 end
 
+-- [NetCo4 03/10] Dua tam phap cua nhan vat CU (GUID <= x950000_g_TPMaxGuid, tao truoc 03/10) ve cap 1, moi nhan vat dung 1 lan.
+-- Truoc 03/10 NPC NetCo4 (990010) cho san tam phap 90 khi vao phai. Danh dau ./txt/NetCo4Web/<GUID>.tp1 GHI TRUOC khi ha cap:
+-- khong ghi duoc thi bo qua (khong bao gio ha cap lap lai moi lan dang nhap).
+x950000_g_TPMaxGuid = 1010100013
+x950000_g_TPList = { {1,2,3,4,5,6,55,72}, {7,8,9,10,11,12,56,73}, {13,14,15,16,17,18,57,74},
+	{19,20,21,22,23,24,58,75}, {25,26,27,28,29,30,59,76}, {31,32,33,34,35,36,60,77},
+	{37,38,39,40,41,42,61,78}, {43,44,45,46,47,48,62,79}, {49,50,51,52,53,54,63,80}, {},
+	{64,65,66,67,68,69,70,71}, {81,82,83,84,85,86,87,88}, {89,90,91,92,93,94,95,96} }
+function x950000_TamPhap1( sceneId, selfId )
+	local guid = LuaFnGetGUID( sceneId, selfId )
+	if guid == nil or guid > x950000_g_TPMaxGuid then
+		return
+	end
+	local path = "./txt/NetCo4Web/"..guid..".tp1"
+	local h = openfile( path, "r" )
+	if h ~= nil then
+		closefile( h )
+		return
+	end
+	h = openfile( path, "w" )
+	if h == nil then
+		return
+	end
+	write( h, "1\n" )
+	closefile( h )
+	local mp = GetMenPai( sceneId, selfId )
+	if mp == nil or mp < 0 or mp > 12 or mp == 9 then
+		return
+	end
+	local ds = x950000_g_TPList[mp + 1]
+	local n = 0
+	for i = 1, getn( ds ) do
+		local lv = LuaFnGetXinFaLevel( sceneId, selfId, ds[i] )
+		if lv ~= nil and lv > 1 then
+			LuaFnSetXinFaLevel( sceneId, selfId, ds[i], 1 )
+			n = n + 1
+		end
+	end
+	if n > 0 then
+		x950000_Tip( sceneId, selfId, "T\226m ph\225p c\252a c\225c h\213 \240\227 \240\223\254c \240\223a v\171 c\164p 1." )
+	end
+end
+
 function x950000_NhanQua( sceneId, selfId )
 	x950000_CapMin( sceneId, selfId )
+	x950000_TamPhap1( sceneId, selfId )   -- [NetCo4 03/10] tam phap nhan vat cu ve 1 (1 lan)
 	CallScriptFunction( 999999, "NhanWeb", sceneId, selfId )   -- KNB chuyen tu web mini game (CDK/CDK.lua)
 	x950000_CapNhatTop( sceneId, selfId )   -- [NetCo4 03/10] Bang Top Server: Top Level + Top Tai Phu (KNB)
 	local guid = LuaFnGetGUID( sceneId, selfId )

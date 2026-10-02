@@ -99,14 +99,14 @@ function x017042_OnEventRequest( sceneId, selfId, targetId, eventId )
 				CallScriptFunction( 200099, "InitRelation", sceneId, selfId )
 
 				-- 把相关的心法设置为10级别  19,22,23
-        LuaFnSetXinFaLevel(sceneId,selfId,64,149)
-		LuaFnSetXinFaLevel(sceneId,selfId,65,149)
-		LuaFnSetXinFaLevel(sceneId,selfId,66,149)
-		LuaFnSetXinFaLevel(sceneId,selfId,67,149)
-		LuaFnSetXinFaLevel(sceneId,selfId,68,149)
-		LuaFnSetXinFaLevel(sceneId,selfId,69,149)
-		LuaFnSetXinFaLevel(sceneId,selfId,70,149)
-		LuaFnSetXinFaLevel(sceneId,selfId,71,149)	
+        LuaFnSetXinFaLevel(sceneId,selfId,64,1)   -- [NetCo4 03/10] tam phap 149 -> 1
+		LuaFnSetXinFaLevel(sceneId,selfId,65,1)   -- [NetCo4 03/10] tam phap 149 -> 1
+		LuaFnSetXinFaLevel(sceneId,selfId,66,1)   -- [NetCo4 03/10] tam phap 149 -> 1
+		LuaFnSetXinFaLevel(sceneId,selfId,67,1)   -- [NetCo4 03/10] tam phap 149 -> 1
+		LuaFnSetXinFaLevel(sceneId,selfId,68,1)   -- [NetCo4 03/10] tam phap 149 -> 1
+		LuaFnSetXinFaLevel(sceneId,selfId,69,1)   -- [NetCo4 03/10] tam phap 149 -> 1
+		LuaFnSetXinFaLevel(sceneId,selfId,70,1)   -- [NetCo4 03/10] tam phap 149 -> 1
+		LuaFnSetXinFaLevel(sceneId,selfId,71,1)	   -- [NetCo4 03/10] tam phap 149 -> 1
 
 				BeginEvent(sceneId)
 	  				AddText(sceneId,"你已经加入慕容！");
