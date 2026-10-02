@@ -725,3 +725,15 @@ Rollback: tag `truoc-maudoche-02-10`.
 - **Đính chính:** loa "Zing 50%" / "Hồi Ức Thiên Long" ở `yannan.lua` vốn đã tắt từ đợt dọn dẹp (`--[don-dep]`), người chơi chưa từng thấy. Chỉ có dòng `format(... 50% ...)` vẫn chạy và báo lỗi. Đã chú thích 6 dòng đó.
 - **Chờ chủ server trả lời:** Sát Tinh hiện đúng 1 phiếu/người/boss (Mv 60 = BV 60), tức 12 phiếu/người/lượt. Câu "hạ xuống mỗi boss chỉ 1 phiếu" có thể hiểu là cả đội 1 phiếu: bảng rơi không làm được vì mỗi người roll riêng.
 - **Rủi ro ngày mở:** nhiều họ `*_20monster` (nhánh sư môn thêm kinh nghiệm) chỉ có file từ `_40`. Người chơi dưới cấp 40 đi nhánh này có thể không vào được (chưa kiểm).
+
+## 03/10 00:02 - Long Văn +1/+2/+3 từ game ra 🧰 Rương Ích Kỷ (web) — game `9bfda46` (tag `truoc-longvan-ruong-03-10`), bot bialk `53df579`
+- Lý do: người chơi không giao dịch / bày sạp được Long Văn. Client tự chặn theo bảng vật phẩm riêng, đã mã hóa trong `Bin/ccore.dat`, nên không sửa được bằng server. Đổi `EquipBase.txt` 10157001 sang quy tắc 1 (`0d87b48`) không có tác dụng với client, vẫn để nguyên (vô hại: món tạo mới có `Bind=0`).
+- **Game:** NPC Ví Web (999999 `CDK/CDK.lua`) thêm ô cuối "Chuyển Long Văn ra Rương Ích Kỷ (web)".
+  - Bấm vào: hiện số Long Văn trong túi kèm cảnh báo. **Long Văn đã nâng sao / chuế thuộc tính sẽ mất phần nâng cấp**, vì web chỉ lưu mã ID.
+  - Đồng ý: xóa **từng món** trong túi (món đang mặc không tính), rồi ghi phiếu `Server/txt/NetCo4Web/outlv/<GUID>_<giờ>_<số>.txt`, mỗi dòng `"<GUID> <ID> <số>"`, dòng cuối `END`. Ghi phiếu lỗi thì trả lại món.
+- **Bot:** `tlbb.readLvReceipts` đọc phiếu mỗi 5 giây.
+  - Chỉ nhận phiếu đúng 3 ID, đúng GUID trong tên file, có END. Chống cộng trùng bằng `_tlbbLvSeen`, ghi trước khi chuyển phiếu sang `outlv/xong/`.
+  - Cộng vào `ichKy.items`, ghi sổ "🎮 Gửi từ game (Ví Web)". GUID chưa liên kết ví thì giữ phiếu và ghi log ADMIN.
+  - Long Văn **giữ qua đêm** (`ICHKY_GIU`), các món khác vẫn xóa lúc 00:00. Web hiện "🔒 giữ qua đêm (từ game)".
+  - Rút về game (cần online + liên kết tên nhân vật) và tặng người khác dùng đúng nút cũ của Rương Ích Kỷ.
+- **Chưa thử trong game.** Bản cũ của bot: `/opt/tlbb-backup/bot-truoc-longvan-0310/`.
