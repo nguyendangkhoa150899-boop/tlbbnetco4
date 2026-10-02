@@ -101,7 +101,7 @@ end
 	 	 AddText(  sceneId,  "#{OBJ_suzhou_0020}"  )
 	 	 AddNumText(  sceneId,  x000110_g_scriptId,  "#cFF0000 Ðøc Nhanh 3 l²",  6,  2010  )
 	 	 AddNumText(  sceneId,  x000110_g_scriptId,  "#G Khäm Ng÷c Tñ Ðµng Bµ Tân Thü 3 l²",  6,  2020  )
-		 AddNumText(  sceneId,  x000110_g_scriptId,  "#G Ðøc l² 4 Long Vån + Võ H°n+L®nh Bài (Free)",  6,  2021  )
+--		 AddNumText(  sceneId,  x000110_g_scriptId,  "#G Ðøc l² 4 Long Vån + Võ H°n+L®nh Bài (Free)",  6,  2021  )   -- [NetCo4 03/10] tat duc lo 4 Free: bo qua Diem Kim Chi Tien
 	 	 AddNumText(  sceneId,  x000110_g_scriptId,  "#G Ðøc L² Cñc HÕn ",  6,  10  )
 	 	 --AddNumText(  sceneId,  x000110_g_scriptId,  " trang b¸ ðánh l² ",  6,  2  )  -- ði r½i ðánh l² chÑc nång , không thñc døng 
 	 	 --AddNumText(  sceneId,  x000110_g_scriptId,  " Cß¶ng Hóa Trang B¸ ",  6,  1001  )
@@ -208,7 +208,7 @@ end
 	 	   
 		   
 		   
-		   x000110_yiqianaddbiaoshi1(  sceneId,  selfId,targetId)
+		   -- x000110_yiqianaddbiaoshi1(  sceneId,  selfId,targetId)   -- [NetCo4 03/10] tat duc lo 4 Free
 	 	   return
 	 end
 if  GetNumText()  ==  889  then	 
