@@ -621,6 +621,13 @@ Trang Bảng Rơi https://netco4.click/ đã dựng lại sau khi đổi tỉ l�
 
 ## 02/10 16:20 - Mẫu đồ chế 8x/9x trên admin (tab 🛠️ GM → 🧵 Mẫu đồ chế 8x/9x, chỉ cổng SUPER)
 
+**Cập nhật 16:45:**
+- Bỏ vũ khí khỏi đồ chế, vì vũ khí đi đường thần khí. Còn 62 món.
+- Thêm **108 Thái Cổ Thần Khí 9 sao**, lấy từ `x895111_TaiGu_shenqi` trong `MyLua/shenqinew/wuyazi85o.lua`.
+- Tẩy bằng **Ma Huyết Thạch 30505813** ở Phượng Minh Trấn (tepp 20): script gọi `TryRecieveItem` tạo món mới cùng ID rồi chuyển ngọc và tên sang. Món mới đi qua hàm sinh dòng, nên ăn mẫu y như đồ chế.
+- Thái Cổ có 17 hoặc 19 loại dòng, ra 11 dòng, quy tắc 9, T = -1. Vì vậy **số ra cố định**, ví dụ Ngoại công 2225, Chính xác 1433.
+- Lưu ý: trong lúc áp mẫu, mọi cách tạo ra đúng ID đó cũng ăn mẫu, kể cả tẩy, tiến giai lên Thái Cổ và quà admin.
+
 **Cách dùng:**
 1. Bấm 🔄 Tải rồi chọn món. Có 78 món chế cấp 80–99 lấy từ `ItemCompound`, xếp theo vị trí.
 2. Tick dòng muốn có. Chỉ hiện những dòng món đó tự ra được, và số dòng không quá mức tối đa tự nhiên.
