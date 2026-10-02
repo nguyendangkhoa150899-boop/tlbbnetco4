@@ -323,9 +323,9 @@ function  x890065_SkillLogicA_TunDun(  sceneId,  selfId,  nTick  )
 
 	 	 	 -- ngçu nhiên ðÕt ðßþc 2 cá buff( xu¤t th± vån v§t )....
 	 	 	 local  idx1  =  random(  getn(x890065_SkillC_ChutuBuff1)  )
-	 	 	 LuaFnSendSpecificImpactToUnit(  sceneId,  selfId,  selfId,  selfId,  x890065_SkillC_ChutuBuff1[idx1],  0  )
+	 	 	 -- LuaFnSendSpecificImpactToUnit(  sceneId,  selfId,  selfId,  selfId,  x890065_SkillC_ChutuBuff1[idx1],  0  )   -- [NetCo4 03/10] TAT: server cu thay buff goc 10237-10242 bang 6446 (hoi 50% mau) -> 2 lan = hoi day moi khi chui dat
 	 	 	 local  idx2  =  random(  getn(x890065_SkillC_ChutuBuff2)  )
-	 	 	 LuaFnSendSpecificImpactToUnit(  sceneId,  selfId,  selfId,  selfId,  x890065_SkillC_ChutuBuff2[idx2],  0  )
+	 	 	 -- LuaFnSendSpecificImpactToUnit(  sceneId,  selfId,  selfId,  selfId,  x890065_SkillC_ChutuBuff2[idx2],  0  )   -- [NetCo4 03/10] TAT: server cu thay buff goc 10237-10242 bang 6446 (hoi 50% mau) -> 2 lan = hoi day moi khi chui dat
 
 	 	 	 local  NeedCreateNum  =  1
 	 	 	 if  CurStep  ==  3  or  CurStep  ==  4  then
