@@ -68,10 +68,10 @@ x050100_g_MissionLevel = 10000
 --x050100_g_MissionName = "Mµt tên cûng không th¬ thoát#G(Q1)"
 x050100_g_MissionName = "Liên Hoàn Q Tô Châu(#cFF0000 3 trong 1)"
 x050100_g_MissionInfo = "    "				-- ÈÎÎñÃèÊö
-x050100_g_MissionTarget = "    Ti«n H°ng Vû· Tô Châu #{_INFOAIM62,162,1, Ti«n H°ng Vû} yêu c¥u các hÕ trong vòng 30 phút phäi dø và giªt chªt Dß Ðµc.#r    #{FQSH_090206_01}"						-- ÈÎÎñÄ¿±ê
+x050100_g_MissionTarget = "    Ti\171n Ho\224nh V\251 \183 T\244 Ch\226u #{_INFOAIM134,260,1, Ti\171n Ho\224nh V\251} y\234u c\165u c\225c h\213 trong v\242ng 30 ph\250t ph\228i d\248 v\224 gi\170t ch\170t D\223 \208\181c.#r    #{FQSH_090206_01}"						-- ÈÎÎñÄ¿±ê
 x050100_g_ContinueInfo = "    Tr§n chiªn vô cùng tr÷ng ðÕi, nh¤t ð¸nh không ðßþc khinh xu¤t. Các hÕ ðã chu¦n b¸ ðªn sao huy®t b÷n cß¾p chßa?"	-- Î´Íê³ÉÈÎÎñµÄnpc¶Ô»°
 x050100_g_SubmitInfo = "    Nhi®m vø làm thª nào r°i?"										-- Ìá½»Ê±µÄ´ð¸´
-x050100_g_MissionComplete = "    Các hÕ làm quá t¯t r°i, chúng ta có th¬ có th¬ thông qua l®nh bài này tìm ðßþc doanh trÕi cüa b÷n phï ð° này. Hãy ði ðªn tiêu cøc tìm #{_INFOAIM251,109,1, Hoa Kiªm Änh}, h¡n có th¬ cho ngß½i biªt lai l¸ch cüa l®nh bài"	--Íê³ÉÈÎÎñnpcËµµÄ»°
+x050100_g_MissionComplete = "    C\225c h\213 l\224m qu\225 t\175t r\176i! C\243 l\174nh b\224i n\224y l\224m ch\209ng, b\247n ph\239 \240\176 \183 bi\234n gi\190i T\175ng Li\234u xem nh\223 \240\227 b\184 di\174t tr\215. \208a t\213 c\225c h\213 \240\227 ra tay tr\215 h\213i cho b\225ch t\237nh!"	--Íê³ÉÈÎÎñnpcËµµÄ»°
 x050100_g_IsMissionOkFail = 0				-- 0 ºÅ£ºµ±Ç°ÈÎÎñÊÇ·ñÍê³É(0Î´Íê³É£»1Íê³É£»2Ê§°Ü)
 x050100_g_Param_sceneid = 6					-- 6 ºÅ£ºµ±Ç°¸±±¾ÈÎÎñµÄ³¡¾°ºÅ
 
@@ -405,7 +405,7 @@ function x050100_AcceptEnterCopyScene( sceneId, selfId, targetId )
 		--end
 		
 		if nearMemberCount < x050100_g_LimitMembers then
-			x050100_NotifyFailBox( sceneId, selfId, targetId, "    Lû ðÕo t£c này không phäi v×a ðâu, ngß½i c¥n phäi có 1 s¯ bän lînh và 1 s¯ trþ thü, ta m¾i yên tâm. (trong nhóm t¯i thi­u c¥n phäi có 3 nhân v§t t× c¤p 30 tr· lên)" )
+			x050100_NotifyFailBox( sceneId, selfId, targetId, "    L\251 \240\213o t\163c n\224y kh\244ng ph\228i v\215a \240\226u, ng\223\189i c\165n ph\228i c\243 b\228n l\238nh, ta m\190i y\234n t\226m. (c\165n t\177 \240\181i, \237t nh\164t 1 ng\223\182i c\164p 30 tr\183 l\234n \240\227 nh\167n nhi\174m v\248)" )
 			return
 		end
 		
@@ -538,7 +538,7 @@ function x050100_OnCopySceneReady( sceneId, destsceneId )
 	end
 	
 	if validmembercount < x050100_g_LimitMembers then
-		x050100_NotifyFailTips( sceneId, leaderObjId, "    Lû ðÕo t£c này không phäi v×a ðâu, ngß½i c¥n phäi có 1 s¯ bän lînh và 1 s¯ trþ thü, ta m¾i yên tâm. (trong nhóm t¯i thi­u c¥n phäi có 3 nhân v§t t× c¤p 30 tr· lên)" )
+		x050100_NotifyFailTips( sceneId, leaderObjId, "    L\251 \240\213o t\163c n\224y kh\244ng ph\228i v\215a \240\226u, ng\223\189i c\165n ph\228i c\243 b\228n l\238nh, ta m\190i y\234n t\226m. (c\165n t\177 \240\181i, \237t nh\164t 1 ng\223\182i c\164p 30 tr\183 l\234n \240\227 nh\167n nhi\174m v\248)" )
 		return
 	end
 	

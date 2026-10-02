@@ -404,7 +404,7 @@ function x232002_MakeCopyScene( sceneId, selfId, nearmembercount )
 	elseif mylevel < PlayerMaxLevel then
 		iniLevel = floor(mylevel/10) * 10;
 	else
-		iniLevel = PlayerMaxLevel;
+		iniLevel = floor( PlayerMaxLevel/10 ) * 10;   -- [NetCo4 02/10] cu: iniLevel = PlayerMaxLevel (119) -> nap shuilao_monster_119.ini khong co -> khong tao duoc pho ban
 	end
 	LuaFnSetSceneLoad_Monster( sceneId, "shuilao_monster_" .. iniLevel .. ".ini" )
 	LuaFnSetCopySceneData_Param( sceneId, CopyScene_LevelGap, mylevel - iniLevel )	--级别差，CopyScene_LevelGap 在 scene.lua 中赋值

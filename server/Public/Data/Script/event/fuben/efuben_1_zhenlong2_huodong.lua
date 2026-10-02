@@ -252,7 +252,7 @@ function x401002_CheckAndEnterScene(sceneId, selfId, targetId, eventId)
 				local memName = GetName(sceneId, sceneMemId)
 				
 				if nCountTmp < nLowLvlCnt then
-					memNameList = memNameList..memName.."¡¢"
+					memNameList = memNameList..memName..", "
 					nCountTmp = nCountTmp + 1
 				else
 					memNameList = memNameList..memName
@@ -336,7 +336,7 @@ function x401002_CheckAndEnterScene(sceneId, selfId, targetId, eventId)
 			if checkPKcount == 0 then
 				checkPKvalueMsg = checkPKvalueMsg..memName;
 			else
-				checkPKvalueMsg = checkPKvalueMsg.."¡¢"..memName;
+				checkPKvalueMsg = checkPKvalueMsg..", "..memName;
 			end
 			checkPKcount = checkPKcount + 1;
 		end
@@ -362,7 +362,7 @@ function x401002_CheckAndEnterScene(sceneId, selfId, targetId, eventId)
 			if checkCurDaycount == 0 then
 				checkCurDayMsg = checkCurDayMsg..memName;
 			else
-				checkCurDayMsg = checkCurDayMsg.."¡¢"..memName;
+				checkCurDayMsg = checkCurDayMsg..", "..memName;
 			end
 			checkCurDaycount = checkCurDaycount + 1;
 		end
@@ -461,7 +461,7 @@ function x401002_MakeCopyScene(sceneId, selfId, nearmembercount)
 	elseif mylevel < PlayerMaxLevel then
 		iniLevel = floor(mylevel/10) * 10;
 	else
-		iniLevel = PlayerMaxLevel;
+		iniLevel = floor( PlayerMaxLevel/10 ) * 10;   -- [NetCo4 02/10] cu: iniLevel = PlayerMaxLevel (119) -> nap zhenlong_monster_119.ini khong co -> khong tao duoc pho ban
 	end
 
 	if iniLevel/10 <= x401002_g_MoTypeCount then

@@ -250,7 +250,7 @@ function x600019_MakeCopyScene( sceneId, selfId )
 	elseif mylevel < PlayerMaxLevel then
 		iniLevel = floor( mylevel/10 ) * 10
 	else
-		iniLevel = PlayerMaxLevel
+		iniLevel = floor( PlayerMaxLevel/10 ) * 10   -- [NetCo4 02/10] cu: iniLevel = PlayerMaxLevel (119) -> nap jishi_monster_119.ini khong co -> khong tao duoc pho ban
 	end
 
 	LuaFnSetSceneLoad_Area( sceneId, x600019_g_Exit )

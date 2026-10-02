@@ -185,7 +185,7 @@ function x050010_AskEnterCopyScene( sceneId, selfId, targetId )
 	elseif mylevel < PlayerMaxLevel then
 		iniLevel = floor( mylevel/10 ) * 10
 	else
-		iniLevel = PlayerMaxLevel
+		iniLevel = floor( PlayerMaxLevel/10 ) * 10   -- [NetCo4 02/10] cu: iniLevel = PlayerMaxLevel (119) -> nap bianguan_N_monster_119.ini khong co -> khong tao duoc pho ban
 	end
 
 	LuaFnSetSceneLoad_Area( sceneId, x050010_g_CopySceneArea )

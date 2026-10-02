@@ -113,7 +113,7 @@ function x402040_OnDefaultEvent( sceneId, selfId, targetId )
 	if LuaFnHasTeam(sceneId,selfId) ~= 1  then
 		BeginEvent(sceneId)
 			AddText(sceneId,"#BHoành täo M¦u Ðan Uy¬n");
-			AddText(sceneId,"  Hoành täo M¦u Ðan Uy¬n ít nh¤t cûng phäi có 3 ngß¶i t± ðµi m¾i có th¬ tham gia, nªu nhß ngß½i chï nghî là bi¬u di­n tài hoa, xin m¶i ði tham gia Hoa S½n Lu§n Kiªm ði!");
+			AddText(sceneId,"  Ho\224nh t\228o M\231u \208an Uy\172n ph\228i l\167p t\177 \240\181i m\190i c\243 th\172 tham gia, n\170u nh\223 ng\223\189i ch\239 ngh\238 l\224 bi\172u di\173n t\224i hoa, xin m\182i \240i tham gia Hoa S\189n Lu\167n Ki\170m \240i!");
 		EndEvent(sceneId)
 		DispatchEventList(sceneId,selfId,targetId)
 		return
@@ -123,7 +123,7 @@ function x402040_OnDefaultEvent( sceneId, selfId, targetId )
 	if GetTeamSize(sceneId,selfId) < x402040_g_LimitMembers then
 		BeginEvent(sceneId)
 			AddText(sceneId,"#BHoành täo M¦u Ðan Uy¬n");
-			AddText(sceneId,"  Ðµi ngû không ðü ba ngß¶i, cho là có vào ðßþc cûng không chiªn th¡ng n²i t¯t nh¤t là không nên ði");
+			AddText(sceneId,"  \208\181i ng\251 kh\244ng \240\252 ng\223\182i, cho d\249 c\243 v\224o \240\223\254c c\251ng kh\244ng th\161ng n\177i, t\175t nh\164t l\224 kh\244ng n\234n \240i.");
 		EndEvent(sceneId)
 		DispatchEventList(sceneId,selfId,targetId)
 		return
@@ -215,7 +215,7 @@ function x402040_OnDefaultEvent( sceneId, selfId, targetId )
 	--end
 	
 	-- 10,Thöa mãnËùÓÐÌõ¼þÁË CVH
-	local str = "Ta chính thÑc tuyên b¯ " .. GetName(sceneId,selfId) .. " Cùng ðµi ngû ðã có th¬ chính thÑc vào bàn, tham gia mµt tháng mµt l¥n  quét sÕch mçu ð½n túc c¥u!#r" .. GetName(sceneId,selfId) .. "#W, chúc ngß½i may m¡n."
+	local str = "Ta chính thÑc tuyên b¯ " .. GetName(sceneId,selfId) .. " c\249ng \240\181i ng\251 \240\227 c\243 th\172 ch\237nh th\209c v\224o s\226n, tham gia qu\233t s\213ch M\231u \208an Uy\172n t\250c c\165u (m\178i 24 gi\182 m\181t l\165n)!#r" .. GetName(sceneId,selfId) .. "#W, chúc ngß½i may m¡n."
 	BeginEvent(sceneId)
 		AddText(sceneId,"#BHoành täo M¦u Ðan Uy¬n")
 		AddText(sceneId, str)

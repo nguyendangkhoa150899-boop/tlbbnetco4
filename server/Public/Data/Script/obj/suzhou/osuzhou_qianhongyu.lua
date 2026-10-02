@@ -13,7 +13,7 @@ x001065_g_EventList = { 050100 }
 --**********************************
 function x001065_UpdateEventList( sceneId, selfId, targetId )
 	BeginEvent( sceneId )
-		AddText( sceneId, "Khá l¡m, hi®u úy Tô Châu Ti«n Hùng Vû chính là ta! Tìm ta có chuy®n gì?" )
+		AddText( sceneId, "Kh\225 l\161m, hi\174u \250y T\244 Ch\226u Ti\171n Ho\224nh V\251 ch\237nh l\224 ta! T\236m ta c\243 chuy\174n g\236?" )
 
 		local i, findId
 		for i, findId in x001065_g_EventList do

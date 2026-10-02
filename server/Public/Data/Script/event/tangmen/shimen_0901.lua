@@ -285,9 +285,9 @@ function x228908_MakeCopyScene( sceneId, selfId, nearmembercount )
 		elseif mylevel < PlayerMaxLevel then
 			iniLevel = floor( mylevel/10 ) * 10
 		else
-			iniLevel = PlayerMaxLevel
+			iniLevel = floor( PlayerMaxLevel/10 ) * 10   -- [NetCo4 02/10] cu: iniLevel = PlayerMaxLevel (119) -> nap tangmen_monster_119.ini khong co -> khong tao duoc pho ban
 		end
-		LuaFnSetSceneLoad_Monster( sceneId, "tangmen_monster_" .. iniLevel .. ".ini" ) --tangmen_monster
+		if iniLevel > 100 then iniLevel = 100 end LuaFnSetSceneLoad_Monster( sceneId, "tangmen_monster_" .. iniLevel .. ".ini" ) --tangmen_monster   [NetCo4 02/10] chi co tangmen_monster_10.._100.ini
 		LuaFnSetSceneLoad_Area( sceneId, "tangmen_20monster_area.ini" )
 	else
 		if mylevel < 50 then
@@ -295,7 +295,7 @@ function x228908_MakeCopyScene( sceneId, selfId, nearmembercount )
 		elseif mylevel < PlayerMaxLevel then
 			iniLevel = floor( mylevel/10 ) * 10
 		else
-			iniLevel = PlayerMaxLevel
+			iniLevel = floor( PlayerMaxLevel/10 ) * 10   -- [NetCo4 02/10] cu: iniLevel = PlayerMaxLevel (119) -> nap tangmen_20monster_119.ini khong co -> khong tao duoc pho ban
 		end
 		LuaFnSetSceneLoad_Monster( sceneId, "tangmen_20monster_" .. iniLevel .. ".ini" )  --tangmen_20monster
 		LuaFnSetSceneLoad_Area( sceneId, "tangmen_20monster_area.ini" )

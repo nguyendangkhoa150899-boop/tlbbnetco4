@@ -19,7 +19,7 @@ function x000004_UpdateEventList( sceneId, selfId,targetId )
 	end
 	BeginEvent(sceneId)
 	local  PlayerName=GetName(sceneId,selfId)
-	AddText(sceneId,"  "..PlayerName..PlayerSex.."th¤y các hÕ th§t vui m×ng! Ta hi®n gi¶ phø trách công vi®c cüa cuµc thi Túc C¥u. Cuµc thi túc c¥u b¡t ð¥u vào 19h t¯i chü nh§t tu¥n thÑ ba và thÑ nh¤t cüa m²i tháng, ðªn 23h kªt thÑc. C½ hµi hiªm có, ð×ng bö lÞ!");
+	AddText(sceneId,"  "..PlayerName..PlayerSex.." th\164y c\225c h\213 th\167t vui m\215ng! Ta hi\174n gi\182 ph\248 tr\225ch c\244ng vi\174c c\252a cu\181c thi T\250c C\165u. Cu\181c thi m\183 c\228 ng\224y, m\178i ng\223\182i \240\223\254c tham gia m\181t l\165n m\178i 24 gi\182. C\189 h\181i hi\170m c\243, \240\215ng b\246 l\222!");
 	for i, eventId in x000004_g_eventList do
 		CallScriptFunction( eventId, "OnEnumerate",sceneId, selfId, targetId )
 	end

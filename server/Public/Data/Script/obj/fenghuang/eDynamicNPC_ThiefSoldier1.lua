@@ -377,7 +377,7 @@ function x900019_MakeCopyScene( sceneId, selfId, nearmembercount )
 	elseif mylevel < PlayerMaxLevel then
 		iniLevel = floor(mylevel/10) * 10;
 	else
-		iniLevel = PlayerMaxLevel;
+		iniLevel = floor( PlayerMaxLevel/10 ) * 10;   -- [NetCo4 02/10] cu: iniLevel = PlayerMaxLevel (119) -> nap PhoenixMaze_monster119.ini khong co -> khong tao duoc pho ban
 	end
 	
 	LuaFnSetCopySceneData_Param( sceneId, x900019_g_keySD["MyLevel"], mylevel )

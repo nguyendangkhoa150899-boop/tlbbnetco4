@@ -68,7 +68,7 @@ function x001130_OnDie( sceneId, selfId, killerId )
 			return
 		end
 		if GroupID==0 and  killedCount==10   then  -----杀了十个跑的马贼怪，直接刷小BOSS
-			x001130_TipAllHuman( sceneId, "伪装的宋兵都统已经出现......." )
+			x001130_TipAllHuman( sceneId, "Ng\248y T\175ng Qu\226n \208\244 Th\175ng \240\227 xu\164t hi\174n......." )
 			local LevelGap = LuaFnGetCopySceneData_Param( sceneId, CopyScene_LevelGap )
 			local bossGrade = LuaFnGetCopySceneData_Param( sceneId, 13 )
 			if not x001130_g_LittleBoss[bossGrade] then
@@ -89,7 +89,7 @@ function x001130_OnDie( sceneId, selfId, killerId )
 			LuaFnSetCopySceneData_Param( sceneId, 12, 0 )							-- 是否杀死小 Boss
 			LuaFnSetCopySceneData_Param( sceneId, 14, 0 )							-- 是否已经有小怪逃走
 			LuaFnSetCopySceneData_Param( sceneId, 15, 0 )							-- 是否已经刷出大 Boss
-			x001130_TipAllHuman( sceneId, "余毒已被打败，30秒后将进入第二关，击杀红熊王" )
+			x001130_TipAllHuman( sceneId, "D\223 \208\181c \240\227 b\184 \240\225nh b\213i, 30 gi\226y sau s\168 v\224o \228i 2, h\227y ti\234u di\174t H\176ng H\249ng V\223\189ng!" )
 			local BroadcastMsg = x001130_g_BroadcastMsg[ random( getn(x001130_g_BroadcastMsg) ) ]
 			BroadcastMsg = gsub( BroadcastMsg, "%$N", GetName( sceneId, playerID ) )
 			BroadMsgByChatPipe( sceneId, playerID, BroadcastMsg, 4 )
@@ -99,7 +99,7 @@ function x001130_OnDie( sceneId, selfId, killerId )
 		--取得当前场景里的人数
 		local i, humanObjId, misIndex
 		local num = LuaFnGetCopyScene_HumanCount( sceneId )
-		local strText = format( "已杀死%s： %d/%d", GetName( sceneId, selfId ), killedCount, maxKilledCount )
+		local strText = format( "\208\227 gi\170t %s: %d/%d", GetName( sceneId, selfId ), killedCount, maxKilledCount )
 		for i = 0, num - 1 do
 			humanObjId = LuaFnGetCopyScene_HumanObjId( sceneId, i )					-- 取得当前场景里人的objId
 			if LuaFnIsObjValid( sceneId, humanObjId ) == 1 then						-- 不在场景的不做此操作
@@ -139,10 +139,10 @@ function x001130_OnDie( sceneId, selfId, killerId )
 			local LevelGap = LuaFnGetCopySceneData_Param( sceneId, CopyScene_LevelGap )
 			local bossId = LuaFnCreateMonster( sceneId, x001130_g_Boss[bossGrade], 195, 48, 14, 126, 1130 )
 			SetLevel( sceneId, bossId, GetLevel( sceneId, bossId ) + LevelGap )
-			SetCharacterTitle(sceneId, bossId, "边境大王")
+			SetCharacterTitle(sceneId, bossId, "Bi\234n C\228nh \208\213i V\223\189ng")
 			SetMonsterGroupID( sceneId, bossId, x001130_g_BossGroup )
 			LuaFnSetCopySceneData_Param( sceneId, 15, 1 )
-			x001130_TipAllHuman( sceneId, "余毒已经出现在大帐前！" )
+			x001130_TipAllHuman( sceneId, "D\223 \208\181c \240\227 xu\164t hi\174n tr\223\190c \240\213i tr\223\190ng!" )
 		end
 		
 		
@@ -170,7 +170,7 @@ function x001130_OnDie( sceneId, selfId, killerId )
 			local BroadcastMsg = tow_BroadcastMsg[ random( getn(tow_BroadcastMsg) ) ]
 			BroadcastMsg = gsub( BroadcastMsg, "%$N", GetName( sceneId, playerID ) )
 			BroadMsgByChatPipe( sceneId, playerID, BroadcastMsg, 4 )
-			x001130_TipAllHuman( sceneId, "红熊王已被打败，30秒后将进入第三关，山寨大王即将出现......." )
+			x001130_TipAllHuman( sceneId, "H\176ng H\249ng V\223\189ng \240\227 b\184 \240\225nh b\213i, 60 gi\226y sau s\168 v\224o \228i 3, S\189n Tr\213i \208\213i V\223\189ng s\161p xu\164t hi\174n......." )
 		end
 		
 		
@@ -194,7 +194,7 @@ function x001130_OnDie( sceneId, selfId, killerId )
 		local num = LuaFnGetCopyScene_HumanCount( sceneId )
 		local mems = {}
 		local misIndex
-		local strText = format( "已杀死%s： %d/%d", GetName( sceneId, selfId ), killedCount, maxKilledCount )
+		local strText = format( "\208\227 gi\170t %s: %d/%d", GetName( sceneId, selfId ), killedCount, maxKilledCount )
 		for i = 0, num - 1 do
 			mems[i + 1] = LuaFnGetCopyScene_HumanObjId( sceneId, i )					-- 取得当前场景里人的objId
 			if LuaFnIsObjValid( sceneId, mems[i + 1] ) == 1 then						-- 不在场景的不做此操作
@@ -220,11 +220,11 @@ function x001130_OnDie( sceneId, selfId, killerId )
 			end
 			local bossId = LuaFnCreateMonster( sceneId, boss_id, 49, 42, 14, 128, 1130 )
 			SetLevel( sceneId, bossId, GetLevel( sceneId, bossId ) + LevelGap )
-			SetCharacterTitle(sceneId, bossId, "菜鸡熊王")
+			SetCharacterTitle(sceneId, bossId, "H\249ng V\223\189ng")
 			SetMonsterGroupID( sceneId, bossId, 2 )
 			SetPatrolId( sceneId, bossId, 8 )		-- 设置巡逻路径
 			if bossId >=0 then 
-			x001130_TipAllHuman( sceneId, "红熊王已经出现......." )
+			x001130_TipAllHuman( sceneId, "H\176ng H\249ng V\223\189ng \240\227 xu\164t hi\174n......." )
 			end
 		end
 	elseif LuaFnGetCopySceneData_Param( sceneId, 21 ) ==2  then  -----第3关
@@ -246,7 +246,7 @@ function x001130_OnDie( sceneId, selfId, killerId )
 		local mems = {}
 		local killedCount = 1
 		local maxKilledCount = 1
-		local strText = format( "已杀死%s： %d/%d", GetName( sceneId, selfId ),  killedCount, maxKilledCount )
+		local strText = format( "\208\227 gi\170t %s: %d/%d", GetName( sceneId, selfId ),  killedCount, maxKilledCount )
 		for i = 0, num - 1 do
 			local HumanObjId = LuaFnGetCopyScene_HumanObjId( sceneId, i )					-- 取得当前场景里人的objId
 			if LuaFnIsObjValid( sceneId, HumanObjId ) == 1 then
@@ -256,7 +256,7 @@ function x001130_OnDie( sceneId, selfId, killerId )
           		AddMonsterDropItem( sceneId, selfId, HumanObjId , x001130_g_Token )			  
 				x001130_NotifyFailTips( sceneId, HumanObjId, strText )
 				Msg2Player( sceneId, HumanObjId, strText, MSG2PLAYER_PARA )
-				x001130_NotifyFailTips( sceneId, HumanObjId, "任务目标完成" ) 
+				x001130_NotifyFailTips( sceneId, HumanObjId, "\208\227 ho\224n th\224nh m\248c ti\234u nhi\174m v\248" ) 
 			end
 		end
 	    LuaFnSetCopySceneData_Param( sceneId, 4,1 ) ----设置离开
