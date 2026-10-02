@@ -52,7 +52,7 @@ Mua ra luôn có đúng 10 dòng:
 - Game gốc để Kiếm và Trượng là nội, Hoàn là ngoại. Bản này làm theo yêu cầu của chủ server.
 - Cách làm: thêm đoạn giá trị 4400 vào `ItemSegValue.txt`. Trong `EquipBase.txt`, cột 91 của 6 cây trỏ về 4400, số dòng đặt 10–10, chỉ bật 10 thuộc tính.
 - Tư chất vẫn ngẫu nhiên 126–250.
-- Cây mua trước khi restart giữ dòng cũ.
+- Cây mua trước 02/10 **giữ bộ dòng cũ** (5 dòng), nhưng **số được tính lại** theo đoạn 4400. Lý do: server tính lại số mỗi lần nhân vật vào game. Kết quả là ngoại/nội công lên 3000, chính xác 1500, hội tâm 15, thân pháp 50, còn Cường lực/Nội lực giữ như cũ, vì đoạn 4400 có giá trị 63 giống đoạn gốc (sửa ở 1c82ac1). Kiếm và Trượng cũ vẫn giữ dòng nội công.
 - Bản 10.000 KNB, ID đuôi 005, không đổi.
 
 ## Shop BaBy (kệ 270): 19 món đã bỏ
