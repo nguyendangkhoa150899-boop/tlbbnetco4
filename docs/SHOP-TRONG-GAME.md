@@ -27,8 +27,8 @@ Khi sửa shop game thì **không đụng shop web**.
 | 02/10 | 181 | Khu Buôn Bán > Đạo cụ hấp dẫn | Bỏ Chưởng Quỹ Yếu Quyết 30008053 | b039dbe | truoc-xoa-30008053-02-10 |
 | 02/10 | 180 | Khu Buôn Bán > Vật phẩm mới | Bỏ Canh Danh Thiếp 30008105 và Chuyển Tính Đan 30900048 | db37f51 | truoc-xoa-ke180-02-10 |
 | 02/10 | 136 | Thần khí 42, bản 2.000 | Không đổi kệ. Dòng thuộc tính cố định khi mua (sửa EquipBase + ItemSegValue, xem dưới) | 4f483fd | truoc-thankhi42-02-10 |
-| 02/10 | 102, 133, 134 | Sách kỹ năng trân thú | Cả 3 kệ trả bằng **KNB**, giá mới theo bảng dưới | xem git log | truoc-sachpet-shopbaby-02-10 |
-| 02/10 | 270 | Khu Buôn Bán > **Shop BaBy** | **Tắt**: làm trống kệ, bỏ 19 món | như trên | truoc-sachpet-shopbaby-02-10 |
+| 02/10 | 102, 133, 134 | Sách kỹ năng trân thú | Cả 3 kệ trả bằng **KNB**, giá mới theo bảng dưới | 2cde507 | truoc-sachpet-shopbaby-02-10 |
+| 02/10 | 270 | Khu Buôn Bán > **Shop BaBy** | **Tắt**: làm trống kệ, bỏ 19 món | 2cde507 | truoc-sachpet-shopbaby-02-10 |
 
 ### Chưa đổi, còn chờ chủ server
 
