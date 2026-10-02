@@ -664,6 +664,7 @@ Rollback: tag `truoc-maudoche-02-10`.
 - Môi trường máy nhà (phiên 02/10 tối): `ssh`/`awk`/`iconv` trong Git Bash bị chặn (mã 127 / Permission denied); SSH dùng `C:\Windows\System32\OpenSSH\ssh.exe` qua `cmd /c "... bash -s < script.sh"`, giải mã GBK bằng node `TextDecoder('gbk')`.
 
 ## 02/10 tối - Q Lâu Lan (Viêm Ma Sơn) + Q Tô Châu: đội toàn cấp 119 vào phó bản không ra quái → sửa (Lua, hiệu lực ngay)
+> **ĐÍNH CHÍNH (02/10 khuya, sau khi soát binary):** chẩn đoán dưới đây SAI cho 2 phó bản này. `LuaFnSetCopySceneData_Param` lưu **số nguyên** (`Scene::SetCopySceneData_Param(unsigned int, int)`), nên 11.9 lưu vào Param 13 rồi đọc lại ra 11. Trước khi sửa, đội 119 vẫn ra quái, chênh cấp = 0. Bản sửa không hại gì, chỉ tăng chênh lên 9: quái Q Tô Châu cấp 119, Q Lâu Lan cấp ~104, nên đỡ bị trừ rơi đồ vì chênh cấp. Lỗi 119 **thật** chỉ xảy ra khi số lẻ được dùng thẳng làm chỉ số bảng Lua (Túc Cầu, Lâu Lan Tầm Bảo), hoặc khi ghép vào tên file `_monster_119.ini`, file này không tồn tại (xem mục soát 02/10 khuya). Việt hóa và túi boss ở dưới vẫn đúng.
 - **Nguyên nhân:** khi cấp bình quân đội ≥ cấp tối đa (119), script gán `iniLevel = PlayerMaxLevel` = 119 rồi lưu `119/10 = 11.9` làm bậc quái; bảng ID quái tra `[5.9]` (Lâu Lan, trừ 6) / `[11.9]` (Tô Châu) = nil → `return`, không spawn gì, không ghi `luaerror.log`. Chỉ dính khi **mọi** thành viên đều 119 (có 1 người ≤118 là chạy). Server có 9/12 nhân vật 119. Cùng loại lỗi với Túc Cầu, nhưng lần quét trước chỉ tìm `PlayerMaxLevel/10` viết thẳng nên lọt mẫu đi vòng qua biến `iniLevel`.
 - **Sửa:** `iniLevel = floor( PlayerMaxLevel/10 ) * 10` ở `event/xunhuan/xinsanhuan_1.lua` (050220, Q Lâu Lan) và `boundary_between_song_and_liao.lua` (050100, Q Tô Châu ải Tống Liêu biên cảnh). Đội 119 nay = bậc 110 + chênh 9 cấp: Q Tô Châu quái cấp 119; Q Lâu Lan quái cấp ~104 (bảng quái Lâu Lan bước 5 cấp nhưng script chia bậc 10 cấp → thấp hơn người chơi ~15 cấp, là thiết kế gốc; rơi/kinh nghiệm ×0.9).
 - **Việt hóa 10 thông báo** trong `yamoshannpc_die.lua` (1129): chỉ đường sang ải 2 (57,81), Vương Diêm xuất hiện (90,183), 5 đợt boss ải 2, sang ải 3 (210,40), nhiệm vụ hoàn thành, "Đã giết X: n/m". Câu "Cấp chưa đủ 30" → 75.
@@ -678,3 +679,25 @@ Rollback: tag `truoc-maudoche-02-10`.
 - Server đủ: map `chengshiwangling.nav/.scn/.path` (scene553, clientres 579), quái + AI 253/167/180/185/189, hằng số, script 890536/200060/900071.
 - **Rủi ro chính — map client:** `Scene.axp` của client chỉ có 4 ảnh bản đồ nhỏ `chengshiwangling_*.dds`, **không có** `.Scene/.Terrain/.GridInfo/.Heightmap`; nhưng có đủ bộ **`fengmingwangling_new`** (không có trên server). Bảng định nghĩa map của client bị nén, chưa đọc được clientres 579 = map nào. Nghi server cũ đóng vì lệch map client/server. Chỉ thử trong game mới chắc.
 - Lỗi script thấy khi đọc: (1) rương: số ngẫu nhiên 500–700 (~20%) → 5 món nhưng `nItemId_3` = nil → mất chìa, không ra đồ (nghi); (2) loa "X đã mang đội tiến vào Quân Vương Lăng" phát **trước** khi kiểm điều kiện; (3) câu "cần ít nhất 3 người" nhưng `g_LimitMembers = 1`; (4) nhánh hết lượt gọi `DispatchEventList(..., targetId)` với `targetId` không tồn tại; (5) `Paopao` gọi với `strMonsterName` nil (sau khi đã tạo boss).
+
+## 02/10 khuya - Tam Thần Ảo Cảnh: sửa (Lua, hiệu lực ngay, deploy 22:37, không restart) — tag `truoc-fix-tamthan-02-10`, commit `9cfac2b`
+- **Rương Nhân đòi Côn Ngô Tiên Thược (100.000 KNB)**, trong khi chữ của chính rương ghi "không cần chìa". Đã bỏ yêu cầu chìa (`yehuo.lua` 894007). Thiết kế: mỗi nhân vật mỗi ngày mở **1 trong 3 rương**. Thiên cần Tiên Thược, Địa cần Bí Thược, Nhân miễn phí. Thưởng rương Nhân: 10× món a + 1 món b + 1 phiếu (1.000/2.000/5.000, trung bình khoảng 3.600 KNB).
+- **Cờ "đã mở rương hôm nay"** trước dùng `VIP_SHENMI_SHOP` (ô 426), ô này dùng chung với đoạn "reset vip" trong `scene.lua`. Hậu quả: đăng nhập lại là mở được tiếp, đồng thời reset `CHONG_ZHI_YILINGQI`. Nay ghi vào ô đếm lượt của chính Tam Thần `SANSHENHUANJING_COUNT` (294): +50 = đã mở. `efuben_sanshen.lua` đếm lượt bằng `mod(..., 50)`.
+- **Giới hạn 5 lượt/ngày không chặn:** điều kiện cũ là `nHumanNum >= 5`, tức phải ≥5 người cùng hết lượt mới bị chặn. Nay có 1 người hết lượt là chặn.
+- KickOut đọc tọa độ ở Param 4/5 (cũ đọc Param 41/161). Bảng chặn gọi 2 boss cùng lúc nay là 3 boss Tam Thần (cũ là ID boss PMF).
+- `boss3.lua`: tắt loa "rơi Trùng Lâu" giả (dòng rơi thật đã bị chú thích; boss1/boss2 đã tắt loa này sẵn).
+- Chữ: client **cắt mỗi chuỗi đúng 255 byte** (câu NPC cũ dài 455 byte, hiện tới "mở ra chữ th"). Đã viết lại toàn bộ chữ của NPC ngoài, 3 Thương Lăng Tử trong phó bản và rương, mỗi chuỗi dưới 255 byte.
+- **Chưa thử trong game.** Còn lại: boss dùng AI 242 hồi 50% một lần (xem mục dưới).
+
+## 02/10 khuya - SOÁT TOÀN BỘ 17 PHÓ BẢN (chỉ đọc) → `docs/BOSS-PHO-BAN.md`
+- Sổ tra cứu mới `docs/BOSS-PHO-BAN.md`: quy trình khi có báo lỗi, các loại lỗi đã gặp, hồ sơ từng phó bản (NPC, script, boss, túi, đã sửa, còn mở), công cụ `tools/soat-boss/`.
+- Danh sách lỗi **chờ chủ server duyệt** nằm ở mục "Còn mở" của từng phó bản. Nặng nhất:
+  - các vòng farm phiếu: song sinh và phân thân Liên Thành ở Binh Thánh, 2 Đại Lễ Bao ở PMF, Tiêu Phong 45410 ở Nhạn Môn;
+  - đội toàn 119 không vào được Kỳ Cuộc / sư môn / Thủy Lao… vì thiếu file `_monster_119.ini`;
+  - Bàng Xí ở Tứ Tuyệt lỗi `buffTbl` mỗi giây;
+  - AI 242 hồi 50% máu.
+- Phát hiện hệ thống (ngoài phó bản):
+  - `scene.lua` `x888888_OnScenePlayerLogin`: đoạn "reset vip" `return` khi ô 426 == 1, nên từ lần đăng nhập thứ 2 trở đi **bỏ qua toàn bộ phần sau**. Bị bỏ: NotifyMailOnLogin, ShuaXinMiJi 890099, SkillCheck, InitRelation, HolidayCheck, AddXiaYinBuff, công thức chế tạo…
+  - Loa hẹn giờ 100121 `MyNew/zhaohuan/yannan.lua` phát quảng cáo của server cũ: "khuyến mãi nạp thẻ Zing 50%" (lỗi `format` vì `50%`, chiếm 414 dòng log) và "Chào mừng đến Hồi Ức Thiên Long" ở phút 25/45. Ngoài ra 5 câu chào mừng / hướng dẫn dài hơn 255 byte.
+  - 6 script boss thế giới 100125–100130 (`MyNew/zhaohuan/<map>.lua`): `Script.dat` trỏ tên không có số `1`, còn file thật có `1`, nên không bao giờ nạp được (khoảng 58 dòng log mỗi file). Nạp được thì vẫn hỏng: đợi `sceneId==508` nhưng bảng boss khai báo ở `[489]`, chữ tiếng Trung. Đây là gói làm dở của server cũ, cần làm thành dự án riêng.
+  - CLAUDE.md ghi Sát Tinh "chỉ Võ Tòng 13537 có phiếu", nhưng dữ liệu hiện tại có 90001 ở cả 11 DataID.
