@@ -154,7 +154,7 @@ function x402276_CheckCanEnter( sceneId, selfId, targetId )
 		for i=0, nHumanNum-2 do
 			msg = msg .. Humanlist[i] .. ", "
 		end
-		msg = msg .. Humanlist[nHumanNum-1] .. " c¤p ðµ còn th¤p, t¯t nh¤t không nên tiªn vào."
+		msg = msg .. Humanlist[nHumanNum-1] .. " c\164p \240\181 ch\223a \240\252 75, kh\244ng th\172 ti\170n v\224o."	-- [NetCo4 02/10] code chan cap < 75
 		return 0, msg
 
 	end
@@ -730,11 +730,11 @@ function x402276_CheckHaveBOSS( sceneId )
 	end
 
 	if nBossNum > 0 then
-		local msg = "Ðang cùng"
+		local msg = "\208ang c\249ng "	-- [NetCo4 02/10] them dau cach
 		for i=0, nBossNum-2 do
 			msg = msg .. BossList[i] .. ", "
 		end
-		msg = msg .. BossList[nBossNum-1] .. "trong tr§n ð¤u"
+		msg = msg .. BossList[nBossNum-1] .. " trong tr\167n \240\164u"	-- [NetCo4 02/10] them dau cach
 		return 1, msg
 	end
 

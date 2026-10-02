@@ -166,7 +166,7 @@ function x893063_CheckCanEnter( sceneId, selfId, targetId )
 		for i=0, nHumanNum-2 do
 			msg = msg .. Humanlist[i] .. ", "
 		end
-		msg = msg .. Humanlist[nHumanNum-1] .. " c¤p ðµ dß¾i 50 không nên tiªn vào."
+		msg = msg .. Humanlist[nHumanNum-1] .. " c\164p \240\181 d\223\190i 70, kh\244ng th\172 ti\170n v\224o."	-- [NetCo4 02/10] code chan cap < 70
 		return 0, msg
 
 	end

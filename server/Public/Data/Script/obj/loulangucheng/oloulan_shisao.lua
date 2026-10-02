@@ -14,7 +14,7 @@ x001157_g_FractionSegmentID = 30501172
 --**********************************
 function x001157_OnDefaultEvent( sceneId, selfId, targetId )
 	BeginEvent( sceneId )
-		AddText( sceneId, "  TÕi h?tìm kiªm kh¡p thiên h? m¾i thu th§p ðßþc nhæng loÕi ph¯i phß½ng này!" )
+		AddText( sceneId, "  T\213i h\213 t\236m ki\170m kh\161p thi\234n h\213 m\190i thu th\167p \240\223\254c nh\230ng lo\213i ph\175i ph\223\189ng n\224y!" )	-- [NetCo4 02/10] chu "ha" bi mat thanh dau ?
 --**********************************
 --NPC¶Ô°×
 --**********************************

@@ -273,7 +273,7 @@ function x401040_OnDefaultEvent( sceneId, selfId, targetId )
 	if GetTeamSize(sceneId,selfId) < 1  then
 		BeginEvent(sceneId)
 			AddText(sceneId,"#BThäo phÕt Yªn TØ ‘");
-			AddText(sceneId,"  N½i này r¤t nguy hi¬m nªu không ðü 3 ngß¶i ta không dám ð¬ các ngß½i vào.");
+			AddText(sceneId,"  N\189i n\224y r\164t nguy hi\172m, c\225c ng\223\189i ph\228i l\167p t\177 \240\181i th\236 ta m\190i cho v\224o.");	-- [NetCo4 02/10] code chi can co to doi (GetTeamSize < 1), chu cu ghi "du 3 nguoi"
 		EndEvent(sceneId)
 		DispatchEventList(sceneId,selfId,targetId)
 		return

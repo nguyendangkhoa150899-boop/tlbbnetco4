@@ -43,7 +43,7 @@ function x402254_OnDie( sceneId, selfId, killerId )
 	CallScriptFunction((401040), "ClearMonsterByName",sceneId, "Phó Tß Quy")
 	CallScriptFunction((401040), "ClearMonsterByName",sceneId, "Chu Ğan Th¥n")
 	
-	x402254_TipAllHuman( sceneId, "Ä½Èİ¸´ÒÑ±»´ò°Ü£¬ÌÖ·¥Ñà×ÓÎë³É¹¦£¬Çë´Ó³ö¿Ú»Øµ½Ì«ºş¡£" )
+	x402254_TipAllHuman( sceneId, "M\181 Dung Ph\248c \240\227 b\184 \240\225nh b\213i, th\228o ph\213t Y\170n T\216 \145 th\224nh c\244ng! H\227y ra c\216a \240\172 v\171 Th\225i H\176." )	-- [NetCo4 02/10] cau goc tieng Trung (GBK) -> client hien chu rac
 
 	--È¡µÃµ±Ç°³¡¾°ÀïµÄÈËÊı
 	local RenNum = LuaFnGetCopyScene_HumanCount( sceneId )

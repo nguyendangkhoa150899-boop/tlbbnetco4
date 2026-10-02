@@ -207,7 +207,7 @@ function x893065_OnDie( sceneId, selfId, killerId )
 	
 	if playerName ~= nil then
 		--str = format("#Y[#{_INFOUSR%s}]#W#cff99cc th¯ng lînh ðµi ngû cùng tiªn vào, thành công kªt li­u #Y[Ðào Thanh]#W#cff99cc, tiªp tøc huyªt chiªn TÑ Tuy®t Trang!", playerName); --É£ÍÁ¹«
-		AddGlobalCountNews( sceneId, str )
+		--AddGlobalCountNews( sceneId, str )	-- [NetCo4 02/10] dong str = format ngay tren da bi chu thich -> str toan cuc con giu tin Man Mac -> phat lai sai
 	end
 	CallScriptFunction( 890039, "DROPTTT",sceneId,selfId,killerId,2)
 

@@ -188,7 +188,7 @@ function x893069_OnHeartBeat(sceneId, selfId, nTick)
 			GroupID = GetMonsterGroupID( sceneId, monsterId )
 
 			if GroupID == x893069_g_DogfaceGroup
-			 and LuaFnIsCharacterLiving( sceneId, monsterId ) == 1 then			-- ÅÐ¶Ï»î×ÅµÄÐ¡±øÊÇ·ñÌÓÅÜ³É¹¦
+			 and LuaFnIsCharacterLiving( sceneId, monsterId ) == 1 and monsterId ~= selfId then	-- [NetCo4 02/10] khong xoa chinh Bang Xi (nhom 0)			-- ÅÐ¶Ï»î×ÅµÄÐ¡±øÊÇ·ñÌÓÅÜ³É¹¦
 				DogX, DogZ = GetWorldPos( sceneId, monsterId )
 
 				if (x - DogX) * (x - DogX) + (z - DogZ) * (z - DogZ) < 2 then	-- ÀëÖÕµã²»µ½ 5 Ã×
@@ -273,7 +273,7 @@ function x893069_OnDie( sceneId, selfId, killerId )
 	
 	if playerName ~= nil then
 		--str = format(" #Y[Bàng Xí]#W#cff99cc dùng ð¬ bí bäo chiªm TÑ Tuy®t Trang, chÆng nhæng b¸ #W[#{_INFOUSR%s}]#W#cff99cc cùng ðµi ngû phá hüy mà bän thân Bàng Xí cûng không giæ n±i tính mÕng cüa mình!", playerName); --ÀîÇïË®
-		AddGlobalCountNews( sceneId, str )
+		--AddGlobalCountNews( sceneId, str )	-- [NetCo4 02/10] dong str = format ngay tren da bi chu thich -> str toan cuc con giu tin Man Mac -> phat lai sai
 	end
 
 	CallScriptFunction((200060), "Paopao",sceneId, "Phan Tinh Tinh", "TÑ Tuy®t Trang","Các ngß¶i trong lúc ðánh nhau v¾i Bàng Xí ðã vô ý ðøng phäi c½ quan m§t ¦n dß¾i ð¤t, phía trß¾c li«n xu¤t hi®n TÑ Tuy®t Bäo Sß½ng, có l¨ là báu v§t quý giá lâu nåm · TÑ Tuy®t Trang, mau mau giành l¤y!" )
@@ -557,8 +557,8 @@ function x893069_TickStopWatch( sceneId, selfId, nTick )
 
 		--ÈÃ·ûÃôÒÇ¸øÍæ¼Ò¼Óbuff....
 		local buffTbl = x893069_SkillB_BuffIDTbl[skillType]
-		local buffId = buffTbl[2-buffStep]
-		LuaFnSendSpecificImpactToUnit( sceneId, selfId, selfId, selfId, buffId, 0 )
+		local buffId = buffTbl and buffTbl[2-buffStep]	-- [NetCo4 02/10] SkillB_BuffIDTbl bi chu thich (rong): truoc day loi Lua moi giay, SkillB_Step ket o 2 -> mat chieu A/C/D va cuong bao
+		if buffId then LuaFnSendSpecificImpactToUnit( sceneId, selfId, selfId, selfId, buffId, 0 ) end	-- [NetCo4 02/10] khong gui hieu ung nil
 		--local nHumanCount = LuaFnGetCopyScene_HumanCount(sceneId)
 		--for i=0, nHumanCount-1 do
 			--local nHumanId = LuaFnGetCopyScene_HumanObjId(sceneId, i)
