@@ -767,3 +767,10 @@ Rollback: tag `truoc-maudoche-02-10`.
   - Panel không đặt cấp cho ai, chỉ mở giới hạn tự học (tốn vàng + EXP như cũ).
   - Chiêu môn phái gắn với tâm pháp (`SkillTemplate_V1.txt` cột 5 = cấp tâm pháp yêu cầu, cột 11 = tâm pháp): mở ở mốc 1/10/20/30/40/45/50/60, đủ chiêu ở 60; trên 60 chiêu đổi sang bản mạnh hơn theo mức (cột 58+) và thuộc tính tăng theo mốc `XinFa_V1.txt` (45/60/75/90/105/120/135/150/175). Ghi chú này hiện ngay dưới ô trên panel.
   - `XinFa_V1.txt` cột 8 = cấp nhân vật tối thiểu để học tâm pháp (10/20/35/80), không phải luật +10. Chưa kiểm: client có tự chặn học vượt cấp nhân vật + 10 không (luật +10 chỉ thấy trong Lua server).
+- **03/10 - ĐÃ KIỂM CHỨNG (dịch ngược `/root/re/Server.elf`, `Obj_Human::Levelup(int)` 0x81243c0): luật tâm pháp khi lên cấp nhân vật.**
+  - Cấp mới ≤ 89 (`cmp $0x59`): **không kiểm tâm pháp**.
+  - Từ 90: lấy **6 tâm pháp đầu** trong danh sách của nhân vật (đếm bị chặn ở 6, nên tâm pháp thứ 7 và 8 không tính). Bảng hằng số (.rodata): cấp nhân vật `{90,100,110,120,130,140}` cần mỗi tâm pháp ≥ `{80,90,100,110,120,130}`. Thiếu thì không lên, báo "请提升除第七本心法外所有的心法到%d级" (hãy nâng mọi tâm pháp trừ quyển 7 lên cấp %d).
+  - Tức là: lên 90–99 cần ≥ 80, 100–109 cần ≥ 90, 110–119 cần ≥ 100. Nằm trong binary, không chỉnh được từ server.
+  - Luật gốc của script học (cấp nhân vật + 10) luôn đủ để qua cổng: cấp 89 học được tới 99 ≥ 80, cấp 99 → 109 ≥ 90, cấp 109 → 119 ≥ 100. **Nếu admin đặt "Tâm pháp tối đa" thấp hơn mốc thì nhân vật kẹt cấp**: mở cấp 90+ cần tpmax ≥ 80, 100+ cần ≥ 90, 110+ cần ≥ 100.
+  - Chi phí 6 tâm pháp chính: 1→80 = 106 triệu EXP + 2.063 vàng (EXP nhân vật 1→90 = 136 triệu); 1→90 = 386 triệu + 3.596 vàng (nhân vật 1→100 = 358 triệu); 1→100 = 2,4 tỷ + 5.880 vàng (nhân vật 1→110 = 1,66 tỷ).
+  - `ConfigInfo.ini` `XinfaMaxDefaultLevel=120` (心法最大等级). Chưa rõ engine xử lý thế nào khi tâm pháp > 120 (cuocdoibuon từng có 159). `CGReqLevelUpHandler` còn kiểm mã xác nhận bằng hình (`LevelUpValidate*`, đang tắt) và môn phái.
