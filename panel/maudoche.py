@@ -106,7 +106,16 @@ def du_lieu():
         if e and rid not in seen:
             seen.add(rid)
             nguon.append((rid, e, "thaico"))
+    nhom_id, thu_tu = {}, []   # 02/10: gop ID giong het (Thai Co: moi nhanh nang cap 1 ID, du lieu nhu nhau)
     for rid, e, nhom in nguon:
+        sig = (nhom, tuple(e[1:4] + e[5:]))
+        if sig not in nhom_id:
+            nhom_id[sig] = []
+            thu_tu.append((sig, rid, e, nhom))
+        nhom_id[sig].append(rid)
+    for sig, rid, e, nhom in thu_tu:
+        ids = sorted(nhom_id[sig])
+        rid = ids[0]
         dong = [k for k in range(58) if e[k + 32] != "-1"]
         seg = sv.get(e[91])
         caps = set()   # cap pham chat tu nhien tu quy tac cot 90 (moi nguon roi)
@@ -120,8 +129,8 @@ def du_lieu():
             mo = e[13].encode("latin-1").decode("gbk", "replace")
             hu = next((v for k, v in HIEUUNG.items() if "施放" + k in mo), "")
             vitri = "Thái Cổ Thần Khí 9 sao (tẩy bằng Ma Huyết Thạch)"
-            nl = nl + (" - " + hu if hu else "") + " (" + loai + ")"
-        mon.append({"id": rid, "ten": nl, "loai": loai, "cap": int(e[11]), "vitri": vitri, "nhom": nhom,
+            nl = nl + (" - " + hu if hu else "")
+        mon.append({"id": rid, "ids": ids, "ten": nl, "loai": loai, "cap": int(e[11]), "vitri": vitri, "nhom": nhom,
                     "pt": int(e[5]), "dong": dong, "v": {str(k): int(seg[k + 1]) if seg else 0 for k in dong},
                     "min": int(e[92]), "max": int(e[93]), "capMax": max(caps) if caps else 9, "capMin": min(caps) if caps else 1,
                     "T": int(e[100]) if e[100].lstrip("-").isdigit() else -1,
@@ -196,14 +205,15 @@ def ap(id_, dong, cap_pc, tu_chat, ai=""):
     m, err = kiem(id_, dong, cap_pc, tu_chat)
     if err:
         return False, err
-    mau = {"dong": sorted(dong), "capPC": cap_pc, "tuChat": tu_chat or 0, "t": int(time.time()), "ai": ai}
-    goc = _rows(EB_REPO)[id_]
-    _ghi_eb({id_: _dong_mau(goc, mau)})
+    ids = m["ids"]
+    mau = {"dong": sorted(dong), "capPC": cap_pc, "tuChat": tu_chat or 0, "t": int(time.time()), "ai": ai, "ids": ids}
+    goc = _rows(EB_REPO)
+    _ghi_eb({i: _dong_mau(goc[i], mau) for i in ids})
     tat = doc_mau()
     tat[id_] = mau
     _ghi_mau(tat)
-    return True, "Da ap mau %s (%s): %d dong, cap pham chat %d%s. Co hieu luc sau khi restart. Che xong nho TRA MAU." % (
-        m["ten"], id_, len(dong), cap_pc, ", tu chat %d" % tu_chat if tu_chat else "")
+    return True, "Da ap mau %s (%s): %d dong, cap pham chat %d%s. Co hieu luc sau khi restart. Xong nho TRA MAU." % (
+        m["ten"], ", ".join(ids), len(dong), cap_pc, ", tu chat %d" % tu_chat if tu_chat else "")
 
 
 def tra(id_):
@@ -213,11 +223,12 @@ def tra(id_):
     if not ids:
         return False, "Khong co mau nao dang ap" if id_ == "all" else "Mon %s khong co mau dang ap" % id_
     goc = _rows(EB_REPO)
-    _ghi_eb({i: goc[i] for i in ids})
+    tat_ca = [j for i in ids for j in tat[i].get("ids", [i])]
+    _ghi_eb({j: goc[j] for j in tat_ca})
     for i in ids:
         tat.pop(i, None)
     _ghi_mau(tat)
-    return True, "Da tra mau ve goc: %s. Co hieu luc sau khi restart." % ", ".join(ids)
+    return True, "Da tra mau ve goc: %s. Co hieu luc sau khi restart." % ", ".join(tat_ca)
 
 
 def ap_lai():
@@ -228,10 +239,11 @@ def ap_lai():
     goc = _rows(EB_REPO)
     thay, bo = {}, []
     for i, mau in tat.items():
-        if i in goc:
-            thay[i] = _dong_mau(goc[i], mau)
-        else:
-            bo.append(i)
+        for j in mau.get("ids", [i]):
+            if j in goc:
+                thay[j] = _dong_mau(goc[j], mau)
+            else:
+                bo.append(j)
     if thay:
         _ghi_eb(thay)
     return "ap lai %d mau do che: %s%s" % (len(thay), ", ".join(thay), (" (bo %s: khong con trong repo)" % ", ".join(bo)) if bo else "")
