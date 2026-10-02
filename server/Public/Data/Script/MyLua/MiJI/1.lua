@@ -37,7 +37,7 @@ x890057_g_CopySceneType=FUBEN_ZHOUTIAN	 -- phó bän loÕi hình , ð¸nh nghîa · Scri
 x890057_g_LimitMembers=3	 	 	 -- có th¬ vào phó bän ðích nhö nh¤t ðµi ngû nhân s¯ 
 x890057_g_TickTime=5	 	 	 	 -- tr· v« ði«u chân v¯n ðích lúc chuông / ð°ng h° th¶i gian # ð½n v¸ : giây / l¥n #
 x890057_g_LimitTotalHoldTime=300	 --360,1440 phó bän có th¬ s¯ng sót ðích th¶i gian # ð½n v¸ : s¯ l¥n #, nªu nhß lúc này ðang lúc ðªn , là nhi®m vø s¨ th¤t bÕi 
-x890057_g_LimitTimeSuccess=300	 	 --360,1440 phó bän th¶i gian hÕn chª # ð½n v¸ : s¯ l¥n # , nªu nhß lúc này ðang lúc ðªn , nhi®m vø hoàn thành 
+x890057_g_LimitTimeSuccess=-1	 	 --360,1440 phó bän th¶i gian hÕn chª # ð½n v¸ : s¯ l¥n # , nªu nhß lúc này ðang lúc ðªn , nhi®m vø hoàn thành  -- [NetCo4 02/10] truoc = 300 = LimitTotalHoldTime -> het gio lai bao hoan thanh; -1 = khong bao gio, het gio di nhanh that bai (dong LimitTotalHoldTime)
 x890057_g_CloseTick=6	 	 	 	 -- phó bän t¡t trß¾c cûng tính gi¶ # ð½n v¸ : s¯ l¥n #
 x890057_g_NoUserTime=5	 	 	 -- phó bän trung không có ai sau có th¬ tiªp tøc bäo t°n ðích th¶i gian # ð½n v¸ : giây #
 x890057_g_DeadTrans=0	 	 	 	 -- tØ vong d¶i ði mô thÑc , 0 : tØ vong sau còn có th¬ tiªp tøc · phó bän , 1 : tØ vong sau b¸ cßÞng chª d¶i ra phó bän 
@@ -96,6 +96,9 @@ function  x890057_MakeCopyScene(  sceneId,  selfId,  nearmembercount,TeamLeader,
 	 else
 	 LuaFnSetCopySceneData_Param(  sceneId,  i,0  )
 	 end
+	 end
+	 for  i  =  13,17  do  -- [NetCo4 02/10] o 13 dem boss, 14-17 hen gio ra boss (truoc la bien toan cuc killmosternum / TBtiemer / FubenTimer / TBsytiemer / TBsytiemer1, luot bo do lam hong luot sau)
+	 LuaFnSetCopySceneData_Param(  sceneId,  i,  0  )
 	 end
         LuaFnSetCopySceneData_Param(sceneId,  30,  Useitemnum)
 	 local  x,z  =  GetWorldPos(  sceneId,  selfId  )	 	 
@@ -196,11 +199,7 @@ function  x890057_OnPlayerEnter(  sceneId,  selfId  )
 	 local  lastTime  =  GetMissionData(  sceneId,  selfId,  WJMISS  )
 	 
 	 
-	 	     	 	 	 BeginEvent(sceneId)
-	     	 	 	 	 strText  =lastTime
-	     	 	 	 	 AddText(sceneId,strText);
-	     	 	 	 EndEvent(sceneId)
-	     	 	 	 DispatchMissionTips(sceneId,selfId)
+	 -- [NetCo4 02/10] bo dong debug hien so WJMISS (lastTime) len man hinh khi vao pho ban
 	 	 	 	 
 	 	 	 	 
 	 local  lastDayTime  =  floor(  lastTime  /  100  )
@@ -274,7 +273,9 @@ function  x890057_OnCopySceneTimer(  sceneId,  nowTime  )
 	 	 end
 	 	 
                 
-                if  TBsytiemer  ~=  nil  and    TickCount  ==  TBsytiemer  then
+                local  TBsytiemer  =  LuaFnGetCopySceneData_Param(sceneId,  16)  -- [NetCo4 02/10] hen ra boss luu o pho ban (truoc la bien toan cuc); 0 = chua hen
+                local  TBsytiemer1  =  LuaFnGetCopySceneData_Param(sceneId,  17)
+                if  TBsytiemer  ~=  0  and    TickCount  ==  TBsytiemer  then
 	 	 	 -- thông báo trß¾c m£t phó bän cänh tßþng d£m t¤t cä m÷i ngß¶i , chu¦n b¸ ra trách 	       	 	 
 	 	 	 local  membercount  =  LuaFnGetCopyScene_HumanCount(sceneId)
 	 	 	 local  mems  =  {}
@@ -327,14 +328,14 @@ function  x890057_OnCopySceneTimer(  sceneId,  nowTime  )
 	 DispatchMissionTips(sceneId,mems[i])                                
                                 end
 	 	 	 	 
-                TBsytiemer  =  nil
-                TBsytiemer1  =  nil
+                LuaFnSetCopySceneData_Param(sceneId,  16,  0)  -- [NetCo4 02/10] da ra boss theo hen -> xoa hen
+                LuaFnSetCopySceneData_Param(sceneId,  17,  0)
                 end
                 
                 local  a,b  =  x890057_SetFubenTimer(  sceneId,  0,2  )
                 if  a  ~=  0  and  b	 ~=  0  then
-                TBsytiemer  =  a
-                TBsytiemer1  =  b
+                LuaFnSetCopySceneData_Param(sceneId,  16,  a)  -- [NetCo4 02/10] luu hen vao o pho ban
+                LuaFnSetCopySceneData_Param(sceneId,  17,  b)
                 
 	 	 	 -- thông báo trß¾c m£t phó bän cänh tßþng d£m t¤t cä m÷i ngß¶i , chu¦n b¸ ra trách 
 	 local  membercount  =  LuaFnGetCopyScene_HumanCount(sceneId)
@@ -450,7 +451,7 @@ function  x890057_OnCopySceneTimer(  sceneId,  nowTime  )
 	 	 	 mems[i]  =  LuaFnGetCopyScene_HumanObjId(sceneId,i)
 
     	 	 	 BeginEvent(sceneId)
-    	 	 	 	 AddText(sceneId," nhi®m vø th¤t bÕi , cñc kÏ lúc !");
+    	 	 	 	 AddText(sceneId,"H\170t th\182i gian, khi\234u chi\170n th\164t b\213i!");  -- [NetCo4 02/10] het gio = that bai (truoc chu dich may kho hieu)
     	 	 	 EndEvent(sceneId)
     	 	 	 DispatchMissionTips(sceneId,mems[i])
 	 	 end
@@ -554,19 +555,20 @@ end
 --**********************************
 function  x890057_SetFubenTimer(  sceneId,  nowTime,tabey  )
                 if  tabey  ==  1  then
-	 Timer  =  LuaFnGetCopySceneData_Param(sceneId,  2)  ;-- l¤y ðßþc ðã thi hành ðích ð¸nh lúc s¯ l¥n 
-	 FubenTimer  =  Timer+5
-	 TBtiemer  =  nowTime
+	 local  Timer  =  LuaFnGetCopySceneData_Param(sceneId,  2)  ;-- l¤y ðßþc ðã thi hành ðích ð¸nh lúc s¯ l¥n 
+	 LuaFnSetCopySceneData_Param(sceneId,  15,  Timer+5)  -- [NetCo4 02/10] FubenTimer -> o 15 (truoc la bien toan cuc)
+	 LuaFnSetCopySceneData_Param(sceneId,  14,  nowTime)  -- [NetCo4 02/10] TBtiemer -> o 14
 	 return
 	 end
 	 if  tabey  ==  2  then
 	 
-	 if  TBtiemer  ==  nil  then
+	 local  TBtiemer  =  LuaFnGetCopySceneData_Param(sceneId,  14)  -- [NetCo4 02/10] 0 = khong co hen
+	 if  TBtiemer  ==  0  then
 	 return  0,0
 	 end
-	 atiemer  =  TBtiemer
-	 TBtiemer  =  nil
-	 return  FubenTimer,atiemer
+	 local  atiemer  =  TBtiemer
+	 LuaFnSetCopySceneData_Param(sceneId,  14,  0)
+	 return  LuaFnGetCopySceneData_Param(sceneId,  15),atiemer
 	 
                 end
                 

@@ -134,7 +134,7 @@ function  x900048_OnEventRequest(  sceneId,  selfId,  targetId,  eventId  )
 	 elseif  GetNumText()  ==  4  then
 	 x900048_MsgBox(  sceneId,  selfId,  targetId," chu¦n b¸ m· ra ")
                 elseif  GetNumText()  ==  5  then
-	   local    itemnumaa  =  LuaFnGetAvailableItemCount(sceneId,  selfId,  38000527)  +  LuaFnGetAvailableItemCount(sceneId,  selfId,  38000527)
+	   local    itemnumaa  =  LuaFnGetAvailableItemCount(sceneId,  selfId,  38000527)  +  LuaFnGetAvailableItemCount(sceneId,  selfId,  38000528)  -- [NetCo4 02/10] ban khong khoa + ban khoa (truoc dem 38000527 hai lan)
 	   local    TZtimes  =  mod(GetMissionData(  sceneId,  selfId,  WJMISS  ),100)
 	   local    TZchensu  =  GetMissionData(  sceneId,  selfId,  ZHOUTIANCEN  )
 	   local    ItemUseNum  =  GetMissionData(  sceneId,  selfId,  ZHOUTIANITEM  )

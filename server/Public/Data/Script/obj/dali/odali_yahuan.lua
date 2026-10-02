@@ -731,9 +731,9 @@ function  x002047_OnHeartBeat(sceneId,  selfId,  nTick)
 	 	 return
 	 end
 	 -- ki¬m tr¡c có hay không không có · ğây trÕng thái chiªn ğ¤u ....
-	 --if  0  ==  MonsterAI_GetBoolParamByIndex(  sceneId,  selfId  )  then
-	 --	 return
-	 --end
+	 if  0  ==  MonsterAI_GetBoolParamByIndex(  sceneId,  selfId,  1  )  then  -- [NetCo4 02/10] khoi phuc chot dang chien dau nhu PMF goc (ai_wulaoda.lua:65): ngoai tran boss khong tha 6060 / 6235 (ban cu comment + thieu index)
+	 	 return
+	 end
 	 
 	 --ABC kÛ nång nh¸p tim ....
 	 if  1  ==  x002047_TickSkillABC(  sceneId,  selfId,  nTick  )  then
@@ -758,7 +758,7 @@ function  x002047_OnEnterCombat(sceneId,  selfId,  enmeyId)
 	 -- n£ng ğßa AI....
 	 x002047_ResetMyAI(  sceneId,  selfId  )
 	 -- thiªt trí tiªn vào trÕng thái chiªn ğ¤u ....
---	 MonsterAI_SetBoolParamByIndex(  sceneId,  selfId,    1  )
+	 MonsterAI_SetBoolParamByIndex(  sceneId,  selfId,  1,  1  )  -- [NetCo4 02/10] bat co dang chien dau (index 1) nhu PMF goc
 
 end
 --**********************************
@@ -767,12 +767,31 @@ end
 function  x002047_OnLeaveCombat(sceneId,  selfId)
 	 -- n£ng ğßa AI....
 	 x002047_ResetMyAI(  sceneId,  selfId  )
+	 if  LuaFnIsCharacterLiving(sceneId,  selfId)  ~=  1  then  -- [NetCo4 02/10] boss da chet thi khong xoa / tao lai
+	 	 return
+	 end
+	 local  nDataId  =  GetMonsterDataID(  sceneId,  selfId  )  -- [NetCo4 02/10] nho DataID truoc khi xoa de tao lai dung boss
 	 -- thü tiêu mình ....
 	 LuaFnDeleteMonster(  sceneId,  selfId  )
 	 -- khai sáng ğ¯i thoÕi NPC....
 	 --local  MstId  =  CallScriptFunction(  (890066),  "CreateBOSS",  sceneId,  "MuRongFu_NPC",  -1,  -1  )
 --	 SetUnitReputationID(  sceneId,  MstId,  MstId,  0  )
+	 x002047_TaoLaiNPC(  sceneId,  nDataId  )  -- [NetCo4 02/10] tao lai NPC khieu chien lai duoc nhu PMF goc (ban cu chi xoa -> doi chet het / boss reset la mat boss ca luot)
 
+end
+
+-- [NetCo4 02/10] tao lai boss o trang thai NPC (than thien: camp 0, danh vong 8, AI 3 trong CreateBOSS) theo DataID, giong luc tao dau (TickFubenLife lifeStep 0)
+function  x002047_TaoLaiNPC(  sceneId,  nDataId  )
+	 for  szName,  BOSSData  in  x002047_g_BOSSList  do
+	 	 if  BOSSData.DataID  ==  nDataId  then
+	 	 	 local  MstId  =  x002047_CreateBOSS(  sceneId,  szName,  -1,  -1  )
+	 	 	 if  MstId  and  MstId  >=  0  then
+	 	 	 	 SetUnitCampID(sceneId,  MstId,  MstId,  0)
+	 	 	 	 SetUnitReputationID(sceneId,  MstId,  MstId,  8)
+	 	 	 end
+	 	 	 return
+	 	 end
+	 end
 end
 
 
@@ -784,7 +803,7 @@ function  x002047_ResetMyAI(  sceneId,  selfId  )
 	 MonsterAI_SetIntParamByIndex(  sceneId,  selfId,  1,  2000  )
 	 MonsterAI_SetIntParamByIndex(  sceneId,  selfId,  2,  1  )
 	 MonsterAI_SetIntParamByIndex(  sceneId,  selfId,  3,  25000  )
-	 --MonsterAI_SetBoolParamByIndex(  sceneId,  selfId,  1,  0  )
+	 MonsterAI_SetBoolParamByIndex(  sceneId,  selfId,  1,  0  )  -- [NetCo4 02/10] reset AI = tat co dang chien dau
 	 -- cho t¤t cä m÷i ngß¶i thanh tr× D ğích buff....
 	 local  nHumanCount  =  LuaFnGetCopyScene_HumanCount(sceneId)
 	 for  i=0,  nHumanCount-1  do
@@ -877,7 +896,7 @@ function  x002047_UseSkillB(  sceneId,  selfId  )
 	 for  i=0,  nHumanCount-1  do
 	 	 local  nHumanId  =  LuaFnGetCopyScene_HumanObjId(sceneId,  i)
 	 	 if  LuaFnIsObjValid(sceneId,  nHumanId)  ==  1  and  LuaFnIsCanDoScriptLogic(sceneId,  nHumanId)  ==  1  and  LuaFnIsCharacterLiving(sceneId,  nHumanId)  ==  1  then
-	 	 	 PlayerList[i+1]  =  nHumanId
+	 	 	 PlayerList[getn(PlayerList)+1]  =  nHumanId  -- [NetCo4 02/10] xep lien nhau (truoc [i+1] de lo khi co nguoi chet / khong hop le -> random boc ra nil)
 	 	 end
 	 end
 

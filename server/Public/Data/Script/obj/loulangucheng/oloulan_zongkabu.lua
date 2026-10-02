@@ -42,12 +42,23 @@ x001151_g_IDX_MuRongFuDiePosY				=	20
 --**********************************
 function x001151_OnDefaultEvent( sceneId, selfId, targetId )
 BeginEvent(sceneId)
+if LuaFnGetSceneType(sceneId) == 1 and LuaFnGetCopySceneData_Param(sceneId, 0) == x001151_g_CopySceneType then  -- [NetCo4 02/10] chi trong pho ban moi hien Bat Dau Khieu Chien (NPC Tong Khach Bo o thanh Lau Lan cung gan script nay)
 AddNumText( sceneId, x001151_g_ScriptId, "B¡t Ð¥u Khiêu Chiªn",6 ,7  )
+else
+AddText( sceneId, "Ph\248 b\228n Thi\234n Long \196o C\228nh t\213m \240\243ng." )
+end
 EndEvent(sceneId)
 DispatchEventList(sceneId,selfId,targetId)
 end
 
 function x001151_OnEventRequest( sceneId, selfId, targetId, eventId )
+	if LuaFnGetSceneType(sceneId) ~= 1 or LuaFnGetCopySceneData_Param(sceneId, 0) ~= x001151_g_CopySceneType then  -- [NetCo4 02/10] ngoai pho ban: Thien Long Ao Canh tam dong, khong vao / khong dat co
+		BeginEvent(sceneId)
+		AddText(sceneId, "Ph\248 b\228n Thi\234n Long \196o C\228nh t\213m \240\243ng.")
+		EndEvent(sceneId)
+		DispatchEventList(sceneId,selfId,targetId)
+		return
+	end
 	if GetNumText() == 7 then
 		LuaFnSetCopySceneData_Param( sceneId, x001151_g_IDX_BattleFlag_JiuMoZhi, 1 )	
 	x001151_TipAllHuman( sceneId, "Khiêu Chiªn Thành Công" )	

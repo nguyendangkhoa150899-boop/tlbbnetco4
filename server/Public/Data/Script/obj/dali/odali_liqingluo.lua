@@ -26,7 +26,7 @@ function  x002099_UpdateEventList(  sceneId,  selfId,targetId  )
 	 	 lastDayCount  =5
 	 end	 
 	 BeginEvent(sceneId)
-	           local  str  =  format("#Y ám khí tông sß : #G LÕc Dß½ng #{_INFOAIM208,346,0, vu tình mßa }#R vu tình mßa #r#Y lang huyên phúc ð¸a phó bän : #G ÐÕi Lý #{_INFOAIM293,92,2, lý thanh la }#R lý thanh la #r#Y tiªn vào ði«u ki®n : #W ðµi ngû nhân s¯ không dß¾i #G6 ngß¶i #W thä #G c¤p b§c =100 c¤p #W#r#Y m²i ngày có th¬ vào s¯ l¥n : #G1 l¥n ")
+	           local  str  =  format("#YLang Huy\234n Ph\250c \208\184a: #G\208\213i L\253 #{_INFOAIM293,92,2, l\253 thanh la }#RL\253 Thanh La#W, #GL\213c D\223\189ng #{_INFOAIM208,346,0, vu t\236nh m\223a }#RVu T\236nh V\251#r#Y\208i\171u ki\174n: #Wc\243 \240\181i (1 ng\223\182i c\251ng \240\223\254c), c\228 \240\181i #Gc\164p 100+#r#YM\178i ng\224y: #G3 l\223\254t#W, th\223\182ng v\224 kh\243 t\237nh chung")  -- [NetCo4 02/10] khop code: 1 nguoi, cap >= 100, 3 luot/ngay chung 2 che do (truoc ghi 6 nguoi, 1 lan)
 	 	 	 AddText(sceneId,str)
 	 	 --[[	 AddText(sceneId,CurDayTime.."|"..lastDayTime)--]]
 	 	 AddNumText(  sceneId,  x002099_g_ScriptId,  " liên quan t¾i ám khí : lang huyên phúc ð¸a ",0  ,2    )

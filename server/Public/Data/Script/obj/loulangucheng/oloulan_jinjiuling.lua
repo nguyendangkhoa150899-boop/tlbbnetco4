@@ -32,7 +32,7 @@ function x001168_UpdateEventList( sceneId, selfId,targetId )
 		end
 		AddNumText(sceneId, x001168_g_ScriptId, "#{LLXB_8820_02}", 11, 101); --¶Ò»»°ïÖú
 		if GetMenPai(sceneId,selfId) > 9 then
-		AddNumText(sceneId, x001168_g_ScriptId, "#{LLXB_8820_01}", 6, 102);  --¶Ò»»
+		--AddNumText(sceneId, x001168_g_ScriptId, "#{LLXB_8820_01}", 6, 102);  --¶Ò»»  -- [NetCo4 02/10] an muc 102: doi 20 sach lay 10124199 (vat pham khong ton tai -> mat sach)
 		end
 		--[tx45411]AddNumText(sceneId, x001168_g_ScriptId, "#{NSRQ_081110_2}", 11, 999); --zchw
 	EndEvent(sceneId)
@@ -67,7 +67,11 @@ function x001168_OnEventRequest( sceneId, selfId, targetId, eventId )
 			return
 		end
 	end
-	if GetNumText()  == 102 then                   --ÌáÉý ±ù µÈ¼¶
+	if GetNumText()  == 102 then  -- [NetCo4 02/10] muc 102 da an; neu van bi goi thi khong tru gi
+		x001168_ShowMsg(sceneId, selfId, targetId, "Ch\209c n\229ng n\224y \240\227 t\213m \240\243ng, c\225c h\213 kh\244ng b\184 tr\215 v\167t ph\166m.")
+		return
+	end
+	if 0 == 1 then                   --ÌáÉý ±ù µÈ¼¶  -- [NetCo4 02/10] code cu muc 102 (vat pham 10124199 khong ton tai), tat
 		c0 = LuaFnGetAvailableItemCount(sceneId, selfId, 30505192)
             if c0 >=20 then
 					local szTransferalbum = GetBagItemTransfer(sceneId,selfId, nItemBagIndexalbum)
@@ -94,7 +98,7 @@ function x001168_OnEventRequest( sceneId, selfId, targetId, eventId )
 		if num == 0 then
 			x001168_ShowMsg(sceneId, selfId, targetId, "#{LLXB_8820_03}")
 			return
-		elseif num < 19 then
+		elseif num < 20 then  -- [NetCo4 02/10] can 20 cuon (x001168_g_exchange_num); truoc < 19 -> co 19 cuon bam khong co gi xay ra
 			x001168_ShowMsg(sceneId, selfId, targetId, "#{LLXB_8820_04}")
 			return
 		end

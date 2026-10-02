@@ -53,7 +53,7 @@ return
 end
 
 	   local    itemnumaa  =  LuaFnGetAvailableItemCount(sceneId,  selfId,  38000527)  
-	   local    itemnumaa1  =    LuaFnGetAvailableItemCount(sceneId,  selfId,  38000527)
+	   local    itemnumaa1  =    LuaFnGetAvailableItemCount(sceneId,  selfId,  38000528)  -- [NetCo4 02/10] 38000528 = Ngu Hanh Phap Thiep ban khoa (ItemRule 30); truoc dem trung 38000527 -> co nua so thiep van qua kiem roi tru hut -> mat thiep
 	   local    TZtimes  =  mod(GetMissionData(  sceneId,  selfId,  WJMISS  ),100)
 	   local    TZchensu  =  GetMissionData(  sceneId,  selfId,  ZHOUTIANCEN  )
 	   local    g_DanrenFB_LeftFreeTimes  =  0
@@ -75,20 +75,32 @@ local    ItemUseNum  =  GetMissionData(  sceneId,  selfId,  ZHOUTIANITEM  )
                   x890059_Tips(  sceneId,  selfId,  " khiêu chiªn s¯ l¥n ðã thßþng hÕn ! ! # ¤m áp ð« kÏ : ð« cao khiêu chiªn t¥ng s¯ , có th¬ ðÕt ðßþc nhi«u h½n khiêu chiªn s¯ l¥n , ngß½i trß¾c m¡t ðã thành công khiêu chiªn "..GetMissionData(  sceneId,  selfId,  ZHOUTIANCEN  ).." t¥ng BOSS#"  )
                   return
                   end
+if  GHchensu  ==  1  and  GetDayTime()  <=  GetMissionData(  sceneId,  selfId,  WJMISSyy  )  then  -- [NetCo4 02/10] kiem gioi han 1 lan/ngay cua muc x1 TRUOC khi tru thiep (truoc tru roi moi bao -> mat thiep)
+x890059_Tips(  sceneId,  selfId,  " m\178i ng\224y ch\239 c\243 m\181t l\165n tr\248 c\181t s\175 l\165n "  )
+return
+end
 if  itemnumaa  +  itemnumaa1  <  ticket  then
 x890059_Tips(  sceneId,  selfId,  "#{DRFB_130111_217}"  )
 return
 end
 local  DELITEM  =  0
 local  DELITEMNUM  =  0
-if  itemnumaa  >=  ticket  then
-DELITEMNUM  =  LuaFnDelAvailableItem(sceneId,selfId,38000527,ticket)
-DELITEM  =  1
+-- [NetCo4 02/10] tru thiep: ticket = 0 (luot mien phi) thi khong tru; con lai tru ban khoa 38000528 truoc, thieu moi tru 38000527
+if  ticket  <=  0  then
+DELITEMNUM  =  1
 else
-LuaFnDelAvailableItem(sceneId,selfId,38000527,itemnumaa)
+local  tru1  =  ticket
+if  tru1  >  itemnumaa1  then
+tru1  =  itemnumaa1
 end
-if  DELITEM  ==  0  then
-DELITEMNUM  =  LuaFnDelAvailableItem(sceneId,selfId,38000527,ticket-itemnumaa)
+local  tru2  =  ticket  -  tru1
+DELITEMNUM  =  1
+if  tru1  >  0  and  LuaFnDelAvailableItem(sceneId,selfId,38000528,tru1)  ~=  1  then
+DELITEMNUM  =  0
+end
+if  DELITEMNUM  ==  1  and  tru2  >  0  and  LuaFnDelAvailableItem(sceneId,selfId,38000527,tru2)  ~=  1  then
+DELITEMNUM  =  0
+end
 end
 if  DELITEMNUM  ==  0  then
 x890059_Tips(  sceneId,  selfId,  " kh¤u tr× v§t ph¦m th¤t bÕi , không cách nào khai sáng phó bän "  )

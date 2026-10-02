@@ -96,17 +96,19 @@ function  x890058_OnDie(  sceneId,  objId,  killerId  )
 	 local	 namMonster=  LuaFnGetName(  sceneId,  objId  )
 	 local	 namScene	 =  GetSceneName(  sceneId  )
 	 
-	 if  killmosternum  ==  nil  then
+	 local  killmosternum  =  LuaFnGetCopySceneData_Param(sceneId,  13)  -- [NetCo4 02/10] dem boss da giet luu o pho ban, 0 = chua giet (truoc la bien toan cuc khong reset -> luot bo do lam hong luot sau)
+	 if  killmosternum  ==  0  then
 	 killmosternum  =  3
 	 else
 	 killmosternum  =  killmosternum  +  1
 	 end
+	 LuaFnSetCopySceneData_Param(sceneId,  13,  killmosternum)  -- [NetCo4 02/10]
 	 if    killmosternum  ~=  nil  and  killmosternum  <=  6  then
 	 CallScriptFunction(  (890057),  "SetFubenTimer",sceneId,  killmosternum,1)
 	 end  
 	 if  killmosternum  ==  7  then
 	   
-	   killmosternum  =  nil
+	   -- [NetCo4 02/10] khong dat lai: o 13 ve 0 khi tao pho ban moi (1.lua MakeCopyScene)
 	   LuaFnSetCopySceneData_Param(sceneId,  4,  1)
 	   end  
 	   

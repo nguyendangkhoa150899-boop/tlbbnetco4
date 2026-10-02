@@ -43,13 +43,19 @@ end
 -- sñ ki®n ðóng h² nh§p kh¦u 
 --**********************************
 function  x001155_OnDefaultEvent(  sceneId,  selfId,targetId  )
-	 x001155_UpdateEventList(  sceneId,  selfId,  targetId  )
+	 -- [NetCo4 02/10] DONG Thien Long Ao Canh (chu server duyet): chi hien 1 cau, khong con duong vao (code cu: x001155_UpdateEventList)
+	 BeginEvent(sceneId)
+	 	 AddText(sceneId,"Ph\248 b\228n Thi\234n Long \196o C\228nh t\213m \240\243ng.")
+	 EndEvent(sceneId)
+	 DispatchEventList(sceneId,selfId,targetId)
 end
 
 --**********************************
 -- sñ ki®n li®t bi¬u ch÷n trúng hÕng nh¤t 
 --**********************************
 function  x001155_OnEventRequest(  sceneId,  selfId,  targetId,  eventId  )
+	 x001155_OnDefaultEvent(  sceneId,  selfId,  targetId  )  -- [NetCo4 02/10] pho ban tam dong: moi lua chon chi hien thong bao
+	 if  1  ==  0  then  -- [NetCo4 02/10] code cu (tro giup + vao pho ban 001151), tat
 	 
 	 if  GetNumText()  ==  2  then
 	 BeginEvent(sceneId)
@@ -65,5 +71,6 @@ function  x001155_OnEventRequest(  sceneId,  selfId,  targetId,  eventId  )
 	 	 	 CallScriptFunction(  eventId,  "OnEventRequest",sceneId,  selfId,  targetId,  GetNumText(),x001155_g_ScriptId  )
 	 	 return
 	 	 end
+	 end
 	 end
 end
