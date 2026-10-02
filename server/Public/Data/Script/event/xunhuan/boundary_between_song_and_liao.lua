@@ -468,7 +468,7 @@ function x050100_AcceptEnterCopyScene( sceneId, selfId, targetId )
 		elseif mylevel < PlayerMaxLevel then
 			iniLevel = floor( mylevel/10 ) * 10
 		else
-			iniLevel = PlayerMaxLevel
+			iniLevel = floor( PlayerMaxLevel/10 ) * 10   -- [NetCo4 02/10] cap 119: 119/10 = 11.9 -> bang ID quai tra nil -> pho ban khong ra quai. Lam tron ve 110
 		end
 		
 		local leaderguid = LuaFnObjId2Guid( sceneId, selfId )

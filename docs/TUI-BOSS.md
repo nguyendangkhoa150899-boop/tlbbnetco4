@@ -45,7 +45,7 @@ Yêu cầu của chủ server (nguyên văn rút gọn): mỗi hoạt động, n
 | Hoạt động | Boss cuối (ID) | Đồ trong túi (bot `HD` trong `tuiboss.js`) | Trần túi/ngày |
 |---|---|---|---|
 | Q Tô Châu | Biên Cảnh Đại Vương 4130–4139, 34130–34139 | chung + Cửu Thiên Ngọc Toái ×1 | (lượt game) |
-| Q Lâu Lan | boss đợt 5 13220–13229 | chung + Cửu Thiên Ngọc Toái ×1 | |
+| Q Lâu Lan | **Hỏa Diễm Yêu Ma 13260–13269** (boss cuối ải 3, từ 02/10 tối; trước đó Hồng Kích Yêu Vương 13220–13229 = cuối ải 2) | chung + Cửu Thiên Ngọc Toái ×1 | |
 | Yến Tử Ổ | Mộ Dung Phục 9430–9439, 39430–39432 | chung + TBP3 ×2–3 + Ma Huyết Thạch ×2–5 | |
 | Binh Thánh lớn/nhỏ | 15175 / 15073 | chung + Long Văn +5 ×1 + Chuế Long Thạch Nguyên/Bạo/Thương ×10 trộn | |
 | Tứ Tuyệt Trang | Bàng Xí 14145 | chung + Thiên/Địa/Mệnh Hồn Ngọc ×10 trộn | |

@@ -316,7 +316,7 @@ function x050220_OnAccept( sceneId, selfId, targetId )
 		end
 		
 		if GetLevel( sceneId, selfId ) < x050220_g_LevelLimit then
-			x050220_NotifyFailBox( sceneId, selfId, targetId, "    C¤p cüa các hÕ chßa ðü 30, chßa th¬ ðäm nh§n." )
+			x050220_NotifyFailBox( sceneId, selfId, targetId, "    C¤p cüa các hÕ chßa ðü 75, chßa th¬ ðäm nh§n." )
 			return
 		end
 		
@@ -503,7 +503,7 @@ function x050220_AcceptEnterCopyScene( sceneId, selfId, targetId )
 		elseif mylevel < PlayerMaxLevel then
 			iniLevel = floor( mylevel/10 ) * 10
 		else
-			iniLevel = PlayerMaxLevel
+			iniLevel = floor( PlayerMaxLevel/10 ) * 10   -- [NetCo4 02/10] cap 119: 119/10 = 11.9 -> bang ID quai tra nil -> pho ban khong ra quai. Lam tron ve 110
 		end
 		
 		local leaderguid = LuaFnObjId2Guid( sceneId, selfId )

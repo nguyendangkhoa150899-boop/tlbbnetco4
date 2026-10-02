@@ -86,14 +86,14 @@ function x001129_OnDie( sceneId, selfId, killerId )
 			LuaFnSetCopySceneData_Param( sceneId, 12, 0 )							-- 是否杀死小 Boss
 			LuaFnSetCopySceneData_Param( sceneId, 14, 0 )							-- 是否已经有小怪逃走
 			LuaFnSetCopySceneData_Param( sceneId, 15, 0 )							-- 是否已经刷出大 Boss
-			x001129_TipAllHuman( sceneId, "王阎已被打败，30秒后将进入第二关，请前往（57.81） " ,1)
+			x001129_TipAllHuman( sceneId, "V\223\189ng Di\234m \240\227 b\184 \240\225nh b\213i! Kho\228ng 50 gi\226y n\230a v\224o \228i 2, h\227y t\190i t\247a \240\181 (57,81)." ,1)   -- [NetCo4 02/10] Viet hoa
 			local BroadcastMsg = x001129_g_BroadcastMsg[ random( getn(x001129_g_BroadcastMsg) ) ]
 			BroadcastMsg = gsub( BroadcastMsg, "%$N", GetName( sceneId, playerID ) )
 			BroadMsgByChatPipe( sceneId, playerID, BroadcastMsg, 4 )
 			return
 		end
 		if  LuaFnGetCopySceneData_Param( sceneId, 7  )==60  and  LuaFnGetCopySceneData_Param( sceneId, 8  )==1   and  LuaFnGetCopySceneData_Param( sceneId, 9  )==1   then  -----杀死了两只BOSS就刷王阎
-			x001129_TipAllHuman( sceneId, "10秒王阎将出现在坐标（90，183）......." )
+			x001129_TipAllHuman( sceneId, "10 gi\226y n\230a V\223\189ng Di\234m s\168 xu\164t hi\174n t\213i t\247a \240\181 (90,183)..." )   -- [NetCo4 02/10] Viet hoa
 			LuaFnSetCopySceneData_Param( sceneId, 12,1 ) ---设置刷王阎的天关
 		end
 
@@ -120,11 +120,11 @@ function x001129_OnDie( sceneId, selfId, killerId )
 			LuaFnSetCopySceneData_Param( sceneId, 7, 0 )							-- 杀死Boss1的数量
 			LuaFnSetCopySceneData_Param( sceneId, 8, 0 )
 			local boshu_str = {
-			[0]="裂地行者即将出现......请作好准备." ,
-			[1]="五毒魔使即将出现......请作好准备......." ,
-			[2]="武玄将即将出现......请作好准备......." ,
-			[3]="破焰尊者即将出现......请作好准备......." ,
-			[4]="第二关最后一个BOSS洪棘妖王即将出现在（56，56）请作好准备......." ,
+			[0]="Li\174t \208\184a H\224nh Gi\228 s\161p xu\164t hi\174n... h\227y chu\166n b\184." ,   -- [NetCo4 02/10] Viet hoa
+			[1]="Ng\251 \208\181c Ma S\209 s\161p xu\164t hi\174n... h\227y chu\166n b\184." ,   -- [NetCo4 02/10] Viet hoa
+			[2]="V\251 Huy\171n T\223\190ng s\161p xu\164t hi\174n... h\227y chu\166n b\184." ,   -- [NetCo4 02/10] Viet hoa
+			[3]="Ph\225 Di\173m T\244n Gi\228 s\161p xu\164t hi\174n... h\227y chu\166n b\184." ,   -- [NetCo4 02/10] Viet hoa
+			[4]="Boss cu\175i \228i 2 H\176ng K\237ch Y\234u V\223\189ng s\161p xu\164t hi\174n t\213i (55,55), h\227y chu\166n b\184..." ,   -- [NetCo4 02/10] Viet hoa
              } 
 			if boshu_str[boshu]  ~= nil then 
 			x001129_TipAllHuman( sceneId, boshu_str[boshu]  )	
@@ -150,7 +150,7 @@ function x001129_OnDie( sceneId, selfId, killerId )
 			local BroadcastMsg = tow_BroadcastMsg[ random( getn(tow_BroadcastMsg) ) ]
 			BroadcastMsg = gsub( BroadcastMsg, "%$N", GetName( sceneId, playerID ) )
 			BroadMsgByChatPipe( sceneId, playerID, BroadcastMsg, 4 )
-			x001129_TipAllHuman( sceneId, "洪棘妖王已被打败，30秒后将进入第三关，火焰妖魔即将出现（210，40）....." ,2)
+			x001129_TipAllHuman( sceneId, "H\176ng K\237ch Y\234u V\223\189ng \240\227 b\184 \240\225nh b\213i! 1 ph\250t n\230a v\224o \228i 3, H\246a Di\173m Y\234u Ma s\168 xu\164t hi\174n t\213i (210,40)..." ,2)   -- [NetCo4 02/10] Viet hoa
 		end
 		
 	elseif LuaFnGetCopySceneData_Param( sceneId, 21 ) ==2  then  -----第3关
@@ -167,7 +167,7 @@ function x001129_OnDie( sceneId, selfId, killerId )
 			BroadcastMsg = gsub( BroadcastMsg, "%$N", GetName( sceneId, playerID ) )
 			BroadMsgByChatPipe( sceneId, playerID, BroadcastMsg, 4 )
 			x001129_TipAllGongGao( sceneId,selfId, 1, 1 )
-			x001129_TipAllHuman( sceneId, "任务完成" ,3)
+			x001129_TipAllHuman( sceneId, "Nhi\174m v\248 ho\224n th\224nh! H\227y v\171 L\226u Lan g\163p H\224 Duy\174t tr\228 nhi\174m v\248." ,3)   -- [NetCo4 02/10] Viet hoa
 			LuaFnSetCopySceneData_Param( sceneId, 4,1 ) ----设置离开
 		end
 		
@@ -213,7 +213,7 @@ function x001129_TipAllGongGao( sceneId,selfId, killedCount, maxKilledCount )
 	if num < 1 then
 		return
 	end
-	local strText = format( "已杀死%s： %d/%d", GetName( sceneId, selfId ), killedCount, maxKilledCount )
+	local strText = format( "\208\227 gi\170t %s: %d/%d", GetName( sceneId, selfId ), killedCount, maxKilledCount )   -- [NetCo4 02/10] Viet hoa
 	for i = 0, num - 1 do
 		local PlayerId= LuaFnGetCopyScene_HumanObjId( sceneId, i )					-- 取得当前场景里人的objId
 		if LuaFnIsObjValid( sceneId, PlayerId ) == 1 then
