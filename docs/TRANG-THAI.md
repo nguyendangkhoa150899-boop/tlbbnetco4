@@ -618,3 +618,27 @@ Trang Bảng Rơi https://netco4.click/ đã dựng lại sau khi đổi tỉ l�
 - Luôn tạo git tag rollback trước khi sửa. Repo public: không commit secret.
 - Khi người dùng chỉ hỏi ("check", "gửi list rồi chốt") thì trả lời và chờ, không tự sửa.
 - Shop web do chủ server tự đặt: không đụng khi sửa shop game. Mọi sửa shop game ghi thêm vào `docs/SHOP-TRONG-GAME.md`.
+
+## 02/10 16:20 - Mẫu đồ chế 8x/9x trên admin (tab 🛠️ GM → 🧵 Mẫu đồ chế 8x/9x, chỉ cổng SUPER)
+
+**Cách dùng:**
+1. Bấm 🔄 Tải rồi chọn món. Có 78 món chế cấp 80–99 lấy từ `ItemCompound`, xếp theo vị trí.
+2. Tick dòng muốn có. Chỉ hiện những dòng món đó tự ra được, và số dòng không quá mức tối đa tự nhiên.
+3. Chọn cấp phẩm chất 1–9 và tư chất. Bảng hiện khoảng số của từng dòng ở cấp đã chọn.
+4. Bấm **Áp mẫu** (hoặc Áp + Restart), rồi restart. Chế và giám định.
+5. Bấm **Trả mẫu** (hoặc Trả + Restart), rồi restart.
+
+**Kết quả:** đúng dòng, đúng số dòng, đúng cấp. Số mỗi dòng ngẫu nhiên trong khoảng của cấp đó, chốt lúc chế.
+- Trả mẫu không làm đổi số. Lý do: mẫu không đụng cột 91 (đoạn giá trị) và cột 100 (T). Server tính lại số mỗi lần nhân vật vào game, từ `ItemSegValue[cột 91]`, cấp và số rand đã lưu trên món.
+- Trong lúc mẫu đang áp, **ai chế món đó cũng ra y hệt**. Trang admin hiện khung đỏ "Đang áp N mẫu".
+
+**Kỹ thuật:**
+- Code: `panel/maudoche.py`. Có thể chạy `python3 panel/maudoche.py --xem [ID]` để xem.
+- `panel.py` có act `doche_ap` / `doche_tra` và `GET /api/doche`. Bot dùng `/api/gm/doche` và tab GM trong `panel.js`.
+- Mẫu đang áp lưu ở `Server/txt/NetCo4Cfg/maudoche.json`, ngoài repo.
+- `cap-nhat.sh` gọi `--ap-lai` sau rsync, vì rsync ghi đè EquipBase bằng bản repo.
+- Đã thử trên bản sao: áp rồi trả cho ra file giống hệt gốc từng byte.
+
+**Chưa thử trong game.** Lần đầu nên chế 1 món xem đúng dòng không.
+
+Rollback: tag `truoc-maudoche-02-10`.
