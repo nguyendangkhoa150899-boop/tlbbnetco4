@@ -701,3 +701,15 @@ Rollback: tag `truoc-maudoche-02-10`.
   - Loa hẹn giờ 100121 `MyNew/zhaohuan/yannan.lua` phát quảng cáo của server cũ: "khuyến mãi nạp thẻ Zing 50%" (lỗi `format` vì `50%`, chiếm 414 dòng log) và "Chào mừng đến Hồi Ức Thiên Long" ở phút 25/45. Ngoài ra 5 câu chào mừng / hướng dẫn dài hơn 255 byte.
   - 6 script boss thế giới 100125–100130 (`MyNew/zhaohuan/<map>.lua`): `Script.dat` trỏ tên không có số `1`, còn file thật có `1`, nên không bao giờ nạp được (khoảng 58 dòng log mỗi file). Nạp được thì vẫn hỏng: đợi `sceneId==508` nhưng bảng boss khai báo ở `[489]`, chữ tiếng Trung. Đây là gói làm dở của server cũ, cần làm thành dự án riêng.
   - CLAUDE.md ghi Sát Tinh "chỉ Võ Tòng 13537 có phiếu", nhưng dữ liệu hiện tại có 90001 ở cả 11 DataID.
+
+## 02/10 23:00 - Mở thử Phụng Minh (Quân Thiên) Vương Lăng (Lua, deploy 23:01, không restart) — tag `truoc-mo-vuonglang-02-10`, commit `d2477aa`
+- `efuben_wangling.lua` 900070: bỏ chú thích nút "Vào Quân Thiên Vương Lăng", bỏ câu "tạm đóng", ghi rõ điều kiện (không cần lệnh bài; tổ đội 1 người cũng được; trưởng đội ≥75, mọi người ≥85; 3 lượt/ngày). Loa "đã mang đội tiến vào" giờ chỉ phát khi vào được. Viết lại chữ lỗi "d?i ngu", bỏ `targetId` nil, Paopao dùng đúng tên boss.
+- `wanglingbox.lua` 900071: rương nhận số ngẫu nhiên 401–700 (**30%** số lần mở, không phải 20% như đánh giá trước) thì báo 5 món nhưng món thứ 2 là nil. Nay gom các món đã bốc rồi mới bỏ vào rương.
+- **ĐANG CHỜ THỬ** bằng bia1 (tổ 1 người): map hiện đúng không (client chỉ có `fengmingwangling_new`, không có `chengshiwangling`), đi tới tế đàn (48,48) được không, 9 Long Trụ có ra không. Hỏng thì chú thích lại dòng 107.
+
+## 02/10 23:04 - Ác Bá đánh lén môn phái: đội toàn cấp 119 không vào được → sửa (Lua, không restart) — tag `truoc-fix-acba-02-10`, commit `ce1f676`
+- Người chơi báo (Tiêu Dao): Ác Bá xuất hiện ở môn phái theo giờ, bấm vào nhưng không được đưa vào. **Bằng chứng trên VPS:** `Server/Log/assert_2026-10-02.log` lúc 22:30:22 ghi `MonsterManager::LoadMonster: read info::monstercount failed`, ngay sau khi Debug log ghi `Load ../Public/Scene/xiaoyao_1.nav` (scene 36). Sau đó `Scene::Load` trả FALSE.
+- Nguyên nhân: `event/huodong/eTouximenpai_NPC_<phái>.lua` (808016–808044, cả 12 phái) gán `iniLevel = PlayerMaxLevel` = 119, rồi nạp `<map>_monster_119.ini`. Trên server chỉ có `_10 … _200` theo bước 10, nên phó bản không tạo được. Lần bấm hỏng còn **xóa NPC Ác Bá** (`LuaFnDeleteMonster`), nên phải chờ lượt sinh sau.
+- Sửa: `iniLevel = floor( PlayerMaxLevel/10 ) * 10`. Riêng Thiếu Lâm chặn trần 100, vì chỉ có `shaolin_1_monster_10 … _100`: đội cấp 110–118 trước đây cũng không vào được.
+- Lịch Ác Bá (`Public/Config/ActivityNotice.txt`, script 808015, đơn vị 15 phút): 00:00, 04:00, 10:00, 12:00, 16:00, 20:00, 22:00. **Chưa thử lại trong game.**
+- Cùng lỗi này còn ở khoảng 30 script khác (Kỳ Cuộc 401001/401002, sư môn `shimen_0901`, Thủy Lao, nhiệm vụ thành thị `ecity_*`…). Đang chờ chủ server duyệt (mục 5 trong danh sách soát 02/10). **Ngày mở đặt trần cấp 89 cũng sẽ dính**, vì không có file `_89.ini`.

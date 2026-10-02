@@ -242,7 +242,7 @@ Cột "Đã sửa" ghi ngày + tag rollback. "Chưa thử" = chưa ai đánh l�
   - Script 894101 không đăng ký.
   - "Type=0 mỗi 12–15 giây" là bẫy SpecialObj 188 do kỹ năng G của song sinh tạo, vô hại.
 
-### Phụng Minh Vương Lăng (cấp 85) — ĐÓNG (server cũ)
+### Phụng Minh Vương Lăng (cấp 85) — MỞ THỬ 02/10 23:01 (tag `truoc-mo-vuonglang-02-10`), chờ thử bằng bia1
 - **Vào:** Tiêu Lăng (Phượng Minh Trấn 288,67), script 900069 → 900070 `MyNew/CSWL/efuben_wangling.lua`. Rương dùng 900071 `wanglingbox.lua`.
 - **Luồng:** 9 Long Trụ → 3 long mạch → boss Thủ Lăng Giám 15344–15347 → 8 Kim Bảo Rương (nguyên liệu Long Văn).
 - **Đóng ở đâu:** nút vào bị comment ở `efuben_wangling.lua:107`.
@@ -271,6 +271,11 @@ Cột "Đã sửa" ghi ngày + tag rollback. "Chưa thử" = chưa ai đánh l�
   - Boss dùng AI 242: dưới 10% máu thì 80% khả năng hồi 50% (6446) 1 lần.
   - Mỗi boss rơi Tọa Kỵ 35%/người.
   - Chưa thử trong game.
+
+### Ác Bá đánh lén môn phái (không có trong NPC Phụ Bản)
+- Script tạo NPC 808015 `event/huodong/eTouximenpai_Generate.lua` (Activity, lịch ở `Public/Config/ActivityNotice.txt`: 00, 04, 10, 12, 16, 20, 22 giờ) → NPC quái 486 script 808017 `obj/huodong/oTouximenpai_NPC.lua` → `event/huodong/eTouximenpai_NPC_<phái>.lua` (808016–808044, phó bản `<map>_1.nav`). Chỉ đệ tử đúng phái, cấp ≥20, có tổ đội.
+- **Đã sửa 02/10** (tag `truoc-fix-acba-02-10`): đội cấp trần nạp `<map>_monster_119.ini` không có → không vào được (assert log 22:30:22). Thiếu Lâm chặn trần 100.
+- **Còn mở:** bấm hỏng (vd hết ô phó bản) vẫn xóa NPC Ác Bá; chữ "chí ít 3 người" nhưng code cho 1 (trừ Đường Môn 3).
 
 ### AI dùng chung có hồi máu (ảnh hưởng nhiều phó bản)
 - **AI 242** (`AIScript/script242.ai` dòng `4:`): chiêu 604 → SkillData 14157–14168 → **6446 hồi 50%**. Boss dưới 10% máu, 80% khả năng, 1 lần/trận. Chú thích trong file ghi "5%" nhưng code là 10%.
