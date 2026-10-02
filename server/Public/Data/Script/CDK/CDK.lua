@@ -13,6 +13,7 @@
 x999999_g_ScriptId = 999999
 x999999_g_Dir = "./txt/NetCo4Web/"
 x999999_g_Amounts = { 1000, 10000, 50000, 100000, 500000, 1000000 }
+x999999_g_LongVan = { 10157001, 10157002, 10157003 }   -- [NetCo4 03/10] Long Van +1/+2/+3 -> Ruong Ich Ky (web)
 
 function x999999_Balance( sceneId, selfId )
 	return YuanBao( sceneId, selfId, -1, 3, 0 )
@@ -26,12 +27,21 @@ function x999999_OnDefaultEvent( sceneId, selfId, targetId )
 		AddNumText( sceneId, x999999_g_ScriptId, "Chuy\172n ra web "..x999999_g_Amounts[i], 6, i )
 	end
 	AddNumText( sceneId, x999999_g_ScriptId, "Chuy\172n ra web ".."To\224n b\181", 6, 99 )
+	AddNumText( sceneId, x999999_g_ScriptId, "Chuy\172n Long V\229n ra R\223\189ng \205ch K\214 (web)", 6, 98 )   -- [NetCo4 03/10] o cuoi
 	EndEvent( sceneId )
 	DispatchEventList( sceneId, selfId, targetId )
 end
 
 function x999999_OnEventRequest( sceneId, selfId, targetId, eventId )
 	local key = GetNumText()
+	if key == 98 then   -- [NetCo4 03/10] Long Van -> Ruong Ich Ky: hoi xac nhan
+		x999999_HoiLongVan( sceneId, selfId, targetId )
+		return
+	end
+	if key == 97 then   -- [NetCo4 03/10] Long Van -> Ruong Ich Ky: chuyen
+		x999999_ChuyenLongVan( sceneId, selfId, targetId )
+		return
+	end
 	local have = x999999_Balance( sceneId, selfId )
 	local n = 0
 	if key == 99 then
@@ -117,6 +127,81 @@ function x999999_Tips( sceneId, selfId, msg )
 		AddText( sceneId, msg )
 	EndEvent( sceneId )
 	DispatchMissionTips( sceneId, selfId )
+end
+
+-- [NetCo4 03/10] GAME -> RUONG ICH KY (web): chuyen TOAN BO Long Van +1/+2/+3 trong tui (mon dang mac / khoa mat khau khong tinh).
+-- Xoa tung mon truoc, ghi phieu outlv/<GUID>_<gio>_<so>.txt sau: moi dong "<GUID> <ID> <so>", dong cuoi "END".
+-- Ghi phieu loi thi tra lai mon. Bot (tlbbPollLvReceipts, repo bialk) cong vao Ruong Ich Ky, giu qua dem;
+-- rut ve game / tang nguoi khac bang nut cua Ruong Ich Ky tren web. Long Van da nang sao / chue thuoc tinh MAT phan nang cap.
+function x999999_DemLongVan( sceneId, selfId )
+	local ds = {}
+	local tong = 0
+	for i = 1, getn( x999999_g_LongVan ) do
+		local n = LuaFnGetAvailableItemCount( sceneId, selfId, x999999_g_LongVan[i] )
+		if n == nil or n < 0 then
+			n = 0
+		end
+		ds[i] = n
+		tong = tong + n
+	end
+	return ds, tong
+end
+
+function x999999_HoiLongVan( sceneId, selfId, targetId )
+	local ds, tong = x999999_DemLongVan( sceneId, selfId )
+	BeginEvent( sceneId )
+	AddText( sceneId, "Chuy\172n TO\192N B\147 Long V\229n +1/+2/+3 trong t\250i ra R\223\189ng \205ch K\214 tr\234n web (m\243n \240ang m\163c kh\244ng t\237nh). Tr\234n web r\250t v\171 game ho\163c t\163ng ng\223\182i kh\225c." )
+	AddText( sceneId, "Trong t\250i: Long V\229n +1: "..ds[1]..", +2: "..ds[2]..", +3: "..ds[3] )
+	AddText( sceneId, "#R".."Ch\250 \253: ".."#W".."Long V\229n \240\227 n\226ng sao ho\163c chu\170 thu\181c t\237nh s\168 M\132T ph\165n n\226ng c\164p, r\250t v\171 game l\224 Long V\229n m\190i." )
+	if tong > 0 then
+		AddNumText( sceneId, x999999_g_ScriptId, "\208\176ng \253 chuy\172n "..tong.." Long V\229n", 6, 97 )
+	end
+	EndEvent( sceneId )
+	DispatchEventList( sceneId, selfId, targetId )
+end
+
+function x999999_ChuyenLongVan( sceneId, selfId, targetId )
+	local guid = LuaFnGetGUID( sceneId, selfId )
+	local da = {}
+	local tong = 0
+	for i = 1, getn( x999999_g_LongVan ) do
+		local id = x999999_g_LongVan[i]
+		local n = LuaFnGetAvailableItemCount( sceneId, selfId, id )
+		local xoa = 0
+		if n and n > 0 then
+			for j = 1, n do
+				if LuaFnDelAvailableItem( sceneId, selfId, id, 1 ) == 1 then
+					xoa = xoa + 1
+				end
+			end
+		end
+		if xoa > 0 then
+			tinsert( da, { id, xoa } )
+			tong = tong + xoa
+		end
+	end
+	if tong == 0 then
+		x999999_Tips( sceneId, selfId, "Trong t\250i kh\244ng c\243 Long V\229n \240\172 chuy\172n" )
+		return
+	end
+	local name = x999999_g_Dir.."outlv/"..guid.."_"..LuaFnGetCurrentTime().."_"..random( 100000, 999999 )..".txt"
+	local h = openfile( name, "w" )
+	if h == nil then
+		for i = 1, getn( da ) do
+			for j = 1, da[i][2] do
+				TryRecieveItem( sceneId, selfId, da[i][1], 1 )
+			end
+		end
+		x999999_Tips( sceneId, selfId, "L\178i ghi phi\170u, \240\227 tr\228 l\213i Long V\229n" )
+		return
+	end
+	for i = 1, getn( da ) do
+		write( h, guid.." "..da[i][1].." "..da[i][2].."\n" )
+	end
+	write( h, "END\n" )
+	closefile( h )
+	x999999_Tips( sceneId, selfId, "\208\227 chuy\172n "..tong.." Long V\229n ra R\223\189ng \205ch K\214 tr\234n web" )
+	x999999_OnDefaultEvent( sceneId, selfId, targetId )
 end
 
 -- Ham cu con trong AllowableScriptFunc.txt (Gift Code): de trong cho client goi khong loi.
