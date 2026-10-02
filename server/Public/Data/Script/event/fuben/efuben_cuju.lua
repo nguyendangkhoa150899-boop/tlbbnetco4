@@ -5,6 +5,7 @@
 
 --Ω≈±æ∫≈
 x402040_g_ScriptId = 402040
+x402040_g_MocSuaLoi = 1790876753   -- [NetCo4 02/10] giay unix luc sua loi khong ra quai
 
 x402040_TIME_2000_01_03_ = 946828868
 
@@ -185,6 +186,9 @@ function x402040_OnDefaultEvent( sceneId, selfId, targetId )
 	for	i=0, nearteammembercount-1    do
 		local memId = GetNearTeamMember(sceneId, selfId, i)
 		local time = GetMissionData(sceneId, memId, MD_CUJU_PRE_TIME)
+		if time < x402040_g_MocSuaLoi then   -- [NetCo4 02/10] luot vao truoc khi sua loi khong ra quai (cap 119) -> khong tinh 24 gio
+			time = 0
+		end
 		local nCurTime = LuaFnGetCurrentTime()
 		-- ø¥…œ¥Œ≤Œº”to’ µ  ±º‰–˙ng≤ª–˙ng∫Õœ÷T’i ”–12c·i–° ±“‘…œto’ µ CD CVH
 		if nCurTime-time < 60*60*24   then
@@ -324,7 +328,7 @@ function x402040_MakeCopyScene( sceneId, selfId )
 	elseif mylevel < PlayerMaxLevel then
 		iniLevel = floor(mylevel/10);
 	else
-		iniLevel = PlayerMaxLevel/10;
+		iniLevel = floor(PlayerMaxLevel/10);   -- [NetCo4 02/10] cap toi da server = 119 -> 119/10 = 11.9 tra bang ra nil -> doi cap 119+ khong ra quai
 	end
 
 	--  π”√∏±±æ±‰¡ø8,9,10¿¥±£¥Êπ÷ŒÔ±‡∫≈

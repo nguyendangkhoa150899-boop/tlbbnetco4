@@ -14,3 +14,4 @@ tools/*.py text eol=lf
 panel/*.cmd -text
 deploy/client/*.cmd -text
 deploy/client/*.txt -text
+deploy/client/TuDongVaoTo/* -text

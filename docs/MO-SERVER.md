@@ -43,7 +43,7 @@ Nguồn: 201 commit repo game (`tlbbnetco4`) và 45 commit repo bot (`bialk`) t�
 - Tạo Hóa 10303447: hiệu ứng làm chậm (`98c63e7`).
 - Chồng 250: Nhuận Hồn Thạch (36 bản), Hợp Thành Phù (`82384c3`).
 - Chế đồ niệm 0,5 giây (`2bf5688`). Về thành và bùa Hồi Thành hồi chiêu 5 giây, niệm như gốc (`b8592cc`).
-- Shop 150 bán ngọc cấp 5 bằng Điểm Tặng, giá gốc (`fc8516f` `d8c682d`).
+- Shop 150 bán ngọc cấp 5 bằng Điểm Tặng (`fc8516f` `d8c682d`) → **02/10 trả về cấp 4 như gốc** (`bd73440`).
 - Việt hóa 15.661 tên trang bị, 6 hộp quà trân thú, sửa chữ "ấ/ợ" trong CommonItem (`11251be` `aeff4e2` `0c4a307`); "Trọng Lâu" → "Trùng Lâu" (`5768f95`). Chữ "ấ" trong `GemInfo` (30 dòng) và `EquipBase111` (27 dòng) **chưa sửa**.
 - **Sót từ test:** `GemInfo.txt` dòng `50412007` cột 6 vẫn = **6** (360 ngọc khác = 1), do `957307e` chỉ revert `23c8b11`. **Trả về 1 ngày mở.**
 
@@ -51,7 +51,7 @@ Nguồn: 201 commit repo game (`tlbbnetco4`) và 45 commit repo bot (`bialk`) t�
 - **NPC NetCo4 (990010):** 2.000 vàng không khóa + **8.000 vàng khóa** mỗi ngày (`2b40dcb` `170d45c`). 80.000 Điểm Tặng (`acfbbfa`) **TẮT khi mở**. Mục Tổng Bí Tịch (`8b5b597`).
 - NPC tân thủ 8886: hộp Tân Thủ Trang Bị 1 lần/ngày → **1 lần duy nhất** khi mở (`170d45c`).
 - Yến Tử Ổ: 3 lượt/ngày, chỉ 2 đợt cuối (`93c15e2` `8c9bd58`). Hệ quả: **mất boss Diêu Bá Đương và Tư Mã Lâm** cùng đồ rơi của họ.
-- Hậu Hoa Viên: giờ mở là biến, **khi mở đặt 19:00–23:59** (`5d20e69`).
+- Hậu Hoa Viên: giờ mở là biến, **đã đặt 22:00–23:59 từ 02/10** (`5d20e69`).
 - Mở lại: Lò Ly Hoa (`29cca96`), Võ Hồn nâng cấp qua menu NetCo4 chạy song song hợp thành gốc, tối đa cấp 8 (`63176d9`), Bí Tịch xếp tông (`e156587` `0a7cf71`), Điểm danh 070053, vòng quay server chọn món (`399492f`).
 - **NPC Ví Web (999999):** KNB game ↔ web, web → game tối đa 30.000/ngày, nhận được vàng không khóa (`92a147b`, bot `e879fac`).
 - Dọn: tin hệ thống rác, quảng cáo server cũ (`65441b8` `e8ff862`), tin boss Võ Di (`62ca47b`), tab Quà Nạp Thẻ (`f5df91d`), cửa sổ Nạp lần đầu (`5356575`), Việt hóa 21 tin boss (`7b59bd9`).
@@ -95,7 +95,7 @@ Mẫu tạm 11–15 dòng: Tạo Hóa, Trùng Lâu Liên/Giới/Ngọc, quạt P
 | Hộp Tân Thủ Trang Bị | **1 lần duy nhất** mỗi nhân vật. |
 | Yến Tử Ổ | Giữ 2 đợt cuối, 3 lượt/ngày. |
 | Kim Tàm Ti | Giữ 30%. |
-| Hậu Hoa Viên | **19:00–23:59** (`jiarumenpai.lua` `x990010_g_HHV_Mo = 19`, `Dong = 24`). |
+| Hậu Hoa Viên | **22:00–23:59** — ĐÃ áp trên server test 02/10 (`1308190`), nhánh mo-server cùng dòng (`5b25a57`). |
 | Chat Thế giới | **180000 ms** (`ChatConfig.txt` kênh 2, cột 4). |
 | Thẻ Chọn Pet Boss | **Bật**, bản Tân Thủ, miễn phí. |
 | Dọn sót test | `GemInfo` 50412007 cột 6 → 1. Xóa 54 pet `31001–31582`. |
@@ -110,7 +110,7 @@ Mẫu tạm 11–15 dòng: Tạo Hóa, Trùng Lâu Liên/Giới/Ngọc, quạt P
 | 3 | Túc Cầu | Giữ nguyên. |
 | 4 | Hạn KNB web → game, đổi vàng | Giữ như đã đặt (30.000/ngày). |
 | 5 | Rương Ích Kỷ | **Tắt** (công tắc chức năng trên web admin). |
-| 6 | Shop 150 ngọc cấp 5 | **Giữ**: nhóm chơi dưới 2 tháng, cần lên đồ nhanh. |
+| 6 | Shop 150 ngọc cấp 5 | ~~Giữ~~ → **02/10: trả về ngọc cấp 4 như gốc** (`bd73440`, giá Điểm Tặng gốc). Kệ 151 (ngọc cấp 6 gốc của game, 30.000/10.000) không đổi. |
 | 7 | 33 ngọc cấp 6 web | Chủ server tự chỉnh giá trên web admin. |
 | 8 | Miên Bố / Bí Ngân cấp 6 | **Rơi 10%** (đổi từ 40%, 01/10 tối) ở quái phó bản **Q Tô Châu + Q Lâu Lan** (`roimap.lua`, cùng chỗ Cửu Thiên Ngọc Toái). ID: Miên Bố 6 `20501006`, Bí Ngân 6 `20502006`. **ĐÃ LÀM 01/10 tối trên main** (hiệu lực ngay, Lua): roll 10% rồi bốc 1 trong 2, mỗi quái tối đa 1 món, chỉ quái phó bản 50100/50220 (`roimap.lua` RoiBoc nhóm 1 + RoiPhoBan2; 1130/1129 gọi thêm). Rollback tag `truoc-mienbo6-01-10`. |
 | 9 | Ám khí | Để sau. |
@@ -127,7 +127,7 @@ Mẫu tạm 11–15 dòng: Tạo Hóa, Trùng Lâu Liên/Giới/Ngọc, quạt P
 > **Bẫy phải tránh:** `cap-nhat.sh` rsync theo checksum, file nào trên server khác repo là bị ghi đè. Vì vậy mọi sửa cấu hình ngày mở **phải là commit trong repo**, không sửa tay trên VPS. Nhưng commit sớm thì lần deploy kế tiếp đẩy lên server đang test. → Làm trong **nhánh `mo-server`** từ máy nhà (VPS không push được), ngày mở merge vào `main` rồi `cap-nhat.sh`.
 
 **Trước ngày mở (không ảnh hưởng server đang chạy):**
-1. Nhánh `mo-server` chứa: `DefaultChar.ini` level 1; `ConfigInfo.ini` ExpParam 10.0; `ChatConfig.txt` kênh 2 = 180000; `jiarumenpai.lua` HHV 19/24, tắt menu 80.000 Điểm Tặng; NPC 8886 hộp 1 lần duy nhất; `MonsterAttrExTable` máu boss 80%; `GemInfo` 50412007 = 1; xóa 54 pet 31xxx khỏi `PetAttrTable` (+ dòng tương ứng trong `MonsterAttrExTable` nếu là pet thuần); tắt cổng mod (admin thường) của bot; tắt công tắc Rương Ích Kỷ; tắt tin boss 810000/810001/810003 (`ActivityNotice.txt`); `odali_youxituiguang.lua` bỏ mốc 100/110/149; shop web thêm Ngưng Tức Hoàn `38002067`. Mỗi file kiểm bằng script byte-safe như các lần trước.
+1. **XONG 01/10 (nhánh `mo-server`, commit `efdd84f`, đã push, CHƯA merge):** `DefaultChar.ini` level 1 · `ConfigInfo.ini` ExpParam 10.0 · `ChatConfig.txt` kênh 2 = 180000 · máu boss 80% gốc (7.169 ô / 4.247 dòng, 0 ô bỏ qua, công cụ `tools/mau-boss.js 0.8`) · `GemInfo` 50412007 = 1 · tắt tin 810000/810001/810003 (12 dòng, cột 14–16 = -1 như 810002) · xóa 54 pet 31001–31582 khỏi `PetAttrTable` (không ai đang giữ; 500 dòng 31xxx của `MonsterAttrExTable` là quái gốc, giữ) · `jiarumenpai.lua` HHV 19 · menu 80.000 Điểm Tặng tắt (comment + handler -919) · hộp tân thủ 8886 1 lần duy nhất · Thẻ Tài Phú `x002084_g_MocToiDa = 90` (ẩn + chặn mốc 100/110/149). **Không nằm trong repo này, làm ngày mở trên web admin / repo bialk:** tắt cổng mod, tắt Rương Ích Kỷ, thêm Ngưng Tức Hoàn `38002067` vào shop web. **Ngày mở:** `git checkout main && git merge mo-server`; nếu xung đột ở `MonsterAttrExTable.txt` (main sửa pet skin sau 01/10) thì `git checkout --theirs`… lấy bản main rồi chạy `node tools/mau-boss.js 0.8`. Bản gốc mục 1: Nhánh `mo-server` chứa: `DefaultChar.ini` level 1; `ConfigInfo.ini` ExpParam 10.0; `ChatConfig.txt` kênh 2 = 180000; `jiarumenpai.lua` HHV 19/24, tắt menu 80.000 Điểm Tặng; NPC 8886 hộp 1 lần duy nhất; `MonsterAttrExTable` máu boss 80%; `GemInfo` 50412007 = 1; xóa 54 pet 31xxx khỏi `PetAttrTable` (+ dòng tương ứng trong `MonsterAttrExTable` nếu là pet thuần); tắt cổng mod (admin thường) của bot; tắt công tắc Rương Ích Kỷ; tắt tin boss 810000/810001/810003 (`ActivityNotice.txt`); `odali_youxituiguang.lua` bỏ mốc 100/110/149; shop web thêm Ngưng Tức Hoàn `38002067`. Mỗi file kiểm bằng script byte-safe như các lần trước.
 2. **XONG 01/10** `deploy/mo-server.sh` (commit `15b2bb1`): giữ `charguid = 1010100008` ở mọi bảng có cột `charguid` (trừ `t_guild_user`, `t_relation` xóa hết), thư chỉ giữ thư gửi bia1, bia1 `guldid = -1` + `leagueid = -1`, trả ô bang/thành về trống như `reset-choi-that.sh`, `web.account` chỉ còn `bialk1` + `admin`. File: xóa `NetCo4Qua/*` (cả `_capmin.txt`) và `NetCo4Web/*` **trừ của 1010100008**, QianDao, DBShopData, NetCo4Popup, HQYZ…, làm rỗng Paiming/MingRenTang/YbMarket/JuDian/ShiJianTx/LoDe/IP, `GMList.ini` chỉ còn 1010100008. Chạy thật hỏi gõ `MOSERVER`, tự sao lưu `truoc-moserver-*.sql.gz`.
 3. **XONG 01/10** `sao-luu.sh` sao lưu thêm `/opt/minigame/BotDoMin/database.json` → `hang-ngay/bot-*.json.gz`, giữ 14 bản (cron 4h sáng có sẵn).
 4. **XONG 01/10 18:5x** `./mo-server.sh --thu` (bản sao `tlbbdb_thu`/`web_thu`, game vẫn chạy, 1,5 giây, tự xóa bản sao): trước 10 nhân vật / 725 dòng item / 12 tài khoản → sau `t_char` 1 (bia1 cấp 119, guldid -1), item bia1 còn hiệu lực 38, `t_pet` 3, `t_skill` 69, `t_xinfa` 8, `t_mail` 6, guild/relation/city 0, ô bang đang dùng 0, `maxcharguid` 1010100010 giữ nguyên, tài khoản `admin,bialk1`. DB thật còn đủ 10 nhân vật sau khi chạy. **Chưa thử phần xóa file** (chỉ chạy ở chế độ thật).
@@ -138,9 +138,9 @@ Mẫu tạm 11–15 dòng: Tạo Hóa, Trùng Lâu Liên/Giới/Ngọc, quạt P
 2. Merge `mo-server` → `main`, push. Trên VPS `cap-nhat.sh -y` (chưa restart).
 3. `tlbb.sh stop`, đợi ShareMemory tắt hẳn.
 4. `mo-server.sh` (tự sao lưu `truoc-reset-*.sql.gz` trước khi xóa).
-5. Bot: `systemctl stop minigame`; sao lưu `database.json`; xóa 4 ví + `_bossKills`, `_dogDay`, `_webSessions`; đổi mật khẩu SUPER/mod trong `.env`; bật lại.
+5. Bot: `systemctl stop minigame`; sao lưu `database.json`; xóa 4 ví + `_bossKills`, `_dogDay`, `_webSessions`, `_tuiBoss`, `_tuiBossPos`, `_tuiBossGop` (túi boss test; `tuiboss.log` đã bị `mo-server.sh` xóa); đổi mật khẩu SUPER/mod trong `.env`; bật lại.
 6. Đổi `PANEL_PASS` trong `secrets.env`, restart `tlbb-panel`; đổi mật khẩu `admin` (`tao-account.sh --doi admin …`).
-7. `tlbb.sh start`. Panel GM: ô Cấp tối thiểu = **0**; đặt **Cấp tối đa = 89**, Lưu + Restart.
+7. **Reboot VPS thay cho `tlbb.sh start`** (Ubuntu tự cài kernel `5.15.0-194` + `libc6` lúc 01/10 06:07, máy đang chạy kernel `5.15.0-91`, `/var/run/reboot-required` đã báo): game đã stop ở bước 3 thì gõ `reboot`. Game, bot, panel đều `enabled` nên tự bật. Kiểm sau khi lên: `uname -r` = `5.15.0-194-generic`, `systemctl is-active tlbb minigame tlbb-panel` đủ 3 `active`, `ss -Htln` có cổng 7384 + 3731, `./tlbb.sh status` đủ 6 tiến trình. Máy không lên → console iNET chọn kernel cũ `5.15.0-91` trong menu GRUB. Sau đó Panel GM: ô Cấp tối thiểu = **0**; đặt **Cấp tối đa = 89**, Lưu + Restart.
 8. Web admin: bật thẻ Chọn Pet Boss (Tân Thủ, giá 0).
 9. Kiểm bằng 1 tài khoản mới: cấp **1**; không nhận được 80.000 Điểm Tặng; hộp tân thủ 1 lần; nhận pet Tân Thủ trên web và bấm **Chiến** được ở cấp thấp; exp có tích khi chạm 89 không; bia1 còn đủ đồ + GM; cổng mod không còn vào được.
 10. Theo dõi tuần đầu: RAM, `luaerror.log`, lượng phiếu rơi (Audit `ITEM_CREATED … 39910001`).

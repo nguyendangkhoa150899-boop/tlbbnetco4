@@ -246,6 +246,7 @@ end
 --À¿Õˆ....
 --**********************************
 function x893069_OnDie( sceneId, selfId, killerId )
+	CallScriptFunction( 950001, "TB_Ghi", sceneId, selfId, killerId )   -- [NetCo4 01/10] tui do giet boss (roimap.lua, chi ghi khi ID co trong danh sach)
 
 	--÷ÿ÷√AI....
 	x893069_ResetMyAI( sceneId, selfId )
@@ -292,7 +293,7 @@ function x893069_OnDie( sceneId, selfId, killerId )
 
 	local ItemDroplisst = {}
     ItemDroplisst[1]= {38000397,30900016}----CNTP
-    ItemDroplisst[2]= {50501001,50501002,50502001,50511001,50511002,50502002,50512001,50512002,50502003,50512003,50502004}----ID ngoc
+    ItemDroplisst[2]= {50601001,50601002,50602001,50611001,50611002,50602002,50612001,50612002,50602003,50612003,50602004}----ID ngoc
     ItemDroplisst[3]= {38000396}----CNP
 	local PlayerObj = {}
 	local NearTeamSize = GetNearTeamCount(sceneId,killerId)

@@ -382,7 +382,7 @@ function x402030_MakeCopyScene( sceneId, selfId )
 	elseif mylevel < PlayerMaxLevel then
 		iniLevel = floor(mylevel/10);
 	else
-		iniLevel = PlayerMaxLevel/10;
+		iniLevel = floor(PlayerMaxLevel/10);   -- [NetCo4 02/10] cap toi da server = 119 -> 119/10 = 11.9 tra bang ra nil -> doi cap 119+ khong ra quai
 	end
 
 	-- 使用副本变量8，9，10来保存怪物编号

@@ -522,7 +522,7 @@ function x894065_OnImpactFadeOut( sceneId, selfId, impactId )
 		for i=0, nCount-1  do
 			local nObjId = GetMonsterObjID(sceneId, i)
 			local MosDataID = GetMonsterDataID( sceneId, nObjId )
-			if MosDataID == 15130 then
+			if MosDataID == 15130 and LuaFnIsCharacterLiving( sceneId, nObjId ) == 1 then   -- [NetCo4 02/10] chi khi con kia CON SONG (xac van nam trong danh sach quai -> ha ca 2 cung luc van hoi sinh)
 				bok = 1
 			end
 		end

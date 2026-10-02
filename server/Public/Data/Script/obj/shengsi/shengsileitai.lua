@@ -215,6 +215,7 @@ function  x892009_MakeCopyScene(  sceneId,  selfId,  nearmembercount  )
 	 LuaFnSetCopySceneData_Param(sceneId,  5,  0);-- thiªt trí r¶i ði cûng tính gi¶ s¯ l¥n 
 	 LuaFnSetCopySceneData_Param(sceneId,  6,  GetTeamId(sceneId,selfId));  -- bäo t°n ðµi ngû s¯ 
 	 LuaFnSetCopySceneData_Param(sceneId,  7,  0)  ;-- giªt chªt Boss ðích s¯ lßþng 
+	 LuaFnSetCopySceneData_Param(sceneId,  24,  0)  -- [NetCo4 01/10] o 24 = 1 khi luot nay da ghi tui boss Ngo Vinh (NetCo4/roimap.lua x950001_TB_SatTinhDuoc)
 	 LuaFnSetCopySceneData_PvpRuler(  sceneId,  9  )
 
 	 local  x,z  =  GetWorldPos(  sceneId,  selfId  )	 	 
@@ -259,6 +260,7 @@ end
 -- quái v§t tØ vong 
 --**********************************
 function  x892009_OnDie(sceneId,  objId,  killerId)
+	-- [NetCo4 01/10] tui boss: KHONG goi TB_Ghi o day - 501000 OnDie ben duoi da goi (goi 2 cho = moi boss ghi 2 dong)
 --CallScriptFunction(  898992,  "MonsterOnDie",  sceneId,  objId,  killerId,1  )
 CallScriptFunction(  501000,  "OnDie",  sceneId,  objId,  killerId)
 end

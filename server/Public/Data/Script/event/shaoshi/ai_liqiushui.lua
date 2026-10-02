@@ -214,7 +214,7 @@ function x890069_OnDie( sceneId, selfId, killerId )
 	--取得当前场景里的人数
 	local ItemDroplisst = {}
     ItemDroplisst[1]= {38000397,30504583}----CNTP
-    ItemDroplisst[2]= {50501001,50501002,50502001,50511001,50511002,50502002,50512001,50512002,50502003,50512003,50502004}----ID ngoc
+    ItemDroplisst[2]= {50601001,50601002,50602001,50611001,50611002,50602002,50612001,50612002,50602003,50612003,50602004}----ID ngoc
     ItemDroplisst[3]= {38000396}----CNP
 	local PlayerObj = {}
 	local NearTeamSize = GetNearTeamCount(sceneId,killerId)

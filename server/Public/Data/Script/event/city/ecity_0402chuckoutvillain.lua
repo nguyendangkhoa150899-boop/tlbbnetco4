@@ -383,6 +383,7 @@ end
 --杀死怪物或玩家
 --**********************************
 function x600019_OnKillObject( sceneId, selfId, objdataId, objId )
+	CallScriptFunction( 950001, "TB_GhiId", sceneId, objdataId, selfId )   -- [NetCo4 01/10] tui do giet boss (roimap.lua, chi ghi khi ID co trong danh sach)
 	--是否是所需要的副本
 	local fubentype = LuaFnGetCopySceneData_Param( sceneId, 0 )
 	if fubentype ~= x600019_g_CopySceneType then

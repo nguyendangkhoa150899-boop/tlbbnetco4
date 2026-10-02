@@ -178,6 +178,7 @@ end
 --怪物死亡....
 --**********************************
 function x808039_OnDie( sceneId, objId, killerId )
+	CallScriptFunction( 950001, "TB_Ghi", sceneId, objId, killerId )   -- [NetCo4 01/10] tui do giet boss (roimap.lua, chi ghi khi ID co trong danh sach)
 	--喧ng否喧ng副本
 	sceneType = LuaFnGetSceneType(sceneId) ;
 	if sceneType~=1 then
@@ -638,7 +639,7 @@ function x808039_MakeCopyScene(sceneId, selfId)
 	elseif mylevel < PlayerMaxLevel then
 		iniLevel = floor(mylevel/10) - 6;
 	else
-		iniLevel = PlayerMaxLevel/10;
+		iniLevel = floor(PlayerMaxLevel/10) - 6;   -- [NetCo4 02/10] cap toi da server = 119 -> 119/10 = 11.9 tra bang ra nil -> doi cap 119+ khong ra quai
 	end
 	
 	-- 使用副本变量10,11,12来保存怪物编号

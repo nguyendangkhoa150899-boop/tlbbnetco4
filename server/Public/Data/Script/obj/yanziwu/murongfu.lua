@@ -20,6 +20,7 @@ x402254_g_DuanAndWangFlag = 29
 -- ×Ô¼ºËÀÍö
 --**********************************
 function x402254_OnDie( sceneId, selfId, killerId )
+	CallScriptFunction( 950001, "TB_Ghi", sceneId, selfId, killerId )   -- [NetCo4 01/10] tui do giet boss (roimap.lua, chi ghi khi ID co trong danh sach)
 
 	LuaFnNpcChat(sceneId, selfId, 0, "Các ngß½i hãy ch¶ ðó, ngày này nåm sau ta s¨ tìm các ngß½i lo mà s¯ng hªt nhæng ngày còn lÕi ði ha..ha..ha..")
 

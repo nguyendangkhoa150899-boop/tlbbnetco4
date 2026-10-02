@@ -335,6 +335,7 @@ x501000_g_PetDropList[13281] = {
 }
  
 function x501000_OnDie(sceneId, objId, killerId)
+	CallScriptFunction( 950001, "TB_Ghi", sceneId, objId, killerId )   -- [NetCo4 01/10] tui do giet boss (roimap.lua, chi ghi khi ID co trong danh sach)
 	if not sceneId or not objId or objId < 0 or not killerId or killerId < 0 then
 		return
 	end

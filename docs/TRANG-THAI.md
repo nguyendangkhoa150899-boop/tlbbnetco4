@@ -1,6 +1,6 @@
 # Trạng thái và việc tiếp theo
 
-Cập nhật: 28/09/2026 (kết thúc phiên dựng server). Claude ở nhà: đọc file này cùng `CLAUDE.md` rồi tiếp tục từ "Việc tiếp theo".
+Cập nhật: 02/10/2026 15:55 — **đọc mục cuối "02/10 trưa–chiều — TỔNG KẾT PHIÊN" trước**. (Bản đầu: 28/09/2026, kết thúc phiên dựng server.) Claude ở nhà: đọc file này cùng `CLAUDE.md` rồi tiếp tục từ "Việc tiếp theo".
 
 > **01/10: mọi thứ đã làm + quyết định chốt + quy trình ngày mở nằm ở [MO-SERVER.md](MO-SERVER.md). Đọc file đó trước.**
 
@@ -433,3 +433,225 @@ Tài khoản: `admin` (nhân vật `Bialk`, GUID 1010100001, GM), `hoang`. Mật
 - Phát hiện cũ, chưa sửa: `StandardImpact.txt` dòng 5724 (Tọa kỵ Xe trượt tuyết) nằm sau 5919 → engine không tìm thấy (tìm nhị phân).
 
 - **01/10 tiếp:** 72 pet V2 đổi tư chất chuẩn: dòng chính theo kiểu = 5000 (Ngoại: Cường lực cột 34, Nội: Nội lực cột 36, Cân bằng: Thể lực cột 35), 4 dòng còn lại 2500. Bản Admin 12000 giữ nguyên. Chỉ pet tạo mới sau restart. Rollback: tag `truoc-v2-tuchat-01-10`.
+
+## 01/10 tối - Tắt "Càn Khôn Hồ / Kiền Khôn Bôi" tự gắn (tự nhặt đồ) - hiệu lực ngay
+- Hiệu ứng tự nhặt đồ là impact **8500 干坤杯** (logic 38, 2 giờ online, client hiện tên "Càn Khôn Hồ"). Đọc `t_impact` (mỗi dòng `imdata` hex, byte 9–12 = ID hiệu ứng LE): 8/10 nhân vật đang mang 8500, kể cả nhân vật chưa từng dùng vật phẩm.
+- Nguồn: `MyLua/ShuaXinClient.lua` `x892002_AHa_ShiZhuangDianZhui` (gọi từ `AHa_ReMyBuff` — chạy mỗi lần làm mới buff: Thần Đỉnh, Thần Khí, bảo giám…) có sẵn từ bản gốc dòng `LuaFnSendSpecificImpactToUnit(...,8500,0)` → gắn cho **mọi người**. Đã comment dòng đó. Vật phẩm Kiền Khôn Bôi `30008033` / Kiền Khôn Hồ `30008009` (impact 57 + 8500) vẫn dùng được bình thường.
+- Buff đang có trên người sẽ tự hết sau tối đa 2 giờ online (không tính thời gian offline). Muốn xóa ngay: stop game, xóa dòng `t_impact` có `SUBSTRING(imdata,9,4)='3421'`. Rollback: tag `truoc-tat-kienkhon-01-10`.
+
+## 01/10 tối - Tàng Kinh Các (藏经阁): có, đang chạy, chưa ai đi
+- Hoạt động `event/bossgroup/bg_CangJingGe.lua` (810112, lịch `ActivityNotice.txt` id 231–234): **10:45, 16:30, 21:30, 23:00** mỗi ngày, ở **Nhạn Nam** (scene 18) rải 18 NPC "Thiếu Lâm Vân Du Võ Tăng" (13565–13573, theo cấp). Log debug xác nhận NPC ra đúng giờ 30/09 và 01/10.
+- Nói chuyện với NPC → `event/huodong/FB_cangjinge_FB.lua` (807005): tổ đội, mọi thành viên ở gần và **cấp ≥ 40**; vào xong **NPC bị xóa** (mỗi NPC 1 đội). **Không giới hạn lượt/ngày** — giới hạn thật là số NPC (18 × 4 đợt).
+- Bên trong 30 phút: Ngụy Quan Quân 13583+, Trộm Sách Ác Tăng 13574+ (**không có dòng rơi**), boss **Che Mặt Ác Tăng** 13592–13600 (Mv 60): phiếu 1000 (~3%), ngọc cấp 5 (~20%), Yếu Quyết (~8%), Yếu Quyết/phiếu 1000/phiếu 5000 (~3%), Điêu Văn Đồ Dạng (~15%). Bậc quái = cấp trung bình tổ / 10 (cấp 110+ dùng bản +8 = cấp 110).
+- Log: chưa từng có ai vào (boss 13592–13600 chưa spawn lần nào).
+
+## 01/10 tối - Tiệm Nguyên Bảo › Nam Bắc Kỳ Hóa › Kỳ Trân Dị Bảo: bán 2 món tự nhặt đồ (chờ restart)
+- Kệ này là **shop 137** trong `Public/Config/ShopTable.txt` (đơn vị tiền cột 8 = 6 = Điểm Tặng; mỗi món 6 cột: ID, số/lần, giới hạn, giá, chiết khấu %, màu; 26 món cũ, trang 2 = món 19–26). Thêm ô 27 **Kiền Khôn Hồ** `30008009` (12 giờ online) và ô 28 **Kiền Khôn Bôi** `30008033` (2 giờ online), **1.000 Điểm Tặng**, màu `#G`. Cột 12 "Num" = 50 ở mọi shop, không phải số món. Server chỉ nạp `ShopTable.txt` (các bản `ShopTable9999/OPENCu/TEST` không dùng). Rollback: tag `truoc-shop-kienkhon-01-10`.
+
+## 01/10 tối - Tuyết Lang Hồ rơi Phục Hi Ngọc 30% (giữ cho server chính, chờ restart)
+- `NetCo4/roimap.lua` (950001) thêm `[179] = { 38002049, 30 }`; `Public/Scene/xuelanghu_monster.ini` 533 điểm spawn quái thường `script_id=-1` → `950001` (Tuyết Sơn Lang, Tuyết Sơn Mãng Cái, Trọng Giáp Mãng Cái, Ba Luân Mãng Cái, Gấu Đen Lớn cấp 100–105). 5 boss 11299–11303 giữ script riêng 325001–325005 (không rơi Phục Hi Ngọc). Mỗi thành viên tổ đội roll riêng, đồ rơi trên xác quái. Đổi % sửa Lua có hiệu lực ngay; file ini cần restart. Rollback: tag `truoc-phuchi-tuyetlang-01-10`.
+- Cân nhắc: Phục Hi Ngọc dùng ở "Thượng Cổ Thần Khí Dục Linh" (`shenqichongxi.lua` FuXiCost 2 → 242 viên/cấp, tổng ~1.700 viên lên cấp 19). 538 quái cấp 100+ × 30% → cày 1 giờ ra hàng trăm viên.
+
+## 01/10 21:00 - Túi đồ giết boss (game + web bot) — chi tiết `docs/TUI-BOSS.md`
+- Game `33d048d` (Lua, hiệu lực ngay, không restart), bot bialk `9682593` (đã chép lên `/opt/minigame/BotDoMin` kiểm hash, `systemctl restart minigame`, thẻ 🎒 có trên cổng 3002, bot đọc log không lỗi). Chưa có `tuiboss.log` vì chưa ai hạ boss cuối sau 20:54. Test đề nghị: đi Yến Tử Ổ 1 lượt → web 🪪 Cá nhân › 🎒 Túi đồ boss → Nhận → đổi bản đồ.
+
+## 01/10 21:20 - VPS báo cần reboot (kernel + libc6) → để tới ngày mở
+- Ubuntu tự cài `linux-image-5.15.0-194` + `libc6` lúc 01/10 06:07; đang chạy `5.15.0-91`. Không ảnh hưởng game. Chủ server chốt: **reboot vào ngày mở**, thay cho bước `tlbb.sh start` (đã ghi `docs/MO-SERVER.md` mục 3 bước 7, kèm cách kiểm và cách cứu nếu máy không lên).
+
+## 01/10 22:50 - Túi đồ boss: chạy thật + 2 việc
+- **Đã chạy thật:** 22:36 PMF thường (9666) và 22:43 PMF khiêu chiến (9546), tổ 4 người (1010100002/4/6/8) → `tuiboss.log` 2 dòng, bot tạo 8 túi đúng người. Nút **Nhận** trên web chữ trắng nền xám (nút mặc định không có nền) → thêm class `tbBtn` xanh lá (bialk `9c2e83b`).
+- **Cấu hình đã bị sửa qua cổng mod** (IP 42.115.248.156, 21:53–22:28, cả 13 hoạt động, xem 📜 Lịch sử sửa): vd PMF thêm CCHTP 1–2, PMF khiêu chiến 8.000 KNB, Yến Tử Ổ thêm Nữ Oa Thần Thạch `30505814` ×25–30 + `30505815` ×25–30, Q Tô Châu thêm Cửu Thiên Ngọc Toái ×20–35, Ác Tặc/Ác Bá bỏ CCHTP/CLD/Hồn Băng Châu/Nhuận Hồn Thạch, thêm MB/BN ×10. Chưa xác nhận người sửa là chủ server.
+- **Tự vào tổ / tự đi theo không cần bảng hỏi: KHÔNG làm được.** Server `Server` chỉ chuyển lời mời sang `World` (`CGTeamInviteHandler` → `ServerManager::SendPacket`), bảng "X hy vọng các hạ cùng nhóm" do World + client hiện. `ConfigInfo.ini [Team]` chỉ có `AvailableFollowDist`, `TimeForLoseFollow`; Lua không có hàm thêm người vào tổ. Muốn đổi phải sửa binary World/client (không làm).
+- Miên Bố / Bí Ngân / Tinh Thiết cấp 8 ở PMF: chủ server chốt **giữ nguyên**. Câu hỏi `DropParam=2.0` (mọi hộp ×2) vẫn chờ chốt.
+
+## 01/10 23:10 - Tự vào tổ: công cụ chạy trên máy người chơi `deploy/client/TuDongVaoTo/`
+- Server không làm được (mục trên), nên làm phía client: `CHAY.cmd` → `tu-dong-vao-to.ps1` (PowerShell 5.1 + C# biên dịch lúc chạy, không cần cài gì). Chỉ khi cửa sổ `Game.exe` đang được chọn: chụp vùng khách ~3 lần/giây, thấy bảng mời tổ thì di chuột tới "Đồng ý", bấm, trả chuột về chỗ cũ.
+- Nhận bảng bằng 3 mẫu trong `mau\` (cắt từ ảnh chụp bảng mời thật, chữ game 1 điểm ảnh, không khử răng cưa → so khớp nhị phân theo ngưỡng, chịu được nền trong suốt): `nut-dong-y.png` + `nut-cu-tuyet.png` (phải nằm ngay bên phải) + `chu-1.png` = chữ "nhóm," phía trên nút. **Chỉ nút thôi là nguy hiểm:** thử trên 38 ảnh chụp trong phiên, chữ "Đồng ý" còn khớp ở 7 chỗ khác (bảng xác nhận mua Tiệm KNB, ô "Đồng ý chi ra KNB", nút cộng điểm tiềm năng) → bắt buộc đủ 3 mẫu, thiếu chữ nhận diện thì không bấm gì.
+- Đã thử: bảng gốc, chữ "nhóm," rơi xuống dòng 2 (tên người mời dài), nền sáng +35, bảng không có chữ "nhóm," (không bấm), bảng đặt trong khung 1280x720 lẫn ảnh game khác (bấm đúng tọa độ). Quét 1 khung ~15 ms. Trên máy Khoa: 2 client đang chạy được nhận là game, không chạy quyền admin, vùng khách 2560x1369.
+- **Chưa thử trong game thật** (không cướp focus/di chuột khi client đang mở). Test: mở 2 client, chạy `CHAY.cmd`, client A mời B, chọn cửa sổ B → phải tự vào tổ. Không bấm → Ctrl+F9 trên nút Đồng ý rồi Ctrl+F10 trên chữ "nhóm," (lấy mẫu lại). Phím Ctrl+F8/F9/F10 chưa kiểm có trùng phím tắt game không.
+- Chưa đưa vào `NetCo4.zip`: chép thư mục `TuDongVaoTo` vào gói hoặc gửi riêng cho người chơi.
+
+## 01/10 23:40 - 2 lỗi: Binh Thánh lớn kẹt ở Gia Luật Diễm + Sát Tinh 11 túi/lượt (Lua, hiệu lực ngay)
+- **Binh Thánh Kỳ Trận (bản lớn 894063): bấm Khiêu chiến Gia Luật Diễm chỉ ra câu "Huynh đệ, hãy cùng ta chiến đấu."** NPC `obj/bingshen/owulaoda.lua` (894072) đòi cờ `XiaoRuJun` = 2 **và** `ShuangZi` = 2 (đã hạ đủ 2 anh em Tiêu Như Quân / Tiêu Như Úy ở Độc Kỳ Trận). Cờ `ShuangZi` do hàm chết của Tiêu Như Úy đặt, nhưng `event/bingshen/ai_xiaoruwei.lua` (894067) **bị cắt cụt từ bản leak** (198 dòng, dừng giữa dòng chú thích "死"; bản nhỏ 616 dòng): không có `OnDie`, `ResetMyAI`, 4 hàm Tick/UseSkill, `OnImpactFadeOut` → boss đánh không có skill (OnInit/OnEnterCombat gọi hàm không tồn tại), chết xong không đặt cờ → Gia Luật Diễm khóa vĩnh viễn. Bản nhỏ (895067) không lỗi.
+- **Sửa:** khôi phục phần đuôi từ **đĩa máy ảo gốc** `/root/Ubuntu.vmdk` (tìm chuỗi `function x894067_OnDie`, khối dữ liệu liền 19.923 byte, đủ 16 hàm, chuỗi đã Việt hóa VISCII), so cấu trúc với bản nhỏ: khớp. Đổi số hiệu ứng 19412/19413/19414/19418 → **8812/8813/8814/8818** cho giống phần còn lại của bản lớn (server này dùng 88xx cho Binh Thánh lớn, 194xx là hiệu ứng giữ chỗ "循环玄属性"; anh em song sinh `ai_sangtugong.lua` tặng đội trưởng 8812 và chờ 8813 tắt, Tiêu Như Úy ngược lại). **Bỏ khối rơi đồ qua script** của bản gốc (bảng `LootItem_1..4` không còn trong file; có phiếu KNB 5.000/10.000 `39910003/4` 60%/người) — giống Tiêu Như Quân bản lớn hiện không rơi qua script. Hệ quả: Tiêu Như Úy giờ **dùng skill** như bản gốc (khó hơn trước). Lượt đang kẹt không cứu được, phải vào lượt mới.
+- Quét toàn bộ script tìm file gọi hàm `x<id>_...` của chính nó mà không định nghĩa: 41 file, toàn hàm phụ (MsgBox, UpdateEventList, NotifyTip...), không có script boss phó bản nào. Chưa sửa.
+- **Sát Tinh (Sinh Tử Lôi Đài): 1 lượt ra 11 túi** (log 22:57–23:00: 11 boss, mỗi boss 2 dòng). Mỗi boss 2 dòng là lỗi của tôi: `shengsileitai.lua` OnDie gọi TB_Ghi rồi gọi `501000` OnDie cũng gọi TB_Ghi (bot gộp dòng trùng 20 giây nên không ra 22 túi; đồ rơi 501000 không nhân đôi vì boss Sát Tinh không có trong bảng pet). Đã bỏ dòng ở `shengsileitai.lua`.
+- Chủ server chốt **chỉ tính boss cuối Ngô Vĩnh**. `roimap.lua`: danh sách Sát Tinh còn `13456`; NPC Tống Giang cũng gọi ra 13456 → `x950001_TB_SatTinhDuoc` chỉ ghi khi NPC Ngô Vĩnh `13552` đã biến mất (đã bị khiêu chiến; respawn 10.000 giây nên không quay lại trong lượt) và ô dữ liệu phó bản 24 chưa = 1 (đặt 0 lúc tạo phó bản trong `MakeCopyScene`). → 1 túi/lượt, tối đa 3/ngày theo lượt vào. 11 túi Sát Tinh test đã tạo vẫn còn trên web (xóa khi mở server cùng `_tuiBoss`).
+- **Chưa test trong game:** Binh Thánh lớn đi hết tới Gia Luật Diễm; Sát Tinh 1 lượt đủ 12 trận → `tuiboss.log` chỉ 1 dòng boss 13456.
+
+## 01/10 23:55 - Quái rơi ngọc cấp 6 thay cấp 5 (bảng rơi cần restart, script boss hiệu lực ngay)
+- Trước: **mọi** hộp ngọc gắn cho quái (87 hộp, 967 loại quái) đều là ngọc **cấp 5**; chỉ 1 hộp cấp 4 (`3001`, 24 quái `879`, `3800`–…); không hộp cấp 6 nào. Chủ server: ngọc 5 đã free → đổi hết sang cấp 6.
+- ID ngọc = `50` + cấp + loại(2) + `0` + chỉ số(2) (`GemInfo.txt`), cấp 6 = cấp 5 **+100000**; đủ 53/53 viên cấp 5 có bản cấp 6.
+- `Server/Config/DropBoxContent.txt`: 8.499 ô ngọc cấp 5 trong 178 hộp (87 hộp gắn quái + 91 hộp không ai dùng) → cấp 6. Chỉ đổi ô vật phẩm, BoxValue/số món rơi giữ nguyên. **Cần restart.**
+- 9 script boss có bảng rơi qua script (`LootItem_*`, `ItemDroplisst`): Binh Thánh nhỏ (`event/bingshensmall/ai_hadaba/liqiushui/sangtugong/wulaoda/xiaoruwei`), Thiếu Thất (`event/shaoshi/ai_bingcan/liqiushui/wulaoda`), Tứ Tuyệt (`event/sijuezhuang/ai_liqiushui`): 118 ô → cấp 6 (dòng đã chú thích `--` để nguyên). Lua → hiệu lực ngay.
+- **Không đổi** (không phải quái rơi): rương mở bằng vật phẩm (`obj/item/zhuandan_*`, `XieziBags`, `UniverseBag`, `siliubaoshi`), tách/khảm ngọc (`MyLua/mingjingshi/*Gem_ZuoKeFenLi`, `gem_embed`), tiệm/NPC đổi (`oqianzhuang_remai`, `oluoyang_*`), quà/sự kiện (`New/1TakeGift`, `New/lucky/action`, `New/guigu/*`, `flower4`), rương bản đồ kho báu (`gp_renwu_chengxiongdatu_baoxiang`), `boxdroplist_*.txt` (rương). Hộp ngọc cấp 4 `3001` giữ nguyên. Cấu hình túi boss trên web đã dùng ngọc cấp 6 sẵn.
+- Kiểm: so từng token với HEAD, 8.617 chỗ khác đều là c5 → c6 cùng loại, 0 chỗ lạ; số byte, byte >127, CR/LF không đổi. Rollback: tag `truoc-ngoc6-01-10`.
+- **01/10 23:49 kiểm trong game:** NPC Gia Luật Diễm không còn câu "Huynh đệ, hãy cùng ta chiến đấu." (đã qua 2 cờ `XiaoRuJun`/`ShuangZi` → phần khôi phục Tiêu Như Úy chạy). Hai thông báo gặp sau đó là đúng luật: "Các hạ yêu cầu giữ chức Trưởng nhóm" (chỉ đội trưởng bấm Khiêu chiến được) và "Đang cùng Tiêu Như Quân, Tiêu Như Úy tử chiến…" (`CheckHaveBOSS`: còn boss sống; 2 anh em phải hạ **cách nhau dưới 30 giây**, không thì con chết trước sống lại). Chưa thấy hạ Gia Luật Diễm.
+
+## 02/10 00:05 - Binh Thánh lớn: 2 anh em hạ cùng lúc vẫn sống lại (lỗi lộ ra sau khi khôi phục Tiêu Như Úy) - Lua, hiệu lực ngay
+- Cơ chế: con chết trước gắn cho đội trưởng hiệu ứng 30 giây (`StandardImpact` 8812 khi Tiêu Như Quân chết → hết hạn gọi `x894067_OnImpactFadeOut`; 8813 khi Tiêu Như Úy chết → `x894065_OnImpactFadeOut`). Hết 30 giây, nếu con kia còn → gọi con đã chết sống lại.
+- Lỗi gốc của script: chỉ kiểm "có quái 15135 / 15130 trong danh sách" (`GetMonsterDataID`), **không kiểm còn sống**; xác vẫn nằm trong danh sách quái (vì vậy `CheckHaveBOSS` của phó bản phải lọc `LuaFnIsCharacterLiving`) → hạ cả 2 cùng lúc, 30 giây sau cả 2 đều sống lại. Trước 01/10 23:26 nhánh này không chạy vì `ai_xiaoruwei.lua` mất hàm (và Gia Luật Diễm khóa luôn).
+- Sửa: thêm `and LuaFnIsCharacterLiving( sceneId, nObjId ) == 1` vào đúng 2 dòng kiểm (`ai_xiaoruwei.lua` 15135, `ai_sangtugong.lua` 15130). Luật còn lại giữ nguyên: hạ 1 con rồi để con kia sống quá 30 giây thì con đã chết vẫn sống lại.
+
+## 02/10 00:25 - Hậu Hoa Viên: Xích Tiêu Hỏa Hồn hồi sinh 30 phút (cần restart)
+- `Public/Scene/newbie_2_monster.ini` (dùng chung cho Hậu Hoa Viên 62 / 82 / 182): 5 điểm quái `1375` Xích Tiêu Hỏa Hồn cấp 75 `respawn_time` 180000 → **1800000** (3 phút → 30 phút, mỗi điểm tính riêng). 67 điểm Mã Tràng Thủ Vệ `11469` giữ 5 giây.
+- Ghi chú rơi đồ Hậu Hoa Viên (kiểm 02/10): Mã Tràng Thủ Vệ ~1,6 món/người/con (Kim Điều 40%, Kỉ Niệm Đồng Tệ 40%, Chí Tôn Cường Hóa Tinh Hoa 30% từ `roimap.lua` + 3% từ hộp 86003, MB/BN 5–8 17%…). Xích Tiêu Hỏa Hồn cấp 75: nhân vật 119 bị giảm rơi 10% (`DropAttenuation`, chênh −36…−50), 126+ còn 5% → hộp gần như không rơi; chỉ script 30% Chí Tôn Cường Hóa là đều.
+
+## 02/10 00:50 - Tuyết Lang Hồ chỉ rơi Phục Hi Ngọc 30% (bảng rơi cần restart; 5 con mạnh: Lua hiệu lực ngay)
+- Chủ server: mọi đồ khác ở Tuyết Lang Hồ là rác. `MonsterDropBoxs.txt`: 15 loại quái `11154`–`11163`, `11299`–`11303` giữ dòng nhưng 20 cột hộp → `-1` (220 ô). **`11154` Gấu Đen Lớn còn 2 điểm ở `xuezhanymg_monster.ini` → chỗ đó cũng hết rơi.** Rollback: tag `truoc-tuyetlang-chi-phuchi-02-10`.
+- 5 con mạnh `11299`–`11303` (hồi sinh 5 phút, script `obj/elite/xuelanghu_N_baby.lua` trước trống) → thêm `CallScriptFunction( 950001, "OnDie", ...)` → cũng rơi Phục Hi Ngọc 30%/người như quái thường.
+- **Không dùng `LuaFnDisableMonsterDropBox`** (đọc binary 02/10): `Obj_Monster::OnDie` = `OnDie_Before` → `Obj_Character::OnDie` (gọi Lua OnDie) → `OnDie_After`; `OnDie_After` thấy cờ `0xeb4` = 0 thì bỏ cả `CaculateBossDropRuler`, mà hàm này mới là chỗ tạo hộp trên xác cho **cả** món `AddMonsterDropItem` của script (`CreateMonsterDropItembox` → `AddItem` món script → `CaculateItemDropFromMonster` món bảng) → tắt cờ = mất luôn Phục Hi Ngọc. Bỏ hộp trong `MonsterDropBoxs` thì món script vẫn rơi (hàm chỉ thoát sớm khi không có quái/scene/chủ sở hữu). Exp + nhiệm vụ diệt quái chạy trước điểm kiểm cờ.
+
+## 02/10 00:45 - Túc Cầu không ra quái/boss (chỉ 4 NPC) → lỗi cấp tối đa 119, sửa 5 script (Lua, hiệu lực ngay)
+- Nguyên nhân: `ConfigInfo.ini HumanMaxDefaultLevel=119` → `GetHumanMaxLevelLimit()` = 119. Script tính cấp quái `iniLevel = floor(cấp/10)` nhưng nhánh **cấp đội ≥ cấp tối đa** viết `iniLevel = PlayerMaxLevel/10` = **11,9** (bản gốc tối đa 100 → 10 tròn) → `bảng[11.9]` = nil → ID quái 0 → không gọi được quái nào. Cấp đội = Σcấp⁴/Σcấp³ nên đội toàn 119 (hoặc có người 119) dính.
+- Sửa (`floor`): `event/fuben/efuben_cuju.lua` (Túc Cầu 402040), `event/fuben/efuben_jiaofei.lua` (402030), `event/olympicgames/eGodFireTransfer_fuben.lua` (có dự phòng nên vẫn ra quái cấp thấp nhất, giờ đúng cấp), `event/huodong/seek_treasure.lua` + `seek_treasure2.lua` (**Lâu Lan Tầm Bảo** 808039: nhánh thường `floor(cấp/10) - 6`, nhánh tối đa sửa thành `floor(119/10) - 6` = 5 như cấp 110–119; trước ra 11,9 → không ra quái/boss Trấn Bảo Long Vương).
+- Túc Cầu ghi giờ vào (`MD_CUJU_PRE_TIME`) ngay khi vào → lượt hỏng vẫn khóa 24 giờ. Thêm `x402040_g_MocSuaLoi = 1790876753` (02/10 00:45): lần vào trước mốc không tính.
+- Lượt Túc Cầu đang mở (tạo trước khi sửa) không cứu được: ra rồi vào lại.
+
+## 02/10 01:10 - Túc Cầu: mọi quả túc cầu rơi Tử Vi Linh Phách 50% (Lua, hiệu lực ngay)
+- `event/fuben/efuben_cuju_4.lua` (402045, script của quả túc cầu nhỏ / Hoa Sắc / quả lớn): đầu `OnDie` gọi `CallScriptFunction( 950001, "RoiDo", ..., 30600084, 50 )` → mỗi người trong tổ ở gần roll 50%, đồ trên xác. Bảng rơi các quả này vốn trống (log `Search Obj_Monster DropBox MonsterType:33680 Get Errors` = không có dòng, nhưng đường tạo hộp vẫn chạy nên món script vẫn rơi). Boss Tôn Mỹ Mỹ (script 402040) giữ bảng rơi gốc.
+- Ghi chú: bộ đếm "Đã giết chết túc cầu N/149" trong `OnDie` so tên kiểu "Song song yến", còn quả túc cầu được đặt tên "Hoàng Sắc Túc Cầu"… nên bộ đếm không bao giờ tăng (chỉ là thông báo, không ảnh hưởng ra boss).
+- **Mở:** log 02/10 00:42–00:51 Binh Thánh lớn (scene 36) gọi ra 71 con quái `Type=0` cách 12–15 giây (ID rỗng). Mọi ID quái phụ của 3 boss cuối đều có trong bảng; chưa tìm ra nguồn. Không chặn phó bản (Gia Luật Diễm, Gia Luật Liên Thành vẫn ra).
+
+## 02/10 01:25 - Hạ rơi thêm qua script xuống tối đa 30% (Lua, hiệu lực ngay)
+- Túc Cầu (mọi quả túc cầu, `efuben_cuju_4.lua`): Tử Vi Linh Phách 50% → **30%**.
+- Liên Hoàn Q Tô Châu / Q Lâu Lan - Viêm Ma Sơn: Cửu Thiên Ngọc Toái 40% → **30%** (`sancaixiagunpc_die.lua`, `yamoshannpc_die.lua`, `roimap.lua` `x950001_g_RoiPhoBan` [50100]/[50220]).
+- Giữ nguyên (đã ≤ 30%): Tuyết Lang Hồ Phục Hi Ngọc 30%, Hậu Hoa Viên Chí Tôn Cường Hóa Tinh Hoa 30%, Hàn Huyết Lĩnh Kim Tàm Ti 30%, Q Tô Châu / Q Lâu Lan Miên Bố–Bí Ngân 6 bốc 1 10%.
+
+## 02/10 01:35 - CHỐT: mọi món rơi thêm qua script = 20% (Lua, hiệu lực ngay)
+- Chủ server: 30% vẫn rơi rất nhiều → chốt 20% cho tất cả quái chạy cấu hình riêng: Túc Cầu Tử Vi Linh Phách, Q Tô Châu / Q Lâu Lan - Viêm Ma Sơn Cửu Thiên Ngọc Toái, Tuyết Lang Hồ Phục Hi Ngọc, Hậu Hoa Viên Chí Tôn Cường Hóa Tinh Hoa, Hàn Huyết Lĩnh Kim Tàm Ti (`roimap.lua` `x950001_g_Roi` / `x950001_g_RoiPhoBan`, `efuben_cuju_4.lua`, `sancaixiagunpc_die.lua`, `yamoshannpc_die.lua`). Miên Bố / Bí Ngân 6 bốc 1 giữ 10%.
+- Tỉ lệ là cho **mỗi người** trong tổ ở gần, mỗi con.
+
+## 02/10 01:45 - https://netco4.click/ = trang Bảng Rơi, https://play.netco4.click/ = trang chơi
+- nginx `/etc/nginx/sites-available/netco4` (bản cũ: `/opt/tlbb-backup/nginx-netco4-20261002-010611`): tách khối `netco4.click play.netco4.click` thành 2. `play.` giữ nguyên proxy 3002. `netco4.click`: `location = /` (và `/index.html`) trả file tĩnh `/var/www/netco4/index.html`, **mọi đường dẫn khác vẫn proxy 3002** (tab cũ đang mở ở netco4.click, `/api/...` không hỏng). Đã kiểm: `/` 200 Bảng Rơi, `/api/state` 401 (như cũ khi chưa đăng nhập), play 200, admin 200.
+- Trang: tra quái / boss / bản đồ / vật phẩm, tỉ lệ mỗi người mỗi con, ô cấp nhân vật (giảm rơi theo chênh cấp), nút "Vào trang chơi". Cũng có bản Artifact riêng tư https://claude.ai/artifact/3KCmXU8gXkLYXMazGZwzmw.
+- **Cập nhật trang khi đổi bảng rơi / script rơi:**
+  `node tools/bang-roi/lam.js` rồi `scp -P 24700 tools/bang-roi/web/index.html root@103.216.118.123:/var/www/netco4/index.html` (không cần reload nginx). Trang đọc file trong repo, nên dựng sau khi đã commit thay đổi game.
+
+## 02/10 01:55 - CHỐT LẠI: mọi món rơi thêm qua script = 25% (Lua, hiệu lực ngay)
+- Chủ server đổi từ 20% lên 25%, cùng 5 nhóm: Túc Cầu Tử Vi Linh Phách, Q Tô Châu / Q Lâu Lan Cửu Thiên Ngọc Toái, Tuyết Lang Hồ Phục Hi Ngọc, Hậu Hoa Viên Chí Tôn Cường Hóa Tinh Hoa, Hàn Huyết Lĩnh Kim Tàm Ti. Miên Bố / Bí Ngân 6 giữ 10%. Trang https://netco4.click/ đã dựng lại theo 25%.
+
+## 02/10 02:05 - CHỐT LẠI: mọi món rơi thêm qua script = 30% (Lua, hiệu lực ngay)
+- Chủ server đổi 25% → 30%, cùng 5 nhóm (Túc Cầu Tử Vi Linh Phách, Q Tô Châu / Q Lâu Lan Cửu Thiên Ngọc Toái, Tuyết Lang Hồ Phục Hi Ngọc, Hậu Hoa Viên Chí Tôn Cường Hóa Tinh Hoa, Hàn Huyết Lĩnh Kim Tàm Ti). Miên Bố / Bí Ngân 6 giữ 10%. Trang https://netco4.click/ dựng lại theo 30%.
+
+## 02/10 02:20 - Võ Lâm Bí Tịch: chiêu Nhị / Tam không ra dù ghi 100% (sửa, Lua hiệu lực ngay) + "Tầng" kẹt ở 8 (trần thiết kế)
+- **Nối chiêu** (`MyLua/MiJI/wujue.lua`, script 899040, gắn vào hiệu ứng `StandardImpact` logic 90 của chiêu): hiệu ứng chiêu trước tắt → rút `random(1,100) <= tỉ lệ sách` → gửi UI `2014092001` cho client đánh chiêu sau (Nhất → Nhị → Tam). Mã sách là **số lẻ 1, 3, …, 31** (vật phẩm `30311001`–`30311031`, `BookUpLevelOrDel.lua` `x890099_g_sitem`: sách b cho chiêu `850+3k`..`852+3k`, k = (b−1)/2) nhưng `wujue.lua` còn theo cách đánh số cũ 1..16: bảng `g_sum` 16 mục và tra tỉ lệ `kailu[floor((chiêu-848)/3)]` = k+1 → chỉ sách 1 khớp, mọi sách khác tỉ lệ 0 → chiêu Nhị/Tam không bao giờ ra. Sửa: `g_sum` 32 mục (như BookUpLevelOrDel) + tra `kailu[floor((chiêu-850)/3)*2+1]`. Kiểm: 32/32 chiêu Nhị/Tam ra đúng mã sách; bia1 (sách 29, 31, 27, mỗi cuốn 112.785) tỉ lệ 0 → 100%. **Chưa thử trong game**; nếu vẫn không ra thì phía client không xử lý lệnh `2014092001`.
+- **"Tu Luyện Cảnh Giới: Tầng N"**: client tự quy từ tổng điểm 3 sách (`ShenDing.lua` gửi `xiuweijinjue` = ô 444 + 445 + 446) theo mốc 10.000 / 60.000 / 70.000 / 90.000 / 120.000 / 160.000 / 260.000 / **338.000 (tầng 8)** / 530.000 / 780.000 / 1.080.000 / 1.440.000. Sách cấp 99 tối đa = 112.785 điểm (sách 27–31) → 3 cuốn tối đa = 338.355 → **Tầng 8 là trần**, tầng 9 trở lên không đạt được với hệ thống hiện tại (bảng mốc `jinjueLevel` trên server không được dùng, tầng chỉ để hiển thị). Muốn lên tầng 9+ phải cho sách vượt cấp 99 (bảng tâm đắc mỗi cấp + chặn `== 99` trong `BookUpLevelOrDel.lua`) - chưa làm, chờ chủ server quyết.
+- Dữ liệu bia1 (đọc DB 02/10): ô 443 = 3293127 (tông 3, sách 29/31/27), 444–446 = 112.785, 442 tâm đắc = 18.045, 440 tầng Chu Thiên = 0.
+
+## 02/10 02:40 - Kỳ Cuộc (= "Cờ 12h"): Việt hóa, giờ đánh, túi đồ boss (Lua hiệu lực ngay; bot đã chép)
+- **Là gì:** Trân Long Kỳ Cuộc. NPC `obj/luoyang/oluoyang_fuben_zhenlong.lua` (000090, ở Lạc Dương / Tô Châu / Đại Lý) chỉ đưa vào **Phòng nghỉ** (Lạc Dương 418/419, Tô Châu 518, Đại Lý 193). Bàn cờ vào qua 2 mục của cùng NPC:
+  - `event/fuben/efuben_1_zhenlong_huodong.lua` (401001) **thường**: chỉ mở **11:30–14:30 và 20:30–22:00** (`x401001_g_beginTime1..endTime2`), tổ ≥ 1 người, cấp ≥ 10. Ngoài giờ NPC báo "Chưa đến thời điểm…" → đó là lý do bị đưa vào phòng nghỉ mà không đánh.
+  - `event/fuben/efuben_1_zhenlong2_huodong.lua` (401002) **chế độ nhanh**: server cũ sửa `IsActivityOpen` → luôn mở; tổ ≥ 3 người, cấp ≥ 100.
+  - Cả 2 dùng chung `MD_LAST_QIJU_DAY` → 1 lượt/ngày/nhân vật.
+- **Việt hóa:** 11 chuỗi tiếng Trung ở NPC 000090 (menu: Giới thiệu Kỳ Cuộc, Vào Phòng nghỉ…, Về Phòng nghỉ, Làm sao nhận thêm kinh nghiệm khi đánh cờ; 2 câu lỗi tổ đội) + 31 chuỗi ở 401002 (thông báo vào/điều kiện, đếm giờ, tên boss, 6 câu thắng trận chép bản Việt hóa có sẵn của 401001; bỏ câu đùa tiếng Trung "nếu thấy dòng này là mạng lag"). Viết bằng mã thoát VISCII `\ddd`. 401001 đã Việt hóa sẵn (chữ Trung còn lại chỉ trong chú thích).
+- **Túi đồ boss "Cờ 12h":** khi boss cuối Viễn Cổ Kỳ Hồn chết (khối `objType == LastBoss[mgroup]` của 401001 / 401002) → `TB_GhiId` → mọi người trong bàn cờ có túi: Vũ Học Tâm Đắc ×15, Bí Tịch Tàn Hiệt ×5, Võ Hồn cấp 2–4 ×1 (không KNB), trần 1/ngày. 60 ID boss (3 mức × 20 bậc) thêm vào `roimap.lua` (vòng `for`) và bot `tuiboss.js` hoạt động `kycuoc`. Chưa test trong game.
+
+## 02/10 trưa–chiều — TỔNG KẾT PHIÊN (đọc mục này trước khi làm tiếp)
+
+Trạng thái lúc 15:55: mọi việc dưới đây **đã commit, đã deploy**. Game restart lần cuối **15:51**, nên mọi thay đổi bảng .txt đều đã có hiệu lực.
+
+### A. Web / bot (repo bialk, `/opt/minigame/BotDoMin`, không phải git trên VPS)
+
+- **Vòng Quay May Mắn trên web** (nhóm 🪪 Cá nhân → 🍀). Chi tiết ở `docs/VONG-QUAY.md`.
+  - Mở hoặc làm mới vòng: 8.000 KNB, bốc 24 món theo trọng số từ bộ quà. Mặc định là 377 món vòng quay gốc.
+  - Rút thăm: tốn 1 lượt quay. Túi đồ boss cho 2 lượt, thay cho Hạnh Vận Quả ×2.
+  - Quà vào rương web, tối đa 100 dòng, trúng trùng thì cộng dồn. Người chơi có nút Nhận vào game và nút Xóa.
+  - **Không còn VIP.** Mỗi vòng quay tối đa **40 lần**, admin chỉnh ở ô "Số lần quay / vòng". Đủ thì phải Làm mới. Trang hiện "vòng này còn X/40".
+  - Có ô Tự động quay, mỗi lượt 3 vòng chậm dần, nghỉ 1,5 giây.
+  - Cấu hình nằm ở `dbCache._vqCfg = {on, gia, max, pool}`. Người chơi: `u.vq = {luot, board, boardN, ruong, lich}`.
+  - Code: `vongquay.js`, `webplay.js` (trang `pageVq`), `panel.js` (tab 🎁 Quà tặng, thẻ Vòng quay).
+- **Hình vật phẩm game theo ID**: `itemicon.js` cùng `data/itemicons.json` (23.366 món), ảnh nằm ở `/opt/minigame/itemicon`. Công cụ dựng: `tools/icon-vat-pham/lam.js` trong repo game.
+  - Dùng cho vòng quay, shop web, quà mỗi ngày, và ô xem trước trong admin (bảng Shop Item, Quà admin tặng).
+  - Ảnh tự tải lên vẫn được ưu tiên.
+- Tab 🎁 Quà tặng đã mở cho cổng mod. Riêng cấp lượt quay vẫn chỉ cổng SUPER.
+- **Bẫy:** `minigame.service` có `After=tlbb.service`. Restart bot trong lúc game đang restart thì bot phải chờ game lên, nên mọi trang web sập 2–3 phút. Đã xảy ra 14:49–14:51. Trước khi restart bot, kiểm `systemctl list-jobs` phải trống.
+
+### B. Game (repo này) — sổ shop chi tiết ở `docs/SHOP-TRONG-GAME.md`
+
+| Việc | Commit | Tag quay lại |
+|---|---|---|
+| Shop 150 trả về ngọc cấp 4 như gốc | bd73440 | truoc-shop150-ngoc4-02-10 |
+| Ngọc cấp 6 ở boss: Đế Thích Thiên dùng hộp 90031 (ngọc loại khác 50%) và 90032 (Băng/Hỏa/Huyền/Độc/Thể lực 20%). 11 boss bỏ hộp 50032 (ngọc giảm kháng) | 7e69269 | (xem commit) |
+| Hậu Hoa Viên chỉ mở 22:00–23:59, nhánh `mo-server` sửa giống | 1308190 | truoc-hhv-22h-02-10 |
+| Kệ 164 Yếu Quyết 80: làm trống | ab81ad4 | truoc-xoa-yq80-02-10 |
+| Kệ 181 bỏ Chưởng Quỹ Yếu Quyết 30008053 | b039dbe | truoc-xoa-30008053-02-10 |
+| Kệ 180 bỏ Canh Danh Thiếp và Chuyển Tính Đan | db37f51 | truoc-xoa-ke180-02-10 |
+| Thần khí 42 bản 2.000 (kệ 136): 10 dòng cố định khi mua | 4f483fd | truoc-thankhi42-02-10 |
+| Sách pet kệ 102/133/134 trả KNB (50k/20k/10k/5k). Shop BaBy kệ 270 tắt | 2cde507 | truoc-sachpet-shopbaby-02-10 |
+
+Trang Bảng Rơi https://netco4.click/ đã dựng lại sau khi đổi tỉ lệ ngọc, bằng `node tools/bang-roi/lam.js` rồi chép `web/index.html` lên `/var/www/netco4/`.
+
+### C. Kiến thức mới (dịch ngược Server.elf, World)
+
+- **Dòng thuộc tính trang bị xanh / thần khí** (`ItemCreateRuler::CreateBlueEquipAttrib` + `CheckBlueEquipAttr`):
+  - Thuộc tính số k (0..57) dùng 3 chỗ: trọng số ở `EquipBase` cột k+32 (-1 = tắt), giá trị gốc ở `ItemSegValue` cột k+1, hệ số ở `Server/Config/ItemSegRate` cột k+1.
+  - Các cột khác của `EquipBase`: 90 quy tắc phẩm chất, 91 đoạn giá trị, 92/93 số dòng min/max (trần 16), 24 có tư chất, 94/95 tư chất, 25 có random cấp phẩm chất, 100 = T.
+  - Giá trị = ceil(V × (Rate[cấp] + (Rate[cấp+1] − Rate[cấp]) × rand%100 × 0,01 / T) × 0,01). Nếu T ≤ 0 thì bỏ phần rand.
+  - Quy tắc 1..8 luôn cho cấp phẩm chất cố định.
+  - **Muốn set cứng dòng cho món nào:** thêm một đoạn mới vào `ItemSegValue` với V = round(muốn × 100 / Rate), giữ thứ tự ID tăng dần. Ví dụ là đoạn 4400.
+- **Sinh sản trân thú** (NPC Vân Phi Phi, Tô Châu): thời gian = trung bình cột 49 `宠物繁殖时间(ms)` của 2 pet trong `PetAttrTable`. Bảng gốc đã là 1 ms cho mọi pet, nên không cần sửa. World đếm lùi, xong thì gửi thư, giữ chờ nhận 48 giờ.
+- **PetAttrTable:** tư chất chuẩn ở cột 35–39 (Lực/Thể/Linh/Thân/Định). Tên tiếng Việt của pet lấy ở `MonsterAttrExTable` dòng cùng ID. Ví dụ Tam Long Thái Tử = 30400–30469.
+- **Sách kỹ năng pet** = `PetSkillBook.txt` (30402xxx → mã kỹ năng). Loại chiêu ở `SkillTemplate_V1` cột 27: 0 chủ bấm, 1 pet tự đánh, 2 bị động.
+- **Ngọc giảm kháng** = 4 dòng Minh Thạch 50x21xxx. Quái thường đặt trên bản đồ không rơi loại này. Chỉ còn ở:
+  - Dã Trư và lính trộm Phượng Hoàng: cấp 4, 0,83%.
+  - Gia Luật Hồng Cơ, trùm Huyết Chiến Nhạn Môn (script 391211): cấp 6, 3,75%.
+  - 9 con mang hộp 50032 nhưng không có chỗ gọi ra.
+
+### D. Còn chờ chủ server quyết
+
+1. **Kệ 151** (ngọc cấp 6, KNB 10.000–30.000): bỏ trống hay giữ. Đổi ID về cấp 4 thì vô nghĩa, vì kệ 150 đã bán bằng Điểm Tặng.
+2. **Kệ 31** (vàng): bỏ Chưởng Quỹ Yếu Quyết 30008053 (ô thứ 7) không.
+3. **Gia Luật Hồng Cơ** có bỏ hộp 50032 không. Cần kiểm trước xem phó bản Huyết Chiến Nhạn Môn có vào được không.
+4. Ngày mở server: mọi quyết định đã đủ (`docs/MO-SERVER.md` mục 2b). Chờ người dùng nói "làm".
+
+### E. Chưa kiểm trong game (nên test tối nay)
+
+- Mua 1 cây Thần khí 42 nội và 1 cây ngoại: đủ 10 dòng, đúng số.
+- Kệ sách pet: trả KNB, đúng giá. Shop BaBy trống, mở ra không lỗi.
+- Đế Thích Thiên rơi ngọc cấp 6 đúng tỉ lệ. Các boss khác không còn ngọc giảm kháng cấp 6.
+- Vòng quay web: đếm 40 lần, Làm mới về 40, Tự động quay dừng đúng lúc.
+
+### F. Quy tắc làm việc người dùng đã đặt
+
+- Không restart game khi có người online, trừ khi người dùng nói "reset". Người dùng tự bấm reset trên trang GM.
+- Luôn tạo git tag rollback trước khi sửa. Repo public: không commit secret.
+- Khi người dùng chỉ hỏi ("check", "gửi list rồi chốt") thì trả lời và chờ, không tự sửa.
+- Shop web do chủ server tự đặt: không đụng khi sửa shop game. Mọi sửa shop game ghi thêm vào `docs/SHOP-TRONG-GAME.md`.
+
+## 02/10 16:20 - Mẫu đồ chế 8x/9x trên admin (tab 🛠️ GM → 🧵 Mẫu đồ chế 8x/9x, chỉ cổng SUPER)
+
+**Cập nhật 16:45:**
+- Bỏ vũ khí khỏi đồ chế, vì vũ khí đi đường thần khí. Còn 62 món.
+- Thêm **108 Thái Cổ Thần Khí 9 sao**, lấy từ `x895111_TaiGu_shenqi` trong `MyLua/shenqinew/wuyazi85o.lua`.
+- Tẩy bằng **Ma Huyết Thạch 30505813** ở Phượng Minh Trấn (tepp 20): script gọi `TryRecieveItem` tạo món mới cùng ID rồi chuyển ngọc và tên sang. Món mới đi qua hàm sinh dòng, nên ăn mẫu y như đồ chế.
+- Thái Cổ có 17 hoặc 19 loại dòng, ra 11 dòng, quy tắc 9, T = -1. Vì vậy **số ra cố định**, ví dụ Ngoại công 2225, Chính xác 1433.
+- Lưu ý: trong lúc áp mẫu, mọi cách tạo ra đúng ID đó cũng ăn mẫu, kể cả tẩy, tiến giai lên Thái Cổ và quà admin.
+
+**Cập nhật 17:00:**
+- Gộp các ID có dòng EquipBase giống hệt (khác mỗi cột 0 và 4) thành 1 dòng. Áp hoặc trả mẫu sẽ làm cho cả nhóm.
+- Thái Cổ: 108 ID gộp thành 37 nhóm. Mỗi nhánh nâng cấp 6–7 sao cho 1 ID riêng, nhưng lên 8–9 sao thì dữ liệu như nhau. Ví dụ U Minh - Hút máu = 10303449/452/455, đến từ Thượng Cổ 10303431/434/437.
+- `maudoche.json` lưu thêm `ids` cho mỗi mẫu.
+- Mục này **ẩn ở cổng mod** (lớp `epOnly`). `/api/gm/doche` nằm trong `VIEWONLY_PATHS`.
+
+**Cách dùng:**
+1. Bấm 🔄 Tải rồi chọn món. Có 78 món chế cấp 80–99 lấy từ `ItemCompound`, xếp theo vị trí.
+2. Tick dòng muốn có. Chỉ hiện những dòng món đó tự ra được, và số dòng không quá mức tối đa tự nhiên.
+3. Chọn cấp phẩm chất 1–9 và tư chất. Bảng hiện khoảng số của từng dòng ở cấp đã chọn.
+4. Bấm **Áp mẫu** (hoặc Áp + Restart), rồi restart. Chế và giám định.
+5. Bấm **Trả mẫu** (hoặc Trả + Restart), rồi restart.
+
+**Kết quả:** đúng dòng, đúng số dòng, đúng cấp. Số mỗi dòng ngẫu nhiên trong khoảng của cấp đó, chốt lúc chế.
+- Trả mẫu không làm đổi số. Lý do: mẫu không đụng cột 91 (đoạn giá trị) và cột 100 (T). Server tính lại số mỗi lần nhân vật vào game, từ `ItemSegValue[cột 91]`, cấp và số rand đã lưu trên món.
+- Trong lúc mẫu đang áp, **ai chế món đó cũng ra y hệt**. Trang admin hiện khung đỏ "Đang áp N mẫu".
+
+**Kỹ thuật:**
+- Code: `panel/maudoche.py`. Có thể chạy `python3 panel/maudoche.py --xem [ID]` để xem.
+- `panel.py` có act `doche_ap` / `doche_tra` và `GET /api/doche`. Bot dùng `/api/gm/doche` và tab GM trong `panel.js`.
+- Mẫu đang áp lưu ở `Server/txt/NetCo4Cfg/maudoche.json`, ngoài repo.
+- `cap-nhat.sh` gọi `--ap-lai` sau rsync, vì rsync ghi đè EquipBase bằng bản repo.
+- Đã thử trên bản sao: áp rồi trả cho ra file giống hệt gốc từng byte.
+
+**Chưa thử trong game.** Lần đầu nên chế 1 món xem đúng dòng không.
+
+Rollback: tag `truoc-maudoche-02-10`.

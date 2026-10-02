@@ -2,7 +2,7 @@
 --Ìí¼Ó´øÐÂÊÖÆå¾ÖÄ£Ê½[ QUFEI 2008-06-06 22:01 UPDATE BugID 35309 ]
 
 x401002_g_ScriptId = 401002;			--½Å±¾ºÅ
-x401002_g_CopySceneName="ÕäççÆå¾Ö[¿ìËÙÄ£Ê½]";		--¸±±¾Ãû³Æ
+x401002_g_CopySceneName="Tr\226n Long K\207 Cu\181c [Ch\170 \240\181 nhanh]";		--¸±±¾Ãû³Æ
 
 x401002_g_beginTime1 = 11 * 60 + 30;
 x401002_g_endTime1 = 14 * 60 + 30;
@@ -184,7 +184,7 @@ function x401002_CheckAndEnterScene(sceneId, selfId, targetId, eventId)
 		return
 	end
 
-	strOutmsg = "Äú²»ÊÇ¶Ó³¤£¬Ö»ÓÐ¶Ó³¤²ÅÄÜÑ¡ÔñÊÇ·ñ²Î¼Ó»î¶¯¡£";
+	strOutmsg = "C\225c h\213 kh\244ng ph\228i nh\243m tr\223\183ng, ch\239 nh\243m tr\223\183ng m\190i ch\247n \240\223\254c vi\174c tham gia.";
 	if LuaFnIsTeamLeader(sceneId, selfId) == 0 then
 		if x401002_enumerate == eventId then
 			AddText(sceneId, strOutmsg);
@@ -195,7 +195,7 @@ function x401002_CheckAndEnterScene(sceneId, selfId, targetId, eventId)
 	end
 
 	--È¡µÃÍæ¼Ò¸½½üµÄ¶ÓÓÑÊýÁ¿£¨°üÀ¨×Ô¼º£©
-	strOutmsg = "²Î¼ÓÆå¾Ö»î¶¯±ØÐëÒªÇó"..x401002_g_limitMembers.."ÈË»òÕß"..x401002_g_limitMembers.."ÈËÒÔÉÏ×é¶Ó²ÅÄÜ½øÈë£¬ÄúµÄ¶ÓÎéÈËÊý²»×ã¡£";
+	strOutmsg = "Tham gia K\207 Cu\181c c\165n t\177 \240\181i "..x401002_g_limitMembers.." ng\223\182i ho\163c "..x401002_g_limitMembers.." ng\223\182i tr\183 l\234n, nh\243m c\252a c\225c h\213 ch\223a \240\252 ng\223\182i.";
 	local teamMemberCount = GetTeamMemberCount(sceneId, selfId);
 	if not teamMemberCount or teamMemberCount < x401002_g_limitMembers then
 		if x401002_enumerate == eventId then
@@ -210,7 +210,7 @@ function x401002_CheckAndEnterScene(sceneId, selfId, targetId, eventId)
 	--²¢²»ÔÙÌáÊ¾¾ßÌå²»ÔÚ¸½½üµÄ¶ÓÔ±Ãû³Æ
 	
 	local nearMemberCount = GetNearTeamCount(sceneId, selfId);
-	strOutmsg = "ÄúÓÐ¶ÓÔ±²»ÔÚ¸½½ü£¬Çë¼¯ºÏºóÔÙÕÒÎÒ½øÈë»î¶¯¡£";
+	strOutmsg = "C\243 th\224nh vi\234n kh\244ng \183 g\165n, t\167p h\254p \240\252 r\176i t\236m ta \240\172 v\224o.";
 	if not nearMemberCount or teamMemberCount ~= nearMemberCount then
 		if x401002_enumerate == eventId then
 			AddText(sceneId, strOutmsg);
@@ -326,7 +326,7 @@ function x401002_CheckAndEnterScene(sceneId, selfId, targetId, eventId)
 	--È¡µÃÍæ¼Ò¸½½üµÄ¶ÓÓÑÊýÁ¿£¨°üÀ¨×Ô¼º£©
 	local day = GetDayTime();
 	local memName;
-	local checkPKvalueMsg = "¶ÔÞÄÆå¾ÖÐèÒªÐÄÆ½ÆøºÍ£¬É±Æø¹ýÖØÕß²»ÊÊºÏ½øÈë£¬£¨";
+	local checkPKvalueMsg = "\208\225nh c\182 c\165n b\236nh t\226m, ng\223\182i s\225t kh\237 qu\225 n\163ng kh\244ng th\237ch h\254p v\224o (";
 	local checkPKcount = 0;
 	for	i=0,nearMemberCount-1 do
 		local memId = GetNearTeamMember(sceneId, selfId, i)
@@ -343,7 +343,7 @@ function x401002_CheckAndEnterScene(sceneId, selfId, targetId, eventId)
 	end
 	
 	if checkPKcount > 0 then
-		checkPKvalueMsg = checkPKvalueMsg.."£©É±Æø¹ý¸ß£¬»¹ÊÇÇë»Ø°É¡£";
+		checkPKvalueMsg = checkPKvalueMsg..") s\225t kh\237 qu\225 cao, xin h\227y quay v\171.";
 		if x401002_enumerate == eventId then
 			AddText(sceneId, "    "..checkPKvalueMsg);
 		else
@@ -352,7 +352,7 @@ function x401002_CheckAndEnterScene(sceneId, selfId, targetId, eventId)
 		return
 	end
 	
-	local checkCurDayMsg = "¶ÓÎéµ±ÖÐµÄ£¨";
+	local checkCurDayMsg = "Trong nh\243m (";
 	local checkCurDaycount = 0;
 	for	i=0,nearMemberCount-1 do
 		local memId = GetNearTeamMember(sceneId, selfId, i)
@@ -369,7 +369,7 @@ function x401002_CheckAndEnterScene(sceneId, selfId, targetId, eventId)
 	end
 	
 	if checkCurDaycount > 0 then
-		checkCurDayMsg = checkCurDayMsg.."£©ÒÑ¾­Íê³ÉÁË´Ë´ÎÆå¾Ö»î¶¯¡¢Òò´ËÄúµÄ¶ÓÎéÎÞ·¨½øÈë¡£";
+		checkCurDayMsg = checkCurDayMsg..") \240\227 \240\225nh K\207 Cu\181c h\244m nay, n\234n nh\243m c\225c h\213 kh\244ng v\224o \240\223\254c.";
 		if x401002_enumerate == eventId then
 			AddText(sceneId, checkCurDayMsg);
 		else
@@ -389,7 +389,7 @@ function x401002_CheckAndEnterScene(sceneId, selfId, targetId, eventId)
 		AddNumText(sceneId, x401002_g_ScriptId, x401002_g_CopySceneName,10,-1);
 	elseif eventId == x401002_defaultEvent then
 		BeginEvent(sceneId)	
-			AddText(sceneId, "#{function_help_063}#r  Èç¹ûÄãÄÜ¿´¼ûÕâÐÐ×Ö£¬ËµÃ÷ÄãµÄÍøÂ·ÒÑ¾­¿¨µ½¿ÕÇ°¾øºóµÄ¾³½ç¡£");
+			AddText(sceneId, "#{function_help_063}");
 		EndEvent(sceneId)
 		DispatchEventList(sceneId,selfId,targetId)
 		x401002_MakeCopyScene(sceneId, selfId, nearMemberCount);
@@ -474,9 +474,9 @@ function x401002_MakeCopyScene(sceneId, selfId, nearmembercount)
 	
 	local bRetSceneID = LuaFnCreateCopyScene(sceneId);								--³õÊ¼»¯Íê³Éºóµ÷ÓÃ´´½¨¸±±¾º¯Êý
 	if bRetSceneID > 0 then
-		x401002_NotifyFailTips(sceneId, selfId, "¸±±¾´´½¨³É¹¦£¡");
+		x401002_NotifyFailTips(sceneId, selfId, "T\213o ph\243 b\228n th\224nh c\244ng!");
 	else
-		x401002_NotifyFailTips(sceneId, selfId, "¸±±¾ÊýÁ¿ÒÑ´ïÉÏÏÞ£¬ÇëÉÔºòÔÙÊÔ£¡");
+		x401002_NotifyFailTips(sceneId, selfId, "S\175 ph\243 b\228n \240\227 \240\165y, xin th\216 l\213i sau!");
 	end
 end
 
@@ -528,7 +528,7 @@ function x401002_OnCopySceneReady(sceneId, destsceneId)
 		SetMissionData(sceneId, memId, MD_LAST_QIJU_DAY, day);
 		NewWorld(sceneId, memId, destsceneId, x401002_g_Fuben_X, x401002_g_Fuben_Z);
 		--»î¶¯Í³¼Æ
-		LuaFnAuditQuest(sceneId, memId, "ÕäççÆå¾Ö");
+		LuaFnAuditQuest(sceneId, memId, "Tr\226n Long K\207 Cu\181c");
 	end
 end
 
@@ -623,16 +623,16 @@ function x401002_OnCopySceneTimer(sceneId, nowTime)
 		if tempTimes > 0 then
 			local tempH = floor(tempTimes / 60);
 			local tempM = floor(tempTimes - tempH * 60);
-	  		local strText = format("¸±±¾½«ÔÚ");
+	  		local strText = format("Ph\243 b\228n s\168 \240\243ng sau ");
 			if tempH > 0 then
-				strText = strText .. tempH .. "Ð¡Ê±";
+				strText = strText .. tempH .. " gi\182 ";
 			end
 
 			if tempM > 0 then
-				strText = strText .. tempM .. "·ÖÖÓ";
+				strText = strText .. tempM .. " ph\250t";
 			end
 
-			strText = strText .. "ºó¹Ø±Õ£¡";
+			strText = strText .. "!";
 
 			local membercount = LuaFnGetCopyScene_HumanCount(sceneId);
 			local memId;
@@ -674,7 +674,7 @@ function x401002_OnCopySceneTimer(sceneId, nowTime)
 			if floor(closeTickCount) == floor(closeTickCount / x401002_g_tipsIntervalTickCount) * floor(x401002_g_tipsIntervalTickCount) then
 				local membercount = LuaFnGetCopyScene_HumanCount(sceneId);
 				local memId;
-	  			local strText = format("Äã½«ÔÚ%dÃëºóÀë¿ª³¡¾°!", (x401002_g_closeTickCount - closeTickCount) * x401002_g_tickDiffTime);
+	  			local strText = format("C\225c h\213 s\168 r\182i kh\246i \240\226y sau %d gi\226y!", (x401002_g_closeTickCount - closeTickCount) * x401002_g_tickDiffTime);
 				for	i = 0, membercount - 1 do
 					memId = LuaFnGetCopyScene_HumanObjId(sceneId, i);
 					if LuaFnIsObjValid(sceneId, memId) == 1 and LuaFnIsCanDoScriptLogic(sceneId, memId) == 1 then
@@ -699,7 +699,7 @@ function x401002_OnCopySceneTimer(sceneId, nowTime)
 		if curTickCount < x401002_g_startTickCount then
 			if floor(curTickCount) == floor(curTickCount / x401002_g_tipsIntervalTickCount) * floor(x401002_g_tipsIntervalTickCount) then
 				local memId;
-	  			local strText = format("Õ½¶·½«ÔÚ%dÃëºó¿ªÊ¼!", (x401002_g_startTickCount - curTickCount) * x401002_g_tickDiffTime);
+	  			local strText = format("Tr\167n \240\164u b\161t \240\165u sau %d gi\226y!", (x401002_g_startTickCount - curTickCount) * x401002_g_tickDiffTime);
 				local membercount = LuaFnGetCopyScene_HumanCount(sceneId);
 				for	i = 0, membercount - 1 do
 					memId = LuaFnGetCopyScene_HumanObjId(sceneId, i);
@@ -714,7 +714,7 @@ function x401002_OnCopySceneTimer(sceneId, nowTime)
 			for	i = 0, membercount - 1 do
 				memId = LuaFnGetCopyScene_HumanObjId(sceneId, i);
 				if LuaFnIsObjValid(sceneId, memId) == 1 and LuaFnIsCanDoScriptLogic(sceneId, memId) == 1 then
-					x401002_NotifyFailTips(sceneId, memId, "Õ½¶·¿ªÊ¼ÁË!");
+					x401002_NotifyFailTips(sceneId, memId, "Tr\167n \240\164u b\161t \240\165u!");
 				end
 			end
 		end
@@ -883,11 +883,11 @@ function x401002_OnCopySceneTimer(sceneId, nowTime)
 							
 								local szName = LuaFnGetName(sceneId, newObjId)
 	
-								if szName == "Ô¶¹ÅÆå»ê"   then
-									SetCharacterTitle(sceneId, newObjId, "¡°ÆåÍõ¡±")
+								if szName == "Vi\173n C\177 K\207 H\176n"   then
+									SetCharacterTitle(sceneId, newObjId, "K\207 V\223\189ng")
 								end
 							
-								local strText = format("#R%s:¾õÎò°É£¡ÄãÃÇÓ¦¸ÃÎªÄãÃÇµÄÐÐÎª¸¶³ö´ú¼Û¡£", LuaFnGetName(sceneId, newObjId));
+								local strText = format("#R%s: Gi\225c ng\181 \240i! C\225c ng\223\189i ph\228i tr\228 gi\225 cho vi\174c m\236nh l\224m.", LuaFnGetName(sceneId, newObjId));
   								MonsterTalk(sceneId, -1, x401002_g_CopySceneName, strText);
 	  							
 								--´ó¼Ò¶¼·âÓ¡°É
@@ -1039,6 +1039,7 @@ function x401002_OnDie(sceneId, selfId, killerId)						-- ³¡¾°ID, ±»É±µÄObjId, É
 	end
 	
 	if objType and objType == LastBoss[mgroup] then
+		CallScriptFunction( 950001, "TB_GhiId", sceneId, objType, killerId )   -- [NetCo4 02/10] tui do boss Ky Cuoc (Co 12h): moi nguoi trong ban co (NetCo4/roimap.lua)
 		local membercount = LuaFnGetCopyScene_HumanCount(sceneId);
 		local memId
 		local teamLeaderName;
@@ -1060,13 +1061,13 @@ function x401002_OnDie(sceneId, selfId, killerId)						-- ³¡¾°ID, ±»É±µÄObjId, É
 			local bossName = "#{_BOSS26}";
 			local winMessage = {};
 			if teamLeaderName then
-				winMessage[1] = format("#W#{_INFOUSR%s}#PÂÊ¶ÓÔÚÕäççÆå¾ÖÖÐµÄ×îºó½×¶Î£¬½«#G%s#P»÷°Ü£¬#G%s#PÁÙÖÕÇ°à°È»³¤Ì¾£ºÊÀÊÂÈçÆå¾Ö¾ÖÐÂ£¬ÏÂ´ÎÎÒÒ»¶¨Å¬Á¦¡­¡­", teamLeaderName, bossName, bossName);
-				winMessage[2] = format("#G%s#PÓë#W#{_INFOUSR%s}#PÂÊÁìµÄ¶ÓÎé»áÕ½ÕäççÆå¾Ö£¬ÒòÑÛ»¨¶ø×ÔÌíÒ»ÑÛµ¼ÖÂÐÎÊÆÄæ×ª¶ø¸º¡£", bossName, teamLeaderName);
-				winMessage[3] = format("#W#{_INFOUSR%s}#PÕýÓë#G%s#P¾Û¾«»áÉñµÄ¶ÔÞÄ£¬¶ÓÓÑÃÇ´Ó±³ºó·Ö×óÖÐÓÒÈýÂ·Ï®Ïò#G%s#P£¬Ëì´óÊ¤ÕäççÆå¾Ö£¬ÄÇ#G%s#Pº¬ÀáµÀ£ºÄãÃÇ¡­¡­ÄãÃÇ¡­¡­", teamLeaderName, bossName, bossName, bossName);
-				winMessage[4] = format("#W#{_INFOUSR%s}#PÕýÔÚÕäççÆå¾ÖÓë#G%s#PÕýÔÚ¶ÔÞÄ£¬¶ÓÓÑÃÇÔÚ#G%s#PÉíºó½ÐµÀ£º¡°´ó·É£¬Ð¡·É£¬»¢£¬»¢ÉÏ£¡¡±#G%s#P×îÖÕÒòÐÄÖÇ»ìÂÒ¶ø°Ü¡£", teamLeaderName, bossName, bossName, bossName);
+				winMessage[1] = format("#W#{_INFOUSR%s}#P th¯ng lînh ðµi ngû ðánh bÕi#G%s#P trong Trân Long KÏ Cuµc, #G%s#P trß¾c khi lâm chung than th·: Sñ ð¶i nhß ván c¶ m¾i, L¥n sau Ta nh¤t ð¸nh n² lñc..", teamLeaderName, bossName, bossName);
+				winMessage[2] = format("#G%s#P cùng#W#{_INFOUSR%s}#P th¯ng lînh ðµi ngû ðang hµi chiªn thª tr§n Trân Long KÏ Cuµc, nhßng vì hoa m¡t tñ thêm mµt nß¾c làm chuy¬n ngßþc tình thª dçn ðªn th¤t bÕi.", bossName, teamLeaderName);
+				winMessage[3] = format("#W#{_INFOUSR%s}#P ðang cùng#G %s #Pt§p trung chú ý ð¯i c¶, các chiªn hæu t× phía sau chia làm 3 ðß¶ng t§p kích #G%s#P, dçn ðªn ðÕi th¡ng thª c¶ Trân Long, thª là#G%s#P nu¯t l® nói: Các ngß½i...Các ngß½i..", teamLeaderName, bossName, bossName, bossName);
+				winMessage[4] = format("#W#{_INFOUSR%s}#P ðang ðánh c¶ v¾i#G%s#P trong Trân Long KÏ Cuµc, các chiªn hæu ðÑng sau lßng #G%s#P hét to: \"ÐÕi phi, ti¬u phi, h±, h± ðªn kìa!\" Cu¯i cùng \"#G%s#P vì r¯i loÕn tâm trí mà bÕi.", teamLeaderName, bossName, bossName, bossName);
 			elseif firstMemName then
-				winMessage[1] = format("#W#{_INFOUSR%s}#PµÈÈËÔÚÕäççÆå¾ÖÖÐµÄ×îºó½×¶Î£¬½«#G%s#P»÷°Ü£¬#G%s#PÁÙÖÕÇ°à°È»³¤Ì¾£ºÊÀÊÂÈçÆå¾Ö¾ÖÐÂ£¬ÏÂ´ÎÎÒÒ»¶¨Å¬Á¦¡­¡­", firstMemName, bossName, bossName);
-				winMessage[2] = format("#G%s#PÓë#W#{_INFOUSR%s}#PµÈÈËµÄ¶ÓÎé»áÕ½ÕäççÆå¾Ö£¬ÒòÑÛ»¨¶ø×ÔÌíÒ»ÑÛµ¼ÖÂÐÎÊÆÄæ×ª¶ø¸º¡£", bossName, firstMemName);
+				winMessage[1] = format("#W#{_INFOUSR%s}#Pðã ðánh bÕi #G%s#P trong Trân Long KÏ Cuµc, #G%s#P trß¾c khi lâm chung than th·: Sñ ð¶i nhß ván c¶ m¾i, L¥n sau Ta nh¤t ð¸nh n² lñc..", firstMemName, bossName, bossName);
+				winMessage[2] = format("#G%s#P và nhóm Ðµi cüa#W#{_INFOUSR%s}#P ðang hµi chiªn thª tr§n Trân Long KÏ Cuµc, nhßng vì hoa m¡t tñ thêm mµt nß¾c làm chuy¬n ngßþc tình thª dçn ðªn th¤t bÕi.", bossName, firstMemName);
 			end
 			
 			local messageCount = getn(winMessage);
@@ -1095,7 +1096,7 @@ function x401002_OnDie(sceneId, selfId, killerId)						-- ³¡¾°ID, ±»É±µÄObjId, É
 		LuaFnSetCopySceneData_Param(sceneId, 11, curKillCount);
 		local membercount = LuaFnGetCopyScene_HumanCount(sceneId);
 		local memId
-		local strText = format("ÄãÒÑÉ±ËÀÆå×Ó%d/%d", curKillCount, x401002_g_mStepPosListSize - 1);
+		local strText = format("\208\227 di\174t qu\226n c\182 %d/%d", curKillCount, x401002_g_mStepPosListSize - 1);
 		for	i = 0, membercount - 1 do
 			memId = LuaFnGetCopyScene_HumanObjId(sceneId, i);
 			if LuaFnIsObjValid( sceneId, memId ) == 1 and LuaFnIsCanDoScriptLogic( sceneId, memId ) == 1 then
