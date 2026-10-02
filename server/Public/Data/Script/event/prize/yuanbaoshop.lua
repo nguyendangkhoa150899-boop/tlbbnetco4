@@ -216,12 +216,17 @@ end
 	 	 return
 	   end
 
+	 local  nTPMax  =  x888902_TPMax()   -- [NetCo4 03/10] tam phap toi da do admin dat tren panel (0 = luat goc)
+	 if  nTPMax  >  0  and  XinFalev  >=  nTPMax  then
+	 	 x888902_NotifyTip(  sceneId,  selfId,  "T\226m ph\225p hi\174n ch\239 h\247c \240\223\254c t\190i c\164p "..nTPMax  )
+	 	 return
+	 end
 	 if  XinFalev  >=  159  then
 	 	 x888902_NotifyTip(  sceneId,  selfId,  " ngài ðích quy¬n này tâm pháp ðã ðång phong tÕo cñc , không c¥n lÕi tång c¤p ! "  )
 	 return
 	 end
 
-                if  shopB  <  70  or  shopB  >  80  and  shopB  ~=  88  and  shopB  ~=  96  then
+                if  nTPMax  <=  0  and  (shopB  <  70  or  shopB  >  80  and  shopB  ~=  88  and  shopB  ~=  96)  then   -- [NetCo4 03/10] co tam phap toi da thi bo luat cap nhan vat + 10
 	       if  (lev  +9)  <  XinFalev  then
 	           x888902_NotifyTip(  sceneId,  selfId,  " ngß½i chï có th¬ h÷c t§p cao h½n ngß½i c¤p b§c 10 c¤p "  )
 	 	 return
@@ -354,4 +359,21 @@ function  x888902_sanbiaocheck(  sceneId,  selfId,Index)
 	 end	 
 	 end
 return  1,equipMaxGemCount,biaoshi	 
-end	 
+end
+
+-- [NetCo4 03/10] Tam phap toi da (admin panel ghi Server/txt/NetCo4Cfg/tpmax.txt, 10-159).
+-- Co so: moi tam phap hoc toi dung so do, khong phu thuoc cap nhan vat. Khong co file / 0: luat goc
+-- (cap nhan vat + 10; tam phap 70-80, 88, 96 toi 159).
+function x888902_TPMax()
+	local h = openfile( "./txt/NetCo4Cfg/tpmax.txt", "r" )
+	if h == nil then
+		return 0
+	end
+	local t = read( h, "*l" )
+	closefile( h )
+	local n = tonumber( t or "" )
+	if n == nil or n < 1 or n > 159 then
+		return 0
+	end
+	return n
+end

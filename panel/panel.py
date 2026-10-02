@@ -107,6 +107,29 @@ def exp_set(x, giu=True):
     return s
 
 
+# 03/10: TAM PHAP TOI DA nguoi choi duoc tu hoc len (yuanbaoshop.lua 888902 x888902_TPMax doc file nay moi lan bam hoc,
+# hieu luc ngay, khong restart). 0 / khong co file = luat goc: cap nhan vat + 10, tam phap 70-80/88/96 toi 159.
+TPMAX = CFGDIR + "/tpmax.txt"
+
+
+def tpmax_get():
+    try:
+        n = int(open(TPMAX).read().strip() or "0")
+        return n if 10 <= n <= 159 else 0
+    except (OSError, ValueError):
+        return 0
+
+
+def tpmax_set(n):
+    os.makedirs(CFGDIR, exist_ok=True)
+    if n == 0:
+        if os.path.exists(TPMAX):
+            os.remove(TPMAX)
+        return
+    with open(TPMAX, "w", encoding="ascii", newline="\n") as f:
+        f.write("%d\n" % n)
+
+
 def restart_game():
     subprocess.Popen(["systemctl", "restart", "tlbb"], stdin=subprocess.DEVNULL,
                      stdout=open("/tmp/panel-restart.log", "w"), stderr=subprocess.STDOUT)
@@ -453,9 +476,11 @@ def act(form):
             return msg + " Dang restart server (khoang 3 phut)."
         return msg + " Co hieu luc sau khi restart server."
     if a == "luu_chung":   # 03/10: luu nhieu o 1 lan (cap toi thieu / khoa cap / EXP) - kiem het truoc roi moi ghi, restart 1 lan neu can
-        cmin, cmax, ex = v("capmin"), v("capmax"), v("exp")
-        if not (cmin or cmax or ex):
+        cmin, cmax, ex, tp = v("capmin"), v("capmax"), v("exp"), v("tpmax")
+        if not (cmin or cmax or ex or tp):
             return "Khong co o nao thay doi"
+        if tp and (not RE_INT.match(tp) or not (int(tp) == 0 or 10 <= int(tp) <= 159)):
+            return "Tam phap toi da 10-159 (0 = luat goc: cap nhan vat + 10). Chua luu gi."
         if cmin and (not RE_INT.match(cmin) or not 0 <= int(cmin) <= 119):
             return "Cap toi thieu 0-119 (0 = tat). Chua luu gi."
         if cmax and (not RE_INT.match(cmax) or not 10 <= int(cmax) <= 119):
@@ -482,7 +507,10 @@ def act(form):
         if ex:
             s = exp_set(exp_macdinh(), giu=False) if ex == "macdinh" else exp_set(float(ex), giu=True)
             doi.append("EXP x%s%s" % (s, " (mac dinh)" if ex == "macdinh" else ""))
-        rs = bool(cmax or ex)   # cap toi thieu la script, khong can restart
+        if tp:
+            tpmax_set(int(tp))
+            doi.append("tam phap toi da %s" % (int(tp) or "luat goc (cap nhan vat + 10)"))
+        rs = bool(cmax or ex)   # cap toi thieu + tam phap toi da la script, khong can restart
         audit("luu chung: %s%s (online: %d)" % (", ".join(doi), ", restart" if rs else "", online_count()))
         if rs:
             restart_game()
@@ -730,7 +758,7 @@ def api_state():
     return {"procs": procs, "online": online_count(), "ram": [tot - avail, tot], "dbError": err,
             "accounts": [{"id": i, "name": n, "online": on} for i, n, on in accs],
             "chars": out_chars, "capmin": capmin, "capmax": capmax_get(), "itemCount": len(ITEMS),
-            "expparam": exp_get(), "expDefault": exp_macdinh(),   # 03/10
+            "expparam": exp_get(), "expDefault": exp_macdinh(), "tpmax": tpmax_get(),   # 03/10
             "pets": [{"id": i, "name": n} for i, n in PET_V2]}
 
 
