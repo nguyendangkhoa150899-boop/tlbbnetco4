@@ -88,7 +88,7 @@ function x900070_OnDefaultEvent( sceneId, selfId, targetId )
 	EndUICommand( sceneId )
 	DispatchUICommand( sceneId, selfId, 1000 )
     
-    local CanAccept = x900070_OnAccept( sceneId, selfId )
+    if 1 then x900070_NotifyTip( sceneId, selfId, "Ph\248 b\228n t\213m \240\243ng: client ch\223a c\243 b\228n \240\176 Qu\226n Thi\234n V\223\189ng L\229ng." ) return end   -- [NetCo4 02/10b] chan tao pho ban
     local	nam	= LuaFnGetName( sceneId, selfId )
 	-- BroadMsgByChatPipe( sceneId, selfId, "#YQu‚n VﬂΩng LÂng : #gffff00"..nam.."#gff00f0 „ mang µi  ti™n v‡o #gffff00 Qu‚n VﬂΩng LÂng #gff00f0 PhÛ b‰n, M˜i ngﬂ∂i h„y ch∂ xem k™t qu‰ ", 4 )   -- [NetCo4 02/10] loa chuyen xuong duoi: cu phat ca khi khong vao duoc
     if( 1 == CanAccept ) then
@@ -103,8 +103,8 @@ function x900070_OnEnumerate( sceneId, selfId, targetId )
 	
 	BeginEvent( sceneId )
 		AddText( sceneId, "#{CSFB_KVK_110623_01}" )
-		AddText( sceneId, "Kh\244ng c\165n l\174nh b\224i. C\165n t\177 \240\181i, \240\181i tr\223\183ng t\215 c\164p 75, m\247i ng\223\182i t\215 c\164p 85, m\178i ng\224y 3 l\223\254t." )   -- [NetCo4 02/10] cu: "Phu ban tam dong de sua chua"
-		AddNumText( sceneId, x900070_g_ScriptId, "V\224o Qu\226n Thi\234n V\223\189ng L\229ng", 10, -1 )   -- [NetCo4 02/10] MO LAI (server cu chu thich dong nay)
+		AddText( sceneId, "Ph\248 b\228n t\213m \240\243ng: client ch\223a c\243 b\228n \240\176 Qu\226n Thi\234n V\223\189ng L\229ng." )   -- [NetCo4 02/10b] DONG LAI: vao la ket (client khong co map chengshiwangling)
+		-- AddNumText( sceneId, x900070_g_ScriptId, "V\224o Qu\226n Thi\234n V\223\189ng L\229ng", 10, -1 )   -- [NetCo4 02/10b] DONG LAI
     EndEvent( sceneId )
 	DispatchEventList( sceneId, selfId, targetId )
  
@@ -758,6 +758,7 @@ end
 --**********************************
 function x900070_OnPlayerEnter( sceneId, selfId )
 	--…Ë÷√À¿Õˆ∫Û∏¥ªÓµ„Œª÷√
+	if 1 then x900070_KickOut( sceneId, selfId ) return end   -- [NetCo4 02/10b] keo ra ngay khi vao
 	SetPlayerDefaultReliveInfo( sceneId, selfId, "%10", -1, "0", sceneId, x900070_g_Fuben_X, x900070_g_Fuben_Z )
 
 	--…Ë÷√ÃÙ’Ωπ˝“ª¥ŒQu‚n VﬂΩng LÂng....
@@ -813,6 +814,15 @@ end
 --**********************************
 function x900070_OnCopySceneTimer( sceneId, nowTime )
 
+	local nKeo = LuaFnGetCopyScene_HumanCount( sceneId )   -- [NetCo4 02/10b] keo het nguoi ben trong ra moi nhip
+	for iKeo = 0, nKeo - 1 do
+		local idKeo = LuaFnGetCopyScene_HumanObjId( sceneId, iKeo )
+		if LuaFnIsObjValid( sceneId, idKeo ) == 1 then
+			x900070_KickOut( sceneId, idKeo )
+		end
+	end
+	LuaFnSetCopySceneData_Param( sceneId, 4, 1 )
+	if 1 then return end
 	local once = LuaFnGetCopySceneData_Param( sceneId, x900070_paramonce )
 		
 	--∏±±æ ±÷”∂¡»°º∞…Ë÷√
