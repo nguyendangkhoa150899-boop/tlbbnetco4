@@ -96,17 +96,17 @@ function x900071_OnActivateEffectOnce( sceneId, selfId, activatorId )
 	nItemId_5 = x900071_g_LootItem_4[random( getn(x900071_g_LootItem_4) )]
 
 	local nBoxId = DropBoxEnterScene(	x,z,sceneId )
-	if nItemCount == 3  then
-		AddItemToBox(sceneId,nBoxId,QUALITY_CREATE_BY_BOSS,4,nItemId_1,nItemId_2,nItemId_4,nItemId_5)
-
-	elseif nItemCount == 2  then
-		AddItemToBox(sceneId,nBoxId,QUALITY_CREATE_BY_BOSS,3,nItemId_2,nItemId_4,nItemId_5)
-
-	elseif nItemCount == 4  then
-		AddItemToBox(sceneId,nBoxId,QUALITY_CREATE_BY_BOSS,4,nItemId_2,nItemId_3,nItemId_4,nItemId_5)
-
-	elseif nItemCount == 5  then
-		AddItemToBox(sceneId,nBoxId,QUALITY_CREATE_BY_BOSS,5,nItemId_2,nItemId_3,nItemId_4,nItemId_5,nItemId_6)
+	local ds = { nItemId_2, nItemId_4, nItemId_5 }   -- [NetCo4 02/10] cu: so 401-700 -> 5 mon nhung nItemId_3 = nil (30% lan mo)
+		if nItemId_1 then ds[getn(ds)+1] = nItemId_1 end
+if nItemId_3 then ds[getn(ds)+1] = nItemId_3 end
+	if nItemId_6 then ds[getn(ds)+1] = nItemId_6 end
+		local nSo = getn( ds )
+if nSo == 3 then
+	AddItemToBox(sceneId,nBoxId,QUALITY_CREATE_BY_BOSS,3,ds[1],ds[2],ds[3])
+		elseif nSo == 4 then
+AddItemToBox(sceneId,nBoxId,QUALITY_CREATE_BY_BOSS,4,ds[1],ds[2],ds[3],ds[4])
+	else
+		AddItemToBox(sceneId,nBoxId,QUALITY_CREATE_BY_BOSS,5,ds[1],ds[2],ds[3],ds[4],ds[5])
 	end
 			
 	-- 把这个掉落绑定给制定玩家

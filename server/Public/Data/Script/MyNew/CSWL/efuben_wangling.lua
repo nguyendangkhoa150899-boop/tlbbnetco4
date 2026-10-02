@@ -90,9 +90,9 @@ function x900070_OnDefaultEvent( sceneId, selfId, targetId )
     
     local CanAccept = x900070_OnAccept( sceneId, selfId )
     local	nam	= LuaFnGetName( sceneId, selfId )
-	BroadMsgByChatPipe( sceneId, selfId, "#YQuân Vß½ng Lång : #gffff00"..nam.."#gff00f0 ðã mang ðµi  tiªn vào #gffff00 Quân Vß½ng Lång #gff00f0 Phó bän, M÷i ngß¶i hãy ch¶ xem kªt quä ", 4 )
+	-- BroadMsgByChatPipe( sceneId, selfId, "#YQuân Vß½ng Lång : #gffff00"..nam.."#gff00f0 ðã mang ðµi  tiªn vào #gffff00 Quân Vß½ng Lång #gff00f0 Phó bän, M÷i ngß¶i hãy ch¶ xem kªt quä ", 4 )   -- [NetCo4 02/10] loa chuyen xuong duoi: cu phat ca khi khong vao duoc
     if( 1 == CanAccept ) then
-        LuaFnDeleteMonster( sceneId, targetId)
+        BroadMsgByChatPipe( sceneId, selfId, "#YQuân Vß½ng Lång : #gffff00"..nam.."#gff00f0 ðã mang ðµi  tiªn vào #gffff00 Quân Vß½ng Lång #gff00f0 Phó bän, M÷i ngß¶i hãy ch¶ xem kªt quä ", 4 ) LuaFnDeleteMonster( sceneId, targetId)
     end
 end
 
@@ -103,8 +103,8 @@ function x900070_OnEnumerate( sceneId, selfId, targetId )
 	
 	BeginEvent( sceneId )
 		AddText( sceneId, "#{CSFB_KVK_110623_01}" )
-		AddText( sceneId, " #e330066#cff99ff Phø bän tÕm ðóng ð¬ sØa chæa")
-		--AddNumText( sceneId, x900070_g_ScriptId, "Quân Vß½ng Thiên  Lång",10,-1 )
+		AddText( sceneId, "Kh\244ng c\165n l\174nh b\224i. C\165n t\177 \240\181i, \240\181i tr\223\183ng t\215 c\164p 75, m\247i ng\223\182i t\215 c\164p 85, m\178i ng\224y 3 l\223\254t." )   -- [NetCo4 02/10] cu: "Phu ban tam dong de sua chua"
+		AddNumText( sceneId, x900070_g_ScriptId, "V\224o Qu\226n Thi\234n V\223\189ng L\229ng", 10, -1 )   -- [NetCo4 02/10] MO LAI (server cu chu thich dong nay)
     EndEvent( sceneId )
 	DispatchEventList( sceneId, selfId, targetId )
  
@@ -126,12 +126,12 @@ function x900070_OnAccept( sceneId, selfId )
   --´«ËÍÇ°,ÒªÖØÐÂÅÐ¶ÏÒ»´Î½øÈëÌõ¼þ Steven.Han 2006-12-27 13:53
 	local	lev	= GetLevel( sceneId, selfId )
 	if lev < x900070_g_minLevel then
-	  x900070_NotifyList( sceneId, selfId, "lev chßa ðü" )
+	  x900070_NotifyList( sceneId, selfId, "C\164p c\252a c\225c h\213 ch\223a \240\252 75, ch\223a v\224o \240\223\254c." )
 		return -1
 	end
 	
 	if LuaFnHasTeam( sceneId, selfId ) == 0 then
-		x900070_NotifyList( sceneId, selfId, "C¥n phäi l§p t± ðµi ít nh¤t 3 ngß¶i" )
+		x900070_NotifyList( sceneId, selfId, "C\165n l\167p t\177 \240\181i (1 ng\223\182i c\251ng \240\223\254c) m\190i v\224o \240\223\254c." )   -- [NetCo4 02/10] code chi can 1 nguoi
 		return -1 
 	end
 	
@@ -162,7 +162,7 @@ function x900070_OnAccept( sceneId, selfId )
       local Level = GetLevel( sceneId, TeammateID )
       if( Level < x900070_g_LimitLevel ) then
         BeginEvent( sceneId )
-			AddText( sceneId, "Trong d?i nguc có thành viên chßa ðü "..x900070_g_LimitLevel.." c¤p không th¬ tham gia" )
+			AddText( sceneId, "Trong \240\181i c\243 th\224nh vi\234n ch\223a \240\252 c\164p "..x900070_g_LimitLevel..", ch\223a v\224o \240\223\254c." )
 			EndEvent( sceneId )
 		DispatchMissionTips(sceneId,selfId)
 		return -1
@@ -170,7 +170,7 @@ function x900070_OnAccept( sceneId, selfId )
   end
 
   local namenum = 0;
-  local notifyString = "    #WTrong d?i ngu có thanh viên (#G";
+  local notifyString = "    #W".."Trong \240\181i c\243 th\224nh vi\234n (".."#G";
   for i=0, TeammateCount-1 do
       TeammateID = GetNearTeamMember( sceneId, selfId, i )
       local nam	= GetName(sceneId,TeammateID)
@@ -184,16 +184,16 @@ function x900070_OnAccept( sceneId, selfId )
 	end
 
 	if lastDayCount >= x900070_g_MaxCount then
-		notifyString = notifyString..nam.."";
+		notifyString = notifyString..nam.." ";
 		namenum = 1
 	end
    end
-   notifyString = notifyString.."#W)d? khiêu chi?n quá "..x900070_g_MaxCount.." phó b?n này";
+   notifyString = notifyString.."#W) ".."h\244m nay \240\227 v\224o ph\243 b\228n n\224y \240\252 "..x900070_g_MaxCount.." l\165n.";
 	if(namenum>0) then
 	  BeginEvent( sceneId )
 			AddText( sceneId, notifyString )
 		EndEvent( sceneId )
-		DispatchEventList( sceneId, selfId, targetId )
+		DispatchEventList( sceneId, selfId )   -- [NetCo4 02/10] cu truyen targetId (khong co trong ham nay)
 		return
 	end
 
@@ -241,7 +241,7 @@ function x900070_CreateBoss( sceneId, iniLevel )
 	SetMonsterGroupID( sceneId, objId, x900070_g_BossGroupID )
 	SetCharacterTitle(sceneId, objId, "Bäo tàng chi vß½ng")
 	SetLevel( sceneId, objId, iniLevel )	
-	CallScriptFunction((200060), "Paopao",sceneId, strMonsterName, "Quân Vß½ng Lång", "Không sþ chªt sao mà dám vào ðây. Mau nÕo mÕng ði  ..........")
+	CallScriptFunction((200060), "Paopao",sceneId, "Th\252 l\229ng giam", "Quân Vß½ng Lång", "Không sþ chªt sao mà dám vào ðây. Mau nÕo mÕng ði  ..........")   -- [NetCo4 02/10] cu strMonsterName = nil -> boss khong noi
 	
 end
 
