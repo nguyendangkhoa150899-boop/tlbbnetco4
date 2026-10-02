@@ -737,3 +737,8 @@ Rollback: tag `truoc-maudoche-02-10`.
   - Long Văn **giữ qua đêm** (`ICHKY_GIU`), các món khác vẫn xóa lúc 00:00. Web hiện "🔒 giữ qua đêm (từ game)".
   - Rút về game (cần online + liên kết tên nhân vật) và tặng người khác dùng đúng nút cũ của Rương Ích Kỷ.
 - **Chưa thử trong game.** Bản cũ của bot: `/opt/tlbb-backup/bot-truoc-longvan-0310/`.
+- **03/10 00:20 (bot `ca87451`, `54311dd`):**
+  - Long Văn rút về game tối đa 10 cái/lần (chặn ở server + web).
+  - **Rương Ích Kỷ giữ vĩnh viễn, không giới hạn số món** (chủ server chốt). Bỏ xóa lúc 00:00 cho mọi món; vẫn giữ giới hạn mua vào rương 100 món/ngày và tặng 100 món/lần.
+  - Icon game cho món không có ảnh shop (`itemicon.js`).
+  - Sao lưu trước khi đổi: `/opt/tlbb-backup/database.json.truoc-ruong-vinhvien-0310`.
