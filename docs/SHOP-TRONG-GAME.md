@@ -29,7 +29,8 @@ Khi sửa shop game thì **không đụng shop web**.
 | 02/10 | 136 | Thần khí 42, bản 2.000 | Không đổi kệ. Dòng thuộc tính cố định khi mua (sửa EquipBase + ItemSegValue, xem dưới) | 4f483fd | truoc-thankhi42-02-10 |
 | 02/10 | 102, 133, 134 | Sách kỹ năng trân thú | Cả 3 kệ trả bằng **KNB**, giá mới theo bảng dưới | 2cde507 | truoc-sachpet-shopbaby-02-10 |
 | 02/10 | 270 | Khu Buôn Bán > **Shop BaBy** | **Tắt**: làm trống kệ, bỏ 19 món | 2cde507 | truoc-sachpet-shopbaby-02-10 |
-| 03/10 | 153 → 155 | Tiệm Bảo Thạch | **Điểm Kim Chi Tiễn 20109101** (đục lỗ thứ 4): bỏ khỏi kệ 153 (2.000 Điểm Tặng), chuyển sang kệ 155 (KNB, tab có Kim Toa / Điểm Chuế Phù), giá **20.000 KNB**, đứng sau Gia Công Phù. Loại tiền đặt chung cho cả kệ nên không đổi tại chỗ được; 8 món còn lại của kệ 153 giữ Điểm Tặng | (commit này) | truoc-kimchitien-03-10 |
+| 03/10 | 153 → 155 | Tiệm Bảo Thạch | **Điểm Kim Chi Tiễn 20109101** (đục lỗ thứ 4): bỏ khỏi kệ 153 (2.000 Điểm Tặng), chuyển sang kệ 155 (KNB, tab có Kim Toa / Điểm Chuế Phù), giá **20.000 KNB**, đứng sau Gia Công Phù. Loại tiền đặt chung cho cả kệ nên không đổi tại chỗ được; 8 món còn lại của kệ 153 giữ Điểm Tặng | 586ee07 | truoc-kimchitien-03-10 |
+| 03/10 | 153 | Tiệm Bảo Thạch (tab Hợp Thành Phù / Điêu Trác Phù) | **Thay cho dòng trên.** Kim Chi Tiễn về lại kệ 153 (ô thứ 3), **cả kệ đổi sang KNB**, giữ nguyên con số giá: Tương Khảm Phù cao cấp 98, Trích Trừ Phù cấp 9 98, **Điểm Kim Chi Tiễn 20.000**, Điêu Trác Phù cấp 4–7 4.000–7.000, Dong Luyện Phù 500, Hợp Thành Phù sơ cấp 500. Kệ 155 trả về như gốc | (commit này) | truoc-ke153-knb-03-10 |
 
 ### Chưa đổi, còn chờ chủ server
 
