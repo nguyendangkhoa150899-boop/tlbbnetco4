@@ -14,7 +14,7 @@ Soát toàn bộ lần đầu: **02/10/2026** (17 phó bản trong NPC truyền 
 4. **Đọc luồng**: `node tools/soat-boss/ham.js <ID> "OnDie|OnLeaveCombat|OnCopySceneTimer|OnEventRequest|OnDefaultEvent"`. AI của quái: số thứ 6 trong `LuaFnCreateMonster(scene, ID, x, z, baseAI, AI, script)` → `Public/Data/AIScript.dat` → `AIScript/scriptNNN.ai` (đọc bằng `gbk.js`).
 5. **Kiểm trên VPS**: `ss -Htn state established '( sport = :3731 )' | wc -l` (người online); `Server/Log/luaerror.log` **không ghi tên script**, chỉ có câu lỗi → so câu lỗi với mục 2.
 6. **Sửa**: `git tag truoc-<viec>-<ngay>` → sửa **theo byte** (node đọc `latin1`, kiểm nội dung dòng gốc trước khi thay, giữ `\r`) → so cân bằng khối với bản gốc → `git diff` chỉ đúng dòng cần đổi → commit, push → trên VPS kiểm bảng rơi khớp repo (tab Drop Boss sửa thẳng VPS) rồi `./cap-nhat.sh -y`.
-   - **Script Lua: có hiệu lực ngay sau cap-nhat, không cần restart** (đã kiểm chứng nhiều lần 01–02/10).
+   - **Script Lua: không cần restart, nhưng chỉ áp cho lượt gọi MỚI** (bấm NPC, phó bản mới tạo, scene mới nạp). **Phó bản đang chạy giữ code cũ**, kể cả hàm hẹn giờ của nó (kiểm chứng 02/10 23:23 ở Vương Lăng: sau deploy 2 phút, OnCopySceneTimer mới vẫn chưa chạy). Muốn gỡ người kẹt trong phó bản đang mở thì phải cho mọi người ra, đợi phó bản tự đóng (NoUserTime), hoặc restart.
    - Bảng `.txt` / `.ini`: cần restart, chỉ khi 0 người online hoặc chủ server đồng ý.
 7. **Ghi lại** ở mục 3 + `docs/TRANG-THAI.md`. Ghi rõ "chưa thử trong game" nếu chưa ai đánh lại.
 
@@ -53,6 +53,16 @@ Soát toàn bộ lần đầu: **02/10/2026** (17 phó bản trong NPC truyền 
 Cột "Đã sửa" ghi ngày + tag rollback. "Chưa thử" = chưa ai đánh lại sau khi sửa.
 
 Đường dẫn script tính từ `server/Public/Data/Script/`. "Lượt" = mỗi nhân vật mỗi ngày. Trạng thái lỗi ở đây là lúc soát 02/10; sửa xong thì gạch / chuyển sang "Đã sửa".
+
+**Đợt sửa 02/10 23:36** (deploy, tag rollback `truoc-dot-sua-02-10b`, commit `903f7bf`…`2367712`). Các mục "Còn mở" bên dưới đã được xử lý như sau:
+- Kỳ Cuộc + khoảng 33 script khác (sư môn, Thủy Lao, nhiệm vụ thành thị, Tặc binh, Trung thu): đội ở trần cấp đã vào được (`floor`); tangmen chặn trần 100.
+- Q Tô Châu: 11 câu GBK đã Việt hóa, chữ đã đúng. Kỳ Cuộc: dấu "、". Túc Cầu: chữ.
+- PMF: chỉ còn 1 Đại Lễ Bao. Tứ Tuyệt: Bàng Xí hết lỗi `buffTbl`, dùng lại chiêu (khoảng 50k diện rộng mỗi 5 giây, cần thử), bỏ tin lặp. Yến Tử Ổ, PMF, Tứ Tuyệt: chữ.
+- Lang Huyên: boss chỉ ra chiêu khi đang đánh, thoát giao tranh thì tạo lại NPC. Hư Không: biến toàn cục → Param 13–17, trừ thiếp đúng. Lâu Lan Tầm Bảo: ẩn mục 102. Thiên Long Ảo Cảnh: ĐÓNG hẳn.
+- Nhạn Môn, Sát Tinh, Binh Thánh: chữ. Nhạn Môn: so tên Tiêu Phong đúng byte, NPC không còn nhân đôi.
+- Binh Thánh: song sinh và phân thân Liên Thành không rơi gì (**bảng rơi, có hiệu lực SAU RESTART**). Liên Thành có thêm 1 bộ hộp của song sinh. Túi boss chuyển sang Liên Thành 15190 (cả game lẫn bot).
+- Không sửa theo quyết định của chủ server: AI 242 hồi máu, Thiếu Thất 6781 (hồi 60% một lần, không bất tử), scene.lua đăng nhập, boss thế giới zhaohuan, Tiêu Phong 45410 (không đánh được).
+- Phụng Minh Vương Lăng: thử mở 23:01, **đóng lại 23:23** vì nhân vật Hoang kẹt (client không có map).
 
 ### Trân Long Kỳ Cuộc (= "Cờ 12h", cấp 10)
 - **Vào:** NPC Vương Tích Tân (Lạc Dương 366,228), Trương Dịch Quốc (Tô Châu 267,243), Lưu Trọng Phủ (Đại Lý 287,138). Cả ba dùng script 000090 `obj/luoyang/oluoyang_fuben_zhenlong.lua`. Từ đó đi vào 401001 `event/fuben/efuben_1_zhenlong_huodong.lua` (bản thường) và 401002 `efuben_1_zhenlong2_huodong.lua` (bản nhanh).
@@ -308,6 +318,7 @@ Cột "Đã sửa" ghi ngày + tag rollback. "Chưa thử" = chưa ai đánh l�
 - `GetMonsterCount` / `GetMonsterObjID` gồm cả xác chết còn trên đất.
 - Nhiều script so **tên quái** (`GetName(...) == "..."`) để biết mình là boss nào. Đổi tên quái trong `MonsterAttrExTable.txt` là làm hỏng script (Tam Thần: boss1–3, rương Thiên/Địa/Nhân).
 - Phó bản cần map ở **cả hai phía**: server `Public/Scene/<ten>.nav/.scn` + client `Data/Scene.axp` có `<ten>.Scene/.Terrain/.GridInfo`. Kiểm client: `grep -a -o "<ten>[A-Za-z0-9_.]*" Data/Scene.axp | sort -u`.
+- **Nhân vật kẹt trong phó bản** (vd client không có map): mỗi lần đăng nhập, server đưa nhân vật về lại scene phó bản nếu nó còn mở. Khi phó bản đã đóng, server dùng vị trí dự phòng `t_char.bkscene / bkxpos / bkzpos` (là chỗ đứng trước khi vào). Cách gỡ: mọi người ra khỏi phó bản, đợi hết `NoUserTime` (thường 300 giây), rồi mới đăng nhập lại. GUID trong log server viết dạng hex (1010100004 = `3C34E724`).
 - `LuaFnSetCopySceneData_Param` (0–31): 0 = loại phó bản (`FUBEN_*`), 1 = script phó bản, 3 = scene vào, thường 4/5 = tọa độ vào. Các ô khác mỗi phó bản tự dùng, đọc đầu file.
 - MissionData không còn ô trống an toàn (389 ô có tên trong `ScriptGlobal.lua` + 15 tên khai báo nơi khác, ô "trống" thấp thường là của engine). Cần cờ mới thì ghép vào ô của chính hoạt động.
 - `scene.lua` `x888888_OnScenePlayerLogin`: đoạn "reset vip" của server cũ `return` sớm khi ô 426 == 1 → **phần sau của hàm đăng nhập gần như không bao giờ chạy** (xem `docs/TRANG-THAI.md` 02/10). Đừng dùng ô 426 cho việc khác.

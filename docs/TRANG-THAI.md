@@ -713,3 +713,15 @@ Rollback: tag `truoc-maudoche-02-10`.
 - Sửa: `iniLevel = floor( PlayerMaxLevel/10 ) * 10`. Riêng Thiếu Lâm chặn trần 100, vì chỉ có `shaolin_1_monster_10 … _100`: đội cấp 110–118 trước đây cũng không vào được.
 - Lịch Ác Bá (`Public/Config/ActivityNotice.txt`, script 808015, đơn vị 15 phút): 00:00, 04:00, 10:00, 12:00, 16:00, 20:00, 22:00. **Chưa thử lại trong game.**
 - Cùng lỗi này còn ở khoảng 30 script khác (Kỳ Cuộc 401001/401002, sư môn `shimen_0901`, Thủy Lao, nhiệm vụ thành thị `ecity_*`…). Đang chờ chủ server duyệt (mục 5 trong danh sách soát 02/10). **Ngày mở đặt trần cấp 89 cũng sẽ dính**, vì không có file `_89.ini`.
+
+## 02/10 23:08–23:36 - Vương Lăng kẹt nhân vật → ĐÓNG; đợt sửa lớn theo danh sách đã duyệt
+- **Vương Lăng:** nhân vật **Hoang** (1010100004) vào lúc 23:08:26. Client không có map, nên mất kết nối. Mỗi lần đăng nhập lại (23:10, 23:11) server lại đưa vào scene 36 (phó bản vẫn mở vì bia1 và EmVinh còn bên trong).
+  - Đã đóng lại (commit `ffa20f7`): ẩn nút, chặn tạo phó bản; OnPlayerEnter / OnCopySceneTimer đẩy người ra.
+  - **Phát hiện:** phó bản đang chạy KHÔNG nhận code Lua mới (sau 2 phút, timer mới vẫn chưa chạy). "Lua hiệu lực ngay" chỉ đúng cho lượt gọi mới. Đã sửa `docs/BOSS-PHO-BAN.md`.
+  - Cách gỡ Hoang: bia1 ra lúc 23:30, phó bản tự đóng sau 300 giây. Hoang đăng nhập sau đó sẽ về `bkscene` 580 (286,64). **Chưa xác nhận Hoang đã ra.**
+- **Đợt sửa 23:36** (tag `truoc-dot-sua-02-10b`, 5 commit `903f7bf`…`2367712`, 74 file, kiểm cú pháp bằng luaparse cả 73 file Lua): xem đầu mục 3 của `docs/BOSS-PHO-BAN.md`.
+  - **CHƯA restart:** đổi `MonsterDropBoxs.txt` (song sinh, phân thân Liên Thành) chỉ có hiệu lực sau restart. Lúc deploy có 3 người online.
+  - Bot `tuiboss.js`: `gan('btkt', [15190, 15073])`, đã restart minigame.
+- **Đính chính:** loa "Zing 50%" / "Hồi Ức Thiên Long" ở `yannan.lua` vốn đã tắt từ đợt dọn dẹp (`--[don-dep]`), người chơi chưa từng thấy. Chỉ có dòng `format(... 50% ...)` vẫn chạy và báo lỗi. Đã chú thích 6 dòng đó.
+- **Chờ chủ server trả lời:** Sát Tinh hiện đúng 1 phiếu/người/boss (Mv 60 = BV 60), tức 12 phiếu/người/lượt. Câu "hạ xuống mỗi boss chỉ 1 phiếu" có thể hiểu là cả đội 1 phiếu: bảng rơi không làm được vì mỗi người roll riêng.
+- **Rủi ro ngày mở:** nhiều họ `*_20monster` (nhánh sư môn thêm kinh nghiệm) chỉ có file từ `_40`. Người chơi dưới cấp 40 đi nhánh này có thể không vào được (chưa kiểm).
