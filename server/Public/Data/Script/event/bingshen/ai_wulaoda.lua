@@ -159,7 +159,7 @@ end
 --À¿Õˆ....
 --**********************************
 function x894066_OnDie( sceneId, selfId, killerId )
-	CallScriptFunction( 950001, "TB_Ghi", sceneId, selfId, killerId )   -- [NetCo4 01/10] tui do giet boss (roimap.lua, chi ghi khi ID co trong danh sach)
+	-- CallScriptFunction( 950001, "TB_Ghi", sceneId, selfId, killerId )   -- [NetCo4 02/10] CHUYEN tui boss sang boss cuoi that Gia Luat Lien Thanh (ai_liqiushui.lua x894069_OnDie)
 
 	--÷ÿ÷√AI....
 	x894066_ResetMyAI( sceneId, selfId )

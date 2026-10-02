@@ -165,7 +165,7 @@ end
 --À¿Õˆ....
 --**********************************
 function x894069_OnDie( sceneId, selfId, killerId )
-
+	CallScriptFunction( 950001, "TB_Ghi", sceneId, selfId, killerId )   -- [NetCo4 02/10] tui boss Binh Thanh lon: boss cuoi that (truoc ghi o Gia Luat Dien 894066, chet la mo ai 4)
 	--÷ÿ÷√AI....
 	x894069_ResetMyAI( sceneId, selfId )
 

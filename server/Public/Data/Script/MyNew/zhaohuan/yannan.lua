@@ -70,15 +70,15 @@ function  x100121_OnCharacterTimer(  sceneId,  objId,  dataId,  uTime  )
                       --[don-dep] BroadMsgByChatPipe(sceneId,  selfId,  strText,  4)
 	 end
                 if  nMinute==19  then
-                      local  strText  =  format("@*;SrvMsg;SCA: Server hi®n ðang khuyªn mãi nÕp thë Zing 50% và khuyªn mãi chuy¬n khoän lên ðªn 100% giá tr¸, ði¬m Khuyªn Mãi nÕp thë ðßþc tích lûy dùng ð¬ ð±i quà trong server thay cho l¶i cäm tÕ cüa Admin gØi ðªn các bÕn ðã üng hµ server!",  " thông báo ")
+                      -- local  strText  =  format("@*;SrvMsg;SCA: Server hi®n ðang khuyªn mãi nÕp thë Zing 50% và khuyªn mãi chuy¬n khoän lên ðªn 100% giá tr¸, ði¬m Khuyªn Mãi nÕp thë ðßþc tích lûy dùng ð¬ ð±i quà trong server thay cho l¶i cäm tÕ cüa Admin gØi ðªn các bÕn ðã üng hµ server!",  " thông báo ")   -- [NetCo4 02/10] tat: loa server cu (Zing 50% / Hoi Uc Thien Long), "50%" lam format loi moi lan
                       --[don-dep] BroadMsgByChatPipe(sceneId,  selfId,  strText,  4)
 	 end	 
                 if  nMinute==25  then
-                      local  strText  =  format("@*;SrvMsg;SCA: Chào m×ng các bÕn ðªn v¾i H°i ºc Thiên Long! phiên bän hi®n ðang chÕy trên n«n ð° h÷a 3D song hành cùng bän 2D truy«n th¯ng. Server là n½i quy tø nhi«u tính nång ðµc ðáo, m¾i lÕ cùng ð° h÷a ð©p m¡t. Chúc các bÕn có nhæng phút giây vui vë cùng server!",  " thông báo ")
+                      -- local  strText  =  format("@*;SrvMsg;SCA: Chào m×ng các bÕn ðªn v¾i H°i ºc Thiên Long! phiên bän hi®n ðang chÕy trên n«n ð° h÷a 3D song hành cùng bän 2D truy«n th¯ng. Server là n½i quy tø nhi«u tính nång ðµc ðáo, m¾i lÕ cùng ð° h÷a ð©p m¡t. Chúc các bÕn có nhæng phút giây vui vë cùng server!",  " thông báo ")   -- [NetCo4 02/10] tat: loa server cu (Zing 50% / Hoi Uc Thien Long), "50%" lam format loi moi lan
                       --[don-dep] BroadMsgByChatPipe(sceneId,  selfId,  strText,  4)
 	 end
                 if  nMinute==29  then
-                      local  strText  =  format("@*;SrvMsg;SCA: Server hi®n ðang khuyªn mãi nÕp thë Zing 50% và khuyªn mãi chuy¬n khoän lên ðªn 100% giá tr¸, ði¬m Khuyªn Mãi nÕp thë ðßþc tích lûy dùng ð¬ ð±i quà trong server thay cho l¶i cäm tÕ cüa Admin gØi ðªn các bÕn ðã üng hµ server!",  " thông báo ")
+                      -- local  strText  =  format("@*;SrvMsg;SCA: Server hi®n ðang khuyªn mãi nÕp thë Zing 50% và khuyªn mãi chuy¬n khoän lên ðªn 100% giá tr¸, ði¬m Khuyªn Mãi nÕp thë ðßþc tích lûy dùng ð¬ ð±i quà trong server thay cho l¶i cäm tÕ cüa Admin gØi ðªn các bÕn ðã üng hµ server!",  " thông báo ")   -- [NetCo4 02/10] tat: loa server cu (Zing 50% / Hoi Uc Thien Long), "50%" lam format loi moi lan
                       --[don-dep] BroadMsgByChatPipe(sceneId,  selfId,  strText,  4)
 	 end	 
                 if  nMinute==35  then
@@ -86,15 +86,15 @@ function  x100121_OnCharacterTimer(  sceneId,  objId,  dataId,  uTime  )
                       --[don-dep] BroadMsgByChatPipe(sceneId,  selfId,  strText,  4)
 	 end
                 if  nMinute==39  then
-                      local  strText  =  format("@*;SrvMsg;SCA: Server hi®n ðang khuyªn mãi nÕp thë Zing 50% và khuyªn mãi chuy¬n khoän lên ðªn 100% giá tr¸, ði¬m Khuyªn Mãi nÕp thë ðßþc tích lûy dùng ð¬ ð±i quà trong server thay cho l¶i cäm tÕ cüa Admin gØi ðªn các bÕn ðã üng hµ server!",  " thông báo ")
+                      -- local  strText  =  format("@*;SrvMsg;SCA: Server hi®n ðang khuyªn mãi nÕp thë Zing 50% và khuyªn mãi chuy¬n khoän lên ðªn 100% giá tr¸, ði¬m Khuyªn Mãi nÕp thë ðßþc tích lûy dùng ð¬ ð±i quà trong server thay cho l¶i cäm tÕ cüa Admin gØi ðªn các bÕn ðã üng hµ server!",  " thông báo ")   -- [NetCo4 02/10] tat: loa server cu (Zing 50% / Hoi Uc Thien Long), "50%" lam format loi moi lan
                       --[don-dep] BroadMsgByChatPipe(sceneId,  selfId,  strText,  4)
 	 end	 
                 if  nMinute==45  then
-                      local  strText  =  format("@*;SrvMsg;SCA: Chào m×ng các bÕn ðªn v¾i H°i ºc Thiên Long! phiên bän hi®n ðang chÕy trên n«n ð° h÷a 3D song hành cùng bän 2D truy«n th¯ng. Server là n½i quy tø nhi«u tính nång ðµc ðáo, m¾i lÕ cùng ð° h÷a ð©p m¡t. Chúc các bÕn có nhæng phút giây vui vë cùng server!",  " thông báo ")
+                      -- local  strText  =  format("@*;SrvMsg;SCA: Chào m×ng các bÕn ðªn v¾i H°i ºc Thiên Long! phiên bän hi®n ðang chÕy trên n«n ð° h÷a 3D song hành cùng bän 2D truy«n th¯ng. Server là n½i quy tø nhi«u tính nång ðµc ðáo, m¾i lÕ cùng ð° h÷a ð©p m¡t. Chúc các bÕn có nhæng phút giây vui vë cùng server!",  " thông báo ")   -- [NetCo4 02/10] tat: loa server cu (Zing 50% / Hoi Uc Thien Long), "50%" lam format loi moi lan
                       --[don-dep] BroadMsgByChatPipe(sceneId,  selfId,  strText,  4)
 	 end
                 if  nMinute==49  then
-                      local  strText  =  format("@*;SrvMsg;SCA: Server hi®n ðang khuyªn mãi nÕp thë Zing 50% và khuyªn mãi chuy¬n khoän lên ðªn 100% giá tr¸, ði¬m Khuyªn Mãi nÕp thë ðßþc tích lûy dùng ð¬ ð±i quà trong server thay cho l¶i cäm tÕ cüa Admin gØi ðªn các bÕn ðã üng hµ server!",  " thông báo ")
+                      -- local  strText  =  format("@*;SrvMsg;SCA: Server hi®n ðang khuyªn mãi nÕp thë Zing 50% và khuyªn mãi chuy¬n khoän lên ðªn 100% giá tr¸, ði¬m Khuyªn Mãi nÕp thë ðßþc tích lûy dùng ð¬ ð±i quà trong server thay cho l¶i cäm tÕ cüa Admin gØi ðªn các bÕn ðã üng hµ server!",  " thông báo ")   -- [NetCo4 02/10] tat: loa server cu (Zing 50% / Hoi Uc Thien Long), "50%" lam format loi moi lan
                       --[don-dep] BroadMsgByChatPipe(sceneId,  selfId,  strText,  4)
 	 end	 
 	            --if  nMinute==46  then

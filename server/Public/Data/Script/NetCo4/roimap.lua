@@ -118,7 +118,7 @@ end
 x950001_TB_Them( { 4130, 4131, 4132, 4133, 4134, 4135, 4136, 4137, 4138, 4139, 34130, 34131, 34132, 34133, 34134, 34135, 34136, 34137, 34138, 34139 } )  -- Q To Chau: Bien Canh Dai Vuong (dot 3)
 x950001_TB_Them( { 13260, 13261, 13262, 13263, 13264, 13265, 13266, 13267, 13268, 13269 } )  -- Q Lau Lan / Viem Ma Son: Hoa Diem Yeu Ma (boss cuoi ai 3). 02/10: truoc la Hong Kich Yeu Vuong 13220-13229 (cuoi ai 2) -> qua ai 2 bo ve van co tui
 x950001_TB_Them( { 9430, 9431, 9432, 9433, 9434, 9435, 9436, 9437, 9438, 9439, 39430, 39431, 39432 } )  -- Yen Tu O: Mo Dung Phuc
-x950001_TB_Them( { 15175, 15073 } )  -- Binh Thanh Ky Tran lon / nho: boss cuoi
+x950001_TB_Them( { 15190, 15073 } )  -- Binh Thanh Ky Tran lon: Gia Luat Lien Thanh 15190 (boss cuoi that, 02/10; truoc la Gia Luat Dien 15175) / nho: 15073
 x950001_TB_Them( { 14145 } )         -- Tu Tuyet Trang: Bang Xi
 x950001_TB_Them( { 9666, 9546 } )    -- Phieu Mieu Phong thuong / khieu chien: Ly Thu Thuy
 x950001_TB_Them( { 13456 } )         -- Sat Tinh (Sinh Tu Loi Dai): CHI Ngo Vinh, 1 tui / luot (xem x950001_TB_SatTinhDuoc)
