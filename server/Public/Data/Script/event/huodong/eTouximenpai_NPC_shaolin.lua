@@ -391,7 +391,7 @@ function x808027_MakeCopyScene( sceneId, selfId, nearmembercount )
 	elseif mylevel < PlayerMaxLevel then
 		iniLevel = floor( mylevel/10 ) * 10
 	else
-		iniLevel = PlayerMaxLevel
+		iniLevel = floor( PlayerMaxLevel/10 ) * 10   -- [NetCo4 02/10] cu: iniLevel = PlayerMaxLevel (119) -> nap <map>_monster_119.ini khong co -> pho ban khong tao duoc
 	end
 
 	local leaderguid = LuaFnObjId2Guid( sceneId, selfId )
@@ -427,7 +427,7 @@ function x808027_MakeCopyScene( sceneId, selfId, nearmembercount )
 		iniLevel = 100
 	end
 
-	LuaFnSetSceneLoad_Monster( sceneId, "shaolin_1_monster_" .. iniLevel .. ".ini" )
+	if iniLevel > 100 then iniLevel = 100 end LuaFnSetSceneLoad_Monster( sceneId, "shaolin_1_monster_" .. iniLevel .. ".ini" )   -- [NetCo4 02/10] chi co shaolin_1_monster_10.._100.ini
 
 	LuaFnSetCopySceneData_Param(sceneId, CopyScene_LevelGap, mylevel - iniLevel) --c¤p±ð²î,CopyScene_LevelGap TÕi  scene.lua ÖÐ¸³Öµ
   LuaFnSetCopySceneData_Param(sceneId, 13, mylevel)

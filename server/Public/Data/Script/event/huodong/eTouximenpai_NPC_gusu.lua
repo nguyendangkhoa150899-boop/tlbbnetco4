@@ -396,7 +396,7 @@ function  x808042_MakeCopyScene(  sceneId,  selfId,  nearmembercount  )
 	 elseif  mylevel  <  PlayerMaxLevel  then
 	 	 iniLevel  =  floor(  mylevel/10  )  *  10
 	 else
-	 	 iniLevel  =  PlayerMaxLevel
+	 	 iniLevel = floor( PlayerMaxLevel/10 ) * 10   -- [NetCo4 02/10] cu: iniLevel = PlayerMaxLevel (119) -> nap <map>_monster_119.ini khong co -> pho ban khong tao duoc
 	 end
 
 	 local  leaderguid  =  LuaFnObjId2Guid(  sceneId,  selfId  )
