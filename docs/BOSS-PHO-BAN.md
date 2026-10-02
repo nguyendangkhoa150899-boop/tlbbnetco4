@@ -247,10 +247,11 @@ Cột "Đã sửa" ghi ngày + tag rollback. "Chưa thử" = chưa ai đánh l�
 - **Luồng:** 9 Long Trụ → 3 long mạch → boss Thủ Lăng Giám 15344–15347 → 8 Kim Bảo Rương (nguyên liệu Long Văn).
 - **Đóng ở đâu:** nút vào bị comment ở `efuben_wangling.lua:107`.
 - **Rủi ro khi mở:** client không có map `chengshiwangling` (chỉ có `fengmingwangling_new`).
-- **Lỗi đã biết:**
-  - Rương có khoảng 20% lần mở bị nil (mất chìa).
-  - Loa phát trước khi kiểm điều kiện.
-  - Chữ ghi "3 người".
+- **Đã sửa 02/10** (commit `d2477aa`):
+  - Rương: số ngẫu nhiên 401–700 (**30%** số lần mở) ra món nil, mất chìa. Nay gom món đã bốc rồi mới bỏ vào rương.
+  - Loa "đã mang đội tiến vào" chỉ phát khi vào được.
+  - Chữ "3 người" / "d?i ngu", `targetId` nil, Paopao truyền tên boss nil.
+- **Chờ thử:** map client, đi tới tế đàn (48,48), 9 Long Trụ có ra không. Hỏng thì chú thích lại dòng 107.
 
 ### Tam Thần Ảo Cảnh (cấp 80 theo code)
 - **Vào:** Thương Lăng Tử (Phượng Minh Trấn 286,81), script 044801 `obj/fengmingzhen/ofenming_canglingzi.lua`. NPC này bán Côn Ngô Tiên Thược 38001514 (100.000 KNB) và Côn Ngô Bí Thược 38001515 (50.000 KNB), rồi đưa vào 894000 `New/sanshen/efuben_sanshen.lua`.
