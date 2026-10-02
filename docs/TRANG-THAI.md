@@ -628,6 +628,12 @@ Trang Bảng Rơi https://netco4.click/ đã dựng lại sau khi đổi tỉ l�
 - Thái Cổ có 17 hoặc 19 loại dòng, ra 11 dòng, quy tắc 9, T = -1. Vì vậy **số ra cố định**, ví dụ Ngoại công 2225, Chính xác 1433.
 - Lưu ý: trong lúc áp mẫu, mọi cách tạo ra đúng ID đó cũng ăn mẫu, kể cả tẩy, tiến giai lên Thái Cổ và quà admin.
 
+**Cập nhật 17:00:**
+- Gộp các ID có dòng EquipBase giống hệt (khác mỗi cột 0 và 4) thành 1 dòng. Áp hoặc trả mẫu sẽ làm cho cả nhóm.
+- Thái Cổ: 108 ID gộp thành 37 nhóm. Mỗi nhánh nâng cấp 6–7 sao cho 1 ID riêng, nhưng lên 8–9 sao thì dữ liệu như nhau. Ví dụ U Minh - Hút máu = 10303449/452/455, đến từ Thượng Cổ 10303431/434/437.
+- `maudoche.json` lưu thêm `ids` cho mỗi mẫu.
+- Mục này **ẩn ở cổng mod** (lớp `epOnly`). `/api/gm/doche` nằm trong `VIEWONLY_PATHS`.
+
 **Cách dùng:**
 1. Bấm 🔄 Tải rồi chọn món. Có 78 món chế cấp 80–99 lấy từ `ItemCompound`, xếp theo vị trí.
 2. Tick dòng muốn có. Chỉ hiện những dòng món đó tự ra được, và số dòng không quá mức tối đa tự nhiên.
