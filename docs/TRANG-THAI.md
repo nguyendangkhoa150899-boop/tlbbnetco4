@@ -1,6 +1,6 @@
 # Trạng thái và việc tiếp theo
 
-Cập nhật: 28/09/2026 (kết thúc phiên dựng server). Claude ở nhà: đọc file này cùng `CLAUDE.md` rồi tiếp tục từ "Việc tiếp theo".
+Cập nhật: 02/10/2026 15:55 — **đọc mục cuối "02/10 trưa–chiều — TỔNG KẾT PHIÊN" trước**. (Bản đầu: 28/09/2026, kết thúc phiên dựng server.) Claude ở nhà: đọc file này cùng `CLAUDE.md` rồi tiếp tục từ "Việc tiếp theo".
 
 > **01/10: mọi thứ đã làm + quyết định chốt + quy trình ngày mở nằm ở [MO-SERVER.md](MO-SERVER.md). Đọc file đó trước.**
 
@@ -547,5 +547,74 @@ Tài khoản: `admin` (nhân vật `Bialk`, GUID 1010100001, GM), `hoang`. Mật
 - **Việt hóa:** 11 chuỗi tiếng Trung ở NPC 000090 (menu: Giới thiệu Kỳ Cuộc, Vào Phòng nghỉ…, Về Phòng nghỉ, Làm sao nhận thêm kinh nghiệm khi đánh cờ; 2 câu lỗi tổ đội) + 31 chuỗi ở 401002 (thông báo vào/điều kiện, đếm giờ, tên boss, 6 câu thắng trận chép bản Việt hóa có sẵn của 401001; bỏ câu đùa tiếng Trung "nếu thấy dòng này là mạng lag"). Viết bằng mã thoát VISCII `\ddd`. 401001 đã Việt hóa sẵn (chữ Trung còn lại chỉ trong chú thích).
 - **Túi đồ boss "Cờ 12h":** khi boss cuối Viễn Cổ Kỳ Hồn chết (khối `objType == LastBoss[mgroup]` của 401001 / 401002) → `TB_GhiId` → mọi người trong bàn cờ có túi: Vũ Học Tâm Đắc ×15, Bí Tịch Tàn Hiệt ×5, Võ Hồn cấp 2–4 ×1 (không KNB), trần 1/ngày. 60 ID boss (3 mức × 20 bậc) thêm vào `roimap.lua` (vòng `for`) và bot `tuiboss.js` hoạt động `kycuoc`. Chưa test trong game.
 
-## VIỆC NGÀY MAI (03/10)
-- **Vòng quay trong game → chuyển ra web cho dễ thao tác** (chủ server giao 02/10). Cần nghiên cứu: NPC/script vòng quay hiện có (phiếu rút thăm `30070501` Hạnh Vận Quả đang phát trong túi boss), bảng phần thưởng + tỉ lệ, cách trừ phiếu; rồi làm trang quay trên web (ví KNB / hàng đợi quà như shop web).
+## 02/10 trưa–chiều — TỔNG KẾT PHIÊN (đọc mục này trước khi làm tiếp)
+
+Trạng thái lúc 15:55: mọi việc dưới đây **đã commit, đã deploy**. Game restart lần cuối **15:51**, nên mọi thay đổi bảng .txt đều đã có hiệu lực.
+
+### A. Web / bot (repo bialk, `/opt/minigame/BotDoMin`, không phải git trên VPS)
+
+- **Vòng Quay May Mắn trên web** (nhóm 🪪 Cá nhân → 🍀). Chi tiết ở `docs/VONG-QUAY.md`.
+  - Mở hoặc làm mới vòng: 8.000 KNB, bốc 24 món theo trọng số từ bộ quà. Mặc định là 377 món vòng quay gốc.
+  - Rút thăm: tốn 1 lượt quay. Túi đồ boss cho 2 lượt, thay cho Hạnh Vận Quả ×2.
+  - Quà vào rương web, tối đa 100 dòng, trúng trùng thì cộng dồn. Người chơi có nút Nhận vào game và nút Xóa.
+  - **Không còn VIP.** Mỗi vòng quay tối đa **40 lần**, admin chỉnh ở ô "Số lần quay / vòng". Đủ thì phải Làm mới. Trang hiện "vòng này còn X/40".
+  - Có ô Tự động quay, mỗi lượt 3 vòng chậm dần, nghỉ 1,5 giây.
+  - Cấu hình nằm ở `dbCache._vqCfg = {on, gia, max, pool}`. Người chơi: `u.vq = {luot, board, boardN, ruong, lich}`.
+  - Code: `vongquay.js`, `webplay.js` (trang `pageVq`), `panel.js` (tab 🎁 Quà tặng, thẻ Vòng quay).
+- **Hình vật phẩm game theo ID**: `itemicon.js` cùng `data/itemicons.json` (23.366 món), ảnh nằm ở `/opt/minigame/itemicon`. Công cụ dựng: `tools/icon-vat-pham/lam.js` trong repo game.
+  - Dùng cho vòng quay, shop web, quà mỗi ngày, và ô xem trước trong admin (bảng Shop Item, Quà admin tặng).
+  - Ảnh tự tải lên vẫn được ưu tiên.
+- Tab 🎁 Quà tặng đã mở cho cổng mod. Riêng cấp lượt quay vẫn chỉ cổng SUPER.
+- **Bẫy:** `minigame.service` có `After=tlbb.service`. Restart bot trong lúc game đang restart thì bot phải chờ game lên, nên mọi trang web sập 2–3 phút. Đã xảy ra 14:49–14:51. Trước khi restart bot, kiểm `systemctl list-jobs` phải trống.
+
+### B. Game (repo này) — sổ shop chi tiết ở `docs/SHOP-TRONG-GAME.md`
+
+| Việc | Commit | Tag quay lại |
+|---|---|---|
+| Shop 150 trả về ngọc cấp 4 như gốc | bd73440 | truoc-shop150-ngoc4-02-10 |
+| Ngọc cấp 6 ở boss: Đế Thích Thiên dùng hộp 90031 (ngọc loại khác 50%) và 90032 (Băng/Hỏa/Huyền/Độc/Thể lực 20%). 11 boss bỏ hộp 50032 (ngọc giảm kháng) | 7e69269 | (xem commit) |
+| Hậu Hoa Viên chỉ mở 22:00–23:59, nhánh `mo-server` sửa giống | 1308190 | truoc-hhv-22h-02-10 |
+| Kệ 164 Yếu Quyết 80: làm trống | ab81ad4 | truoc-xoa-yq80-02-10 |
+| Kệ 181 bỏ Chưởng Quỹ Yếu Quyết 30008053 | b039dbe | truoc-xoa-30008053-02-10 |
+| Kệ 180 bỏ Canh Danh Thiếp và Chuyển Tính Đan | db37f51 | truoc-xoa-ke180-02-10 |
+| Thần khí 42 bản 2.000 (kệ 136): 10 dòng cố định khi mua | 4f483fd | truoc-thankhi42-02-10 |
+| Sách pet kệ 102/133/134 trả KNB (50k/20k/10k/5k). Shop BaBy kệ 270 tắt | 2cde507 | truoc-sachpet-shopbaby-02-10 |
+
+Trang Bảng Rơi https://netco4.click/ đã dựng lại sau khi đổi tỉ lệ ngọc, bằng `node tools/bang-roi/lam.js` rồi chép `web/index.html` lên `/var/www/netco4/`.
+
+### C. Kiến thức mới (dịch ngược Server.elf, World)
+
+- **Dòng thuộc tính trang bị xanh / thần khí** (`ItemCreateRuler::CreateBlueEquipAttrib` + `CheckBlueEquipAttr`):
+  - Thuộc tính số k (0..57) dùng 3 chỗ: trọng số ở `EquipBase` cột k+32 (-1 = tắt), giá trị gốc ở `ItemSegValue` cột k+1, hệ số ở `Server/Config/ItemSegRate` cột k+1.
+  - Các cột khác của `EquipBase`: 90 quy tắc phẩm chất, 91 đoạn giá trị, 92/93 số dòng min/max (trần 16), 24 có tư chất, 94/95 tư chất, 25 có random cấp phẩm chất, 100 = T.
+  - Giá trị = ceil(V × (Rate[cấp] + (Rate[cấp+1] − Rate[cấp]) × rand%100 × 0,01 / T) × 0,01). Nếu T ≤ 0 thì bỏ phần rand.
+  - Quy tắc 1..8 luôn cho cấp phẩm chất cố định.
+  - **Muốn set cứng dòng cho món nào:** thêm một đoạn mới vào `ItemSegValue` với V = round(muốn × 100 / Rate), giữ thứ tự ID tăng dần. Ví dụ là đoạn 4400.
+- **Sinh sản trân thú** (NPC Vân Phi Phi, Tô Châu): thời gian = trung bình cột 49 `宠物繁殖时间(ms)` của 2 pet trong `PetAttrTable`. Bảng gốc đã là 1 ms cho mọi pet, nên không cần sửa. World đếm lùi, xong thì gửi thư, giữ chờ nhận 48 giờ.
+- **PetAttrTable:** tư chất chuẩn ở cột 35–39 (Lực/Thể/Linh/Thân/Định). Tên tiếng Việt của pet lấy ở `MonsterAttrExTable` dòng cùng ID. Ví dụ Tam Long Thái Tử = 30400–30469.
+- **Sách kỹ năng pet** = `PetSkillBook.txt` (30402xxx → mã kỹ năng). Loại chiêu ở `SkillTemplate_V1` cột 27: 0 chủ bấm, 1 pet tự đánh, 2 bị động.
+- **Ngọc giảm kháng** = 4 dòng Minh Thạch 50x21xxx. Quái thường đặt trên bản đồ không rơi loại này. Chỉ còn ở:
+  - Dã Trư và lính trộm Phượng Hoàng: cấp 4, 0,83%.
+  - Gia Luật Hồng Cơ, trùm Huyết Chiến Nhạn Môn (script 391211): cấp 6, 3,75%.
+  - 9 con mang hộp 50032 nhưng không có chỗ gọi ra.
+
+### D. Còn chờ chủ server quyết
+
+1. **Kệ 151** (ngọc cấp 6, KNB 10.000–30.000): bỏ trống hay giữ. Đổi ID về cấp 4 thì vô nghĩa, vì kệ 150 đã bán bằng Điểm Tặng.
+2. **Kệ 31** (vàng): bỏ Chưởng Quỹ Yếu Quyết 30008053 (ô thứ 7) không.
+3. **Gia Luật Hồng Cơ** có bỏ hộp 50032 không. Cần kiểm trước xem phó bản Huyết Chiến Nhạn Môn có vào được không.
+4. Ngày mở server: mọi quyết định đã đủ (`docs/MO-SERVER.md` mục 2b). Chờ người dùng nói "làm".
+
+### E. Chưa kiểm trong game (nên test tối nay)
+
+- Mua 1 cây Thần khí 42 nội và 1 cây ngoại: đủ 10 dòng, đúng số.
+- Kệ sách pet: trả KNB, đúng giá. Shop BaBy trống, mở ra không lỗi.
+- Đế Thích Thiên rơi ngọc cấp 6 đúng tỉ lệ. Các boss khác không còn ngọc giảm kháng cấp 6.
+- Vòng quay web: đếm 40 lần, Làm mới về 40, Tự động quay dừng đúng lúc.
+
+### F. Quy tắc làm việc người dùng đã đặt
+
+- Không restart game khi có người online, trừ khi người dùng nói "reset". Người dùng tự bấm reset trên trang GM.
+- Luôn tạo git tag rollback trước khi sửa. Repo public: không commit secret.
+- Khi người dùng chỉ hỏi ("check", "gửi list rồi chốt") thì trả lời và chờ, không tự sửa.
+- Shop web do chủ server tự đặt: không đụng khi sửa shop game. Mọi sửa shop game ghi thêm vào `docs/SHOP-TRONG-GAME.md`.
