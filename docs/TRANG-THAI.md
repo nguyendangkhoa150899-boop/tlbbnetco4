@@ -742,3 +742,12 @@ Rollback: tag `truoc-maudoche-02-10`.
   - **Rương Ích Kỷ giữ vĩnh viễn, không giới hạn số món** (chủ server chốt). Bỏ xóa lúc 00:00 cho mọi món; vẫn giữ giới hạn mua vào rương 100 món/ngày và tặng 100 món/lần.
   - Icon game cho món không có ảnh shop (`itemicon.js`).
   - Sao lưu trước khi đổi: `/opt/tlbb-backup/database.json.truoc-ruong-vinhvien-0310`.
+
+## 03/10 00:26 - EXP toàn server trên panel + Bảng Top Server (game `b5cbb61`, tag `truoc-bangtop-exp-03-10`; bot `932a583`)
+- **EXP toàn server:** admin.netco4.click → tab 🛠️ GM → "⚡ EXP toàn server" (và trang gm. panel game). "Lưu + Restart" ghi `ConfigInfo.ini` `ExpParam` + `Server/txt/NetCo4Cfg/expparam.txt`; `cap-nhat.sh` áp lại sau mỗi lần deploy (giống khóa cấp). "Mặc định + Restart" xóa `expparam.txt` và trả về giá trị trong repo (đang x12). Giới hạn 0.1–50, tối đa 1 số lẻ. **Đổi EXP luôn kéo theo restart game.**
+- **Bảng Top Server** (890096 `event/prize/shengjjll.lua`, giao diện client gọi `GetGiftsForUI` 20–25, nhận thưởng 40):
+  - Nhận **đúng 1 lần/tuần mỗi bảng**: so `MD_CHUNJIE_TUANYUANJIAOZI1–6_DAYTIME` với `GetWeekTime()`. Code cũ `nWeekCur ~= nQuarter > 0` viết sai nên không chặn gì; ô MD 1–3 dùng chung với sự kiện Tết 2007 đã hết hạn nên vô hại.
+  - **Top Tài Phú = KNB trong game**: bỏ điều kiện điểm nạp 2.000.000.
+  - **Top Level + Top Tài Phú cập nhật mỗi lần đăng nhập / đổi bản đồ** (`x950000_CapNhatTop` trong `NetCo4/quatang.lua`, gọi `SetDengji` của 888899). Người có 0 KNB hiện 1.
+  - Bảng đọc từ file `Server/Config/Paiming/<chongzi|songhua|sharen|dengji|laba|shouhua>.txt`, top 10, mỗi người 5 dòng.
+- **Danh hiệu không cộng chỉ số.** `CharTitle.txt` không có cột thuộc tính; mọi chỉ số đến từ buff đi kèm (7521–7538, 24 giờ). Tên danh hiệu là mã chuỗi phía client (`#701`…), client tự tra trong `ccore.dat` (mã hóa), nên chưa đổi được sang tiếng Việt từ server. Thời hạn danh hiệu: bảng ghi 168 giờ, script truyền 24.
