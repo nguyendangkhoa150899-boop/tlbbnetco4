@@ -92,7 +92,8 @@ Mẫu tạm 11–15 dòng: Tạo Hóa, Trùng Lâu Liên/Giới/Ngọc, quạt P
 | Máu boss | **80% máu gốc** (giảm 20%). Gốc = `git show da6cce6^:…MonsterAttrExTable.txt`. **Chỉ vá cột 19 và 59 (đếm từ 0) của file HIỆN TẠI**, không chép lại cả file (sau `da6cce6` còn 176 dòng pet skin đã sửa). Đã đối chiếu: 4.247 dòng boss hiện = gốc × 0,65. |
 | 80.000 Điểm Tặng | **Tắt hẳn.** |
 | 2.000 vàng + 8.000 vàng khóa/ngày | **Giữ.** |
-| Hộp Tân Thủ Trang Bị | **1 lần duy nhất** mỗi nhân vật. |
+| Hộp Tân Thủ Trang Bị | **1 lần duy nhất** mỗi nhân vật, kèm Miêu Nhãn Thạch 6 + Hổ Nhãn Thạch 6 (khóa). **Đã áp cả server test lẫn `mo-server` 02/10** (`725a911`/`d2eff65`). |
+| Quà Tân Thủ + lên cấp 99 (NPC Hồi Ức Thiên Long, 8887) | **Tắt** (02/10, cả test lẫn `mo-server`). Buff 2.5 exp (Level ≤105) giữ nguyên. |
 | Yến Tử Ổ | Giữ 2 đợt cuối, 3 lượt/ngày. |
 | Kim Tàm Ti | Giữ 30%. |
 | Hậu Hoa Viên | **22:00–23:59** — ĐÃ áp trên server test 02/10 (`1308190`), nhánh mo-server cùng dòng (`5b25a57`). |
