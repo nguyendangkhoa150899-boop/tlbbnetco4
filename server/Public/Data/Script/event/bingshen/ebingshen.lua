@@ -162,7 +162,7 @@ function x894063_CheckCanEnter( sceneId, selfId, targetId )
 
 	--»À ˝ «∑Òπª....
 	if GetTeamSize(sceneId,selfId) < 1 then
-		return 0, "–µi ng˚ khÙng ¸ 3 ngﬂ∂i, khÙng th¨ ti™n v‡o"
+		return 0, "\208\181i ng\251 ph\228i c\243 \237t nh\164t 1 ng\223\182i m\190i c\243 th\172 ti\170n v\224o" -- [NetCo4 02/10] chu ghi 3 nguoi, code la GetTeamSize < 1
 	end
 
 	-- «∑Ò∂º‘⁄∏ΩΩ¸....

@@ -14,20 +14,20 @@ function x391211_OnDefaultEvent( sceneId, selfId, targetId )
 		local axiao = CallScriptFunction( x391211_g_FuBenScriptId, "GetBossBattleFlag", sceneId )
 	BeginEvent(sceneId)
 		if axiao == 0 then
-		AddText(sceneId,"      众好汉助我阻挡辽军杀戮，不让更多生灵涂炭！")
-		    AddNumText( sceneId, x391211_g_ScriptId, "阻挡辽国大军", 10, 1 )
+		AddText(sceneId,"      Ch\223 v\184 h\228o h\225n, xin gi\250p ta ng\229n qu\226n Li\234u t\224n s\225t, \240\215ng \240\172 th\234m sinh linh \240\176 th\225n!") -- [NetCo4 02/10] chu GBK -> Viet
+		    AddNumText( sceneId, x391211_g_ScriptId, "Ng\229n ch\163n \240\213i qu\226n Li\234u qu\175c", 10, 1 ) -- [NetCo4 02/10] chu GBK -> Viet
 	elseif axiao == 1 then
-		AddText(sceneId,"      耶律辛武功阴毒，他会释放困兽囚笼，寒梅遍野等技能，各位英雄小心应对！")
-		    AddNumText( sceneId, x391211_g_ScriptId, "击杀耶律辛", 10, 2 )
+		AddText(sceneId,"      Gia Lu\167t T\226n v\245 c\244ng \226m \240\181c, bi\170t thi tri\172n Kh\175n Th\250 T\249 Lung, H\224n Mai Bi\170n D\227... Ch\223 v\184 anh h\249ng h\227y c\166n th\167n \209ng ph\243!") -- [NetCo4 02/10] chu GBK -> Viet
+		    AddNumText( sceneId, x391211_g_ScriptId, "Ti\234u di\174t Gia Lu\167t T\226n", 10, 2 ) -- [NetCo4 02/10] chu GBK -> Viet
 	elseif axiao == 2 then
-		AddText(sceneId,"      耶律宛冰攻了得，能召唤寒冰之灵，释放冰雪连天，各位英雄小心应对！")
-		    AddNumText( sceneId, x391211_g_ScriptId, "击杀耶律宛", 10, 3 )
+		AddText(sceneId,"      Gia Lu\167t Uy\172n b\229ng c\244ng l\254i h\213i, c\243 th\172 g\247i H\224n B\229ng Chi Linh, thi tri\172n B\229ng Tuy\170t Li\234n Thi\234n. Ch\223 v\184 anh h\249ng h\227y c\166n th\167n \209ng ph\243!") -- [NetCo4 02/10] chu GBK -> Viet
+		    AddNumText( sceneId, x391211_g_ScriptId, "Ti\234u di\174t Gia Lu\167t Uy\172n", 10, 3 ) -- [NetCo4 02/10] chu GBK -> Viet
 	elseif axiao == 3 then
-		AddText(sceneId,"      耶律元一身盖世火攻，释放火系天罚，引地火焚天，各位英雄小心应对！")
-		    AddNumText( sceneId, x391211_g_ScriptId, "击杀耶律元", 10, 4 )
+		AddText(sceneId,"      Gia Lu\167t Nguy\234n m\181t th\226n h\246a c\244ng c\225i th\170, gi\225ng Thi\234n Ph\213t, d\231n \208\184a H\246a Ph\165n Thi\234n. Ch\223 v\184 anh h\249ng h\227y c\166n th\167n \209ng ph\243!") -- [NetCo4 02/10] chu GBK -> Viet
+		    AddNumText( sceneId, x391211_g_ScriptId, "Ti\234u di\174t Gia Lu\167t Nguy\234n", 10, 4 ) -- [NetCo4 02/10] chu GBK -> Viet
 	elseif axiao == 4 then
-		AddText(sceneId,"      耶律洪基虽与我割袍短义，但我不忍去擒拿他，各位好汉去吧,往前走就是大本营了，我记得他应该武功低微！")
-		    AddNumText( sceneId, x391211_g_ScriptId, "击杀耶律洪基", 10, 5 )
+		AddText(sceneId,"      Gia Lu\167t H\176ng C\189 tuy \240\227 c\161t \225o \240o\213n ngh\238a v\190i ta, nh\223ng ta kh\244ng n\222 t\241 tay b\161t h\161n. Ch\223 v\184 h\228o h\225n c\209 ti\170n l\234n ph\237a tr\223\190c l\224 t\190i \240\213i doanh c\252a h\161n, v\245 c\244ng h\161n v\175n t\165m th\223\182ng!") -- [NetCo4 02/10] chu GBK -> Viet
+		    AddNumText( sceneId, x391211_g_ScriptId, "Ti\234u di\174t Gia Lu\167t H\176ng C\189", 10, 5 ) -- [NetCo4 02/10] chu GBK -> Viet
 		end
 
 	EndEvent(sceneId)
@@ -68,7 +68,7 @@ function x391211_OnEventRequest( sceneId, selfId, targetId, eventId )
       if GetNumText() == 1 then
 	if 0 ~= CallScriptFunction( x391211_g_FuBenScriptId, "GetBossBattleFlag", sceneId, "XiaoYiFeng" ) then
 		BeginEvent(sceneId)
-			AddText( sceneId, "你已经挑战过我了。" )
+			AddText( sceneId, "\196i n\224y c\225c h\213 \240\227 khi\234u chi\170n r\176i." ) -- [NetCo4 02/10] chu GBK -> Viet
 		EndEvent(sceneId)
 		DispatchEventList(sceneId,selfId,targetId)
 		return
@@ -78,7 +78,7 @@ function x391211_OnEventRequest( sceneId, selfId, targetId, eventId )
       if GetNumText() == 2 then
 	if 1 ~= CallScriptFunction( x391211_g_FuBenScriptId, "GetBossBattleFlag", sceneId, "XiaoYiFeng" ) then
 		BeginEvent(sceneId)
-			AddText( sceneId, "你已经挑战过我了。" )
+			AddText( sceneId, "\196i n\224y c\225c h\213 \240\227 khi\234u chi\170n r\176i." ) -- [NetCo4 02/10] chu GBK -> Viet
 		EndEvent(sceneId)
 		DispatchEventList(sceneId,selfId,targetId)
 		return
@@ -89,7 +89,7 @@ function x391211_OnEventRequest( sceneId, selfId, targetId, eventId )
       if GetNumText() == 3 then
 	if 2 ~= CallScriptFunction( x391211_g_FuBenScriptId, "GetBossBattleFlag", sceneId, "XiaoYiFeng" ) then
 		BeginEvent(sceneId)
-			AddText( sceneId, "你已经挑战过我了。" )
+			AddText( sceneId, "\196i n\224y c\225c h\213 \240\227 khi\234u chi\170n r\176i." ) -- [NetCo4 02/10] chu GBK -> Viet
 		EndEvent(sceneId)
 		DispatchEventList(sceneId,selfId,targetId)
 		return
@@ -100,7 +100,7 @@ function x391211_OnEventRequest( sceneId, selfId, targetId, eventId )
       if GetNumText() == 4 then
 	if 3 ~= CallScriptFunction( x391211_g_FuBenScriptId, "GetBossBattleFlag", sceneId, "XiaoYiFeng" ) then
 		BeginEvent(sceneId)
-			AddText( sceneId, "你已经挑战过我了。" )
+			AddText( sceneId, "\196i n\224y c\225c h\213 \240\227 khi\234u chi\170n r\176i." ) -- [NetCo4 02/10] chu GBK -> Viet
 		EndEvent(sceneId)
 		DispatchEventList(sceneId,selfId,targetId)
 		return
@@ -110,7 +110,7 @@ function x391211_OnEventRequest( sceneId, selfId, targetId, eventId )
       if GetNumText() == 5 then
 	if 4 ~= CallScriptFunction( x391211_g_FuBenScriptId, "GetBossBattleFlag", sceneId, "XiaoYiFeng" ) then
 		BeginEvent(sceneId)
-			AddText( sceneId, "你已经挑战过我了。" )
+			AddText( sceneId, "\196i n\224y c\225c h\213 \240\227 khi\234u chi\170n r\176i." ) -- [NetCo4 02/10] chu GBK -> Viet
 		EndEvent(sceneId)
 		DispatchEventList(sceneId,selfId,targetId)
 		return
@@ -133,27 +133,27 @@ end
 function x391211_OnBQZTimer( sceneId, step, data1, data2 )
 
 	if 7 == step then
-		CallScriptFunction( x391211_g_FuBenScriptId, "TipAllHuman", sceneId, "战斗5秒钟后开始" )
+		CallScriptFunction( x391211_g_FuBenScriptId, "TipAllHuman", sceneId, "Chi\170n \240\164u b\161t \240\165u sau 5 gi\226y" ) -- [NetCo4 02/10] chu GBK -> Viet
 		return
 	end
 
 	if 6 == step then
-		CallScriptFunction( x391211_g_FuBenScriptId, "TipAllHuman", sceneId, "战斗4秒钟后开始" )
+		CallScriptFunction( x391211_g_FuBenScriptId, "TipAllHuman", sceneId, "Chi\170n \240\164u b\161t \240\165u sau 4 gi\226y" ) -- [NetCo4 02/10] chu GBK -> Viet
 		return
 	end
 
 	if 5 == step then
-		CallScriptFunction( x391211_g_FuBenScriptId, "TipAllHuman", sceneId, "战斗3秒钟后开始" )
+		CallScriptFunction( x391211_g_FuBenScriptId, "TipAllHuman", sceneId, "Chi\170n \240\164u b\161t \240\165u sau 3 gi\226y" ) -- [NetCo4 02/10] chu GBK -> Viet
 		return
 	end
 
 	if 4 == step then
-		CallScriptFunction( x391211_g_FuBenScriptId, "TipAllHuman", sceneId, "战斗2秒钟后开始" )
+		CallScriptFunction( x391211_g_FuBenScriptId, "TipAllHuman", sceneId, "Chi\170n \240\164u b\161t \240\165u sau 2 gi\226y" ) -- [NetCo4 02/10] chu GBK -> Viet
 		return
 	end
 
 	if 3 == step then
-		CallScriptFunction( x391211_g_FuBenScriptId, "TipAllHuman", sceneId, "战斗1秒钟后开始" )
+		CallScriptFunction( x391211_g_FuBenScriptId, "TipAllHuman", sceneId, "Chi\170n \240\164u b\161t \240\165u sau 1 gi\226y" ) -- [NetCo4 02/10] chu GBK -> Viet
 		return
 	end
 
@@ -162,12 +162,12 @@ function x391211_OnBQZTimer( sceneId, step, data1, data2 )
 	local nMonsterNum = GetMonsterCount(sceneId)
 	for i=0, nMonsterNum-1 do
 		local MonsterId = GetMonsterObjID(sceneId,i)
-		if GetName(sceneId, MonsterId)  == "萧峰" then
+		if GetName(sceneId, MonsterId)  == "Ti\234u Phong" then -- [NetCo4 02/10] so ten GBK "Xiao Feng" khong bao gio khop -> ten VISCII cua 45410/45430 (don Tieu Phong truoc tran)
 			LuaFnSendSpecificImpactToUnit(sceneId, MonsterId, MonsterId, MonsterId, 152, 0)
 			SetCharacterDieTime( sceneId, MonsterId, 1000 )
 		end
 	end
-		CallScriptFunction( x391211_g_FuBenScriptId, "TipAllHuman", sceneId, "战斗开始" )
+		CallScriptFunction( x391211_g_FuBenScriptId, "TipAllHuman", sceneId, "Chi\170n \240\164u b\161t \240\165u!" ) -- [NetCo4 02/10] chu GBK -> Viet
 		--删除NPC....
 		return
 	end

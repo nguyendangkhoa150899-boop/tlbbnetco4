@@ -100,7 +100,7 @@ function x391200_CheckCanEnter( sceneId, selfId, targetId )
 
 	--ÈËÊýÊÇ·ñ¹»....
 	if GetTeamSize(sceneId,selfId) < 1 then
-		return 0, "Nhân s¯ không ðü 3 Ngß¶i, không th¬ tiªn vào!"
+		return 0, "\208\181i ng\251 ph\228i c\243 \237t nh\164t 1 ng\223\182i m\190i c\243 th\172 ti\170n v\224o!" -- [NetCo4 02/10] chu ghi 3 nguoi, code la GetTeamSize < 1
 	end
 
 	--ÊÇ·ñ¶¼ÔÚ¸½½ü....
@@ -123,11 +123,11 @@ function x391200_CheckCanEnter( sceneId, selfId, targetId )
 
 	if nHumanNum > 0 then
 
-	local msg = "    Ðµi ngû · trong"
+	local msg = "    Trong \240\181i ng\251 c\243 " -- [NetCo4 02/10] thieu dau cach truoc ten nguoi (di cung dong 130)
 	for i=0, nHumanNum-2 do
 	msg = msg .. Humanlist[i] .. ", "
 	end
-	msg = msg .. Humanlist[nHumanNum-1] .. "Tu vi không ðü 120 C¤p, vçn là ð×ng ði vi di®u."
+	msg = msg .. Humanlist[nHumanNum-1] .. " ch\223a \240\252 c\164p 108, kh\244ng th\172 ti\170n v\224o!" -- [NetCo4 02/10] chu ghi 120, code chan < 108 (dong 118)
 	return 0, msg
 
 	end
@@ -382,205 +382,205 @@ function x391200_TickFubenLife( sceneId, nowTime )
 
 	if lifeStep == 39 then
 		LuaFnSetCopySceneData_Param( sceneId, x391200_g_IDX_FuBenLifeStep, 38 )
-		x391200_TipAllHuman( sceneId, "Phó bän s¨ ð¯ng sau 30 giây" )
+		x391200_TipAllHuman( sceneId, "Phó bän s¨ \240\243ng sau 30 giây" ) -- [NetCo4 02/10] chinh ta: dong -> dong (dong cua)
 		return
 	end
 	if lifeStep == 38 then
 		LuaFnSetCopySceneData_Param( sceneId, x391200_g_IDX_FuBenLifeStep, 37 )
-		x391200_TipAllHuman( sceneId, "Phó bän s¨ ð¯ng sau 29 giây" )
+		x391200_TipAllHuman( sceneId, "Phó bän s¨ \240\243ng sau 29 giây" ) -- [NetCo4 02/10] chinh ta: dong -> dong (dong cua)
 		return
 	end
 	if lifeStep == 37 then
 		LuaFnSetCopySceneData_Param( sceneId, x391200_g_IDX_FuBenLifeStep, 36 )
-		x391200_TipAllHuman( sceneId, "Phó bän s¨ ð¯ng sau 28 giây" )
+		x391200_TipAllHuman( sceneId, "Phó bän s¨ \240\243ng sau 28 giây" ) -- [NetCo4 02/10] chinh ta: dong -> dong (dong cua)
 		return
 	end
 	if lifeStep == 36 then
 		LuaFnSetCopySceneData_Param( sceneId, x391200_g_IDX_FuBenLifeStep, 35 )
-		x391200_TipAllHuman( sceneId, "Phó bän s¨ ð¯ng sau 27 giây" )
+		x391200_TipAllHuman( sceneId, "Phó bän s¨ \240\243ng sau 27 giây" ) -- [NetCo4 02/10] chinh ta: dong -> dong (dong cua)
 		return
 	end
 	if lifeStep == 35 then
 		LuaFnSetCopySceneData_Param( sceneId, x391200_g_IDX_FuBenLifeStep, 34 )
-		x391200_TipAllHuman( sceneId, "Phó bän s¨ ð¯ng sau 26 giây" )
+		x391200_TipAllHuman( sceneId, "Phó bän s¨ \240\243ng sau 26 giây" ) -- [NetCo4 02/10] chinh ta: dong -> dong (dong cua)
 		return
 	end
 	if lifeStep == 34 then
 		LuaFnSetCopySceneData_Param( sceneId, x391200_g_IDX_FuBenLifeStep, 33 )
-		x391200_TipAllHuman( sceneId, "Phó bän s¨ ð¯ng sau 25 giây" )
+		x391200_TipAllHuman( sceneId, "Phó bän s¨ \240\243ng sau 25 giây" ) -- [NetCo4 02/10] chinh ta: dong -> dong (dong cua)
 		return
 	end
 	if lifeStep == 33 then
 		LuaFnSetCopySceneData_Param( sceneId, x391200_g_IDX_FuBenLifeStep, 32 )
-		x391200_TipAllHuman( sceneId, "Phó bän s¨ ð¯ng sau 24 giây" )
+		x391200_TipAllHuman( sceneId, "Phó bän s¨ \240\243ng sau 24 giây" ) -- [NetCo4 02/10] chinh ta: dong -> dong (dong cua)
 		return
 	end
 	if lifeStep == 32 then
 		LuaFnSetCopySceneData_Param( sceneId, x391200_g_IDX_FuBenLifeStep, 31 )
-		x391200_TipAllHuman( sceneId, "Phó bän s¨ ð¯ng sau 23 giây" )
+		x391200_TipAllHuman( sceneId, "Phó bän s¨ \240\243ng sau 23 giây" ) -- [NetCo4 02/10] chinh ta: dong -> dong (dong cua)
 		return
 	end
 	if lifeStep == 31 then
 		LuaFnSetCopySceneData_Param( sceneId, x391200_g_IDX_FuBenLifeStep, 30 )
-		x391200_TipAllHuman( sceneId, "Phó bän s¨ ð¯ng sau 22 giây" )
+		x391200_TipAllHuman( sceneId, "Phó bän s¨ \240\243ng sau 22 giây" ) -- [NetCo4 02/10] chinh ta: dong -> dong (dong cua)
 		return
 	end
 	if lifeStep == 30 then
 		LuaFnSetCopySceneData_Param( sceneId, x391200_g_IDX_FuBenLifeStep, 29 )
-		x391200_TipAllHuman( sceneId, "Phó bän s¨ ð¯ng sau 21 giây" )
+		x391200_TipAllHuman( sceneId, "Phó bän s¨ \240\243ng sau 21 giây" ) -- [NetCo4 02/10] chinh ta: dong -> dong (dong cua)
 		return
 	end
 	if lifeStep == 29 then
 		LuaFnSetCopySceneData_Param( sceneId, x391200_g_IDX_FuBenLifeStep, 28 )
-		x391200_TipAllHuman( sceneId, "Phó bän s¨ ð¯ng sau 20 giây" )
+		x391200_TipAllHuman( sceneId, "Phó bän s¨ \240\243ng sau 20 giây" ) -- [NetCo4 02/10] chinh ta: dong -> dong (dong cua)
 		return
 	end
 	if lifeStep == 28 then
 		LuaFnSetCopySceneData_Param( sceneId, x391200_g_IDX_FuBenLifeStep, 27 )
-		x391200_TipAllHuman( sceneId, "Phó bän s¨ ð¯ng sau 19 giây" )
+		x391200_TipAllHuman( sceneId, "Phó bän s¨ \240\243ng sau 19 giây" ) -- [NetCo4 02/10] chinh ta: dong -> dong (dong cua)
 		return
 	end
 	if lifeStep == 27 then
 		LuaFnSetCopySceneData_Param( sceneId, x391200_g_IDX_FuBenLifeStep, 26 )
-		x391200_TipAllHuman( sceneId, "Phó bän s¨ ð¯ng sau 18 giây" )
+		x391200_TipAllHuman( sceneId, "Phó bän s¨ \240\243ng sau 18 giây" ) -- [NetCo4 02/10] chinh ta: dong -> dong (dong cua)
 		return
 	end
 	if lifeStep == 26 then
 		LuaFnSetCopySceneData_Param( sceneId, x391200_g_IDX_FuBenLifeStep, 25 )
-		x391200_TipAllHuman( sceneId, "Phó bän s¨ ð¯ng sau 17 giây" )
+		x391200_TipAllHuman( sceneId, "Phó bän s¨ \240\243ng sau 17 giây" ) -- [NetCo4 02/10] chinh ta: dong -> dong (dong cua)
 		return
 	end
 	if lifeStep == 25 then
 		LuaFnSetCopySceneData_Param( sceneId, x391200_g_IDX_FuBenLifeStep, 24 )
-		x391200_TipAllHuman( sceneId, "Phó bän s¨ ð¯ng sau 16 giây" )
+		x391200_TipAllHuman( sceneId, "Phó bän s¨ \240\243ng sau 16 giây" ) -- [NetCo4 02/10] chinh ta: dong -> dong (dong cua)
 		return
 	end
 	if lifeStep == 24 then
 		LuaFnSetCopySceneData_Param( sceneId, x391200_g_IDX_FuBenLifeStep, 23 )
-		x391200_TipAllHuman( sceneId, "Phó bän s¨ ð¯ng sau 15 giây" )
+		x391200_TipAllHuman( sceneId, "Phó bän s¨ \240\243ng sau 15 giây" ) -- [NetCo4 02/10] chinh ta: dong -> dong (dong cua)
 		return
 	end
 	if lifeStep == 23 then
 		LuaFnSetCopySceneData_Param( sceneId, x391200_g_IDX_FuBenLifeStep, 22 )
-		x391200_TipAllHuman( sceneId, "Phó bän s¨ ð¯ng sau 14 giây" )
+		x391200_TipAllHuman( sceneId, "Phó bän s¨ \240\243ng sau 14 giây" ) -- [NetCo4 02/10] chinh ta: dong -> dong (dong cua)
 		return
 	end
 	if lifeStep == 22 then
 		LuaFnSetCopySceneData_Param( sceneId, x391200_g_IDX_FuBenLifeStep, 21 )
-		x391200_TipAllHuman( sceneId, "Phó bän s¨ ð¯ng sau 13 giây" )
+		x391200_TipAllHuman( sceneId, "Phó bän s¨ \240\243ng sau 13 giây" ) -- [NetCo4 02/10] chinh ta: dong -> dong (dong cua)
 		return
 	end
 	if lifeStep == 21 then
 		LuaFnSetCopySceneData_Param( sceneId, x391200_g_IDX_FuBenLifeStep, 20 )
-		x391200_TipAllHuman( sceneId, "Phó bän s¨ ð¯ng sau 12 giây" )
+		x391200_TipAllHuman( sceneId, "Phó bän s¨ \240\243ng sau 12 giây" ) -- [NetCo4 02/10] chinh ta: dong -> dong (dong cua)
 		return
 	end
 	if lifeStep == 20 then
 		LuaFnSetCopySceneData_Param( sceneId, x391200_g_IDX_FuBenLifeStep, 19 )
-		x391200_TipAllHuman( sceneId, "Phó bän s¨ ð¯ng sau 11 giây" )
+		x391200_TipAllHuman( sceneId, "Phó bän s¨ \240\243ng sau 11 giây" ) -- [NetCo4 02/10] chinh ta: dong -> dong (dong cua)
 		return
 	end
 	if lifeStep == 19 then
 		LuaFnSetCopySceneData_Param( sceneId, x391200_g_IDX_FuBenLifeStep, 18 )
-		x391200_TipAllHuman( sceneId, "Phó bän s¨ ð¯ng sau 10 giây" )
+		x391200_TipAllHuman( sceneId, "Phó bän s¨ \240\243ng sau 10 giây" ) -- [NetCo4 02/10] chinh ta: dong -> dong (dong cua)
 		return
 	end
 	if lifeStep == 18 then
 		LuaFnSetCopySceneData_Param( sceneId, x391200_g_IDX_FuBenLifeStep, 17 )
-		x391200_TipAllHuman( sceneId, "Phó bän s¨ ð¯ng sau 9 giây" )
+		x391200_TipAllHuman( sceneId, "Phó bän s¨ \240\243ng sau 9 giây" ) -- [NetCo4 02/10] chinh ta: dong -> dong (dong cua)
 		return
 	end
 	if lifeStep == 17 then
 		LuaFnSetCopySceneData_Param( sceneId, x391200_g_IDX_FuBenLifeStep, 16 )
-		x391200_TipAllHuman( sceneId, "Phó bän s¨ ð¯ng sau 8 giây" )
+		x391200_TipAllHuman( sceneId, "Phó bän s¨ \240\243ng sau 8 giây" ) -- [NetCo4 02/10] chinh ta: dong -> dong (dong cua)
 		return
 	end
 	if lifeStep == 16 then
 		LuaFnSetCopySceneData_Param( sceneId, x391200_g_IDX_FuBenLifeStep, 10 )
-		x391200_TipAllHuman( sceneId, "Phó bän s¨ ð¯ng sau 7 giây" )
+		x391200_TipAllHuman( sceneId, "Phó bän s¨ \240\243ng sau 7 giây" ) -- [NetCo4 02/10] chinh ta: dong -> dong (dong cua)
 		return
 	end
 	if lifeStep == 14 then
 		LuaFnSetCopySceneData_Param( sceneId, x391200_g_IDX_FuBenLifeStep, 15 )
-		x391200_TipAllHuman( sceneId, "Phó bän s¨ ð¯ng sau 1 giây" )
+		x391200_TipAllHuman( sceneId, "Phó bän s¨ \240\243ng sau 1 giây" ) -- [NetCo4 02/10] chinh ta: dong -> dong (dong cua)
 		return
 	end
 
 	if lifeStep == 13 then
 		LuaFnSetCopySceneData_Param( sceneId, x391200_g_IDX_FuBenLifeStep, 14 )
-		x391200_TipAllHuman( sceneId, "Phó bän s¨ ð¯ng sau 2 giây" )
+		x391200_TipAllHuman( sceneId, "Phó bän s¨ \240\243ng sau 2 giây" ) -- [NetCo4 02/10] chinh ta: dong -> dong (dong cua)
 		return
 	end
 
 	if lifeStep == 12 then
 		LuaFnSetCopySceneData_Param( sceneId, x391200_g_IDX_FuBenLifeStep, 13 )
-		x391200_TipAllHuman( sceneId, "Phó bän s¨ ð¯ng sau 3 giây" )
+		x391200_TipAllHuman( sceneId, "Phó bän s¨ \240\243ng sau 3 giây" ) -- [NetCo4 02/10] chinh ta: dong -> dong (dong cua)
 		return
 	end
 
 	if lifeStep == 11 then
 		LuaFnSetCopySceneData_Param( sceneId, x391200_g_IDX_FuBenLifeStep, 12 )
-		x391200_TipAllHuman( sceneId, "Phó bän s¨ ð¯ng sau 4 giây" )
+		x391200_TipAllHuman( sceneId, "Phó bän s¨ \240\243ng sau 4 giây" ) -- [NetCo4 02/10] chinh ta: dong -> dong (dong cua)
 		return
 	end
 
 	if lifeStep == 10 then
 		LuaFnSetCopySceneData_Param( sceneId, x391200_g_IDX_FuBenLifeStep, 11 )
-		x391200_TipAllHuman( sceneId, "Phó bän s¨ ð¯ng sau 5 giây" )
+		x391200_TipAllHuman( sceneId, "Phó bän s¨ \240\243ng sau 5 giây" ) -- [NetCo4 02/10] chinh ta: dong -> dong (dong cua)
 		return
 	end
 
 	if leftTime <= 10 and lifeStep == 9 then
 		LuaFnSetCopySceneData_Param( sceneId, x391200_g_IDX_FuBenLifeStep, 10 )
-		x391200_TipAllHuman( sceneId, "Phó bän s¨ ð¯ng sau 10 giây" )
+		x391200_TipAllHuman( sceneId, "Phó bän s¨ \240\243ng sau 10 giây" ) -- [NetCo4 02/10] chinh ta: dong -> dong (dong cua)
 		return
 	end
 
 	if leftTime <= 30 and lifeStep == 8 then
 		LuaFnSetCopySceneData_Param( sceneId, x391200_g_IDX_FuBenLifeStep, 9 )
-		x391200_TipAllHuman( sceneId, "Phó bän s¨ ð¯ng sau 30 giây" )
+		x391200_TipAllHuman( sceneId, "Phó bän s¨ \240\243ng sau 30 giây" ) -- [NetCo4 02/10] chinh ta: dong -> dong (dong cua)
 		return
 	end
 
 	if leftTime <= 60 and lifeStep == 7 then
 		LuaFnSetCopySceneData_Param( sceneId, x391200_g_IDX_FuBenLifeStep, 8 )
-		x391200_TipAllHuman( sceneId, "Phó bän s¨ ð¯ng sau 1 phút" )
+		x391200_TipAllHuman( sceneId, "Phó bän s¨ \240\243ng sau 1 phút" ) -- [NetCo4 02/10] chinh ta: dong -> dong (dong cua)
 		return
 	end
 
 	if leftTime <= 120 and lifeStep == 6 then
 		LuaFnSetCopySceneData_Param( sceneId, x391200_g_IDX_FuBenLifeStep, 7 )
-		x391200_TipAllHuman( sceneId, "Phó bän s¨ ð¯ng sau 2 phút" )
+		x391200_TipAllHuman( sceneId, "Phó bän s¨ \240\243ng sau 2 phút" ) -- [NetCo4 02/10] chinh ta: dong -> dong (dong cua)
 		return
 	end
 
 	if leftTime <= 180 and lifeStep == 5 then
 		LuaFnSetCopySceneData_Param( sceneId, x391200_g_IDX_FuBenLifeStep, 6 )
-		x391200_TipAllHuman( sceneId, "Phó bän s¨ ð¯ng sau 3 phút" )
+		x391200_TipAllHuman( sceneId, "Phó bän s¨ \240\243ng sau 3 phút" ) -- [NetCo4 02/10] chinh ta: dong -> dong (dong cua)
 		return
 	end
 
 	if leftTime <= 300 and lifeStep == 4 then
 		LuaFnSetCopySceneData_Param( sceneId, x391200_g_IDX_FuBenLifeStep, 5 )
-		x391200_TipAllHuman( sceneId, "Phó bän s¨ ð¯ng sau 5 phút" )
+		x391200_TipAllHuman( sceneId, "Phó bän s¨ \240\243ng sau 5 phút" ) -- [NetCo4 02/10] chinh ta: dong -> dong (dong cua)
 		return
 	end
 
 	if leftTime <= 900 and lifeStep == 3 then
 		LuaFnSetCopySceneData_Param( sceneId, x391200_g_IDX_FuBenLifeStep, 4 )
-		x391200_TipAllHuman( sceneId, "Phó bän s¨ ð¯ng sau 15 phút" )
+		x391200_TipAllHuman( sceneId, "Phó bän s¨ \240\243ng sau 15 phút" ) -- [NetCo4 02/10] chinh ta: dong -> dong (dong cua)
 		return
 	end
 
 	if leftTime <= 1800 and lifeStep == 2 then
 		LuaFnSetCopySceneData_Param( sceneId, x391200_g_IDX_FuBenLifeStep, 3 )
-		x391200_TipAllHuman( sceneId, "Phó bän s¨ ð¯ng sau 30 phút" )
+		x391200_TipAllHuman( sceneId, "Phó bän s¨ \240\243ng sau 30 phút" ) -- [NetCo4 02/10] chinh ta: dong -> dong (dong cua)
 		return
 	end
 
 	if leftTime <= 3600 and lifeStep == 1 then
 		LuaFnSetCopySceneData_Param( sceneId, x391200_g_IDX_FuBenLifeStep, 2 )
-		x391200_TipAllHuman( sceneId, "Phó bän s¨ ð¯ng sau 60 phút" )
+		x391200_TipAllHuman( sceneId, "Phó bän s¨ \240\243ng sau 60 phút" ) -- [NetCo4 02/10] chinh ta: dong -> dong (dong cua)
 		return
 	end
 

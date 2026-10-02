@@ -18,7 +18,7 @@ function x391214_OnDie( sceneId, objId, killerId )
 	local nCount = GetMonsterCount(sceneId)
 	for i=0, nCount-1  do
 		local nObjId = GetMonsterObjID(sceneId, i)
-		if GetName(sceneId, nObjId) == "Ïô·å"  then
+		if GetName(sceneId, nObjId) == "Ti\234u Phong"  then -- [NetCo4 02/10] so ten GBK "Xiao Feng" khong bao gio khop -> ten VISCII cua 45410/45430 (don Tieu Phong, dat lai NPC)
 	x,z = GetWorldPos( sceneId, nObjId )
 			LuaFnDeleteMonster(sceneId, nObjId)
 		end

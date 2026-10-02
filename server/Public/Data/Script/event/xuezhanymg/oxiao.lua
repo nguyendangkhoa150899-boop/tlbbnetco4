@@ -20,7 +20,7 @@ for i, eventId in x391201_g_eventList do
 CallScriptFunction( eventId, "OnEnumerate",sceneId, selfId, targetId )
 end
 
-AddText(sceneId,"    Dß¾i mít NhÕn Môn Quan ngoÕi chiªn höa ph¥n tr¶i, thiên tri«u dûng sî cûng là b¸ quän chª tÕi gi¢ng co chiªn cuµc, bíc chinh chi thª khó tiªn thêm næa. Ngày trß¾c lÕi truy«n m§t báo nói Khiªt Ðan nh¤t tµc ðem mang theo kÏ tr§n mà ðªn, t× là quan chi, ÐÕi T¯ng chi binh ðã nguy c½ s¾m t¯i.#r    #Y B·i vì binh thánh phó bän tß½ng ð¯i phÑc tÕp khó khån, ð« ngh¸ ngß¶i ch½i ðªn bän phøc trang web readmore công lßþc, ð¬ t¯t h½n trò ch½i.")
+AddText(sceneId,"    Ngo\224i Nh\213n M\244n Quan kh\243i l\216a ng\250t tr\182i, d\251ng s\238 \208\213i T\175ng b\184 c\165m ch\226n trong th\170 gi\162ng co, kh\243 ti\170n th\234m b\223\190c n\224o. M\167t b\225o truy\171n v\171: Khi\170t \208an mang k\207 tr\167n k\233o t\190i, qu\226n T\175ng nguy trong s\190m t\175i.") AddText(sceneId,"#r#Y    Huy\170t Chi\170n Nh\213n M\244n Quan kh\225 kh\243, n\234n l\167p t\177 \240\181i \240\252 m\213nh tr\223\190c khi ti\170n v\224o.") -- [NetCo4 02/10] chu cu noi ve Binh Thanh + trang web -> gioi thieu Nhan Mon (tach 2 AddText cho <= 254 byte)
 
 
 AddNumText( sceneId, x391201_g_ScriptId, "Liên quan t¾i NhÕn Môn Quan", 0, 500 )
@@ -61,7 +61,7 @@ end
 
 if nNumText == 500  then
 BeginEvent(sceneId)
-    AddText(sceneId,"Binh thánh kÏ tr§n hoàn mÛ quan phß½ng phó bän, chü yªu r½i xu¯ng long vån thång c¤p v§t li®u, m²i ngày ba l¥n, cu¯i cùng thành công ðánh giªt chung cñc BOSS Sau co´ thê? ðÕt ðßþc ðÕi lßþng ban thß·ng, #r#Y    Chú ý: BOSS KÛ nång hoàn mÛ cùng quan phß½ng gi¯ng nhau, c¦n th§n a, ð« ngh¸ ðªn nh¤t ð¸nh c¤p b§c lÕi tiªn hành phó bän trò ch½i!")
+    AddText(sceneId,"Huy\170t Chi\170n Nh\213n M\244n Quan: t\177 \240\181i t\215 c\164p 108, m\178i ng\224y t\175i \240a 5 l\223\254t. L\165n l\223\254t \240\166y lui qu\226n Li\234u, h\213 Gia Lu\167t T\226n, Gia Lu\167t Uy\172n, Gia Lu\167t Nguy\234n v\224 cu\175i c\249ng l\224 Gia Lu\167t H\176ng C\189 \240\172 nh\167n th\223\183ng.") AddText(sceneId,"#r#Y    Ch\250 \253: k\219 n\229ng BOSS r\164t m\213nh, h\227y chu\166n b\184 k\219 tr\223\190c khi khi\234u chi\170n!") -- [NetCo4 02/10] chu cu noi Binh Thanh "ba lan" -> Nhan Mon, 5 luot/ngay (code exiao.lua: >= 5)
 EndEvent(sceneId)
 DispatchEventList(sceneId,selfId,targetId)
 return

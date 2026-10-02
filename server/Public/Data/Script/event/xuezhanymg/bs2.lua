@@ -149,7 +149,7 @@ function x391212_OnDie( sceneId, selfId, killerId )
 		playerName = GetName( sceneId, leaderID )
 	end
 	
-		str = format("#{_INFOUSR%s}#{PMF_8812_02}", playerName); --桑土公
+		str = format("#cff99ccHuy\170t chi\170n Nh\213n M\244n Quan: #{_INFOUSR%s}#cff99cc d\231n qu\165n h\249ng \240\225nh b\213i #cFF0000Gia Lu\167t H\176ng C\189#cff99cc, \240\213i qu\226n Li\234u qu\175c tan v\222, ph\228i r\250t v\171 ph\223\189ng B\161c!", playerName); -- [NetCo4 02/10] PMF_8812_02 la tin Tang Tho Cong (PMF) -> cau Viet bao ha Gia Luat Hong Co
 		AddGlobalCountNews( sceneId, str )
 	
 end
@@ -222,7 +222,7 @@ end
 		elseif CurPercent < 0.4 then
 			if 1 == x391212_axiao12( sceneId, 1 ) then
 		MonsterAI_SetBoolParamByIndex( sceneId, selfId, x391212_IDX_IsTudunMode , 2)
-			MonsterTalk( sceneId, -1, "", "天雷之力" )
+			MonsterTalk( sceneId, -1, "", "Thi\234n L\244i chi l\241c!" ) -- [NetCo4 02/10] MonsterTalk GBK -> Viet
 			local x,z = GetWorldPos( sceneId, selfId )
 		local nMonsterId201 = LuaFnCreateMonster(sceneId, 45428, x, z, 3, 128, -1 )
 		LuaFnSendSpecificImpactToUnit(sceneId, nMonsterId201, nMonsterId201, nMonsterId201, 23624, 0 )
@@ -245,7 +245,7 @@ function x391212_SkillLogicB_NiuMaoDuZhen( sceneId, selfId, nTick )
 		MonsterAI_SetIntParamByIndex( sceneId, selfId, x391212_IDX_SkillB_CD, x391212_SkillB_CD )
 		--非土遁状态才可以用....
 			local x,z = GetWorldPos( sceneId, selfId )
-			MonsterTalk( sceneId, -1, "", "金戈铁马，谁人能挡" )
+			MonsterTalk( sceneId, -1, "", "Kim qua thi\170t m\227, ai ng\223\182i c\228n n\177i!" ) -- [NetCo4 02/10] MonsterTalk GBK -> Viet
 			LuaFnUnitUseSkill( sceneId, selfId, x391212_SkillB_NiuMaoDuZhen, selfId, x, z, 0, 0 )
 			return 1
 	end

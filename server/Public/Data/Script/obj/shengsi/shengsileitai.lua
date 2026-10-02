@@ -46,7 +46,7 @@ x892009_g_Param_sceneid=8	 	 	 -- thiªt trí cänh tßþng ID
 function  x892009_OnDefaultEvent(  sceneId,  selfId,  targetId  )
 	 BeginEvent(  sceneId  )
 	 	 AddText(  sceneId,  "    g¥n nh¤t không biªt t× n½i nào ðªn li­u mß¶i hai ác nhân , tñ xßng mß¶i hai sát tinh , · ta LÕc Dß½ng bên trong hoành hành vô kÜ , th¸t cá dân chúng , cái này mß¶i hai ngß¶i võ ngh® cao cß¶ng , hiêu trß½ng bÕt h² , ngày g¥n ðây càng là có không ít giang h° giang h° tiêu ti¬u chi loÕi ð¥u chÕy b÷n h÷ , khiªn cho thª lñc tång mÕnh , lão nÕp tuy nghe nói sau nhanh chóng chÕy t¾i , không biªt sao thª cô lñc ðan , cái này nhßng nhß thª nào cho phäi ?  "  )	 
-	 	 AddText(  sceneId,  " #ef12345#Y Phø Bän TÕm Ðóng ð¬ fix l²i")
+	 	 -- [NetCo4 02/10] bo dong AddText "Phu Ban Tam Dong de fix loi" (chu tu server cu, pho ban van mo)
 	 	 AddNumText(  sceneId,  x892009_g_ScriptId,  "Sát tinh ",  6,  10  )
 		 AddNumText(  sceneId,  x892009_g_ScriptId,  " sát tinh gi¾i thi®u ",  0,  30  )
 	 EndEvent(  sceneId  )
@@ -83,8 +83,8 @@ function  x892009_OnEventRequest(  sceneId,  selfId,  targetId,  eventId)
 
 	 elseif  GetNumText()  ==  30  then
 	 BeginEvent(  sceneId  )
-	 	 AddText(  sceneId,  "    sát tinh phó bän t±ng cµng có BOSS  12  cá , ði¬m kích ð¯i thoÕi khuông sau có th¬ ðªm t× s¯ mµt khiêu chiªn , chiªn th¡ng BOSS sau có tÖ l® nh¤t ð¸nh bµ l¤y ðßþc tß½ng Ñng trân thú , cûng có th¬ tiªn hành biªn äo . "  )
-	 	 AddText(  sceneId,  "    phó bän m²i ngày có th¬ ba l¥n tiªn vào , phó bän bÕo tÖ s¯ vì thuµc tính th¶i trang chª tÕo ð° , nguyên bäo phiªu , trân thú biªn äo ðan mänh vøn , thü công tài li®u , BOSS bäo bäo nhæng v§t này ph¦m . "  )	 
+	 	 AddText(  sceneId,  "    Ph\243 b\228n S\225t Tinh c\243 t\177ng c\181ng 12 BOSS. B\164m v\224o t\215ng ng\223\182i tr\234n l\244i \240\224i \240\172 khi\234u chi\170n, kh\244ng c\165n theo th\209 t\241."  ) -- [NetCo4 02/10] bo hua roi tran thu (501000 khong co boss Sat Tinh)
+	 	 AddText(  sceneId,  "    M\178i ng\224y v\224o \240\223\254c 3 l\165n. BOSS r\189i Nguy\234n B\228o Phi\170u, nguy\234n li\174u v\224 nhi\171u v\167t ph\166m kh\225c."  )	  -- [NetCo4 02/10] bo hua roi "tran thu bien ao dan / BOSS bao bao" (khong co that)
 	 EndEvent(  sceneId  )
 	 DispatchEventList(  sceneId,  selfId,  targetId  )
 
@@ -102,7 +102,7 @@ end
 function  x892009_CheckAccept(  sceneId,  selfId,  targetId  )
 
 	 if  LuaFnHasTeam(sceneId,selfId)  ~=  1  then
-	 	 return  0,  "12 sát tinh phó bän c¥n 3 ngß¶i tr· lên h÷p thành ðµi m¾i có th¬ tham gia , nªu nhß ngß½i chï là mu¯n bi¬u di­n ngß¶i ðích tài hoa , xin/m¶i ði tham gia Hoa S½n lu§n kiªm ði ! "
+	 	 return  0,  "Ph\243 b\228n Th\167p Nh\184 S\225t Tinh c\165n l\167p t\177 \240\181i (\237t nh\164t 1 ng\223\182i) m\190i c\243 th\172 tham gia." -- [NetCo4 02/10] chu ghi 3 nguoi, code chi doi co to doi (g_LimitMembers = 1)
 	 end
 
 	 -- có phäi hay không ðµi trß·ng ....
@@ -112,7 +112,7 @@ function  x892009_CheckAccept(  sceneId,  selfId,  targetId  )
 
 	 -- nhân s¯ có hay không ðü ....
 	 if  GetTeamSize(sceneId,selfId)  <  x892009_g_LimitMembers  then
-	 	 return  0,  " mµt chi ðµi ngû chßa ðü 3 ngß¶i , coi nhß là tiªn vào sinh tØ lôi ðài cûng không có cái gì chiªn th¡ng ðích có th¬ a , còn chßa phäi mu¯n ði li­u . "
+	 	 return  0,  "\208\181i ng\251 ph\228i c\243 \237t nh\164t 1 ng\223\182i m\190i c\243 th\172 ti\170n v\224o Sinh T\216 L\244i \208\224i." -- [NetCo4 02/10] chu ghi 3 nguoi, code la GetTeamSize < g_LimitMembers (= 1)
 	 end
 
 	 -- có hay không ð«u · ðây phø c§n ....
