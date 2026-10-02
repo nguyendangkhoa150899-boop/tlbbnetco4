@@ -19,9 +19,9 @@ function x001113_OnDefaultEvent( sceneId, selfId, targetId )
 		--AddNumText( sceneId, x001113_g_scriptId, "#e0000ff#G Nhßn V‡ng + KNB (TEST)", 6, 7777 )
 		  AddNumText( sceneId, x002084_g_scriptId, "Hu÷ hiÆu —ng thﬂΩng nh‚n+ t‡o vßn", 6, 30030 )
 		AddNumText( sceneId, x001113_g_scriptId, "#g0f0ff0 Nh\167n l\213i T\226n Th\252 Trang B\184 [10 c\164p] (set + v\251 kh\237, 1 l\165n duy nh\164t) ", 6, 8886 ) -- [NetCo4 01/10]
-		if GetLevel( sceneId, selfId ) <= 99 then
-		AddNumText( sceneId, x001113_g_scriptId, "#g0f0ff0 Nhßn qu‡ T‚n Th¸ (v‡ level 99) ", 6, 8887 )
-		end
+--[NetCo4 02/10 tat qua Tan Thu + len 99] 		if GetLevel( sceneId, selfId ) <= 99 then
+--[NetCo4 02/10 tat qua Tan Thu + len 99] 		AddNumText( sceneId, x001113_g_scriptId, "#g0f0ff0 Nhßn qu‡ T‚n Th¸ (v‡ level 99) ", 6, 8887 )
+--[NetCo4 02/10 tat qua Tan Thu + len 99] 		end
 --if GetLevel( sceneId, selfId ) <= 90 then
 		AddNumText( sceneId, x001113_g_scriptId, "#G Nhßn BUFF 2.5 mi≠n phÌ (Level 105)", 6, 15000 )
 		--end		
@@ -38,7 +38,7 @@ local nam = LuaFnGetName(sceneId,selfId)
 	local strGUID = LuaFnGetGUID( sceneId, selfId )
 
 	local key = GetNumText()
-if key ~= 8886 and key ~= 8887 and key ~= 15000 and key ~= 30030 then return end -- [don-dep] chan qua cua server cu ([NetCo4 01/10] them 8886)
+if key ~= 8886 and key ~= 15000 and key ~= 30030 then return end -- [don-dep] chan qua cua server cu ([NetCo4 01/10] them 8886; 02/10 tat 8887 qua Tan Thu + len cap 99)
 	if key == 8886 then -- [NetCo4 01/10] nhan lai Tan Thu Trang Bi [10 cap], 1 lan/ngay
 		x001113_TanThuTrangBi( sceneId, selfId, targetId )
 		return
@@ -502,8 +502,8 @@ function x001113_TanThuTrangBi( sceneId, selfId, targetId )
 			return
 		end
 	end
-	if LuaFnGetPropertyBagSpace( sceneId, selfId ) < 1 then
-		x001113_NotifyFailBox( sceneId, selfId, targetId, "Tay n\228i c\165n 1 \244 tr\175ng." )
+	if LuaFnGetPropertyBagSpace( sceneId, selfId ) < 1 or LuaFnGetMaterialBagSpace( sceneId, selfId ) < 2 then -- [02/10] + 2 ngoc o tui Nguyen lieu
+		x001113_NotifyFailBox( sceneId, selfId, targetId, "Tay n\228i c\165n 1 \244 tr\175ng \208\213o c\248 v\224 2 \244 tr\175ng Nguy\234n li\174u." )
 		return
 	end
 	h = openfile( path, "w" )
@@ -524,6 +524,13 @@ function x001113_TanThuTrangBi( sceneId, selfId, targetId )
 		return
 	end
 	LuaFnItemBind( sceneId, selfId, idx )
+	-- [02/10] kem Mieu Nhan Thach 6 + Ho Nhan Thach 6 (truoc nam o qua 8887 da tat), khoa
+	for _, gem in { 50601001, 50601002 } do
+		local gi = TryRecieveItem( sceneId, selfId, gem, 1 )
+		if gi ~= nil and gi >= 0 then
+			LuaFnItemBind( sceneId, selfId, gi )
+		end
+	end
 	LuaFnSendSpecificImpactToUnit( sceneId, selfId, selfId, selfId, 18, 0 )
 	x001113_NotifyFailBox( sceneId, selfId, targetId, "\208\227 \240\223a #YT\226n Th\252 Trang B\184 [10 c\164p]#W. C\165n c\164p 10, \240\227 v\224o m\244n ph\225i v\224 14 \244 tr\175ng \240\172 m\183, ra set 12 m\243n + Thanh \208\176ng \208ao (kh\243a)." )
 end
