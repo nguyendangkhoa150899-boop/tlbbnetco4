@@ -53,6 +53,10 @@ if [ -s "$CAPMAX" ]; then
         log "Giu khoa cap toi da $n theo panel (HumanMaxDefaultLevel=$((n + 1)))"
     fi
 fi
+# 02/10: MAU DO CHE 8x/9x admin ap tren web (panel act doche_ap) nam NGOAI repo -> rsync vua ghi de EquipBase.txt, ap lai
+if [ -s "$DST/Server/txt/NetCo4Cfg/maudoche.json" ]; then
+    log "Mau do che: $(python3 "$REPO/panel/maudoche.py" --ap-lai 2>&1 | tail -1)"
+fi
 log "Da cap nhat. Ban cu cua cac file bi thay: $bk"
 log "Quay lai: rsync -a $bk/ $DST"
 

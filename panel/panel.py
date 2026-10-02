@@ -18,6 +18,8 @@ import unicodedata
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 from urllib.parse import parse_qs, urlencode, urlparse
 
+import maudoche   # 02/10: mau do che 8x/9x (panel/maudoche.py)
+
 HOST, PORT = "0.0.0.0", 8443         # HTTPS, mo ra internet (ufw allow 8443), bat buoc dang nhap
 PUBLIC_IP = "103.216.118.123"
 CERT_DIR = "/etc/tlbb-panel"          # chung chi tu ky, KHONG nam trong repo
@@ -387,6 +389,28 @@ def act(form):
                              stdout=open("/tmp/panel-restart.log", "w"), stderr=subprocess.STDOUT)
             return msg + " Dang restart server (khoang 3 phut)."
         return msg + " Co hieu luc sau khi restart server."
+    if a in ("doche_ap", "doche_tra"):   # 02/10: mau do che 8x/9x - doi EquipBase cua game (ngoai repo), restart=1 thi restart luon
+        id_ = v("id")
+        if a == "doche_ap":
+            try:
+                dong = [int(x) for x in v("dong").split(",") if x.strip()]
+                cap_pc, tc = int(v("cap") or 0), int(v("tc") or 0)
+            except ValueError:
+                return "Du lieu mau khong hop le"
+            ok, msg = maudoche.ap(id_, dong, cap_pc, tc)
+        else:
+            if id_ != "all" and not RE_INT.match(id_):
+                return "ID khong hop le"
+            ok, msg = maudoche.tra(id_)
+        if not ok:
+            return msg
+        rs = v("restart") == "1"
+        audit("mau do che: %s%s (online: %d)" % (msg, ", restart" if rs else "", online_count()))
+        if rs:
+            subprocess.Popen(["systemctl", "restart", "tlbb"], stdin=subprocess.DEVNULL,
+                             stdout=open("/tmp/panel-restart.log", "w"), stderr=subprocess.STDOUT)
+            return msg + " Dang restart server (khoang 3 phut)."
+        return msg
     if a == "huy_qua":
         g = v("guid")
         if RE_INT.match(g):
@@ -692,6 +716,8 @@ class H(BaseHTTPRequestHandler):
                 return self._json({"ok": True, "state": api_state()})
             if method == "GET" and u.path == "/api/pets":   # 30/09: danh sach pet theo nhom cho o chon tren tab GM web (tai 1 lan)
                 return self._json({"ok": True, "groups": [{"name": g, "pets": [{"id": i, "name": n} for i, n in l]} for g, l in PET_GROUPS], "skins": PET_SKINS})
+            if method == "GET" and u.path == "/api/doche":   # 02/10: danh sach do che 8x/9x + mau dang ap
+                return self._json({"ok": True, "data": maudoche.du_lieu(), "mau": maudoche.doc_mau()})
             if method == "GET" and u.path == "/api/items":
                 qs = parse_qs(u.query)
                 if qs.get("all") == ["1"]:  # ca danh muc cho bot mini game (shop item / qua moi ngay)
