@@ -1,5 +1,7 @@
 #!/usr/bin/env python3
-"""02/10: MAU DO CHE 8x/9x - admin chon dong, so dong, cap pham chat, tu chat cho 1 mon do che (ItemCompound) cap 80-99.
+"""02/10: MAU DO CHE 8x/9x - admin chon dong, so dong, cap pham chat, tu chat cho 1 mon do che (ItemCompound) cap 80-99
+(tru vu khi - vu khi len than khi) + THAI CO THAN KHI 9 sao (x895111_TaiGu_shenqi, tay bang Ma Huyet Thach 30505813:
+wuyazi85o.lua tepp 20 = TryRecieveItem cung ID -> mon moi di qua CreateBlueEquipAttrib -> an mau y nhu do che).
 
 Co che (dich nguoc Server.elf, docs/TRANG-THAI.md muc 02/10 C):
   - Luc tao do, CreateBlueEquipAttrib boc dong theo trong so EquipBase cot k+32 (thuoc tinh k = 0..57, -1 = tat),
@@ -31,6 +33,8 @@ SEGRATE = os.path.join(SRV, "Server", "Config", "ItemSegRate.txt")
 SEGQ = os.path.join(SRV, "Server", "Config", "ItemSegQuality.txt")
 SEGA = os.path.join(SRV, "Server", "Config", "ItemSegAffect.txt")
 TENVIET = os.path.join(REPO, "docs", "vat-pham", "ten-viet.tsv")
+WUYAZI = os.path.join(SRV, "Public", "Data", "Script", "MyLua", "shenqinew", "wuyazi85o.lua")   # danh sach Thai Co
+HIEUUNG = {"吸血": "Hút máu", "减速": "Giảm tốc", "破绽": "Phá phòng", "虚弱": "Suy nhược", "吸气": "Hút nội lực", "打怒": "Đả nộ"}
 LV_MIN, LV_MAX = 80, 99
 
 # Ten dong (thuoc tinh 0..57). Ten co dau * da doi chieu tooltip game (docs/TRANG-THAI.md, bang ten dong 28/09).
@@ -63,7 +67,14 @@ _CACHE = {"key": None, "data": None}
 
 
 def _cache_key():
-    return tuple(os.path.getmtime(p) for p in (EB_REPO, COMPOUND, SEGVAL, SEGRATE, SEGQ, SEGA))
+    return tuple(os.path.getmtime(p) for p in (EB_REPO, COMPOUND, SEGVAL, SEGRATE, SEGQ, SEGA, WUYAZI))
+
+
+def thai_co():
+    import re
+    s = open(WUYAZI, "rb").read().decode("latin-1")
+    m = re.search(r"x895111_TaiGu_shenqi\s*=\s*\{([^}]*)\}", s)
+    return [x.strip() for x in m.group(1).split(",") if x.strip().isdigit()] if m else []
 
 
 def du_lieu():
@@ -83,12 +94,19 @@ def du_lieu():
             if len(c) >= 3 and c[0].isdigit():
                 ten[c[0]] = (c[1], c[2])
     mon, seen = [], set()
+    nguon = []
     for c in _rows(COMPOUND).values():
         rid = c[2] if len(c) > 2 else ""
         e = eb.get(rid)
-        if not e or rid in seen or not e[11].lstrip("-").isdigit() or not LV_MIN <= int(e[11]) <= LV_MAX:
-            continue
-        seen.add(rid)
+        if e and rid not in seen and e[11].lstrip("-").isdigit() and LV_MIN <= int(e[11]) <= LV_MAX and e[5] != "0":   # bo vu khi
+            seen.add(rid)
+            nguon.append((rid, e, "che"))
+    for rid in thai_co():
+        e = eb.get(rid)
+        if e and rid not in seen:
+            seen.add(rid)
+            nguon.append((rid, e, "thaico"))
+    for rid, e, nhom in nguon:
         dong = [k for k in range(58) if e[k + 32] != "-1"]
         seg = sv.get(e[91])
         caps = set()   # cap pham chat tu nhien tu quy tac cot 90 (moi nguon roi)
@@ -97,12 +115,18 @@ def du_lieu():
                 if w > 0:
                     caps.add(j + 1)
         nl, loai = ten.get(rid, ("#" + rid, ""))
-        mon.append({"id": rid, "ten": nl, "loai": loai, "cap": int(e[11]), "vitri": VITRI.get(int(e[5]), "vị trí " + e[5]),
+        vitri = VITRI.get(int(e[5]), "vị trí " + e[5])
+        if nhom == "thaico":
+            mo = e[13].encode("latin-1").decode("gbk", "replace")
+            hu = next((v for k, v in HIEUUNG.items() if "施放" + k in mo), "")
+            vitri = "Thái Cổ Thần Khí 9 sao (tẩy bằng Ma Huyết Thạch)"
+            nl = nl + (" - " + hu if hu else "") + " (" + loai + ")"
+        mon.append({"id": rid, "ten": nl, "loai": loai, "cap": int(e[11]), "vitri": vitri, "nhom": nhom,
                     "pt": int(e[5]), "dong": dong, "v": {str(k): int(seg[k + 1]) if seg else 0 for k in dong},
                     "min": int(e[92]), "max": int(e[93]), "capMax": max(caps) if caps else 9, "capMin": min(caps) if caps else 1,
                     "T": int(e[100]) if e[100].lstrip("-").isdigit() else -1,
                     "coTuChat": e[24] == "1", "tcMin": int(e[94]), "tcMax": int(e[95])})
-    mon.sort(key=lambda m: (m["pt"], m["cap"], m["id"]))
+    mon.sort(key=lambda m: (m["nhom"] == "thaico", m["pt"], m["cap"], m["id"]))
     data = {"mon": mon, "rate": {str(i): r for i, r in rate.items() if 1 <= i <= 12}, "dongTen": DONG}
     _CACHE.update(key=k, data=data)
     return data
@@ -154,7 +178,7 @@ def _ghi_eb(thay):
 def kiem(id_, dong, cap_pc, tu_chat):
     m = next((x for x in du_lieu()["mon"] if x["id"] == id_), None)
     if not m:
-        return None, "ID %s không phải đồ chế cấp %d-%d" % (id_, LV_MIN, LV_MAX)
+        return None, "ID %s không phải đồ chế cấp %d-%d (trừ vũ khí) hay Thái Cổ Thần Khí" % (id_, LV_MIN, LV_MAX)
     if not dong:
         return None, "Chưa chọn dòng nào"
     if len(set(dong)) != len(dong) or any(k not in m["dong"] for k in dong):
