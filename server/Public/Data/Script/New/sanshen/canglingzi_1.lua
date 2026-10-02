@@ -19,7 +19,7 @@ function  x894001_OnDefaultEvent(  sceneId,  selfId,  targetId  )
 	 BeginEvent(sceneId)
 	     local  bossId  =  CallScriptFunction(  x894001_g_FuBenScriptId,  "FindBOSS",  sceneId,  "XUANXI_FENGYIN"  )
                     if  bossId  >=  0  then
-	 	 AddText(  sceneId,  "Tam Th¥n äo cänh ðã thành , tÕi hÕ ð£c phøng m®nh · ch² này duy trì äo cänh ±n ð¸nh . #r        này äo cänh th×a tái ba th¥n thú chi huy­n tßþng , thiªu hi®p mu¯n l¤y #G ngû hành chi bäo #W , không ngÕi trß¾c ðánh bÕi này #R rách häi huy«n tích #W , kÏ bän th¬ có ðóng bång ngàn d£m khä nång , huy­n tßþng cûng không nhßng khinh thß¶ng , kính xin c¦n th§n kÏ hàn bång lñc . #r        nªu Ñng phó không ðßþc , tÕi hÕ có th¬ ðem chß v¸ #G truy«n t¯ng tr· v« thành #W , l¤y hµ các v¸ chu toàn . "  )
+	 	 AddText( sceneId, "Tam Th\165n \196o C\228nh \240\227 th\224nh, t\213i h\213 ph\248ng m\174nh gi\230 cho \228o c\228nh \177n \240\184nh. Mu\175n l\164y #GNg\251 H\224nh Chi B\228o#W, h\227y \240\225nh b\213i #RN\209t H\228i Huy\171n T\237ch#W - h\224n b\229ng c\252a n\243 \240\243ng b\229ng ng\224n d\163m, xin c\166n th\167n!" ) AddText( sceneId, "N\170u kh\244ng ch\175ng n\177i, t\213i h\213 c\243 th\172 #G\240\223a ch\223 v\184 v\171 th\224nh#W." )   -- [NetCo4 02/10] cu dai 492 byte -> client cat
 	 	 AddNumText(  sceneId,  x894001_g_ScriptId,  "Khiêu chiªn",  6,  1  )
                     end
 	 	 AddNumText(  sceneId,  x894001_g_ScriptId,  "R¶i ði ",  6,  2  )

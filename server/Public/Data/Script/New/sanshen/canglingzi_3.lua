@@ -14,11 +14,11 @@ function  x894003_OnDefaultEvent(  sceneId,  selfId,  targetId  )
 	 BeginEvent(sceneId)
 	     local  bossId  =  CallScriptFunction(  x894003_g_FuBenScriptId,  "FindBOSS",  sceneId,  "HUAYAO_FENGYIN"  )
                     if  bossId  >=  0  then
-	 	 AddText(  sceneId,  "Tam th¥n thú huy­n tßþng chï còn lÕi thÑ nh¤t , chß v¸ cñ #G ngû hành chi bäo #W chï có mµt bß¾c chi diêu , nhß thª kh¦n yªu quan ð¥u , chß v¸ vÕn vÕn không th¬ thß giän . #r        ngü say n½i này ðích chính là #R nhiªp linh c± hoa #W chi huy­n tßþng , tuy không bän th¬ ðßþc ôn thiên hÕ ch¤n nhiªp thiên ð¸a chi ðµc , cûng c¥n võ ngh® siêu qu¥n hÕng ngß¶i lÕi v×a ð¸ch n±i . tÕi hÕ t¤t nhiên tin tß·ng chß v¸ khä nång , nhßng vçn phäi nh¡c nh· chß v¸ c¦n th§n này hung v§t . "  )
+	 	 AddText( sceneId, "Ch\239 c\242n m\181t th\165n th\250: #RNhi\170p Linh C\177 Hoa#W, \240\181c c\252a n\243 ch\164n nhi\170p thi\234n \240\184a, ch\239 ng\223\182i v\245 ngh\174 si\234u qu\165n m\190i \240\184ch n\177i. H\213 \240\223\254c n\243 l\224 Ng\251 H\224nh Chi B\228o \183 ngay tr\223\190c m\161t, v\213n l\165n \240\215ng l\189 l\224!" )   -- [NetCo4 02/10] cu dai 477 byte
 	 	 AddNumText(  sceneId,  x894003_g_ScriptId,  "Khiêu chiªn",  6,  1  )
 	 	 AddNumText(  sceneId,  x894003_g_ScriptId,  "R¶i ði ",  6,  2  )
                     else
-	 	 AddText(  sceneId,    "không h± là ðÕi vû ðích h§u nhân , quä nhiên kiêu dûng d¸ thß¶ng . thiªu hi®p hôm nay s· hành chuy®n tình , nh¤t ð¸nh là tÕo phúc vÕn dân to l¾n kª . còn ðây là xã t¡c chi phúc , thß½ng sinh may m¡n . mong r¢ng thiªu hi®p a tiªp tøc tinh tiªn , tång lên tu vi , ti«n ð° nh¤t ð¸nh b¤t khä hÕn lßþng ! "  )
+	 	 AddText( sceneId, "Qu\228 kh\244ng h\177 l\224 h\167u nh\226n \208\213i V\251, ki\234u d\251ng phi th\223\182ng! H\244m nay thi\170u hi\174p \240\227 t\213o ph\250c cho v\213n d\226n. Mong thi\170u hi\174p ti\170p t\248c tinh ti\170n, ti\171n \240\176 \161t kh\244ng th\172 h\213n l\223\254ng!" )   -- [NetCo4 02/10]
 	 	 AddNumText(  sceneId,  x894003_g_ScriptId,  "R¶i ði",  6,  2  )
                     end
 	 EndEvent(sceneId)

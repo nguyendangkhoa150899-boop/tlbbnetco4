@@ -226,7 +226,7 @@ function x894006_OnDie( sceneId, selfId, killerId )
                       chonglou = chonglouItem[random(3)]
 		      --AddMonsterDropItem( sceneId, selfId, mems[i],chonglou )
 		      local strText = format("#cFF0000Ngß¶i ch½i #W"..GetName(sceneId,mems[i]).."#GTÕi Tam Th¥n Huy«n Cänh #WMa Häi Cà R°ng #Gtñ biªt không phäi là ð¯i thü ném ra 1 cái #{_ITEM"..chonglou.."} chÕy tr¯i chªt")
-                      BroadMsgByChatPipe(sceneId, selfId, strText, 4);
+                      -- BroadMsgByChatPipe(sceneId, selfId, strText, 4);   -- [NetCo4 02/10] TAT: dong roi Trung Lau o tren da bi chu thich -> loa bao roi gia (boss1/boss2 da tat san)
                end
 	end
 

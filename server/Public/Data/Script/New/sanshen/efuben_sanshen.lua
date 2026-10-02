@@ -52,9 +52,9 @@ x894000_g_BOSSList  =
 
 x894000_g_FightBOSSList  =
 {
-	 [1]  =  x894000_g_BOSSList["HaDaBa_BOSS"].DataID,
-	 [2]  =  x894000_g_BOSSList["SangTuGong_BOSS"].DataID,
-	 [3]  =  x894000_g_BOSSList["WuLaoDa_BOSS"].DataID,
+	 [1]  =  x894000_g_BOSSList["XUANXI_BOSS"].DataID,   -- [NetCo4 02/10]
+	 [2]  =  x894000_g_BOSSList["HUOFENG_BOSS"].DataID,   -- [NetCo4 02/10]
+	 [3]  =  x894000_g_BOSSList["HUAYAO_BOSS"].DataID,   -- [NetCo4 02/10] bang chan goi 2 boss cung luc: cu la ID boss Phieu Mieu Phong (khong co o day)
 	 [4]  =  x894000_g_BOSSList["ZhuoBuFan_BOSS"].DataID,
 	 [5]  =  x894000_g_BOSSList["BuPingDaoRen_BOSS"].DataID,
 	 [6]  =  x894000_g_BOSSList["LiQiuShui_BOSS"].DataID
@@ -165,11 +165,11 @@ function  x894000_CheckCanEnter(  sceneId,  selfId,  targetId  )
 
 	 if  nHumanNum  >  0  then
 
-	 	 local  msg  =  "ðµi ngû có "
+	 	 local msg = "Trong \240\181i c\243 "
 	 	 for  i=0,  nHumanNum-2  do
 	 	 	 msg  =  msg  ..  Humanlist[i]  ..  " , "
 	 	 end
-	 	 msg  =  msg  ..  Humanlist[nHumanNum-1]  ..  " ðích tâm pháp còn th¤p , còn chßa phäi mu¯n ði thì t¯t h½n . "
+	 	 msg = msg .. Humanlist[nHumanNum-1] .. " ch\223a \240\252 c\164p 80, ch\223a v\224o \240\223\254c Tam Th\165n \196o C\228nh."   -- [NetCo4 02/10]
 	 	 return  0,  msg
 
 	 end
@@ -183,7 +183,7 @@ function  x894000_CheckCanEnter(  sceneId,  selfId,  targetId  )
 	 	 local  PlayerId  =  GetNearTeamMember(  sceneId,  selfId,  i  )
 	 	 local  lastTime  =  GetMissionData(  sceneId,  PlayerId,  SANSHENHUANJING_COUNT  )
 	 	 local  lastDayTime  =  floor(  lastTime  /  100  )
-	 	 local  lastDayCount  =  mod(  lastTime,  100  )
+	 	 local  lastDayCount  =  mod( mod( lastTime, 100 ), 50 )   -- [NetCo4 02/10]
 	 
 	 	 if  CurDayTime  >  lastDayTime  then
 	 	 	 lastDayTime  =  CurDayTime
@@ -197,13 +197,13 @@ function  x894000_CheckCanEnter(  sceneId,  selfId,  targetId  )
 
 	 end
 
-	 if  nHumanNum  >=  5  then
+	 if  nHumanNum > 0  then   -- [NetCo4 02/10] cu >= 5: doi <= 4 nguoi khong bao gio bi chan
 
-	 	 local  msg  =  "        "
+	 	 local msg = "Trong \240\181i c\243 "
 	 	 for  i=0,  nHumanNum-2  do
 	 	 	 msg  =  msg  ..  Humanlist[i]  ..  " , "
 	 	 end
-	 	 msg  =  msg  ..  Humanlist[nHumanNum-1]  ..  " ðã khiêu chiªn quá 3 l¥n ba th¥n äo cänh , m²i ngày chï có th¬ khiêu chiªn 3 l¥n . "
+	 	 msg = msg .. Humanlist[nHumanNum-1] .. " h\244m nay \240\227 v\224o Tam Th\165n \196o C\228nh \240\252 5 l\223\254t (t\175i \240a 5 l\223\254t/ng\224y)."   -- [NetCo4 02/10]
 	 	 return  0,  msg
 
 	 end
@@ -262,9 +262,9 @@ function  x894000_MakeCopyScene(  sceneId,  selfId  )
 	 local  bRetSceneID  =  LuaFnCreateCopyScene(sceneId)
 	 BeginEvent(sceneId)
 	 	 if  bRetSceneID>0  then
-	 	 	 AddText(sceneId," phó bän khai sáng thành công ! ");
+	 	 	 AddText( sceneId, "T\213o ph\243 b\228n Tam Th\165n \196o C\228nh th\224nh c\244ng!" );
 	 	 else
-	 	 	 AddText(sceneId," phó bän s¯ lßþng ðã ðÕt thßþng hÕn , xin h§u thØ lÕi ! ");
+	 	 	 AddText( sceneId, "S\175 ph\243 b\228n \240\227 \240\213t gi\190i h\213n, xin th\216 l\213i sau!" );
 	 	 end
 	 EndEvent(sceneId)
 	 DispatchMissionTips(sceneId,selfId)
@@ -347,7 +347,7 @@ function  x894000_OnPlayerEnter(  sceneId,  selfId  )
 	 lastTime  =  lastDayTime  *  100  +  lastDayCount
 	 SetMissionData(  sceneId,  selfId,  SANSHENHUANJING_COUNT,  lastTime  )
 
-	 if  lastDayCount  >  20  then
+	 if  mod( lastDayCount, 50 ) > 20  then   -- [NetCo4 02/10]
                       x894000_NotifyTip(  sceneId,  selfId,  " ngß½i sØ døng phi pháp công cø tÕp phó bän ðã b¸ ghi chép , nhi«u l¥n b¸ ghi chép s¨ b¸ phong hào ! "  )  
                       x894000_KickOut(  sceneId,  selfId  )
                 end
@@ -368,8 +368,8 @@ end
 --**********************************
 function  x894000_KickOut(  sceneId,  objId  )
         local  oldsceneId  =  LuaFnGetCopySceneData_Param(  sceneId,  3  )	 -- l¤y ðßþc phó bän nh§p kh¦u cänh tßþng s¯ 
-	 local  x  =  LuaFnGetCopySceneData_Param(  sceneId,  x894000_g_Fuben_X  )  -- tiªn vào lúc ðích t÷a ðµ X
-	 local  z  =  LuaFnGetCopySceneData_Param(  sceneId,  x894000_g_Fuben_Z  )  -- tiªn vào lúc ðích t÷a ðµ Z
+	 local  x  =  LuaFnGetCopySceneData_Param(  sceneId,  4 )  -- tiªn vào lúc ðích t÷a ðµ X   -- [NetCo4 02/10] cu doc Param(41) -> toa do sai
+	 local  z  =  LuaFnGetCopySceneData_Param(  sceneId,  5 )  -- tiªn vào lúc ðích t÷a ðµ Z   -- [NetCo4 02/10]
 	 
 	 if  LuaFnIsObjValid(  sceneId,  objId  )  ==  1  then
 	         NewWorld(  sceneId,  objId,  oldsceneId,  x,  z  )
