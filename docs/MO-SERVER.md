@@ -88,7 +88,7 @@ Mẫu tạm 11–15 dòng: Tạo Hóa, Trùng Lâu Liên/Giới/Ngọc, quạt P
 | Ví web bot | Xóa 4 ví kia (HoangFour, silycnzx1, Anh Vinh Q, Hân Z, mỗi ví ~50 triệu KNB test) bằng nút Xóa ví trên panel (`deletePlayer`), **giữ ví BiaLK** `456136500011335698`. Giữ nguyên mọi khóa cấu hình `_*` (shop 257 món, công tắc, Pet Boss…); xóa `_bossKills`, `_dogDay`, `_webSessions`. |
 | Cấp khởi đầu | **10** (chốt lại 02/10, trước là 1). `DefaultChar.ini` dòng 9 `level=10`. Xóa `_capmin.txt`. |
 | Khóa cấp | **89** (tab GM web, Lưu + Restart). Admin mở dần. |
-| Exp | **x12** (chốt lại 02/10, trước là x10): `ConfigInfo.ini` `ExpParam=12.0`. Nhánh `main` đang test x15. |
+| Exp | **x12** (chốt lại 02/10, trước là x10): `ConfigInfo.ini` `ExpParam=12.0`. Server test (`main`) cũng x12 từ 02/10. |
 | Máu boss | **80% máu gốc** (giảm 20%). Gốc = `git show da6cce6^:…MonsterAttrExTable.txt`. **Chỉ vá cột 19 và 59 (đếm từ 0) của file HIỆN TẠI**, không chép lại cả file (sau `da6cce6` còn 176 dòng pet skin đã sửa). Đã đối chiếu: 4.247 dòng boss hiện = gốc × 0,65. |
 | 80.000 Điểm Tặng | **Tắt hẳn.** |
 | 2.000 vàng + 8.000 vàng khóa/ngày | **Giữ.** |
