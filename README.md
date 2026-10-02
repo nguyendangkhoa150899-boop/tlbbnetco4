@@ -162,7 +162,7 @@ Chi tiết từng mục ở `docs/TRANG-THAI.md` → "Cập nhật 29/09 chiều
 
 ## Đã làm 30/09 (chiều–tối) — tất cả đã deploy, game đã restart 3 lần (cuối 18:xx), chi tiết từng mục ở docs/TRANG-THAI.md
 
-**Quy tắc mới phát hiện:** file `.lua` trong `Public/Data/Script/` **có hiệu lực ngay** khi `cap-nhat.sh` (engine nạp lại theo mtime), chỉ file `.txt/.ini` cấu hình mới cần `./tlbb.sh restart`. Múi giờ chroot đã đổi sang Việt Nam (trước là +08), giờ game = giờ VN.
+**Quy tắc mới phát hiện:** file `.lua` trong `Public/Data/Script/` **có hiệu lực ngay** khi `cap-nhat.sh` (engine nạp lại theo mtime) — **trừ phó bản đang chạy**: phó bản đã mở giữ code cũ tới khi đóng (kiểm chứng 02/10 23:23), chỉ file `.txt/.ini` cấu hình mới cần `./tlbb.sh restart`. Múi giờ chroot đã đổi sang Việt Nam (trước là +08), giờ game = giờ VN.
 
 | Việc | Trạng thái | Rollback |
 |---|---|---|
@@ -224,7 +224,7 @@ Bản dễ nhìn của toàn bộ việc 28/09–02/10: trang "Sổ Việc NetCo
 
 1. **Bảng `.txt` dạng DBC phải sắp ID tăng dần.** Engine tra bằng tìm kiếm nhị phân (`DBCFile::Search_Posistion`): dòng nào nằm sai thứ tự là **không bao giờ được tìm thấy**, không báo lỗi (`MonsterDropBoxs`, `DropBoxContent`, `PetAttrTable`, `StandardImpact`, `EquipBase`, `CommonItem`…). Thêm dòng = chèn đúng vị trí, không append cuối file. Kiểm nhanh: node đọc file, so ID dòng sau với dòng trước. Tab Drop Boss trên web thêm hộp mới cũng phải theo quy tắc này.
 2. **Rơi đồ: số món mỗi người ≈ Mvalue(quái) ÷ BoxValue(hộp).** Tỉ lệ 1 = chắc chắn 1 món; tỉ lệ 3 = 3–6 món **cho mỗi thành viên tổ đội** (mỗi người roll riêng). BoxValue = 1 làm hỏng cả lượt rơi. Nâng Mvalue của boss thì phải đổi hộp phiếu sang hộp BV = Mv tương ứng (90001 = 60, 90016–90028 = 10…3000).
-3. **Lua có hiệu lực ngay khi `cap-nhat.sh`, `.txt/.ini` cần restart.** Restart chỉ bằng `systemctl restart tlbb`, kiểm `ss -Htn state established '( sport = :3731 )'` trước.
+3. **Lua có hiệu lực ngay khi `cap-nhat.sh` cho lượt gọi mới (NPC, phó bản mới); phó bản đang chạy giữ code cũ. `.txt/.ini` cần restart.** Restart chỉ bằng `systemctl restart tlbb`, kiểm `ss -Htn state established '( sport = :3731 )'` trước.
 4. **Mission data (`t_char.mdata`)** là chuỗi hex, ô N = 8 ký tự ở vị trí N×8+1, int32 little-endian. Đọc: `SELECT SUBSTRING(mdata, N*8+1, 8)`. Chỉ đọc khi cần xác minh; sửa phải stop game (ShareMemory giữ RAM).
 5. **`!!addexp` / mọi tham số GM là int32** (tối đa 2.147.483.647, gõ dính liền `!!createitem=…` không nhận, phải `!!createitem =ID =1 =1`). Exp tổng vượt int32 → âm → client hiện 0. Cấp tối đa = `HumanMaxDefaultLevel=119` trong `Server/Config/ConfigInfo.ini`.
 6. **Chuỗi VISCII trong node**: viết escape bằng `String.raw` hoặc `String.fromCharCode(92)+"n"`; `"\244"` và `"\n"` trong heredoc đều đã ghi sai byte một lần. Luôn kiểm `git diff` + đếm byte >127 và CR trước/sau. Máy nhà không có Python: dùng `tools/viscii-map.json` từ node.
