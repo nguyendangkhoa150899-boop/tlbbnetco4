@@ -71,6 +71,7 @@ end
 function x950000_NhanQua( sceneId, selfId )
 	x950000_CapMin( sceneId, selfId )
 	CallScriptFunction( 999999, "NhanWeb", sceneId, selfId )   -- KNB chuyen tu web mini game (CDK/CDK.lua)
+	x950000_CapNhatTop( sceneId, selfId )   -- [NetCo4 03/10] Bang Top Server: Top Level + Top Tai Phu (KNB)
 	local guid = LuaFnGetGUID( sceneId, selfId )
 	local path = x950000_g_Dir..guid..".txt"
 	local h = openfile( path, "r" )
@@ -202,4 +203,20 @@ function x950000_Tip( sceneId, selfId, msg )
 	AddText( sceneId, msg )
 	EndEvent( sceneId )
 	DispatchMissionTips( sceneId, selfId )
+end
+
+-- [NetCo4 03/10] Bang Top Server (890096 shengjjll.lua GetGiftsForUI 20/21): cap nhat moi lan dang nhap / doi ban do.
+--   Top Level (key 4) = cap hien tai (truoc chi cap nhat luc len cap -> nhan vat len cap qua panel khong vao bang).
+--   Top Tai Phu (key 1) = KNB trong game luc do (truoc chi cap nhat luc nap the -> server khong co nap, bang trong).
+--   SetDengji (888899 eprize.lua) GHI DE gia tri cua chinh nguoi do roi xep lai top 10 (KNB giam thi bang giam theo).
+function x950000_CapNhatTop( sceneId, selfId )
+	local lv = GetLevel( sceneId, selfId )
+	if lv and lv > 0 then
+		CallScriptFunction( 888899, "SetDengji", sceneId, selfId, lv, 4 )
+	end
+	local knb = YuanBao( sceneId, selfId, -1, 3, 0 )
+	if knb == nil or knb < 1 then
+		knb = 1
+	end
+	CallScriptFunction( 888899, "SetDengji", sceneId, selfId, knb, 1 )
 end

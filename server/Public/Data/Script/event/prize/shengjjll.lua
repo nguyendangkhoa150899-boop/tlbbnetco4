@@ -366,7 +366,7 @@ end
 	local nQuarter = mod(GetQuarterTime(),100);	
 	local allfirstplayer = GetPaiming(sceneId,4)
 	local name = GetName(sceneId,selfId)
-	if nWeekCur ~=  nQuarter >0  then
+	if nDrawPayTimeLast == nWeekCur then x890096_Tips( sceneId, selfId, "Tu\165n n\224y c\225c h\213 \240\227 nh\167n th\223\183ng c\252a b\228ng n\224y r\176i, tu\165n sau quay l\213i nh\233." ) return end if 1 == 1 then   -- [NetCo4 03/10] chan nhan dung 1 lan/tuan (cu: "nWeekCur ~= nQuarter > 0" viet sai, khong chan gi)
 
 	if allfirstplayer[1].Guid == LuaFnGetName( sceneId, selfId ) and iop ==1  then  --1名
            if LuaFnHaveImpactOfSpecificDataIndex(sceneId, selfId,7536) == 1 then
@@ -412,7 +412,7 @@ end
 	
 	
 	if idbox  ==2 then  --充值
-           if GetMissionData( sceneId, selfId, CHONG_ZHI_ZENGD) < 2000000 then
+           if 0 == 1 then   -- [NetCo4 03/10] Top Tai Phu xep theo KNB trong game (quatang.lua), bo dieu kien diem nap 2.000.000 (server khong co nap)
               x890096_Tips( sceneId, selfId,"餴琺 t韈h l鹹 kh鬾g 瘘"  )
               return
            end
@@ -420,7 +420,7 @@ end
 	local nDrawPayTimeLast = GetMissionData( sceneId, selfId, MD_CHUNJIE_TUANYUANJIAOZI2_DAYTIME);
 	local nQuarter = mod(GetQuarterTime(),100);	
 	local allfirstplayer = GetPaiming(sceneId,1)
-	if nWeekCur ~= nQuarter >0  then
+	if nDrawPayTimeLast == nWeekCur then x890096_Tips( sceneId, selfId, "Tu\165n n\224y c\225c h\213 \240\227 nh\167n th\223\183ng c\252a b\228ng n\224y r\176i, tu\165n sau quay l\213i nh\233." ) return end if 1 == 1 then   -- [NetCo4 03/10] chan nhan dung 1 lan/tuan (cu: "nWeekCur ~= nQuarter > 0" viet sai, khong chan gi)
 
 	if allfirstplayer[1].Guid == LuaFnGetName( sceneId, selfId ) and iop == 1 then  --1名
            if LuaFnHaveImpactOfSpecificDataIndex(sceneId, selfId,7521) == 1 then
@@ -473,7 +473,7 @@ end
 	local nDrawPayTimeLast = GetMissionData( sceneId, selfId, MD_CHUNJIE_TUANYUANJIAOZI3_DAYTIME);
 	local nQuarter = mod(GetQuarterTime(),100);	
 	local allfirstplayer = GetPaiming(sceneId,5)
-	if nWeekCur ~=  nQuarter >0  then
+	if nDrawPayTimeLast == nWeekCur then x890096_Tips( sceneId, selfId, "Tu\165n n\224y c\225c h\213 \240\227 nh\167n th\223\183ng c\252a b\228ng n\224y r\176i, tu\165n sau quay l\213i nh\233." ) return end if 1 == 1 then   -- [NetCo4 03/10] chan nhan dung 1 lan/tuan (cu: "nWeekCur ~= nQuarter > 0" viet sai, khong chan gi)
 
 	if allfirstplayer[1].Guid == LuaFnGetName( sceneId, selfId ) and iop ==1 then  --1名
            if LuaFnHaveImpactOfSpecificDataIndex(sceneId, selfId,7533) == 1 then
@@ -526,7 +526,7 @@ end
 	local nDrawPayTimeLast = GetMissionData( sceneId, selfId, MD_CHUNJIE_TUANYUANJIAOZI4_DAYTIME);
 	local nQuarter = mod(GetQuarterTime(),100);	
 	local allfirstplayer = GetPaiming(sceneId,2)
-	if nWeekCur ~=  nQuarter >0  then
+	if nDrawPayTimeLast == nWeekCur then x890096_Tips( sceneId, selfId, "Tu\165n n\224y c\225c h\213 \240\227 nh\167n th\223\183ng c\252a b\228ng n\224y r\176i, tu\165n sau quay l\213i nh\233." ) return end if 1 == 1 then   -- [NetCo4 03/10] chan nhan dung 1 lan/tuan (cu: "nWeekCur ~= nQuarter > 0" viet sai, khong chan gi)
 
 	if allfirstplayer[1].Guid == LuaFnGetName( sceneId, selfId ) and iop ==1 then  --1名
            if LuaFnHaveImpactOfSpecificDataIndex(sceneId, selfId,7524) == 1 then
@@ -580,7 +580,7 @@ end
 	local nDrawPayTimeLast = GetMissionData( sceneId, selfId, MD_CHUNJIE_TUANYUANJIAOZI5_DAYTIME);
 	local nQuarter = mod(GetQuarterTime(),100);	
 	local allfirstplayer = GetPaiming(sceneId,6)
-	if nWeekCur ~=  nQuarter >0  then
+	if nDrawPayTimeLast == nWeekCur then x890096_Tips( sceneId, selfId, "Tu\165n n\224y c\225c h\213 \240\227 nh\167n th\223\183ng c\252a b\228ng n\224y r\176i, tu\165n sau quay l\213i nh\233." ) return end if 1 == 1 then   -- [NetCo4 03/10] chan nhan dung 1 lan/tuan (cu: "nWeekCur ~= nQuarter > 0" viet sai, khong chan gi)
 
 	if allfirstplayer[1].Guid == LuaFnGetName( sceneId, selfId ) and iop ==1 then  --1名
            if LuaFnHaveImpactOfSpecificDataIndex(sceneId, selfId,7527) == 1 then
@@ -633,7 +633,7 @@ end
 	local nDrawPayTimeLast = GetMissionData( sceneId, selfId, MD_CHUNJIE_TUANYUANJIAOZI6_DAYTIME);
 	local nQuarter = mod(GetQuarterTime(),100);	
 	local allfirstplayer = GetPaiming(sceneId,3)
-	if nWeekCur ~=  nQuarter >0  then
+	if nDrawPayTimeLast == nWeekCur then x890096_Tips( sceneId, selfId, "Tu\165n n\224y c\225c h\213 \240\227 nh\167n th\223\183ng c\252a b\228ng n\224y r\176i, tu\165n sau quay l\213i nh\233." ) return end if 1 == 1 then   -- [NetCo4 03/10] chan nhan dung 1 lan/tuan (cu: "nWeekCur ~= nQuarter > 0" viet sai, khong chan gi)
 
 	if allfirstplayer[1].Guid == LuaFnGetName( sceneId, selfId ) and iop ==1 then  --1名
            if LuaFnHaveImpactOfSpecificDataIndex(sceneId, selfId,7530) == 1 then

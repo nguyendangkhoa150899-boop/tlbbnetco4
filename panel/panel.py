@@ -36,6 +36,11 @@ CAPMIN = QUEUE + "/_capmin.txt"            # cap toi thieu toan server (quatang.
 CFGDIR = GAME + "/Server/txt/NetCo4Cfg"
 CAPMAX = CFGDIR + "/capmax.txt"
 CONFIGINFO = GAME + "/Server/Config/ConfigInfo.ini"
+# 03/10: EXP TOAN SERVER (ConfigInfo.ini [Exp] ExpParam) admin chon tren web, luu NGOAI repo nhu khoa cap
+# (cap-nhat.sh ap lai sau rsync). "Mac dinh" = gia tri trong repo (git) - nut reset xoa expparam.txt va tra ve so do.
+EXPPARAM = CFGDIR + "/expparam.txt"
+REPO_CONFIGINFO = "/opt/tlbb-repo/server/Server/Config/ConfigInfo.ini"
+RE_EXP = re.compile(r"^\d{1,2}(\.\d)?$")
 POPUP = GAME + "/Server/txt/NetCo4Popup"   # qua popup (cua so Qua ngay le) do admin chon nguoi
 GMLIST = GAME + "/Server/Config/GMList.ini"
 MYSQL = "/usr/local/mysql5.0.45/bin/mysql"
@@ -63,6 +68,48 @@ def capmax_set(n):
     os.makedirs(CFGDIR, exist_ok=True)
     with open(CAPMAX, "w", encoding="ascii", newline="\n") as f:
         f.write("%d\n" % n)
+
+
+def exp_doc(path):
+    try:
+        m = re.search(rb"(?m)^ExpParam=([0-9.]+)", open(path, "rb").read())
+        return float(m.group(1)) if m else 0.0
+    except (OSError, ValueError):
+        return 0.0
+
+
+def exp_get():
+    """EXP toan server dang ghi trong ConfigInfo.ini (co hieu luc tu lan restart game sau khi ghi)."""
+    return exp_doc(CONFIGINFO)
+
+
+def exp_macdinh():
+    return exp_doc(REPO_CONFIGINFO) or 12.0
+
+
+def exp_set(x, giu=True):
+    """Sua dung so tren dong ExpParam (file GBK, giu moi byte khac). giu=True ghi expparam.txt (cap-nhat.sh ap lai),
+    giu=False xoa expparam.txt (ve mac dinh cua repo)."""
+    s = ("%.1f" % x).rstrip("0").rstrip(".")
+    s = s if "." in s else s + ".0"
+    raw = open(CONFIGINFO, "rb").read()
+    new, k = re.subn(rb"(?m)^(ExpParam=)[0-9.]+", lambda m: m.group(1) + s.encode(), raw, count=1)
+    if k != 1:
+        raise RuntimeError("khong thay ExpParam trong ConfigInfo.ini")
+    with open(CONFIGINFO, "wb") as f:
+        f.write(new)
+    os.makedirs(CFGDIR, exist_ok=True)
+    if giu:
+        with open(EXPPARAM, "w", encoding="ascii", newline="\n") as f:
+            f.write(s + "\n")
+    elif os.path.exists(EXPPARAM):
+        os.remove(EXPPARAM)
+    return s
+
+
+def restart_game():
+    subprocess.Popen(["systemctl", "restart", "tlbb"], stdin=subprocess.DEVNULL,
+                     stdout=open("/tmp/panel-restart.log", "w"), stderr=subprocess.STDOUT)
 
 
 def load_env(path):
@@ -389,6 +436,22 @@ def act(form):
                              stdout=open("/tmp/panel-restart.log", "w"), stderr=subprocess.STDOUT)
             return msg + " Dang restart server (khoang 3 phut)."
         return msg + " Co hieu luc sau khi restart server."
+    if a in ("expparam", "expreset"):   # 03/10: EXP toan server (ConfigInfo.ini ExpParam); restart=1 thi restart luon
+        if a == "expparam":
+            val = v("gt")
+            if not RE_EXP.match(val) or not 0.1 <= float(val) <= 50:
+                return "EXP 0.1-50, toi da 1 so le (vd 3 hoac 2.5)"
+            s = exp_set(float(val), giu=True)
+            msg = "Da dat EXP toan server x%s (ConfigInfo.ini ExpParam=%s)." % (s, s)
+        else:
+            s = exp_set(exp_macdinh(), giu=False)
+            msg = "Da tra EXP ve mac dinh cua repo x%s." % s
+        rs = v("restart") == "1"
+        audit("EXP toan server = x%s (%s)%s (online: %d)" % (s, a, ", restart" if rs else "", online_count()))
+        if rs:
+            restart_game()
+            return msg + " Dang restart server (khoang 3 phut)."
+        return msg + " Co hieu luc sau khi restart server."
     if a in ("doche_ap", "doche_tra"):   # 02/10: mau do che 8x/9x - doi EquipBase cua game (ngoai repo), restart=1 thi restart luon
         id_ = v("id")
         if a == "doche_ap":
@@ -549,6 +612,13 @@ def page(msg="", q=""):
                '<input type="hidden" name="t" value="%s"><input type="hidden" name="a" value="capmax"><input type="hidden" name="restart" value="1">'
                '<b>Cap toi da (khoa cap):</b><input name="gt" value="%d" size="4" required pattern="\\d{2,3}"><button class="r">Luu + Restart</button>'
                '<span class="muted">10-119 (119 = mo het). Nguoi choi cay exp toi da toi cap nay; nhan vat da cao hon giu nguyen.</span></form><br>' % (TOKEN, capmax_get()))
+    out.append('<form method="post" class="row" onsubmit="return confirm(\'Luu EXP toan server va RESTART server? Nguoi dang choi se bi ngat.\')">'
+               '<input type="hidden" name="t" value="%s"><input type="hidden" name="a" value="expparam"><input type="hidden" name="restart" value="1">'
+               '<b>EXP toan server: x</b><input name="gt" value="%g" size="4" required pattern="\\d{1,2}(\\.\\d)?"><button class="r">Luu + Restart</button>'
+               '<span class="muted">0.1-50 (ConfigInfo.ini ExpParam). Mac dinh repo: x%g.</span></form>'
+               '<form method="post" class="row" onsubmit="return confirm(\'Tra EXP ve mac dinh va RESTART server?\')">'
+               '<input type="hidden" name="t" value="%s"><input type="hidden" name="a" value="expreset"><input type="hidden" name="restart" value="1">'
+               '<button class="r">Tra ve mac dinh + Restart</button></form><br>' % (TOKEN, exp_get(), exp_macdinh(), TOKEN))
     out.append('<table><tr><th>GUID</th><th>Tai khoan</th><th>Nhan vat</th>'
                '<th>Cap</th><th>Online</th><th>GM</th><th>Qua dang cho</th><th>Phat qua</th></tr>')
     for g, acc, name, lv in chs:
@@ -624,6 +694,7 @@ def api_state():
     return {"procs": procs, "online": online_count(), "ram": [tot - avail, tot], "dbError": err,
             "accounts": [{"id": i, "name": n, "online": on} for i, n, on in accs],
             "chars": out_chars, "capmin": capmin, "capmax": capmax_get(), "itemCount": len(ITEMS),
+            "expparam": exp_get(), "expDefault": exp_macdinh(),   # 03/10
             "pets": [{"id": i, "name": n} for i, n in PET_V2]}
 
 

@@ -53,6 +53,16 @@ if [ -s "$CAPMAX" ]; then
         log "Giu khoa cap toi da $n theo panel (HumanMaxDefaultLevel=$((n + 1)))"
     fi
 fi
+# 03/10: EXP TOAN SERVER admin chon tren web (panel act expparam) nam NGOAI repo -> ap lai, khong thi ConfigInfo.ini cua repo de len.
+# Nut "Tra ve mac dinh" tren web xoa file nay -> dung so trong repo.
+EXPF="$DST/Server/txt/NetCo4Cfg/expparam.txt"
+if [ -s "$EXPF" ]; then
+    x=$(tr -dc 0-9. < "$EXPF")
+    if echo "$x" | grep -Eq '^[0-9]{1,2}(\.[0-9])?$'; then
+        LC_ALL=C sed -i -E "s/^ExpParam=[0-9.]+/ExpParam=$x/" "$DST/Server/Config/ConfigInfo.ini"
+        log "Giu EXP toan server x$x theo panel (ExpParam=$x)"
+    fi
+fi
 # 02/10: MAU DO CHE 8x/9x admin ap tren web (panel act doche_ap) nam NGOAI repo -> rsync vua ghi de EquipBase.txt, ap lai
 if [ -s "$DST/Server/txt/NetCo4Cfg/maudoche.json" ]; then
     log "Mau do che: $(python3 "$REPO/panel/maudoche.py" --ap-lai 2>&1 | tail -1)"
