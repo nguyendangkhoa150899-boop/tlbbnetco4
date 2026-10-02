@@ -51,7 +51,7 @@ Nguồn: 201 commit repo game (`tlbbnetco4`) và 45 commit repo bot (`bialk`) t�
 - **NPC NetCo4 (990010):** 2.000 vàng không khóa + **8.000 vàng khóa** mỗi ngày (`2b40dcb` `170d45c`). 80.000 Điểm Tặng (`acfbbfa`) **TẮT khi mở**. Mục Tổng Bí Tịch (`8b5b597`).
 - NPC tân thủ 8886: hộp Tân Thủ Trang Bị 1 lần/ngày → **1 lần duy nhất** khi mở (`170d45c`).
 - Yến Tử Ổ: 3 lượt/ngày, chỉ 2 đợt cuối (`93c15e2` `8c9bd58`). Hệ quả: **mất boss Diêu Bá Đương và Tư Mã Lâm** cùng đồ rơi của họ.
-- Hậu Hoa Viên: giờ mở là biến, **khi mở đặt 19:00–23:59** (`5d20e69`).
+- Hậu Hoa Viên: giờ mở là biến, **đã đặt 22:00–23:59 từ 02/10** (`5d20e69`).
 - Mở lại: Lò Ly Hoa (`29cca96`), Võ Hồn nâng cấp qua menu NetCo4 chạy song song hợp thành gốc, tối đa cấp 8 (`63176d9`), Bí Tịch xếp tông (`e156587` `0a7cf71`), Điểm danh 070053, vòng quay server chọn món (`399492f`).
 - **NPC Ví Web (999999):** KNB game ↔ web, web → game tối đa 30.000/ngày, nhận được vàng không khóa (`92a147b`, bot `e879fac`).
 - Dọn: tin hệ thống rác, quảng cáo server cũ (`65441b8` `e8ff862`), tin boss Võ Di (`62ca47b`), tab Quà Nạp Thẻ (`f5df91d`), cửa sổ Nạp lần đầu (`5356575`), Việt hóa 21 tin boss (`7b59bd9`).
@@ -95,7 +95,7 @@ Mẫu tạm 11–15 dòng: Tạo Hóa, Trùng Lâu Liên/Giới/Ngọc, quạt P
 | Hộp Tân Thủ Trang Bị | **1 lần duy nhất** mỗi nhân vật. |
 | Yến Tử Ổ | Giữ 2 đợt cuối, 3 lượt/ngày. |
 | Kim Tàm Ti | Giữ 30%. |
-| Hậu Hoa Viên | **19:00–23:59** (`jiarumenpai.lua` `x990010_g_HHV_Mo = 19`, `Dong = 24`). |
+| Hậu Hoa Viên | **22:00–23:59** — ĐÃ áp trên server test 02/10 (`1308190`), nhánh mo-server cùng dòng (`5b25a57`). |
 | Chat Thế giới | **180000 ms** (`ChatConfig.txt` kênh 2, cột 4). |
 | Thẻ Chọn Pet Boss | **Bật**, bản Tân Thủ, miễn phí. |
 | Dọn sót test | `GemInfo` 50412007 cột 6 → 1. Xóa 54 pet `31001–31582`. |
