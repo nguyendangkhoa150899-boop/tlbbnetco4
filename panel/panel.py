@@ -19,6 +19,7 @@ from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 from urllib.parse import parse_qs, urlencode, urlparse
 
 import maudoche   # 02/10: mau do che 8x/9x (panel/maudoche.py)
+import amkhi      # 04/10: trong so tay 3 dong am khi (panel/amkhi.py)
 
 HOST, PORT = "0.0.0.0", 8443         # HTTPS, mo ra internet (ufw allow 8443), bat buoc dang nhap
 PUBLIC_IP = "103.216.118.123"
@@ -613,6 +614,19 @@ def act(form):
                              stdout=open("/tmp/panel-restart.log", "w"), stderr=subprocess.STDOUT)
             return msg + " Dang restart server (khoang 3 phut)."
         return msg
+    if a in ("amkhi_ap", "amkhi_tra"):   # 04/10: trong so tay 3 dong am khi - doi DarkSkillStudy.txt cua game (ngoai repo)
+        if a == "amkhi_ap":
+            ok, msg = amkhi.ap(v("wa"), v("wb"), v("wc"))   # wa/wb/wc = dong cap 40/70/90 (bot chi chuyen khoa [a-z_])
+        else:
+            ok, msg = amkhi.tra()
+        if not ok:
+            return msg
+        rs = v("restart") == "1"
+        audit("am khi: %s%s (online: %d)" % (msg, ", restart" if rs else "", online_count()))
+        if rs:
+            restart_game()
+            return msg + " Dang restart server (khoang 3 phut)."
+        return msg
     if a == "huy_qua":
         g = v("guid")
         if RE_INT.match(g):
@@ -928,6 +942,8 @@ class H(BaseHTTPRequestHandler):
                 return self._json({"ok": True, "groups": [{"name": g, "pets": [{"id": i, "name": n} for i, n in l]} for g, l in PET_GROUPS], "skins": PET_SKINS})
             if method == "GET" and u.path == "/api/doche":   # 02/10: danh sach do che 8x/9x + mau dang ap
                 return self._json({"ok": True, "data": maudoche.du_lieu(), "mau": maudoche.doc_mau()})
+            if method == "GET" and u.path == "/api/amkhi":   # 04/10: trong so tay 3 dong am khi (goc + dang ap)
+                return self._json({"ok": True, "data": amkhi.du_lieu()})
             if method == "GET" and u.path == "/api/items":
                 qs = parse_qs(u.query)
                 if qs.get("all") == ["1"]:  # ca danh muc cho bot mini game (shop item / qua moi ngay)
