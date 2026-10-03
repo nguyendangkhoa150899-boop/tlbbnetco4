@@ -205,6 +205,7 @@ function  x002052_MakeCopyScene(  sceneId,  selfId  )
 	 LuaFnSetCopySceneData_Param(sceneId,  5,  z)            -- tiªn vào y t÷a ðµ 
 	 LuaFnSetCopySceneData_Param(sceneId,  6,  GetTeamId(sceneId,selfId))    -- ðµi ngû id
 	 LuaFnSetCopySceneData_Param(sceneId,  7,  0)    
+	 LuaFnSetCopySceneData_Param(sceneId,  30,  0)    -- [NetCo4 04/10] dem boss da chet (tui do giet boss)
 	 for  i=8,  31  do
 	 	 LuaFnSetCopySceneData_Param(sceneId,  i,  0)
 	 end
@@ -956,4 +957,18 @@ function  x002052_UseSkillD(  sceneId,  selfId  )
 	 	 end
 	 end
 
+end
+
+-- [NetCo4 04/10] tui do giet boss Lang Huyen Phuc Dia (thuong): 4 boss dung san, doi truong chon thu tu khieu chien
+-- -> dem boss chet trong o du lieu pho ban 30 (dat 0 o MakeCopyScene), du 4 con moi ghi tui (1 tui / luot, thu tu nao cung duoc).
+x002052_g_TB_Boss = { [43970]=1, [43971]=1, [43973]=1, [43975]=1 }
+function x002052_OnDie( sceneId, selfId, killerId )
+	if x002052_g_TB_Boss[ GetMonsterDataID( sceneId, selfId ) ] == nil then
+		return
+	end
+	local n = LuaFnGetCopySceneData_Param( sceneId, 30 ) + 1
+	LuaFnSetCopySceneData_Param( sceneId, 30, n )
+	if n == 4 then
+		CallScriptFunction( 950001, "TB_Ghi", sceneId, selfId, killerId )
+	end
 end

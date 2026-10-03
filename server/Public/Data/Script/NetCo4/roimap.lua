@@ -182,6 +182,7 @@ x950001_TB_Them( { 9666, 9546 } )    -- Phieu Mieu Phong thuong / khieu chien: L
 x950001_TB_Them( { 13456 } )         -- Sat Tinh (Sinh Tu Loi Dai): CHI Ngo Vinh, 1 tui / luot (xem x950001_TB_SatTinhDuoc)
 x950001_TB_Them( { 14234 } )         -- Thieu That Son: Dinh Xuan Thu
 x950001_TB_Them( { 11353 } )         -- Long Quy (Thanh Thu Son)
+x950001_TB_Them( { 43970, 43971, 43973, 43975, 43982, 43983, 43985, 43986 } )  -- [04/10] Lang Huyen Phuc Dia thuong/kho: ghi khi du 4 boss chet (odali_lanlan/yahuan OnDie dem o 30)
 x950001_TB_Them( { 12138, 12139, 12140, 12141, 12142, 12143, 12144, 12145, 12146 } )  -- Lau Lan Tam Bao: Tran Bao Long Vuong
 x950001_TB_Them( { 473 } )           -- Ac Tac Tao Phan (su kien Tac binh)
 x950001_TB_Them( { 1910, 1911, 1912, 1913, 1914, 1915, 1916, 1917, 1918, 1919 } )  -- Ac Ba (nhiem vu thanh thi, Thi Tap)
