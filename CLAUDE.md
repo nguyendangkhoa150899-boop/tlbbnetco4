@@ -7,13 +7,13 @@
 
 | | |
 |---|---|
-| VPS | `103.216.118.123`, iNET, Ubuntu 22.04, 4GB RAM + 2GB swap |
+| VPS | `103.216.118.123`, iNET, Ubuntu 22.04, 6,9GB RAM (`free -m`) + 2GB swap |
 | SSH | `ssh -p 24700 root@103.216.118.123`. **Cổng 24700, không phải 22.** Chỉ đăng nhập bằng key |
 | Server game | Ubuntu 10.04 32-bit (lấy nguyên từ máy ảo gốc) chạy **chroot** tại `/opt/tlbb-root` |
 | Thư mục game | `/opt/tlbb-root/home/tlbb` (`Public/` = dữ liệu + script, `Server/` = binary + cấu hình) |
 | Repo trên VPS | `/opt/tlbb-repo` (git clone của repo này). `/opt/tlbb-deploy` → symlink tới `/opt/tlbb-repo/deploy` |
 | Sao lưu | `/opt/tlbb-backup` (DB gốc, DB hằng ngày lúc 4h, bản trước mỗi lần cập nhật) |
-| Cổng mở | `24700` SSH, `7384` Login, `3731` Game. Còn lại bị ufw chặn. MySQL và billing chỉ nghe `127.0.0.1` |
+| Cổng mở | `24700` SSH, `7384` Login, `3731` Game, `80`/`443` web. `8443` (panel game) **chỉ IP admin** `14.169.52.21`, `123.21.72.218` (03/10, sau 4 lần bị dò/SYN flood); IP nhà đổi thì `ufw allow from <IP> to any port 8443 proto tcp comment 'panel - IP admin'`. Bot gọi panel qua `127.0.0.1:8443` nên không bị chặn. Còn lại ufw chặn. MySQL và billing chỉ nghe `127.0.0.1` |
 | Tiến trình | `mysqld` (5.0.45), `billing` (liuguangw/billing_go, `/home/config.json`), `ShareMemory`, `Login`, `World`, `Server` |
 | Client | phiên bản `1005`. `Patch/LoginServer.txt` trỏ `103.216.118.123:7384`, tên server `NetCo4` |
 
@@ -51,6 +51,7 @@ Windows không phân biệt hoa/thường. Trên server có `Script/new` và `Sc
 - GUID nhân vật lấy từ `t_var.maxcharguid` (procedure `fetch_guid`). Hiện bắt đầu từ `1010100000`, cố ý cao hơn mọi GUID của server cũ. **Không reset bộ đếm này.**
 - Mật khẩu MySQL: `deploy/secrets.env` trên VPS (không có trong git). Truy vấn: `. deploy/common.sh; mysql_root "tlbbdb -e 'SELECT ...'"`.
 - ShareMemory giữ dữ liệu nhân vật trong RAM. **Luôn `./tlbb.sh stop` trước khi sửa DB, reboot hay tắt VPS.**
+- Cấu hình MySQL: `/opt/tlbb-root/etc/my.cnf` (không có trong repo). 03/10 đã nâng từ mẫu "máy nhỏ": `key_buffer 16M`, `table_cache 256` (cũ 4), `innodb_buffer_pool_size 128M` (cũ 8M; DB ~9MB InnoDB). Bản cũ: `/opt/tlbb-backup/my.cnf-truoc-20261003-1535`. **Không đổi `innodb_log_file_size`** (MySQL 5.0 không khởi động nếu khác file log). Sửa xong kiểm bằng `chroot /opt/tlbb-root /usr/local/mysql5.0.45/libexec/mysqld --verbose --help | grep <biến>` rồi `systemctl restart tlbb`.
 
 ### 4. Bí mật
 Repo có thể là public. Không commit `secrets.env`, `config.env`, `LoginInfo.ini`, `ShareMemInfo.ini` (chứa mật khẩu MySQL), mật khẩu tài khoản game, private key. Kiểm tra trước khi push.
@@ -66,7 +67,7 @@ Repo có thể là public. Không commit `secrets.env`, `config.env`, `LoginInfo
 | `./cap-gm.sh <tên nv>` / `--tat-ca` / `--ds` | GM (ghi `GMList.ini`, cần restart) |
 | `./reset-choi-that.sh [--ca-tai-khoan]` | Xóa sạch dữ liệu chơi thử, bắt đầu chơi thật |
 | `./sao-luu.sh` | Sao lưu DB (cron 4h sáng, giữ 14 bản) |
-| Panel web | https://103.216.118.123:8443 (mật khẩu `PANEL_PASS` trong secrets.env): tài khoản, online, phát quà, GM, restart |
+| Panel web | https://103.216.118.123:8443 (mật khẩu `PANEL_PASS` trong secrets.env; chỉ IP admin, xem "Cổng mở"): tài khoản, online, phát quà, GM, restart. Ngoài IP admin thì dùng tab GM ở admin./gm.netco4.click |
 | `./04-doi-ten.sh` | Đổi tên server cũ thành `SERVER_NAME` |
 | `00`..`03-*.sh` | Dựng từ đầu từ `Ubuntu.vmdk` (đã chạy xong, xem `deploy/HUONG-DAN-VPS.md`) |
 

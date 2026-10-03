@@ -828,3 +828,8 @@ Chủ server duyệt từng mục. Lua có hiệu lực ngay; bảng rơi cần 
   - Thiếu Thất và Tứ Tuyệt gọi boss bằng **ID cố định** (bậc 120) rồi đặt cấp → phần đồng bộ 2 phó bản này chỉ để đủ bộ, không đổi trải nghiệm.
   - **Thanh Nguyên Sơn Động** (scene 532): `quanzhoushandong_monster.ini` → `monstercount=0` (xóa 24 boss PMF hồi 60 giây). Thành map sự kiện, khi nào event GM tự thả boss.
   - Trang Bảng Rơi (`tools/bang-roi/data.json`) **chưa cập nhật** theo bảng mới (Kỳ Cuộc ngọc 6 / Tử Vi 20%, bỏ rác…).
+- **03/10 15:3x - Bảo mật + MySQL + restart** (chủ server cho tắt game, 0 kết nối 3731/7384):
+  - ufw: bỏ `8443 ALLOW Anywhere` (v4 + v6), chỉ cho `14.169.52.21` và `123.21.72.218` (2 IP SSH của chủ server). Kernel đã báo "Possible SYN flooding on port 8443" 28/09 ×2, 01/10, 02/10. Bot → `127.0.0.1:8443` vẫn 200; máy nhà → `103.216.118.123:8443` 200. Bản ufw cũ: `/opt/tlbb-backup/ufw-truoc-*.txt`.
+  - MySQL `my.cnf` (chroot): `key_buffer` 16K → 16M, `table_cache` 4 → 256, thêm `innodb_buffer_pool_size = 128M` (cũ mặc định 8M; DB 34 bảng InnoDB 8,8MB + 3 MyISAM). Sao lưu trước: `db-20261003-1535.sql.gz`, `my.cnf-truoc-20261003-1535`. Kiểm bằng `mysqld --verbose --help` trước restart; sau restart `SHOW VARIABLES` đúng, 13 nhân vật còn, panel `dbError None`.
+  - `systemctl restart tlbb` 15:35:54 → sẵn sàng (mysqld 15:36:34, Server 15:37:14), 0 lỗi Lua, 0 assert nạp bảng; **bảng rơi đồng bộ (c31b560) + Thanh Nguyên Sơn Động trống đã có hiệu lực**.
+  - Chưa đo lại: SaveAll mỗi 20 phút trước mất 25–30 giây; xem log ShareMemory sau 16:00 để so. Nếu vẫn chậm, cân nhắc `innodb_flush_log_at_trx_commit = 2` (mất tối đa ~1 giây dữ liệu khi VPS sập nguồn).
