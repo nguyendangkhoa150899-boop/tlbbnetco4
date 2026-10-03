@@ -18,6 +18,7 @@
 | Client | phiên bản `1005`. `Patch/LoginServer.txt` trỏ `103.216.118.123:7384`, tên server `NetCo4` |
 
 Binary `Login`/`World`/`Server`/`ShareMemory` **không có source** (bản leak). Chỉ sửa được script Lua và bảng dữ liệu.
+**Ngoại lệ (03/10 16:45):** `Server/Server` trên VPS là **bản giải nén UPX đã vá** (md5 `e6eceef9…`, script `deploy/va-server/va-tu-di-theo.py`): đội trưởng bấm đi theo → mọi đồng đội trong `AvailableFollowDist` tự đồng ý. Bản gốc nén: `Server/Server.upx-goc` (md5 `18b76cd8…`). Trả lại: `cp -p Server.upx-goc Server.goc2 && mv -f Server.goc2 Server && systemctl restart tlbb` (không `cp` đè thẳng file đang chạy: "Text file busy").
 
 ## Quy trình phát triển
 
