@@ -126,6 +126,16 @@ for (const id in scriptMon) for (const lab of scriptMon[id]) { if (!MA[id] || !M
   const big = t.match(/x402040_g_BigFootBall\s*=\s*\{([^}]*)\}/); if (big) for (const n of big[1].match(/\d+/g)) for (let k = 0; k < 10; k++) ids.add(String(+n + k));
   const key = 'sc:Túc Cầu'; if (!(key in mapIdx)) { mapIdx[key] = maps.length; maps.push(['Túc Cầu', 'sc', '']); }
   for (const id of ids) if (MA[id]) (spawn[id] = spawn[id] || []).push([mapIdx[key], 0, 0, 0, [30600084, 30]]); }
+// [03/10] roi qua script tung rieng tung nguoi: Q To Chau (1130) / Q Lau Lan (1129) + quai ai 3 (roimap g_RoiPhoBan):
+// moi quai 30% Cuu Thien Ngoc Toai + 10% Mien Bo 6 / Bi Ngan 6 (boc 1 -> ghi 5% + 5%); Ky Cuoc (RoiCfg, roithem.txt tren VPS
+// 03/10): moi quan co 20% Tu Vi Linh Phach (+ 1,75% ngoc cap 6 ghi o phan chu thich). Sua ty le o day khi doi cau hinh.
+{ const dai = (a, b) => { const o = []; for (let i = a; i <= b; i++) o.push(String(i), String(i + 30000)); return o; };
+  const them = (lab, ids, ds) => { const key = 'sc:' + lab; if (!(key in mapIdx)) { mapIdx[key] = maps.length; maps.push([lab, 'sc', '']); }
+    for (const id of ids) if (MA[id]) for (const r of ds) (spawn[id] = spawn[id] || []).push([mapIdx[key], 0, 0, 0, r]); };
+  const Q = [[20800034, 30], [20501006, 5], [20502006, 5]];
+  them('Q Tô Châu', dai(4060, 4169), Q);
+  them('Q Lâu Lan', dai(13000, 13269), Q);
+  them('Kỳ Cuộc', [...dai(1770, 1809), ...dai(12000, 12039), ...dai(12050, 12089)], [[30600084, 20]]); }
 
 // ---- ghep: chi quai co dong roi (co it nhat 1 hop) hoac co diem spawn
 const mons = []; const usedBox = new Set(), usedItem = new Set();

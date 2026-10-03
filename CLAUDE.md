@@ -79,7 +79,7 @@ Xem `docs/PHAT-TRIEN.md`: cách đăng ký script, đặt NPC, bảng rơi đồ
 
 ### Boss rơi Nguyên Bảo Phiếu (29/09)
 
-Hộp rơi **90001** (`Server/Config/DropBoxContent.txt`) chứa 1 món, BoxValue = Mvalue boss (60, nên đúng 1 phiếu/người — BV = 1 làm hỏng cả lượt rơi, xem quy tắc 6), gắn cho 139 boss trong `Server/Config/MonsterDropBoxs.txt`: boss phó bản (Phiêu Miểu Phong, Yến Tử Ổ, Tứ Tuyệt Trang, Thiếu Thất Sơn, Nhạn Môn, Tam Thần) + boss thế giới hồi sinh ≥ 30 phút và ≤ 4 điểm spawn. Loại trừ quái con `JiangShi_BOSS` (triệu hồi hàng loạt) và boss gọi bằng đồ/sự kiện (bản đồ kho báu, Cửu Lê). Sinh Tử Lôi Đài (Thủy Hử, 3 lần/ngày): cả 11 DataID boss đều có 90001 (12 trận/lượt), nhưng boss cấp 120 nên người cấp 80–89 chỉ nhận ×0,2 (DropAttenuation). Phó bản 45 phút (03/10).
+Hộp rơi **90001** (`Server/Config/DropBoxContent.txt`) chứa 1 món, BoxValue = Mvalue boss (60 → X = 1 × DropParam 2 = **2 phiếu mỗi lần giết, chung cả đội**; BV = 1 làm hỏng cả lượt rơi, xem quy tắc 6), gắn cho 139 boss trong `Server/Config/MonsterDropBoxs.txt`: boss phó bản (Phiêu Miểu Phong, Yến Tử Ổ, Tứ Tuyệt Trang, Thiếu Thất Sơn, Nhạn Môn, Tam Thần) + boss thế giới hồi sinh ≥ 30 phút và ≤ 4 điểm spawn. Loại trừ quái con `JiangShi_BOSS` (triệu hồi hàng loạt) và boss gọi bằng đồ/sự kiện (bản đồ kho báu, Cửu Lê). Sinh Tử Lôi Đài (Thủy Hử, 3 lần/ngày): cả 11 DataID boss đều có 90001 (12 trận/lượt), nhưng boss cấp 120 nên người cấp 80–89 chỉ nhận ×0,2 (DropAttenuation). Phó bản 45 phút (03/10).
 
 Cùng 139 boss đó (29/09 chiều): đã gỡ hộp phiếu 1000 cũ và 54 hộp rác khỏi dòng boss (hộp gốc còn cho quái thường), và 14 hộp nguyên liệu được **sao riêng cho boss** thành `90002`–`90015` với BoxValue = ½ gốc (bảng đối chiếu ở `docs/TRANG-THAI.md` mục 0). Muốn chỉnh tỉ lệ nguyên liệu boss: sửa BoxValue dòng `9000x`, không đụng hộp gốc.
 
@@ -95,7 +95,8 @@ Xem `docs/KIEM-TOAN.md`. Tóm tắt: tắt NPC phát Điểm Tặng/vàng/KNB v�
 
 ### 6. Bảng .txt và rơi đồ (01/10)
 - Mọi bảng `.txt` dạng DBC (`MonsterDropBoxs`, `DropBoxContent`, `PetAttrTable`, `StandardImpact`, `EquipBase`, `CommonItem`…) **phải sắp ID tăng dần**: engine tìm nhị phân, dòng sai thứ tự = không tồn tại, không báo lỗi. Thêm dòng = chèn đúng chỗ, kiểm bằng node trước khi commit.
-- Số món rơi mỗi người ≈ Mvalue ÷ BoxValue, tính **cho từng thành viên tổ đội**. Hộp phiếu phải có BV = Mv đúng bằng. BV = 1 làm hỏng cả lượt rơi.
+- **Bảng rơi tính 1 lần cho mỗi con, CHUNG cả đội** (sửa 03/10, dịch ngược `MonsterDropRuler::CaculateCommDropRuler` / `CaculateBossDropRuler` + đếm log vật phẩm): mỗi hộp X = Mvalue ÷ BoxValue × **DropParam (2.0, có nhân)** × giảm rơi theo chênh cấp; X < 1 là tỉ lệ ra 1 món, X ≥ 1 ra ⌈X⌉ món. Quái thường giao cả túi cho **1 người ngẫu nhiên** trong đội; boss rơi **1 túi chung, tối đa 10 món**. Hộp phiếu Mv = BV → **2 phiếu mỗi lần giết cho cả đội** (không phải 1 phiếu/người). BV = 1 làm hỏng cả lượt rơi.
+- **Rơi qua script** (`NetCo4/roimap.lua` `x950001_Chia`: Cửu Thiên, MB/BN 6, Tử Vi, bản đồ farm, Kỳ Cuộc RoiCfg) thì **tung riêng cho từng thành viên** đứng gần, không giảm theo cấp.
 - Danh sách bẫy đầy đủ: README mục "Bẫy dễ dính".
 
 ### 5. Tiến trình game và systemd (sự cố 28/09 17:40)
