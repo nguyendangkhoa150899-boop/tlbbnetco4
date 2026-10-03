@@ -129,7 +129,7 @@ x050100_g_BroadcastMsg = {
 	"#Y"..x050100_g_Name..": #PM÷i ngß¶i mau ra ğây xem v¸ anh hùng cüa chúng ta! #{_INFOUSR$N}#P Mµt truy«n kÏ s¯ng, hi®p sî chiªn ğ¤u, ğÕi hi®p!"
 }
 
-x050100_g_TakeTimes = 5											-- Ã¿Ìì×î¶àÁìÈ¡´ÎÊı
+x050100_g_TakeTimes = 3   -- [NetCo4 03/10] cu 5 luot/ngay											-- Ã¿Ìì×î¶àÁìÈ¡´ÎÊı
 --**********************************
 -- ÈÎÎñÈë¿Úº¯Êı
 --**********************************

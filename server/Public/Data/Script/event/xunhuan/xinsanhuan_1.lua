@@ -164,7 +164,7 @@ x050220_g_BroadcastMsg = {
 "#Y"..x050220_g_Name..": #P M鱥 ng叨i mau xem anh h鵱g c黙 ch鷑g ta! #{_INFOUSR$N}#P! M祎 huy玭 tho読 s痭g, 鹫i hi畃 trong 鹫i hi畃!"
 }
 
-x050220_g_TakeTimes = 5											-- 每天最多领取次数
+x050220_g_TakeTimes = 3   -- [NetCo4 03/10] cu 5 luot/ngay											-- 每天最多领取次数
 --**********************************
 -- 任务入口函数
 --**********************************
