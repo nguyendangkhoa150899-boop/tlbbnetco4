@@ -3,12 +3,12 @@
 --**********************************
 x050220_g_DieScriptId =1129
 ----
-one_XiaoBingID = {13000,13001,13002,13003,13004,13005,13006,13007,13008,13009}			--玄雷坡土匪
+x050220_one_XiaoBingID = {13000,13001,13002,13003,13004,13005,13006,13007,13008,13009}			--玄雷坡土匪
 one_XBOSS_ID1 = {13020,13021,13022,13023,13024,13025,13026,13027,13028,13029}							--牛曲
 one_XBOSS_ID2 = {13040,13041,13042,13043,13044,13045,13046,13047,13048,13049}							--牛奇
 one_BOSS_ID = {13060,13061,13062,13063,13064,13065,13066,13067,13068,13069}					-- boss王阎
 ---假小兵的坐标
-one_pos = {
+x050220_one_pos = {
 {108,	179},{108,	182},{108,	185},{100,	165},{100,	163},{100,	161},
 {110,	179},{110,	182},{110,	185},{102,	165},{102,	163},{102,	161},
 {112,	179},{132,	182},{132,	185},{104,	165},{104,	163},{104,	161},
@@ -74,7 +74,7 @@ two_xiaoguai_pos = {
 ---山寨大王
 three_xiaogua_pos = {13240,13241,13242,13243,13244,13245,13246,13247,13248,13249}			--小怪妖魔随从
 ---第三关小兵的坐标
-three_pos = {
+x050220_three_pos = {
 {207,40},{208,40},{209,40},{210,40},{211,40},
 {207,34},{208,34},{209,34},{210,34},{211,34},
 {207,37},{208,37},{209,37},{210,37},{211,37},
@@ -738,12 +738,12 @@ function x050220_OnCopySceneTimer( sceneId, nowTime )
 		----**************
 		if sept ==0 then
 			if TickCount == 1 then  ---30秒后刷小怪
-				if not one_XiaoBingID[bossGrade] then
+				if not x050220_one_XiaoBingID[bossGrade] then
 					return
 				end
-				for i = 1, getn( one_pos ) do
-					if one_pos[i] then
-						local dogfaceId = LuaFnCreateMonster( sceneId, one_XiaoBingID[bossGrade], one_pos[i][1], one_pos[i][2], 14, -1, x050220_g_DieScriptId )
+				for i = 1, getn( x050220_one_pos ) do
+					if x050220_one_pos[i] then
+						local dogfaceId = LuaFnCreateMonster( sceneId, x050220_one_XiaoBingID[bossGrade], x050220_one_pos[i][1], x050220_one_pos[i][2], 14, -1, x050220_g_DieScriptId )
 						SetLevel( sceneId, dogfaceId, GetLevel( sceneId, dogfaceId ) + LevelGap )
 						SetMonsterGroupID( sceneId, dogfaceId, 0 )
 					end
@@ -826,8 +826,8 @@ function x050220_OnCopySceneTimer( sceneId, nowTime )
 				if not three_xiaogua_pos[bossGrade] then
 					return
 				end
-				for i = 1, getn( three_pos ) do
-					local dogfaceId = LuaFnCreateMonster( sceneId, three_xiaogua_pos[bossGrade], three_pos[i][1], three_pos[i][2], 14, -1, 950001 )  -- [NetCo4 01/10] quai dot 3 roi do (roimap.lua)
+				for i = 1, getn( x050220_three_pos ) do
+					local dogfaceId = LuaFnCreateMonster( sceneId, three_xiaogua_pos[bossGrade], x050220_three_pos[i][1], x050220_three_pos[i][2], 14, -1, 950001 )  -- [NetCo4 01/10] quai dot 3 roi do (roimap.lua)
 					SetLevel( sceneId, dogfaceId, GetLevel( sceneId, dogfaceId ) + LevelGap )
 				end
 				local BossHuoYanYaoIDTbl = {13260,13261,13262,13263,13264,13265,13266,13267,13268,13269}		-- boss火焰妖魔

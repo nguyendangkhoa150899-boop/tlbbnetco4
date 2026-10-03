@@ -116,20 +116,26 @@ end
 --**********************************
 function  x890068_OnLeaveCombat(sceneId,  selfId)
 
-	 -- n£ng ðßa AI....
 	 x890068_ResetMyAI(  sceneId,  selfId  )
 
-	 -- l¥n l¸ch cänh tßþng trong t¤t cä trách .... tìm kiªm huynh ð® cûng ðem thü tiêu ....
+	 -- [NetCo4 03/10] Ten anh em trong script (BrotherName) khong khop bang quai -> tim anh em theo DataID.
+	 -- Anh em con song (chua ai bi ha): xoa ca 2 + tao lai NPC goi boss. Truoc day chi xoa minh -> ket pho ban.
+	 -- Anh em da chet: khong xoa minh (dung lai danh tiep duoc), khong mo vong goi lai song sinh.
+	 local  nBrother  =  -1
 	 local  nMonsterNum  =  GetMonsterCount(sceneId)
 	 for  i=0,  nMonsterNum-1  do
 	 	 local  MonsterId  =  GetMonsterObjID(sceneId,i)
-	 	 if  x890068_BrotherName  ==  GetName(  sceneId,  MonsterId  )  then
-	 	 	 LuaFnDeleteMonster(  sceneId,  MonsterId  )
+	 	 if  GetMonsterDataID(  sceneId,  MonsterId  )  ==  14224  and  LuaFnIsCharacterLiving(sceneId,  MonsterId)  ==  1  then
+	 	 	 nBrother  =  MonsterId
 	 	 end
 	 end
-
-	 -- thü tiêu mình ....
+	 if  nBrother  ==  -1  then
+	 	 return
+	 end
+	 LuaFnDeleteMonster(  sceneId,  nBrother  )
 	 LuaFnDeleteMonster(  sceneId,  selfId  )
+	 local  MstId  =  CallScriptFunction(  x890068_g_FuBenScriptId,  "CreateBOSS",  sceneId,  "LiFan_NPC",  -1,  -1  )
+	 SetUnitReputationID(  sceneId,  MstId,  MstId,  0  )
 
 end
 

@@ -4,11 +4,11 @@
 --************************************************************************
 --MisDescBegin
 ---小兵ID
-one_XiaoBingID = { 4060, 4061, 4062, 4063, 4064, 4065, 4066, 4067, 4068, 4069, 34060, 34061, 34062, 34063, 34064, 34065, 34066, 34067, 34068, 34069 }
+x050100_one_XiaoBingID = { 4060, 4061, 4062, 4063, 4064, 4065, 4066, 4067, 4068, 4069, 34060, 34061, 34062, 34063, 34064, 34065, 34066, 34067, 34068, 34069 }
 ---为都统ID
 one_FduTong_ID = { 4080, 4081, 4082, 4083, 4084, 4085, 4086, 4087, 4088, 4089, 34080, 34081, 34082, 34083, 34084, 34085, 34086, 34087, 34088, 34089 }
 ---假小兵的坐标
-one_pos = {
+x050100_one_pos = {
 {209,139},{206,146},{202,131},{193,133},{181,156},{188,152},{197,152},{197,142},{192,138},{192,136},
 {190,139},{188,129},{188,127},{187,133},{193,133},{177,150},{172,149},{172,141},{172,139},{162,140},
 {163,130},{159,121},{154,119},{155,114},{160,115},{166,129},{178,137},{173,127},{177,125},{176,134},
@@ -38,7 +38,7 @@ x050100_g_too_Boss = { 4120, 4121, 4122, 4123, 4124, 4125, 4126, 4127, 4128, 412
 ---山寨大王
 x050100_g_three_Boss = { 4130, 4131, 4132, 4133, 4134, 4135, 4136, 4137, 4138, 4139, 34130, 34131, 34132, 34133, 34134, 34135, 34136, 34137, 34138, 34139 }
 ---第三关小兵的坐标
-three_pos = {
+x050100_three_pos = {
 {76,175,4149},{76,176,4149},{77,184,4149},{76,182,4149},{75,180,4149},{74,180,4149},{74,182,4149},{73,180,4149},{73,182,4149},{73,179,4149},
 {72,180,4159},{72,176,4159},{70,176,4159},{70,169,4159},{70,178,4159},{68,178,4159},{68,180,4159},{68,181,4159},{68,179,4159},{68,175,4159},
 {58,192,4169},{58,191,4169},{58,190,4169},{58,189,4169},{58,188,4169},{58,187,4169},{58,186,4169},{58,185,4169},{58,184,4169},{58,183,4169},
@@ -695,13 +695,13 @@ function x050100_OnCopySceneTimer( sceneId, nowTime )
 			-- 副本进行15分钟时会在队长玩家身边刷出小boss：伪装的宋兵副都统
 			if TickCount == 1 then  ---30秒后刷小怪
 				local bossGrade = LuaFnGetCopySceneData_Param( sceneId, 13 )
-				if not one_XiaoBingID[bossGrade] then
+				if not x050100_one_XiaoBingID[bossGrade] then
 					return
 				end
 				
-				for i = 1, getn( one_pos ) do
-					if one_pos[i] then
-						local dogfaceId = LuaFnCreateMonster( sceneId, one_XiaoBingID[bossGrade], one_pos[i][1], one_pos[i][2], 0, 0, 1130 )
+				for i = 1, getn( x050100_one_pos ) do
+					if x050100_one_pos[i] then
+						local dogfaceId = LuaFnCreateMonster( sceneId, x050100_one_XiaoBingID[bossGrade], x050100_one_pos[i][1], x050100_one_pos[i][2], 0, 0, 1130 )
 						SetLevel( sceneId, dogfaceId, GetLevel( sceneId, dogfaceId ) + LevelGap )
 						SetMonsterGroupID( sceneId, dogfaceId, 4 )
 						if i==45 then
@@ -822,8 +822,11 @@ function x050100_OnCopySceneTimer( sceneId, nowTime )
 				if not x050100_g_three_Boss[bossGrade] then
 					return
 				end
-				for i = 1, getn( three_pos ) do
-					local dogfaceId = LuaFnCreateMonster( sceneId, three_pos[i][3], three_pos[i][1], three_pos[i][2], 14, 131, 950001 )  -- [NetCo4 01/10] roi do
+				local nBac3 = bossGrade   -- [NetCo4 03/10] quai ai 3 theo bac cap doi (truoc: co dinh cap 100)
+				if nBac3 > 10 then nBac3 = 10 end
+				if nBac3 < 1 then nBac3 = 1 end
+				for i = 1, getn( x050100_three_pos ) do
+					local dogfaceId = LuaFnCreateMonster( sceneId, x050100_three_pos[i][3] - 10 + nBac3, x050100_three_pos[i][1], x050100_three_pos[i][2], 14, 131, 950001 )  -- [NetCo4 01/10] roi do
 					SetLevel( sceneId, dogfaceId, GetLevel( sceneId, dogfaceId ) + LevelGap )
 				end
 				local boss_id = x050100_g_three_Boss[bossGrade]

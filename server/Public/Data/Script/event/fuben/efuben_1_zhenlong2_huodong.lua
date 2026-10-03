@@ -1002,7 +1002,7 @@ function x401002_OnDie(sceneId, selfId, killerId)						-- ³¡¾°ID, ±»É±µÄObjId, É
 				
 				local plyLevel = floor(memlvl/10)
 				local playerExp01 = 0
-				if PlayerExpList and PlayerExpList[plyLevel] > 0 then
+				if PlayerExpList and PlayerExpList[plyLevel] and PlayerExpList[plyLevel] > 0 then   -- [NetCo4 03/10] cu: nil > 0 -> loi Lua, dung dem quan co, boss khong ra
 					playerExp01 = PlayerExpList[plyLevel]
 				end
 				--PrintStr("playerExp01 ="..playerExp01)

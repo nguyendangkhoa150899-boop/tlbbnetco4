@@ -774,3 +774,18 @@ Rollback: tag `truoc-maudoche-02-10`.
   - Luật gốc của script học (cấp nhân vật + 10) luôn đủ để qua cổng: cấp 89 học được tới 99 ≥ 80, cấp 99 → 109 ≥ 90, cấp 109 → 119 ≥ 100. **Nếu admin đặt "Tâm pháp tối đa" thấp hơn mốc thì nhân vật kẹt cấp**: mở cấp 90+ cần tpmax ≥ 80, 100+ cần ≥ 90, 110+ cần ≥ 100.
   - Chi phí 6 tâm pháp chính: 1→80 = 106 triệu EXP + 2.063 vàng (EXP nhân vật 1→90 = 136 triệu); 1→90 = 386 triệu + 3.596 vàng (nhân vật 1→100 = 358 triệu); 1→100 = 2,4 tỷ + 5.880 vàng (nhân vật 1→110 = 1,66 tỷ).
   - `ConfigInfo.ini` `XinfaMaxDefaultLevel=120` (心法最大等级). Chưa rõ engine xử lý thế nào khi tâm pháp > 120 (cuocdoibuon từng có 159). `CGReqLevelUpHandler` còn kiểm mã xác nhận bằng hình (`LevelUpValidate*`, đang tắt) và môn phái.
+
+## 03/10 tối - ĐỢT SỬA NGÀY MỞ (sau đợt soát 7 agent) — tag `truoc-dot-sua-ngaymo-03-10`
+Chủ server duyệt từng mục. Lua có hiệu lực ngay; bảng rơi cần restart.
+- **Phiêu Miểu Phong:** song sinh 9544/9545 (lớn) và 9664/9665 (nhỏ) **không rơi gì** (vòng farm "để con còn lại thoát giao tranh rồi khiêu chiến lại" thành vô hại). Đồ dồn sang Lý Thu Thủy: 9546 nhận đủ 7 hộp của 2 con (cùng Mv 60, giữ đúng tỉ lệ, 2 phiếu), dòng chuẩn lại 30 cột; 9666 (Mv 60) nhận 50016, 50015 + 2 hộp 90001 (= 2 phiếu như cũ). Bản sao thứ 2 của gói nguyên liệu 9664 không chuyển được (trần 20 hộp/dòng).
+- **Thiếu Thất (890067/890068/890069):** song sinh (thật ra là Tiêu Viễn Sơn 14224 + Mộ Dung Bác 14229) rời giao tranh: nếu cả 2 còn sống thì xóa cả 2 + tạo lại NPC LiFan_NPC; nếu 1 con đã chết thì con còn lại đứng nguyên (không mở vòng gọi lại). Đinh Xuân Thu rời giao tranh → tạo lại NPC DingChunQiu_NPC. Trước đây kẹt phó bản.
+- **Q Tô Châu / Q Lâu Lan:** 3 bảng toàn cục trùng tên → `x050100_*` / `x050220_*`. Q Tô Châu ải 3: 50 quái theo bậc cấp đội (`three_pos[i][3] - 10 + bậc`, bậc 1–10) thay vì cố định cấp 100.
+- **Q Lâu Lan bảng rơi:** 13021/13041 (quái phụ ải 1) về như 13020 (Mv 10, hộp 16000); gói boss (90015 90001 90030 50006 50030 50046 50047 50048 1923 50034) chuyển sang Hỏa Diễm Yêu Ma 13260–13269 mọi bậc. 13062/13222 (bậc 3) vẫn giữ phiếu như cũ.
+- **Kỳ Cuộc 401001/401002:** `PlayerExpList[plyLevel] > 0` với nil → thêm kiểm nil.
+- **Hợp thành Long Văn** (`LongWenExt.lua`): Long Văn chính có khảm ngọc mà túi đạo cụ < 3 ô và túi nguyên liệu < 2 ô → báo lỗi, không hợp (trước đây mất ngọc).
+- **Bạch Mã Tự** 230000: luôn nhánh 230011 (230012 đòi Kỳ Cuộc 231001 không ai gọi).
+- **Sát Tinh:** 45 phút (900 nhịp × 3 giây, trước 18 phút).
+- **Cấp vào ≥ 90:** Tứ Tuyệt (cũ 70), Thiếu Thất (cũ 80), Yến Tử Ổ (cũ 60). Với trần 89, ngày mở 3 phó bản này coi như đóng. Lưu ý: Yến Tử Ổ cấp 90–99 vẫn không có phiếu (phiếu chỉ ở 39320–39432, đội ≥ 100).
+- **Ác Bá:** Lâu La 3660–3669 dùng hộp mới **90033** (= 60086 ngọc cấp 6, BV 550 thay 400) → khoảng 1,3 ngọc cấp 6/người/lượt (cũ ~1,7). 60086 vẫn nguyên cho quái khác (Lang Huyên 4396x, 4234x).
+- **`mo-server.sh`:** xóa sạch, không giữ bia1 / bialk1; chỉ còn tài khoản admin; GMList rỗng. `MO-SERVER.md`: gộp `origin/mo-server`, kéo bảng rơi trước, Rương Ích Kỷ giữ.
+- **Không sửa (chủ server chốt):** sư môn Mộ Dung / Đường Môn / Quỷ Cốc hỏng (NPC sai hàm / sai danh sách / so tên GBK, vòng 20 có thể kẹt) — giữ nguyên.

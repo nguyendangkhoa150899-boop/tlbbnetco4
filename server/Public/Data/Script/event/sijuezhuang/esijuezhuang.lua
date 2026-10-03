@@ -154,7 +154,7 @@ function x893063_CheckCanEnter( sceneId, selfId, targetId )
 	--是否有人不够90级....
 	for i=0, NearTeamSize-1 do
 		local PlayerId = GetNearTeamMember( sceneId, selfId, i )
-		if GetLevel( sceneId, PlayerId ) < 70 then
+		if GetLevel( sceneId, PlayerId ) < 90 then   -- [NetCo4 03/10] cu 70; boss cap 120
 			Humanlist[nHumanNum] = GetName( sceneId, PlayerId )
 			nHumanNum = nHumanNum + 1
 		end
@@ -166,7 +166,7 @@ function x893063_CheckCanEnter( sceneId, selfId, targetId )
 		for i=0, nHumanNum-2 do
 			msg = msg .. Humanlist[i] .. ", "
 		end
-		msg = msg .. Humanlist[nHumanNum-1] .. " c\164p \240\181 d\223\190i 70, kh\244ng th\172 ti\170n v\224o."	-- [NetCo4 02/10] code chan cap < 70
+		msg = msg .. Humanlist[nHumanNum-1] .. " c\164p \240\181 d\223\190i 90, kh\244ng th\172 ti\170n v\224o."	-- [NetCo4 03/10] code chan cap < 90
 		return 0, msg
 
 	end

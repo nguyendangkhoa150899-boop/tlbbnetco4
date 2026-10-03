@@ -140,7 +140,7 @@ function x890063_CheckCanEnter( sceneId, selfId, targetId )
 	-- «∑Ò”–»À≤ªπª90º∂....
 	for i=0, NearTeamSize-1 do
 		local PlayerId = GetNearTeamMember( sceneId, selfId, i )
-		if GetLevel( sceneId, PlayerId ) < 80 then
+		if GetLevel( sceneId, PlayerId ) < 90 then   -- [NetCo4 03/10] cu 80; boss cap 120
 			Humanlist[nHumanNum] = GetName( sceneId, PlayerId )
 			nHumanNum = nHumanNum + 1
 		end
@@ -150,9 +150,9 @@ function x890063_CheckCanEnter( sceneId, selfId, targetId )
 
 		local msg = "    Trong µi ng˚ cÛ"
 		for i=0, nHumanNum-2 do
-			msg = msg .. Humanlist[i] .. "£¨"
+			msg = msg .. Humanlist[i] .. ", "
 		end
-		msg = msg .. Humanlist[nHumanNum-1] .. "c§p µ dﬂæi 50 khÙng nÍn ti™n v‡o."
+		msg = msg .. Humanlist[nHumanNum-1] .. " c§p µ dﬂæi 90 khÙng nÍn ti™n v‡o."
 		return 0, msg
 
 	end
@@ -184,7 +184,7 @@ function x890063_CheckCanEnter( sceneId, selfId, targetId )
 
 		local msg = "    "
 		for i=0, nHumanNum-2 do
-			msg = msg .. Humanlist[i] .. "£¨"
+			msg = msg .. Humanlist[i] .. ", "
 		end
 		msg = msg .. Humanlist[nHumanNum-1] .. " ng‡y hÙm nay „ khiÍu chi™n qu· 3 l•n Th§t Thi™u SΩn"
 		return 0, msg

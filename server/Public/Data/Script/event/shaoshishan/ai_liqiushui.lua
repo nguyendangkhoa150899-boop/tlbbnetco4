@@ -165,11 +165,12 @@ end
 --**********************************
 function  x890069_OnLeaveCombat(sceneId,  selfId)
 
-	 -- n£ng ðßa AI....
 	 x890069_ResetMyAI(  sceneId,  selfId  )
-
-	 -- thü tiêu mình ....
 	 LuaFnDeleteMonster(  sceneId,  selfId  )
+
+	 -- [NetCo4 03/10] tao lai NPC Dinh Xuan Thu (co "DingChunQiu" van = 1) de khieu chien lai. Truoc day ket pho ban.
+	 local  MstId  =  CallScriptFunction(  x890069_g_FuBenScriptId,  "CreateBOSS",  sceneId,  "DingChunQiu_NPC",  -1,  -1  )
+	 SetUnitReputationID(  sceneId,  MstId,  MstId,  0  )
 
 end
 

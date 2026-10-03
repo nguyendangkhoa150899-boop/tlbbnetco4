@@ -28,8 +28,8 @@ x892009_g_Param_time	 	 =5	 --5 s¯ : hoàn thành phó bän sØ døng th¶i gian ( ð½n 
 x892009_g_CopySceneType=FUBEN_GODFIRE	 -- phó bän loÕi hình , ð¸nh nghîa · ScriptGlobal.lua bên trong 
 x892009_g_LimitMembers=1	 	 	 -- có th¬ vào phó bän ðích nhö nh¤t ðµi ngû nhân s¯ 
 x892009_g_TickTime=3	 	 	 	 -- tr· v« ði«u chân v¯n ðích lúc chuông / ð°ng h° th¶i gian ( ð½n v¸ : giây / l¥n )
-x892009_g_LimitTotalHoldTime=360	 --360,1440 phó bän có th¬ s¯ng sót ðích th¶i gian ( ð½n v¸ : s¯ l¥n ), nªu nhß lúc này ðang lúc ðªn , là nhi®m vø s¨ th¤t bÕi 
-x892009_g_LimitTimeSuccess=360	 	 --360,1440 phó bän th¶i gian hÕn chª ( ð½n v¸ : s¯ l¥n ) , nªu nhß lúc này ðang lúc ðªn , nhi®m vø hoàn thành 
+x892009_g_LimitTotalHoldTime=900   -- [NetCo4 03/10] 45 phut (cu 360 = 18 phut)	 --360,1440 phó bän có th¬ s¯ng sót ðích th¶i gian ( ð½n v¸ : s¯ l¥n ), nªu nhß lúc này ðang lúc ðªn , là nhi®m vø s¨ th¤t bÕi 
+x892009_g_LimitTimeSuccess=900   -- [NetCo4 03/10] 45 phut	 	 --360,1440 phó bän th¶i gian hÕn chª ( ð½n v¸ : s¯ l¥n ) , nªu nhß lúc này ðang lúc ðªn , nhi®m vø hoàn thành 
 x892009_g_CloseTick=6	 	 	 	 -- phó bän t¡t trß¾c cûng tính gi¶ ( ð½n v¸ : s¯ l¥n )
 x892009_g_NoUserTime=5	 	 	 -- phó bän trung không có ai sau có th¬ tiªp tøc bäo t°n ðích th¶i gian ( ð½n v¸ : giây )
 x892009_g_DeadTrans=0	 	 	 	 -- tØ vong d¶i ði mô thÑc , 0 : tØ vong sau còn có th¬ tiªp tøc · phó bän , 1 : tØ vong sau b¸ cßÞng chª d¶i ra phó bän 

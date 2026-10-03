@@ -56,7 +56,7 @@ function x230000_OnDefaultEvent( sceneId, selfId, targetId )	--µã»÷¸ÃÈÎÎñºóÖ´ÐÐ´
 			end
 		end
 
-		local rand = random( 230011, 230012 )
+		local rand = 230011   -- [NetCo4 03/10] cu: random(230011, 230012); nhanh 230012 khong bao gio hoan thanh duoc
 		for	i=1, nearteammembercount do
 			CallScriptFunction( rand, "OnDefaultEvent", sceneId, mems[i], targetId )
 		end

@@ -78,7 +78,7 @@ Xem `docs/PHAT-TRIEN.md`: cách đăng ký script, đặt NPC, bảng rơi đồ
 
 ### Boss rơi Nguyên Bảo Phiếu (29/09)
 
-Hộp rơi **90001** (`Server/Config/DropBoxContent.txt`) chứa 1 món, BoxValue = 1 (rơi chắc chắn), gắn cho 139 boss trong `Server/Config/MonsterDropBoxs.txt`: boss phó bản (Phiêu Miểu Phong, Yến Tử Ổ, Tứ Tuyệt Trang, Thiếu Thất Sơn, Nhạn Môn, Tam Thần) + boss thế giới hồi sinh ≥ 30 phút và ≤ 4 điểm spawn. Loại trừ quái con `JiangShi_BOSS` (triệu hồi hàng loạt) và boss gọi bằng đồ/sự kiện (bản đồ kho báu, Cửu Lê). Sinh Tử Lôi Đài (Thủy Hử, 3 lần/ngày): chỉ Võ Tòng `13537` có phiếu (xem `docs/TRANG-THAI.md` mục 0).
+Hộp rơi **90001** (`Server/Config/DropBoxContent.txt`) chứa 1 món, BoxValue = 1 (rơi chắc chắn), gắn cho 139 boss trong `Server/Config/MonsterDropBoxs.txt`: boss phó bản (Phiêu Miểu Phong, Yến Tử Ổ, Tứ Tuyệt Trang, Thiếu Thất Sơn, Nhạn Môn, Tam Thần) + boss thế giới hồi sinh ≥ 30 phút và ≤ 4 điểm spawn. Loại trừ quái con `JiangShi_BOSS` (triệu hồi hàng loạt) và boss gọi bằng đồ/sự kiện (bản đồ kho báu, Cửu Lê). Sinh Tử Lôi Đài (Thủy Hử, 3 lần/ngày): cả 11 DataID boss đều có 90001 (12 trận/lượt), nhưng boss cấp 120 nên người cấp 80–89 chỉ nhận ×0,2 (DropAttenuation). Phó bản 45 phút (03/10).
 
 Cùng 139 boss đó (29/09 chiều): đã gỡ hộp phiếu 1000 cũ và 54 hộp rác khỏi dòng boss (hộp gốc còn cho quái thường), và 14 hộp nguyên liệu được **sao riêng cho boss** thành `90002`–`90015` với BoxValue = ½ gốc (bảng đối chiếu ở `docs/TRANG-THAI.md` mục 0). Muốn chỉnh tỉ lệ nguyên liệu boss: sửa BoxValue dòng `9000x`, không đụng hộp gốc.
 
@@ -86,7 +86,7 @@ Cùng 139 boss đó (29/09 chiều): đã gỡ hộp phiếu 1000 cũ và 54 h�
 
 **📜 Nhật ký Drop Boss (29/09):** mọi lần lưu ở tab Drop Boss ghi 1 dòng JSON vào `/opt/tlbb-backup/dropboss-audit.jsonl` (ai: cổng + IP, lúc nào, trước → sau, nguyên dòng file để khôi phục), xem ở nút 📜 Lịch sử sửa (chỉ cổng SUPER). File gắn `chattr +a`: chỉ ghi thêm, **không được `chattr -a` / xóa / cắt**. Cuối mỗi dòng có nút **↩ Rollback** (chỉ SUPER): trả đúng các dòng file lần sửa đó đụng về như trước; đã có lần sửa sau thì báo XUNG ĐỘT và hỏi lại; bản thân rollback cũng ghi nhật ký. Hiệu lực sau restart game. Code ở repo `bialk` (`BotDoMin/dropboss.js`).
 
-**Đổi mệnh giá:** chỉ sửa cột thứ 5 của dòng `90001` thành ID phiếu khác: 1.000 = `39910001`, 2.000 = `39910002` (hiện tại), 5.000 = `39910003`, 10.000 = `39910004`, 50.000 = `39910005`, 100.000 = `39910006`. Sau đó `./cap-nhat.sh` và restart. Phiếu chuột phải ra KNB (script 100001 `New/item/YuanBaoPiao.lua`), KNB đó chuyển ra web qua NPC Ví Web không giới hạn.
+**Đổi mệnh giá:** chỉ sửa cột thứ 5 của dòng `90001` thành ID phiếu khác: 1.000 = `39910001` (hiện tại, mọi hộp phiếu 900xx), 2.000 = `39910002`, 5.000 = `39910003`, 10.000 = `39910004`, 50.000 = `39910005`, 100.000 = `39910006`. Sau đó `./cap-nhat.sh` và restart. Phiếu chuột phải ra KNB (script 100001 `New/item/YuanBaoPiao.lua`), KNB đó chuyển ra web qua NPC Ví Web không giới hạn.
 
 ## Đã vá so với bản public (đừng hoàn tác)
 

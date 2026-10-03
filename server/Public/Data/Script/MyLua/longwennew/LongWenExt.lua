@@ -53,6 +53,12 @@ function  x892003_LevelUp(sceneId,  selfId,  lwIndex,lw2Index,cailiao)
                       return
                 end
 
+	 -- [NetCo4 03/10] Long Van chinh co kham ngoc: SHANG_BAOS can 2 o trong, thieu thi khong chuyen ngoc nhung van xoa Long Van cu -> mat ngoc
+	 if  GetGemEmbededCount(  sceneId,  selfId,  lwIndex  )  >  0  and  LuaFnGetPropertyBagSpace(  sceneId,  selfId  )  <  3  and  LuaFnGetMaterialBagSpace(  sceneId,  selfId  )  <  2  then
+	 	 x892003_NotifyTip(  sceneId,  selfId,  "T\250i c\165n \237t nh\164t 3 \244 tr\175ng \240\172 chuy\172n b\228o th\213ch \240\227 kh\228m sang Long V\229n m\190i"  )
+	 	 return
+	 end
+
 	 local  pos  =  TryRecieveItem(  sceneId,  selfId,  lw+1,  1  )
 	 if  pos==-1  then
 	 	 x892003_NotifyTip(  sceneId,  selfId,  " túi deo không ðü không gian "  )

@@ -305,10 +305,10 @@ function x401040_OnDefaultEvent( sceneId, selfId, targetId )
 	for i=0, nPlayerNum-1  do
 		local nPlayerId = GetNearTeamMember(sceneId,selfId, i)
 		
-		if GetLevel(sceneId,nPlayerId) < 60  then
+		if GetLevel(sceneId,nPlayerId) < 90  then   -- [NetCo4 03/10] cu 60; duoi 100 khong co phieu
 			BeginEvent(sceneId)
 				AddText(sceneId,"#BThäo phÕt Yªn TØ ‘");
-				AddText(sceneId,"  Tr§n chiªn r¤t nguy hi¬m dß¾i c¤p 60 ta không th¬ cho ngß½i vào");
+				AddText(sceneId,"  Tr§n chiªn r¤t nguy hi¬m dß¾i c¤p 90 ta không th¬ cho ngß½i vào");
 			EndEvent(sceneId)
 			DispatchEventList(sceneId,selfId,targetId)
 			
