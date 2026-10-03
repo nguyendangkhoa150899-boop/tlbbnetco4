@@ -38,7 +38,7 @@ function x950001_RoiBoc( sceneId, selfId, killerId, nhom, pct )
 end
 
 function x950001_Roll( sceneId, selfId, playerId, r )
-	if random( 1, 100 ) <= r[2] then
+	if random( 1, 10000 ) <= r[2] * 100 then   -- [03/10] thang 1/10000 de nhan ti le le (vd 1.75%); so nguyen nhu cu
 		local item = r[1]
 		if type( item ) == "table" then
 			item = item[ random( 1, getn( item ) ) ]   -- boc 1 trong danh sach
@@ -72,6 +72,64 @@ function x950001_OnDie( sceneId, selfId, killerId )
 		if r2 ~= nil then
 			x950001_Chia( sceneId, selfId, killerId, r2 )
 		end
+	end
+end
+
+-- ===== [03/10] ROI THEM DO ADMIN CAU HINH TREN WEB (tab GM -> Roi them qua script) =====
+-- Panel game ghi Server/txt/NetCo4Cfg/roithem.txt (ngoai repo, cap-nhat.sh khong dung toi). Doc moi lan quai chet -> sua tren web co hieu luc ngay.
+-- Moi dong:  <khoa> <ti le %> <ID1[,ID2,...]>   vd:  kycuoc_co 1.75 50601001,50601002   (nhieu ID = boc 1, ti le cho phep le 2 so)
+-- Moi thanh vien to doi o gan roll rieng tung dong. Goi tu OnDie:  CallScriptFunction( 950001, "RoiCfg", sceneId, selfId, killerId, "<khoa>" )
+-- Khoa dang goi: kycuoc_co (quan co Ky Cuoc 401001/401002), kycuoc_boss (Vien Co Ky Hon).
+x950001_g_CfgFile = "./txt/NetCo4Cfg/roithem.txt"
+-- Nhom dat ten (dung trong file cau hinh bang @ten, vd "kycuoc_co 1.75 @ngoc6"). Them nhom moi: them o day + panel.py ROI_NHOM.
+x950001_g_Nhom = {
+	ngoc6 = { 50601001, 50601002, 50602001, 50602002, 50602003, 50602004, 50603001, 50604002, 50611001, 50611002,
+	          50612001, 50612002, 50612003, 50612004, 50613001, 50613002, 50613003, 50613004, 50613005, 50614001 },   -- 20 loai ngoc cap 6 thuong (khong co Minh Thach giam khang)
+	mienbo6 = { 20501006, 20502006 },   -- Mien Bo 6 / Bi Ngan 6
+}
+function x950001_RoiCfg( sceneId, selfId, killerId, khoa )
+	local h = openfile( x950001_g_CfgFile, "r" )
+	if h == nil then
+		return
+	end
+	local ds = {}
+	local line = read( h, "*l" )
+	while line do
+		local _, _, k, p, ids = strfind( line, "^(%S+)%s+([%d%.]+)%s+([%w@_,]+)" )
+		if k == khoa then
+			local t = {}
+			local pos = 1
+			while 1 do
+				local a, b, tu = strfind( ids, "([%w@_]+)", pos )
+				if a == nil then
+					break
+				end
+				if strsub( tu, 1, 1 ) == "@" then
+					local nhom = x950001_g_Nhom[ strsub( tu, 2 ) ]
+					if nhom then
+						for j = 1, getn( nhom ) do
+							tinsert( t, nhom[j] )
+						end
+					end
+				elseif tonumber( tu ) then
+					tinsert( t, tonumber( tu ) )
+				end
+				pos = b + 1
+			end
+			local pct = tonumber( p )
+			if getn( t ) > 0 and pct ~= nil and pct > 0 then
+				if getn( t ) == 1 then
+					tinsert( ds, { t[1], pct } )
+				else
+					tinsert( ds, { t, pct } )
+				end
+			end
+		end
+		line = read( h, "*l" )
+	end
+	closefile( h )
+	for i = 1, getn( ds ) do
+		x950001_Chia( sceneId, selfId, killerId, ds[i] )
 	end
 end
 

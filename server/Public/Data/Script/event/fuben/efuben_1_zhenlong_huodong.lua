@@ -930,6 +930,12 @@ function x401001_OnDie(sceneId, selfId, killerId)						-- ³¡¾°ID, ±»É±µÄObjId, É
 	elseif xinshoucnt == 1 then
 			LastBoss = x401001_g_LastBoss_XinShou6
 	end 
+	-- [NetCo4 03/10] roi them do admin cau hinh tren web (Server/txt/NetCo4Cfg/roithem.txt, NetCo4/roimap.lua x950001_RoiCfg)
+	if objType and objType == LastBoss[mgroup] then
+		CallScriptFunction( 950001, "RoiCfg", sceneId, selfId, killerId, "kycuoc_boss" )
+	else
+		CallScriptFunction( 950001, "RoiCfg", sceneId, selfId, killerId, "kycuoc_co" )
+	end
 	--PrintStr("LastBoss ="..LastBoss[mgroup])
 	--PrintStr("objType ="..objType)
 	

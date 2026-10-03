@@ -130,6 +130,51 @@ def tpmax_set(n):
         f.write("%d\n" % n)
 
 
+# 03/10: ROI THEM QUA SCRIPT do admin cau hinh (NetCo4/roimap.lua x950001_RoiCfg doc file nay moi lan quai chet -> hieu luc ngay).
+# Moi dong: <khoa> <ti le %> <ID1[,ID2,@nhom...]>  (nhieu ID / nhom = boc 1 mon). Moi thanh vien to doi o gan roll rieng.
+ROITHEM = CFGDIR + "/roithem.txt"
+ROI_KHOA = {   # khoa -> (ten hien thi, so con moi luot de uoc tinh)
+    "kycuoc_co": ("Ky Cuoc (Co 12h) - moi quan co", 200),
+    "kycuoc_boss": ("Ky Cuoc (Co 12h) - boss Vien Co Ky Hon", 1),
+}
+ROI_NHOM = {   # phai khop x950001_g_Nhom trong roimap.lua
+    "@ngoc6": "20 loai ngoc cap 6 thuong",
+    "@mienbo6": "Mien Bo 6 / Bi Ngan 6",
+}
+RE_ROI_PCT = re.compile(r"^\d{1,3}(\.\d{1,2})?$")
+RE_ROI_TU = re.compile(r"^(@[a-z0-9_]{1,12}|\d{5,9})$")
+
+
+def roi_doc():
+    out = []
+    try:
+        lines = open(ROITHEM, encoding="ascii", errors="replace").read().splitlines()
+    except OSError:
+        return out
+    for l in lines:
+        p = l.split()
+        if len(p) == 3 and p[0] in ROI_KHOA:
+            out.append({"k": p[0], "pct": p[1], "ids": p[2].split(",")})
+    return out
+
+
+def roi_ghi(rows):
+    os.makedirs(CFGDIR, exist_ok=True)
+    tmp = ROITHEM + ".moi"
+    with open(tmp, "w", encoding="ascii", newline="\n") as f:
+        for r in rows:
+            f.write("%s %s %s\n" % (r["k"], r["pct"], ",".join(r["ids"])))
+    os.replace(tmp, ROITHEM)
+
+
+def roi_state():
+    rows = []
+    for i, r in enumerate(roi_doc()):
+        rows.append({"stt": i, "k": r["k"], "pct": r["pct"], "ids": r["ids"],
+                     "ten": [ROI_NHOM.get(t) or ITEM_NAME.get(t, "?") for t in r["ids"]]})
+    return {"rows": rows, "khoa": {k: {"ten": v[0], "soCon": v[1]} for k, v in ROI_KHOA.items()}, "nhom": ROI_NHOM}
+
+
 def restart_game():
     subprocess.Popen(["systemctl", "restart", "tlbb"], stdin=subprocess.DEVNULL,
                      stdout=open("/tmp/panel-restart.log", "w"), stderr=subprocess.STDOUT)
@@ -475,6 +520,36 @@ def act(form):
             restart_game()
             return msg + " Dang restart server (khoang 3 phut)."
         return msg + " Co hieu luc sau khi restart server."
+    if a in ("roi_them", "roi_xoa"):   # 03/10: roi them qua script (Ky Cuoc...), hieu luc ngay, khong restart
+        rows = roi_doc()
+        if a == "roi_xoa":
+            st = v("stt")
+            if not RE_INT.match(st) or int(st) >= len(rows):
+                return "Dong khong ton tai (tai lai trang roi thu lai)"
+            r = rows.pop(int(st))
+            roi_ghi(rows)
+            audit("roi them: xoa %s %s%% %s" % (r["k"], r["pct"], ",".join(r["ids"])))
+            return "Da xoa dong roi them: %s %s%% %s" % (r["k"], r["pct"], ",".join(r["ids"]))
+        k, pct, ids = v("khoa"), v("pct").replace(",", "."), [t.strip() for t in v("ids").replace(" ", ",").split(",") if t.strip()]
+        if k not in ROI_KHOA:
+            return "Hoat dong khong hop le"
+        if not RE_ROI_PCT.match(pct) or not 0.01 <= float(pct) <= 100:
+            return "Ti le 0.01-100 (%), toi da 2 so le"
+        if not ids or len(ids) > 8:
+            return "Nhap 1-8 ID vat pham hoac nhom (@ngoc6), cach nhau dau phay"
+        for t in ids:
+            if not RE_ROI_TU.match(t):
+                return "ID khong hop le: %s" % t
+            if t.startswith("@") and t not in ROI_NHOM:
+                return "Khong co nhom %s (co: %s)" % (t, ", ".join(ROI_NHOM))
+            if not t.startswith("@") and t not in ITEM_NAME:
+                return "Khong co vat pham ID %s" % t
+        if len(rows) >= 60:
+            return "Toi da 60 dong"
+        rows.append({"k": k, "pct": pct, "ids": ids})
+        roi_ghi(rows)
+        audit("roi them: them %s %s%% %s" % (k, pct, ",".join(ids)))
+        return "Da them: %s - %s%% - %s. Co hieu luc ngay (quai chet tiep theo)." % (ROI_KHOA[k][0], pct, ", ".join(ROI_NHOM.get(t) or ITEM_NAME.get(t, t) for t in ids))
     if a == "luu_chung":   # 03/10: luu nhieu o 1 lan (cap toi thieu / khoa cap / EXP) - kiem het truoc roi moi ghi, restart 1 lan neu can
         cmin, cmax, ex, tp = v("capmin"), v("capmax"), v("exp"), v("tpmax")
         if not (cmin or cmax or ex or tp):
@@ -758,7 +833,7 @@ def api_state():
     return {"procs": procs, "online": online_count(), "ram": [tot - avail, tot], "dbError": err,
             "accounts": [{"id": i, "name": n, "online": on} for i, n, on in accs],
             "chars": out_chars, "capmin": capmin, "capmax": capmax_get(), "itemCount": len(ITEMS),
-            "expparam": exp_get(), "expDefault": exp_macdinh(), "tpmax": tpmax_get(),   # 03/10
+            "expparam": exp_get(), "expDefault": exp_macdinh(), "tpmax": tpmax_get(), "roithem": roi_state(),   # 03/10
             "pets": [{"id": i, "name": n} for i, n in PET_V2]}
 
 
