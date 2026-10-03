@@ -148,7 +148,7 @@ function x890063_CheckCanEnter( sceneId, selfId, targetId )
 
 	if nHumanNum > 0 then
 
-		local msg = "    Trong ðµi ngû có"
+		local msg = "    Trong ðµi ngû có "
 		for i=0, nHumanNum-2 do
 			msg = msg .. Humanlist[i] .. ", "
 		end

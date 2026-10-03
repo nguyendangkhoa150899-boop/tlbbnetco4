@@ -53,9 +53,9 @@ function  x892003_LevelUp(sceneId,  selfId,  lwIndex,lw2Index,cailiao)
                       return
                 end
 
-	 -- [NetCo4 03/10] Long Van chinh co kham ngoc: SHANG_BAOS can 2 o trong, thieu thi khong chuyen ngoc nhung van xoa Long Van cu -> mat ngoc
-	 if  GetGemEmbededCount(  sceneId,  selfId,  lwIndex  )  >  0  and  LuaFnGetPropertyBagSpace(  sceneId,  selfId  )  <  3  and  LuaFnGetMaterialBagSpace(  sceneId,  selfId  )  <  2  then
-	 	 x892003_NotifyTip(  sceneId,  selfId,  "T\250i c\165n \237t nh\164t 3 \244 tr\175ng \240\172 chuy\172n b\228o th\213ch \240\227 kh\228m sang Long V\229n m\190i"  )
+	 -- [NetCo4 03/10] Long Van chinh co kham ngoc: ngoc thao ra vao TUI NGUYEN LIEU roi kham sang mon moi; thieu cho -> mat ngoc (Long Van cu van bi xoa)
+	 if  GetGemEmbededCount(  sceneId,  selfId,  lwIndex  )  >  0  and  LuaFnGetMaterialBagSpace(  sceneId,  selfId  )  <  2  then
+	 	 x892003_NotifyTip(  sceneId,  selfId,  "T\250i nguy\234n li\174u c\165n \237t nh\164t 2 \244 tr\175ng \240\172 chuy\172n b\228o th\213ch \240\227 kh\228m sang Long V\229n m\190i"  )
 	 	 return
 	 end
 
@@ -66,7 +66,7 @@ function  x892003_LevelUp(sceneId,  selfId,  lwIndex,lw2Index,cailiao)
 	 end
 	 
 	 CallScriptFunction(  895111,  "SHANG_BAOS",sceneId,  selfId,lwIndex,pos)
-	 CallScriptFunction(  895111,  "GetXIN_xi",sceneId,  selfId,lwIndex,pos)
+	 -- CallScriptFunction(  895111,  "GetXIN_xi",sceneId,  selfId,lwIndex,pos)   -- [NetCo4 03/10] ham khong ton tai (788 assert), SHANG_BAOS da chep dong thuoc tinh
 	 
 	         local  lwLevel  =  lw-10156999
 	 -- bày ra tÕm th¶i không biªt cáii này có nhæng thÑ kia thuµc tính     trß¾c m· ra     l¾n lên   máu   thuµc tính   hÕ tuyªn         wlps000  
@@ -555,6 +555,15 @@ function  x892003_ResetProperty(sceneId,  selfId,idx,  lwIndex)      -- ngçu nhi
 	 	 x892003_NotifyTip(  sceneId,  selfId,  " Không ðü T¸nh Vân Thüy 10 cái "  )
 	 	 return
 	 end
+	 -- [NetCo4 03/10] kiem cho truoc khi tru tien (truoc: tru tien roi moi tao mon, khong kiem -1, co ngoc ma tui day -> mat ngoc)
+	 if  LuaFnGetPropertyBagSpace(  sceneId,  selfId  )  <  1  then
+	 	 x892003_NotifyTip(  sceneId,  selfId,  "T\250i \240\213o c\248 c\165n \237t nh\164t 1 \244 tr\175ng"  )
+	 	 return
+	 end
+	 if  GetGemEmbededCount(  sceneId,  selfId,  lwIndex  )  >  0  and  LuaFnGetMaterialBagSpace(  sceneId,  selfId  )  <  2  then
+	 	 x892003_NotifyTip(  sceneId,  selfId,  "T\250i nguy\234n li\174u c\165n \237t nh\164t 2 \244 tr\175ng \240\172 chuy\172n b\228o th\213ch \240\227 kh\228m sang Long V\229n m\190i"  )
+	 	 return
+	 end
 	 local  reply  =  CostMoney(sceneId,selfId,500000)
 	 if  reply  ==  -1  then
 	 	 x892003_NotifyTip(  sceneId,  selfId,  " vàng không ðü "  )
@@ -563,6 +572,10 @@ function  x892003_ResetProperty(sceneId,  selfId,idx,  lwIndex)      -- ngçu nhi
 	 DelItem(sceneId,selfId,20310180,10)
 
           local  pos  =  TryRecieveItem(  sceneId,  selfId,  lw,  1  )
+	 if  pos  ==  -1  then   -- [NetCo4 03/10]
+	 	 x892003_NotifyTip(  sceneId,  selfId,  "T\250i \240\213o c\248 c\165n \237t nh\164t 1 \244 tr\175ng"  )
+	 	 return
+	 end
 	 CallScriptFunction(  895111,  "SHANG_BAOS",sceneId,  selfId,lwIndex,pos)
                 x892003_GetXIN_xi(sceneId,  selfId,lwIndex,pos)
 	 LuaFnEraseItem(  sceneId,  selfId,  lwIndex  )

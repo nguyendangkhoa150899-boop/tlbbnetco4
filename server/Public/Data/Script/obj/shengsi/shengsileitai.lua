@@ -400,11 +400,13 @@ function  x892009_OnCopySceneTimer(  sceneId,  nowTime  )
     	 	 	 	 AddText(sceneId," nhi®m vø ðã ðªn gi¶ , hoàn thành !");
     	 	 	 EndEvent(sceneId)
     	 	 	 DispatchMissionTips(sceneId,mems[i])
+	 	 	 if  x892009_g_MissionId  then   -- [NetCo4 03/10] MissionId = nil o ban nay -> loi Lua, pho ban khong dong khi het gio
 	 	 	 misIndex  =  GetMissionIndexByID(sceneId,mems[i],x892009_g_MissionId)-- l¤y ðßþc nhi®m vø s¯ li®u tác dçn tr¸ giá 
 	 	 	 -- ðem nhi®m vø thÑ 1 s¯ s¯ li®u thiªt trí vì 1, bày tö hoàn thành nhi®m vø 
 	 	 	 SetMissionByIndex(sceneId,mems[i],misIndex,x892009_g_Param_ok,1)-- thiªt trí nhi®m vø s¯ li®u 
 	 	 	 -- hoàn thành phó bän sØ døng th¶i gian 
 	 	 	 SetMissionByIndex(sceneId,mems[i],misIndex,x892009_g_Param_time,TickCount*x892009_g_TickTime)-- thiªt trí nhi®m vø s¯ li®u 
+	 	 	 end
 	 	 end
 
 	 	 -- thiªt trí phó bän t¡t d¤u hi®u 

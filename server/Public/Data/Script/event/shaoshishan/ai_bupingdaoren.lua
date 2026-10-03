@@ -115,6 +115,9 @@ end
 -- r¶i ði chiªn ð¤u ....
 --**********************************
 function  x890068_OnLeaveCombat(sceneId,  selfId)
+	 if  LuaFnIsCharacterLiving(  sceneId,  selfId  )  ~=  1  then   -- [NetCo4 03/10] boss da chet: khong tao lai NPC
+	 	 return
+	 end
 
 	 x890068_ResetMyAI(  sceneId,  selfId  )
 
@@ -169,7 +172,7 @@ function  x890068_OnDie(  sceneId,  selfId,  killerId  )
 	 end
 
 	 -- nªu nhß không tìm ðßþc huynh ð® là nói rõ li«n còn dß lÕi mình mµt cái ....
-	 if  0  ==  bFind  then
+	 if  0  ==  bFind  and  2  ~=  CallScriptFunction(  x890068_g_FuBenScriptId,  "GetBossBattleFlag",  sceneId,  "ShuangZi"  )  then   -- [NetCo4 03/10] chi 1 Phien Tang/luot
 	 	 -- khai sáng ðoan mµc nguyên ....
 	 	 local  MstId  =  CallScriptFunction(  x890068_g_FuBenScriptId,  "CreateBOSS",  sceneId,  "YouDanZhi_BOSS",  -1,  -1  )
 	 	 LuaFnNpcChat(sceneId,  MstId,  0,  "#{CJG_101231_244}")

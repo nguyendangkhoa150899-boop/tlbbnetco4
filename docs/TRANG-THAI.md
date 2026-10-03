@@ -783,7 +783,8 @@ Chủ server duyệt từng mục. Lua có hiệu lực ngay; bảng rơi cần 
 - **Q Lâu Lan bảng rơi:** 13021/13041 (quái phụ ải 1) về như 13020 (Mv 10, hộp 16000); gói boss (90015 90001 90030 50006 50030 50046 50047 50048 1923 50034) chuyển sang Hỏa Diễm Yêu Ma 13260–13269 mọi bậc. 13062/13222 (bậc 3) vẫn giữ phiếu như cũ.
 - **Kỳ Cuộc 401001/401002:** `PlayerExpList[plyLevel] > 0` với nil → thêm kiểm nil.
 - **Hợp thành Long Văn** (`LongWenExt.lua`): Long Văn chính có khảm ngọc mà túi đạo cụ < 3 ô và túi nguyên liệu < 2 ô → báo lỗi, không hợp (trước đây mất ngọc).
-- **Bạch Mã Tự** 230000: luôn nhánh 230011 (230012 đòi Kỳ Cuộc 231001 không ai gọi).
+- **Bạch Mã Tự** 230000: luôn nhánh 230011 (230012 đòi Kỳ Cuộc 231001 không ai gọi). **Đính chính (agent kiểm lại):** cả hoạt động Bạch Mã Tự vốn ĐÓNG từ bản gốc — NPC Trí Thanh 000068 (`oluoyang_zhiqing.lua:28-38`) và Dương Tranh 000089 (`oluoyang_fuben_shuilao.lua:27-36`) bị khóa "[Nov.1 2006] Lybin Close", không gọi UpdateEventList. Bản sửa vô hại, không có tác dụng ngày mở. Hoạt động thay thế: Bình Định Thủy Lao 232000 (NPC Hô Diên Báo).
+- **PMF nhỏ bù nguyên liệu:** hộp **90034** = 90030 (nguyên liệu cấp 8) với BV 36, gắn ô thứ 20 của Lý Thu Thủy 9666 → nguyên liệu cấp 8 về ~2,67/người/lượt như lúc song sinh còn rơi. Q Lâu Lan bậc 2 (80-89): phiếu 2 → 1/lượt do bỏ phiếu ở 2 quái phụ (chủ ý). Bậc 3 (90-99) có ~8 phiếu/lượt (5 boss ải 2 hộp 90022 + 13062 + 13222 + 13262) — xử lý trước khi mở trần 90.
 - **Sát Tinh:** 45 phút (900 nhịp × 3 giây, trước 18 phút).
 - **Cấp vào ≥ 90:** Tứ Tuyệt (cũ 70), Thiếu Thất (cũ 80), Yến Tử Ổ (cũ 60). Với trần 89, ngày mở 3 phó bản này coi như đóng. Lưu ý: Yến Tử Ổ cấp 90–99 vẫn không có phiếu (phiếu chỉ ở 39320–39432, đội ≥ 100).
 - **Ác Bá:** Lâu La 3660–3669 dùng hộp mới **90033** (= 60086 ngọc cấp 6, BV 550 thay 400) → khoảng 1,3 ngọc cấp 6/người/lượt (cũ ~1,7). 60086 vẫn nguyên cho quái khác (Lang Huyên 4396x, 4234x).

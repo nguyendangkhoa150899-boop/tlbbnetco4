@@ -34,6 +34,7 @@ xu_ly_db() {   # $1 = ten DB game, $2 = ten DB web
     sql "UPDATE $D.t_global SET data1 = 0"
     # Tai khoan: chi giu admin
     sql "DELETE FROM $W.account WHERE name <> 'admin'"
+    sql "UPDATE $W.account SET point = 0"      # giong reset-choi-that.sh
 }
 
 dem() {   # $1 DB game, $2 DB web
@@ -85,6 +86,12 @@ in_chroot "$MYSQL_BIN/mysqladmin -uroot -p'$MYSQL_ROOT_PASS' shutdown"
 for i in $(seq 1 30); do is_running mysqld || break; sleep 1; done
 
 T="$ROOT/home/tlbb"; C="$T/Server/Config"; X="$T/Server/txt"
+# 03/10: sao luu file truoc khi xoa (rollback chi DB thi khong lay lai duoc hang doi qua, co ngay, xep hang...)
+ff="$BACKUP_DIR/truoc-moserver-file-$stamp.tar.gz"
+tar -czf "$ff" -C "$T" --ignore-failed-read Server/txt Server/Config/GMList.ini Server/Config/QianDao Server/Config/Paiming \
+    Server/Config/MingRenTang Server/Config/YbMarket Server/LoDe Server/IP Server/Log1/BangzhanBaoMin.txt 2>/dev/null || true
+[ -s "$ff" ] || die "Sao luu file that bai, DB DA XOA nhung file CHUA xoa. Kiem tra roi chay lai."
+log "Da sao luu file: $ff"
 find "$C/QianDao" "$X/DBShopData" "$X/NetCo4Popup" -type f -delete 2>/dev/null || true
 find "$X/NetCo4Qua" -maxdepth 1 -type f -delete 2>/dev/null || true     # ca _capmin.txt
 find "$X/NetCo4Web" -type f -delete 2>/dev/null || true               # co nhan/ngay, .tp1, tuiboss.log, phieu KNB/Long Van (out/, outlv/)
@@ -95,4 +102,4 @@ for g in "$C"/Paiming/*.txt "$C"/MingRenTang/*.txt "$C"/YbMarket/*.txt "$X"/JuDi
 done
 printf '[gm]\ncount=0\n' > "$C/GMList.ini"
 log "Da xoa hang doi qua, co nhan/ngay, xep hang, diem danh, dang ky bang chien. GMList rong: cap GM lai tren panel (can restart)."
-log "Tiep theo (docs/MO-SERVER.md muc 3): bot reset vi, doi mat khau, ./tlbb.sh start, kiem tra bang tai khoan moi."
+log "Tiep theo (docs/MO-SERVER.md muc 3): bot reset vi, doi PANEL_PASS, roi REBOOT VPS (buoc 7) - KHONG ./tlbb.sh start tu SSH. Doi mat khau admin sau reboot."

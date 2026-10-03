@@ -164,12 +164,15 @@ end
 -- r¶i ði chiªn ð¤u ....
 --**********************************
 function  x890069_OnLeaveCombat(sceneId,  selfId)
+	 if  LuaFnIsCharacterLiving(  sceneId,  selfId  )  ~=  1  then   -- [NetCo4 03/10] boss da chet: khong tao lai NPC
+	 	 return
+	 end
 
 	 x890069_ResetMyAI(  sceneId,  selfId  )
 	 LuaFnDeleteMonster(  sceneId,  selfId  )
 
 	 -- [NetCo4 03/10] tao lai NPC Dinh Xuan Thu (co "DingChunQiu" van = 1) de khieu chien lai. Truoc day ket pho ban.
-	 local  MstId  =  CallScriptFunction(  x890069_g_FuBenScriptId,  "CreateBOSS",  sceneId,  "DingChunQiu_NPC",  -1,  -1  )
+	 local  MstId  =  CallScriptFunction(  x890069_g_FuBenScriptId,  "CreateBOSS",  sceneId,  "DingChunQiu_NPC",  129,  127  )   -- [NetCo4 03/10] cho NPC goc (ai_wulaoda x890066_g_Npc_4)
 	 SetUnitReputationID(  sceneId,  MstId,  MstId,  0  )
 
 end

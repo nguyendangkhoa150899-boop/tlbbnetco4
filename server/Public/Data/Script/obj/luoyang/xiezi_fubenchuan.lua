@@ -71,12 +71,12 @@ function  x000201_OnEventRequest(  sceneId,  selfId,  targetId,  eventId)
 
 	 if  GetNumText()  ==  2  then
 	       BeginEvent(sceneId)
-	 	 AddNumText(  sceneId,  x000201_g_scriptId,  "[=75 c¤p ]  Thäo PhÕt Yªn TØ Ô",  10,  411)--4    69  120
+	 	 AddNumText(  sceneId,  x000201_g_scriptId,  "[=90 c¤p ]  Thäo PhÕt Yªn TØ Ô",  10,  411)--4    69  120
 	 	 AddNumText(  sceneId,  x000201_g_scriptId,  "[=75 c¤p ]  Phiªu Mi¬u Phong ",  10,  413)  --186  189  218
-	 	 AddNumText(  sceneId,  x000201_g_scriptId,  "[=75 c¤p ]  TÑ Tuy®t Trang",  10,  414)  --1  195  214
-	 	 AddNumText(  sceneId,  x000201_g_scriptId,  "[=75 c¤p ]  Thiªu Th¤t S½n ",  10,  410)--2  70  59
-	 	 AddNumText(  sceneId,  x000201_g_scriptId,  "[=75 c¤p ]  Huyªt Chiªn NhÕn Môn Quan ",  10,  412)--0    295  224
-	 	 AddNumText(  sceneId,  x000201_g_scriptId,  "[=75 c¤p ]  Sát Tinh ",  10,  401)--2  131  77
+	 	 AddNumText(  sceneId,  x000201_g_scriptId,  "[=90 c¤p ]  TÑ Tuy®t Trang",  10,  414)  --1  195  214
+	 	 AddNumText(  sceneId,  x000201_g_scriptId,  "[=90 c¤p ]  Thiªu Th¤t S½n ",  10,  410)--2  70  59
+	 	 AddNumText(  sceneId,  x000201_g_scriptId,  "[=108 c¤p ]  Huyªt Chiªn NhÕn Môn Quan ",  10,  412)--0    295  224
+	 	 AddNumText(  sceneId,  x000201_g_scriptId,  "[=80 c¤p ]  Sát Tinh ",  10,  401)--2  131  77
 	 	 AddNumText(  sceneId,  x000201_g_scriptId,  "[=75 c¤p ]  Hß Không Huy«n Cänh ( mµt ngß¶i )",  10,  403)--0  217  242
 	 	 AddNumText(  sceneId,  x000201_g_scriptId,  "[=75 c¤p ]  Lang Huyên Phúc Ð¸a",  10,  407)  --2  293  91
 	 	 AddNumText(  sceneId,  x000201_g_scriptId,  "[=80 c¤p ]  Binh Thánh KÏ Tr§n ",  10,  402)--186  205  175

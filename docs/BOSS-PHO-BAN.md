@@ -82,7 +82,7 @@ Cột "Đã sửa" ghi ngày + tag rollback. "Chưa thử" = chưa ai đánh l�
   - Bản nhanh báo "đóng sau X giờ" nhưng thực ra không đóng.
   - Thoát bản nhanh về sai tọa độ (`ozhenlong_qisheng.lua:37`).
   - Quân cờ 31770–31809 và tân thủ 42000–42099 (bậc 110+) không có hộp rơi.
-  - Script 231001 (bản cũ cùng tên) không vào được, kéo theo Bạch Mã Tự 230012 kẹt khoảng 50% lượt (`ebaimasi_230000.lua:59`).
+  - Script 231001 (bản cũ cùng tên) không vào được. Bạch Mã Tự (230000) vốn đóng từ bản gốc (NPC 000068 và 000089 bị khóa từ 2006), 03/10 đã cho luôn nhánh 230011 phòng khi mở lại.
 
 ### Túc Cầu (cấp 30)
 - **Vào:** Đồng Quán (Lạc Dương 298,192), script 000004 → phó bản 402040 `event/fuben/efuben_cuju.lua`. Quả túc cầu dùng script 402045 `efuben_cuju_4.lua`. Boss Tôn Mỹ Mỹ 3720–3729 / 33720–33729, AI 216.
