@@ -500,7 +500,7 @@ function x808043_OnKillObject( sceneId, selfId, objdataId, objId )
 	local MonsterName = GetName(sceneId, objId)
 	local	isBoss
 
-	if(MonsterName == "‡∂Ü™")then
+	if(MonsterName == "L‚u La")then
 		killedmonsternumber = killedmonsternumber + 1
 		LuaFnSetCopySceneData_Param( sceneId, x808043_g_keySD["killedmonsternum"], killedmonsternumber )					--…Ë÷√…±À¿monsterµƒ ˝¡ø
 		isBoss = 0
@@ -515,17 +515,17 @@ function x808043_OnKillObject( sceneId, selfId, objdataId, objId )
 			elseif Selflev < PlayerMaxLevel then
 				monsterLevel = floor( Selflev/10 ) + 33670 - 11
 			else
-				monsterLevel = 9
+				monsterLevel = floor( Selflev/10 ) + 33670 - 11   -- [NetCo4 03/10] cu: = 9 (quai so 9 = Doan Chinh Minh NPC)
 			end
 			local tmpMonsterId = LuaFnCreateMonster( sceneId, monsterLevel, 66, 33, 14, 138, -1 )
 			local tmpsMessage = format("ø…∂Ò£¨—€ø¥◊≈Œ“√«æÕ“™ÕµœÆ≥…π¶¡À£¨º»»ª’‚—˘£¨æÕ±π÷Œ“≤ªøÕ∆¯¡À°£")
 			MonsterTalk(sceneId, tmpMonsterId, x808043_g_CopySceneName, tmpsMessage)
 			local szName = GetName(sceneId, tmpMonsterId)
-			if szName == "∂Ò∞‘"   then
+			if szName == "¡c B·" or szName == "¡c b·"   then
 				SetCharacterTitle(sceneId, tmpMonsterId, "°∞ È…Ω”–¬∑°±")
 			end
 		end
-	elseif ( MonsterName == "∂Ò∞‘" ) then
+	elseif ( MonsterName == "¡c B·" or MonsterName == "¡c b·" ) then
 		killedbossnumber = killedbossnumber + 1
 		LuaFnSetCopySceneData_Param( sceneId, x808043_g_keySD["killedbossnum"], killedbossnumber )					--…Ë÷√…±À¿bossµƒ ˝¡ø
 		isBoss = 1

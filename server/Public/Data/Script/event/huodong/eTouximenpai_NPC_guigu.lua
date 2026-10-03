@@ -515,17 +515,17 @@ function  x808044_OnKillObject(  sceneId,  selfId,  objdataId,  objId  )
 	 	 	 elseif  Selflev  <  PlayerMaxLevel  then
 	 	 	 	 monsterLevel  =  floor(  Selflev/10  )  +  33670  -  11
 	 	 	 else
-	 	 	 	 monsterLevel  =  9
+	 	 	 	 monsterLevel  =  floor( Selflev/10 ) + 33670 - 11   -- [NetCo4 03/10] cu: = 9 (quai so 9 = Doan Chinh Minh NPC)
 	 	 	 end
 	 	 	 local  tmpMonsterId  =  LuaFnCreateMonster(  sceneId,  monsterLevel,  95,  46,  14,  138,  -1  )
 	 	 	 local  tmpsMessage  =  format(" ghê t·m , m¡t th¤y chúng ta s¨ phäi ðánh lén thành công , nªu nhß v§y , cûng ð×ng trách ta không khách khí . ")
 	 	 	 MonsterTalk(sceneId,  tmpMonsterId,  x808044_g_CopySceneName,  tmpsMessage)
 	 	 	 local  szName  =  GetName(sceneId,  tmpMonsterId)
-	 	 	 if  szName  ==  "Ác Bá"      then
+	 	 	 if  szName  ==  "Ác Bá" or szName  ==  "Ác bá"      then
 	 	 	 	 SetCharacterTitle(sceneId,  tmpMonsterId,  "“ sách s½n có ðß¶ng ”")
 	 	 	 end
 	 	 end
-	 elseif  (  MonsterName  ==  "Ác Bá"  )  then
+	 elseif  (  MonsterName  ==  "Ác Bá" or MonsterName  ==  "Ác bá"  )  then
 	 	 killedbossnumber  =  killedbossnumber  +  1
 	 	 LuaFnSetCopySceneData_Param(  sceneId,  x808044_g_keySD["killedbossnum"],  killedbossnumber  )	 	 	 	 	 -- thiªt trí giªt chªt boss ðích s¯ lßþng 
 	 	 isBoss  =  1

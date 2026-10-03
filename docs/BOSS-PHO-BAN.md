@@ -286,6 +286,7 @@ Cột "Đã sửa" ghi ngày + tag rollback. "Chưa thử" = chưa ai đánh l�
 ### Ác Bá đánh lén môn phái (không có trong NPC Phụ Bản)
 - Script tạo NPC 808015 `event/huodong/eTouximenpai_Generate.lua` (Activity, lịch ở `Public/Config/ActivityNotice.txt`: 00, 04, 10, 12, 16, 20, 22 giờ) → NPC quái 486 script 808017 `obj/huodong/oTouximenpai_NPC.lua` → `event/huodong/eTouximenpai_NPC_<phái>.lua` (808016–808044, phó bản `<map>_1.nav`). Chỉ đệ tử đúng phái, cấp ≥20, có tổ đội.
 - **Đã sửa 02/10** (tag `truoc-fix-acba-02-10`): đội cấp trần nạp `<map>_monster_119.ini` không có → không vào được (assert log 22:30:22). Thiếu Lâm chặn trần 100.
+- **Đã sửa 03/10** (tag `truoc-fix-acba-boss-03-10`): (1) người giết Lâu La thứ 30 cấp ≥ 110 và ≥ cấp tối đa → `monsterLevel = 9` = quái số 9 **Đoàn Chính Minh** (NPC) thay cho Ác Bá → nay dùng công thức nhánh 110+ (33670 + cấp/10 - 11); (2) boss 33670+ tên "Ác bá" (b thường) còn script so "Ác Bá" → giết không tính, nay nhận cả 2; (3) **Đường Môn** so tên bằng GBK (喽啰/恶霸) trong khi bảng quái tên VISCII → giết Lâu La không đếm, boss không bao giờ ra → đổi sang VISCII. Ngày mở (trần 89) chỉ nhân vật ≥ 110 (GM) dính (1).
 - **Còn mở:** bấm hỏng (vd hết ô phó bản) vẫn xóa NPC Ác Bá; chữ "chí ít 3 người" nhưng code cho 1 (trừ Đường Môn 3).
 
 ### AI dùng chung có hồi máu (ảnh hưởng nhiều phó bản)
