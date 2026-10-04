@@ -522,6 +522,7 @@ function x808028_OnKillObject( sceneId, selfId, objdataId, objId )
 	elseif ( MonsterName == "¡c B·" or MonsterName == "¡c b·" ) then
 		killedbossnumber = killedbossnumber + 1
 		LuaFnSetCopySceneData_Param( sceneId, x808028_g_keySD["killedbossnum"], killedbossnumber )					--…Ë÷√…±À¿bossto’ µ  ˝¡ø
+		CallScriptFunction( 950001, "TB_GhiId", sceneId, objdataId, selfId )   -- [NetCo4 04/10] tui boss Ac Ba (tan cong mon phai): 3670-3679 / 33670-33679, roimap chi ghi khi ID co trong danh sach
 		isBoss = 1
 	end
 
