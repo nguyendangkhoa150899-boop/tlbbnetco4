@@ -33,6 +33,8 @@ Khi sửa shop game thì **không đụng shop web**.
 | 03/10 | 153 | Tiệm Bảo Thạch (tab Hợp Thành Phù / Điêu Trác Phù) | **Thay cho dòng trên.** Kim Chi Tiễn về lại kệ 153 (ô thứ 3), **cả kệ đổi sang KNB**, giữ nguyên con số giá: Tương Khảm Phù cao cấp 98, Trích Trừ Phù cấp 9 98, **Điểm Kim Chi Tiễn 20.000**, Điêu Trác Phù cấp 4–7 4.000–7.000, Dong Luyện Phù 500, Hợp Thành Phù sơ cấp 500. Kệ 155 trả về như gốc | 7cc2ada | truoc-ke153-knb-03-10 |
 | 03/10 | 180 | Khu Buôn Bán > Vật phẩm mới | **Hàn Ngọc Tinh Túy 20310111**: 3.000 → **20.000 KNB**, ngang Kim Chi Tiễn. Cả 2 đều là nguyên liệu đục lỗ thứ 4 (`SlotCost.txt` cho trang bị thường, `stiletto.lua` cho Lệnh Bài/Võ Hồn/Long Văn/Tọa Kỵ/Thời Trang). Lưu ý: Hàn Ngọc còn là nguyên liệu 4 viên/lần của 60 công thức chế đồ (`ItemCompound.txt`: Tịch Diệt/Thiên Ẩn/Tru Ma… Oản, Kiên, Yêu Hoàn, Giới, Hộ Phù), không có nguồn rơi | (commit này) | truoc-hanngoc-20000-03-10 |
 
+| 04/10 | 153 | Tiệm Bảo Thạch (tab Hợp Thành Phù / Điêu Trác Phù) | **Bảo Thạch Điêu Trác Phù cấp 4/5/6** (30900029/30/31): 4.000/5.000/6.000 → **1.000/2.000/3.000 KNB**. Cấp 7 giữ 7.000 | 2b5571f | truoc-dieutrac-actac-04-10 |
+
 ### Chưa đổi, còn chờ chủ server
 
 - **Kệ 151**, ngọc cấp 6 bán bằng KNB, 10.000–30.000: bỏ trống hay giữ.
