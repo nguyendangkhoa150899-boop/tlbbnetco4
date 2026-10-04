@@ -419,6 +419,7 @@ end
 
 
 function x050013_OnDie(sceneId, objId, killerId)
+	CallScriptFunction( 950001, "TB_Ghi", sceneId, objId, killerId )   -- [NetCo4 04/10] tui boss Ac Tac: boss cuoi 3650-3659 (roimap.lua chi ghi khi ID co trong danh sach)
     --PrintStr( "x050013_OnDie [objId]"..objId.." [killerId]"..killerId.."[sceneId]"..sceneId )
     local DataID = GetMonsterDataID( sceneId, objId )
     x050013_OnKillObject( sceneId, killerId, DataID, objId )

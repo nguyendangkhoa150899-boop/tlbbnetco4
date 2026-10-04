@@ -184,8 +184,8 @@ x950001_TB_Them( { 14234 } )         -- Thieu That Son: Dinh Xuan Thu
 x950001_TB_Them( { 11353 } )         -- Long Quy (Thanh Thu Son)
 x950001_TB_Them( { 43970, 43971, 43973, 43975, 43982, 43983, 43985, 43986 } )  -- [04/10] Lang Huyen Phuc Dia thuong/kho: ghi khi du 4 boss chet (odali_lanlan/yahuan OnDie dem o 30)
 x950001_TB_Them( { 12138, 12139, 12140, 12141, 12142, 12143, 12144, 12145, 12146 } )  -- Lau Lan Tam Bao: Tran Bao Long Vuong
-x950001_TB_Them( { 473 } )           -- Ac Tac Tao Phan (su kien Tac binh)
-x950001_TB_Them( { 1910, 1911, 1912, 1913, 1914, 1915, 1916, 1917, 1918, 1919 } )  -- Ac Ba (nhiem vu thanh thi, Thi Tap)
+x950001_TB_Them( { 3650, 3651, 3652, 3653, 3654, 3655, 3656, 3657, 3658, 3659 } )  -- [04/10] Ac Tac Tao Phan: boss cuoi pho ban Tac binh (eDynamicNPC_ThiefSoldier 050013 CreateBoss = 3650 + cap/10 - 1, OnDie goi TB_Ghi). Truoc gan 473 = NPC bat tu -> khong bao gio ghi
+x950001_TB_Them( { 1910, 1911, 1912, 1913, 1914, 1915, 1916, 1917, 1918, 1919, 31910, 31911, 31912, 31913, 31914, 31915, 31916, 31917, 31918, 31919 } )  -- Ac Ba (nhiem vu thanh thi, Thi Tap): boss group 1 jishi_monster_<cap>.ini, cap 10-100 = 1910-1919, 110+ = 3191x ([04/10] them 3191x)
 -- [02/10] Ky Cuoc = Co 12h (Tran Long Ky Cuoc thuong 401001 + che do nhanh 401002): boss cuoi Vien Co Ky Hon,
 -- 3 muc x 20 bac cap: thuong 1850-1859 / 31850-31859, tan thu 3 12040-12049 / 42040-42049, tan thu 6 12090-12099 / 42090-42099
 for x950001_i = 1850, 1859 do
