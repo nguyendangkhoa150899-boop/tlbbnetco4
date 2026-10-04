@@ -34,6 +34,7 @@ Khi sửa shop game thì **không đụng shop web**.
 | 03/10 | 180 | Khu Buôn Bán > Vật phẩm mới | **Hàn Ngọc Tinh Túy 20310111**: 3.000 → **20.000 KNB**, ngang Kim Chi Tiễn. Cả 2 đều là nguyên liệu đục lỗ thứ 4 (`SlotCost.txt` cho trang bị thường, `stiletto.lua` cho Lệnh Bài/Võ Hồn/Long Văn/Tọa Kỵ/Thời Trang). Lưu ý: Hàn Ngọc còn là nguyên liệu 4 viên/lần của 60 công thức chế đồ (`ItemCompound.txt`: Tịch Diệt/Thiên Ẩn/Tru Ma… Oản, Kiên, Yêu Hoàn, Giới, Hộ Phù), không có nguồn rơi | (commit này) | truoc-hanngoc-20000-03-10 |
 
 | 04/10 | 153 | Tiệm Bảo Thạch (tab Hợp Thành Phù / Điêu Trác Phù) | **Bảo Thạch Điêu Trác Phù cấp 4/5/6/7** (30900029–32): 4.000/5.000/6.000/7.000 → **500/1.000/2.000/3.000 KNB** (lần đầu 2b5571f đặt nhầm 1.000/2.000/3.000/7.000) | 765cd01 | truoc-dieutrac-actac-04-10 |
+| 05/10 | 153, 180 | Tiệm Bảo Thạch / Khu Buôn Bán > Vật phẩm mới | **Điểm Kim Chi Tiễn 20109101** (kệ 153) 20.000 → **5.000 KNB**; **Hàn Ngọc Tinh Túy 20310111** (kệ 180) 20.000 → **7.000 KNB**. Mỗi món chỉ có ở 1 kệ. Sửa bằng `node tools/shop-gia.js --doi <kệ> <ID> <giá> --ghi` | (commit này) | truoc-gia-kimchi-hanngoc-05-10 |
 
 ### Chưa đổi, còn chờ chủ server
 
