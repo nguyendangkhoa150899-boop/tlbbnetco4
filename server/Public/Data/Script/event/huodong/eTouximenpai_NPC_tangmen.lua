@@ -7,13 +7,13 @@
 --½Å±¾ºÅ
 x808043_g_ScriptId	= 808043
 --¸±±¾Ãû³Æ
-x808043_g_CopySceneName	= "ÌÆ¼Ò±¤"
+x808043_g_CopySceneName	= "Ğß¶ng gia bäo"
 --ÈÎÎñºÅ
 x808043_g_MissionId			= 1250
 --ÉÏÒ»¸öÈÎÎñµÄID
 x808043_g_MissionIdPre	= 0
 --Ä¿±êNPC
-x808043_g_Name					= "ÍµÏ®ÃÅÅÉ"
+x808043_g_Name					= " ğánh lén môn phái "
 --ÊÇ·ñÊÇ¾«Ó¢ÈÎÎñ
 x808043_g_IfMissionElite= 1
 --ÈÎÎñµÈ¼¶
@@ -21,11 +21,11 @@ x808043_g_MissionLevel	= 10000
 --ÈÎÎñ¹éÀà
 x808043_g_MissionKind		= 1
 --ÈÎÎñÎÄ±¾ÃèÊö
-x808043_g_MissionName			= "ÍµÏ®ÃÅÅÉ"
+x808043_g_MissionName			= " ğánh lén môn phái "
 --ÈÎÎñÃèÊö
 x808043_g_MissionInfo			= "  "
 --ÈÎÎñÄ¿±ê
-x808043_g_MissionTarget		= "  É±ËÀËùÓĞµÄ¹ÖÎï¼´¿ÉÍê³ÉÈÎÎñ¡£"
+x808043_g_MissionTarget		= "    giªt chªt t¤t cä quái v§t là ğßşc hoàn thành nhi®m vø . "
 --Î´Íê³ÉÈÎÎñµÄnpc¶Ô»°
 x808043_g_ContinueInfo		= "  "
 --Íê³ÉÈÎÎñnpcËµ»°µÄ»°
@@ -115,24 +115,24 @@ function x808043_OnEnumerate( sceneId, selfId, targetId )
 
 	local	lev	= GetLevel( sceneId, selfId )
 	if lev < x808043_g_minLevel then
-	  x808043_NotifyTip( sceneId, selfId, "ÄãµÄµÈ¼¶Ì«µÍÁË£¬¸ù±¾²»¹»ÎÒ¿´µÄ£¬»¹ÊÇ20¼¶Ö®ºóÔÙÀ´ÕÒÎÒ°É¡£" )
+	  x808043_NotifyTip( sceneId, selfId, " c¤p b§c cüa ngß½i quá th¤p , cån bän không ğü ta xem ğích , còn là 20 c¤p sau t¾i tìm ta næa ği . " )
 		return
 	end
 
 	if LuaFnHasTeam( sceneId, selfId ) == 0 then
-		x808043_NotifyTip( sceneId, selfId, "ÇøÇøÒ»¸öÈË¾ÍÏëÀ´ÌôÕ½ÎÒ£¬ÎÒ¸ù±¾²»Ğ¼ÓëÄã¶¯ÊÖ¡£" )
+		x808043_NotifyTip( sceneId, selfId, " chính là mµt ngß¶i li«n mu¯n t¾i khiêu chiªn ta , ta cån bän khinh thß¶ng cùng ngß½i ğµng thü . " )
 		return
 	end
 	--PrintNum(3)
 
 	if GetTeamSize( sceneId, selfId ) < x808043_g_LimitMembers then
-	  x808043_NotifyTip( sceneId, selfId, "ÏëÒªÌôÕ½ÎÒÖÁÉÙÒ²µÃÉÏÀ´Èı¸ö°É£¬¾ÍÕâµãÈË£¿Ò²Ì«ÇÆ²»ÆğÎÒÁË¡£" )
+	  x808043_NotifyTip( sceneId, selfId, " mu¯n khiêu chiªn ta ít nh¤t cûng phäi ği lên ba ği , li«n chút ngß¶i này ? cûng quá xem thß¶ng ta . " )
 	  return
 	end
 	--PrintNum(4)
 
 	if LuaFnIsTeamLeader( sceneId, selfId ) == 0 then
-		x808043_NotifyTip( sceneId, selfId, "ÏëÒªÌôÕ½ÎÒ£¿½ĞÄãÃÇµÄ¶Ó³¤À´°É¡£" )
+		x808043_NotifyTip( sceneId, selfId, " mu¯n khiêu chiªn ta ? g÷i các ngß½i ğích ğµi trß·ng ğªn ğây ği . " )
 		return
 	end
 	--PrintNum(5)
@@ -140,12 +140,12 @@ function x808043_OnEnumerate( sceneId, selfId, targetId )
 	-- È¡µÃÍæ¼Ò¸½½üµÄ¶ÓÓÑÊıÁ¿£¨°üÀ¨×Ô¼º£©
 	local nearteammembercount = GetNearTeamCount( sceneId, selfId )
 	if nearteammembercount ~= LuaFnGetTeamSize( sceneId, selfId ) then
-		x808043_NotifyTip( sceneId, selfId, "Äú¶ÓÎéÖĞÓĞ¶ÓÔ±²»ÔÚ¸½½ü£¬Çë¼¯ºÏºóÔÙÕÒÎÒËÍÄã½øÈë»î¶¯¡£" )
+		x808043_NotifyTip( sceneId, selfId, " ngài trong ğµi ngû có ğµi viên không có · ğây phø c§n , xin/m¶i t§p h÷p sau tìm thêm ta ğßa ngß½i tiªn vào hoÕt ğµng . " )
 		return
 	end
 	
 	local namenum = 0;
-	local notifyString = "Äú¶ÓÎéÖĞÓĞ³ÉÔ±(";
+	local notifyString = " ngài trong ğµi ngû có thành viên (";
 	for i=0, nearteammembercount-1  do
 		local nPlayerId = GetNearTeamMember(sceneId,selfId, i)
 		local	lev	= GetLevel( sceneId, nPlayerId )
@@ -156,15 +156,15 @@ function x808043_OnEnumerate( sceneId, selfId, targetId )
 			namenum = 1;
 		end
 	end
-	notifyString = notifyString..")µÈ¼¶²»×ã¡£";	
+	notifyString = notifyString..") c¤p b§c chßa ğü . ";	
 	if(namenum>0) then
 		x808043_NotifyTip( sceneId, selfId, notifyString )
 		return
 	end
 
 	BeginEvent( sceneId )
-		AddText( sceneId, "¼ÈÈ»ÄãÃÇ²»ÅÂËÀ£¬ÎÒÒ²¾ÍÃ»ÓĞ±ØÒªÁôÊ²Ã´ÇéÃæÁË£¬Ğ¡µÄÃÇ£¬¹ıÀ´¸øËûÃÇµãÀ÷º¦³¢³¢¡£" )
-		AddNumText( sceneId, x808043_g_ScriptId, "ÄÑµÀÎÒ»¹ÅÂÄã²»³É¡­¡­" ,10 ,0)
+		AddText( sceneId, " nªu các ngß½i không sş chªt , ta cûng không có c¥n thiªt lßu cái gì tình cäm , chúng ti¬u nhân , t¾i ğây cho b÷n h¡n ği¬m lşi hÕi nªm thØ mµt chút . " )
+		AddNumText( sceneId, x808043_g_ScriptId, " chÆng l¨ ta há sş ngß½i sao ……" ,10 ,0)
   EndEvent( sceneId )
 	DispatchEventList( sceneId, selfId, targetId )
 
@@ -182,24 +182,24 @@ function x808043_CheckAccept( sceneId, selfId )
 
 	local	lev	= GetLevel( sceneId, selfId )
 	if lev < x808043_g_minLevel then
-	  x808043_NotifyTip( sceneId, selfId, "ÄãµÄµÈ¼¶Ì«µÍÁË£¬¸ù±¾²»¹»ÎÒ¿´µÄ£¬»¹ÊÇ20¼¶Ö®ºóÔÙÀ´ÕÒÎÒ°É¡£" )
+	  x808043_NotifyTip( sceneId, selfId, " c¤p b§c cüa ngß½i quá th¤p , cån bän không ğü ta xem ğích , còn là 20 c¤p sau t¾i tìm ta næa ği . " )
 		return 0
 	end
 
 	if LuaFnHasTeam( sceneId, selfId ) == 0 then
-		x808043_NotifyTip( sceneId, selfId, "ÇøÇøÒ»¸öÈË¾ÍÏëÀ´ÌôÕ½ÎÒ£¬ÎÒ¸ù±¾²»Ğ¼ÓëÄã¶¯ÊÖ¡£" )
+		x808043_NotifyTip( sceneId, selfId, " chính là mµt ngß¶i li«n mu¯n t¾i khiêu chiªn ta , ta cån bän khinh thß¶ng cùng ngß½i ğµng thü . " )
 		return 0
 	end
 	--PrintNum(3)
 
 	if GetTeamSize( sceneId, selfId ) < x808043_g_LimitMembers then
-	  x808043_NotifyTip( sceneId, selfId, "ÏëÒªÌôÕ½ÎÒÖÁÉÙÒ²µÃÉÏÀ´Èı¸ö°É£¬¾ÍÕâµãÈË£¿Ò²Ì«ÇÆ²»ÆğÎÒÁË¡£" )
+	  x808043_NotifyTip( sceneId, selfId, " mu¯n khiêu chiªn ta ít nh¤t cûng phäi ği lên ba ği , li«n chút ngß¶i này ? cûng quá xem thß¶ng ta . " )
 	  return 0
 	end
 	--PrintNum(4)
 
 	if LuaFnIsTeamLeader( sceneId, selfId ) == 0 then
-		x808043_NotifyTip( sceneId, selfId, "ÏëÒªÌôÕ½ÎÒ£¿½ĞÄãÃÇµÄ¶Ó³¤À´°É¡£" )
+		x808043_NotifyTip( sceneId, selfId, " mu¯n khiêu chiªn ta ? g÷i các ngß½i ğích ğµi trß·ng ğªn ğây ği . " )
 		return 0
 	end
 	--PrintNum(5)
@@ -207,12 +207,12 @@ function x808043_CheckAccept( sceneId, selfId )
 	-- È¡µÃÍæ¼Ò¸½½üµÄ¶ÓÓÑÊıÁ¿£¨°üÀ¨×Ô¼º£©
 	local nearteammembercount = GetNearTeamCount( sceneId, selfId )
 	if nearteammembercount ~= LuaFnGetTeamSize( sceneId, selfId ) then
-		x808043_NotifyTip( sceneId, selfId, "Äú¶ÓÎéÖĞÓĞ¶ÓÔ±²»ÔÚ¸½½ü£¬Çë¼¯ºÏºóÔÙÕÒÎÒËÍÄã½øÈë»î¶¯¡£" )
+		x808043_NotifyTip( sceneId, selfId, " ngài trong ğµi ngû có ğµi viên không có · ğây phø c§n , xin/m¶i t§p h÷p sau tìm thêm ta ğßa ngß½i tiªn vào hoÕt ğµng . " )
 		return 0
 	end
 	
 	local namenum = 0;
-	local notifyString = "Äú¶ÓÎéÖĞÓĞ³ÉÔ±(";
+	local notifyString = " ngài trong ğµi ngû có thành viên (";
 	for i=0, nearteammembercount-1  do
 		local nPlayerId = GetNearTeamMember(sceneId,selfId, i)
 		local	lev	= GetLevel( sceneId, nPlayerId )
@@ -223,7 +223,7 @@ function x808043_CheckAccept( sceneId, selfId )
 			namenum = 1;
 		end
 	end
-	notifyString = notifyString..")µÈ¼¶²»×ã¡£";	
+	notifyString = notifyString..") c¤p b§c chßa ğü . ";	
 	if(namenum>0) then
 		x808043_NotifyTip( sceneId, selfId, notifyString )
 		return 0
@@ -252,7 +252,7 @@ function x808043_OnAccept( sceneId, selfId, targetId )
 			if IsCanEnterCopyScene( copysceneid, GetHumanGUID( sceneId, selfId ) ) == 1 then
 				NewWorld( sceneId, selfId, copysceneid, x808043_g_Fuben_X, x808043_g_Fuben_Z )
 			else
-				x808043_NotifyTip( sceneId, selfId, "ÈÎÎñÊ§°Ü£¬Çë·ÅÆúÖØĞÂ½ÓÈ¡" )
+				x808043_NotifyTip( sceneId, selfId, " nhi®m vø th¤t bÕi , xin/m¶i buông tha cho l¥n næa nh§n l¤y " )
 				SetMissionByIndex( sceneId, selfId, misIndex, x808043_g_Param_IsMissionOkFail, 2 )
 				DelMission(sceneId, selfId, x808043_g_MissionId);
 			end
@@ -270,7 +270,7 @@ function x808043_OnAccept( sceneId, selfId, targetId )
 		member = GetNearTeamMember( sceneId, selfId, i );
 		if IsMissionFull(sceneId, member) == 1 then
 			BeginEvent(sceneId)
-				AddText(sceneId, "¶ÓÎéÖĞÓĞÈËÈÎÎñÒÑÂú£¡");
+				AddText(sceneId, " trong ğµi ngû có ngß¶i nhi®m vø ğã ğ¥y ! ");
 			EndEvent()
 			DispatchMissionTips(sceneId, selfId);
 			return
@@ -430,9 +430,9 @@ function x808043_MakeCopyScene( sceneId, selfId, nearmembercount )
   
 	local bRetSceneID = LuaFnCreateCopyScene( sceneId )						--³õÊ¼»¯Íê³Éºóµ÷ÓÃ´´½¨¸±±¾º¯Êı
 	if bRetSceneID > 0 then
-		x808043_NotifyTip( sceneId, selfId, "¸±±¾´´½¨³É¹¦£¡" )
+		x808043_NotifyTip( sceneId, selfId, " phó bän khai sáng thành công ! " )
 	else
-		x808043_NotifyTip( sceneId, selfId, "¸±±¾ÊıÁ¿ÒÑ´ïÉÏÏŞ£¬ÇëÉÔºòÔÙÊÔ£¡" )
+		x808043_NotifyTip( sceneId, selfId, " phó bän s¯ lßşng ğã ğÕt thßşng hÕn , xin h§u thØ lÕi ! " )
 
 		--É¾³ıÍæ¼ÒÈÎÎñÁĞ±íÖĞ¶ÔÓ¦µÄÈÎÎñ
 		for	i=0, nearmembercount-1 do
@@ -518,11 +518,11 @@ function x808043_OnKillObject( sceneId, selfId, objdataId, objId )
 				monsterLevel = floor( Selflev/10 ) + 33670 - 11   -- [NetCo4 03/10] cu: = 9 (quai so 9 = Doan Chinh Minh NPC)
 			end
 			local tmpMonsterId = LuaFnCreateMonster( sceneId, monsterLevel, 66, 33, 14, 138, -1 )
-			local tmpsMessage = format("¿É¶ñ£¬ÑÛ¿´×ÅÎÒÃÇ¾ÍÒªÍµÏ®³É¹¦ÁË£¬¼ÈÈ»ÕâÑù£¬¾Í±ğ¹ÖÎÒ²»¿ÍÆøÁË¡£")
+			local tmpsMessage = format(" ghê t·m , m¡t th¤y chúng ta s¨ phäi ğánh lén thành công , nªu nhß v§y , cûng ğ×ng trách ta không khách khí . ")
 			MonsterTalk(sceneId, tmpMonsterId, x808043_g_CopySceneName, tmpsMessage)
 			local szName = GetName(sceneId, tmpMonsterId)
 			if szName == "Ác Bá" or szName == "Ác bá"   then
-				SetCharacterTitle(sceneId, tmpMonsterId, "¡°ÊéÉ½ÓĞÂ·¡±")
+				SetCharacterTitle(sceneId, tmpMonsterId, "Thß s½n hæu lµ")
 			end
 		end
 	elseif ( MonsterName == "Ác Bá" or MonsterName == "Ác bá" ) then
@@ -577,7 +577,7 @@ function x808043_OnKillObject( sceneId, selfId, objdataId, objId )
 	local	mppoint
 
 	if (killedmonsternumber < x808043_g_Totalkillmonstercount ) or (killedbossnumber < x808043_g_Totalkillbosscount )then
-		local strText = format( "ÒÑÉ±ËÀà¶†ª£º %d/%d ÒÑÉ±ËÀ¶ñ°Ô£º %d/%d" , killedmonsternumber, x808043_g_Totalkillmonstercount, killedbossnumber, x808043_g_Totalkillbosscount )
+		local strText = format( " ğã giªt chªtLâu La:   %d/%d  ğã giªt chªtÁc Bá:   %d/%d" , killedmonsternumber, x808043_g_Totalkillmonstercount, killedbossnumber, x808043_g_Totalkillbosscount )
 		for i=0, num-1 do
 			humanObjId = LuaFnGetCopyScene_HumanObjId( sceneId, i )				--È¡µÃµ±Ç°³¡¾°ÀïÈËµÄobjId
 			if LuaFnIsObjValid( sceneId, humanObjId ) == 1 and LuaFnIsCanDoScriptLogic( sceneId, humanObjId ) == 1 then						--²»ÔÚ³¡¾°µÄ²»×ö´Ë²Ù×÷
@@ -618,8 +618,8 @@ function x808043_OnKillObject( sceneId, selfId, objdataId, objId )
 
 		--È¡µÃÒÑ¾­Ö´ĞĞµÄ¶¨Ê±´ÎÊı
 		local TickCount = LuaFnGetCopySceneData_Param( sceneId, 2 )
-		local strText = format( "ÒÑÉ±ËÀà¶†ª£º %d/%d ÒÑÉ±ËÀ¶ñ°Ô£º %d/%d", x808043_g_Totalkillmonstercount, x808043_g_Totalkillmonstercount, x808043_g_Totalkillbosscount, x808043_g_Totalkillbosscount)
-		local strText2 = format( "ÈÎÎñÍê³É£¬½«ÔÚ%dÃëºó´«ËÍµ½Èë¿ÚÎ»ÖÃ", x808043_g_CloseTick * x808043_g_TickTime )
+		local strText = format( " ğã giªt chªtLâu La:   %d/%d  ğã giªt chªtÁc Bá:   %d/%d", x808043_g_Totalkillmonstercount, x808043_g_Totalkillmonstercount, x808043_g_Totalkillbosscount, x808043_g_Totalkillbosscount)
+		local strText2 = format( " nhi®m vø hoàn thành , ğem · %d giây sau truy«n t¯ng ğªn nh§p kh¦u v¸ trí ", x808043_g_CloseTick * x808043_g_TickTime )
 
 		for i=0, num-1 do
 			humanObjId = LuaFnGetCopyScene_HumanObjId( sceneId, i )									--È¡µÃµ±Ç°³¡¾°ÀïÈËµÄobjId
@@ -714,7 +714,7 @@ function x808043_OnCopySceneReady( sceneId, destsceneId )
 				--»î¶¯Í³¼Æ
 				LuaFnAuditQuest(sceneId, member, x808043_g_MissionName.."-"..x808043_g_CopySceneName)
 			else
-				x808043_NotifyTip( sceneId, member, "Äãµ±Ç°Î´½Ó´ËÈÎÎñ" )
+				x808043_NotifyTip( sceneId, member, " ngß½i trß¾c m£t không nh§n này nhi®m vø " )
 			end
 		end
 	end
@@ -725,7 +725,7 @@ end
 --**********************************
 function x808043_OnPlayerEnter( sceneId, selfId )
 	if IsHaveMission( sceneId, selfId, x808043_g_MissionId ) == 0 then				--Èç¹û½øÈë¸±±¾Ç°É¾³ıÈÎÎñ£¬ÔòÖ±½Ó´«ËÍ»Ø
-		x808043_NotifyTip( sceneId, selfId, "Äãµ±Ç°Î´½Ó´ËÈÎÎñ" )
+		x808043_NotifyTip( sceneId, selfId, " ngß½i trß¾c m£t không nh§n này nhi®m vø " )
 		local oldsceneId = LuaFnGetCopySceneData_Param( sceneId, x808043_g_keySD["scn"] )		--È¡µÃ¸±±¾Èë¿Ú³¡¾°ºÅ
 		x = LuaFnGetCopySceneData_Param( sceneId, x808043_g_keySD["x"] )
 		z = LuaFnGetCopySceneData_Param( sceneId, x808043_g_keySD["z"] )
@@ -825,7 +825,7 @@ function x808043_OnCopySceneTimer( sceneId, nowTime )
 
 		elseif leaveTickCount < x808043_g_CloseTick then
 			--Í¨Öªµ±Ç°¸±±¾³¡¾°ÀïµÄËùÓĞÈË£¬³¡¾°¹Ø±Õµ¹¼ÆÊ±¼ä
-			local strText = format( "Äã½«ÔÚ%dÃëºóÀë¿ª³¡¾°!", (x808043_g_CloseTick-leaveTickCount) * x808043_g_TickTime )
+			local strText = format( " ngß½i ğem · %d giây sau r¶i ği cänh tßşng !", (x808043_g_CloseTick-leaveTickCount) * x808043_g_TickTime )
 
 			for	i=0, membercount-1 do
 				if LuaFnIsObjValid( sceneId, mems[i] ) == 1 then
@@ -841,7 +841,7 @@ function x808043_OnCopySceneTimer( sceneId, nowTime )
 
 			DelMission( sceneId, mems[i], x808043_g_MissionId )
 
-				x808043_NotifyTip( sceneId, mems[i], "ÈÎÎñÊ±¼äµ½£¬Íê³É!" )
+				x808043_NotifyTip( sceneId, mems[i], " nhi®m vø ğã ğªn gi¶ , hoàn thành !" )
 
 				--È¡µÃÈÎÎñÊı¾İË÷ÒıÖµ
 				misIndex = GetMissionIndexByID( sceneId, mems[i], x808043_g_MissionId )
@@ -860,7 +860,7 @@ function x808043_OnCopySceneTimer( sceneId, nowTime )
 		for	i=0, membercount-1 do
 			if LuaFnIsObjValid( sceneId, mems[i] ) == 1 then
 				DelMission( sceneId, mems[i], x808043_g_MissionId )				--ÈÎÎñÊ§°Ü,É¾³ıÖ®
-				x808043_NotifyTip( sceneId, mems[i], "ÈÎÎñÊ§°Ü£¬³¬Ê±!" )
+				x808043_NotifyTip( sceneId, mems[i], " nhi®m vø th¤t bÕi , cñc kÏ lúc !" )
 			end
 		end
 
@@ -875,7 +875,7 @@ function x808043_OnCopySceneTimer( sceneId, nowTime )
 			if LuaFnIsObjValid( sceneId, mems[i] ) == 1 and IsHaveMission( sceneId, mems[i], x808043_g_MissionId ) > 0 then
 				if oldteamid ~= GetTeamId( sceneId, mems[i] ) then
 					DelMission( sceneId, mems[i], x808043_g_MissionId )			--ÈÎÎñÊ§°Ü,É¾³ıÖ®
-					x808043_NotifyTip( sceneId, mems[i], "ÈÎÎñÊ§°Ü£¬Äã²»ÔÚÕıÈ·µÄ¶ÓÎéÖĞ!" )
+					x808043_NotifyTip( sceneId, mems[i], " nhi®m vø th¤t bÕi , ngß½i không có · ğây chính xác trong ğµi ngû !" )
 
 					x = LuaFnGetCopySceneData_Param( sceneId, x808043_g_keySD["x"] )
 					z = LuaFnGetCopySceneData_Param( sceneId, x808043_g_keySD["z"] )

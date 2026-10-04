@@ -519,7 +519,7 @@ function x808032_OnKillObject( sceneId, selfId, objdataId, objId )
 			MonsterTalk(sceneId, tmpMonsterId, x808032_g_CopySceneName, tmpsMessage)
 			local szName = GetName(sceneId, tmpMonsterId)
 			if szName == "Ác Bá" or szName == "Ác bá"   then
-				SetCharacterTitle(sceneId, tmpMonsterId, "¡°ÊéÉ½ÓÐÂ·¡±")
+				SetCharacterTitle(sceneId, tmpMonsterId, "Thß s½n hæu lµ")
 			end
 		end
 
