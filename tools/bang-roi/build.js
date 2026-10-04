@@ -132,7 +132,9 @@ for (const id in scriptMon) for (const lab of scriptMon[id]) { if (!MA[id] || !M
 { const dai = (a, b) => { const o = []; for (let i = a; i <= b; i++) o.push(String(i), String(i + 30000)); return o; };
   const them = (lab, ids, ds) => { const key = 'sc:' + lab; if (!(key in mapIdx)) { mapIdx[key] = maps.length; maps.push([lab, 'sc', '']); }
     for (const id of ids) if (MA[id]) for (const r of ds) (spawn[id] = spawn[id] || []).push([mapIdx[key], 0, 0, 0, r]); };
-  const Q = [[20800034, 30], [20501006, 5], [20502006, 5]];
+  // 05/10: ải 1-2 (sancaixiagunpc_die / yamoshannpc_die): Cửu Thiên 20%, Miên Bố 8 1% + Bí Ngân 8 1% (trước 30% + MB/BN 6 10%).
+  // Quái ải 3 dùng bảng riêng x950001_g_RoiPhoBan trong roimap.lua - CHƯA đổi, trang ghi chung tỉ lệ ải 1-2.
+  const Q = [[20800034, 20], [20501008, 1], [20502008, 1]];
   them('Q Tô Châu', dai(4060, 4169), Q);
   them('Q Lâu Lan', dai(13000, 13269), Q);
   them('Kỳ Cuộc', [...dai(1770, 1809), ...dai(12000, 12039), ...dai(12050, 12089)], [[30600084, 20]]); }

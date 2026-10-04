@@ -81,7 +81,7 @@ label.chk { display: inline-flex; gap: 6px; align-items: center; font-size: 14px
 <div class="wrap">
   <div class="top"><h1>Bảng Rơi NetCo4</h1><a id="play" class="play" href="https://play.netco4.click/" hidden>Vào trang chơi →</a></div>
   <p class="lead">Mọi quái và boss có điểm spawn hoặc có dòng rơi trong server: rơi món gì, tỉ lệ bao nhiêu cho <b>mỗi người</b> trong tổ khi hạ một con. Đổi cấp nhân vật để tính giảm rơi theo chênh cấp.</p>
-  <p class="note"><b>Theo file đang chạy trên server lúc dựng trang<span id="built"></span>.</b> Từ 02/10: quái rơi ngọc cấp 6 (thay cấp 5), Tuyết Lang Hồ chỉ rơi Phục Hi Ngọc, Xích Tiêu Hỏa Hồn ở Hậu Hoa Viên hồi sinh 30 phút, mọi món rơi thêm qua script 30% mỗi người.</p>
+  <p class="note"><b>Theo file đang chạy trên server lúc dựng trang<span id="built"></span>.</b> 05/10: boss cấp dưới 100 rơi 1 Nguyên Bảo Phiếu 1000 mỗi người, từ 100 trở lên 2 phiếu; boss cuối Q Tô Châu / Q Lâu Lan 3 phiếu (bậc 10x: 6); Sát Tinh chỉ Ngô Vĩnh ra phiếu. Gói đồ boss, Kỳ Cuộc / Túc Cầu, Yến Tử Ổ, Ác Bá đã giảm. Q ải 1–2: 20% Cửu Thiên Ngọc Toái, 1% Miên Bố 8, 1% Bí Ngân 8 mỗi quái mỗi người.</p>
 
   <div class="bar">
     <div class="row">
@@ -90,7 +90,7 @@ label.chk { display: inline-flex; gap: 6px; align-items: center; font-size: 14px
         <button id="tab-item" type="button" aria-pressed="false">Tìm theo vật phẩm</button>
       </div>
       <input id="q" type="search" placeholder="Tên quái, ID, bản đồ…" autocomplete="off" aria-label="Tìm">
-      <label class="chk" for="plv">Cấp nhân vật <input id="plv" type="number" min="1" max="150" value="119"></label>
+      <label class="chk" for="plv">Cấp nhân vật <input id="plv" type="number" min="1" max="150" value="89"></label>
     </div>
     <div class="row" id="monfilters">
       <select id="map" aria-label="Bản đồ"><option value="">Mọi bản đồ và phó bản</option></select>
@@ -110,9 +110,9 @@ label.chk { display: inline-flex; gap: 6px; align-items: center; font-size: 14px
   <button id="more" class="more" type="button" hidden>Xem thêm</button>
 
   <div class="legend">
-    <div><b>Cách tính.</b> Mỗi hộp rơi: X = Mvalue ÷ BoxValue × 2 (<code>DropParam=2.0</code>) × hệ số giảm rơi theo (cấp quái − cấp nhân vật). X dưới 1 là tỉ lệ ra 1 món; X từ 1 trở lên là ra X món (làm tròn lên). Mỗi lần ra hộp, game bốc 1 món trong hộp. Công thức đọc từ binary game (<code>ItemBoxRuler::CreateItemFromMonsterDrop</code>), khớp số đếm thực tế 03/10.</div>
-    <div><b>Đồ theo bảng rơi tính 1 lần cho mỗi con, chung cả đội</b> (không tung riêng từng người): quái thường giao cả túi cho 1 người ngẫu nhiên trong đội; boss rơi 1 túi chung cho đội, tối đa 10 món. Vd hộp phiếu Mvalue = BoxValue: mỗi lần giết boss ra 2 phiếu cho cả đội.</div>
-    <div><b>Món ghi "script · …" thì tung riêng cho từng người</b> trong đội đứng gần, không bị giảm rơi theo cấp: bản đồ farm (<code>NetCo4/roimap.lua</code>), Q Tô Châu / Q Lâu Lan (mọi quái 30% Cửu Thiên Ngọc Toái, 10% Miên Bố 6 hoặc Bí Ngân 6), Túc Cầu (mỗi quả 30% Tử Vi Linh Phách), Kỳ Cuộc (mỗi quân cờ 20% Tử Vi Linh Phách và 1,75% một viên ngọc cấp 6).</div>
+    <div><b>Cách tính.</b> Mỗi hộp rơi: X = Mvalue ÷ BoxValue × 2 (<code>DropParam=2.0</code>) × hệ số giảm rơi theo (cấp quái − cấp nhân vật). Ra phần nguyên của X, cộng thêm 1 món với xác suất bằng phần lẻ (X = 1,2 → 1 món, 20% ra 2; X = 0,3 → 30% ra 1). Mỗi món bốc 1 trong hộp. Giảm rơi chỉ tính khi quái cao cấp hơn nhân vật (người cao hơn quái không bị trừ, đo 05/10). Số trên trang là trung bình.</div>
+    <div><b>Mỗi người trong tổ tự tung cả bảng rơi</b> (đo bằng log 04–05/10): mỗi người có túi riêng, tối đa 10 món, hộp đứng trước được giữ trước. Đồ rơi ra đất, <b>60 giây không nhặt là mất</b>. Vd hộp phiếu Mvalue = BoxValue: mỗi người 2 phiếu.</div>
+    <div><b>Món ghi "script · …" cũng tung riêng cho từng người</b> trong đội đứng gần, không bị giảm rơi theo cấp: bản đồ farm (<code>NetCo4/roimap.lua</code>), Q Tô Châu / Q Lâu Lan (ải 1–2: mỗi quái 20% Cửu Thiên Ngọc Toái, 1% Miên Bố 8, 1% Bí Ngân 8), Túc Cầu (mỗi quả 30% Tử Vi Linh Phách), Kỳ Cuộc (mỗi quân cờ 20% Tử Vi Linh Phách và 1,75% một viên ngọc cấp 6).</div>
     <div><b>Chưa có trong trang:</b> đồ boss tự rơi bằng script riêng (Tam Thần: 35% tọa kỵ / 34% Ngũ Độc Châu mỗi boss; Binh Thánh nhỏ), túi đồ boss trên web, tên trang bị (file server còn tiếng Trung, ghi kèm cấp). "Boss" là ước đoán: boss cuối các hoạt động có túi, quái hồi sinh từ 30 phút, hoặc quái phó bản có Mvalue từ 60.</div>
   </div>
 </div>
@@ -125,7 +125,7 @@ label.chk { display: inline-flex; gap: 6px; align-items: center; font-size: 14px
   var PAGE = 40;
   try { var bt = new Date(D.built); document.getElementById("built").textContent = " (" + bt.toLocaleString("vi-VN", { timeZone: "Asia/Ho_Chi_Minh", hour: "2-digit", minute: "2-digit", day: "2-digit", month: "2-digit" }) + ")"; } catch (e) {}
   if (/(^|\.)netco4\.click$/.test(location.hostname)) document.getElementById("play").hidden = false;
-  var st = { mode: "mon", q: "", plv: 119, map: "", boss: true, drop: true, sort: "exp", shown: PAGE };
+  var st = { mode: "mon", q: "", plv: 89, map: "", boss: true, drop: true, sort: "exp", shown: PAGE };
   try { var sv = JSON.parse(localStorage.getItem("bangroi") || "{}"); if (sv.plv) st.plv = sv.plv; } catch (e) {}
 
   var $ = function (id) { return document.getElementById(id); };
@@ -141,6 +141,8 @@ label.chk { display: inline-flex; gap: 6px; align-items: center; font-size: 14px
   var itemName = function (id) { var it = D.items[id]; if (!it) return "#" + id; return it[1] === "e" ? "Trang bị cấp " + it[2] + " · " + it[0] : it[0]; };
 
   function att(mlv) {
+    // 05/10 đo log: người cao cấp hơn boss (−14) KHÔNG bị trừ rơi -> chỉ trừ khi boss cao hơn người (chiều này chưa đo được)
+    if (mlv <= st.plv) return 1;
     var d = Math.max(-200, Math.min(200, mlv - st.plv));
     var r = D.att[String(d)]; return r === undefined ? 1 : r;
   }
@@ -264,7 +266,7 @@ label.chk { display: inline-flex; gap: 6px; align-items: center; font-size: 14px
   $("tab-item").onclick = function () { setMode("item"); };
   var t; $("q").addEventListener("input", function () { clearTimeout(t); t = setTimeout(function () { st.q = $("q").value; st.shown = PAGE; render(); }, 160); });
   $("plv").value = st.plv;
-  $("plv").addEventListener("change", function () { var v = Math.max(1, Math.min(150, parseInt($("plv").value, 10) || 119)); $("plv").value = v; st.plv = v; try { localStorage.setItem("bangroi", JSON.stringify({ plv: v })); } catch (e) {} render(); });
+  $("plv").addEventListener("change", function () { var v = Math.max(1, Math.min(150, parseInt($("plv").value, 10) || 89)); $("plv").value = v; st.plv = v; try { localStorage.setItem("bangroi", JSON.stringify({ plv: v })); } catch (e) {} render(); });
   $("map").onchange = function () { st.map = $("map").value; st.shown = PAGE; if (st.map !== "") { st.boss = false; $("fboss").checked = false; } render(); };
   $("fboss").onchange = function () { st.boss = $("fboss").checked; st.shown = PAGE; render(); };
   $("fdrop").onchange = function () { st.drop = $("fdrop").checked; st.shown = PAGE; render(); };
