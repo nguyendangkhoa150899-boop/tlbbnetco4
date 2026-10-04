@@ -13,7 +13,7 @@ const out = [];
 for (const l of L('Server/Config/MonsterDropBoxs.txt')) {
   const c = l.split('\t'); if (!/^\d+$/.test(c[0])) continue;
   let knb = 0; const hop = [];
-  for (const b of c.slice(3)) { const x = box[b]; if (!x) continue; const v = x.it.filter(i => MENH[i]); if (!v.length) continue; const X = +c[1] / x.bv * 2; const n = X >= 1 ? Math.ceil(X) : X; knb += n * v.reduce((s, i) => s + MENH[i], 0) / x.it.length; hop.push(b + ':' + x.bv); }
+  for (const b of c.slice(3)) { const x = box[b]; if (!x) continue; const v = x.it.filter(i => MENH[i]); if (!v.length) continue; const X = +c[1] / x.bv * 2; const n = X; /* 05/10: engine ra floor(X) + phần lẻ theo xác suất -> kỳ vọng đúng bằng X */ knb += n * v.reduce((s, i) => s + MENH[i], 0) / x.it.length; hop.push(b + ':' + x.bv); }
   if (!hop.length) continue;
   const m = mon[c[0]] || { ten: '?', cap: -1 };
   out.push({ id: c[0], ten: m.ten, cap: m.cap, mv: +c[1], knb: Math.round(knb), hop: hop.join(' ') });

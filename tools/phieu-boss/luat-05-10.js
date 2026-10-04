@@ -28,7 +28,7 @@ dbc.forEach(l => { const c = l.split('\t'); if (/^\d+$/.test(c[0])) { const it =
 const maxId0 = maxId;
 const chiPhieu = b => box[b] && box[b].it.length && box[b].it.every(x => PH.has(x));
 const tronPhieu = b => box[b] && box[b].it.some(x => PH.has(x)) && !chiPhieu(b);
-const nMon = (mv, bv) => { const X = mv / bv * 2; return X >= 1 ? Math.ceil(X) : X; };
+const nMon = (mv, bv) => mv / bv * 2;   // 05/10: kỳ vọng = X (engine floor + phần lẻ), không phải ceil
 const soPhieu = c => c.slice(3).reduce((s, b) => { const x = box[b]; if (!x) return s; const k = x.it.filter(i => PH.has(i)).length; return k ? s + nMon(+c[1], x.bv) * k / x.it.length : s; }, 0);
 // tim / tao hop 1 mon (item) voi BV
 const mau = dbc.find(l => l.startsWith('90001\t')).split('\t');
@@ -38,7 +38,8 @@ const hop1 = (item, bv) => {
   const id = String(++maxId), c = mau.slice(); c[0] = id; c[1] = String(bv); c[4] = item;
   moiDong.push(c.join('\t')); box[id] = { bv, it: [item] }; return id;
 };
-const bvChoSo = (mv, n) => { const Xt = n === 1 ? 1 : n === 2 ? 2 : n - 0.5; const bv = Math.round(mv * 2 / Xt); if (bv < 4) loi('BV < 4 cho Mv ' + mv); if (Math.ceil(mv / bv * 2 - 1e-9) !== n || (n === 1 && mv / bv * 2 > 1)) loi(`BV ${bv} khong ra ${n} to voi Mv ${mv}`); return bv; };
+// 05/10: X phải ĐÚNG BẰNG n (số nguyên) mới ra đúng n tờ - engine ra floor(X) + phần lẻ theo xác suất; bản cũ n - 0.5 cho ra 2,5 / 5,5
+const bvChoSo = (mv, n) => { const bv = Math.round(mv * 2 / n); if (bv < 4) loi('BV < 4 cho Mv ' + mv); if (Math.abs(mv / bv * 2 - n) > 1e-9) loi(`BV ${bv} khong ra dung ${n} to voi Mv ${mv}`); return bv; };
 
 const bao = []; const dem = {};
 for (let i = 0; i < mdb.length; i++) {
