@@ -90,7 +90,7 @@ Mẫu tạm 11–15 dòng: Tạo Hóa, Trùng Lâu Liên/Giới/Ngọc, quạt P
 | Khóa cấp | **89** (tab GM web, Lưu + Restart). Admin mở dần. |
 | Exp | **x5 theo panel** (03/10 chủ server đặt trên tab GM, lưu ở `Server/txt/NetCo4Cfg/expparam.txt`, `cap-nhat.sh` áp lại sau mỗi deploy nên thắng `ExpParam=12.0` trong repo). Trước đó chốt x12 (02/10). Tâm pháp tối đa 79 (`tpmax.txt`) — **mở khóa cấp lên ≥ 90 thì phải nâng tâm pháp tối đa ≥ 80 cùng lúc**, nếu không cả server kẹt cấp 89 (binary kiểm 6 tâm pháp ≥ 80 khi lên 90). |
 | Máu boss | **80% máu gốc** (giảm 20%). Gốc = `git show da6cce6^:…MonsterAttrExTable.txt`. **Chỉ vá cột 19 và 59 (đếm từ 0) của file HIỆN TẠI**, không chép lại cả file (sau `da6cce6` còn 176 dòng pet skin đã sửa). Đã đối chiếu: 4.247 dòng boss hiện = gốc × 0,65. |
-| 80.000 Điểm Tặng | **Tắt hẳn.** |
+| 80.000 Điểm Tặng | ~~Tắt hẳn.~~ **04/10 mở lại, không giới hạn** (chủ server). |
 | 2.000 vàng + 8.000 vàng khóa/ngày | **Giữ.** |
 | Hộp Tân Thủ Trang Bị | **1 lần duy nhất** mỗi nhân vật, kèm Miêu Nhãn Thạch 6 + Hổ Nhãn Thạch 6 (khóa). **Đã áp cả server test lẫn `mo-server` 02/10** (`725a911`/`d2eff65`). |
 | Quà Tân Thủ + lên cấp 99 (NPC Hồi Ức Thiên Long, 8887) | **Tắt** (02/10, cả test lẫn `mo-server`). Buff 2.5 exp (Level ≤105) giữ nguyên. |
