@@ -1,6 +1,6 @@
 # Mở server chính thức NetCo4 — tổng kết và quy trình
 
-Viết 01/10/2026, rà lại lần 2 cùng ngày (đối chiếu từng commit, so file trên VPS với repo, đọc lại README/TRANG-THAI). **Chưa chạy.** Server vẫn chạy chế độ test. Ngày mở thì làm đúng mục 3, theo thứ tự.
+Viết 01/10/2026, rà lại lần 2 cùng ngày (đối chiếu từng commit, so file trên VPS với repo, đọc lại README/TRANG-THAI). **ĐÃ CHẠY 04/10/2026 11:12–11:30** (chi tiết: TRANG-THAI.md mục "04/10 - MỞ SERVER"; không đổi mật khẩu theo chủ server). ~~Chưa chạy.~~ Ngày mở thì làm đúng mục 3, theo thứ tự.
 
 Nguồn: 201 commit repo game (`tlbbnetco4`) và 45 commit repo bot (`bialk`) từ 27/09. Tab Drop Boss sửa trên VPS 3 lần (29/09, 2 lượt đồng bộ `1d6cacc` `9a6b9de`). Kiểm 01/10 17:00: file game trên VPS **giống repo cả hai chiều** (kể cả `Script/new/` không đổi), 9 file `.js` của bot trên VPS **giống git**.
 
