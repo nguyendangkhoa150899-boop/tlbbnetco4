@@ -16,6 +16,7 @@ x002084_g_NewCard5 = 11
 x002084_g_NewCard6 = 12
 x002084_g_NewCard7 = 13
 x002084_g_NewCard8 = 14
+x002084_g_MocToiDa = 90   -- [mo-server] chi phat moc cap <= 90 (10/30/50/70/90). Muon mo lai moc 100/110: dat 110
 
 x002084_g_NewCardIntro = 9
 x002084_g_VirtualNew = 30505080
@@ -160,17 +161,17 @@ function x002084_AddNewUserCardNumText(sceneId, selfId, targetId)
 			 eventNum = eventNum + 1
 		end
 
-		if GetMissionFlag( sceneId, selfId, x002084_g_NewCardList[x002084_g_NewCard6].flagBit ) == 0 then
+		if x002084_g_MocToiDa >= x002084_g_NewCardList[x002084_g_NewCard6].needLevel and GetMissionFlag( sceneId, selfId, x002084_g_NewCardList[x002084_g_NewCard6].flagBit ) == 0 then -- [mo-server]
 			 AddNumText( sceneId, x002084_g_scriptId, "Nh§n " .. x002084_g_NewCardList[x002084_g_NewCard6].needLevel .. "50000 Nguyên Bäo", 2, x002084_g_NewCard6 )
 			 eventNum = eventNum + 1
 		end
 
-		if GetMissionFlag( sceneId, selfId, x002084_g_NewCardList[x002084_g_NewCard7].flagBit ) == 0 then
+		if x002084_g_MocToiDa >= x002084_g_NewCardList[x002084_g_NewCard7].needLevel and GetMissionFlag( sceneId, selfId, x002084_g_NewCardList[x002084_g_NewCard7].flagBit ) == 0 then -- [mo-server]
 			 AddNumText( sceneId, x002084_g_scriptId, "Nh§n " .. x002084_g_NewCardList[x002084_g_NewCard7].needLevel .. "100000 Nguyên Bäo", 2, x002084_g_NewCard7 )
 			 eventNum = eventNum + 1
 		end
 
-		if GetMissionFlag( sceneId, selfId, x002084_g_NewCardList[x002084_g_NewCard8].flagBit ) == 0 then
+		if x002084_g_MocToiDa >= x002084_g_NewCardList[x002084_g_NewCard8].needLevel and GetMissionFlag( sceneId, selfId, x002084_g_NewCardList[x002084_g_NewCard8].flagBit ) == 0 then -- [mo-server]
 			 AddNumText( sceneId, x002084_g_scriptId, "Nh§n " .. x002084_g_NewCardList[x002084_g_NewCard8].needLevel .. "40VÕn Nguyên Bäo", 2, x002084_g_NewCard8 )
 			 eventNum = eventNum + 1
 		end
@@ -277,6 +278,10 @@ end
 --**********************************
 function x002084_GetNewCardPrize( sceneId, selfId, targetId, grade )
 	local awardInfo = x002084_g_NewCardList[grade]
+	if awardInfo and awardInfo.needLevel > x002084_g_MocToiDa then -- [mo-server] bo moc 100/110/149
+		x002084_NotifyFailBox( sceneId, selfId, targetId, "Ph\165n th\223\183ng m\175c n\224y \240\227 t\161t." )
+		return
+	end
 	if not awardInfo then
 		return
 	end
