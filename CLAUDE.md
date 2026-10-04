@@ -78,7 +78,11 @@ Xem `docs/PHAT-TRIEN.md`: cách đăng ký script, đặt NPC, bảng rơi đồ
 
 **Boss / phó bản báo lỗi:** mở `docs/BOSS-PHO-BAN.md` trước (hồ sơ 17 phó bản, loại lỗi đã gặp, quy trình) và dùng `node tools/soat-boss/soat.js <ID script>`.
 
-### Boss rơi Nguyên Bảo Phiếu (29/09)
+### Boss rơi Nguyên Bảo Phiếu (29/09, chia lại 04/10)
+
+**⛔ 04/10 23:50: bản chia lại dưới đây ĐÃ COMMIT NHƯNG CHƯA PUSH / CHƯA DEPLOY.** Audit PMF nhỏ 23:46 (tổ 6 người, Cáp Đại Bá 9660): **mỗi thành viên nhận túi riêng 9–10 món, 2–3 phiếu/người** (59 món, 16 phiếu một con) → quy tắc 6 "1 túi chung cả đội" SAI ít nhất với boss này; bản chia lại tính theo "chung đội" nên sẽ thành N phiếu/người. Chờ chủ server chốt "1 phiếu mỗi người hay cả tổ" rồi mới deploy (cả tổ đúng số thì phải rơi qua script, bảng .txt không làm được).
+**04/10 (chủ server chốt, tag `truoc-phieu-phoban-04-10`):** boss phó bản cấp < 100 = **đúng 1 phiếu**/lần hạ (hộp `90043` BV 120 / `90044` BV 200 / `90045` BV 160 = 2×Mv); Q Tô Châu + Q Lâu Lan **dồn 3 phiếu vào boss cuối** (`90046` BV 48, bậc < 100); Sát Tinh **dồn 5 phiếu vào Ngô Vĩnh 13456** (`90047` BV 5), 10 boss kia 0; boss ≥ 100 và boss thế giới giữ 2 phiếu như cũ. Hộp phiếu đặt ở DID1 (túi boss tối đa 10 món). `90048`/`90049` = Hàn Băng Tinh Tiết thay cho `90002` (hộp đó lẫn phiếu). Danh sách 96 dòng + cách tính: `docs/TRANG-THAI.md` 04/10 23h.
+**⚠ KHI ĐỔI KHÓA CẤP (hiện 89) PHẢI CÂN LẠI:** Ngô Vĩnh 13456 canh theo người 89 bị ×0,2 (boss 120). Nâng trần lên 90–99 → ×0,5 → **10 phiếu/lần** (đụng trần túi). Các dòng khác đặt theo chênh cấp ≤ 10 nên không vượt 1/3 phiếu. Kiểm: `node tools/phieu-boss/kiem.js` (so HEAD với bản đang sửa, in số phiếu tại cấp 89 — đổi số 89 trong file thành trần mới). Công thức X = Mv/BV × 2 × DropAttenuation tại cấp trần mới.
 
 Hộp rơi **90001** (`Server/Config/DropBoxContent.txt`) chứa 1 món, BoxValue = Mvalue boss (60 → X = 1 × DropParam 2 = **2 phiếu mỗi lần giết, chung cả đội**; BV = 1 làm hỏng cả lượt rơi, xem quy tắc 6), gắn cho 139 boss trong `Server/Config/MonsterDropBoxs.txt`: boss phó bản (Phiêu Miểu Phong, Yến Tử Ổ, Tứ Tuyệt Trang, Thiếu Thất Sơn, Nhạn Môn, Tam Thần) + boss thế giới hồi sinh ≥ 30 phút và ≤ 4 điểm spawn. Loại trừ quái con `JiangShi_BOSS` (triệu hồi hàng loạt) và boss gọi bằng đồ/sự kiện (bản đồ kho báu, Cửu Lê). Sinh Tử Lôi Đài (Thủy Hử, 3 lần/ngày): cả 11 DataID boss đều có 90001 (12 trận/lượt), nhưng boss cấp 120 nên người cấp 80–89 chỉ nhận ×0,2 (DropAttenuation). Phó bản 45 phút (03/10).
 
