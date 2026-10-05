@@ -12,7 +12,7 @@
 
 x999999_g_ScriptId = 999999
 x999999_g_Dir = "./txt/NetCo4Web/"
-x999999_g_Amounts = { 1000, 10000, 50000, 100000, 500000, 1000000 }
+x999999_g_Amounts = { 10000, 100000 }   -- [NetCo4 05/10] gon menu: bo 1.000 / 50.000 / 500.000 / 1.000.000 (con Toan bo)
 x999999_g_LongVan = { 10157001, 10157002, 10157003 }   -- [NetCo4 03/10] Long Van +1/+2/+3 -> Ruong Ich Ky (web)
 
 function x999999_Balance( sceneId, selfId )
@@ -28,6 +28,7 @@ function x999999_OnDefaultEvent( sceneId, selfId, targetId )
 	end
 	AddNumText( sceneId, x999999_g_ScriptId, "Chuy\172n ra web ".."To\224n b\181", 6, 99 )
 	AddNumText( sceneId, x999999_g_ScriptId, "Chuy\172n Long V\229n ra R\223\189ng \205ch K\214 (web)", 6, 98 )   -- [NetCo4 03/10] o cuoi
+	AddNumText( sceneId, x999999_g_ScriptId, "Chuy\172n Ng\247c (kh\244ng c\175 \240\184nh) ra R\223\189ng \205ch K\214 (web)", 6, 96 )   -- [NetCo4 05/10]
 	EndEvent( sceneId )
 	DispatchEventList( sceneId, selfId, targetId )
 end
@@ -40,6 +41,14 @@ function x999999_OnEventRequest( sceneId, selfId, targetId, eventId )
 	end
 	if key == 97 then   -- [NetCo4 03/10] Long Van -> Ruong Ich Ky: chuyen
 		x999999_ChuyenLongVan( sceneId, selfId, targetId )
+		return
+	end
+	if key == 96 then   -- [NetCo4 05/10] Ngoc khong co dinh -> Ruong Ich Ky: hoi xac nhan
+		x999999_HoiNgoc( sceneId, selfId, targetId )
+		return
+	end
+	if key == 95 then   -- [NetCo4 05/10] Ngoc khong co dinh -> Ruong Ich Ky: chuyen
+		x999999_ChuyenNgoc( sceneId, selfId, targetId )
 		return
 	end
 	local have = x999999_Balance( sceneId, selfId )
@@ -201,6 +210,103 @@ function x999999_ChuyenLongVan( sceneId, selfId, targetId )
 	write( h, "END\n" )
 	closefile( h )
 	x999999_Tips( sceneId, selfId, "\208\227 chuy\172n "..tong.." Long V\229n ra R\223\189ng \205ch K\214 tr\234n web" )
+	x999999_OnDefaultEvent( sceneId, selfId, targetId )
+end
+
+-- [NetCo4 05/10] GAME -> RUONG ICH KY (web): chuyen TOAN BO NGOC KHONG CO DINH (ID 501xxxxx..507xxxxx) trong tui Dao cu + Nguyen lieu.
+-- Bo qua: ngoc CO DINH (LuaFnGetItemBindStatus == 1 - ruong web khong luu khoa, rut ve se thanh khong khoa = rua khoa),
+-- mon khoa mat khau (LuaFnIsItemAvailable ~= 1), ngoc dang kham tren trang bi (khong nam trong tui).
+-- Xoa tung o (dem so luong truoc/sau de dung ca khi 1 o co nhieu vien), ghi phieu outlv/ y nhu Long Van
+-- (bot tlbbPollLvReceipts cong vao Ruong Ich Ky). Ghi phieu loi thi tra lai ngoc. Web rut ve game toi da 10 vien/lan (bot).
+function x999999_LaNgoc( id )
+	if id and id >= 50100000 and id < 50800000 then
+		return 1
+	end
+	return nil
+end
+
+function x999999_DemNgoc( sceneId, selfId )
+	local het = LuaFnGetMaterialEndBagPos( sceneId, selfId )
+	local cap = { 0, 0, 0, 0, 0, 0, 0 }
+	local tong = 0
+	local khoa = 0
+	for pos = 0, het do
+		local id = LuaFnGetItemTableIndexByIndex( sceneId, selfId, pos )
+		if x999999_LaNgoc( id ) then
+			if LuaFnGetItemBindStatus( sceneId, selfId, pos ) == 1 then
+				khoa = khoa + 1
+			elseif LuaFnIsItemAvailable( sceneId, selfId, pos ) == 1 then
+				local c = floor( id / 100000 ) - 500
+				if c >= 1 and c <= 7 then
+					cap[c] = cap[c] + 1
+				end
+				tong = tong + 1
+			end
+		end
+	end
+	return cap, tong, khoa
+end
+
+function x999999_HoiNgoc( sceneId, selfId, targetId )
+	local cap, tong, khoa = x999999_DemNgoc( sceneId, selfId )
+	BeginEvent( sceneId )
+	AddText( sceneId, "Chuy\172n TO\192N B\147 ng\247c KH\212NG c\175 \240\184nh trong t\250i ra R\223\189ng \205ch K\214 tr\234n web. Tr\234n web r\250t v\171 game t\175i \240a 10 vi\234n m\178i l\165n, t\163ng ho\163c b\225n \240\223\254c." )
+	AddText( sceneId, "\212 ng\247c trong t\250i: c\164p 1: "..cap[1]..", c\164p 2: "..cap[2]..", c\164p 3: "..cap[3]..", c\164p 4: "..cap[4]..", c\164p 5: "..cap[5]..", c\164p 6: "..cap[6]..", c\164p 7: "..cap[7] )
+	AddText( sceneId, "#R".."Kh\244ng chuy\172n: ".."#W".."ng\247c c\175 \240\184nh (kh\243a) "..khoa.." \244, ng\247c \240ang kh\228m, m\243n kh\243a m\167t kh\166u." )
+	if tong > 0 then
+		AddNumText( sceneId, x999999_g_ScriptId, "\208\176ng \253 chuy\172n "..tong.." \244 ng\247c", 6, 95 )
+	end
+	EndEvent( sceneId )
+	DispatchEventList( sceneId, selfId, targetId )
+end
+
+function x999999_ChuyenNgoc( sceneId, selfId, targetId )
+	local guid = LuaFnGetGUID( sceneId, selfId )
+	local het = LuaFnGetMaterialEndBagPos( sceneId, selfId )
+	local soId = {}
+	local ds = {}
+	local tong = 0
+	for pos = 0, het do
+		local id = LuaFnGetItemTableIndexByIndex( sceneId, selfId, pos )
+		if x999999_LaNgoc( id ) and LuaFnGetItemBindStatus( sceneId, selfId, pos ) ~= 1 and LuaFnIsItemAvailable( sceneId, selfId, pos ) == 1 then
+			local truoc = LuaFnGetAvailableItemCount( sceneId, selfId, id )
+			LuaFnEraseItem( sceneId, selfId, pos )
+			local sau = LuaFnGetAvailableItemCount( sceneId, selfId, id )
+			local d = 0
+			if truoc and sau then
+				d = truoc - sau
+			end
+			if d > 0 then
+				if soId[id] == nil then
+					soId[id] = 0
+					tinsert( ds, id )
+				end
+				soId[id] = soId[id] + d
+				tong = tong + d
+			end
+		end
+	end
+	if tong == 0 then
+		x999999_Tips( sceneId, selfId, "Trong t\250i kh\244ng c\243 ng\247c kh\244ng c\175 \240\184nh \240\172 chuy\172n" )
+		return
+	end
+	local name = x999999_g_Dir.."outlv/"..guid.."_"..LuaFnGetCurrentTime().."_"..random( 100000, 999999 )..".txt"
+	local h = openfile( name, "w" )
+	if h == nil then
+		for i = 1, getn( ds ) do
+			for j = 1, soId[ds[i]] do
+				TryRecieveItem( sceneId, selfId, ds[i], 1 )
+			end
+		end
+		x999999_Tips( sceneId, selfId, "L\178i ghi phi\170u, \240\227 tr\228 l\213i ng\247c" )
+		return
+	end
+	for i = 1, getn( ds ) do
+		write( h, guid.." "..ds[i].." "..soId[ds[i]].."\n" )
+	end
+	write( h, "END\n" )
+	closefile( h )
+	x999999_Tips( sceneId, selfId, "\208\227 chuy\172n "..tong.." vi\234n ng\247c ra R\223\189ng \205ch K\214 tr\234n web" )
 	x999999_OnDefaultEvent( sceneId, selfId, targetId )
 end
 
