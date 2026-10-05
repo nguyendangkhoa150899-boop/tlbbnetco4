@@ -64,3 +64,11 @@ Yêu cầu của chủ server (nguyên văn rút gọn): mỗi hoạt động, n
 
 ## Sửa cấu hình trên web admin (01/10 tối, bot bialk `7bf10e2`)
 Tab **🎒 Túi Boss** ở admin.netco4.click (SUPER) **và** mod.netco4.click: bên trái 13 hoạt động (🟢 bật / ⚫ tắt, ✎ = đã sửa khác mặc định), bên phải bảng món: mỗi dòng gõ **1 ID** (món cố định) hoặc **nhiều ID cách dấu phẩy** (mỗi cái bốc ngẫu nhiên 1 trong đó), **SL từ – đến**; ô KNB, Trần/ngày (0 = không giới hạn), Bật. Ô **🔍 Tìm vật phẩm** theo tên → bấm kết quả để thêm vào dòng đang chọn. **💾 Lưu** kiểm từng ID có trong game, áp cho **túi tạo sau đó** (túi đã có giữ đồ đã bốc). **↩ Về mặc định** xóa bản sửa. **📜 Lịch sử sửa** ghi lúc nào, cổng SUPER/mod + IP, trước → sau (`_tuiBossCfgLog` trong `database.json`, 300 dòng gần nhất). ID boss cuối **không sửa ở web** (phải khớp danh sách trong `roimap.lua` của game). Ngày mở: xóa thêm `_tuiBossCfg` nếu muốn về mặc định; giữ lại nếu đã chỉnh cho server chính.
+
+## Giao diện người chơi (05/10 tối, bot bialk `ca063f0`, tag `truoc-tuiboss-ui-05-10`)
+- Giao diện nằm ở **`BotDoMin/tuiboss.client.js`**, phục vụ ở `/tb.js`. File được đọc lại mỗi lần tải, nên **sửa giao diện không cần restart bot**. Nó ghi đè `tbSync` / `tbNhan` (trong `webplay.js` hai hàm này chỉ còn là hàm rỗng).
+- **Túi chưa nhận:** mỗi túi là 1 thẻ, có hình từng món, chip 💰 KNB và 🍀 lượt quay, "⏳ còn X ngày Y giờ" (đỏ khi còn dưới 1 ngày), nút 🎁 NHẬN TÚI. Có từ 2 túi trở lên thì thêm nút **NHẬN TẤT CẢ**, nhận lần lượt từng túi, không gọi song song.
+- **Túi đã nhận:** gom vào nút "✅ Túi đã nhận (N)", mặc định thu gọn. Trạng thái mở/đóng nhớ ở `localStorage` `tb_mo`.
+- Thẻ **🏹 Boss đã hạ** chuyển xuống dưới thẻ Túi đồ boss.
+- API `/api/tuiboss/list` trả thêm `ic` (id → icon, `ITEMICON.icon`) để client vẽ bằng `vqIcon`.
+- Thử ở local: scratchpad `tb_mock.js` dựng trang mẫu (dữ liệu giả + icon thật), rồi chụp bằng Edge headless (`--screenshot`).
