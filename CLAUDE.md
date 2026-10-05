@@ -140,7 +140,8 @@ Xem `docs/KIEM-TOAN.md`. Tóm tắt: tắt NPC phát Điểm Tặng/vàng/KNB v�
   - Dòng `MONSTER_KILLED,<GUID>,<DataID>,<tên>` là số lần hạ. Nhiều file không ghi dòng này.
   - Gom theo DataID + giây T0 thì ra số người nhận mỗi lần hạ.
   - Tên là VISCII. **Script tạo boss hay dùng lại DataID với tên khác**, nên tin tên trong Audit chứ không tin `MonsterAttrExTable`.
-  - `item_*.log` cột 8 là mã thao tác (10 tạo, 30 nhặt), **không phải bản đồ**.
+  - `item_*.log` cột 8 là mã thao tác (10 tạo, 30 nhặt), **không phải bản đồ**. Mã khác: 213 lên quầy tiệm, 214 lấy từ quầy, 220 tách chồng, 232/233 gửi/rút ngân hàng, 234/235 giao dịch.
+  - **Cột số lượng (cột 5) chỉ đúng ở 50 / 232 / 233.** Ở 213 và 234/235 nó luôn ghi 1, và nhặt gộp chồng thì serial nhặt biến mất. Số thật đọc trong DB: `(p7>>24)&255` (`t_iteminfo.p7`, `t_pshop_stall_itm.Itm_p7`; `p3` không phải số lượng). Đồ đã mất thì dựng lại từ bản sao lưu `/opt/tlbb-backup/hang-ngay/` cộng các lần nhặt gộp sau đó.
 - **Game restart lúc nào:** `ps -o lstart= -C Server`, hoặc file `Config_<ngày>.*.log` mới nhất. **Đừng** tin `systemctl show tlbb -p ActiveEnterTimestamp`: 05/10 nó ghi 00:58, nhưng game đã chạy lại lúc 01:45.
 - **Script NPC (hội thoại) tự nạp lại** sau `cap-nhat.sh -y`, không cần restart. Bảng `.txt` thì cần restart.
 - **`tools/bang-roi/data.json`:** `mons` là mảng `[id, tên, cấp, Mv, hộp[], spawn[], boss]`, phải tra theo `m[0]`. Tra theo chỉ số mảng thì gắn nhầm tên.
