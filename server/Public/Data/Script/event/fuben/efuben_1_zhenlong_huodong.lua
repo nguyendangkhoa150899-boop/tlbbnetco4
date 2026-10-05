@@ -4,8 +4,8 @@
 x401001_g_ScriptId = 401001;			--½Å±¾ºÅ
 x401001_g_CopySceneName="Trân Long kÏ cuµc";		--¸±±¾Ãû³Æ
 
-x401001_g_beginTime1 = 11 * 60 + 30;
-x401001_g_endTime1 = 14 * 60 + 30;
+x401001_g_beginTime1 = 0;   -- [NetCo4 05/10] mo 24/24 (cu 11:30); van 1 luot/ngay (MD_LAST_QIJU_DAY)
+x401001_g_endTime1 = 24 * 60;   -- [NetCo4 05/10] cu 14:30. Khung 2 (20:30-22:00) nam trong khung 1, giu nguyen
 
 x401001_g_beginTime2 = 20 * 60 + 30;
 x401001_g_endTime2 = 22 * 60;
@@ -609,7 +609,7 @@ function x401001_OnCopySceneTimer(sceneId, nowTime)
 			tempTimes = x401001_g_endTime2 - nCurTempTime;
 		end
 		
-		if tempTimes > 0 then
+		if tempTimes > 0 and x401001_g_endTime1 < 24 * 60 then   -- [NetCo4 05/10] mo ca ngay: khong bao "sau X gio se dong"
 			local tempH = floor(tempTimes / 60);
 			local tempM = floor(tempTimes - tempH * 60);
 	  		local strText = format("Phø bän hi®n tÕi ");

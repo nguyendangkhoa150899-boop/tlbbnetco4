@@ -67,7 +67,7 @@ Cột "Đã sửa" ghi ngày + tag rollback. "Chưa thử" = chưa ai đánh l�
 ### Trân Long Kỳ Cuộc (= "Cờ 12h", cấp 10)
 - **Vào:** NPC Vương Tích Tân (Lạc Dương 366,228), Trương Dịch Quốc (Tô Châu 267,243), Lưu Trọng Phủ (Đại Lý 287,138). Cả ba dùng script 000090 `obj/luoyang/oluoyang_fuben_zhenlong.lua`. Từ đó đi vào 401001 `event/fuben/efuben_1_zhenlong_huodong.lua` (bản thường) và 401002 `efuben_1_zhenlong2_huodong.lua` (bản nhanh).
 - **Điều kiện:** 1 lượt/ngày chung cho 2 bản (`MD_LAST_QIJU_DAY`).
-  - Bản thường: mở 11:30–14:30 và 20:30–22:00, cấp ≥10, chế độ tân thủ khi trong đội chênh nhau ≥20 cấp.
+  - Bản thường: **mở 24/24 từ 05/10** (trước 11:30–14:30 và 20:30–22:00; tag `truoc-kycuoc-24h-05-10`), cấp ≥10, chế độ tân thủ khi trong đội chênh nhau ≥20 cấp. Qua 00:00 phó bản đang đánh không bị đóng.
   - Bản nhanh: luôn mở, ≥3 người, cấp ≥100.
 - **Luồng:** 30 giây chờ (05/10: 10 giây), ra 200 quân cờ, rồi bước 201 ra boss Viễn Cổ Kỳ Hồn:
   - **05/10 bản thường 401001:** quân cờ 9/8/7/6/5 s → **3 s** (~23 → ~10 phút). Bản nhanh 401002 (3/2 s) không đổi.
