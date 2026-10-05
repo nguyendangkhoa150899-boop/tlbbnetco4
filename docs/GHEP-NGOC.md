@@ -100,7 +100,21 @@ Không có giá nào thì món đó **không hiện** ở danh sách bỏ vào.
 - Có ô đóng vai từng người chơi, và nút 🔄 trả rương về như ảnh chụp.
 
 **Rollback:** các tag trong repo bialk, xếp theo thứ tự thời gian:
-`truoc-gan-ghepngoc-05-10` → `truoc-gn-tab` → `truoc-gn-css` → `truoc-gn-thongbao` → `truoc-gn-log` → `truoc-gn-modxem` → `truoc-gn-tre`, tất cả có hậu tố `-05-10`.
+`truoc-gan-ghepngoc-05-10` → `truoc-gn-tab` → `truoc-gn-css` → `truoc-gn-thongbao` → `truoc-gn-log` → `truoc-gn-modxem` → `truoc-gn-tre` → `truoc-gn-giu-kq`, tất cả có hậu tố `-05-10`.
+
+**05/10 tối: giữ nguyên kết quả** (bialk `1e09340`, chỉ `ghepngoc.client.js`, không restart):
+- Quay xong, `GN.kq` giữ ảnh chụp lượt đó: `p`, `tong`, `knb`, `vao[]` và `dich` lấy ở client lúc bấm LUYỆN.
+  - Vòng vẽ theo `kq.p`. Ô BỎ VÀO hiện đồ "đã dùng". Khung `.gnKq` hiện 🎉 CHÚC MỪNG / 💥 THẤT BẠI.
+  - Không kéo vòng được (`ganKeo` thoát sớm khi đang có `kq.vao`).
+  - Kết quả chỉ xóa khi người chơi chọn món đích khác, bỏ đồ vào, hoặc bấm 35/55/75% / 1.5x… Các hàm đó đặt `GN.kq = null`.
+- **Bẫy:** `/api/gn/quay` trả `dich: {...}` nhưng sau đó trải `...state(uid)`, nên `dich` bị **đè thành danh sách món đích**. Đừng đọc `j.dich` ở client. Toast cũ ghi "Nhận undefined" vì lỗi này.
+- Kiểm bằng Edge headless điều khiển qua CDP (WebSocket có sẵn trong Node 22) trên `thu/ghepngoc-local.js` cổng 3998: quay tới khi trúng, chụp ảnh, kiểm kéo vòng / bỏ đồ.
+
+**Cấu hình món đích trên prod 05/10** (chỉ ở `dbCache._gnCfg`, không có trong code):
+- 22 ngọc 7 không kép ở "Món đích riêng": thường 120.000, Minh Thạch 7 320.000.
+- Luật **Thuần tịnh đắt hơn bản thường 5.000**: nhóm `thuocTinh` 125.000, `khang` 115.000, Hoàng Ngọc / Hạo / Nguyệt Quang / Bích Tỷ 7 thường 110.000.
+- Tổng 42 món đích. Bản sao lưu: `/root/gn-truoc-ngoc7-0510.json`, `/root/gn-truoc-thuantinh-0510.json`.
+- **`/api/gn/save` không có khóa phiên bản.** Admin lưu từ tab mở từ trước sẽ xóa mất cấu hình mới mà không báo. Luôn F5 trước khi Lưu. Đổi bằng script thì đọc `/api/gn/cfg` ngay trước khi lưu.
 Bản sao file cũ nằm trong `/opt/tlbb-backup/bot-truoc-*`.
 
 ## Kinh tế: đã biết, chủ server chấp nhận

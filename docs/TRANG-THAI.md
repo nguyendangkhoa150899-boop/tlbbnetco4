@@ -1,6 +1,6 @@
 # Trạng thái và việc tiếp theo
 
-Cập nhật: 04/10/2026 11:25 — **SERVER ĐÃ MỞ CHÍNH THỨC (xóa sạch 04/10 11:12, xem mục cuối "04/10 - MỞ SERVER")**. **đọc mục cuối "02/10 trưa–chiều — TỔNG KẾT PHIÊN" trước**. (Bản đầu: 28/09/2026, kết thúc phiên dựng server.) Claude ở nhà: đọc file này cùng `CLAUDE.md` rồi tiếp tục từ "Việc tiếp theo".
+Cập nhật: 05/10/2026 16:30 — **ĐỌC MỤC CUỐI "05/10 tối — TỔNG KẾT PHIÊN" TRƯỚC** (luật ngọc cấp 6 đã deploy, chờ restart; việc chưa thử; bẫy mới). Server mở chính thức 04/10 11:12 (mục "04/10 - MỞ SERVER"). Tổng kết cũ: "02/10 trưa–chiều — TỔNG KẾT PHIÊN". (Bản đầu: 28/09/2026, kết thúc phiên dựng server.) Claude ở nhà: đọc file này cùng `CLAUDE.md` rồi tiếp tục từ "Việc tiếp theo".
 
 > **01/10: mọi thứ đã làm + quyết định chốt + quy trình ngày mở nằm ở [MO-SERVER.md](MO-SERVER.md). Đọc file đó trước.**
 
@@ -922,7 +922,8 @@ Trạng thái lúc 13:00 05/10: mọi thứ dưới đây **đã commit, đã pu
 - Cổng mod thêm tab 💎 Ghép Ngọc (chỉ xem nhật ký).
 
 **NPC Ví Web 999999** (Lạc Dương, Đại Lý; game `2baaa8e`, bot `946cbf6`):
-- Menu KNB gọn lại còn 10.000 / 100.000 / Toàn bộ.
+- Menu KNB gọn lại còn 10.000 / 100.000 / Toàn bộ, có chữ "KNB" ở cuối (`c299e17`).
+- **Script NPC tự nạp lại:** sửa `CDK.lua` xong, `cap-nhat.sh -y` là đủ. Đóng NPC rồi mở lại là thấy, không cần restart. Dòng "Chua restart" của `cap-nhat.sh` không áp cho hội thoại NPC.
 - Thêm dòng **"Chuyển Ngọc cấp 6 (không cố định) ra Rương Ích Kỷ"**: duyệt túi Đạo cụ + Nguyên liệu, **chỉ lấy ngọc cấp 6** (ID 506xxxxx, chủ server chốt 05/10; trước đó là 501xxxxx–507xxxxx). Bot cũng chỉ nhận ngọc 506xxxxx trong phiếu (tag rollback `truoc-cdk-ngoc6-05-10`).
   - **Bỏ qua:** ngọc cố định (`LuaFnGetItemBindStatus == 1`), món khóa mật khẩu, ngọc đang khảm.
   - Rương web không lưu khóa. Cho ngọc cố định đi qua thì rút về sẽ thành không khóa, tức **rửa khóa**.
@@ -934,7 +935,7 @@ Trạng thái lúc 13:00 05/10: mọi thứ dưới đây **đã commit, đã pu
 
 **Rương Ích Kỷ: nút 🎫 Sử dụng phiếu KNB** (bot `6ecb6a1`, tag `truoc-phieu-knb-05-10`):
 - 7 phiếu: 39910001–006 (1.000 / 2.000 / 5.000 / 10.000 / 50.000 / 100.000) và 39900000 (200.000). Bấm "Sử dụng" thì nhận KNB web đúng mệnh giá. Bảng `ICHKY_PHIEU_KNB` trong `index.js`.
-  - Mệnh giá lấy theo tên phiếu. Game dùng phiếu qua hiệu ứng vật phẩm, không có Lua nào ghi số KNB.
+  - Mệnh giá khớp đúng script game `New/item/YuanBaoPiao.lua` (100001), đã đối chiếu 05/10.
 - Không in thêm tiền: đường cũ đã có sẵn là rút phiếu về game, dùng ra KNB game, rồi chuyển qua NPC Ví Web 1:1.
 - Không tính vào hạn bán mỗi ngày. Bị khóa cùng công tắc `shop`, như nút Nhận và nút Bán.
 - ⚠️ **Đừng bán phiếu trên shop web rẻ hơn mệnh giá.** Người chơi mua rẻ rồi bấm Sử dụng là in tiền. Hiện shop chỉ có 39910003 giá 0, thuộc nhóm ⭐ mua 1 lần.
@@ -981,3 +982,73 @@ Trạng thái lúc 13:00 05/10: mọi thứ dưới đây **đã commit, đã pu
 **Còn chờ chủ server quyết:**
 1. Chặn hay cảnh báo khi bỏ 1 món lớn cho món đích nhỏ. Ví dụ HoangFour mất khoảng 96% (1 ngọc 6 đổi phiếu 1000). Lượt đó hoàn bằng nút ↩ trong nhật ký Ghép Ngọc.
 2. Phiếu KNB làm món đích: rác túi boss thành KNB game khoảng 81%. Chủ server đang chấp nhận.
+
+## 05/10 tối — TỔNG KẾT PHIÊN (đọc mục này trước khi làm tiếp)
+
+Trạng thái 16:30 05/10: mọi thứ **đã commit, push, deploy**. **Game CHƯA restart**: luật ngọc 6 trong bảng rơi chỉ chạy sau khi chủ server bấm reset. Script Lua (Bàng Xí, Bình Thánh nhỏ, quân cờ Kỳ Cuộc) có thể đã chạy ngay. Từ giờ tới lúc reset, số ngọc có thể lệch tạm so với bảng.
+
+### A. Đã làm trong phiên (chi tiết ở các mục 05/10 phía trên)
+| Việc | Repo / commit | Hiệu lực |
+|---|---|---|
+| NPC Ví Web: chuyển **ngọc 6 không cố định** ra Rương Ích Kỷ; chữ "KNB" trên menu | game `0bbe524`, `c299e17`; bot `e85d400` | ngay (NPC tự nạp) |
+| Shop web: nhóm **🗑️ Rác** (10 ngọc 6, 20.000) | cấu hình prod (API SUPER) | ngay |
+| Ghép Ngọc: +22 ngọc 7 không kép làm món đích; Thuần tịnh đắt hơn bản thường 5.000 | cấu hình prod | ngay |
+| Ghép Ngọc: quay xong **giữ nguyên kết quả** + khung 🎉 CHÚC MỪNG để chụp màn hình; sửa toast "Nhận undefined" | bot `1e09340` (`ghepngoc.client.js`) | ngay (không restart) |
+| Rương Ích Kỷ: nút **🎫 Sử dụng** phiếu KNB → KNB web | bot `6ecb6a1` | ngay |
+| **Luật ngọc cấp 6** cho toàn game (2 túi A/B; boss cuối 1 viên / 50%; Ác Bá 8%, Lâu La 4%; song sinh không rơi) | game `0e55468`, `tools/ngoc6/luat-05-10.js` | **sau restart** |
+| netco4.click dựng lại theo luật mới | `tools/bang-roi` | ngay |
+
+### B. Kiến thức mới, đã kiểm (đừng làm lại)
+- **Đo rơi đồ thật:** dùng `Server/Log/Audit_*.log`. Các dòng cần đọc:
+  - `ITEM_CREATED,<GUID>,n,<itemId>,<tên>,Dropped by "<tên quái>",<DataID>`
+  - `MONSTER_KILLED,<GUID>,<DataID>,<tên>`
+  - Luôn chạy `LC_ALL=C` + `grep -a`, vì tên là VISCII.
+  - Gom theo DataID + giây T0 thì ra số người nhận mỗi lần hạ.
+  - Nhiều file Audit **không ghi MONSTER_KILLED**, nên chỉ so tỉ lệ trong file có ghi.
+  - `item_*.log` cột 8 là **mã thao tác** (10 = tạo trong túi rơi, 30 = nhặt), **không phải mã bản đồ**. Tôi đã đọc nhầm một lần.
+- **Người cao hơn quái không bị trừ rơi**, kể cả chênh 72 cấp: tổ cấp 89 hạ quái cấp 17 vẫn ra đủ. DataID còn bị script tạo boss **dùng lại với tên khác**, ví dụ 880 là "Công Hồn Ảnh Tượng", 1348–1403 là boss Yến Vương Cổ Mộ / Tần Hoàng. Tên thật lấy từ Audit, không tin `MonsterAttrExTable`.
+- **Giờ game chạy thật:** `ps -o lstart= -C Server`, hoặc các file `Config_<ngày>.*.log` mới nhất. **Không** dùng `systemctl show tlbb -p ActiveEnterTimestamp`: 05/10 nó ghi 00:58, nhưng game đã restart lại lúc 01:45.
+- **`tools/bang-roi/data.json`:** `mons` là **MẢNG** `[id, tên, cấp, Mv, hộp[], spawn[], boss]`, phải tra theo `m[0]`, không theo chỉ số mảng. Tôi đã sai một lần, gắn nhầm tên cho cả danh sách "lỗ hổng".
+- **Mở rộng túi đồ:** không làm được bằng script.
+  - Hành Nang (ô Đạo cụ +1..+10, cột 97 EquipBase) và Cách Rương (ô Nguyên liệu +1..+10, cột 98) là trang bị, mặc ở tab "Khác".
+  - Nhân vật mới được tặng sẵn bản +10 (`scene.lua` FirstLogin), nên túi 30 ô là mức tối đa.
+  - Giao diện nằm trong `OgreMain.dll`, không sửa được. Nâng cột lên quá 10 có nguy cơ đè sang vùng ô Nguyên liệu. Chủ server chốt: giữ nguyên.
+- **Phiếu KNB:** mệnh giá trong `New/item/YuanBaoPiao.lua` khớp tên phiếu (39910001–006, 39900000).
+- **Sửa file VISCII/GBK bằng công cụ Edit làm hỏng chữ** (05/10 đã dính với `bingshensmall/ai_liqiushui.lua`, sửa kịp trước deploy). Xem `CLAUDE.md` quy tắc 1.
+
+### C. Nguồn ngọc 6 ngoài bảng rơi (agent soát 05/10)
+- **Kỳ Cuộc, quân cờ:** `roithem.txt` → 4% túi B, 1 ván/ngày.
+- **Bàng Xí (Tứ Tuyệt):** 50%, 3 lượt/ngày.
+- **NPC Mã Lan:** 2 viên khóa, 1 lần (quà Tân Thủ).
+- **Đường chuyển đổi:** 25 ngọc 4 (kệ 150, Điểm Tặng) → 1 ngọc 6, ghép 2 lần, mỗi lần 75%. Không giới hạn nhưng đắt.
+- **Lỗi có sẵn, CHƯA sửa** (không làm ra thêm ngọc):
+  - `bingshensmall/ai_hadaba.lua`: `LootItem_2 = {}`, dòng `random(0)` có thể dừng OnDie của Tiêu Dật Phong (Bình Thánh nhỏ). Ngọc giờ đi qua bảng rơi nên không ảnh hưởng ngọc, nhưng MB/BN 5–6 của boss này có thể không ra.
+  - `bingshensmall/ai_wulaoda.lua`: `random(1) < 1` luôn sai, nên Gia Luật Diễm (Bình Thánh nhỏ) không rơi gì qua script.
+  - `obj/qianzhuang/oqianzhuang_remai.lua`: vòng lặp chạy quá ô, có thể xóa phiếu ngọc mà không trả ngọc.
+  - `obj/luoyang/oluoyang_zhugekongliang.lua`: các key ẩn 301–310 (ngọc 6) và 401–610 vẫn được xử lý dù menu đã comment. Chỉ gửi gói tin sửa mới vào được.
+  - `obj/commonitem/30505092.lua`: lỗi cú pháp dòng 5, nên cả file không nạp được.
+
+### D. Chưa thử trong game (làm ngay sau khi reset)
+1. Boss "chắc chắn 1 viên" (vd Tôn Mỹ Mỹ ở Túc Cầu): mỗi người đúng 1 ngọc 6. Kiểm bằng Audit theo mục B.
+2. Bình Thánh nhỏ:
+   - song sinh 15028/15033 không rơi gì;
+   - Liên Thành 15088 rơi thêm 3× 20310184;
+   - không có lỗi Lua trong `Server/Log/luaerror.log`.
+3. Một lượt Ác Bá: Lâu La khoảng 4%, chỉ túi B.
+4. NPC Ví Web: chuyển ngọc 6 → rương → rút về.
+5. Rương Ích Kỷ: bấm 🎫 Sử dụng một phiếu 1000.
+
+### E. Còn chờ chủ server quyết
+- Ghép Ngọc: chặn hay cảnh báo khi bỏ món quá lớn cho món đích nhỏ (mục trên).
+- Kệ 151 (ngọc 6 bán bằng KNB), Kệ 31 (Chưởng Quỹ Yếu Quyết), hộp 50032 của Gia Luật Hồng Cơ: chưa trả lời.
+- Hư Không Huyền Cảnh (25 boss) và Tàng Kinh Các "Che mặt ác tăng" 13592–13600 hiện **0 ngọc 6**, vì không nằm trong luật nào. Nếu muốn có thì thêm vào `LUAT` trong `tools/ngoc6/luat-05-10.js`.
+- DataID 43970 dùng chung cho Lý Thu Thủy của Lang Huyên (boss đầu) và Vân Phủ, nên đang theo luật Vân Phủ 20%.
+
+### F. Việc tiếp theo nên làm
+- **Đổi tỉ lệ ngọc 6:** sửa bảng `LUAT` trong `tools/ngoc6/luat-05-10.js`, chạy không tham số để xem báo cáo, `--ghi` để ghi. Công cụ viết lại cả bảng từ bản hiện tại nên chạy lại được nhiều lần, nhưng mỗi lần tạo thêm hộp mới nếu BV khác. Sau đó:
+  1. kiểm bằng script so HEAD (số dòng / cột / CR / thứ tự ID / Mv);
+  2. `node tools/bang-roi/lam.js`;
+  3. chép `web/index.html` lên `/var/www/netco4/` (sao lưu bản cũ);
+  4. `cap-nhat.sh -y`, rồi chờ chủ server reset.
+- Mỗi lần đổi tỉ lệ rơi bất kỳ (bảng, `roimap.lua`, `roithem.txt`) đều **phải cập nhật netco4.click**. Script admin đặt qua web là `roithem.txt`, trang ghi tay ở `build.js` + `khung.html`.
+- Sau reset: soát Audit 1–2 ngày (mục B), so với luật, báo chủ server nguồn nào lệch.

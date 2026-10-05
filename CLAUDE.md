@@ -40,6 +40,11 @@ Máy nhà: sửa server/...  →  git commit + push  →  VPS: cd /opt/tlbb-depl
 ### 1. Bảng mã: KHÔNG phải UTF-8
 - Chữ tiếng Việt trong `.lua`, `CommonItem.txt`, `GemInfo.txt`, `*_monster.ini`... là **VISCII** (ví dụ `ạ`=0xD5, `đ`=0xF0, `ế`=0xAA). Chú thích tiếng Trung là **GBK**. Một file thường lẫn cả hai.
 - **Không mở rồi lưu lại cả file bằng editor hay bằng công cụ Edit.** Công cụ sẽ đọc thành UTF-8 và làm hỏng mọi byte không phải ASCII. Chỉ sửa kiểu thay chuỗi ASCII ở mức byte (sed/python `rb`), sau đó kiểm tra `git diff` xem chỉ đúng các dòng cần đổi bị thay đổi.
+  - **05/10 đã dính:** 1 lần Edit vào `event/bingshensmall/ai_liqiushui.lua` biến mọi byte có dấu thành `EF BF BD`. Cách làm đúng:
+    1. Sửa bằng Node `readFileSync(p,'latin1')` / `writeFileSync(p,t,'latin1')`, giữ CR/LF của từng dòng (nhiều file trộn CRLF và LF).
+    2. **Trước commit:** đếm byte > 0x7f so với `git show HEAD:<file>` (phải bằng nhau nếu chỉ thêm ASCII), và grep `\xef\xbf\xbd`.
+  - **Kiểm cú pháp Lua:** máy nhà và VPS không có `lua`/`luac`. Dùng npm `luaparse` (ngữ pháp 5.1) trong scratchpad, so với HEAD. Một số file gốc đã báo "unfinished string" ở byte lạ; engine vẫn chạy chúng, chỉ cần không có lỗi MỚI.
+  - Sửa sai bằng `sed` trong bash: `\d`, `\1`, `\172` bị shell/sed hiểu sai. Viết script `.js` bằng công cụ Write rồi chạy, đừng dùng `node -e` hay heredoc có dấu `\`.
 - **Chữ tiếng Việt mới: dùng `python tools/vn.py "Chào mừng"`.** Công cụ trả về chuỗi Lua toàn ASCII kiểu `"Ch\224o m\215ng"` (escape thập phân, Lua 4 hỗ trợ). File Lua mới nên viết **100% ASCII**.
 - Đọc chữ trong game: `python tools/vn.py --giai "<chuỗi>"`, hoặc trên VPS dùng `iconv -f VISCII -t UTF-8`.
 - `cap-nhat.sh` cảnh báo khi thấy file có BOM hoặc có dấu hiệu UTF-8.
@@ -88,6 +93,33 @@ Hộp rơi **90001** (`Server/Config/DropBoxContent.txt`) chứa 1 món, BoxValu
 
 Cùng 139 boss đó (29/09 chiều): đã gỡ hộp phiếu 1000 cũ và 54 hộp rác khỏi dòng boss (hộp gốc còn cho quái thường), và 14 hộp nguyên liệu được **sao riêng cho boss** thành `90002`–`90015` với BoxValue = ½ gốc (bảng đối chiếu ở `docs/TRANG-THAI.md` mục 0). Muốn chỉnh tỉ lệ nguyên liệu boss: sửa BoxValue dòng `9000x`, không đụng hộp gốc.
 
+### Ngọc cấp 6 (luật 05/10, chủ server chốt)
+
+Toàn bộ ngọc 6 trong bảng rơi do **`tools/ngoc6/luat-05-10.js`** quản lý. Bảng `LUAT` nằm trong file: ID → xác suất p mỗi người / lần hạ + túi A hoặc B.
+
+- **Hai túi:**
+  - A = thuộc tính / thể lực / né / chính xác, 11 loại.
+  - B = 18 loại còn lại.
+  - "A+B" là 1 hộp trộn trọng số 5:7, khoảng 30% ra túi A.
+  - Minh Thạch và ngọc kép không đụng.
+- **Mức theo nhóm:**
+  - boss cuối và boss bản đồ: 1 viên chắc chắn hoặc 50%;
+  - boss giữa ải: chỉ PMF và Bình Thánh có 50%;
+  - Yến Vương / Tần Hoàng / Thông Thiên Tháp: 30% túi B;
+  - Ác Bá / Đầu Mục 8%, Lâu La 4% túi B;
+  - quái thường 0.
+- **Song sinh không rơi gì:** 1 bộ hộp của song sinh dồn sang boss cuối. Lý do: hồi sinh chéo cho nhau là farm vô tận.
+- **Cách sửa:** đổi `LUAT`, chạy không tham số để xem báo cáo, `--ghi` để ghi, rồi kiểm bằng script so HEAD. Danh sách đầy đủ và các ngoại lệ: `docs/TRANG-THAI.md` mục "LUẬT NGỌC CẤP 6".
+- **Rơi qua script:** quân cờ Kỳ Cuộc = `roithem.txt` trên VPS (`kycuoc_co 4 @ngoc6b`); Bàng Xí = `sijuezhuang/ai_liqiushui.lua` (`x893069_Ngoc6`, 50%).
+
+**MỌI lần đổi tỉ lệ rơi** (bảng, `roimap.lua`, `roithem.txt`) đều **phải dựng lại https://netco4.click/**:
+1. `node tools/bang-roi/lam.js`;
+2. sao lưu `/var/www/netco4/index.html` vào `/opt/tlbb-backup/`;
+3. `scp` file `tools/bang-roi/web/index.html` lên đè;
+4. phần rơi qua script ghi tay ở `build.js` + `khung.html`.
+
+Đo rơi thật sau khi đổi: xem quy tắc 6, mục "Đo bằng log".
+
 **⚠ Tab 💥 Drop Boss (admin/mod.netco4.click, từ 29/09 tối)** sửa `MonsterDropBoxs.txt` + `DropBoxContent.txt` **trực tiếp trên VPS**, không qua repo (backup tự động ở `/opt/tlbb-backup/dropui-*`). Vì vậy **trước mỗi lần `cap-nhat.sh` phải chạy `./lay-tu-server.sh --push`** (hoặc kéo 2 file đó về repo) — quên là cap-nhat ghi đè mất chỉnh sửa của admin. Đóng tab cho mod: xem chú thích `29/09 tạm MỞ` trong `bialk/BotDoMin/panel.js`. **04/10: cổng mod mở lại nhưng CHỈ xem 📒 Nhật ký + 🎒 Túi đồ boss (chỉ đọc, `/api/tuiboss/xem`)** (bialk `7594f47` + `bd0ff50`): `panel.js` chặn mọi `/api/*` ở cổng mod ngay sau `isAuthed` (kể cả `/api/state`), trừ `/api/whoami`, `/api/nhatky`, `/api/tuiboss/xem`; cổng mod che 2 số cuối IP và ẩn dòng kín (điểm nổ Phi Thuyền lúc cất cánh, ép kết quả, RTP, may mắn). Route mới cho mod phải đặt TRƯỚC dòng chặn đó.
 
 **📜 Nhật ký Drop Boss (29/09):** mọi lần lưu ở tab Drop Boss ghi 1 dòng JSON vào `/opt/tlbb-backup/dropboss-audit.jsonl` (ai: cổng + IP, lúc nào, trước → sau, nguyên dòng file để khôi phục), xem ở nút 📜 Lịch sử sửa (chỉ cổng SUPER). File gắn `chattr +a`: chỉ ghi thêm, **không được `chattr -a` / xóa / cắt**. Cuối mỗi dòng có nút **↩ Rollback** (chỉ SUPER): trả đúng các dòng file lần sửa đó đụng về như trước; đã có lần sửa sau thì báo XUNG ĐỘT và hỏi lại; bản thân rollback cũng ghi nhật ký. Hiệu lực sau restart game. Code ở repo `bialk` (`BotDoMin/dropboss.js`).
@@ -100,8 +132,17 @@ Xem `docs/KIEM-TOAN.md`. Tóm tắt: tắt NPC phát Điểm Tặng/vàng/KNB v�
 
 ### 6. Bảng .txt và rơi đồ (01/10)
 - Mọi bảng `.txt` dạng DBC (`MonsterDropBoxs`, `DropBoxContent`, `PetAttrTable`, `StandardImpact`, `EquipBase`, `CommonItem`…) **phải sắp ID tăng dần**: engine tìm nhị phân, dòng sai thứ tự = không tồn tại, không báo lỗi. Thêm dòng = chèn đúng chỗ, kiểm bằng node trước khi commit.
-- **Boss: MỖI THÀNH VIÊN tự roll cả bảng, túi riêng tối đa 10 món/người** (sửa 05/10 theo Audit 04/10 23:4x: tổ 6 người, Cáp Đại Bá 9660 / Hỏa Diễm 13261 / Ô Lão Đại 9663 → mỗi GUID 9–11 món, 2–3 phiếu; mô hình `tools/phieu-boss/ky-vong.js` khớp log). Ghi chú 03/10 "1 túi chung cả đội" là SAI cho boss. Mỗi hộp X = Mvalue ÷ BoxValue × **DropParam (2.0, có nhân)** × giảm rơi theo chênh cấp; ra **floor(X) món + 1 món với xác suất phần lẻ** (05/10, đo bằng serial item log: hộp X = 1,2 ra 1 món cho 6/6 người, 3/17 lượt ra 2; KHÔNG phải ⌈X⌉) → muốn đúng n món thì X phải **đúng bằng n** (BV = 2·Mv/n). Hộp phiếu Mv = BV → **2 phiếu mỗi người**. **Trần 10 món/người tính theo số lượng, cắt theo THỨ TỰ DID** (DID đầu được giữ; món rơi qua script không tính). **Giảm rơi:** người cao hơn boss 14 cấp KHÔNG bị trừ (PMF nhỏ, 24/24); boss cao hơn người CHƯA đo được. Đồ rơi ra **túi trên đất, 60 giây không nhặt là mất** (04/10 mất 6 phiếu ở Hỏa Diễm), và chỉ thành viên đứng gần mới được roll. Công cụ: `node tools/phieu-boss/ky-vong.js <cấp> <ID…> [--ref <commit>] [--att tren|khong|bang] [-v]` (mô phỏng đúng các luật trên). **Quái thường cũng roll theo từng người** (05/10: Lâu La Ác Bá 3667, 4 GUID nhận 4 món khác nhau cùng T1 9862.1920 với tỉ lệ ~8,5%/lần; ghi chú 03/10 "1 người ngẫu nhiên" sai) → mọi tỉ lệ "cho cả tổ" phải chia cho số người tổ. Mọi tỉ lệ thiết kế trước 03/10 (gói boss chuẩn 01/10…) chưa tính ×2 → thực tế gấp đôi. BV = 1 làm hỏng cả lượt rơi.
+- **Boss: MỖI THÀNH VIÊN tự roll cả bảng, túi riêng tối đa 10 món/người** (sửa 05/10 theo Audit 04/10 23:4x: tổ 6 người, Cáp Đại Bá 9660 / Hỏa Diễm 13261 / Ô Lão Đại 9663 → mỗi GUID 9–11 món, 2–3 phiếu; mô hình `tools/phieu-boss/ky-vong.js` khớp log). Ghi chú 03/10 "1 túi chung cả đội" là SAI cho boss. Mỗi hộp X = Mvalue ÷ BoxValue × **DropParam (2.0, có nhân)** × giảm rơi theo chênh cấp; ra **floor(X) món + 1 món với xác suất phần lẻ** (05/10, đo bằng serial item log: hộp X = 1,2 ra 1 món cho 6/6 người, 3/17 lượt ra 2; KHÔNG phải ⌈X⌉) → muốn đúng n món thì X phải **đúng bằng n** (BV = 2·Mv/n). Hộp phiếu Mv = BV → **2 phiếu mỗi người**. **Trần 10 món/người tính theo số lượng, cắt theo THỨ TỰ DID** (DID đầu được giữ; món rơi qua script không tính). **Giảm rơi:** người cao hơn quái KHÔNG bị trừ: chênh 14 cấp (PMF nhỏ, 24/24), và 05/10 cả chênh 72 cấp (tổ 89 hạ quái 880 cấp 17 vẫn ra đủ). Boss cao hơn người CHƯA đo được. Đồ rơi ra **túi trên đất, 60 giây không nhặt là mất** (04/10 mất 6 phiếu ở Hỏa Diễm), và chỉ thành viên đứng gần mới được roll. Công cụ: `node tools/phieu-boss/ky-vong.js <cấp> <ID…> [--ref <commit>] [--att tren|khong|bang] [-v]` (mô phỏng đúng các luật trên). **Quái thường cũng roll theo từng người** (05/10: Lâu La Ác Bá 3667, 4 GUID nhận 4 món khác nhau cùng T1 9862.1920 với tỉ lệ ~8,5%/lần; ghi chú 03/10 "1 người ngẫu nhiên" sai) → mọi tỉ lệ "cho cả tổ" phải chia cho số người tổ. Mọi tỉ lệ thiết kế trước 03/10 (gói boss chuẩn 01/10…) chưa tính ×2 → thực tế gấp đôi. BV = 1 làm hỏng cả lượt rơi.
 - **Rơi qua script** (`NetCo4/roimap.lua` `x950001_Chia`: Cửu Thiên, MB/BN 6, Tử Vi, bản đồ farm, Kỳ Cuộc RoiCfg) thì **tung riêng cho từng thành viên** đứng gần, không giảm theo cấp.
+- **Đo bằng log (05/10):** dùng `Server/Log/Audit_*.log`, với `LC_ALL=C` + `grep -a`.
+  - Dòng `ITEM_CREATED,<GUID>,n,<itemId>,<tên>,Dropped by "<quái>",<DataID>` cho biết món nào rơi từ quái nào.
+  - Dòng `MONSTER_KILLED,<GUID>,<DataID>,<tên>` là số lần hạ. Nhiều file không ghi dòng này.
+  - Gom theo DataID + giây T0 thì ra số người nhận mỗi lần hạ.
+  - Tên là VISCII. **Script tạo boss hay dùng lại DataID với tên khác**, nên tin tên trong Audit chứ không tin `MonsterAttrExTable`.
+  - `item_*.log` cột 8 là mã thao tác (10 tạo, 30 nhặt), **không phải bản đồ**.
+- **Game restart lúc nào:** `ps -o lstart= -C Server`, hoặc file `Config_<ngày>.*.log` mới nhất. **Đừng** tin `systemctl show tlbb -p ActiveEnterTimestamp`: 05/10 nó ghi 00:58, nhưng game đã chạy lại lúc 01:45.
+- **Script NPC (hội thoại) tự nạp lại** sau `cap-nhat.sh -y`, không cần restart. Bảng `.txt` thì cần restart.
+- **`tools/bang-roi/data.json`:** `mons` là mảng `[id, tên, cấp, Mv, hộp[], spawn[], boss]`, phải tra theo `m[0]`. Tra theo chỉ số mảng thì gắn nhầm tên.
 - Danh sách bẫy đầy đủ: README mục "Bẫy dễ dính".
 
 ### 5. Tiến trình game và systemd (sự cố 28/09 17:40)
