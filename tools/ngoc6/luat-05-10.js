@@ -14,6 +14,8 @@
 const fs = require('fs'), path = require('path');
 const R = path.join(__dirname, '../../server/Server/Config/');
 const GHI = process.argv.includes('--ghi');
+// 05/10 khuya: CONG CU DA CU - chay --ghi lai se VIET LAI ~356 dong + them 24 hop. Chi dung bao cao; ghi that phai them --toi-biet.
+if (GHI && !process.argv.includes('--toi-biet')) { console.error('LOI: cong cu cu, --ghi se ghi de cac sua doi sau nay. Them --toi-biet neu that su muon.'); process.exit(1); }
 const A = ['50602001', '50602002', '50602003', '50602004', '50602005', '50602006', '50602007', '50602008', '50613004', '50614001', '50603001'];
 const B = ['50601001', '50601002', '50604002', '50611001', '50611002', '50612001', '50612002', '50612003', '50612004', '50612005', '50612006', '50612007', '50612008', '50613001', '50613002', '50613003', '50613005', '50613006'];
 const dai = (a, b) => { const o = []; for (let i = a; i <= b; i++) o.push(String(i)); return o; };
@@ -35,7 +37,7 @@ them('Thiếu Thất - Đinh Xuân Thu (cuối)', 0.5, 'AB', dai(14230, 14234));
 them('Q Tô Châu - Sơn Trại Đại Vương (cuối)', 0.5, 'AB', dai(4130, 4139), dai(34130, 34139));
 them('Tam Thần - Phệ Hồn Hoa Yêu (cuối)', 0.5, 'AB', ['42975']);
 them('Lang Huyên - Hư Trúc (cuối)', 0.5, 'AB', ['43975', '43986']);
-them('Sát Tinh - Ngô Vĩnh (cuối)', 0.5, 'AB', ['13456']);
+them('Sát Tinh - Lộ Quân Dật (cuối, 05/10 khuya chuyển từ Ngô Vĩnh)', 0.5, 'AB', ['13465']);
 them('Q Lâu Lan - Hỏa Diễm Yêu Ma (cuối)', 0.5, 'AB', dai(13260, 13269));
 them('Thông Thiên Tháp - Đế Thích Thiên (cuối)', 0.5, 'AB', ['15445']);
 them('Bình Thánh nhỏ - Gia Luật Liên Thành (cuối)', 0.5, 'AB', ['15088']);

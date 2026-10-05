@@ -1116,3 +1116,10 @@ Trạng thái 16:30 05/10: mọi thứ **đã commit, push, deploy**. **Game CH�
 - **Boss cao hơn người 31 cấp KHÔNG bị trừ rơi:** Ngô Vĩnh 13456 ra 30 phiếu 1000 = **5/người** (X = 5, không phải 1). 9 boss khác mỗi con 19–28 món cho 6 người (~3,5/người). `ky-vong.js` đổi mặc định `--att khong`; CLAUDE.md sửa.
 - **Ngọc 6 script 25%:** Lua lên 23:30:48. 3 boss hạ trước đó 0 viên; 6 boss sau ra 8 viên (kỳ vọng 9). Ngô Vĩnh 4 viên (25% script + 50% hộp 90088 → kỳ vọng 4,5). Chạy đúng.
 - Hệ quả, chờ chủ server quyết: mỗi người/lượt ≈ 5.000 KNB phiếu + ~3,3 ngọc 6 + ~35 món khác; 3 lượt/ngày.
+
+### 05/10 khuya: phần thưởng cuối Sát Tinh chuyển sang Lộ Quân Dật 13465 + chặn trả thưởng 2 lần
+- Chủ server: Lộ Quân Dật khó nhất (máu 5,2 triệu, công phép 25k vs boss thường 1,4–1,9 triệu / 14,6k) → hạ xong nó mới được nhận.
+- `tools/sattinh-cuoi-05-10.js`: đổi chỗ phần hộp 2 dòng MonsterDropBoxs (13456 ↔ 13465; chỉ khác 90088 ngọc 6 + 90047 phiếu). `roimap.lua`: túi boss web `TB_Them({13465})`, `TB_g_SatTinhBoss = 13465`, bỏ kiểm NPC (`-1`), giữ cờ 1 túi/lượt (ô 24).
+- **Lỗi cũ tìm ra:** 13456 là DataID của CẢ Ngô Dụng (`wuyong.lua`, log ghi "Ngô vĩnh") lẫn Tống Giang (`songjiang.lua`) → log 01/10 22:58+23:00, 02/10 23:04+23:06: 2 lần hạ 13456/lượt → luật 05/10 sẽ ra 10 phiếu/người/lượt (túi web có cờ nên không bị). 13465 chỉ `lujunyi.lua` gọi; NPC 13553 chết sau khi gọi boss và đang đánh thì bấm lại bị chặn → 1 lần/lượt.
+- 2 công cụ luật cũ (`phieu-boss/luat-05-10.js`, `ngoc6/luat-05-10.js`) chạy `--ghi` lại sẽ viết lại 154 / 356 dòng (bảng đã sửa tiếp sau khi viết) → thêm chốt `--toi-biet`; LUAT/GIU trong đó đã đổi 13456 → 13465 cho đúng tài liệu.
+- CẦN cap-nhat + restart CÙNG LÚC (Lua có hiệu lực ngay, bảng chỉ sau restart: nếu cap-nhat mà chưa restart thì túi web ở Lộ Quân Dật, phiếu vẫn ở Ngô Dụng / Tống Giang). netco4.click đã dựng theo bảng mới. Rollback tag `truoc-sattinh-cuoi-05-10`.

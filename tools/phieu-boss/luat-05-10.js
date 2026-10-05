@@ -1,7 +1,7 @@
 // 05/10 luat phieu chu server chot (MOI NGUOI / lan ha, nguoi cung cap boss = chenh 0; boss roi theo tung thanh vien):
 //   boss cap < 100 = 1 to 1000 · cap >= 100 = 2 to 1000
 //   Q To Chau / Q Lau Lan boss cuoi: bac < 100 = 3 to, bac >= 100 = 6 to
-//   Giu nguyen: boss the gioi cap 80-99 (2 to), Ngo Vinh 13456 (5 to, canh cho cap 89), 10 boss Sat Tinh khac (0), 1850 (_pingpan_55)
+//   Giu nguyen: boss the gioi cap 80-99 (2 to), Lo Quan Dat 13465 (5 to, boss cuoi Sat Tinh tu 05/10 khuya, truoc la Ngo Vinh 13456), 10 boss Sat Tinh khac (0), 1850 (_pingpan_55)
 // Tap dong: moi dong dang co >= 0,5 to (chenh 0) + bac 10x Q / Ky Cuoc / Tuc Cau / Lau Lan Tam Bao.
 // Hop phieu dat DID1; bo moi hop chi-phieu cu; hop tron phieu (90002) -> hop Han Bang giu ky vong.
 // node tools/phieu-boss/luat-05-10.js [--ghi]
@@ -14,9 +14,12 @@ const r = (a, b) => { const o = []; for (let i = a; i <= b; i++) o.push(String(i
 const Q3 = new Set([...r(4130, 4138), ...r(13260, 13264)]);
 const Q6 = new Set(['4139', ...r(34130, 34139), ...r(13265, 13269)]);
 const THEM = new Set([...Q6, '1859', ...r(31850, 31859), '3729', ...r(33720, 33729), ...r(12141, 12146)]);
-const GIU = new Set(['11313', '1403', '43316', '15433', '15436', '13456', '1850']);
+const GIU = new Set(['11313', '1403', '43316', '15433', '15436', '13465', '1850']);
 
 const ghi = process.argv.includes('--ghi');
+// 05/10 khuya: CONG CU DA CU - bang da sua tiep sau khi viet (sua-05-10b, acba, sattinh-cuoi...). Chay --ghi lai se VIET LAI ~150-350 dong.
+// Chi dung bao cao. Muon ghi that phai them --toi-biet va so git diff tung dong.
+if (ghi && !process.argv.includes('--toi-biet')) { console.error('LOI: cong cu cu, --ghi se ghi de cac sua doi sau nay. Them --toi-biet neu that su muon.'); process.exit(1); }
 const loi = m => { console.error('LOI: ' + m); process.exit(1); };
 const EOL = s => s.includes('\r\n') ? '\r\n' : '\n';
 const dbcRaw = fs.readFileSync(F_DBC, 'latin1'), mdbRaw = fs.readFileSync(F_MDB, 'latin1');

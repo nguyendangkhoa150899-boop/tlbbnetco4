@@ -182,7 +182,7 @@ x950001_TB_Them( { 9430, 9431, 9432, 9433, 9434, 9435, 9436, 9437, 9438, 9439, 3
 x950001_TB_Them( { 15190, 15073 } )  -- Binh Thanh Ky Tran lon: Gia Luat Lien Thanh 15190 (boss cuoi that, 02/10; truoc la Gia Luat Dien 15175) / nho: 15073
 x950001_TB_Them( { 14145 } )         -- Tu Tuyet Trang: Bang Xi
 x950001_TB_Them( { 9666, 9546 } )    -- Phieu Mieu Phong thuong / khieu chien: Ly Thu Thuy
-x950001_TB_Them( { 13456 } )         -- Sat Tinh (Sinh Tu Loi Dai): CHI Ngo Vinh, 1 tui / luot (xem x950001_TB_SatTinhDuoc)
+x950001_TB_Them( { 13465 } )         -- Sat Tinh (Sinh Tu Loi Dai): CHI Lo Quan Dat (05/10 khuya, truoc la Ngo Vinh 13456), 1 tui / luot (xem x950001_TB_SatTinhDuoc)
 x950001_TB_Them( { 14234 } )         -- Thieu That Son: Dinh Xuan Thu
 x950001_TB_Them( { 11353 } )         -- Long Quy (Thanh Thu Son)
 x950001_TB_Them( { 43970, 43971, 43973, 43975, 43982, 43983, 43985, 43986 } )  -- [04/10] Lang Huyen Phuc Dia thuong/kho: ghi khi du 4 boss chet (odali_lanlan/yahuan OnDie dem o 30)
@@ -202,8 +202,8 @@ end
 -- (loi cua server cu) -> con Ngo Vinh chet khi NPC Ngo Vinh 13552 van con dung = con cua Tong Giang -> khong tinh.
 -- NPC bien mat khi bi khieu chien va khong hoi sinh trong luot (respawn 10000 giay). O du lieu pho ban 24 = da ghi luot nay
 -- (dat 0 khi tao pho ban: shengsileitai.lua MakeCopyScene).
-x950001_TB_g_SatTinhBoss = 13456
-x950001_TB_g_SatTinhNpc  = 13552
+x950001_TB_g_SatTinhBoss = 13465   -- [05/10 khuya] Lo Quan Dat (kho nhat) thay Ngo Vinh 13456
+x950001_TB_g_SatTinhNpc  = -1      -- [05/10 khuya] 13465 chi Lo Quan Dat goi ra (khong trung Tong Giang nhu 13456) -> bo kiem NPC, chi giu co 1 tui/luot
 x950001_TB_g_SatTinhO    = 24
 
 function x950001_TB_SatTinhDuoc( sceneId )

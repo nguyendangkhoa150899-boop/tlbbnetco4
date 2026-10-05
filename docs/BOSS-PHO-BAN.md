@@ -210,10 +210,10 @@ Cột "Đã sửa" ghi ngày + tag rollback. "Chưa thử" = chưa ai đánh l�
 - **Vào:** Khô Vinh Đại Sư (Đại Lý 131,77), script 892009 `obj/shengsi/shengsileitai.lua`. 12 NPC (892010–892021) gọi boss; boss chết đi qua `x892009_OnDie` rồi 501000 `petdropper.lua`.
 - **Điều kiện:** 3 lượt/ngày (MD 198). Phó bản đóng cứng sau 18 phút.
 - **Luồng:** 12 boss cấp 120, không theo thứ tự.
-- **Túi boss:** chỉ tính Ngô Vĩnh 13456 của NPC Ngô Vĩnh (`x950001_TB_SatTinhDuoc`), 1 túi/lượt.
+- **Túi boss + phiếu + ngọc 6 bảng:** từ 05/10 khuya chỉ **Lộ Quân Dật 13465** (khó nhất: máu 5,2 triệu, công phép 25k; trước là Ngô Vĩnh 13456). `x950001_TB_SatTinhDuoc` chỉ giữ cờ 1 túi/lượt (bỏ kiểm NPC vì 13465 không trùng ai). 12 boss đều 25% ngọc 6 qua script (`roithem.txt` dòng `sattinh`).
 - **Lưu ý thưởng:** **hộp phiếu 90001 có ở cả 11 DataID** (13447…13537), tức 12 phiếu/người/lượt. CLAUDE.md đang ghi "chỉ Võ Tòng", cần chủ server chốt.
 - **Còn mở:**
-  - Chỉ cần giết đúng Ngô Vĩnh là có túi.
+  - Chỉ cần giết đúng Lộ Quân Dật là có túi (không cần đủ 12 boss).
   - AI 254 (Quan Thịnh 13483, Tần Minh 13519) hồi 50% máu 1 lần khi dưới 50%.
   - NPC hiện "Phụ Bản Tạm Đóng để fix lỗi" dù đang mở.
   - `x892009_g_MissionId` nil khi hết giờ.

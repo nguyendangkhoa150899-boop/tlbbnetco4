@@ -149,7 +149,7 @@ for (const id in scriptMon) for (const lab of scriptMon[id]) { if (!MA[id] || !M
   them('Q Lâu Lan', dai(13000, 13269), Q);
   them('Kỳ Cuộc', [...dai(1770, 1809), ...dai(12000, 12039), ...dai(12050, 12089)], [[30600084, 20]]);
   // 05/10 23h: Sát Tinh (shengsileitai.lua x892009_OnDie -> RoiCfg "sattinh", roithem.txt: sattinh 25 @ngoc6a,@ngoc6b): MỖI boss 25% 1 viên
-  // ngọc 6 bốc đều trong 29 loại túi A + B (roimap x950001_g_Nhom) -> mỗi loại 25/29 %. Ngô Vĩnh còn hộp bảng 90088 riêng.
+  // ngọc 6 bốc đều trong 29 loại túi A + B (roimap x950001_g_Nhom) -> mỗi loại 25/29 %. Lộ Quân Dật 13465 còn hộp bảng 90088 riêng (05/10 khuya chuyển từ Ngô Vĩnh).
   const N6 = [50602001, 50602002, 50602003, 50602004, 50602005, 50602006, 50602007, 50602008, 50613004, 50614001, 50603001,
     50601001, 50601002, 50604002, 50611001, 50611002, 50612001, 50612002, 50612003, 50612004, 50612005, 50612006, 50612007, 50612008, 50613001, 50613002, 50613003, 50613005, 50613006];
   them('Sát Tinh (Sinh Tử Lôi Đài)', ['13447', '13456', '13465', '13474', '13483', '13492', '13501', '13510', '13519', '13528', '13537'], N6.map((x) => [x, 25 / N6.length])); }

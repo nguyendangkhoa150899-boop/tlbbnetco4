@@ -51,7 +51,7 @@ Yêu cầu của chủ server (nguyên văn rút gọn): mỗi hoạt động, n
 | Tứ Tuyệt Trang | Bàng Xí 14145 | chung + Thiên/Địa/Mệnh Hồn Ngọc ×10 trộn | |
 | PMF thường (nhỏ, cấp 75) | Lý Thu Thủy 9666 | chung + Ngũ Độc Châu ×20 + Giảm Kháng Điêu Văn cấp 6 ×1 (Băng/Hỏa/Huyền/Độc) | |
 | PMF khiêu chiến (lớn, cấp 95) | Lý Thu Thủy 9546 | chung + Ngũ Độc Châu ×20 + Điêu Văn Công cấp 5 ×1 (Băng/Hỏa/Huyền/Độc Công) | |
-| Sát Tinh | **chỉ Ngô Vĩnh 13456 của NPC Ngô Vĩnh, 1 túi/lượt** (từ 01/10 23:40; trước đó 11 boss = 11 túi/lượt) | chung + Ngũ Độc Châu ×20 + TBP cấp 1–3 ×5 + Ma Huyết Thạch ×1–3 | (3 lượt/ngày) |
+| Sát Tinh | **chỉ Lộ Quân Dật 13465, 1 túi/lượt** (từ 05/10 khuya; 01/10 23:40–05/10 là Ngô Vĩnh 13456; trước đó 11 boss = 11 túi/lượt) | chung + Ngũ Độc Châu ×20 + TBP cấp 1–3 ×5 + Ma Huyết Thạch ×1–3 | (3 lượt/ngày) |
 | Thiếu Thất Sơn | Đinh Xuân Thu 14234 | chung + CCHTP ×5 | |
 | Long Quy (Thánh Thú Sơn) | 11353 | chung + CCHTP ×3 + Chí Tôn Cường Hóa ×5 + CLD ×3–5 | 3 |
 | Lâu Lan Tầm Bảo | Trấn Bảo Long Vương 12138–12146 | Vũ Học Tâm Đắc ×15 + Bí Tịch Tàn Hiệt ×10 + Võ Hồn cấp 2–4 ×1 (Ngự Dao Bàn/Lưu Ly Diễm) | 2 |
