@@ -1133,3 +1133,7 @@ Trạng thái 16:30 05/10: mọi thứ **đã commit, push, deploy**. **Game CH�
 - Sửa (`tools/hopthanh-tru1-06-10.js`, Lua, hiệu lực sau cap-nhat): trước khi trừ gì, ô nào (5 ô nguyên liệu + ô phù) có > 1 cái thì báo "Mỗi ô chỉ được đặt 1 cái. Bấm Tách…" và dừng. Số lượng ô đọc bằng `LuaFnGetItemCountInBagPos(sceneId, selfId, ô)` (dịch ngược Server: `HumanItemLogic::GetItem` → `_ITEM::GetItemCount`; 3 tham số).
 - KHÔNG dùng `LuaFnDelAvailableItem(ID, 1)`: trừ theo ID ở ô bất kỳ → đặt phù không khóa, trừ phù có khóa chỗ khác, ngọc ra không khóa = rửa đồ khóa. `LuaFnEraseItemTimes` (4 tham số) đụng `Item::GetItemParam` (số lần dùng?), không phải số lượng chồng - đừng dùng.
 - Chưa test trong game. Chờ chủ server quyết bù 28 phù cho 1010100018. Rollback tag `truoc-hopthanh-tru1-06-10`.
+
+### 06/10 00:39–00:42: restart (chủ server, `systemctl restart tlbb`, deploy `96c5872`)
+- 6 tiến trình trong `tlbb.service`, cổng 3731/7384 nghe, minigame active, khóa cấp 89 / exp 5.0 giữ. Đã nạp: Sát Tinh thưởng cuối ở Lộ Quân Dật 13465 (13456 hết phiếu), 89 điểm "Minh Hân", Kiều Phục Thịnh 210,330 (+ MissionNPC 200049), hợp thành mỗi ô 1 cái.
+- Chờ kiểm trong game: tên "Minh Hân" có hiện trên đầu quái; hợp thành đặt chồng phù → bị chặn; lượt Sát Tinh tới: Lộ Quân Dật 5 phiếu/người + túi web, Ngô Dụng / Tống Giang 0 phiếu.
