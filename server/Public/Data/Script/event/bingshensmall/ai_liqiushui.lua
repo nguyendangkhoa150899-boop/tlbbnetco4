@@ -73,13 +73,13 @@ x895069_LootItem_6 = {
 30504583,
 }
 x895069_LootItem_7 = {
-50613005,
+20310184,
 }
 x895069_LootItem_3 = {
 20310184,
 }
 x895069_LootItem_4 = {
-50613005,50613006,50614001,50521005,50521006,50521007,50521008,20310184,
+50521005,50521006,50521007,50521008,20310184,
 }
 x895069_LootItem_5 = {
 30900015,30900016,20310184,
@@ -259,9 +259,17 @@ function x895069_OnDie( sceneId, selfId, killerId )
 				AddMonsterDropItem( sceneId, selfId, mems[i], x895069_LootItem_6[WuPin]  )
 			end
 			rand = random(100)
-			if rand < 50 then
+			if nil then   -- [NetCo4 05/10] LootItem_7 chi co ngoc 6 -> ngoc gio qua bang roi (50%)
 				local WuPin = random( getn(x895069_LootItem_7) )
 				AddMonsterDropItem( sceneId, selfId, mems[i], x895069_LootItem_7[WuPin]  )
+			end
+			-- [NetCo4 05/10] do cua song sinh (Tieu Nhu Quan / Tieu Nhu Uy khong roi gi nua) don sang Lien Thanh: 1 bo
+			for k = 1, 3 do
+				AddMonsterDropItem( sceneId, selfId, mems[i], 20310184 )
+			end
+			if random(100) <= 14 then
+				local ss = { 50521005, 50521006, 50521007, 50521008, 20310184 }
+				AddMonsterDropItem( sceneId, selfId, mems[i], ss[ random( getn(ss) ) ] )
 			end			
 			
 		end

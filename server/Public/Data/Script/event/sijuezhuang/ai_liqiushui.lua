@@ -15,6 +15,15 @@
 
 --脚本号
 x893069_g_ScriptId	= 893069
+-- [NetCo4 05/10] ngoc 6 boss cuoi Bang Xi: tui A (thuoc tinh / the luc / ne / chinh xac) ~30%, tui B (con lai) ~70% - giong bang roi
+x893069_g_NgocA = { 50602001,50602002,50602003,50602004,50602005,50602006,50602007,50602008,50613004,50614001,50603001 }
+x893069_g_NgocB = { 50601001,50601002,50604002,50611001,50611002,50612001,50612002,50612003,50612004,50612005,50612006,50612007,50612008,50613001,50613002,50613003,50613005,50613006 }
+function x893069_Ngoc6()
+	if random(1,100) <= 30 then
+		return x893069_g_NgocA[ random( 1, getn(x893069_g_NgocA) ) ]
+	end
+	return x893069_g_NgocB[ random( 1, getn(x893069_g_NgocB) ) ]
+end
 
 --副本逻辑脚本号....
 x893069_g_FuBenScriptId = 893063
@@ -303,8 +312,8 @@ function x893069_OnDie( sceneId, selfId, killerId )
 			if Tyle <= 10 then	----------ty le CNTP	
 			AddMonsterDropItem( sceneId, selfId, killerId, ItemDroplisst[1][random( 1,getn(ItemDroplisst[1]))] )
 			end
-			if Tyle <= 100 then		
-			AddMonsterDropItem( sceneId, selfId, killerId, ItemDroplisst[2][random( 1,getn(ItemDroplisst[2]))] )
+			if random(1,100) <= 50 then   -- [NetCo4 05/10] boss cuoi: 50% 1 vien ngoc 6 (tui A+B)
+			AddMonsterDropItem( sceneId, selfId, killerId, x893069_Ngoc6() )
 			end
 			if Tyle <= 90 then		
 			AddMonsterDropItem( sceneId, selfId, killerId, 38000396)
@@ -321,8 +330,8 @@ function x893069_OnDie( sceneId, selfId, killerId )
 			if Tyle <= 10 then	----------ty le CNTP	
 			AddMonsterDropItem( sceneId, selfId, PlayerObj[i], ItemDroplisst[1][random( 1,getn(ItemDroplisst[1]))] )
 			end
-			if Tyle <= 100 then		
-			AddMonsterDropItem( sceneId, selfId, PlayerObj[i], ItemDroplisst[2][random( 1,getn(ItemDroplisst[2]))] )
+			if random(1,100) <= 50 then   -- [NetCo4 05/10] boss cuoi: 50% 1 vien ngoc 6 (tui A+B)
+			AddMonsterDropItem( sceneId, selfId, PlayerObj[i], x893069_Ngoc6() )
 			end
 			if Tyle <= 90 then		
 			

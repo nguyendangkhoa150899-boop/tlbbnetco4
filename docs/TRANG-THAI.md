@@ -939,6 +939,37 @@ Trạng thái lúc 13:00 05/10: mọi thứ dưới đây **đã commit, đã pu
 - Không tính vào hạn bán mỗi ngày. Bị khóa cùng công tắc `shop`, như nút Nhận và nút Bán.
 - ⚠️ **Đừng bán phiếu trên shop web rẻ hơn mệnh giá.** Người chơi mua rẻ rồi bấm Sử dụng là in tiền. Hiện shop chỉ có 39910003 giá 0, thuộc nhóm ⭐ mua 1 lần.
 
+**LUẬT NGỌC CẤP 6 (05/10 chiều, chủ server chốt; tag `truoc-ngoc6-2tui-05-10`; bảng rơi CẦN RESTART):**
+- Công cụ: `tools/ngoc6/luat-05-10.js`. Bảng luật nằm ngay trong file. Chạy không tham số để xem báo cáo, `--ghi` để ghi. Công cụ viết lại MỌI hộp "thuần ngọc 6" trong `MonsterDropBoxs`.
+- **2 túi:**
+  - A = thuộc tính (Tinh Thạch thường + Thuần tịnh), thể lực / né (Hồng Bảo, Tổ Mẫu Lục), chính xác (Tử Ngọc): 11 loại.
+  - B = 18 loại còn lại.
+  - "A+B" là 1 hộp trộn trọng số A×5 / B×7, nên khoảng 30% ra túi A.
+  - Minh Thạch giảm kháng / ngọc kép (hộp 50032) giữ nguyên.
+- **Mỗi luật là xác suất p mỗi người / lần hạ ra 1 viên.** BV = 2·Mv/p. p = 1 nghĩa là X = 1 đúng, tức chắc chắn 1 viên. Hộp ngọc đặt ở ô DID1 để trần 10 món không cắt. Hộp mới 90073–90096.
+- **1 viên:**
+  - boss cuối: Bình Thánh lớn 15190, PMF Lý Thu Thủy 9546/9666, Tiễu Phỉ Đầu Lĩnh (mọi bậc), Kỳ Cuộc Viễn Cổ Kỳ Hồn (trừ 1850), Túc Cầu, Lâu Lan Tầm Bảo, Nhạn Môn Hồng Cơ;
+  - boss bản đồ: 879, 11313, 11353, 3830–3832, 2561, 42118–42121, 43316, 880, 850–853, 16834, boss chính bossgroup 9100/9110/9120/9130 (thủ hạ = 0).
+- **50%:**
+  - boss cuối: Yến Tử Ổ, Thiếu Thất (Đinh Xuân Thu), Q Tô Châu (Sơn Trại), Tam Thần (Phệ Hồn Hoa Yêu 42975), Lang Huyên (Hư Trúc), Sát Tinh (Ngô Vĩnh), Q Lâu Lan (Hỏa Diễm), Thông Thiên Tháp (Đế Thích Thiên), Bình Thánh nhỏ (Liên Thành 15088);
+  - boss giữa: chỉ PMF và Bình Thánh (Tiêu Dật Phong / Gia Luật Diễm).
+- **30% chỉ túi B:** boss Yến Vương Cổ Mộ 9 tầng, Tần Hoàng 3 tầng, 4 boss Thông Thiên Tháp.
+- **20%:** Xích Tiêu Hỏa Hồn 1375, boss MND, Vân Phủ (43960–43970; 43970 dùng chung với Lý Thu Thủy của Lang Huyên), boss môn phái 869–877, Dã Trư Vương Hàn Huyết Lĩnh.
+- **Ác Bá / Ác Tặc (mọi cấp):**
+  - Lâu La 4%, chỉ túi B;
+  - Ác Bá + Đầu Mục 8%;
+  - quân cờ Kỳ Cuộc 4% túi B (`roithem.txt` trên VPS: `kycuoc_co 4 @ngoc6b`, nhóm `@ngoc6a/@ngoc6b` ở `roimap.lua` + `panel.py`).
+- **0:** mọi quái thường, boss giữa các ải khác, NPC dạng quái, 1850 (Bình Định Phiến Loạn), 878, 3829, 884/885.
+- **Song sinh không rơi gì:**
+  - Thiếu Thất Tiêu Viễn Sơn + Mộ Dung Bác 14220–14229: 1 bộ hộp (không ngọc) của Tiêu Viễn Sơn dồn cho Đinh Xuân Thu cùng bậc.
+  - Bình Thánh nhỏ 15028/15033: bảng → 1 bộ dồn cho 15088. Script `ai_sangtugong/ai_xiaoruwei` tắt cả 4 lượt bốc, `ai_liqiushui` thêm 1 bộ đồ song sinh (3× 20310184 + 14% Minh Thạch 5).
+  - Bình Thánh lớn / PMF đã làm trước đó.
+- **Script:**
+  - `bingshensmall/ai_*`: bỏ ngọc khỏi `LootItem`, vì ngọc đi qua bảng rơi.
+  - Bàng Xí `sijuezhuang/ai_liqiushui.lua`: 100% → 50% túi A+B (`x893069_Ngoc6`).
+- **Bẫy đã dính:** sửa file Lua VISCII/GBK bằng công cụ Edit (UTF-8) thay mọi byte có dấu thành `EF BF BD`. Chỉ sửa bằng Node đọc/ghi `latin1`, rồi đếm byte > 0x7f so với HEAD.
+- Kiểm: script kiểm độc lập (số dòng / CR / cột / thứ tự ID / Mv không đổi, mọi luật đúng giá trị, hộp ngọc ở DID1, song sinh rỗng). `luaparse` cho các file Lua: không lỗi mới.
+
 **Cấu hình đang chạy, không nằm trong repo:**
 - Exp **x5** và khóa cấp **89** do panel quản lý: `Server/txt/NetCo4Cfg/expparam.txt`, `capmax.txt`.
 - `ConfigInfo.ini` trong repo ghi x12, nhưng `cap-nhat.sh` áp lại giá trị của panel sau mỗi lần rsync.

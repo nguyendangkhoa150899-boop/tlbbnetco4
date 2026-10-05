@@ -141,6 +141,8 @@ ROI_KHOA = {   # khoa -> (ten hien thi, so con moi luot de uoc tinh)
 ROI_NHOM = {   # phai khop x950001_g_Nhom trong roimap.lua
     "@ngoc6": "20 loai ngoc cap 6 thuong",
     "@mienbo6": "Mien Bo 6 / Bi Ngan 6",
+    "@ngoc6a": "11 loai ngoc 6 tui A (thuoc tinh / the luc / ne / chinh xac)",
+    "@ngoc6b": "18 loai ngoc 6 tui B (con lai)",
 }
 RE_ROI_PCT = re.compile(r"^\d{1,3}(\.\d{1,2})?$")
 RE_ROI_TU = re.compile(r"^(@[a-z0-9_]{1,12}|\d{5,9})$")

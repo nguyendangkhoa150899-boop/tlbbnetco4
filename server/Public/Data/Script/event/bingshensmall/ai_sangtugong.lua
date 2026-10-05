@@ -257,23 +257,23 @@ function x895065_OnDie( sceneId, selfId, killerId )
 		if LuaFnIsObjValid( sceneId, mems[i] ) == 1 and LuaFnIsCanDoScriptLogic( sceneId, mems[i] ) == 1 and LuaFnIsCharacterLiving( sceneId, mems[i] ) == 1 then					-- 不在场景的不做此操作
 
 			rand = random(1)
-			if rand < 70 then
+			if nil then   -- [NetCo4 05/10] song sinh khong roi gi (do don sang Gia Luat Lien Thanh 15088)
 			 local WuPin = random( getn(x895065_LootItem_1) )
 			AddMonsterDropItem( sceneId, selfId, mems[i], x895065_LootItem_1[WuPin] )
 			end
 			
 			rand = random(1)
-			if rand < 60 then
+			if nil then
 				local WuPin = random( getn(x895065_LootItem_2) )
 				AddMonsterDropItem( sceneId, selfId, mems[i], x895065_LootItem_2[WuPin]  )
 			end
 			rand = random(1)
-			if rand < 90 then
+			if nil then
 				local WuPin = random( getn(x895065_LootItem_3) )
 				AddMonsterDropItem( sceneId, selfId, mems[i], x895065_LootItem_3[WuPin]  )
 			end
 			rand = random(100)
-			if rand < 70 then
+			if nil then
 				local WuPin = random( getn(x895065_LootItem_4) )
 				AddMonsterDropItem( sceneId, selfId, mems[i], x895065_LootItem_4[WuPin]  )
 			end
