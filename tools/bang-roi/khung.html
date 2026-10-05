@@ -40,6 +40,7 @@ label.chk { display: inline-flex; gap: 6px; align-items: center; font-size: 14px
 .chips { display: flex; flex-wrap: wrap; gap: 6px; }
 .chips button { font: inherit; font-size: 12.5px; border: 1px solid var(--line); background: transparent; color: var(--mute); border-radius: 999px; padding: 3px 10px; cursor: pointer; }
 .chips button:hover { color: var(--jade); border-color: var(--jade); }
+.chips button[aria-pressed="true"] { color: var(--panel); background: var(--jade); border-color: var(--jade); font-weight: 600; }
 .count { font-size: 13px; color: var(--mute); font-variant-numeric: tabular-nums; }
 .list { display: grid; gap: 12px; margin-top: 14px; }
 .mon { background: var(--panel); border: 1px solid var(--line); border-radius: 10px; padding: 14px 16px; min-width: 0; }
@@ -56,6 +57,19 @@ label.chk { display: inline-flex; gap: 6px; align-items: center; font-size: 14px
 .pct { font-family: var(--f-num); font-size: 13px; font-weight: 600; font-variant-numeric: tabular-nums; position: relative; padding-bottom: 5px; }
 .pct i { position: absolute; left: 0; bottom: 0; height: 3px; border-radius: 2px; background: var(--jade); opacity: .55; }
 .pct::before { content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 3px; border-radius: 2px; background: var(--line); }
+.fbest { background: var(--jade-soft); border: 1px solid var(--jade); border-radius: 10px; padding: 10px 14px; margin-bottom: 12px; font-size: 14px; line-height: 1.55; }
+.fbest b { color: var(--jade); }
+.fsec { margin: 14px 0 6px; font-size: 15px; font-weight: 700; display: flex; align-items: baseline; gap: 8px; }
+.fsec small { font-weight: 400; color: var(--mute); font-size: 12.5px; }
+.frow { display: grid; grid-template-columns: 30px 110px 1fr; gap: 10px; align-items: start; padding: 8px 12px; background: var(--panel); border: 1px solid var(--line); border-radius: 8px; margin-bottom: 6px; }
+.frow .rk { font-family: var(--f-num); font-weight: 700; color: var(--mute); font-size: 15px; padding-top: 1px; }
+.frow .rk.top { color: var(--gold); }
+.frow .v { font-family: var(--f-num); font-weight: 700; font-size: 15px; color: var(--jade); line-height: 1.2; }
+.frow .v small { display: block; font-family: inherit; font-weight: 400; font-size: 11.5px; color: var(--mute); }
+.frow .m { min-width: 0; } .frow .m small { display: block; color: var(--mute); font-size: 12.5px; }
+.fpick { margin: 18px 0 8px; font-size: 14px; color: var(--mute); }
+#farmfilters input { width: 56px; }
+@media (max-width: 520px) { .frow { grid-template-columns: 24px 84px 1fr; } }
 .imon { display: flex; flex-wrap: wrap; gap: 4px; margin-top: 5px; }
 .imon span { font-size: 12px; padding: 1px 7px; border-radius: 999px; border: 1px solid var(--line); color: var(--mute); white-space: nowrap; }
 .imon span b { font-family: var(--f-num); font-weight: 600; color: var(--jade); }
@@ -92,6 +106,7 @@ label.chk { display: inline-flex; gap: 6px; align-items: center; font-size: 14px
       <div class="tabs" role="group" aria-label="Chế độ tra">
         <button id="tab-mon" type="button" aria-pressed="true">Quái &amp; boss</button>
         <button id="tab-item" type="button" aria-pressed="false">Tìm theo vật phẩm</button>
+        <button id="tab-farm" type="button" aria-pressed="false">🎯 Muốn farm gì?</button>
       </div>
       <input id="q" type="search" placeholder="Tên quái, ID, bản đồ… (nhiều: 3720, 1851-1859)" autocomplete="off" aria-label="Tìm" title="Nhiều điều kiện: cách bằng dấu phẩy, ví dụ 50602001, 50613004, phục hi. Dải ID: 1348-1375. Toàn số thì cách bằng khoảng trắng cũng được.">
       <label class="chk" for="plv">Cấp nhân vật <input id="plv" type="number" min="1" max="150" value="89"></label>
@@ -117,6 +132,10 @@ label.chk { display: inline-flex; gap: 6px; align-items: center; font-size: 14px
       <label class="chk" for="iboss"><input id="iboss" type="checkbox"> Chỉ boss</label>
       <span class="count" id="icount"></span>
     </div>
+    <div class="row" id="farmfilters" hidden>
+      <label class="chk" for="fspeed" title="Dùng để ước tính farm bản đồ mỗi giờ: không thể đánh nhanh hơn số này dù quái hồi sinh nhanh">Tốc độ đánh <input id="fspeed" type="number" min="1" max="60" value="6"> con/phút</label>
+      <span class="count" id="fcount"></span>
+    </div>
     <div class="chips" id="chips"></div>
   </div>
 
@@ -139,7 +158,7 @@ label.chk { display: inline-flex; gap: 6px; align-items: center; font-size: 14px
   var PAGE = 40;
   try { var bt = new Date(D.built); document.getElementById("built").textContent = " (" + bt.toLocaleString("vi-VN", { timeZone: "Asia/Ho_Chi_Minh", hour: "2-digit", minute: "2-digit", day: "2-digit", month: "2-digit" }) + ")"; } catch (e) {}
   if (/(^|\.)netco4\.click$/.test(location.hostname)) document.getElementById("play").hidden = false;
-  var st = { mode: "mon", q: "", plv: 89, map: "", boss: true, drop: true, sort: "exp", isort: "gop", iboss: false, shown: PAGE };
+  var st = { mode: "mon", q: "", plv: 89, map: "", boss: true, drop: true, sort: "exp", isort: "gop", iboss: false, speed: 6, shown: PAGE };
   try { var sv = JSON.parse(localStorage.getItem("bangroi") || "{}"); if (sv.plv) st.plv = sv.plv; } catch (e) {}
 
   var $ = function (id) { return document.getElementById(id); };
@@ -285,11 +304,68 @@ label.chk { display: inline-flex; gap: 6px; align-items: center; font-size: 14px
     $("more").textContent = "Xem thêm (" + (rows.length - st.shown) + dv + " nữa)";
   }
 
+  // ===== 05/10: 🎯 MUỐN FARM GÌ? - chọn món -> đề xuất nên đi đâu / đánh con gì =====
+  // 3 nhóm: farm bản đồ (ước tính mỗi giờ = số điểm spawn × 3600 / thời gian hồi sinh, chặn bởi tốc độ đánh),
+  // phó bản / hoạt động (mỗi lượt = cộng mọi con trong file quái của lượt đó), boss (mỗi lần hạ + thời gian hồi sinh).
+  function perKill(m, hit) {
+    var ds = {};
+    m[4].forEach(function (b) { var bx = D.boxes[b]; var n = bx[1].length; if (!n) return; var x = boxX(m, b); bx[1].forEach(function (i) { if (hit[i]) ds[i] = (ds[i] || 0) + x / n; }); });
+    m[5].forEach(function (s) { if (s[4] && hit[s[4][0]]) ds[s[4][0]] = Math.max(ds[s[4][0]] || 0, s[4][1] / 100); });
+    var e = 0; Object.keys(ds).forEach(function (i) { e += ds[i]; }); return e;
+  }
+  var soMon = function (x) { return x >= 10 ? x.toFixed(0) : x >= 1 ? x.toFixed(1) : x >= 0.1 ? x.toFixed(2) : x.toFixed(3); };
+  var gio = function (s) { return !s ? "không hồi sinh" : s >= 3600 ? "hồi " + (s / 3600).toFixed(s % 3600 ? 1 : 0) + " giờ" : s >= 60 ? "hồi " + Math.round(s / 60) + " phút" : "hồi " + s + " giây"; };
+  function renderFarm() {
+    var dk = dieuKien(st.q).filter(function (d) { return d.lo !== undefined || d.t.length >= 2; });
+    if (!dk.length) { $("out").innerHTML = '<div class="fpick">👆 Bấm 1 món ở trên (hoặc gõ tên / ID, nhiều món cách bằng dấu phẩy). Trang sẽ xếp hạng nên đi farm ở đâu, đánh con gì, với cấp nhân vật đang chọn.</div>'; $("more").hidden = true; $("fcount").textContent = ""; return; }
+    var hit = {}; Object.keys(D.items).forEach(function (id) { var n = fold(itemName(id)); if (khopId(dk, id) || dk.some(function (d) { return d.t && n.indexOf(d.t) >= 0; })) hit[id] = 1; });
+    var speed = Math.max(1, st.speed) * 60, bd = {}, pb = {}, boss = [];
+    D.mons.forEach(function (m) {
+      var e = perKill(m, hit); if (e < 0.0005) return;
+      if (m[6]) { var rs = 0, noi = []; m[5].forEach(function (s) { if (noi.indexOf(mapName[s[0]]) < 0) noi.push(mapName[s[0]]); if (mapKind[s[0]] === "map" && s[2] > 0) rs = rs ? Math.min(rs, s[2]) : s[2]; }); boss.push({ m: m, e: e, rs: rs, noi: noi }); }
+      m[5].forEach(function (s) {
+        var k = mapKind[s[0]], pts = Math.max(1, s[1] || 0);
+        if (k === "map") { if (m[6] || !(s[2] > 0)) return; var r = pts * 3600 / s[2]; var a = bd[s[0]] = bd[s[0]] || { i: s[0], rate: 0, w: 0, mons: [] }; a.rate += r; a.w += e * r; a.mons.push([m, e, pts, s[2]]); }
+        else { var b = pb[s[0]] = pb[s[0]] || { i: s[0], v: 0, mons: [] }; b.v += e * pts; b.mons.push([m, e, pts]); }
+      });
+    });
+    // Cùng tên quái có nhiều BẬC CẤP (14, 24 … 204): mỗi lượt chỉ gặp 1 bậc theo cấp tổ -> giữ bậc gần cấp nhân vật nhất
+    var gan = function (lv) { return Math.abs(lv - st.plv); };
+    var chonBac = function (ds, khoa) { var g = {}; ds.forEach(function (x) { var mm = x.m || x[0], k = khoa(x), c = g[k]; if (!c || gan(mm[2]) < gan((c.m || c[0])[2]) || (gan(mm[2]) === gan((c.m || c[0])[2]) && mm[2] < (c.m || c[0])[2])) g[k] = x; }); return Object.values(g); };
+    Object.values(pb).forEach(function (b) { b.mons = chonBac(b.mons, function (x) { return x[0][1]; }); b.v = 0; b.mons.forEach(function (x) { b.v += x[1] * x[2]; }); });
+    boss = chonBac(boss, function (b) { return b.m[1] + "|" + (b.noi[0] || ""); });
+    var bdL = Object.values(bd).map(function (a) { a.v = a.w / a.rate * Math.min(a.rate, speed); a.kh = Math.min(a.rate, speed); return a; }).sort(function (a, b) { return b.v - a.v; });
+    var pbL = Object.values(pb).sort(function (a, b) { return b.v - a.v; });
+    boss.sort(function (a, b) { return b.e - a.e || (a.rs || 1e9) - (b.rs || 1e9); });
+    var nItem = Object.keys(hit).length;
+    $("fcount").textContent = "khớp " + nItem + " món · " + bdL.length + " bản đồ · " + pbL.length + " phó bản · " + boss.length + " boss";
+    var top = function (ds) { return ds.slice().sort(function (a, b) { return b[1] - a[1]; }).slice(0, 3).map(function (x) { return esc(x[0][1]) + " " + soMon(x[1]) + "/con"; }).join(" · "); };
+    var dong = function (k, v, sub, m, s2) { return '<div class="frow"><div class="rk' + (k === 1 ? " top" : "") + '">#' + k + '</div><div class="v">' + v + '<small>' + sub + '</small></div><div class="m">' + m + (s2 ? "<small>" + s2 + "</small>" : "") + "</div></div>"; };
+    var N = st.shown > PAGE ? 30 : 10, h = "";
+    // tóm tắt
+    var tt = [];
+    if (pbL[0]) tt.push("🏰 Phó bản: <b>" + esc(mapName[pbL[0].i]) + "</b> ≈ <b>" + soMon(pbL[0].v) + "</b>/lượt");
+    if (boss[0]) tt.push("⚔️ Boss: <b>" + esc(boss[0].m[1]) + "</b> (" + esc(boss[0].noi[0] || "gọi bằng script") + ") <b>" + soMon(boss[0].e) + "</b>/lần hạ");
+    if (bdL[0]) tt.push("🗺️ Bản đồ: <b>" + esc(mapName[bdL[0].i]) + "</b> ≈ <b>" + soMon(bdL[0].v) + "</b>/giờ");
+    h += '<div class="fbest">🎯 <b>Nên đi</b> (mỗi người, cấp ' + st.plv + '):<br>' + (tt.length ? tt.join("<br>") : "Không có nguồn nào rơi món này từ bảng rơi.") + "</div>";
+    if (pbL.length) { h += '<div class="fsec">🏰 Phó bản / hoạt động <small>ước tính mỗi lượt (cộng mọi con trong lượt), chưa tính giới hạn lượt/ngày</small></div>';
+      pbL.slice(0, N).forEach(function (a, k) { h += dong(k + 1, soMon(a.v), "mỗi lượt", "<b>" + esc(mapName[a.i]) + "</b>", top(a.mons)); }); }
+    if (boss.length) { h += '<div class="fsec">⚔️ Boss <small>mỗi lần hạ</small></div>';
+      boss.slice(0, N).forEach(function (b, k) { h += dong(k + 1, soMon(b.e), b.rs ? gio(b.rs) : "mỗi lần hạ", "<b>" + esc(b.m[1]) + '</b> <span class="lv">cấp ' + b.m[2] + '</span> <span class="id">#' + b.m[0] + "</span>", esc(b.noi.slice(0, 2).join(", ") || "gọi bằng script")); }); }
+    if (bdL.length) { h += '<div class="fsec">🗺️ Farm bản đồ <small>ước tính mỗi giờ, đánh tối đa ' + st.speed + ' con/phút</small></div>';
+      bdL.slice(0, N).forEach(function (a, k) { h += dong(k + 1, soMon(a.v), "mỗi giờ · " + Math.round(a.kh) + " con", "<b>" + esc(mapName[a.i]) + "</b>", top(a.mons)); }); }
+    h += '<div class="none" style="text-align:left;font-size:12.5px">Số là trung bình mỗi người (mỗi thành viên tổ tự roll). Bản đồ: giả định đánh con vừa hồi sinh, không tính thời gian đi đường. Quân cờ Kỳ Cuộc rơi thêm ngọc 6 qua script (4%) chưa tính ở đây.</div>';
+    $("out").innerHTML = h;
+    var nhieu = Math.max(pbL.length, boss.length, bdL.length) > N;
+    $("more").hidden = !nhieu || N > 10; $("more").textContent = "Xem thêm (top 30 mỗi nhóm)";
+  }
+
   function render() {
     $("monfilters").hidden = st.mode !== "mon";
     $("itemfilters").hidden = st.mode !== "item";
-    $("q").placeholder = st.mode === "mon" ? "Tên quái, ID, bản đồ… (nhiều: 3720, 1851-1859)" : "Tên / ID vật phẩm… (nhiều: 50602001, 50613004)";
-    (st.mode === "mon" ? renderMon : renderItem)();
+    $("farmfilters").hidden = st.mode !== "farm";
+    $("q").placeholder = st.mode === "mon" ? "Tên quái, ID, bản đồ… (nhiều: 3720, 1851-1859)" : st.mode === "farm" ? "Muốn farm gì? Tên / ID (nhiều: 50602001-50602008, phục hi)" : "Tên / ID vật phẩm… (nhiều: 50602001, 50613004)";
+    (st.mode === "mon" ? renderMon : st.mode === "farm" ? renderFarm : renderItem)();
   }
 
   // bản đồ
@@ -297,13 +373,17 @@ label.chk { display: inline-flex; gap: 6px; align-items: center; font-size: 14px
   opts.sort(function (a, b) { return a[0].localeCompare(b[0], "vi"); });
   $("map").insertAdjacentHTML("beforeend", opts.map(function (o) { return '<option value="' + o[1] + '">' + esc(o[0]) + (o[2] === "map" ? "" : " · phó bản") + "</option>"; }).join(""));
 
-  var CHIPS = { mon: ["Túc Cầu", "Binh Thánh", "Phiêu Miểu Phong", "Yến Tử Ổ", "Sát Tinh", "Hậu hoa viên", "Tuyết Lang Hồ", "Lâu Lan Tầm Bảo"], item: ["Phục Hi Ngọc", "Nguyên Bảo Phiếu", "Chí Tôn Cường Hóa", "Long Hồn Ngọc", "Tử Vi Linh Phách", "Công Lực Đan", "Hợp Thành Phù", "Miên Bố"] };
-  function chips() { $("chips").innerHTML = CHIPS[st.mode].map(function (c) { return '<button type="button">' + esc(c) + "</button>"; }).join(""); }
-  $("chips").addEventListener("click", function (e) { if (e.target.tagName !== "BUTTON") return; st.q = e.target.textContent; $("q").value = st.q; if (st.mode === "mon") { st.boss = false; $("fboss").checked = false; } st.shown = PAGE; render(); });
+  // nút gợi ý: chữ hiện | điều kiện tìm (mode farm có nhóm ngọc 6 theo luật 05/10)
+  var CHIPS = { mon: ["Túc Cầu", "Binh Thánh", "Phiêu Miểu Phong", "Yến Tử Ổ", "Sát Tinh", "Hậu hoa viên", "Tuyết Lang Hồ", "Lâu Lan Tầm Bảo"], item: ["Phục Hi Ngọc", "Nguyên Bảo Phiếu", "Chí Tôn Cường Hóa", "Long Hồn Ngọc", "Tử Vi Linh Phách", "Công Lực Đan", "Hợp Thành Phù", "Miên Bố"],
+    farm: [["💎 Ngọc 6 thuộc tính", "50602001-50602008"], ["💎 Ngọc 6 túi A (thuộc tính / thể lực / né / chính xác)", "50602001-50602008, 50613004, 50614001, 50603001"], ["💎 Mọi ngọc 6", "50601001-50614001"], ["Phục Hi Ngọc", "phục hi ngọc"], ["Nguyên Bảo Phiếu", "nguyên bảo phiếu"], ["Chí Tôn Cường Hóa", "chí tôn cường hóa"], ["Long Hồn Ngọc", "long hồn ngọc"], ["Tử Vi Linh Phách", "tử vi linh phách"], ["Công Lực Đan", "công lực đan"], ["Hợp Thành Phù", "hợp thành phù"], ["Miên Bố / Bí Ngân 8", "20501008, 20502008"], ["Cửu Thiên Ngọc Toái", "cửu thiên ngọc toái"]] };
+  function chips() { $("chips").innerHTML = CHIPS[st.mode].map(function (c) { var t = typeof c === "string" ? c : c[0], q = typeof c === "string" ? c : c[1]; return '<button type="button" data-q="' + esc(q) + '"' + (st.mode === "farm" && st.q === q ? ' aria-pressed="true"' : "") + ">" + esc(t) + "</button>"; }).join(""); }
+  $("chips").addEventListener("click", function (e) { if (e.target.tagName !== "BUTTON") return; st.q = e.target.getAttribute("data-q") || e.target.textContent; $("q").value = st.q; if (st.mode === "mon") { st.boss = false; $("fboss").checked = false; } st.shown = PAGE; if (st.mode === "farm") chips(); render(); });
 
-  function setMode(m) { st.mode = m; st.shown = PAGE; $("tab-mon").setAttribute("aria-pressed", m === "mon"); $("tab-item").setAttribute("aria-pressed", m === "item"); st.q = ""; $("q").value = ""; chips(); render(); }
+  function setMode(m) { st.mode = m; st.shown = PAGE; ["mon", "item", "farm"].forEach(function (k) { $("tab-" + k).setAttribute("aria-pressed", m === k); }); st.q = ""; $("q").value = ""; chips(); render(); }
   $("tab-mon").onclick = function () { setMode("mon"); };
   $("tab-item").onclick = function () { setMode("item"); };
+  $("tab-farm").onclick = function () { setMode("farm"); };
+  $("fspeed").onchange = function () { var v = Math.max(1, Math.min(60, parseInt($("fspeed").value, 10) || 6)); $("fspeed").value = v; st.speed = v; render(); };
   var t; $("q").addEventListener("input", function () { clearTimeout(t); t = setTimeout(function () { st.q = $("q").value; st.shown = PAGE; render(); }, 160); });
   $("plv").value = st.plv;
   $("plv").addEventListener("change", function () { var v = Math.max(1, Math.min(150, parseInt($("plv").value, 10) || 89)); $("plv").value = v; st.plv = v; try { localStorage.setItem("bangroi", JSON.stringify({ plv: v })); } catch (e) {} render(); });
@@ -314,6 +394,9 @@ label.chk { display: inline-flex; gap: 6px; align-items: center; font-size: 14px
   $("isort").onchange = function () { st.isort = $("isort").value; st.shown = PAGE; render(); };
   $("iboss").onchange = function () { st.iboss = $("iboss").checked; st.shown = PAGE; render(); };
   $("more").onclick = function () { st.shown += PAGE; render(); };
-  chips(); render();
+  // 05/10: mở thẳng 1 tab bằng #farm / #item (portal mod nhúng trang với #farm); #farm=<điều kiện> điền sẵn ô tìm
+  var hs = decodeURIComponent((location.hash || "").slice(1)), hm = hs.split("=")[0];
+  if (hm === "farm" || hm === "item") { setMode(hm); if (hs.indexOf("=") > 0) { st.q = hs.slice(hs.indexOf("=") + 1); $("q").value = st.q; chips(); render(); } }
+  else { chips(); render(); }
 })();
 </script>

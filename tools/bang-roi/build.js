@@ -5,6 +5,8 @@ const vis = JSON.parse(fs.readFileSync(path.join(__dirname, '../viscii-map.json'
 const rv = {}; for (const k in vis) rv[vis[k]] = k;
 const dec = b => { let s = ''; for (const c of b) s += c < 128 ? String.fromCharCode(c) : (rv[c] || '?'); return s; };
 const gbk = new TextDecoder('gbk');
+// 05/10: tên bản đồ trong SceneInfo.ini của server bị sai (game cũng hiện vậy) -> sửa riêng trên trang
+const TEN_MAP_SUA = { 'Huyết Chiến Nhõn Cụa Quan': 'Huyết Chiến Nhạn Môn Quan' };
 const lines = f => fs.readFileSync(R + f, 'latin1').split(/\r?\n/);
 const raw = s => Buffer.from(s, 'latin1');
 
@@ -36,10 +38,15 @@ const sceneByIni = {}; // ini -> [ten ban do]
   for (const l0 of lines('Public/Config/SceneInfo.ini')) { const l = l0.replace(/;.*$/, '').trim();
     const m = l.match(/^\[scene(\d+)\]$/); if (m) { add(); cur = { id: +m[1] }; continue; }
     if (!cur) continue; const kv = l.match(/^(\w+)=(.*)$/); if (!kv) continue;
-    if (kv[1] === 'name') cur.name = dec(raw(kv[2])).trim(); if (kv[1] === 'file') cur.file = kv[2].trim(); }
+    if (kv[1] === 'name') { cur.name = dec(raw(kv[2])).trim(); cur.name = TEN_MAP_SUA[cur.name] || cur.name; } if (kv[1] === 'file') cur.file = kv[2].trim(); }
   add(); }
 
-const TEN0 = { efuben_cuju:'Túc Cầu', ebingshen:'Binh Thánh Kỳ Trận (lớn)', ebingshensmall:'Binh Thánh Kỳ Trận (nhỏ)', shengsileitai:'Sinh Tử Lôi Đài (Sát Tinh)', epiaomiaofeng:'Phiêu Miểu Phong (khiêu chiến)', epiaomiaofeng_small:'Phiêu Miểu Phong (thường)', yanziwu_1:'Yến Tử Ổ', esijuezhuang:'Tứ Tuyệt Trang', eshaoshi:'Thiếu Thất Sơn', seek_treasure:'Lâu Lan Tầm Bảo', efuben_jiaofei:'Tiễu Phỉ', eGodFireTransfer_fuben:'Thần Hỏa' };
+const TEN0 = { efuben_cuju:'Túc Cầu', ebingshen:'Binh Thánh Kỳ Trận (lớn)', ebingshensmall:'Binh Thánh Kỳ Trận (nhỏ)', shengsileitai:'Sinh Tử Lôi Đài (Sát Tinh)', epiaomiaofeng:'Phiêu Miểu Phong (khiêu chiến)', epiaomiaofeng_small:'Phiêu Miểu Phong (thường)', yanziwu_1:'Yến Tử Ổ', esijuezhuang:'Tứ Tuyệt Trang', eshaoshi:'Thiếu Thất Sơn', seek_treasure:'Lâu Lan Tầm Bảo', efuben_jiaofei:'Tiễu Phỉ', eGodFireTransfer_fuben:'Thần Hỏa',
+  // 05/10: phó bản còn hiện tên file
+  efuben_sanshen:'Tam Thần Ảo Cảnh', odali_lanlan:'Lang Huyên Phúc Địa (thường)', odali_yahuan:'Lang Huyên Phúc Địa (khó)',
+  TianlongHuanjing:'Thiên Long Ảo Cảnh (đang đóng)', oloulan_zongkabu:'Thiên Long Ảo Cảnh (đang đóng)', event_renwulian_fuben:'Phó bản nhiệm vụ chuỗi' };
+// 05/10: trùng tên file khác thư mục -> tra theo thư mục trước (Thiếu Thất dùng event/shaoshishan/epiaomiaofeng.lua)
+const TEN_DIR = { shaoshishan: 'Thiếu Thất Sơn' };
 // ---- pho ban: script nap file quai rieng; ten lay tu g_CopySceneName
 const iniFiles = fs.readdirSync(R + 'Public/Scene').filter(f => /_monster.*\.ini$/i.test(f));
 const fubenByIni = {}; // ini -> Set(ten pho ban)
@@ -49,7 +56,7 @@ function walk(d) { for (const f of fs.readdirSync(d)) { const p = path.join(d, f
     const loads = [...s.matchAll(/LuaFnSetSceneLoad_Monster\(\s*sceneId\s*,\s*"([^"]+)"/g)].map(m => m[1]); if (!loads.length) continue;
     let nm = (s.match(/_g_CopySceneName\s*=\s*"([^"]*)"/) || [])[1];
     if (nm) nm = nm.replace(/\\(\d{1,3})/g, (m, d) => String.fromCharCode(+d));   // 05/10: ten Viet hoa dang escape Lua "\226" -> byte VISCII (truoc hien "Tr\226n Long...")
-    nm = TEN0[path.basename(f, '.lua')] || (nm ? (/[A-Za-z]/.test(nm) ? dec(raw(nm)).trim() : gbk.decode(raw(nm)).trim()) : path.basename(f, '.lua')); fubenScript[p] = nm;
+    nm = TEN_DIR[path.basename(path.dirname(p))] || TEN0[path.basename(f, '.lua')] || (nm ? (/[A-Za-z]/.test(nm) ? dec(raw(nm)).trim() : gbk.decode(raw(nm)).trim()) : path.basename(f, '.lua')); fubenScript[p] = nm;
     for (const ld of loads) { const hit = ld.endsWith('.ini') ? iniFiles.filter(x => x.toLowerCase() === ld.toLowerCase()) : iniFiles.filter(x => x.toLowerCase().startsWith(ld.toLowerCase()));
       for (const h of hit) (fubenByIni[h] = fubenByIni[h] || new Set()).add(nm); } } } }
 walk(R + 'Public/Data/Script');
@@ -85,6 +92,8 @@ for (const [f, lab] of fbDangKy) { const dir = path.dirname(f), base = path.base
   const ds = demDir[dir] === 1 ? luaTrong(dir) : fs.readdirSync(dir).filter(x => /\.lua$/i.test(x) && x.toLowerCase().startsWith(base)).map(x => path.join(dir, x));
   for (const p of ds) docQuai(p, lab); }
 
+// 05/10: quet ca thu muc New/sanshen gap code dung lai ID boss PMF nho (9661-9672) -> Tam Than chi giu boss that 429xx
+for (const id in scriptMon) if (scriptMon[id].has('Tam Thần Ảo Cảnh') && !(+id >= 42900 && +id < 43000)) { scriptMon[id].delete('Tam Thần Ảo Cảnh'); if (!scriptMon[id].size) delete scriptMon[id]; }
 
 // boss cuoi cac hoat dong (theo danh sach tui boss trong NetCo4/roimap.lua) -> ten hoat dong + co boss
 const HD = [
