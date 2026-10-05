@@ -534,39 +534,39 @@ function x402040_OnCopySceneTimer( sceneId, nowTime )
 	-- µÚmµt ´ÎÖ´ĞĞ¼ÆÊ±Æ÷	
 	if nPreTime == 0 then
 		LuaFnSetCopySceneData_Param(sceneId, 15, nCurTime)
-		x402040_TipAllHuman( sceneId, "Thiên Long Túc C¥u s¨ b¡t ğ¥u sau 60 giây næa" )
+		x402040_TipAllHuman( sceneId, "Thiên Long Túc C¥u s¨ b¡t ğ¥u sau 13 giây næa" )
 		return
 	end
 	
 	-- Ã¿¼ä¸ô10 giâyÌáÊ¾Íæ¼Ò,¡°Thiên Long Túc C¥u s¨ b¡t ğ¥u sau AAs ..¡±
-	if nStep==0 and nCurTime-nPreTime>=10  then
-		x402040_TipAllHuman( sceneId, "Thiên Long Túc C¥u s¨ b¡t ğ¥u sau 50 giây næa" )
+	if nStep==0 and nCurTime-nPreTime>=2  then
+		x402040_TipAllHuman( sceneId, "Thiên Long Túc C¥u s¨ b¡t ğ¥u sau 11 giây næa" )
 		LuaFnSetCopySceneData_Param(sceneId, 16, nStep+1)
 		LuaFnSetCopySceneData_Param(sceneId, 15, nCurTime)
 		return
 	end
-	if nStep==1 and nCurTime-nPreTime>=10  then
-		x402040_TipAllHuman( sceneId, "Thiên Long Túc C¥u s¨ b¡t ğ¥u sau 40 giây næa" )
+	if nStep==1 and nCurTime-nPreTime>=2  then
+		x402040_TipAllHuman( sceneId, "Thiên Long Túc C¥u s¨ b¡t ğ¥u sau 9 giây næa" )
 		LuaFnSetCopySceneData_Param(sceneId, 16, nStep+1)
 		LuaFnSetCopySceneData_Param(sceneId, 15, nCurTime)
 		return
 	end
-	if nStep==2 and nCurTime-nPreTime>=10  then
-		x402040_TipAllHuman( sceneId, "Thiên Long Túc C¥u s¨ b¡t ğ¥u sau 30 giây næa" )
+	if nStep==2 and nCurTime-nPreTime>=2  then
+		x402040_TipAllHuman( sceneId, "Thiên Long Túc C¥u s¨ b¡t ğ¥u sau 7 giây næa" )
 		LuaFnSetCopySceneData_Param(sceneId, 16, nStep+1)
 		LuaFnSetCopySceneData_Param(sceneId, 15, nCurTime)
 		return
 	end
-	if nStep==3 and nCurTime-nPreTime>=10  then
-		x402040_TipAllHuman( sceneId, "Thiên Long Túc C¥u s¨ b¡t ğ¥u sau 20 giây næa" )
+	if nStep==3 and nCurTime-nPreTime>=2  then
+		x402040_TipAllHuman( sceneId, "Thiên Long Túc C¥u s¨ b¡t ğ¥u sau 5 giây næa" )
 		LuaFnSetCopySceneData_Param(sceneId, 16, nStep+1)
 		LuaFnSetCopySceneData_Param(sceneId, 15, nCurTime)
 		return
 	end
-	if nStep==4 and nCurTime-nPreTime>=10  then
-		x402040_TipAllHuman( sceneId, "Thiên Long Túc C¥u s¨ b¡t ğ¥u sau 10 giây næa" )
+	if nStep==4 and nCurTime-nPreTime>=2  then
+		x402040_TipAllHuman( sceneId, "Thiên Long Túc C¥u s¨ b¡t ğ¥u sau 3 giây næa" )
 		LuaFnSetCopySceneData_Param(sceneId, 16, nStep+1)
-		LuaFnSetCopySceneData_Param(sceneId, 15, nCurTime+5)
+		LuaFnSetCopySceneData_Param(sceneId, 15, nCurTime)
 		return
 	end
 	
@@ -659,26 +659,26 @@ function x402040_OnCopySceneTimer( sceneId, nowTime )
 				str = "#{_BOSS4}#P:Ngß½i xong r°i! Ta mu¯n ğªn lßşt ta cß¶ng ğÕi nh¤t ğ¸a c¥u ğµi lên sân kh¤u !"
 			end
 			CallScriptFunction((200060), "Duibai",sceneId, "", "Mçu Ğan Uy¬n", str)
-			x402040_TipAllHuman( sceneId, "Tôn MÛ MÛ thïnh c¥u thay ğ±i ngß¶i, 30 giây sau tr§n ğ¤u tiªp tøc tiªn hành." )
+			x402040_TipAllHuman( sceneId, "Tôn MÛ MÛ thïnh c¥u thay ğ±i ngß¶i, 9 giây sau tr§n ğ¤u tiªp tøc tiªn hành." )
 			
 		elseif nStep_1 == 1  then
-			if nCurTime-nStep_1_T >= 10 then
-				x402040_TipAllHuman( sceneId, "Tôn MÛ MÛ thïnh c¥u thay ğ±i ngß¶i, 20 giây sau tr§n ğ¤u tiªp tøc tiªn hành." )
+			if nCurTime-nStep_1_T >= 3 then
+				x402040_TipAllHuman( sceneId, "Tôn MÛ MÛ thïnh c¥u thay ğ±i ngß¶i, 6 giây sau tr§n ğ¤u tiªp tøc tiªn hành." )
 				
 				LuaFnSetCopySceneData_Param(sceneId, 25, nStep_1+1)
 				LuaFnSetCopySceneData_Param(sceneId, 26, nCurTime)
 			end
 			
 		elseif nStep_1 == 2  then
-			if nCurTime-nStep_1_T >= 10 then
-				x402040_TipAllHuman( sceneId, "Tôn MÛ MÛ thïnh c¥u thay ğ±i ngß¶i, 10 giây sau tr§n ğ¤u tiªp tøc tiªn hành." )
+			if nCurTime-nStep_1_T >= 3 then
+				x402040_TipAllHuman( sceneId, "Tôn MÛ MÛ thïnh c¥u thay ğ±i ngß¶i, 3 giây sau tr§n ğ¤u tiªp tøc tiªn hành." )
 				
 				LuaFnSetCopySceneData_Param(sceneId, 25, nStep_1+1)
 				LuaFnSetCopySceneData_Param(sceneId, 26, nCurTime)
 			end
 			
 		elseif nStep_1 == 3  then
-			if nCurTime-nStep_1_T >= 10 then
+			if nCurTime-nStep_1_T >= 3 then
 				x402040_TipAllHuman( sceneId, "Tr§n ğ¤u mµt l¥n næa b¡t ğ¥u." )
 				
 				LuaFnSetCopySceneData_Param(sceneId, 25, nStep_1+1)
@@ -721,10 +721,10 @@ function x402040_OnCopySceneTimer( sceneId, nowTime )
 	end
 
 	-- ÏÖ°´ÕÕ¼òµ¥toÕ ğµ Ã¿10 giâyË¢mµt ´Î¹Ö
-	if 	(nStep>=5   and nStep<24  and nCurTime-nPreTime >= 15) or
-			(nStep>=25  and nStep<54  and nCurTime-nPreTime >= 12) or
-			(nStep>=55  and nStep<124 and nCurTime-nPreTime >= 10) or
-			(nStep>=125 and nStep<154	and nCurTime-nPreTime >= 5)   then
+	if 	(nStep>=5   and nStep<24  and nCurTime-nPreTime >= 3) or
+			(nStep>=25  and nStep<54  and nCurTime-nPreTime >= 3) or
+			(nStep>=55  and nStep<124 and nCurTime-nPreTime >= 3) or
+			(nStep>=125 and nStep<154	and nCurTime-nPreTime >= 3)   then
 		
 		-- ¹ÖÎïÉú³É ği¬m
 		if nStep == 5  then

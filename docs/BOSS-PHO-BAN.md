@@ -69,7 +69,8 @@ Cột "Đã sửa" ghi ngày + tag rollback. "Chưa thử" = chưa ai đánh l�
 - **Điều kiện:** 1 lượt/ngày chung cho 2 bản (`MD_LAST_QIJU_DAY`).
   - Bản thường: mở 11:30–14:30 và 20:30–22:00, cấp ≥10, chế độ tân thủ khi trong đội chênh nhau ≥20 cấp.
   - Bản nhanh: luôn mở, ≥3 người, cấp ≥100.
-- **Luồng:** 30 giây chờ, ra 200 quân cờ, rồi bước 201 ra boss Viễn Cổ Kỳ Hồn:
+- **Luồng:** 30 giây chờ (05/10: 10 giây), ra 200 quân cờ, rồi bước 201 ra boss Viễn Cổ Kỳ Hồn:
+  - **05/10 bản thường 401001:** quân cờ 9/8/7/6/5 s → **3 s** (~23 → ~10 phút). Bản nhanh 401002 (3/2 s) không đổi.
   - bản thường: 1850–1859 và 31850–31859;
   - tân thủ: 12040+, 12090+, 42040+, 42090+.
   - AI 123. Thoát bằng NPC Kỳ Thánh 044000.
@@ -88,6 +89,7 @@ Cột "Đã sửa" ghi ngày + tag rollback. "Chưa thử" = chưa ai đánh l�
 - **Vào:** Đồng Quán (Lạc Dương 298,192), script 000004 → phó bản 402040 `event/fuben/efuben_cuju.lua`. Quả túc cầu dùng script 402045 `efuben_cuju_4.lua`. Boss Tôn Mỹ Mỹ 3720–3729 / 33720–33729, AI 216.
 - **Điều kiện:** có tổ đội, cấp ≥30, 1 lượt mỗi 24 giờ (`MD_CUJU_PRE_TIME`). Không giới hạn giờ mở.
 - **Luồng:** ra 149 quả nhỏ. Ở các bước 24/54/124 ra 3 quả lớn. Hết quả thì ra Tôn Mỹ Mỹ.
+- **05/10 nhịp nhanh** (tag `truoc-nhip-quai-05-10`, `tools/nhip-quai-05-10.js`): quả nhỏ 15/12/10/5 s → **3 s**, quả lớn 10 s → 3 s, đếm ngược 60 → 13 s (chữ sửa khớp). ~27 → ~8 phút chờ quả. Boss vẫn chờ 10 s. Túi boss web từ 05/10 (`tuccau`).
 - **Thưởng:** mỗi quả có 30% rơi Tử Vi Linh Phách cho từng người. Không có túi boss.
 - **Đã sửa 02/10:** lỗi cấp 119 (thật, chỉ số dùng thẳng), giá trị rơi 30%.
 - **Còn mở (chỉ là chữ):**

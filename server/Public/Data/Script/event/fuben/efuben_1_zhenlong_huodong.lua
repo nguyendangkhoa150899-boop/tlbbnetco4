@@ -14,7 +14,7 @@ x401001_g_CopySceneType = FUBEN_ZHENGLONG;	--¸±±¾ÀàĞÍ£¬¶¨ÒåÔÚScriptGlobal.luaÀïÃ
 x401001_g_limitMembers = 1;					--¿ÉÒÔ½ø¸±±¾µÄ×îĞ¡¶ÓÎéÈËÊı
 x401001_g_tickDiffTime = 1;					--»Øµ÷½Å±¾µÄÊ±ÖÓÊ±¼ä£¨µ¥Î»£ºÃë/´Î£©
 x401001_g_closeTickCount = 30;				--¸±±¾¹Ø±ÕÇ°µ¹¼ÆÊ±£¨µ¥Î»£º´Î£©
-x401001_g_startTickCount = 30;				--¿ªÊ¼³ö¹ÖµÄÊ±¼ä£¨µ¥Î»£º´Î£©
+x401001_g_startTickCount = 10;				--¿ªÊ¼³ö¹ÖµÄÊ±¼ä£¨µ¥Î»£º´Î£©
 x401001_g_tipsIntervalTickCount = 5;		--ÌáÊ¾ĞÅÏ¢µÄ¼ä¸ôÊ±¼ä
 
 x401001_g_NoUserTime = 300;					--¸±±¾ÖĞÃ»ÓĞÈËºó¿ÉÒÔ¼ÌĞø±£´æµÄÊ±¼ä£¨µ¥Î»£ºÃë£©
@@ -53,11 +53,11 @@ x401001_g_LastBoss_XinShou6 = {12090, 12091, 12092, 12093, 12094, 12095, 12096, 
 
 --´´½¨¹ÖÎïµÄ½Ú×à
 x401001_g_createMonsterIntervalInfoList = {
-										{topPressStep=40, intervalTickCount=9},
-										{topPressStep=80, intervalTickCount=8},
-										{topPressStep=120, intervalTickCount=7},
-										{topPressStep=160, intervalTickCount=6},
-										{topPressStep=200, intervalTickCount=5}
+										{topPressStep=40, intervalTickCount=3},
+										{topPressStep=80, intervalTickCount=3},
+										{topPressStep=120, intervalTickCount=3},
+										{topPressStep=160, intervalTickCount=3},
+										{topPressStep=200, intervalTickCount=3}
 										};
 
 --ÆåÆ×Êı¾İ
