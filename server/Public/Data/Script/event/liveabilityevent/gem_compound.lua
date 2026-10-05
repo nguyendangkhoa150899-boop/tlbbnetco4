@@ -296,6 +296,25 @@ function x701602_GemCompound( sceneId, selfId, bagIndex1, bagIndex2, bagIndex3, 
 	end
 
 	-- 计算新物品编号
+	-- [NetCo4 06/10] MOI O CHI 1 CAI: LuaFnEraseItem ben duoi xoa NGUYEN O -> dat ca chong vao la mat ca chong (1010100018 mat 28 phu).
+	-- Chan truoc khi tru bat cu thu gi. LuaFnGetItemCountInBagPos = so luong chong o dung o do (HumanItemLogic::GetItem -> GetItemCount).
+	local nc_nhieu = 0
+	for i = 1, 5 do
+		if bagIndexList[i] ~= -1 and LuaFnGetItemCountInBagPos( sceneId, selfId, bagIndexList[i] ) > 1 then
+			nc_nhieu = 1
+		end
+	end
+	if bagIndex6 ~= -1 and LuaFnGetItemCountInBagPos( sceneId, selfId, bagIndex6 ) > 1 then
+		nc_nhieu = 1
+	end
+	if nc_nhieu == 1 then
+		BeginEvent( sceneId )
+			AddText( sceneId, "M\178i \244 ch\239 \240\223\254c \240\163t 1 c\225i. B\164m \"T\225ch\" trong t\250i \240\172 t\225ch ch\176ng ra r\176i \240\163t l\213i." )
+		EndEvent( sceneId )
+		DispatchMissionTips( sceneId, selfId )
+		return
+	end
+
 	local newItemIndex = x701602_GetStuffUpgraded( standardStuff )
 
 	-- 扣除材料, 一定要全部扣除成功，才能继续进行 added by dun.liu 2009.2.5

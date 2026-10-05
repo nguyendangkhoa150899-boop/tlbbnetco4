@@ -1127,3 +1127,9 @@ Trạng thái 16:30 05/10: mọi thứ **đã commit, push, deploy**. **Game CH�
 ### 05/10 khuya: dời NPC Kiều Phục Thịnh (tiệm người chơi, Lạc Dương) 330,299 → 210,330
 - `tools/doi-cho-npc.js luoyang_monster.ini 4062858 210 330 --ghi` (dir giữ 9; gần nhất NPC 210,326 cách 4 ô). `MissionNPC_HashTable.txt` dòng 200049 sửa cột X/Z + link `#{_INFOAIM210,330,0,...}` (chỉ chữ số, byte có dấu và CR giữ nguyên).
 - Cần cap-nhat + restart. Danh sách NPC / tự tìm đường trên bản đồ nhỏ của CLIENT có thể vẫn chỉ chỗ cũ (dữ liệu client, server không sửa được). Rollback tag `truoc-doicho-kpt-05-10`.
+
+### 06/10 00:xx: Hợp thành bảo thạch xóa NGUYÊN CHỒNG phù - mỗi ô chỉ nhận 1 cái
+- `event/liveabilityevent/gem_compound.lua` (701602) dùng `LuaFnEraseItem(ô)` = xóa nguyên ô túi. 1010100018 (`3C34E732`) đặt chồng phù vào ô "B.Thạch Hợp Thành Phù": 6 lần (05/10 20:39 → 06/10 0:11) xóa chồng 5, 5, 8, 1, 1, 14 → **mất oan 28 Cao cấp Hợp Thành Phù 30900016** (chồng 14 = 1852534 gộp thành 2003010 lúc 0:10:46). Toàn server chỉ có 6 lần hợp thành, đều của nhân vật này.
+- Sửa (`tools/hopthanh-tru1-06-10.js`, Lua, hiệu lực sau cap-nhat): trước khi trừ gì, ô nào (5 ô nguyên liệu + ô phù) có > 1 cái thì báo "Mỗi ô chỉ được đặt 1 cái. Bấm Tách…" và dừng. Số lượng ô đọc bằng `LuaFnGetItemCountInBagPos(sceneId, selfId, ô)` (dịch ngược Server: `HumanItemLogic::GetItem` → `_ITEM::GetItemCount`; 3 tham số).
+- KHÔNG dùng `LuaFnDelAvailableItem(ID, 1)`: trừ theo ID ở ô bất kỳ → đặt phù không khóa, trừ phù có khóa chỗ khác, ngọc ra không khóa = rửa đồ khóa. `LuaFnEraseItemTimes` (4 tham số) đụng `Item::GetItemParam` (số lần dùng?), không phải số lượng chồng - đừng dùng.
+- Chưa test trong game. Chờ chủ server quyết bù 28 phù cho 1010100018. Rollback tag `truoc-hopthanh-tru1-06-10`.
