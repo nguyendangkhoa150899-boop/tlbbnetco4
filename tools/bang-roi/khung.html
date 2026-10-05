@@ -89,7 +89,7 @@ label.chk { display: inline-flex; gap: 6px; align-items: center; font-size: 14px
         <button id="tab-mon" type="button" aria-pressed="true">Quái &amp; boss</button>
         <button id="tab-item" type="button" aria-pressed="false">Tìm theo vật phẩm</button>
       </div>
-      <input id="q" type="search" placeholder="Tên quái, ID, bản đồ…" autocomplete="off" aria-label="Tìm">
+      <input id="q" type="search" placeholder="Tên quái, ID, bản đồ… (nhiều: 3720, 1851-1859)" autocomplete="off" aria-label="Tìm" title="Nhiều điều kiện: cách bằng dấu phẩy, ví dụ 50602001, 50613004, phục hi. Dải ID: 1348-1375. Toàn số thì cách bằng khoảng trắng cũng được.">
       <label class="chk" for="plv">Cấp nhân vật <input id="plv" type="number" min="1" max="150" value="89"></label>
     </div>
     <div class="row" id="monfilters">
@@ -205,13 +205,29 @@ label.chk { display: inline-flex; gap: 6px; align-items: center; font-size: 14px
       + '<footer>Trung bình ' + expOf(m).toFixed(2) + ' món/người/con · Mvalue ' + m[3] + ' · giảm rơi ×' + att(m[2]) + (hidden ? " · " + hidden + " hộp gần như không rơi" : "") + '</footer></article>';
   }
 
+  // 05/10: tìm NHIỀU điều kiện: "a, b; c | d + e" (hoặc toàn số thì cách bằng khoảng trắng), dải ID "50602001-50602008".
+  // Khớp BẤT KỲ điều kiện nào. Điều kiện là số -> đúng ID (không khớp lẫn 880 với 1880); chữ -> tìm trong tên / bản đồ.
+  function dieuKien(s) {
+    var raw = String(s || "").trim(); if (!raw) return [];
+    var parts = raw.split(/[,;|+\n]+/);
+    if (parts.length === 1 && /^[\d\s-]+$/.test(raw)) parts = raw.split(/\s+/);
+    return parts.map(function (p) {
+      p = p.trim(); if (!p) return null;
+      var r = p.match(/^(\d+)\s*-\s*(\d+)$/); if (r) { var a = +r[1], b = +r[2]; return { lo: Math.min(a, b), hi: Math.max(a, b) }; }
+      if (/^\d+$/.test(p)) return { lo: +p, hi: +p };
+      return { t: fold(p) };
+    }).filter(Boolean);
+  }
+  var khopId = function (dk, id) { id = +id; return dk.some(function (d) { return d.lo !== undefined && id >= d.lo && id <= d.hi; }); };
+  var coChu = function (dk) { return dk.some(function (d) { return d.t; }); };
+
   function renderMon() {
-    var q = fold(st.q.trim()); var mapI = st.map === "" ? -1 : +st.map;
+    var dk = dieuKien(st.q); var mapI = st.map === "" ? -1 : +st.map;
     var ds = D.mons.filter(function (m) {
       if (st.boss && !m[6]) return false;
       if (st.drop && !m[4].length && !m[5].some(function (s) { return s[4]; })) return false;
       if (mapI >= 0 && !m[5].some(function (s) { return s[0] === mapI; })) return false;
-      if (q && m.key.indexOf(q) < 0) return false;
+      if (dk.length && !(khopId(dk, m[0]) || dk.some(function (d) { return d.t && m.key.indexOf(d.t) >= 0; }))) return false;
       return true;
     });
     if (st.sort === "exp") ds.forEach(function (m) { m.e = expOf(m); });
@@ -223,9 +239,9 @@ label.chk { display: inline-flex; gap: 6px; align-items: center; font-size: 14px
   }
 
   function renderItem() {
-    var q = fold(st.q.trim());
-    if (q.length < 2) { $("out").innerHTML = '<div class="none">Gõ tên hoặc ID vật phẩm, ví dụ "phục hi", "ngọc cấp 6", "39910001".</div>'; $("more").hidden = true; $("count").textContent = ""; return; }
-    var hit = {}; Object.keys(D.items).forEach(function (id) { if (id === q || fold(itemName(id)).indexOf(q) >= 0) hit[id] = 1; });
+    var dk = dieuKien(st.q).filter(function (d) { return d.lo !== undefined || d.t.length >= 2; });
+    if (!dk.length) { $("out").innerHTML = '<div class="none">Gõ tên hoặc ID vật phẩm, ví dụ "phục hi", "ngọc cấp 6", "39910001".<br>Nhiều món một lúc: cách bằng dấu phẩy, ví dụ <b>50602001, 50613004, phục hi</b>, hoặc dải <b>50602001-50602008</b>.</div>'; $("more").hidden = true; $("count").textContent = ""; return; }
+    var hit = {}; Object.keys(D.items).forEach(function (id) { var n = fold(itemName(id)); if (khopId(dk, id) || dk.some(function (d) { return d.t && n.indexOf(d.t) >= 0; })) hit[id] = 1; });
     var rows = [];
     D.mons.forEach(function (m) {
       var per = {};
@@ -248,7 +264,7 @@ label.chk { display: inline-flex; gap: 6px; align-items: center; font-size: 14px
 
   function render() {
     $("monfilters").hidden = st.mode !== "mon";
-    $("q").placeholder = st.mode === "mon" ? "Tên quái, ID, bản đồ…" : "Tên hoặc ID vật phẩm…";
+    $("q").placeholder = st.mode === "mon" ? "Tên quái, ID, bản đồ… (nhiều: 3720, 1851-1859)" : "Tên / ID vật phẩm… (nhiều: 50602001, 50613004)";
     (st.mode === "mon" ? renderMon : renderItem)();
   }
 
