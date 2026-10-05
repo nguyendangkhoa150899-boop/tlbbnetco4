@@ -15,6 +15,7 @@ function x888890_OnDefaultEvent( sceneId, selfId )
 	
 	--检查帐号是否安全
 	CheckAccountSafe( sceneId, selfId );
+	x888890_TamPhap8( sceneId, selfId )   -- [NetCo4 05/10] tam phap thu 8 mac dinh cap 119
 	
 	--其它操作
 
@@ -71,4 +72,21 @@ function x888890_OnImpactFadeOut( sceneId, selfId, impactId )
         end
 end
 
-
+--**********************************
+-- [NetCo4 05/10] Chu server: tam phap thu 8 (Dien Bi) cua moi mon phai mac dinh cap 119.
+-- Nhan vat da vao phai, cap >= 80 (dieu kien hoc cua sach): thap hon 119 thi nang len, khong ha neu da cao hon.
+--**********************************
+x888890_g_TamPhap8 = { [0] = 72, [1] = 73, [2] = 74, [3] = 75, [4] = 76, [5] = 77, [6] = 78, [7] = 79, [8] = 80, [10] = 71, [11] = 88, [12] = 96 }
+x888890_g_TamPhap8Cap = 119
+function x888890_TamPhap8( sceneId, selfId )
+	local id = x888890_g_TamPhap8[ GetMenPai( sceneId, selfId ) ]
+	if not id then
+		return
+	end
+	if GetLevel( sceneId, selfId ) < 80 then
+		return
+	end
+	if HaveXinFa( sceneId, selfId, id ) < x888890_g_TamPhap8Cap then
+		LuaFnSetXinFaLevel( sceneId, selfId, id, x888890_g_TamPhap8Cap )
+	end
+end

@@ -336,6 +336,7 @@ function  x338000_OnActivateOnce(  sceneId,  selfId  )
 	 	 	 return  0
 	 	 else
 	 	 	 AddXinFa(  sceneId,  selfId,  skillBook.id  )
+	 	 	 if skillBook.id == 71 or ( skillBook.id >= 72 and skillBook.id <= 80 ) or skillBook.id == 88 or skillBook.id == 96 then LuaFnSetXinFaLevel( sceneId, selfId, skillBook.id, 119 ) end   -- [NetCo4 05/10] tam phap 8 mac dinh 119
                                                 x338000_NotifyFailTips(  sceneId,  selfId,  " Chúc m×ng các hÕ, h÷c thành công Bí T¸ch : #{_ITEM"..itemTblIndex.."}"  )
 	 	 end
 	 elseif  skillBook.type  ==  2  then	 	 	 	 -- Yªu Quyªt
