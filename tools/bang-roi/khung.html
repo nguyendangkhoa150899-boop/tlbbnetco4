@@ -55,6 +55,10 @@ label.chk { display: inline-flex; gap: 6px; align-items: center; font-size: 14px
 .drops li:first-child { border-top: 0; }
 .pct { font-family: var(--f-num); font-size: 13px; font-weight: 600; font-variant-numeric: tabular-nums; position: relative; padding-bottom: 5px; }
 .pct i { position: absolute; left: 0; bottom: 0; height: 3px; border-radius: 2px; background: var(--jade); opacity: .55; }
+.pct::before { content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 3px; border-radius: 2px; background: var(--line); }
+.imon { display: flex; flex-wrap: wrap; gap: 4px; margin-top: 5px; }
+.imon span { font-size: 12px; padding: 1px 7px; border-radius: 999px; border: 1px solid var(--line); color: var(--mute); white-space: nowrap; }
+.imon span b { font-family: var(--f-num); font-weight: 600; color: var(--jade); }
 .pct.hi { color: var(--jade); }
 .pct.lo { color: var(--mute); font-weight: 400; }
 .what { min-width: 0; font-size: 14px; }
@@ -103,6 +107,16 @@ label.chk { display: inline-flex; gap: 6px; align-items: center; font-size: 14px
       </select>
       <span class="count" id="count"></span>
     </div>
+    <div class="row" id="itemfilters" hidden>
+      <select id="isort" aria-label="Sắp xếp kết quả vật phẩm">
+        <option value="gop">Gộp theo quái (tổng tỉ lệ)</option>
+        <option value="mon">Từng món (tỉ lệ cao nhất)</option>
+        <option value="lv">Cấp quái thấp → cao</option>
+        <option value="lvd">Cấp quái cao → thấp</option>
+      </select>
+      <label class="chk" for="iboss"><input id="iboss" type="checkbox"> Chỉ boss</label>
+      <span class="count" id="icount"></span>
+    </div>
     <div class="chips" id="chips"></div>
   </div>
 
@@ -125,7 +139,7 @@ label.chk { display: inline-flex; gap: 6px; align-items: center; font-size: 14px
   var PAGE = 40;
   try { var bt = new Date(D.built); document.getElementById("built").textContent = " (" + bt.toLocaleString("vi-VN", { timeZone: "Asia/Ho_Chi_Minh", hour: "2-digit", minute: "2-digit", day: "2-digit", month: "2-digit" }) + ")"; } catch (e) {}
   if (/(^|\.)netco4\.click$/.test(location.hostname)) document.getElementById("play").hidden = false;
-  var st = { mode: "mon", q: "", plv: 89, map: "", boss: true, drop: true, sort: "exp", shown: PAGE };
+  var st = { mode: "mon", q: "", plv: 89, map: "", boss: true, drop: true, sort: "exp", isort: "gop", iboss: false, shown: PAGE };
   try { var sv = JSON.parse(localStorage.getItem("bangroi") || "{}"); if (sv.plv) st.plv = sv.plv; } catch (e) {}
 
   var $ = function (id) { return document.getElementById(id); };
@@ -248,22 +262,32 @@ label.chk { display: inline-flex; gap: 6px; align-items: center; font-size: 14px
       m[4].forEach(function (b) { var bx = D.boxes[b]; var n = bx[1].length; if (!n) return; var x = boxX(m, b);
         bx[1].forEach(function (i) { if (hit[i]) per[i] = (per[i] || 0) + x / n; }); });
       m[5].forEach(function (s) { if (s[4] && hit[s[4][0]]) per[s[4][0]] = Math.max(per[s[4][0]] || 0, s[4][1] / 100); });
-      Object.keys(per).forEach(function (i) { if (per[i] >= 0.0001) rows.push([per[i], m, i]); });
+      if (st.iboss && !m[6]) return;
+      var ds = Object.keys(per).filter(function (i) { return per[i] >= 0.0001; });
+      if (!ds.length) return;
+      if (st.isort === "gop") { var tong = 0; ds.forEach(function (i) { tong += per[i]; }); ds.sort(function (a, b) { return per[b] - per[a]; }); rows.push([tong, m, ds, per]); }
+      else ds.forEach(function (i) { rows.push([per[i], m, i]); });
     });
-    rows.sort(function (a, b) { return b[0] - a[0]; });
+    // 05/10: sắp xếp - hòa tỉ lệ thì boss trước, rồi cấp thấp trước
+    var hoa = function (a, b) { return (b[1][6] - a[1][6]) || (a[1][2] - b[1][2]) || (a[1][0] - b[1][0]); };
+    rows.sort(st.isort === "lv" ? function (a, b) { return (a[1][2] - b[1][2]) || (b[0] - a[0]); } : st.isort === "lvd" ? function (a, b) { return (b[1][2] - a[1][2]) || (b[0] - a[0]); } : function (a, b) { return (b[0] - a[0]) || hoa(a, b); });
     var nItem = Object.keys(hit).length;
-    $("count").textContent = rows.length + " nguồn rơi";
+    var dv = st.isort === "gop" ? " con quái" : " nguồn rơi";
+    $("count").textContent = $("icount").textContent = rows.length + dv;
     var lim = rows.slice(0, st.shown);
-    $("out").innerHTML = '<div class="ihead">Khớp <b>' + nItem + '</b> vật phẩm. Tỉ lệ ra <b>đúng món đó</b> cho mỗi người khi hạ 1 con.</div>'
+    var noi = function (m) { return m[5].slice(0, 2).map(function (s) { return mapName[s[0]]; }).join(", ") || "gọi bằng script"; };
+    var tenQ = function (m) { return '<b>' + esc(m[1]) + '</b> <span class="lv">cấp ' + m[2] + '</span> <span class="id">#' + m[0] + '</span>' + (m[6] ? ' <span class="tag">Boss</span>' : ""); };
+    $("out").innerHTML = '<div class="ihead">Khớp <b>' + nItem + '</b> vật phẩm. ' + (st.isort === "gop" ? 'Mỗi con: tỉ lệ ra <b>bất kỳ món nào</b> trong danh sách cho mỗi người khi hạ 1 con (cộng các món).' : 'Tỉ lệ ra <b>đúng món đó</b> cho mỗi người khi hạ 1 con.') + '</div>'
       + (lim.length ? lim.map(function (r) { var m = r[1];
-        var where = m[5].slice(0, 2).map(function (s) { return mapName[s[0]]; }).join(", ") || "gọi bằng script";
-        return '<div class="irow">' + pctCell(r[0]) + '<div class="m">' + esc(itemName(r[2])) + ' — <b>' + esc(m[1]) + '</b> <span class="lv">cấp ' + m[2] + '</span> <span class="id">#' + m[0] + '</span>' + (m[6] ? ' <span class="tag">Boss</span>' : "") + '<small>' + esc(where) + '</small></div></div>'; }).join("") : '<div class="none">Không quái nào rơi món này từ bảng rơi.</div>');
+        if (st.isort === "gop") return '<div class="irow">' + pctCell(r[0]) + '<div class="m">' + tenQ(m) + '<small>' + esc(noi(m)) + '</small><div class="imon">' + r[2].map(function (i) { return '<span>' + esc(itemName(i)) + ' <b>' + fmtPct(r[3][i]) + '</b></span>'; }).join("") + '</div></div></div>';
+        return '<div class="irow">' + pctCell(r[0]) + '<div class="m">' + esc(itemName(r[2])) + ' — ' + tenQ(m) + '<small>' + esc(noi(m)) + '</small></div></div>'; }).join("") : '<div class="none">Không quái nào rơi món này từ bảng rơi' + (st.iboss ? ' (đang bật "Chỉ boss")' : '') + '.</div>');
     $("more").hidden = rows.length <= st.shown;
-    $("more").textContent = "Xem thêm (" + (rows.length - st.shown) + " nguồn nữa)";
+    $("more").textContent = "Xem thêm (" + (rows.length - st.shown) + dv + " nữa)";
   }
 
   function render() {
     $("monfilters").hidden = st.mode !== "mon";
+    $("itemfilters").hidden = st.mode !== "item";
     $("q").placeholder = st.mode === "mon" ? "Tên quái, ID, bản đồ… (nhiều: 3720, 1851-1859)" : "Tên / ID vật phẩm… (nhiều: 50602001, 50613004)";
     (st.mode === "mon" ? renderMon : renderItem)();
   }
@@ -287,6 +311,8 @@ label.chk { display: inline-flex; gap: 6px; align-items: center; font-size: 14px
   $("fboss").onchange = function () { st.boss = $("fboss").checked; st.shown = PAGE; render(); };
   $("fdrop").onchange = function () { st.drop = $("fdrop").checked; st.shown = PAGE; render(); };
   $("sort").onchange = function () { st.sort = $("sort").value; render(); };
+  $("isort").onchange = function () { st.isort = $("isort").value; st.shown = PAGE; render(); };
+  $("iboss").onchange = function () { st.iboss = $("iboss").checked; st.shown = PAGE; render(); };
   $("more").onclick = function () { st.shown += PAGE; render(); };
   chips(); render();
 })();

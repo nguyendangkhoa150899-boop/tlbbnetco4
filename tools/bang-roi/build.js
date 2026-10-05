@@ -48,6 +48,7 @@ function walk(d) { for (const f of fs.readdirSync(d)) { const p = path.join(d, f
   if (st.isDirectory()) walk(p); else if (/\.lua$/i.test(f)) { const b = fs.readFileSync(p); const s = b.toString('latin1');
     const loads = [...s.matchAll(/LuaFnSetSceneLoad_Monster\(\s*sceneId\s*,\s*"([^"]+)"/g)].map(m => m[1]); if (!loads.length) continue;
     let nm = (s.match(/_g_CopySceneName\s*=\s*"([^"]*)"/) || [])[1];
+    if (nm) nm = nm.replace(/\\(\d{1,3})/g, (m, d) => String.fromCharCode(+d));   // 05/10: ten Viet hoa dang escape Lua "\226" -> byte VISCII (truoc hien "Tr\226n Long...")
     nm = TEN0[path.basename(f, '.lua')] || (nm ? (/[A-Za-z]/.test(nm) ? dec(raw(nm)).trim() : gbk.decode(raw(nm)).trim()) : path.basename(f, '.lua')); fubenScript[p] = nm;
     for (const ld of loads) { const hit = ld.endsWith('.ini') ? iniFiles.filter(x => x.toLowerCase() === ld.toLowerCase()) : iniFiles.filter(x => x.toLowerCase().startsWith(ld.toLowerCase()));
       for (const h of hit) (fubenByIni[h] = fubenByIni[h] || new Set()).add(nm); } } } }
