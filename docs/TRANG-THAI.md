@@ -1101,3 +1101,9 @@ Trạng thái 16:30 05/10: mọi thứ **đã commit, push, deploy**. **Game CH�
 ### 05/10 23:05: Ghép Ngọc gửi ẢNH kết quả lên Discord
 - Chủ server yêu cầu: thay câu thông báo bằng màn hình kết quả. Server vẽ ảnh (bialk `9996f0c`, `ghepngoc.anh.js`, `@resvg/resvg-js` cài trên VPS), xem `docs/GHEP-NGOC.md` mục Thông báo. Bot đã restart 23:05, cấu hình đang `anh: true`, `anhChu: false`, kênh có sẵn.
 - CHƯA thấy ảnh thật trên Discord: chờ lượt luyện đầu tiên hoặc admin bấm 🧪 Gửi thử. Rollback tag `truoc-gn-anh-05-10` (bialk); sao lưu file cũ `/opt/tlbb-backup/bot-truoc-gn-anh-20261005-2301`.
+
+### 05/10 23:20: Sát Tinh mỗi boss 25% ngọc cấp 6 (không cần restart)
+- Chủ server: "buff 25%/boss, không reset". `tools/sattinh-ngoc6-05-10.js`: `x892009_OnDie` (12 boss Sát Tinh) gọi `RoiCfg(..., "sattinh")`; VPS `roithem.txt` thêm `sattinh 25 @ngoc6a,@ngoc6b` (29 loại túi A + B, bốc đều). Rơi qua script = mỗi thành viên đứng gần roll riêng, không giảm theo cấp. Đổi tỉ lệ: sửa số trong dòng đó (hiệu lực lượt hạ kế tiếp).
+- Ngô Vĩnh vẫn còn hộp bảng 90088 (X 0,5 → 50% hoặc 10% nếu bị giảm cấp) cộng thêm 25% script. Muốn đúng 25% thì gỡ 90088 khỏi 13456 (bảng, cần restart).
+- Kỳ vọng tổ 6 người: 12 boss × 25% × 6 ≈ 18 viên/lượt, 3 lượt/ngày ≈ 54 viên/ngày (+ Ngô Vĩnh bảng).
+- netco4.click đã dựng lại (build.js + khung.html). Sao lưu roithem cũ `/opt/tlbb-backup/roithem-truoc-sattinh-*`. Rollback tag `truoc-sattinh-ngoc6-05-10` (hoặc xóa dòng `sattinh` trong roithem.txt = tắt ngay).

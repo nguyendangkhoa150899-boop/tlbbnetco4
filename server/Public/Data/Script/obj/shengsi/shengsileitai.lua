@@ -263,6 +263,7 @@ function  x892009_OnDie(sceneId,  objId,  killerId)
 	-- [NetCo4 01/10] tui boss: KHONG goi TB_Ghi o day - 501000 OnDie ben duoi da goi (goi 2 cho = moi boss ghi 2 dong)
 --CallScriptFunction(  898992,  "MonsterOnDie",  sceneId,  objId,  killerId,1  )
 CallScriptFunction(  501000,  "OnDie",  sceneId,  objId,  killerId)
+CallScriptFunction( 950001, "RoiCfg", sceneId, objId, killerId, "sattinh" )   -- [NetCo4 05/10] Sat Tinh: moi boss roll ngoc 6, ti le o roithem.txt (dong "sattinh"), moi thanh vien rieng
 end
 --**********************************
 -- giªt chªt quái v§t ho£c nhà ch½i 
