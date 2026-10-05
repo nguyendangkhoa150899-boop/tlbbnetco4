@@ -1123,3 +1123,7 @@ Trạng thái 16:30 05/10: mọi thứ **đã commit, push, deploy**. **Game CH�
 - **Lỗi cũ tìm ra:** 13456 là DataID của CẢ Ngô Dụng (`wuyong.lua`, log ghi "Ngô vĩnh") lẫn Tống Giang (`songjiang.lua`) → log 01/10 22:58+23:00, 02/10 23:04+23:06: 2 lần hạ 13456/lượt → luật 05/10 sẽ ra 10 phiếu/người/lượt (túi web có cờ nên không bị). 13465 chỉ `lujunyi.lua` gọi; NPC 13553 chết sau khi gọi boss và đang đánh thì bấm lại bị chặn → 1 lần/lượt.
 - 2 công cụ luật cũ (`phieu-boss/luat-05-10.js`, `ngoc6/luat-05-10.js`) chạy `--ghi` lại sẽ viết lại 154 / 356 dòng (bảng đã sửa tiếp sau khi viết) → thêm chốt `--toi-biet`; LUAT/GIU trong đó đã đổi 13456 → 13465 cho đúng tài liệu.
 - CẦN cap-nhat + restart CÙNG LÚC (Lua có hiệu lực ngay, bảng chỉ sau restart: nếu cap-nhat mà chưa restart thì túi web ở Lộ Quân Dật, phiếu vẫn ở Ngô Dụng / Tống Giang). netco4.click đã dựng theo bảng mới. Rollback tag `truoc-sattinh-cuoi-05-10`.
+
+### 05/10 khuya: dời NPC Kiều Phục Thịnh (tiệm người chơi, Lạc Dương) 330,299 → 210,330
+- `tools/doi-cho-npc.js luoyang_monster.ini 4062858 210 330 --ghi` (dir giữ 9; gần nhất NPC 210,326 cách 4 ô). `MissionNPC_HashTable.txt` dòng 200049 sửa cột X/Z + link `#{_INFOAIM210,330,0,...}` (chỉ chữ số, byte có dấu và CR giữ nguyên).
+- Cần cap-nhat + restart. Danh sách NPC / tự tìm đường trên bản đồ nhỏ của CLIENT có thể vẫn chỉ chỗ cũ (dữ liệu client, server không sửa được). Rollback tag `truoc-doicho-kpt-05-10`.
