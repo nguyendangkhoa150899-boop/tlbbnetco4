@@ -1,10 +1,10 @@
 // 05/10 (chủ server): Vô Lượng Sơn (wuliang_monster.ini, scene 6/73/74) quái Võ Ý (script_id=999998, 309 điểm) hồi sinh 15/10 s -> 5 s.
 // Chỉ đổi dòng respawn_time trong khối có script_id=999998; NPC / quái nhiệm vụ giữ nguyên. Sửa theo byte (latin1), giữ CRLF. Cần restart game.
-// node tools/vls-hoisinh-05-10.js [--ghi]
+// node tools/vls-hoisinh-05-10.js [ms, mặc định 5000] [--ghi]   (05/10 tối: chủ server đổi 5 s -> 2 s)
 const fs = require('fs'), path = require('path');
 const F = path.join(__dirname, '../server/Public/Scene/wuliang_monster.ini');
 const ghi = process.argv.includes('--ghi');
-const MOI = 5000;
+const MOI = Number((process.argv.find(a => /^\d+$/.test(a))) || 5000);   // ms, vd: node tools/vls-hoisinh-05-10.js 2000 --ghi
 const raw = fs.readFileSync(F, 'latin1');
 const EOL = raw.includes('\r\n') ? '\r\n' : '\n';
 const L = raw.split(EOL);
