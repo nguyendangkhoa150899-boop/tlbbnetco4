@@ -1097,3 +1097,7 @@ Trạng thái 16:30 05/10: mọi thứ **đã commit, push, deploy**. **Game CH�
 - Trước đó cả 6 tiến trình chạy trong `onedash-agent.service` từ 21:06 (bấm `y` ở câu restart của cap-nhat trong Terminal OneDash); `tlbb.service` "active (exited)" nhưng 0 task.
 - `systemctl restart tlbb` 22:11:55 → tắt an toàn xong 22:12:35 (ShareMemory ghi DB ~32 s) → bật lại 22:14:15. Kiểm: 6 tiến trình đều trong `tlbb.service`, cổng 3731/7384 nghe, minigame active.
 - Áp luôn: Vô Lượng Sơn hồi sinh 2 s (đã có từ 21:07), nội tức ×3 và tâm pháp 8 = 119 (Lua, cap-nhat 22:10, commit fc924e1).
+
+### 05/10 23:05: Ghép Ngọc gửi ẢNH kết quả lên Discord
+- Chủ server yêu cầu: thay câu thông báo bằng màn hình kết quả. Server vẽ ảnh (bialk `9996f0c`, `ghepngoc.anh.js`, `@resvg/resvg-js` cài trên VPS), xem `docs/GHEP-NGOC.md` mục Thông báo. Bot đã restart 23:05, cấu hình đang `anh: true`, `anhChu: false`, kênh có sẵn.
+- CHƯA thấy ảnh thật trên Discord: chờ lượt luyện đầu tiên hoặc admin bấm 🧪 Gửi thử. Rollback tag `truoc-gn-anh-05-10` (bialk); sao lưu file cũ `/opt/tlbb-backup/bot-truoc-gn-anh-20261005-2301`.

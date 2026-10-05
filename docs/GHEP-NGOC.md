@@ -69,6 +69,11 @@ Cả tab 🎯 Món đích lẫn 🧰 Rương xếp: phiếu KNB nhỏ → lớn 
 - **Nội dung:** thắng thì câu chúc mừng, thua thì câu châm biếm, mỗi loại 5 câu bốc ngẫu nhiên. Có tag người chơi, nhưng `allowedMentions` chỉ ping đúng người đó.
 - **Đăng sau `tre` giây** (mặc định 8), để kim trên web dừng trước. Đăng ngay thì kênh lộ kết quả trước cả người chơi.
 - **Lọc theo giá:** `minGia` = chỉ báo món đích từ mức giá đó trở lên.
+- **📸 Ảnh kết quả (05/10, bialk `9996f0c`, mặc định BẬT `anh`):** thay câu chữ bằng ảnh màn hình kết quả do **server vẽ** (`BotDoMin/ghepngoc.anh.js`): cột Bỏ vào (icon + giá/cái + ×SL, KNB web, tổng), vòng tỉ lệ đúng hình học client (vùng trúng = cung `tiLe` bắt đầu ở `lech`, kim ở `roll`), khung THẤT BẠI / CHÚC MỪNG, món muốn luyện ra.
+  - Không nhận ảnh chụp từ máy người chơi: ảnh client sửa được là kết quả giả do bot đăng.
+  - SVG → PNG bằng `@resvg/resvg-js` 2.6.2 (bản dựng sẵn, `npm install` trên VPS), font DejaVu Sans của VPS (`GN_ANH_FONT` để đổi). Icon cắt từ tấm ảnh `itemicon.js` (`/opt/minigame/itemicon`), nhúng base64. ~250 ms, ~260 KB/ảnh, khổ 1650×840.
+  - Tin chỉ có ảnh (+ tag nếu bật). `anhChu` = kèm câu chúc mừng/châm biếm. Thiếu thư viện hoặc vẽ lỗi → tự gửi câu chữ như cũ, ghi log ADMIN.
+  - Thử ở local: chép module vào scratchpad cạnh `node_modules/@resvg/resvg-js`, `GN_ANH_FONT=C:/Windows/Fonts/arial.ttf,...` (require từ thư mục bot không thấy `node_modules` của scratchpad, NODE_PATH không ăn).
 
 ## Admin
 
