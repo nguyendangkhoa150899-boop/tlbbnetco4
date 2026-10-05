@@ -332,8 +332,8 @@ label.chk { display: inline-flex; gap: 6px; align-items: center; font-size: 14px
     // Cùng tên quái có nhiều BẬC CẤP (14, 24 … 204): mỗi lượt chỉ gặp 1 bậc theo cấp tổ -> giữ bậc gần cấp nhân vật nhất
     var gan = function (lv) { return Math.abs(lv - st.plv); };
     var chonBac = function (ds, khoa) { var g = {}; ds.forEach(function (x) { var mm = x.m || x[0], k = khoa(x), c = g[k]; if (!c || gan(mm[2]) < gan((c.m || c[0])[2]) || (gan(mm[2]) === gan((c.m || c[0])[2]) && mm[2] < (c.m || c[0])[2])) g[k] = x; }); return Object.values(g); };
-    Object.values(pb).forEach(function (b) { b.mons = chonBac(b.mons, function (x) { return x[0][1]; }); b.v = 0; b.mons.forEach(function (x) { b.v += x[1] * x[2]; }); });
-    boss = chonBac(boss, function (b) { return b.m[1] + "|" + (b.noi[0] || ""); });
+    Object.values(pb).forEach(function (b) { b.mons = chonBac(b.mons, function (x) { return fold(x[0][1]); }); b.v = 0; b.mons.forEach(function (x) { b.v += x[1] * x[2]; }); });
+    boss = chonBac(boss, function (b) { return fold(b.m[1]) + "|" + (b.noi[0] || ""); });
     var bdL = Object.values(bd).map(function (a) { a.v = a.w / a.rate * Math.min(a.rate, speed); a.kh = Math.min(a.rate, speed); return a; }).sort(function (a, b) { return b.v - a.v; });
     var pbL = Object.values(pb).sort(function (a, b) { return b.v - a.v; });
     boss.sort(function (a, b) { return b.e - a.e || (a.rs || 1e9) - (b.rs || 1e9); });
