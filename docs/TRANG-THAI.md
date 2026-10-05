@@ -1073,3 +1073,8 @@ Trạng thái 16:30 05/10: mọi thứ **đã commit, push, deploy**. **Game CH�
 - **05/10 - Vô Lượng Sơn quái Võ Ý hồi sinh 15/10 s → 5 s** (tag `truoc-vls-5s-05-10`, `tools/vls-hoisinh-05-10.js`, 309 điểm `script_id=999998` trong `wuliang_monster.ini`, scene 6/73/74; NPC giữ nguyên). **Cần restart game.** Trần Võ Ý 3.000 con/ngày giữ nguyên → chỉ đủ trần sớm hơn.
 - **05/10 21h - Vô Lượng Sơn đổi lại 5 s → 2 s** (chủ server đổi ý trước khi restart; `node tools/vls-hoisinh-05-10.js 2000 --ghi`). Cần cap-nhat + restart.
 - **05/10 tối - Vô Lượng Sơn nội tức Võ Ý ×3** (tag `truoc-voy-x3-05-10`, `tools/voy-x3-05-10.js`): `MyNew/guaiwu_die.lua` thêm 1 dòng - scene 6/73/74 nhân 3 → (770 + 10×cấp) × 12 = 9.360–10.440/con, cả tổ đứng gần mỗi người đủ. Thông Thiên Tháp / Mai Nha / Vân Phù (cùng script 999998) giữ ×4. Lua, hiệu lực khi cap-nhat. Cùng lúc (bot): Ghép Ngọc tắt món đích phiếu 10.000 (`dich.rieng 39910004 = 0`), khung "💰 Thêm KNB web" nổi bật có nút +1.000 / +5.000 / Tối đa / ✕.
+
+### 05/10 tối: Ghép Ngọc bỏ phiếu 10.000 + 50.000
+- Chủ server: món đích phiếu chỉ còn 1.000 / 2.000 / 5.000 (giá 1.100 / 2.200 / 5.500). Xóa khỏi `dich.rieng` 39910004 + 39910005 qua `/api/gn/save` (cấu hình bot, không phải repo). Món đích 41 → 40.
+- ⚠ Tab Ghép Ngọc ở admin mở từ trước vẫn hiện bản cũ (10.000 = 11.000): F5 trước khi bấm lưu, lưu từ tab cũ là ghi đè lại.
+- Thêm `tools/tim-nguon.js <itemID> [cấp]`: tìm mọi hộp/quái rơi 1 món + kỳ vọng mỗi người.
