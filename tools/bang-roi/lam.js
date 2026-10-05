@@ -20,4 +20,6 @@ const head = [
   ''].join('\n');
 fs.mkdirSync(path.join(__dirname, 'web'), { recursive: true });
 fs.writeFileSync(path.join(__dirname, 'web', 'index.html'), head + h + '\n</html>\n');
+// 05/10: portal admin/mod (tab 📊 Bảng rơi của bot) đọc file này -> chép lên VPS /var/www/netco4/data.json cùng index.html
+fs.copyFileSync(path.join(__dirname, 'data.json'), path.join(__dirname, 'web', 'data.json'));
 console.log('xong:', path.join(__dirname, 'bang-roi.html'), '+', path.join(__dirname, 'web', 'index.html'));
