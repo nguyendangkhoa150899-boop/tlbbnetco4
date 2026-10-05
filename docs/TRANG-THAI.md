@@ -921,6 +921,17 @@ Trạng thái lúc 13:00 05/10: mọi thứ dưới đây **đã commit, đã pu
 - Tab **📦 Kho đồ** (SUPER) mở lại. Tab này bị lớp `pwOff` ẩn nhầm từ 29/09. Đây là chỗ **bỏ đồ tay vào Rương Ích Kỷ** (nút 🧰 Rương) hoặc giao vào game.
 - Cổng mod thêm tab 💎 Ghép Ngọc (chỉ xem nhật ký).
 
+**NPC Ví Web 999999** (Lạc Dương, Đại Lý; game `2baaa8e`, bot `946cbf6`):
+- Menu KNB gọn lại còn 10.000 / 100.000 / Toàn bộ.
+- Thêm dòng **"Chuyển Ngọc (không cố định) ra Rương Ích Kỷ"**: duyệt túi Đạo cụ + Nguyên liệu, lấy ngọc ID 501xxxxx–507xxxxx.
+  - **Bỏ qua:** ngọc cố định (`LuaFnGetItemBindStatus == 1`), món khóa mật khẩu, ngọc đang khảm.
+  - Rương web không lưu khóa. Cho ngọc cố định đi qua thì rút về sẽ thành không khóa, tức **rửa khóa**.
+- Xóa từng ô, đếm số lượng trước/sau, rồi ghi phiếu `outlv/` chung với Long Văn.
+  - Bot (`tlbb.readLvReceipts`) nhận ID ngọc.
+  - Rút ngọc từ rương về game tối đa **10 viên/lần**, áp cho mọi ngọc, vì ngọc không chồng được.
+- **Long Văn giữ nguyên, không kiểm khóa.** Chủ server đã thử: Long Văn trong game này luôn khóa và chỉ có 1 ID dù từ nguồn nào.
+- **Chưa thử trong game.** Nên chuyển thử vài viên ngọc rẻ, xem vào rương, rồi rút về.
+
 **Cấu hình đang chạy, không nằm trong repo:**
 - Exp **x5** và khóa cấp **89** do panel quản lý: `Server/txt/NetCo4Cfg/expparam.txt`, `capmax.txt`.
 - `ConfigInfo.ini` trong repo ghi x12, nhưng `cap-nhat.sh` áp lại giá trị của panel sau mỗi lần rsync.
