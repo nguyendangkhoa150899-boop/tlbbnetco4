@@ -1078,3 +1078,10 @@ Trạng thái 16:30 05/10: mọi thứ **đã commit, push, deploy**. **Game CH�
 - Chủ server: món đích phiếu chỉ còn 1.000 / 2.000 / 5.000 (giá 1.100 / 2.200 / 5.500). Xóa khỏi `dich.rieng` 39910004 + 39910005 qua `/api/gn/save` (cấu hình bot, không phải repo). Món đích 41 → 40.
 - ⚠ Tab Ghép Ngọc ở admin mở từ trước vẫn hiện bản cũ (10.000 = 11.000): F5 trước khi bấm lưu, lưu từ tab cũ là ghi đè lại.
 - Thêm `tools/tim-nguon.js <itemID> [cấp]`: tìm mọi hộp/quái rơi 1 món + kỳ vọng mỗi người.
+
+### 05/10 22:xx: Tiệm người chơi: nút "Dọn tủ" làm mất đồ (Whynot 1010100014, tiệm HoàngNè)
+- PlayerShop log: `CGPlayerShopSizeHandler nOpt=0` = Thêm quầy, `nOpt=1` = Dọn tủ (bớt quầy CUỐI). Chủ tiệm ghi bằng GUID hex (1010100014 = `3C34E72E`).
+- item log: 213 = lên quầy tiệm, 214 = lấy từ quầy về túi, 232/233 = gửi/rút ngân hàng, 234/235 = giao dịch.
+- 20:50:13 Dọn tủ (+20:52:17, 20:52:20), 21:37 Thêm quầy ×3. 18 món lên quầy lúc 20:47:59–20:50:05 (+2 món từ 04/10 22:26) không còn trong `t_pshop_stall_itm`, không có trong `t_iteminfo`, không có log lấy/bán → mất. Suy luận: Dọn tủ ẩn quầy cuối kèm đồ, Thêm quầy lại thì quầy mới trống.
+- 21:41:56 1 Cao cấp Bảo Thạch Hợp Thành Phù (serial 1936972) lên quầy 10 rồi 21:41:59 Dọn tủ → còn trong DB ở stallid 9 (Box_Status 0), đang kẹt.
+- Không sửa được nút (giao diện client + binary). Báo người chơi: dọn hết đồ khỏi quầy cuối trước khi bấm Dọn tủ.
