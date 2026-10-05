@@ -943,7 +943,7 @@ Trạng thái lúc 13:00 05/10: mọi thứ dưới đây **đã commit, đã pu
 - Exp **x5** và khóa cấp **89** do panel quản lý: `Server/txt/NetCo4Cfg/expparam.txt`, `capmax.txt`.
 - `ConfigInfo.ini` trong repo ghi x12, nhưng `cap-nhat.sh` áp lại giá trị của panel sau mỗi lần rsync.
 - **Shop web (05/10):** thêm nhóm **🗑️ Rác** (key `rac`) gồm 10 ngọc 6 thường, giá 20.000, tối đa 5. Các ID: 50602005–008, 50612001–004, 50611002, 50613005. Shop đang có 295/300 món: quá 300 thì `setItemShop` **cắt món cuối mà không báo**. Bản sao lưu: `/root/shop-truoc-rac-0510.json`.
-  - Shop có món 50602002 tên "Thuần Tịnh Lam Tinh Thạch", nhưng trong game ID đó là Lam Tinh Thạch thường. Chưa đổi tên, chờ chủ server.
+  - Shop có món 50602002 tên "Thuần Tịnh Lam Tinh Thạch", nhưng trong game ID đó là Lam Tinh Thạch thường. Chủ server đã tự đổi tên trong panel (05/10).
 - **Ghép Ngọc (05/10):** thêm 22 ngọc 7 không kép vào "Món đích riêng". 18 viên thường giá 120.000. Minh Thạch 7 (50721001–004) giá 320.000, vì Minh Thạch 6 trên shop bán 60.000. Không dùng ngọc kép Minh Tinh Thạch. Tổng 42 món đích. Bản sao lưu: `/root/gn-truoc-ngoc7-0510.json`.
   - Luật giá chủ server: **Thuần tịnh đắt hơn bản thường 5.000**. Tinh Thạch: thường 120.000, Thuần tịnh 125.000 (nhóm `thuocTinh`). Kháng (Hoàng Ngọc / Hạo / Nguyệt Quang / Bích Tỷ): thường 110.000, Thuần tịnh 115.000 (nhóm `khang`). Bản sao lưu: `/root/gn-truoc-thuantinh-0510.json`.
 
