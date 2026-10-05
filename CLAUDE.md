@@ -106,3 +106,50 @@ Xem `docs/KIEM-TOAN.md`. Tóm tắt: tắt NPC phát Điểm Tặng/vàng/KNB v�
 
 ### 5. Tiến trình game và systemd (sự cố 28/09 17:40)
 Game chạy trong `tlbb.service`. **Không bao giờ** khởi động game từ tiến trình khác (panel, script tay qua SSH) rồi restart/stop tiến trình đó: systemd tắt cả nhóm con, kể cả MySQL và ShareMemory → mất dữ liệu nhân vật chưa lưu. Khởi động/restart game chỉ bằng `systemctl restart tlbb` (panel đã sửa để làm vậy). Nếu buộc phải chạy tay: `./tlbb.sh start` từ SSH thì trước khi đóng SSH hoặc restart panel, kiểm tra `systemctl status tlbb` xem game có nằm đúng unit không.
+
+## Bot mini game (repo `bialk`, `/opt/minigame/BotDoMin`): kinh nghiệm đã trả giá (05/10)
+
+Bot là một repo khác (`nguyendangkhoa150899-boop/bialk`). Trên VPS nó **không phải git**. Tài liệu các tính năng nằm trong `docs/` của repo này: `VONG-QUAY.md`, `TUI-BOSS.md`, `GHEP-NGOC.md`.
+
+**Deploy bot:**
+- Trước khi chép đè, so md5 file trên VPS với `git show HEAD:...` (bỏ `\r` trước khi so). Phiên khác có thể đã sửa thẳng trên VPS.
+- Chép lên `/tmp`, rồi `tr -d '\r'`, `node --check`, chép bản cũ vào `/opt/tlbb-backup/...`, sau đó mới `systemctl restart minigame`.
+- **Không restart bot khi game đang restart.** `minigame.service` có `After=tlbb.service`, nên bot sẽ chờ game lên xong, và mọi trang web chết 2–3 phút (đã xảy ra 05/10 14:49). Kiểm `systemctl list-jobs | grep tlbb` phải bằng 0.
+- File script tĩnh bot đọc lại mỗi lần tải (`/gn.js`, `/gn-admin.js`) thì sửa xong **không cần restart**. Mọi thứ trong `index.js`, `webplay.js`, `panel.js` thì cần restart.
+
+**Đổi cấu hình bot trên prod:**
+- Gọi API cổng SUPER (`127.0.0.1:1508`, đăng nhập bằng `PANEL_SUPER_PASSWORD` đọc từ `.env`, **không in ra**). **Không sửa `database.json`**: bot giữ DB trong RAM và ghi đè lại.
+- Sao lưu cấu hình cũ vào `/opt/tlbb-backup` trước khi lưu.
+- **Trang admin mở từ trước** mà bấm Lưu sẽ ghi đè cấu hình vừa đổi. Báo người dùng F5.
+
+**Viết giao diện:**
+- `panel.js` là một **template literal**: trong phần trang không được có backtick, dấu gạch ngược, `${`.
+- `webplay.js` là **mảng chuỗi `'...'`**: thoát `\\"` dễ sai.
+- Tính năng mới nên để client vào **file riêng** rồi phục vụ bằng route: ít lỗi thoát ký tự, và sửa không cần restart.
+- **Trang chơi rộng 520px** (`body{max-width:520px}`). Trang cần rộng thì bật class trên `body`, như `ikWide`/`gnWide` → 1180px trên PC.
+- **CSS chung** `button{color:#fff;padding:12px}` và `input{width:100%}` sẽ đè lên mọi thứ. Đặt phạm vi bằng `#id button` / `#id input`.
+- Bố cục theo bề rộng khung thì dùng **container query**, không dùng media query, vì khung hẹp ngay cả trên màn PC.
+- **F5 khôi phục trang cuối** (`play_page`) **trước** khi script ngoài tải xong. Script ngoài phải tự kiểm trang của nó đang mở thì tự tải dữ liệu.
+- **Vẽ lại bằng `innerHTML`** làm điện thoại nhảy về đầu. Phải giữ `scrollY`, `scrollTop` của khung cuộn con, và chiều cao khung trong lúc thay.
+- **Hiệu ứng client** (kim quay 7,6 giây) thì thông báo Discord phải **chờ** cho hết, không thì lộ kết quả.
+
+**Quyền 2 cổng:**
+- Cổng SUPER = `epOk(req)`. Cổng mod chỉ xem.
+- API chỉ-đọc cho mod (`/api/vq/xem`, `/api/gn/xem`, `/api/tuiboss/xem`) phải đặt **trước** chốt chặn mod. Tab mod bật trong `modApp()` → `DUOC=[...]`.
+- **Lớp `pwOff`** = ẩn thứ thuộc Palworld (đã tắt). Tab 📦 Kho đồ (đồ Thiên Long) bị ẩn nhầm suốt 29/09–05/10. Thấy "không có chức năng" thì **grep trước**: có thể chỉ đang bị ẩn.
+
+**Logic tiền và game:**
+- Tài Xỉu có 2 chế độ. **Bàn đơn giản** (`txSimple()`, đang chạy) thắng theo **tổng điểm kể cả bão**, 1 ăn 1, không hoàn bão. Mọi tính toán phải chép đúng `txPlanPayout`, không tự suy luật.
+- **Kiểm kinh tế mỗi khi cho đổi đồ:**
+  - Giá vào có lệch giá ra không, ví dụ mua shop đem bỏ vào có lời không.
+  - Đồ miễn phí (túi boss) có biến được thành KNB không.
+  - Một món lớn đổi món nhỏ có làm người chơi mất trắng không.
+  - Viết hàm mô phỏng theo dữ liệu prod thật trước khi chốt giá.
+- **ID trùng tên:** Trùng Lâu Chi Lệ/Mang/Thương/Dương có 2 bộ. Bộ đúng là `20310185–188`. Xem script đang dùng ID nào trước khi chọn.
+- **Ngọc 7:** loại "Minh Tinh Thạch (Cấp 7-x)" là ngọc **kép** (công + giảm kháng). Thuần tịnh mạnh gấp nhiều lần bản thường, nên đừng để cùng giá.
+
+**Thử ở local** (máy Windows, không có Python, không chạy được cả bot vì cần token Discord):
+- Tách tính năng thành module nhận phụ thuộc qua tham số, rồi dựng `thu/<ten>-local.js` dùng **ảnh chụp prod**. File ảnh chụp có dữ liệu người chơi nên **gitignore**.
+- Dừng server thử thì dừng **đúng PID** đang giữ cổng (`netstat -ano | grep :3999`). **Không** `taskkill /IM node.exe` (giết hết Node trên máy).
+- Script sửa file: dùng `Write` ra file `.js` rồi `node file.js`. Heredoc hoặc `node -e` với backtick và `\` sẽ bị bash phá. Đã làm mất code span trong tài liệu một lần.
+- Kiểm cú pháp client: `scratchpad/check_page.js` (webplay) và `check_panel.js` (panel). Cả hai đánh giá phần trang rồi `new Function` từng `<script>`.
