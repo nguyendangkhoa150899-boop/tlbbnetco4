@@ -906,7 +906,7 @@ Chủ server duyệt từng mục. Lua có hiệu lực ngay; bảng rơi cần 
   - Chỉ người nhận báo bấm được, và chỉ khi ván còn `betting`/`nhan`.
   - Siêu TX chưa có nút.
 - **Sửa lỗi `txTimEpReNhat`:** bản cũ dùng luật bàn 52 cửa cho cả bàn đơn giản, có thể chọn bão tưởng không phải trả. Giờ tính như `txPlanPayout`, chọn ngẫu nhiên trong các bộ trả thấp nhất, ưu tiên không bão. Gợi ý ép trong admin cũng hết sai.
-- **💎 Ghép Ngọc (kiểu Upgrade CS:GO) - CHƯA GẮN VÀO BOT.** File `ghepngoc.js`, `ghepngoc.client.js`, `ghepngoc.admin.js` đã có trên VPS nhưng `index.js` chưa gọi tới.
+- **💎 Ghép Ngọc (kiểu Upgrade CS:GO) - ĐÃ GẮN VÀO BOT 05/10 12:00, MẶC ĐỊNH TẮT** (bialk, tag `truoc-gan-ghepngoc-05-10`). Web: Mini game → 💎 Ghép Ngọc. Admin: tab 🎁 Quà tặng → thẻ 💎 (chỉ SUPER) → tick Bật + Lưu. Phiếu KNB chưa làm món đích.
   - Chạy thử local: `node thu/ghepngoc-local.js` → `localhost:3999`. Có đóng vai từng người chơi từ ảnh chụp prod `thu/du-lieu-mau.json` (gitignore).
   - Luật: tỉ lệ = giá trị bỏ vào ÷ giá đích × 90%, kẹp 1–75%. Đủ 75% thì không cho bỏ thêm. Kéo vòng để xoay vùng trúng; tỉ lệ không đổi, đã đo 1 triệu lần.
   - Thắng → Rương Ích Kỷ.
