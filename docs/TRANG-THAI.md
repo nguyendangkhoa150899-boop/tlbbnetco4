@@ -932,6 +932,13 @@ Trạng thái lúc 13:00 05/10: mọi thứ dưới đây **đã commit, đã pu
 - **Long Văn giữ nguyên, không kiểm khóa.** Chủ server đã thử: Long Văn trong game này luôn khóa và chỉ có 1 ID dù từ nguồn nào.
 - **Chưa thử trong game.** Nên chuyển thử vài viên ngọc rẻ, xem vào rương, rồi rút về.
 
+**Rương Ích Kỷ: nút 🎫 Sử dụng phiếu KNB** (bot `6ecb6a1`, tag `truoc-phieu-knb-05-10`):
+- 7 phiếu: 39910001–006 (1.000 / 2.000 / 5.000 / 10.000 / 50.000 / 100.000) và 39900000 (200.000). Bấm "Sử dụng" thì nhận KNB web đúng mệnh giá. Bảng `ICHKY_PHIEU_KNB` trong `index.js`.
+  - Mệnh giá lấy theo tên phiếu. Game dùng phiếu qua hiệu ứng vật phẩm, không có Lua nào ghi số KNB.
+- Không in thêm tiền: đường cũ đã có sẵn là rút phiếu về game, dùng ra KNB game, rồi chuyển qua NPC Ví Web 1:1.
+- Không tính vào hạn bán mỗi ngày. Bị khóa cùng công tắc `shop`, như nút Nhận và nút Bán.
+- ⚠️ **Đừng bán phiếu trên shop web rẻ hơn mệnh giá.** Người chơi mua rẻ rồi bấm Sử dụng là in tiền. Hiện shop chỉ có 39910003 giá 0, thuộc nhóm ⭐ mua 1 lần.
+
 **Cấu hình đang chạy, không nằm trong repo:**
 - Exp **x5** và khóa cấp **89** do panel quản lý: `Server/txt/NetCo4Cfg/expparam.txt`, `capmax.txt`.
 - `ConfigInfo.ini` trong repo ghi x12, nhưng `cap-nhat.sh` áp lại giá trị của panel sau mỗi lần rsync.
