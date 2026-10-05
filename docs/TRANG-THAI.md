@@ -894,3 +894,26 @@ Chủ server duyệt từng mục. Lua có hiệu lực ngay; bảng rơi cần 
   - 00:4x: rương thành **trang riêng trên menu nhóm Hồ sơ** (nút "🧰 Rương Ích Kỷ" cạnh Cá nhân, chủ server không muốn nhét chung), trang Cá nhân về như cũ; dạng bảng cho PC (`body.ikWide` nới khung 520 → 1180px chỉ ở trang này, cột thẳng hàng); **F5 giữ trang** (thêm `ik` vào `PAGE_GRP`, cơ chế `play_page` có sẵn); bấm 🎁 Tặng hiện hộp chọn người nhận + số lượng tại chỗ. Giá riêng `ID=giá` nay cho bán cả món ngoài nhóm: **Điểm Kim Chi Tiễn `20109101` = 5.000, Hàn Ngọc Tinh Túy `20310111` = 7.000** (bialk `80d31a4`, `8ec044c`). Ảnh kiểm: Edge headless trên mock (`--window-size` < 500px bị Edge ép rộng, ảnh điện thoại không tin được).
   - **05/10 ~02h - Soát 5 agent (chỉ đọc) + sửa theo duyệt A/C1/C2/C3 + Yến Tử Ổ** (tag `truoc-sua-sau-soat-05-10`, cần cap-nhat + restart; Lua 2 Q hiệu lực ngay sau cap-nhat). Bảng mới đã chạy từ restart 00:58:51 nhưng **chưa có lượt hạ boss nào sau đó** (agent 5). Phát hiện chính (agent 5, serial item log 04/10): engine ra floor(X) + phần lẻ (không ceil), trần 10 cắt theo DID, người 89 đánh boss 75 KHÔNG bị trừ rơi, đồ rơi ra đất 60 s, không phải ai cũng được roll → Q boss cuối thực ra 2,5/5,5 tờ, Ngô Vĩnh có thể 10 tờ/con. Sửa: xem CLAUDE.md mục Boss rơi phiếu "05/10 sau soát". `ky-vong.js` viết lại thành mô phỏng (khớp log: Cáp Đại Bá 2.612 KNB/9,2 món vs log 2.670/~9,2; Hỏa Diễm 2.051/9,0 vs 2.060/9). Người 89 sau sửa: Hỏa Diễm 9,3 → 7,5 món, 3.000 KNB; Kỳ Cuộc/Túc Cầu 9,9 → 3,9 món; Ngô Vĩnh 1.000 (bị trừ) hoặc 5.000; Yến Tử Ổ đội 9x: Đoàn Diên Khánh 10 (cắt 7) → 6,1 món, thuốc giải TB 4,5; cấp 8 cả lượt ~13 → ~3,3. **Chưa làm (chờ chủ server):** Thông Thiên Tháp 10 lượt boss/giờ × 2 tờ (~20k KNB/người/giờ, giữ theo luật); rương Nhân Tam Thần ra phiếu 1–5k/ngày; túi boss web 4–8k KNB/túi; ải 3 hai Q trong `roimap.lua`; Tam Thần 30 Chí Tôn/ngày; Thông Thiên Tháp 2 MB/BN 8 mỗi boss; Sát Tinh / Binh Thánh / Nhạn Môn / Lang Huyên khó còn gói đồ lớn khi lên 10x; Hư Không chưa có phiếu chuẩn; dạng NPC Thiếu Thất/Binh Thánh/Tiêu Phong 45410 còn hộp phiếu (chưa xác minh không đánh được). Báo cáo đầy đủ: scratchpad `audit1..5/`.
   - Kiểm: so HEAD từng dòng (Mv, số cột, hộp không-phiếu giữ nguyên, thứ tự ID), 0 lỗi; không ID nào đặt ngoài bản đồ (`type=` trong `*_monster.ini`, file LF), `xinsanhuan_monster.ini` monstercount=0. Người 89: PMF nhỏ (cấp 75) 90%; Ngô Vĩnh có 2 con/lượt (NPC Tống Giang cũng gọi 13456) → hạ cả 2 = 10 phiếu, chủ server chấp nhận.
+
+## 05/10 trưa (phiên Claude khác) - bot bialk
+
+- **Vòng May Mắn web:** trọng số mọi món = 100 (cấu hình cũ sao lưu `/opt/tlbb-backup/vq-cfg-truoc-w100-*.json`). Nút chuyển từ nhóm Hồ sơ sang **Mini game**, đổi tên "🍀 Vòng May Mắn" để khỏi trùng 🎡 Vòng Quay (`cc3656d`).
+- **Báo cược Tài Xỉu:** đã bật `_txNoti` → DM Discord `456136500011335698` (BiaLK), mức báo 0 = mọi cược. Admin → tab Tài Xỉu chỉnh được.
+- **Nút ép kết quả dưới tin báo cược** (`5ed5b9a`, tag `truoc-tx-ep-nut-05-10`):
+  - 🏦 Nhà cái ăn nhiều nhất: tính đúng lúc lắc theo sổ cược cuối (`txState.epNhaCai`).
+  - Ép Tài/Xỉu × Chẵn/Lẻ: không ra bão.
+  - Hủy ép.
+  - Chỉ người nhận báo bấm được, và chỉ khi ván còn `betting`/`nhan`.
+  - Siêu TX chưa có nút.
+- **Sửa lỗi `txTimEpReNhat`:** bản cũ dùng luật bàn 52 cửa cho cả bàn đơn giản, có thể chọn bão tưởng không phải trả. Giờ tính như `txPlanPayout`, chọn ngẫu nhiên trong các bộ trả thấp nhất, ưu tiên không bão. Gợi ý ép trong admin cũng hết sai.
+- **💎 Ghép Ngọc (kiểu Upgrade CS:GO) - CHƯA GẮN VÀO BOT.** File `ghepngoc.js`, `ghepngoc.client.js`, `ghepngoc.admin.js` đã có trên VPS nhưng `index.js` chưa gọi tới.
+  - Chạy thử local: `node thu/ghepngoc-local.js` → `localhost:3999`. Có đóng vai từng người chơi từ ảnh chụp prod `thu/du-lieu-mau.json` (gitignore).
+  - Luật: tỉ lệ = giá trị bỏ vào ÷ giá đích × 90%, kẹp 1–75%. Đủ 75% thì không cho bỏ thêm. Kéo vòng để xoay vùng trúng; tỉ lệ không đổi, đã đo 1 triệu lần.
+  - Thắng → Rương Ích Kỷ.
+  - Đồ bỏ vào: chỉ món ĐANG BÁN trên shop web, tính 90% giá shop; Yếu Quyết bị cấm.
+  - Món đích:
+    - ngọc 7 thuộc tính / thể lực-né / chính xác: 120.000
+    - ngọc 7 kháng: 110.000
+    - Trùng Lâu Chi Lệ/Mang/Thương/Dương: ×10 = 50.000
+    - phiếu KNB: bằng mệnh giá
+  - **Còn chờ chủ server:** phiếu KNB làm món đích thì rác túi boss quy ra KNB game khoảng 81% → tắt phiếu, hạ tỉ lệ, hay chỉ nhận ngọc/phiếu khi đích là phiếu.
