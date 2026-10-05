@@ -923,12 +923,12 @@ Trạng thái lúc 13:00 05/10: mọi thứ dưới đây **đã commit, đã pu
 
 **NPC Ví Web 999999** (Lạc Dương, Đại Lý; game `2baaa8e`, bot `946cbf6`):
 - Menu KNB gọn lại còn 10.000 / 100.000 / Toàn bộ.
-- Thêm dòng **"Chuyển Ngọc (không cố định) ra Rương Ích Kỷ"**: duyệt túi Đạo cụ + Nguyên liệu, lấy ngọc ID 501xxxxx–507xxxxx.
+- Thêm dòng **"Chuyển Ngọc cấp 6 (không cố định) ra Rương Ích Kỷ"**: duyệt túi Đạo cụ + Nguyên liệu, **chỉ lấy ngọc cấp 6** (ID 506xxxxx, chủ server chốt 05/10; trước đó là 501xxxxx–507xxxxx). Bot cũng chỉ nhận ngọc 506xxxxx trong phiếu (tag rollback `truoc-cdk-ngoc6-05-10`).
   - **Bỏ qua:** ngọc cố định (`LuaFnGetItemBindStatus == 1`), món khóa mật khẩu, ngọc đang khảm.
   - Rương web không lưu khóa. Cho ngọc cố định đi qua thì rút về sẽ thành không khóa, tức **rửa khóa**.
 - Xóa từng ô, đếm số lượng trước/sau, rồi ghi phiếu `outlv/` chung với Long Văn.
   - Bot (`tlbb.readLvReceipts`) nhận ID ngọc.
-  - Rút ngọc từ rương về game tối đa **10 viên/lần**, áp cho mọi ngọc, vì ngọc không chồng được.
+  - Rút ngọc từ rương về game tối đa **10 viên/lần**, áp cho mọi ngọc (cả ngọc mua shop web), vì ngọc không chồng được.
 - **Long Văn giữ nguyên, không kiểm khóa.** Chủ server đã thử: Long Văn trong game này luôn khóa và chỉ có 1 ID dù từ nguồn nào.
 - **Chưa thử trong game.** Nên chuyển thử vài viên ngọc rẻ, xem vào rương, rồi rút về.
 

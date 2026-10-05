@@ -28,7 +28,7 @@ function x999999_OnDefaultEvent( sceneId, selfId, targetId )
 	end
 	AddNumText( sceneId, x999999_g_ScriptId, "Chuy\172n ra web ".."To\224n b\181", 6, 99 )
 	AddNumText( sceneId, x999999_g_ScriptId, "Chuy\172n Long V\229n ra R\223\189ng \205ch K\214 (web)", 6, 98 )   -- [NetCo4 03/10] o cuoi
-	AddNumText( sceneId, x999999_g_ScriptId, "Chuy\172n Ng\247c (kh\244ng c\175 \240\184nh) ra R\223\189ng \205ch K\214 (web)", 6, 96 )   -- [NetCo4 05/10]
+	AddNumText( sceneId, x999999_g_ScriptId, "Chuy\172n Ng\247c c\164p 6 (kh\244ng c\175 \240\184nh) ra R\223\189ng \205ch K\214 (web)", 6, 96 )   -- [NetCo4 05/10] chi ngoc cap 6
 	EndEvent( sceneId )
 	DispatchEventList( sceneId, selfId, targetId )
 end
@@ -213,13 +213,13 @@ function x999999_ChuyenLongVan( sceneId, selfId, targetId )
 	x999999_OnDefaultEvent( sceneId, selfId, targetId )
 end
 
--- [NetCo4 05/10] GAME -> RUONG ICH KY (web): chuyen TOAN BO NGOC KHONG CO DINH (ID 501xxxxx..507xxxxx) trong tui Dao cu + Nguyen lieu.
+-- [NetCo4 05/10] GAME -> RUONG ICH KY (web): chuyen TOAN BO NGOC CAP 6 KHONG CO DINH (ID 506xxxxx, chu server chot) trong tui Dao cu + Nguyen lieu.
 -- Bo qua: ngoc CO DINH (LuaFnGetItemBindStatus == 1 - ruong web khong luu khoa, rut ve se thanh khong khoa = rua khoa),
 -- mon khoa mat khau (LuaFnIsItemAvailable ~= 1), ngoc dang kham tren trang bi (khong nam trong tui).
 -- Xoa tung o (dem so luong truoc/sau de dung ca khi 1 o co nhieu vien), ghi phieu outlv/ y nhu Long Van
 -- (bot tlbbPollLvReceipts cong vao Ruong Ich Ky). Ghi phieu loi thi tra lai ngoc. Web rut ve game toi da 10 vien/lan (bot).
 function x999999_LaNgoc( id )
-	if id and id >= 50100000 and id < 50800000 then
+	if id and id >= 50600000 and id < 50700000 then   -- chi ngoc cap 6
 		return 1
 	end
 	return nil
@@ -250,11 +250,11 @@ end
 function x999999_HoiNgoc( sceneId, selfId, targetId )
 	local cap, tong, khoa = x999999_DemNgoc( sceneId, selfId )
 	BeginEvent( sceneId )
-	AddText( sceneId, "Chuy\172n TO\192N B\147 ng\247c KH\212NG c\175 \240\184nh trong t\250i ra R\223\189ng \205ch K\214 tr\234n web. Tr\234n web r\250t v\171 game t\175i \240a 10 vi\234n m\178i l\165n, t\163ng ho\163c b\225n \240\223\254c." )
-	AddText( sceneId, "\212 ng\247c trong t\250i: c\164p 1: "..cap[1]..", c\164p 2: "..cap[2]..", c\164p 3: "..cap[3]..", c\164p 4: "..cap[4]..", c\164p 5: "..cap[5]..", c\164p 6: "..cap[6]..", c\164p 7: "..cap[7] )
+	AddText( sceneId, "Chuy\172n TO\192N B\147 ng\247c c\164p 6 KH\212NG c\175 \240\184nh trong t\250i ra R\223\189ng \205ch K\214 tr\234n web. Tr\234n web r\250t v\171 game t\175i \240a 10 vi\234n m\178i l\165n, t\163ng ho\163c b\225n \240\223\254c." )
+	AddText( sceneId, "Ng\247c c\164p 6 trong t\250i: "..cap[6].." \244" )
 	AddText( sceneId, "#R".."Kh\244ng chuy\172n: ".."#W".."ng\247c c\175 \240\184nh (kh\243a) "..khoa.." \244, ng\247c \240ang kh\228m, m\243n kh\243a m\167t kh\166u." )
 	if tong > 0 then
-		AddNumText( sceneId, x999999_g_ScriptId, "\208\176ng \253 chuy\172n "..tong.." \244 ng\247c", 6, 95 )
+		AddNumText( sceneId, x999999_g_ScriptId, "\208\176ng \253 chuy\172n "..tong.." \244 ng\247c c\164p 6", 6, 95 )
 	end
 	EndEvent( sceneId )
 	DispatchEventList( sceneId, selfId, targetId )
@@ -287,7 +287,7 @@ function x999999_ChuyenNgoc( sceneId, selfId, targetId )
 		end
 	end
 	if tong == 0 then
-		x999999_Tips( sceneId, selfId, "Trong t\250i kh\244ng c\243 ng\247c kh\244ng c\175 \240\184nh \240\172 chuy\172n" )
+		x999999_Tips( sceneId, selfId, "Trong t\250i kh\244ng c\243 ng\247c c\164p 6 kh\244ng c\175 \240\184nh \240\172 chuy\172n" )
 		return
 	end
 	local name = x999999_g_Dir.."outlv/"..guid.."_"..LuaFnGetCurrentTime().."_"..random( 100000, 999999 )..".txt"
@@ -306,7 +306,7 @@ function x999999_ChuyenNgoc( sceneId, selfId, targetId )
 	end
 	write( h, "END\n" )
 	closefile( h )
-	x999999_Tips( sceneId, selfId, "\208\227 chuy\172n "..tong.." vi\234n ng\247c ra R\223\189ng \205ch K\214 tr\234n web" )
+	x999999_Tips( sceneId, selfId, "\208\227 chuy\172n "..tong.." vi\234n ng\247c c\164p 6 ra R\223\189ng \205ch K\214 tr\234n web" )
 	x999999_OnDefaultEvent( sceneId, selfId, targetId )
 end
 
