@@ -1065,3 +1065,5 @@ Trạng thái 16:30 05/10: mọi thứ **đã commit, push, deploy**. **Game CH�
   4. `cap-nhat.sh -y`, rồi chờ chủ server reset.
 - Mỗi lần đổi tỉ lệ rơi bất kỳ (bảng, `roimap.lua`, `roithem.txt`) đều **phải cập nhật netco4.click**. Script admin đặt qua web là `roithem.txt`, trang ghi tay ở `build.js` + `khung.html`.
 - Sau reset: soát Audit 1–2 ngày (mục B), so với luật, báo chủ server nguồn nào lệch.
+
+- **05/10 - Túi đồ boss Túc Cầu** (tag `truoc-tui-tuccau-05-10`, bialk cùng ngày): `roimap.lua` thêm 3720–3729 / 33720–33729 vào `x950001_TB_g_Boss`; `efuben_cuju.lua` dòng đầu `x402040_OnDie` gọi `TB_Ghi` (Lua, hiệu lực khi cap-nhat, phó bản đang mở giữ code cũ); bot `tuiboss.js` thêm hoạt động `tuccau` (mặc định MB/BN 6 ×10 + 4.000 KNB + 2 lượt quay, trần 1/ngày). Chưa thử trong game.

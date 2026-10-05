@@ -58,6 +58,7 @@ Yêu cầu của chủ server (nguyên văn rút gọn): mỗi hoạt động, n
 | Ác Tặc Tạo Phản | 473 (30 con/đợt) | YQ cấp 45 hoặc 80 ×1 + CCHTP ×1–2 + CLD ×1–3 + Hồn Băng Châu cấp 2–4 ×1–3 | 3 |
 | Ác Bá | 1910–1919 | YQ cấp 65 hoặc Tiến Cấp ×1 + CCHTP ×1–2 + CLD ×1–3 + Nhuận Hồn Thạch (4 loại × cấp 1/3/5) ×1–3 | 3 |
 | Kỳ Cuộc = Cờ 12h (từ 02/10) | Viễn Cổ Kỳ Hồn: thường 1850–1859 / 31850–31859, tân thủ 3 12040–12049 / 42040–42049, tân thủ 6 12090–12099 / 42090–42099 (hook trong khối `objType == LastBoss[mgroup]` của `efuben_1_zhenlong_huodong.lua` 401001 + `efuben_1_zhenlong2_huodong.lua` 401002) | Vũ Học Tâm Đắc ×15 + Bí Tịch Tàn Hiệt ×5 + Võ Hồn cấp 2–4 ×1 (không KNB) | 1 (game cũng chỉ cho 1 lượt/ngày) |
+| Túc Cầu (từ 05/10) | Tôn Mỹ Mỹ 3720–3729 / 33720–33729 (dòng đầu `x402040_OnDie` của `event/fuben/efuben_cuju.lua` gọi `TB_Ghi`; boss là quái duy nhất tạo bằng script 402040) | Miên Bố/Bí Ngân 6 ×10 trộn + 4.000 KNB + 2 lượt quay (mặc định, sửa ở tab 🎒 Túi Boss) | 1 (game cho 1 lượt / 24 giờ) |
 "Chung" = Miên Bố/Bí Ngân 6 ×10 trộn + Phiếu rút thăm `30070501` ×2 + 4.000 KNB (web).
 
 **Giả định tự chốt (đổi được trong `tuiboss.js`):** Cửu Thiên Ngọc Toái ×1; "Điêu văn thuộc tính" = Công nguyên tố; YQ 1 cuốn bốc trong cả 2 cấp (45+80, 65+Tiến Cấp), không phải mỗi cấp 1 cuốn; Lâu Lan Tầm Bảo / Ác Tặc / Ác Bá không có phần "chung" và KNB (danh sách gốc không ghi); trần túi/ngày cho 4 hoạt động không có giới hạn lượt của game. **Chưa test trong game.**

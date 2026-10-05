@@ -187,6 +187,7 @@ x950001_TB_Them( { 14234 } )         -- Thieu That Son: Dinh Xuan Thu
 x950001_TB_Them( { 11353 } )         -- Long Quy (Thanh Thu Son)
 x950001_TB_Them( { 43970, 43971, 43973, 43975, 43982, 43983, 43985, 43986 } )  -- [04/10] Lang Huyen Phuc Dia thuong/kho: ghi khi du 4 boss chet (odali_lanlan/yahuan OnDie dem o 30)
 x950001_TB_Them( { 12138, 12139, 12140, 12141, 12142, 12143, 12144, 12145, 12146 } )  -- Lau Lan Tam Bao: Tran Bao Long Vuong
+x950001_TB_Them( { 3720, 3721, 3722, 3723, 3724, 3725, 3726, 3727, 3728, 3729, 33720, 33721, 33722, 33723, 33724, 33725, 33726, 33727, 33728, 33729 } )  -- [05/10] Tuc Cau: Ton My My (boss cuoi efuben_cuju 402040, OnDie goi TB_Ghi)
 x950001_TB_Them( { 3650, 3651, 3652, 3653, 3654, 3655, 3656, 3657, 3658, 3659 } )  -- [04/10] Ac Tac Tao Phan: boss cuoi pho ban Tac binh (eDynamicNPC_ThiefSoldier 050013 CreateBoss = 3650 + cap/10 - 1, OnDie goi TB_Ghi). Truoc gan 473 = NPC bat tu -> khong bao gio ghi
 x950001_TB_Them( { 1910, 1911, 1912, 1913, 1914, 1915, 1916, 1917, 1918, 1919, 31910, 31911, 31912, 31913, 31914, 31915, 31916, 31917, 31918, 31919 } )  -- Ac Ba (nhiem vu thanh thi, Thi Tap): boss group 1 jishi_monster_<cap>.ini, cap 10-100 = 1910-1919, 110+ = 3191x ([04/10] them 3191x)
 x950001_TB_Them( { 3670, 3671, 3672, 3673, 3674, 3675, 3676, 3677, 3678, 3679, 33670, 33671, 33672, 33673, 33674, 33675, 33676, 33677, 33678, 33679 } )  -- [04/10] Ac Ba tan cong mon phai (eTouximenpai_NPC_* OnKillObject goi TB_GhiId; 1 Ac Ba / luot, 110+ them 33670 dat san o Tinh Tuc). Chung tui acba voi Thi Tap
