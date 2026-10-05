@@ -115,8 +115,9 @@ Toàn bộ ngọc 6 trong bảng rơi do **`tools/ngoc6/luat-05-10.js`** quản 
 **MỌI lần đổi tỉ lệ rơi** (bảng, `roimap.lua`, `roithem.txt`) đều **phải dựng lại https://netco4.click/**:
 1. `node tools/bang-roi/lam.js`;
 2. sao lưu `/var/www/netco4/index.html` vào `/opt/tlbb-backup/`;
-3. `scp` file `tools/bang-roi/web/index.html` lên đè;
+3. `scp` **cả** `tools/bang-roi/web/index.html` **và** `web/data.json` lên `/var/www/netco4/`. File `data.json` dùng cho tab 📊 Bảng rơi của portal admin/mod (bot đọc ở `/br-data.json`, tự nạp lại khi file đổi);
 4. phần rơi qua script ghi tay ở `build.js` + `khung.html`.
+- Portal admin/mod (bot bialk): giao diện riêng `BotDoMin/bangroi.panel.js` ở `/br.js` (đọc lại mỗi lần, không cần restart), gồm 🎯 Muốn farm gì? / 🔎 Tra vật phẩm / 👹 Tra quái. Thuật toán giống `khung.html`: phó bản chỉ tính **bậc cấp gần cấp nhân vật nhất**. Sửa thuật toán thì sửa **cả hai** file.
 
 Đo rơi thật sau khi đổi: xem quy tắc 6, mục "Đo bằng log".
 

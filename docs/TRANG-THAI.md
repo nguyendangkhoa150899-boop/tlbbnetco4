@@ -998,6 +998,19 @@ Trạng thái 16:30 05/10: mọi thứ **đã commit, push, deploy**. **Game CH�
 | **Luật ngọc cấp 6** cho toàn game (2 túi A/B; boss cuối 1 viên / 50%; Ác Bá 8%, Lâu La 4%; song sinh không rơi) | game `0e55468`, `tools/ngoc6/luat-05-10.js` | **sau restart** |
 | netco4.click dựng lại theo luật mới | `tools/bang-roi` | ngay |
 
+**Làm thêm 05/10 tối (sau tổng kết):**
+- Túi đồ boss: giao diện mới `/tb.js` (bot `ca063f0`), có hình món, Nhận tất cả, túi đã nhận thu gọn, "Boss đã hạ" chuyển xuống dưới.
+- netco4.click:
+  - tìm nhiều điều kiện (`a, b`, dải `a-b`, số là khớp đúng ID);
+  - tab vật phẩm có sắp xếp gộp theo quái và Chỉ boss;
+  - tab **🎯 Muốn farm gì?**: đề xuất phó bản / boss / bản đồ, chỉ tính bậc cấp gần nhân vật nhất;
+  - sửa tên phó bản (Tam Thần, Lang Huyên, Thiên Long Ảo Cảnh, Thiếu Thất, Nhạn Môn Quan);
+  - Tam Thần không còn bị gắn nhầm ID boss PMF.
+- **Portal mod (mod.netco4.click) MỞ KHÔNG CẦN MẬT KHẨU** (chủ server chốt, bot `panel.js` hằng `MO_MOD`; khóa lại bằng `PANEL_MOD_MO=0` trong `.env` rồi restart bot).
+  - An toàn vì cổng mod bị chặn mọi `/api/*` trừ các route chỉ xem. Đã thử: `/api/points/add`, `/api/state` vẫn bị 403, cổng SUPER vẫn bắt mật khẩu.
+  - **Ai có link đều đọc được Nhật ký** (tên người chơi, cược Tài Xỉu, nạp/rút web; IP đã che 2 số cuối).
+- Portal có tab **📊 Bảng rơi** làm riêng (bot `bangroi.panel.js`), dùng `/var/www/netco4/data.json`.
+
 ### B. Kiến thức mới, đã kiểm (đừng làm lại)
 - **Đo rơi đồ thật:** dùng `Server/Log/Audit_*.log`. Các dòng cần đọc:
   - `ITEM_CREATED,<GUID>,n,<itemId>,<tên>,Dropped by "<tên quái>",<DataID>`
