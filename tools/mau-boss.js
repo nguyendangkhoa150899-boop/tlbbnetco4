@@ -4,6 +4,8 @@
 // Ngay mo: neu merge mo-server bi xung dot o file nay -> lay ban cua main roi chay lai lenh tren.
 const { execSync } = require("child_process"); const fs = require("fs");
 const HE_SO = +process.argv[2]; if (!(HE_SO > 0 && HE_SO <= 1)) { console.error("he so 0-1, vd 0.8"); process.exit(1); }
+// 06/10: tham so 3 = he so DANG AP (vd 0.8) -> o dang dung floor(goc x he so cu) cung duoc doi. Vd 80% -> 90%: node tools/mau-boss.js 0.9 0.8
+const CU = (process.argv[3] || "").split(",").filter(Boolean).map(Number).filter(x => x > 0 && x <= 1);
 const P = "server/Public/Config/MonsterAttrExTable.txt";
 const rd = r => execSync("git show " + r + ":" + P, { maxBuffer: 1e9, encoding: "latin1" }).split(/\r?\n/);
 const map = L => { const m = {}; for (const l of L) { const c = l.split("\t"); if (/^\d+$/.test(c[0])) m[c[0]] = c; } return m; };
@@ -14,7 +16,7 @@ const out = raw.split("\n").map(l => {
   const c = l.replace(/\r$/, "").split("\t"); const id = c[0]; if (!G[id] || !R[id]) return l; let ch = false;
   for (const k of [19, 59]) {
     if (G[id][k] === R[id][k]) continue;
-    if (c[k] !== R[id][k] && c[k] !== String(Math.floor(+G[id][k] * HE_SO))) { skip.push(id + "@" + k); continue; }
+    if (c[k] !== R[id][k] && c[k] !== String(Math.floor(+G[id][k] * HE_SO)) && !CU.some(h => c[k] === String(Math.floor(+G[id][k] * h)))) { skip.push(id + "@" + k); continue; }
     const v = String(Math.floor(+G[id][k] * HE_SO)); if (c[k] !== v) { c[k] = v; o++; ch = true; }
   }
   if (ch) d++; return ch ? c.join("\t") + (l.endsWith("\r") ? "\r" : "") : l;

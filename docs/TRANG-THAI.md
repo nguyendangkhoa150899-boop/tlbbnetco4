@@ -1137,3 +1137,7 @@ Trạng thái 16:30 05/10: mọi thứ **đã commit, push, deploy**. **Game CH�
 ### 06/10 00:39–00:42: restart (chủ server, `systemctl restart tlbb`, deploy `96c5872`)
 - 6 tiến trình trong `tlbb.service`, cổng 3731/7384 nghe, minigame active, khóa cấp 89 / exp 5.0 giữ. Đã nạp: Sát Tinh thưởng cuối ở Lộ Quân Dật 13465 (13456 hết phiếu), 89 điểm "Minh Hân", Kiều Phục Thịnh 210,330 (+ MissionNPC 200049), hợp thành mỗi ô 1 cái.
 - Chờ kiểm trong game: tên "Minh Hân" có hiện trên đầu quái; hợp thành đặt chồng phù → bị chặn; lượt Sát Tinh tới: Lộ Quân Dật 5 phiếu/người + túi web, Ngô Dụng / Tống Giang 0 phiếu.
+
+### 06/10: máu boss toàn game 80% → 90% máu gốc
+- `node tools/mau-boss.js 0.9 0.8` (thêm tham số 3 = hệ số đang áp; trước chỉ nhận ô ở mức 65% của `da6cce6`): 7.169 ô cột 19 (HP) + 59 (MaxHP) trên 4.247 dòng boss, bỏ qua 0, byte > 127 / CR giữ nguyên. Kiểm: Lộ Quân Dật 5,21 → 5,86 triệu, Ngô Dụng 8,79 triệu, Gia Luật Liên Thành 8,74 triệu (đều 0,900 gốc).
+- Cần cap-nhat + restart (bảng). Rollback tag `truoc-mau-boss-90-06-10` hoặc `node tools/mau-boss.js 0.8 0.9`.
