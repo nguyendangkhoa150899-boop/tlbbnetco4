@@ -53,6 +53,10 @@ Không có giá nào thì món đó **không hiện** ở danh sách bỏ vào.
 - **Cách tính giá ngọc 7:** trong game 5 ngọc 6 lên 1 ngọc 7, ngọc 6 bán shop 20.000. Vậy 5 × 20.000 = 100.000, cộng thêm 10.000 (ngọc kháng) hoặc 20.000 (các nhóm còn lại).
 - **Trùng Lâu có 2 bộ ID trùng tên.** Bộ đúng là **20310185–188**, cùng bộ mà vòng quay và script đổi Trùng Lâu dùng. Bộ 20310100–102 không dùng.
 
+### Thứ tự hiện (05/10, chủ server)
+
+Cả tab 🎯 Món đích lẫn 🧰 Rương xếp: phiếu KNB nhỏ → lớn → nguyên liệu Trùng Lâu (Lệ, Mang, Thương, Dương) → ngọc công Băng / Hỏa / Huyền / Độc → ngọc kháng Băng / Hỏa / Huyền / Độc → Thể lực (Hồng Bảo Thạch) → Né tránh (Tổ Mẫu Lục) → Chính xác (Tử Ngọc) → còn lại (theo giá). Ngọc so theo 5 số cuối ID nên ngọc 6 đứng ngay sau ngọc 7 cùng loại. Hệ lấy từ `GemInfo.txt`: Băng = Lam Tinh Thạch / Hạo Thạch, Hỏa = Hồng Tinh Thạch / Dạ Quang Thạch, Huyền = Hoàng Tinh Thạch / Hoàng Ngọc, Độc = Lục Tinh Thạch / Bích Tỷ. Code: `hang()` trong `ghepngoc.js`. Thứ tự "Tự bỏ đồ" (35/55/75%) không đổi.
+
 ### Giới hạn khác
 
 - 30 lượt/ngày/người.
