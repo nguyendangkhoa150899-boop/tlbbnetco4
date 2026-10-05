@@ -4,14 +4,15 @@
 //  - mỗi hộp X = Mv / BV × 2.0 (DropParam) × giảm rơi; ra FLOOR(X) món + 1 món với xác suất phần lẻ (KHÔNG phải ceil);
 //    mỗi món bốc đều trong hộp;
 //  - túi tối đa 10 món (tính theo số lượng), cắt theo THỨ TỰ DID: hộp đầu được giữ trước.
-//  - Giảm rơi theo chênh cấp: người cao hơn boss 14 cấp KHÔNG bị trừ (đo 04/10). Boss cao hơn người: CHƯA đo được.
-//    --att tren (mặc định) = chỉ trừ khi boss cao hơn người (theo DropAttenuation.txt); --att khong = không trừ; --att bang = trừ cả 2 chiều.
+//  - Giảm rơi theo chênh cấp: KHÔNG có ở cả 2 chiều. Người cao hơn boss 14 cấp (04/10) và 72 cấp (05/10) không bị trừ;
+//    05/10 23:41 boss CAO hơn người 31 cấp (Ngô Vĩnh 13456 cấp 120, tổ 6 người cấp 89) vẫn ra đủ: 30 phiếu = 5/người, hộp X = 5.
+//    --att khong (mặc định từ 05/10) = không trừ; --att tren = chỉ trừ khi boss cao hơn người (theo DropAttenuation.txt); --att bang = trừ cả 2 chiều.
 // node tools/phieu-boss/ky-vong.js <cấp người chơi> <ID quái...> [--ref <commit>] [--att tren|khong|bang] [-v]
 const fs = require('fs'), path = require('path'), cp = require('child_process');
 const REPO = path.join(__dirname, '../..');
 const a = process.argv.slice(2);
 const lay = (k, d) => { const i = a.indexOf(k); if (i < 0) return d; const v = a[i + 1]; a.splice(i, 2); return v; };
-const ref = lay('--ref', 'origin/main'), attMode = lay('--att', 'tren');
+const ref = lay('--ref', 'origin/main'), attMode = lay('--att', 'khong');
 const verbose = a.includes('-v'); if (verbose) a.splice(a.indexOf('-v'), 1);
 const Lp = +a[0], ids = a.slice(1);
 const MENH = { 39910001: 1000, 39910002: 2000, 39910003: 5000, 39910004: 10000, 39910005: 50000, 39910006: 100000 };

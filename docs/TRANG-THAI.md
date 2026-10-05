@@ -1111,3 +1111,8 @@ Trạng thái 16:30 05/10: mọi thứ **đã commit, push, deploy**. **Game CH�
 ### 05/10 23:3x: đổi tên quái Võ Ý Vô Lượng Sơn: Cao Sơn Bạch Viên → "Minh Hân"
 - `tools/doiten-vls.js 900,901 "Minh Hân" --ghi`: ghi `name=` (VISCII) cho 89 điểm `type=900/901` + `script_id=999998` trong `wuliang_monster.ini`. Không sửa `MonsterAttrExTable` vì Kiếm Các (`jiange_monster.ini`) cũng dùng DataID 900–909.
 - CẦN cap-nhat + restart (ini nạp lúc bật). CHƯA kiểm trong game: tên trong `name=` của ini có thật sự đè tên bảng khi hiện trên đầu quái không (NPC Lạc Dương như Kiều Phục Thịnh hiện theo `name=` nên dự kiến được). Rollback tag `truoc-doiten-vls-05-10` hoặc `node tools/doiten-vls.js 900,901 "" --ghi`.
+
+### 05/10 23:28–23:41: lượt Sát Tinh đầu tiên sau luật mới (tổ 6 người cấp 89) - ĐÃ ĐO giảm rơi
+- **Boss cao hơn người 31 cấp KHÔNG bị trừ rơi:** Ngô Vĩnh 13456 ra 30 phiếu 1000 = **5/người** (X = 5, không phải 1). 9 boss khác mỗi con 19–28 món cho 6 người (~3,5/người). `ky-vong.js` đổi mặc định `--att khong`; CLAUDE.md sửa.
+- **Ngọc 6 script 25%:** Lua lên 23:30:48. 3 boss hạ trước đó 0 viên; 6 boss sau ra 8 viên (kỳ vọng 9). Ngô Vĩnh 4 viên (25% script + 50% hộp 90088 → kỳ vọng 4,5). Chạy đúng.
+- Hệ quả, chờ chủ server quyết: mỗi người/lượt ≈ 5.000 KNB phiếu + ~3,3 ngọc 6 + ~35 món khác; 3 lượt/ngày.
