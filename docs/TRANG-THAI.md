@@ -1092,3 +1092,8 @@ Trạng thái 16:30 05/10: mọi thứ **đã commit, push, deploy**. **Game CH�
 - Chủ server yêu cầu. `tools/tamphap8-05-10.js`: `player_login.lua` (888890) lúc đăng nhập, nhân vật đã vào phái + cấp >= 80 mà tâm pháp 8 < 119 → `LuaFnSetXinFaLevel(..., 119)` (không hạ nếu cao hơn); `obj/book/skillbook.lua` học sách xong lên 119 ngay.
 - ID tâm pháp 8: phái 0..8 = 72..80, Cô Tô 10 = 71, Đường Môn 11 = 88, Quỷ Cốc 12 = 96. Lúc sửa có 6 nhân vật, đều >= 80.
 - CHƯA KIỂM TRONG GAME: `LuaFnSetXinFaLevel` khi chưa học (script vào phái gốc dùng nó để cấp tâm pháp, nên dự kiến được) và chỉ số có cập nhật ngay hay phải đăng nhập lại. Rollback tag `truoc-tamphap8-05-10`; nhân vật đã lên 119 thì rollback KHÔNG hạ lại.
+
+### 05/10 22:12: restart đưa game về `tlbb.service` (chủ server yêu cầu)
+- Trước đó cả 6 tiến trình chạy trong `onedash-agent.service` từ 21:06 (bấm `y` ở câu restart của cap-nhat trong Terminal OneDash); `tlbb.service` "active (exited)" nhưng 0 task.
+- `systemctl restart tlbb` 22:11:55 → tắt an toàn xong 22:12:35 (ShareMemory ghi DB ~32 s) → bật lại 22:14:15. Kiểm: 6 tiến trình đều trong `tlbb.service`, cổng 3731/7384 nghe, minigame active.
+- Áp luôn: Vô Lượng Sơn hồi sinh 2 s (đã có từ 21:07), nội tức ×3 và tâm pháp 8 = 119 (Lua, cap-nhat 22:10, commit fc924e1).
