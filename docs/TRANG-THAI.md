@@ -1107,3 +1107,7 @@ Trạng thái 16:30 05/10: mọi thứ **đã commit, push, deploy**. **Game CH�
 - Ngô Vĩnh vẫn còn hộp bảng 90088 (X 0,5 → 50% hoặc 10% nếu bị giảm cấp) cộng thêm 25% script. Muốn đúng 25% thì gỡ 90088 khỏi 13456 (bảng, cần restart).
 - Kỳ vọng tổ 6 người: 12 boss × 25% × 6 ≈ 18 viên/lượt, 3 lượt/ngày ≈ 54 viên/ngày (+ Ngô Vĩnh bảng).
 - netco4.click đã dựng lại (build.js + khung.html). Sao lưu roithem cũ `/opt/tlbb-backup/roithem-truoc-sattinh-*`. Rollback tag `truoc-sattinh-ngoc6-05-10` (hoặc xóa dòng `sattinh` trong roithem.txt = tắt ngay).
+
+### 05/10 23:3x: đổi tên quái Võ Ý Vô Lượng Sơn: Cao Sơn Bạch Viên → "Minh Hân"
+- `tools/doiten-vls.js 900,901 "Minh Hân" --ghi`: ghi `name=` (VISCII) cho 89 điểm `type=900/901` + `script_id=999998` trong `wuliang_monster.ini`. Không sửa `MonsterAttrExTable` vì Kiếm Các (`jiange_monster.ini`) cũng dùng DataID 900–909.
+- CẦN cap-nhat + restart (ini nạp lúc bật). CHƯA kiểm trong game: tên trong `name=` của ini có thật sự đè tên bảng khi hiện trên đầu quái không (NPC Lạc Dương như Kiều Phục Thịnh hiện theo `name=` nên dự kiến được). Rollback tag `truoc-doiten-vls-05-10` hoặc `node tools/doiten-vls.js 900,901 "" --ghi`.
