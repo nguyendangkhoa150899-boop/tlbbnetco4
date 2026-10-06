@@ -201,6 +201,16 @@ REV = {v: k for k, v in json.load(open(os.path.join(REPO, "tools", "viscii-map.j
 
 
 def viscii(b: bytes) -> str:
+    # 06/10: ten nhan vat/tai khoan trong DB bi MySQL ma hoa 2 lan (byte VISCII -> UTF-8, vd "HuyềnSát" = 48 75 79 C2 AB ...).
+    # Game doc nguoc lai nen trong game hien dung; mysql CLI tra byte UTF-8 -> boc lop UTF-8 truoc roi moi giai VISCII.
+    # Ten luu dung (VISCII thuan) khong phai UTF-8 hop le hoac co ky tu > U+00FF -> giu nguyen.
+    if any(x >= 0x80 for x in b):
+        try:
+            u = b.decode("utf-8")
+            if all(ord(c) <= 0xFF for c in u):
+                b = u.encode("latin-1")
+        except UnicodeDecodeError:
+            pass
     return "".join(REV.get(x, chr(x)) for x in b)
 
 
