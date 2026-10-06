@@ -1141,3 +1141,8 @@ Trạng thái 16:30 05/10: mọi thứ **đã commit, push, deploy**. **Game CH�
 ### 06/10: máu boss toàn game 80% → 90% máu gốc
 - `node tools/mau-boss.js 0.9 0.8` (thêm tham số 3 = hệ số đang áp; trước chỉ nhận ô ở mức 65% của `da6cce6`): 7.169 ô cột 19 (HP) + 59 (MaxHP) trên 4.247 dòng boss, bỏ qua 0, byte > 127 / CR giữ nguyên. Kiểm: Lộ Quân Dật 5,21 → 5,86 triệu, Ngô Dụng 8,79 triệu, Gia Luật Liên Thành 8,74 triệu (đều 0,900 gốc).
 - Cần cap-nhat + restart (bảng). Rollback tag `truoc-mau-boss-90-06-10` hoặc `node tools/mau-boss.js 0.8 0.9`.
+
+### 06/10 01:31 → 09:11: GAME SẬP 7,5 TIẾNG - restart từ Terminal OneDash bị ngắt giữa chừng
+- 01:10 và 01:31 có người chạy `cap-nhat.sh` trong Terminal OneDash và bấm `y` ở câu restart → `tlbb.sh restart` chạy trong `onedash-agent.service` (journal `tlbb` trống). Lần 01:31: tắt Server/Login/World (01:31:49), ShareMemory thoát sạch (01:32:20 "Exit ShareMemory Program" → dữ liệu đã lưu) rồi DỪNG (chưa tắt billing/MySQL, không bật lại) - phiên terminal bị ngắt.
+- 09:09 `systemctl restart tlbb` (Claude, chủ server báo sập): tắt sạch MySQL/billing, bật lại 09:11:03, 6 tiến trình trong `tlbb.service`, cổng 3731/7384 nghe. Đã nạp `2d9eca5`: máu boss 90%, "Lê Vũ Minh Hân" (89 điểm).
+- **Sửa gốc:** `deploy/tlbb.sh` - start/stop/restart gọi tay (không có `INVOCATION_ID` của systemd) tự chuyển `systemctl <lệnh> tlbb`. cap-nhat bấm `y`, panel, SSH đều đi qua systemd; đóng terminal giữa chừng không giết game nữa. Ép chạy trực tiếp: `TLBB_TRUC_TIEP=1`. Đã kiểm: tiến trình do `tlbb.service` bật có `INVOCATION_ID`. Có hiệu lực từ lần `cap-nhat.sh` kế (git pull trước khi gọi tlbb.sh).
