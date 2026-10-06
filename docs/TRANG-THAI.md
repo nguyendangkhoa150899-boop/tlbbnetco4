@@ -1279,3 +1279,8 @@ Trạng thái 16:30 05/10: mọi thứ **đã commit, push, deploy**. **Game CH�
   - Tắt mức 60→80 (bảng còn 20→40, 40→60), câu báo "tối đa 60 ô".
   - Trước mọi `BankBegin` (Lạc Dương 2 chỗ, Tô Châu, `1shengjjll`/`9shengjjll`/`shengjjll`): kho > 60 → `EnableBankRentIndex(5)` (engine: ≤ 80 → đặt 60) + báo. `t_char.bankend` lúc sửa: 1010100017 = 80, **1010100018 = 80** (mua rương 4 20:51, 200.000), còn lại ≤ 60.
   - Rollback tag `truoc-tienchang-kho60-06-10`. Hoàn tiền rương 4: chờ chủ server.
+
+### 06/10 khuya: Lâu Lan Tầm Bảo ra quái nhanh hơn (`tools/lltb-nhip-06-10.js`)
+- `event/huodong/seek_treasure.lua` (808039, NPC Kim Cửu Linh 1168 chỉ gọi bản này; `seek_treasure2.lua` 808047 không ai gọi). 50 đợt theo giờ (không chờ đánh hết), tick 5 giây.
+- Gốc: chờ 35 s, đợt cách 40/35/30/25/20 s, nghỉ sau đợt 30 ~90 s → tới boss ~28 phút. Chủ server chọn: **mọi đợt 15 s**, chờ đầu 10 s, nghỉ 30 s → ~13 phút. Đếm ngược lúc nghỉ chỉnh theo speed 3. Quái giữa đổi mỗi 90 s giữ nguyên.
+- Lua, hiệu lực sau cap-nhat (lượt mở sau). Rollback tag `truoc-lltb-nhip-06-10`. Chưa kiểm trong game.
