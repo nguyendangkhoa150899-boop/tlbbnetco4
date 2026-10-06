@@ -157,6 +157,14 @@ Game chạy trong `tlbb.service`. **Không bao giờ** khởi động game từ 
 
 Bot là một repo khác (`nguyendangkhoa150899-boop/bialk`). Trên VPS nó **không phải git**. Tài liệu các tính năng nằm trong `docs/` của repo này: `VONG-QUAY.md`, `TUI-BOSS.md`, `GHEP-NGOC.md`, `THUONG-PHO.md` (06/10, kho đồ theo nhân vật, tắt khẩn cấp bằng file `thuongpho-tat`).
 
+**06/10:**
+- Kiến trúc bot, bản đồ file, khóa dữ liệu, cách deploy, quy tắc code: xem `BotDoMin/README.md` của repo bot. Bản viết lại 06/10 sau khi dọn sạch Palworld.
+- Palworld đã gỡ hẳn: `palworld.js` đã xóa. Các khóa `dog*` là cầu KNB **đang chạy**, chỉ mang tên cũ từ thời Dogcoin.
+- Công cụ kiểm của bot:
+  - `BotDoMin/thu/check_page.js`, `check_panel.js`: kiểm JS phía client;
+  - `BotDoMin/thu/bot-gia/`: chạy bot với `discord.js` giả để thử khởi động và API.
+- Việc dở dang: `docs/BAN-GIAO.md`.
+
 **Deploy bot:**
 - Trước khi chép đè, so md5 file trên VPS với `git show HEAD:...` (bỏ `\r` trước khi so). Phiên khác có thể đã sửa thẳng trên VPS.
 - Chép lên `/tmp`, rồi `tr -d '\r'`, `node --check`, chép bản cũ vào `/opt/tlbb-backup/...`, sau đó mới `systemctl restart minigame`.

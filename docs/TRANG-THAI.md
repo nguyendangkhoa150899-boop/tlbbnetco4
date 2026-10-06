@@ -1160,7 +1160,7 @@ Trạng thái 16:30 05/10: mọi thứ **đã commit, push, deploy**. **Game CH�
   - **Thêm 1 ô:** "vật liệu cấp 2 × Nhẫn (vị trí 06)" của quy tắc 10–18 cũng trỏ vào 260–268 (lỗi dữ liệu gốc: chế nhẫn bằng vật liệu cấp 2 ra C9 100%). Ô này nay cũng thành C7–C9 40/52/8. **Vẫn quá cao cho vật liệu cấp 2, chờ chủ server quyết.**
   - Quy tắc 1–9 (cấp cố định) và quy tắc 20 (C4/C5) không đổi.
 - **Cấp phẩm chất lưu trên món lúc chế:** đồ C9 đã chế giữ nguyên. Có hiệu lực sau `cap-nhat.sh` + **restart game**.
-- Kiểm bằng script bảng tỉ lệ (scratchpad `tile-che.js`). Rollback: tag `truoc-pc-vatlieu8-06-10`.
+- Kiểm bằng script bảng tỉ lệ (`tools/tile-che.js`). Rollback: tag `truoc-pc-vatlieu8-06-10`.
 - **Chốt cuối (cùng ngày, chủ server):** nerf thêm và cân cả bậc thang. Tỉ lệ tính trên 1000, cấp TB là cấp phẩm chất trung bình.
 
   | Vật liệu | Mã | C5 | C6 | C7 | C8 | C9 | Cấp TB |
@@ -1174,7 +1174,7 @@ Trạng thái 16:30 05/10: mọi thứ **đã commit, push, deploy**. **Game CH�
   - Lỗi gốc: ô "không vật liệu" / "VL1" / "VL2" trỏ nhầm mã của VL6 / VL7 / VL8. Hậu quả: chế nhẫn bằng VL1 ra ngang VL7.
   - Đã trỏ về đúng mã mà Đai (05) và Dây chuyền (07) đang dùng.
   - Sau khi sửa, mã 240–269 chỉ còn nằm trong cột cấp vật liệu của chính nó.
-- Kiểm 138 công thức chế ra món 80–99: cấp TB tăng đều từ VL3 → VL8, không còn ô lệch. Script: scratchpad `cantbang.js` (sửa, có kiểm giá trị cũ) và `tile-che.js` (bảng tỉ lệ).
+- Kiểm 138 công thức chế ra món 80–99: cấp TB tăng đều từ VL3 → VL8, không còn ô lệch. Script sửa là script 1 lần, không lưu; bảng tỉ lệ dựng lại bằng `tools/tile-che.js`.
 - **Đã kiểm trong game (chủ server, sau restart 14:24 cùng ngày):** chế đồ 8x bằng vật liệu cấp 8 ra cân bằng. OK.
 
 ### 06/10 14:45 - Rương Ích Kỷ: bỏ Bán, phiếu KNB chỉ còn Sử dụng (bot bialk `707b520`)
@@ -1209,7 +1209,7 @@ Trạng thái 16:30 05/10: mọi thứ **đã commit, push, deploy**. **Game CH�
   - `node --check`; eslint `no-undef` không có lỗi mới;
   - `check_page` / `check_panel` OK;
   - mọi `ctx.X` của webplay / panel còn có trong index;
-  - chạy thử bot với `discord.js` giả (scratchpad `bot-gia/`), 0 lỗi;
+  - chạy thử bot với `discord.js` giả (bot `BotDoMin/thu/bot-gia/`), 0 lỗi;
   - test repo không hỏng thêm (bỏ 5 phép kiểm "cấp pal gốc" trong `TienLen/kiemtra/panel-test.js`);
   - deploy xong 0 lỗi log.
 - **Đợt 2 (chưa làm):**
@@ -1218,3 +1218,28 @@ Trạng thái 16:30 05/10: mọi thứ **đã commit, push, deploy**. **Game CH�
   - sửa chữ "chuyển pal vào game" (nợ / vay), ghi chú paldb trong shop admin, bộ lọc Kho đồ;
   - viết lại `README.md` gốc (đang bị lặp 3 lần) và `BotDoMin/README.md`;
   - dữ liệu sót trong `database.json` (`_palTrades`, `palChest` rỗng…) chưa xóa, vô hại.
+
+### 06/10 17:30 - Dọn Palworld đợt 2 (bot bialk `a5a109c`, tag `truoc-don-palworld-dot2-06-10`) - **CHƯA DEPLOY**
+- **`index.js` (−411):**
+  - gọi thẳng `tlbb.giveItem` / `tlbb.countItem`; xóa `palworld.js`;
+  - bỏ shop Palworld mặc định (154 món) + `seedItemShopIfEmpty` + 11 migration `_migItemShop*`. Lỗi cũ: database mới chạy lần 2 sẽ bị trộn món Palworld vào shop. Đã kiểm: chạy 2 lần, shop rỗng;
+  - bỏ Cây Thế Giới (`wtMax`), `implantTier`, `passives.json`, nạp game → web từ web (`webNapGame` / `webNapGold`, `dogNapRate`);
+  - **GIỮ** hạn "🔥 Hàng giới hạn" (nhóm `implant`, `implantMax` / `implantToday`). Đó là tính năng Thiên Long, không phải Palworld.
+- **`webplay.js` (−67):**
+  - bỏ 2 thẻ nạp / đổi vàng ẩn và route `/api/dogbridge/nap|napgold`;
+  - chữ thẻ nợ theo đúng luật thật. Nợ chặn: shop, quà admin, tặng rương, ghép ngọc, vòng quay, pet boss. Nợ **không** chặn rút KNB / đồ vào game;
+  - thêm dòng hướng dẫn nạp qua NPC Ví Web.
+- **`panel.js`:**
+  - `/api/pal/set-name` → `/api/tlbb/lienket`; tab `pal` → `tlbb` (F5 tự đổi);
+  - bỏ dòng Cây Thế Giới, tỉ lệ nạp, ghi chú paldb; bộ lọc Kho đồ theo `kind`;
+  - sửa lỗi `dogVangDayMax` bị kẹt trong comment (ô "đổi vàng/ngày" không hiện số đang lưu);
+  - nhãn sổ KNB `shop` = "🛒 Mua shop"; ghi chú "Bán rương đã bỏ".
+- **Kiểm:**
+  - `node --check`, eslint `no-undef` 0, `check_page` / `check_panel` OK;
+  - mọi `ctx.X` khớp `index.js`;
+  - bot với Discord giả: 0 lỗi;
+  - test repo khớp bản gốc (bỏ 1 phép kiểm Cây Thế Giới trong `TaiXiu/kiemtra/ruong-test.js`).
+- **Công cụ lưu vào repo:**
+  - repo game: `tools/tile-che.js`, `tools/thuongpho-mophong/mophong.js`;
+  - repo bot: `BotDoMin/thu/check_page.js`, `check_panel.js`, `bot-gia/`.
+- Viết lại `README.md` gốc và `BotDoMin/README.md` của repo bot, viết lại `docs/BAN-GIAO.md`.
