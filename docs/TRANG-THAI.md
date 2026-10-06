@@ -1311,3 +1311,7 @@ Trạng thái 16:30 05/10: mọi thứ **đã commit, push, deploy**. **Game CH�
 - **Đổi tiếp (chưa deploy bản 30/60/10):** VL8 = C7 20% / C8 40% / C9 **40%** (TB ~8,2). Cảnh báo đã nói: 2–3 lần chế ra 1 món C9, cùng túi boss 3–6 VL8/lượt. Rollback tag `truoc-pc-vl8-20-40-40-07-10` (về 30/60/10) hoặc `truoc-pc-vl8-30-60-10-07-10` (về 50/45/5).
 - **Đổi tiếp lần nữa (chưa deploy 20/40/40):** VL8 = C8 50% / C9 **50%**, bỏ C7 (TB 8,5). Rollback tag `truoc-pc-vl8-50-50-07-10` (về 20/40/40).
 - Bản 50/50 đã lên server (cap-nhat `e6db8d2`, restart 01:03:46 07/10). **CHỐT CUỐI (chủ server):** VL8 = C8 65% / C9 35%, bỏ C7 (TB 8,35). Cần cap-nhat + restart. Rollback tag `truoc-pc-vl8-65-35-07-10` (về 50/50).
+
+### 07/10: thú cưỡi 10141214 lên C9 + Thảo Nê Mã VIP tàng hình
+- `tools/thucuoi-c9-07-10.js`: EquipBase 10141214 (幻雪羊驼, mã hình 316) cột 90 quy tắc phẩm chất 7 → 9 (như 10141215/16). Tốc độ vẫn +100% (impact 5286; 10141215/16 = +120%). Chỉ món tạo sau restart là C9; lúc sửa không nhân vật nào có món này. Cần cap-nhat + restart. Rollback tag `truoc-thucuoi-c9-07-10`.
+- bialk cưỡi 10141215 (mã hình 317) bị tàng hình. Nghi client thiếu mã 317/318 trong bảng thú cưỡi (Config.axp; bản client ở G:\NetCo4 thiếu Config.axp/Interface.axp nên chưa kiểm được). Mã 199/306/308/309/40 người khác cưỡi bình thường. Chờ thử 10141213/10553609 (mã 315). Sửa: impact 5287/5288 cột 骑乘ID 317/318 → mã hiện được.
