@@ -1176,3 +1176,11 @@ Trạng thái 16:30 05/10: mọi thứ **đã commit, push, deploy**. **Game CH�
   - Sau khi sửa, mã 240–269 chỉ còn nằm trong cột cấp vật liệu của chính nó.
 - Kiểm 138 công thức chế ra món 80–99: cấp TB tăng đều từ VL3 → VL8, không còn ô lệch. Script: scratchpad `cantbang.js` (sửa, có kiểm giá trị cũ) và `tile-che.js` (bảng tỉ lệ).
 - **Đã kiểm trong game (chủ server, sau restart 14:24 cùng ngày):** chế đồ 8x bằng vật liệu cấp 8 ra cân bằng. OK.
+
+### 06/10 14:45 - Rương Ích Kỷ: bỏ Bán, phiếu KNB chỉ còn Sử dụng (bot bialk `707b520`)
+- **Bỏ 💰 Bán** để ép người chơi đi 💎 Ghép Ngọc:
+  - web bỏ nút;
+  - `ichKyBan` trả lỗi ngay ở server (chặn cả gọi thẳng API);
+  - cấu hình bán cũ trên panel SUPER để nguyên nhưng không còn tác dụng.
+- **Phiếu KNB** (`ICHKY_PHIEU_KNB`): nút 📦 Nhận đổi thành **🎫 Sử dụng**, cộng thẳng KNB web qua `ichKyDung`. `ichKyClaim` chặn rút phiếu vào game.
+- Cột "Giá bán / cái" đổi thành "Quy đổi": phiếu ghi "🎫 = X KNB web", món khác ghi "—".
