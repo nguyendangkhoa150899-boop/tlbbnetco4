@@ -1269,3 +1269,9 @@ Trạng thái 16:30 05/10: mọi thứ **đã commit, push, deploy**. **Game CH�
 - **SỬA LẠI cùng tối (`e583bba`, `tools/tienchang-kho80-06-10.js`): engine KHÔNG có rương 5.** Dịch ngược đầy đủ `LuaFnEnableBankRentIndex` (0x8253254): chỉ số 2: kho ≤ 20 → 40 | 3: ≤ 40 → 60 | 4: ≤ 60 → 80 | **5: ≤ 80 → 60** (lỗi sẵn trong binary, `push $0x3c` ở 0x82535ad thay vì 0x64). Lần đầu chỉ đọc các phép so sánh nên kết luận sai "tối đa 100". Đã tắt lại mức 80→100, **tối đa 80 ô**, câu báo "80 ô".
 - Bị dính: 1010100017 (`3C34E731`) 20:23 mua rương 4 (200.000 giao tử) → rương 5 (400.000) → kho về 60 → mua lại rương 4 (200.000): **mất oan 600.000 giao tử**. Không gửi/rút ngân hàng 20:22–20:29 → không mất đồ. Chờ chủ server quyết bù.
 - Muốn có 100 ô thật: vá 1 byte binary (`6a 3c` → `6a 64` ở 0x82535ad) + restart; chưa rõ chỗ khác của engine (ShareMemory/DB) có chịu kho 100 không - chưa làm.
+
+### 06/10 tối: Yếu Quyết + nhóm "rác" → chỉ còn làm đồ trade (Ghép Ngọc), ẩn khỏi shop web
+- Cấu hình bot qua API SUPER (script tạm, sao lưu `/opt/tlbb-backup/shop-truoc-tradeup-*.json`, `gncfg-truoc-tradeup-*.json`):
+  - Ghép Ngọc `vao.rieng`: 69 món (59 nhóm `yq` 🗡️ YẾU QUYẾT MÔN PHÁI + 10 nhóm `rac` = 4 Thuần Tịnh 6 + 6 ngọc 6 thường) giá bỏ vào = 80% giá shop cũ (YQ 8.000, Thuần Tịnh 19.200, ngọc 6 12.000) → giá trade không đổi. Admin sửa ở tab 💎 Ghép Ngọc (giá riêng).
+  - Shop `/api/itemshop/save`: 69 món `off` → còn bán 152/295. Nhóm `yq`/`rac` vẫn còn trong danh sách nhóm (rỗng món bán).
+- Không đụng "Chưởng Quỹ Yếu Quyết" 30008053 (nhóm ⭐, không phải sách kỹ năng).
