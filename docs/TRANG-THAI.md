@@ -1289,3 +1289,7 @@ Trạng thái 16:30 05/10: mọi thứ **đã commit, push, deploy**. **Game CH�
 - `vongquay.js`: `quay` gọi `d.ichKy.add` thay vì rương vòng quay; `vqOf` chuyển 1 lần mọi món còn tồn trong rương vòng quay cũ sang Rương Ích Kỷ (ghi log SYSTEM). `index.js` truyền `ichKy: { add: ichKyAdd }`. `webplay.js` đổi chữ (khung "🧰 Quà vòng quay", toast "đã vào 🧰 Rương Ích Kỷ").
 - Ghép Ngọc vẫn chỉ nhận món có giá (giá shop đang bán × % hoặc giá riêng) → quà vòng quay không có trên shop thì chỉ nhận vào game / tặng.
 - **VPS bot giờ = `8a7d86a` (dọn Palworld đợt 1) + 3 file vòng quay áp tay** (dựng từ `8a7d86a` + 4 chỗ sửa; `vongquay.js` = HEAD). Đợt 2 (`a5a109c`) VẪN CHƯA deploy; deploy HEAD sau này đã gồm cả vòng quay. md5 (bỏ \r) trên VPS: index/webplay khác `8a7d86a` đúng các dòng vòng quay. Sao lưu `/opt/tlbb-backup/bot-truoc-vq-ichky-20261006-2251`. Rollback tag bialk `truoc-vq-ichky-06-10`.
+
+### 06/10 khuya: Lâu Lan Tầm Bảo mở 24/24, vẫn 1 lượt/ngày (`tools/lltb-2424-06-10.js`)
+- `x808039_g_activity_time[1]` 19:30–22:00 → -1..2400 (cả ngày; `IsOpenNow` so loại trừ 2 đầu, gọi ở lúc vào + timer phó bản). Khung 2 (11:30–14:30) giữ, nằm trong khung 1.
+- 1 lượt/ngày có sẵn: `MD_SEEK_TREASURE = GetTime2Day()` ghi cho mọi thành viên lúc vào, trùng ngày → "Số lần nhiệm vụ: Chưa đủ". Lua. Rollback tag `truoc-lltb-2424-06-10`.

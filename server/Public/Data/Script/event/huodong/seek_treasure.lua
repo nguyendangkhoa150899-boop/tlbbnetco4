@@ -7,7 +7,7 @@ x808039_g_ScriptId = 808039;
 --¸±±¾Ãû³Æ
 x808039_g_CopySceneName = "Lâu Lan T¥m Bäo"
 x808039_g_activity_time = { 
-	[1] = {startTime = 1930, endTime = 2200},
+	[1] = {startTime = -1, endTime = 2400},   -- [NetCo4 06/10] mo 24/24 (goc 19:30-22:00); van 1 luot/ngay (MD_SEEK_TREASURE)
 	[2] = {startTime = 1130, endTime = 1430},
 };
 
