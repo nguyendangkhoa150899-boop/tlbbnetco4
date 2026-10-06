@@ -1308,3 +1308,4 @@ Trạng thái 16:30 05/10: mọi thứ **đã commit, push, deploy**. **Game CH�
 ### 07/10 rạng sáng: đồ chế VL8 = C7 30% / C8 60% / C9 10% (chủ server)
 - Bản 50/45/5 đã chạy từ restart 23:56:52 06/10 (log: 3 lần chế sau restart ra C8, C7, C7; các lần 23:27–23:36 ra C5/C6 là bảng cũ trước restart).
 - `tools/pc-vatlieu-06-10b.js` dòng VL8 → 300/600/100 (TB ~7,8), mã 260–269. VL6/VL7 giữ. Cần cap-nhat + restart. Rollback tag `truoc-pc-vl8-30-60-10-07-10`.
+- **Đổi tiếp (chưa deploy bản 30/60/10):** VL8 = C7 20% / C8 40% / C9 **40%** (TB ~8,2). Cảnh báo đã nói: 2–3 lần chế ra 1 món C9, cùng túi boss 3–6 VL8/lượt. Rollback tag `truoc-pc-vl8-20-40-40-07-10` (về 30/60/10) hoặc `truoc-pc-vl8-30-60-10-07-10` (về 50/45/5).
