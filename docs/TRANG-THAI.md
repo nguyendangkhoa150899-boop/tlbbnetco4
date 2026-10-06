@@ -1284,3 +1284,8 @@ Trạng thái 16:30 05/10: mọi thứ **đã commit, push, deploy**. **Game CH�
 - `event/huodong/seek_treasure.lua` (808039, NPC Kim Cửu Linh 1168 chỉ gọi bản này; `seek_treasure2.lua` 808047 không ai gọi). 50 đợt theo giờ (không chờ đánh hết), tick 5 giây.
 - Gốc: chờ 35 s, đợt cách 40/35/30/25/20 s, nghỉ sau đợt 30 ~90 s → tới boss ~28 phút. Chủ server chọn: **mọi đợt 15 s**, chờ đầu 10 s, nghỉ 30 s → ~13 phút. Đếm ngược lúc nghỉ chỉnh theo speed 3. Quái giữa đổi mỗi 90 s giữ nguyên.
 - Lua, hiệu lực sau cap-nhat (lượt mở sau). Rollback tag `truoc-lltb-nhip-06-10`. Chưa kiểm trong game.
+
+### 06/10 22:51: Vòng Quay May Mắn - quà quay trúng vào thẳng 🧰 Rương Ích Kỷ (bot `5ae6c04`)
+- `vongquay.js`: `quay` gọi `d.ichKy.add` thay vì rương vòng quay; `vqOf` chuyển 1 lần mọi món còn tồn trong rương vòng quay cũ sang Rương Ích Kỷ (ghi log SYSTEM). `index.js` truyền `ichKy: { add: ichKyAdd }`. `webplay.js` đổi chữ (khung "🧰 Quà vòng quay", toast "đã vào 🧰 Rương Ích Kỷ").
+- Ghép Ngọc vẫn chỉ nhận món có giá (giá shop đang bán × % hoặc giá riêng) → quà vòng quay không có trên shop thì chỉ nhận vào game / tặng.
+- **VPS bot giờ = `8a7d86a` (dọn Palworld đợt 1) + 3 file vòng quay áp tay** (dựng từ `8a7d86a` + 4 chỗ sửa; `vongquay.js` = HEAD). Đợt 2 (`a5a109c`) VẪN CHƯA deploy; deploy HEAD sau này đã gồm cả vòng quay. md5 (bỏ \r) trên VPS: index/webplay khác `8a7d86a` đúng các dòng vòng quay. Sao lưu `/opt/tlbb-backup/bot-truoc-vq-ichky-20261006-2251`. Rollback tag bialk `truoc-vq-ichky-06-10`.

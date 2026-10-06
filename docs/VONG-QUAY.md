@@ -5,7 +5,8 @@ Thay vòng quay trong game. Vòng quay game (script 890097 `CJHDs.lua`) vẫn c�
 ## Cách chơi (giống "Vòng Quay Bảo Thạch" trong game)
 1. **Mở / Làm mới vòng**: trả **8.000 KNB** (admin đặt). Server bốc **24 món** từ bộ quà theo trọng số, không trùng. **Không còn VIP** (bỏ 02/10): món nào cũng quay được, hiếm hay không chỉ do trọng số.
 2. **Rút thăm**: tốn **1 lượt quay**. Server bốc 1 trong 24 ô theo trọng số. Đèn chạy quanh vòng rồi dừng ở ô trúng. Vòng giữ nguyên sau khi quay; muốn đổi món thì Làm mới. **Mỗi vòng tối đa 40 lần quay** (admin chỉnh), đủ thì phải Làm mới (trả KNB) mới quay tiếp; trang hiện "vòng này còn X/40". Có ô Tự động quay (dừng khi hết lượt, hết 40 lần, hoặc rương đầy).
-3. Quà vào **Rương vòng quay** trên web (không hết hạn, tối đa 100 dòng, trúng món đã có thì cộng dồn; người chơi tự xóa được). Bấm **Nhận** hoặc **Nhận tất cả**: món vào hàng đợi quà game (đổi bản đồ là có). Lỗi giữa chừng thì món còn lại vẫn nằm trong rương.
+3. **Từ 06/10 (bot `5ae6c04`): quà vào thẳng 🧰 Rương Ích Kỷ** (`ichKyAdd`), không qua rương vòng quay. Đồ còn tồn trong rương vòng quay cũ tự chuyển sang Rương Ích Kỷ lần đầu mở trang vòng quay. Từ Rương Ích Kỷ: nhận vào game, tặng, hoặc 💎 Ghép Ngọc (chỉ món có giá: shop đang bán hoặc giá riêng).
+   - Trước 06/10: quà vào **Rương vòng quay** (tối đa 100 dòng, cộng dồn, tự xóa được), bấm Nhận để vào hàng đợi quà game. Code đó vẫn còn (chạy khi không truyền `ichKy`).
 
 **Lượt quay** có từ **🎒 Túi đồ boss**: mỗi túi thay **Hạnh Vận Quả ×2** bằng **2 lượt quay web** (Lâu Lan Tầm Bảo 1). Admin cấp thêm được. Lúc deploy đã chuyển 11 cấu hình túi đã sửa và 48 túi chưa nhận (cờ `_vqMigHVQ`).
 
