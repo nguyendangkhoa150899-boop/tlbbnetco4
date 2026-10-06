@@ -1148,3 +1148,16 @@ Trạng thái 16:30 05/10: mọi thứ **đã commit, push, deploy**. **Game CH�
 - 01:10 và 01:31 có người chạy `cap-nhat.sh` trong Terminal OneDash và bấm `y` ở câu restart → `tlbb.sh restart` chạy trong `onedash-agent.service` (journal `tlbb` trống). Lần 01:31: tắt Server/Login/World (01:31:49), ShareMemory thoát sạch (01:32:20 "Exit ShareMemory Program" → dữ liệu đã lưu) rồi DỪNG (chưa tắt billing/MySQL, không bật lại) - phiên terminal bị ngắt.
 - 09:09 `systemctl restart tlbb` (Claude, chủ server báo sập): tắt sạch MySQL/billing, bật lại 09:11:03, 6 tiến trình trong `tlbb.service`, cổng 3731/7384 nghe. Đã nạp `2d9eca5`: máu boss 90%, "Lê Vũ Minh Hân" (89 điểm).
 - **Sửa gốc:** `deploy/tlbb.sh` - start/stop/restart gọi tay (không có `INVOCATION_ID` của systemd) tự chuyển `systemctl <lệnh> tlbb`. cap-nhat bấm `y`, panel, SSH đều đi qua systemd; đóng terminal giữa chừng không giết game nữa. Ép chạy trực tiếp: `TLBB_TRUC_TIEP=1`. Đã kiểm: tiến trình do `tlbb.service` bật có `INVOCATION_ID`. Có hiệu lực từ lần `cap-nhat.sh` kế (git pull trước khi gọi tlbb.sh).
+
+### 06/10 14:xx - Đồ chế bằng vật liệu cấp 8 (Miên Bố 8, Bí Ngân 8…): C9 100% → C7 40% / C8 52% / C9 8%
+- **Cơ chế:**
+  - Cấp phẩm chất của đồ chế (C1–C9) lấy từ `Server/Config/ItemSegQuality.txt`, cột `N级材料三精_<vị trí>`: 8 cấp vật liệu × 19 vị trí.
+  - Mỗi ô là 1 mã của `ItemSegAffect.txt`. Mỗi mã có tổng + 9 trọng số C1..C9.
+  - Quy tắc (cột 90 EquipBase) 10–19 dùng mã 260–269 cho vật liệu cấp 8. Bản gốc server: mọi mã này **C9 1000/1000**, trong khi vật liệu cấp 7 chỉ C9 2%.
+- **Sửa (chủ server chọn phương án C):** 10 dòng `ItemSegAffect` 260–269 = `C7 400 / C8 520 / C9 80`. Không thêm mã mới, vì bảng mã không liên tục (max 495) và chưa rõ engine giới hạn bao nhiêu.
+- **Ảnh hưởng:**
+  - Mọi món chế bằng vật liệu cấp 8 thuộc quy tắc 10–19.
+  - **Thêm 1 ô:** "vật liệu cấp 2 × Nhẫn (vị trí 06)" của quy tắc 10–18 cũng trỏ vào 260–268 (lỗi dữ liệu gốc: chế nhẫn bằng vật liệu cấp 2 ra C9 100%). Ô này nay cũng thành C7–C9 40/52/8. **Vẫn quá cao cho vật liệu cấp 2, chờ chủ server quyết.**
+  - Quy tắc 1–9 (cấp cố định) và quy tắc 20 (C4/C5) không đổi.
+- **Cấp phẩm chất lưu trên món lúc chế:** đồ C9 đã chế giữ nguyên. Có hiệu lực sau `cap-nhat.sh` + **restart game**.
+- Kiểm bằng script bảng tỉ lệ (scratchpad `tile-che.js`). Rollback: tag `truoc-pc-vatlieu8-06-10`.
