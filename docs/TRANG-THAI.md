@@ -1298,9 +1298,9 @@ Trạng thái 16:30 05/10: mọi thứ **đã commit, push, deploy**. **Game CH�
 - `tools/pc-vatlieu-06-10b.js` (mã 240–269, trên 1000): VL6 250/500/220/25/5 (C5–C9, TB 6,04) · VL7 100/450/380/50/20 (TB 6,44) · VL8 C6 350 / C7 500 / C8 100 / C9 50 (TB 6,85, bỏ C5). VL1–5 giữ (C8 ≤ 0,1%, C9 0).
 - **Chốt cuối cùng đêm:** VL8 = C7 500 / C8 450 / C9 50 (TB 7,55, bỏ C6). Cần cap-nhat + restart. Rollback tag `truoc-pc-vatlieu-buff-06-10`.
 
-### 06/10 khuya: NERF 12 boss Sát Tinh (chủ server: -40% máu, -30% công)
-- `tools/sattinh-nerf-06-10.js`, `MonsterAttrExTable.txt` 11 DataID 13447…13537 (13456 dùng chung Ngô Dụng + Tống Giang): HP cột 19 + MaxHP 59 ×0,6 (từ 90% gốc → 54% gốc); công ngoại 15, công nội 17, 4 hệ 30–39 (chỉ 13492), MaxAtt 55, MaxMag 57 ×0,7. Phòng, né, chính xác, tốc đánh không đổi.
-- Lộ Quân Dật 13465: HP 5.858.265 → 3.514.959, công ngoại 145.047 → 101.532, công nội 25.047 → 17.532. Ngô Dụng/Tống Giang 13456: 8,79tr → 5,27tr. 9 boss còn lại: 1,0–1,3tr.
+### 06/10 khuya: NERF 12 boss Sát Tinh (chủ server: -60% máu, -30% công; lần đầu -40% máu rồi tăng lên -60%)
+- `tools/sattinh-nerf-06-10.js`, `MonsterAttrExTable.txt` 11 DataID 13447…13537 (13456 dùng chung Ngô Dụng + Tống Giang): HP cột 19 + MaxHP 59 ×0,4 (từ 90% gốc → 36% gốc); công ngoại 15, công nội 17, 4 hệ 30–39 (chỉ 13492), MaxAtt 55, MaxMag 57 ×0,7. Phòng, né, chính xác, tốc đánh không đổi.
+- Lộ Quân Dật 13465: HP 5.858.265 → 2.343.306, công ngoại 145.047 → 101.532, công nội 25.047 → 17.532. Ngô Dụng/Tống Giang 13456: 8,79tr → 3,51tr. 9 boss còn lại: 0,65–0,87tr.
 - Kỹ năng boss là kỹ năng môn phái (AI script253–259) → sát thương ăn theo công; phần sát thương cộng thẳng trong impact (nếu có) không giảm. Chưa đo trong game.
 - `tools/mau-boss.js` chạy lại sẽ bỏ qua 11 dòng này (ô đã khác giá trị nó chờ) — đúng ý, đừng ép.
 - Cần cap-nhat + restart. Rollback tag `truoc-sattinh-nerf-06-10`.

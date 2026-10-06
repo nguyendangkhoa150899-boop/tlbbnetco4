@@ -1,14 +1,14 @@
-// 06/10 khuya (chủ server): Sát Tinh (Sinh Tử Lôi Đài) quá mạnh -> giảm 40% máu, 30% công của cả 11 DataID boss
+// 06/10 khuya (chủ server): Sát Tinh (Sinh Tử Lôi Đài) quá mạnh -> giảm 60% máu (lần đầu 40%, chủ server tăng lên 60%), 30% công của cả 11 DataID boss
 // (13456 dùng chung Ngô Dụng + Tống Giang). Chỉ Sát Tinh dùng các ID này (grep Script/Scene, ngoài obj/shengsi chỉ có roimap.lua).
-// MonsterAttrExTable.txt, cột đếm từ 0: HP 19 + MaxHP 59 x0,6; công ngoại 15, công nội 17, 4 hệ 30/33/36/39, MaxAtt 55, MaxMag 57 x0,7.
-// Hệ số nhân trên giá trị ĐANG CÓ (máu hiện = 90% gốc sau 2d9eca5 -> còn 54% gốc). Chặn chạy lần 2: so với HEAD phải đúng giá trị cũ.
+// MonsterAttrExTable.txt, cột đếm từ 0: HP 19 + MaxHP 59 x0,4; công ngoại 15, công nội 17, 4 hệ 30/33/36/39, MaxAtt 55, MaxMag 57 x0,7.
+// Hệ số nhân trên giá trị ĐANG CÓ (máu hiện = 90% gốc sau 2d9eca5 -> còn 36% gốc). Chặn chạy lần 2: so với HEAD phải đúng giá trị cũ.
 // Kỹ năng boss là kỹ năng môn phái (script253-259.ai) -> sát thương theo công, giảm công ~ giảm sát thương; phần cộng thẳng của impact không đổi.
 // Cần restart (bảng Public/Config). node tools/sattinh-nerf-06-10.js [--ghi]
 const fs = require('fs'), path = require('path');
 const F = path.join(__dirname, '../server/Public/Config/MonsterAttrExTable.txt');
 const ghi = process.argv.includes('--ghi');
 const IDS = ['13447', '13456', '13465', '13474', '13483', '13492', '13501', '13510', '13519', '13528', '13537'];
-const HS = { 19: 0.6, 59: 0.6, 15: 0.7, 17: 0.7, 30: 0.7, 33: 0.7, 36: 0.7, 39: 0.7, 55: 0.7, 57: 0.7 };
+const HS = { 19: 0.4, 59: 0.4, 15: 0.7, 17: 0.7, 30: 0.7, 33: 0.7, 36: 0.7, 39: 0.7, 55: 0.7, 57: 0.7 };
 // giá trị HEAD 52d4bbb (trước nerf) cột 19 -> chặn chạy 2 lần
 const HP_CU = { 13447: 1821600, 13456: 8787398, 13465: 5858265, 13474: 2127628, 13483: 2164060, 13492: 2164060, 13501: 1623045, 13510: 1623045, 13519: 1623045, 13528: 2164060, 13537: 1623045 };
 const raw = fs.readFileSync(F, 'latin1');
