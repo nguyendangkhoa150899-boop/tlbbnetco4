@@ -1175,3 +1175,4 @@ Trạng thái 16:30 05/10: mọi thứ **đã commit, push, deploy**. **Game CH�
   - Đã trỏ về đúng mã mà Đai (05) và Dây chuyền (07) đang dùng.
   - Sau khi sửa, mã 240–269 chỉ còn nằm trong cột cấp vật liệu của chính nó.
 - Kiểm 138 công thức chế ra món 80–99: cấp TB tăng đều từ VL3 → VL8, không còn ô lệch. Script: scratchpad `cantbang.js` (sửa, có kiểm giá trị cũ) và `tile-che.js` (bảng tỉ lệ).
+- **Đã kiểm trong game (chủ server, sau restart 14:24 cùng ngày):** chế đồ 8x bằng vật liệu cấp 8 ra cân bằng. OK.
