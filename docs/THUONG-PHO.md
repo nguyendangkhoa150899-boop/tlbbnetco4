@@ -9,9 +9,9 @@ Kho đồ trên web, **mỗi nhân vật một kho**. Người chơi chuyển c�
 - NPC có 2 nút chuyển: "Chuyển Đạo cụ" và "Chuyển Nguyên liệu". **Trang bị không chuyển** (xem mục "Không làm").
 - Giao diện kho (chốt 06/10):
   - 2 tab Đạo cụ / Nguyên liệu. Tab đang chọn trống mà tab kia có đồ thì tự chuyển sang.
-  - **Gộp số lượng:** mỗi món (ID + trạng thái khóa) là 1 ô ghi tổng số, không tách chồng như game cho dễ nhìn. Số ô túi game cần trống vẫn tính theo số chồng thật (tooltip, túi rút, hộp xác nhận).
+  - **Ngọc (5xxxxxxx) cộng dồn 1 ô / loại** cho dễ nhìn (trong game mỗi viên 1 ô). Đồ khác tách ô theo số chồng như game (tối đa 100 ô / món). Số ô túi game cần trống luôn tính theo số chồng thật (tooltip, túi rút, hộp xác nhận).
   - Ô cố định có viền đỏ + 🔒, nằm sát ngay sau ô không cố định cùng loại. Không tách nhóm: chủ server chốt 06/10, sau khi thử tách 2 nhóm.
-  - Bấm 1 ô là chuyển cả món sang túi rút; sửa số dưới ô bên phải. Bấm Xác nhận thì hiện hộp `gConfirm` giữa màn hình (không dùng `confirm()` của trình duyệt), rồi rút một lần.
+  - Bấm 1 ô là chuyển đúng ô đó (ngọc: cả loại) sang túi rút; sửa số dưới ô bên phải. Bấm Xác nhận thì hiện hộp `gConfirm` giữa màn hình (không dùng `confirm()` của trình duyệt), rồi rút một lần.
   - Ô tìm: dấu phẩy tách từ khóa, mỗi từ khóa giữ cả cụm; chỉ toàn số thì là danh sách ID.
   - Trên máy tính, túi "Rút vào game" bám theo màn hình khi cuộn.
 
