@@ -1,5 +1,7 @@
 # Trạng thái và việc tiếp theo
 
+> **06/10 09:20: BÀN GIAO → [BAN-GIAO.md](BAN-GIAO.md)** (trạng thái deploy, việc chờ quyết, chưa kiểm trong game, bẫy mới). Nhật ký chi tiết 05–06/10 ở cuối file này.
+
 Cập nhật: 05/10/2026 16:30 — **ĐỌC MỤC CUỐI "05/10 tối — TỔNG KẾT PHIÊN" TRƯỚC** (luật ngọc cấp 6 đã deploy, chờ restart; việc chưa thử; bẫy mới). Server mở chính thức 04/10 11:12 (mục "04/10 - MỞ SERVER"). Tổng kết cũ: "02/10 trưa–chiều — TỔNG KẾT PHIÊN". (Bản đầu: 28/09/2026, kết thúc phiên dựng server.) Claude ở nhà: đọc file này cùng `CLAUDE.md` rồi tiếp tục từ "Việc tiếp theo".
 
 > **01/10: mọi thứ đã làm + quyết định chốt + quy trình ngày mở nằm ở [MO-SERVER.md](MO-SERVER.md). Đọc file đó trước.**

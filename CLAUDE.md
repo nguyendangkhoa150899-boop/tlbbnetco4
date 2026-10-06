@@ -2,6 +2,7 @@
 
 Đọc hết file này trước khi sửa bất cứ thứ gì. Các quy tắc ở đây có từ những lỗi đã gặp thật.
 **Tiến độ, việc tiếp theo, những gì chưa kiểm chứng: `docs/TRANG-THAI.md`.** Cập nhật file đó mỗi khi xong một việc.
+**Bàn giao gần nhất (06/10): `docs/BAN-GIAO.md`** — trạng thái deploy, việc chờ chủ server quyết, thứ chưa kiểm trong game, quyền của Claude (KHÔNG chạy được `cap-nhat.sh`; được `systemctl restart tlbb` khi chủ server bảo).
 
 ## Hệ thống (dựng 28/09/2026)
 
@@ -89,7 +90,7 @@ Xem `docs/PHAT-TRIEN.md`: cách đăng ký script, đặt NPC, bảng rơi đồ
 **05/10 sau soát 5 agent (tag `truoc-sua-sau-soat-05-10`, `tools/phieu-boss/sua-05-10b.js`):** Q boss cuối X đúng 3,0 / 6,0 (90046 BV 40, 90018 BV 20); **Ngô Vĩnh 90047 BV 24** (X = 5 khi không bị trừ cấp, ×0,2 → 1 tờ; chưa ai hạ ở cấp 89 nên chưa biết có bị trừ không - xem item log lượt Sát Tinh đầu tiên); gói boss 01/10 trên 119 dòng → bản sao BV×2 90050–90057; Kỳ Cuộc/Túc Cầu 1710 → 90068 (Tân Mãng Thần Phù 6: 8 → 1); Yến Tử Ổ: Đoàn Diên Khánh thuốc giải 3–6 (90069 chắc 3 + 90070 ×3 50%), nguyên liệu cấp 8 boss ải 25% (90071), 3 boss chính 50% (90072); Hồng Cức bỏ 50001; Đế Thích Thiên phiếu riêng 90067; dạng NPC PMF bỏ phiếu. Script 2 Q: Cửu Thiên 30 → 5%, MB/BN 6 10 → 2% (ải 3 dùng tỉ lệ trong `roimap.lua`, CHƯA đổi).
 **⚠ ĐÃ ĐO 05/10 23:41: boss cao hơn người KHÔNG bị trừ** → hộp 90047 (nay ở Lộ Quân Dật 13465) ra **5 tờ/người** ở mọi cấp (không phải 1 tờ như dự tính ×0,2). Các dòng khác đặt theo chênh cấp 0 nên người cấp cao hơn boss không ra nhiều hơn; người thấp hơn boss > 10 cấp ra ít hơn (×0,9 / 0,5 / 0,2). Công thức X = Mv/BV × 2 × DropAttenuation.
 
-Hộp rơi **90001** (`Server/Config/DropBoxContent.txt`) chứa 1 món, BoxValue = Mvalue boss (60 → X = 1 × DropParam 2 = **2 phiếu mỗi lần giết, chung cả đội**; BV = 1 làm hỏng cả lượt rơi, xem quy tắc 6), gắn cho 139 boss trong `Server/Config/MonsterDropBoxs.txt`: boss phó bản (Phiêu Miểu Phong, Yến Tử Ổ, Tứ Tuyệt Trang, Thiếu Thất Sơn, Nhạn Môn, Tam Thần) + boss thế giới hồi sinh ≥ 30 phút và ≤ 4 điểm spawn. Loại trừ quái con `JiangShi_BOSS` (triệu hồi hàng loạt) và boss gọi bằng đồ/sự kiện (bản đồ kho báu, Cửu Lê). Sinh Tử Lôi Đài (Thủy Hử, 3 lần/ngày): cả 11 DataID boss đều có 90001 (12 trận/lượt), nhưng boss cấp 120 nên người cấp 80–89 chỉ nhận ×0,2 (DropAttenuation). Phó bản 45 phút (03/10).
+Hộp rơi **90001** (`Server/Config/DropBoxContent.txt`) chứa 1 món, BoxValue = Mvalue boss (60 → X = 1 × DropParam 2 = **2 phiếu mỗi lần giết, chung cả đội**; BV = 1 làm hỏng cả lượt rơi, xem quy tắc 6), gắn cho 139 boss trong `Server/Config/MonsterDropBoxs.txt`: boss phó bản (Phiêu Miểu Phong, Yến Tử Ổ, Tứ Tuyệt Trang, Thiếu Thất Sơn, Nhạn Môn, Tam Thần) + boss thế giới hồi sinh ≥ 30 phút và ≤ 4 điểm spawn. Loại trừ quái con `JiangShi_BOSS` (triệu hồi hàng loạt) và boss gọi bằng đồ/sự kiện (bản đồ kho báu, Cửu Lê). Sinh Tử Lôi Đài (Thủy Hử, 3 lần/ngày): từ 05/10 chỉ Lộ Quân Dật 13465 có phiếu (5 tờ/người, không bị giảm cấp); 12 boss đều 25% ngọc 6 qua script (`roithem.txt` dòng `sattinh`). 13456 dùng chung cho Ngô Dụng + Tống Giang → đừng gắn thưởng vào đó. Phó bản 45 phút (03/10).
 
 Cùng 139 boss đó (29/09 chiều): đã gỡ hộp phiếu 1000 cũ và 54 hộp rác khỏi dòng boss (hộp gốc còn cho quái thường), và 14 hộp nguyên liệu được **sao riêng cho boss** thành `90002`–`90015` với BoxValue = ½ gốc (bảng đối chiếu ở `docs/TRANG-THAI.md` mục 0). Muốn chỉnh tỉ lệ nguyên liệu boss: sửa BoxValue dòng `9000x`, không đụng hộp gốc.
 
@@ -110,7 +111,8 @@ Toàn bộ ngọc 6 trong bảng rơi do **`tools/ngoc6/luat-05-10.js`** quản 
   - quái thường 0.
 - **Song sinh không rơi gì:** 1 bộ hộp của song sinh dồn sang boss cuối. Lý do: hồi sinh chéo cho nhau là farm vô tận.
 - **Cách sửa:** đổi `LUAT`, chạy không tham số để xem báo cáo, `--ghi` để ghi, rồi kiểm bằng script so HEAD. Danh sách đầy đủ và các ngoại lệ: `docs/TRANG-THAI.md` mục "LUẬT NGỌC CẤP 6".
-- **Rơi qua script:** quân cờ Kỳ Cuộc = `roithem.txt` trên VPS (`kycuoc_co 4 @ngoc6b`); Bàng Xí = `sijuezhuang/ai_liqiushui.lua` (`x893069_Ngoc6`, 50%).
+- **Rơi qua script:** quân cờ Kỳ Cuộc = `roithem.txt` trên VPS (`kycuoc_co 2 @ngoc6b`); Sát Tinh mỗi boss = `sattinh 25 @ngoc6a,@ngoc6b` (gọi từ `x892009_OnDie`); Bàng Xí = `sijuezhuang/ai_liqiushui.lua` (`x893069_Ngoc6`, 50%).
+- **`tools/ngoc6/luat-05-10.js` và `tools/phieu-boss/luat-05-10.js` ĐÃ CŨ:** chạy `--ghi` lại sẽ viết lại 150–350 dòng (bảng đã sửa tiếp sau đó). Có chốt `--toi-biet`. Chỉ dùng xem báo cáo; sửa mới bằng công cụ nhỏ có kiểm.
 
 **MỌI lần đổi tỉ lệ rơi** (bảng, `roimap.lua`, `roithem.txt`) đều **phải dựng lại https://netco4.click/**:
 1. `node tools/bang-roi/lam.js`;
@@ -148,6 +150,7 @@ Xem `docs/KIEM-TOAN.md`. Tóm tắt: tắt NPC phát Điểm Tặng/vàng/KNB v�
 - Danh sách bẫy đầy đủ: README mục "Bẫy dễ dính".
 
 ### 5. Tiến trình game và systemd (sự cố 28/09 17:40)
+**06/10 01:31 game sập 7,5 tiếng** vì restart từ Terminal OneDash (cap-nhat bấm `y`) bị ngắt giữa chừng. Từ `02a4a31`, `tlbb.sh start/stop/restart` gọi tay (không có `INVOCATION_ID`) tự chuyển `systemctl <lệnh> tlbb`; ép chạy thẳng: `TLBB_TRUC_TIEP=1`. Báo "server sập": xem `pgrep` 6 tiến trình + `journalctl -u tlbb`, log ShareMemory cuối phải có "Exit ShareMemory Program", rồi `systemctl restart tlbb`.
 Game chạy trong `tlbb.service`. **Không bao giờ** khởi động game từ tiến trình khác (panel, script tay qua SSH) rồi restart/stop tiến trình đó: systemd tắt cả nhóm con, kể cả MySQL và ShareMemory → mất dữ liệu nhân vật chưa lưu. Khởi động/restart game chỉ bằng `systemctl restart tlbb` (panel đã sửa để làm vậy). Nếu buộc phải chạy tay: `./tlbb.sh start` từ SSH thì trước khi đóng SSH hoặc restart panel, kiểm tra `systemctl status tlbb` xem game có nằm đúng unit không.
 
 ## Bot mini game (repo `bialk`, `/opt/minigame/BotDoMin`): kinh nghiệm đã trả giá (05/10)
