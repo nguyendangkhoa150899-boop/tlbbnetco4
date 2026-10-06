@@ -1321,3 +1321,4 @@ Trạng thái 16:30 05/10: mọi thứ **đã commit, push, deploy**. **Game CH�
 - **Hạo Thiên Chân Kinh đòi cấp 90 → khóa 89 không học được** (chưa sửa). NPC đổi 200 triệu EXP lấy đan đòi cấp 109 (chưa sửa).
 - **`x390101_ReGongLi`: sang ngày mới ĐẶT công lực = 200** (không phải cộng) → công lực dư mất lúc qua ngày (chưa sửa).
 - `tools/congluc-dan-07-10.js`: `Gonglidan.lua` (390102, đan 39999901) +100 → **+180000**, trần 99999 → 999999. Đan có trong Túi Boss (CLD) và quà VIP ≥2 hằng ngày → 1 viên đủ full công lực 15 sách. Lua, có hiệu lực sau cap-nhat. Rollback tag `truoc-congluc-180k-07-10`.
+- **Chủ server cho về như cũ ngay sau đó:** `Gonglidan.lua` = bản tag `truoc-congluc-180k-07-10` (+100, trần 99999). `tools/congluc-dan-07-10.js` giữ lại để dùng khi cần (`node tools/congluc-dan-07-10.js <so> --ghi`).
