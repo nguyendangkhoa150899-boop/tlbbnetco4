@@ -10,8 +10,8 @@ x000076_g_scriptId = 000076
 --默认有20个格子，此时购买下一个需要花费50000（交子+金币）
 x000076_g_Box	 = {{Capacity=20,Cost=50000},
 			{Capacity=40,Cost=100000},
-			{Capacity=60,Cost=200000},   -- [NetCo4 06/10] mo lai (goc bi comment)
-			{Capacity=80,Cost=400000}    -- [NetCo4 06/10] mo lai; engine toi da chi so 5 = 100 o
+			{Capacity=60,Cost=200000}    -- [NetCo4 06/10] mo lai (goc bi comment): 60 -> 80 o
+			--{Capacity=80,Cost=400000}  -- [NetCo4 06/10] TAT: engine EnableBankRentIndex(5) dat kho = 60 (loi binary) -> mat ruong 4. Toi da 80 o
 	    }
 
 -- 玩家身上默认的交子和金币数目    
@@ -80,8 +80,8 @@ function x000076_OnEventRequest( sceneId, selfId, targetId, eventId )
 		local CurrentRentIndex = GetBankRentIndex(sceneId, selfId)
 		--查找存储箱序号
 		local	BoxNum = x000076_FindBoxNum( sceneId, selfId, targetId, CurrentRentIndex )
-		if BoxNum == 0 then   -- [NetCo4 06/10] da toi da 100 o: truoc day x000076_g_Box[0].Cost loi Lua, khong phan hoi
-			x000076_MsgBox( sceneId, selfId, "Kho c\252a c\225c h\213 \240\227 m\183 t\175i \240a (100 \244), kh\244ng th\172 mua th\234m r\223\189ng." )
+		if BoxNum == 0 then   -- [NetCo4 06/10] da toi da 80 o: truoc day x000076_g_Box[0].Cost loi Lua, khong phan hoi
+			x000076_MsgBox( sceneId, selfId, "Kho c\252a c\225c h\213 \240\227 m\183 t\175i \240a (80 \244), kh\244ng th\172 mua th\234m r\223\189ng." )
 			return
 		end
          
@@ -117,8 +117,8 @@ function x000076_OnEventRequest( sceneId, selfId, targetId, eventId )
 		local CurrentRentIndex = GetBankRentIndex(sceneId, selfId)
 		--查找存储箱序号
 		local	BoxNum = x000076_FindBoxNum( sceneId, selfId,targetId,CurrentRentIndex )
-		if BoxNum == 0 then   -- [NetCo4 06/10] da toi da 100 o: truoc day x000076_g_Box[0].Cost loi Lua, khong phan hoi
-			x000076_MsgBox( sceneId, selfId, "Kho c\252a c\225c h\213 \240\227 m\183 t\175i \240a (100 \244), kh\244ng th\172 mua th\234m r\223\189ng." )
+		if BoxNum == 0 then   -- [NetCo4 06/10] da toi da 80 o: truoc day x000076_g_Box[0].Cost loi Lua, khong phan hoi
+			x000076_MsgBox( sceneId, selfId, "Kho c\252a c\225c h\213 \240\227 m\183 t\175i \240a (80 \244), kh\244ng th\172 mua th\234m r\223\189ng." )
 			return
 		end
 		
