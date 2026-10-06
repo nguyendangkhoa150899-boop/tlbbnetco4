@@ -13,7 +13,7 @@ const MOI = {
   // (trước: VL6 339/520/140/1/0, VL7 118/580/290/10/2, VL8 145/450/380/20/5)
   6: { tu: 240, w: [0, 0, 0, 0, null, 500, 220, 25, 5] },   // C5 25% C6 50% C7 22% C8 2,5% C9 0,5%
   7: { tu: 250, w: [0, 0, 0, 0, null, 450, 380, 50, 20] },  // C5 10% C6 45% C7 38% C8 5% C9 2%
-  8: { tu: 260, w: [0, 0, 0, 0, 0, null, 500, 450, 50] },   // chủ server chốt: C7 50% C8 45% C9 5% (bỏ C6; C6 = phần dư = 0)
+  8: { tu: 260, w: [0, 0, 0, 0, 0, null, 300, 600, 100] },  // 07/10 chủ server: C7 30% C8 60% C9 10% (trước 50/45/5; C6 = phần dư = 0)
 };
 for (const v of Object.values(MOI)) { const i = v.w.indexOf(null); v.w[i] = 1000 - v.w.reduce((t, x) => t + (x || 0), 0); }
 const L = fs.readFileSync(F, 'latin1').split('\n');   // giữ \r từng dòng

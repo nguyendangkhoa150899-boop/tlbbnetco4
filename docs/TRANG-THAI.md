@@ -1304,3 +1304,7 @@ Trạng thái 16:30 05/10: mọi thứ **đã commit, push, deploy**. **Game CH�
 - Kỹ năng boss là kỹ năng môn phái (AI script253–259) → sát thương ăn theo công; phần sát thương cộng thẳng trong impact (nếu có) không giảm. Chưa đo trong game.
 - `tools/mau-boss.js` chạy lại sẽ bỏ qua 11 dòng này (ô đã khác giá trị nó chờ) — đúng ý, đừng ép.
 - Cần cap-nhat + restart. Rollback tag `truoc-sattinh-nerf-06-10`.
+
+### 07/10 rạng sáng: đồ chế VL8 = C7 30% / C8 60% / C9 10% (chủ server)
+- Bản 50/45/5 đã chạy từ restart 23:56:52 06/10 (log: 3 lần chế sau restart ra C8, C7, C7; các lần 23:27–23:36 ra C5/C6 là bảng cũ trước restart).
+- `tools/pc-vatlieu-06-10b.js` dòng VL8 → 300/600/100 (TB ~7,8), mã 260–269. VL6/VL7 giữ. Cần cap-nhat + restart. Rollback tag `truoc-pc-vl8-30-60-10-07-10`.
