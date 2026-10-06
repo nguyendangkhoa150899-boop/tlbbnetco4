@@ -155,7 +155,7 @@ Game chạy trong `tlbb.service`. **Không bao giờ** khởi động game từ 
 
 ## Bot mini game (repo `bialk`, `/opt/minigame/BotDoMin`): kinh nghiệm đã trả giá (05/10)
 
-Bot là một repo khác (`nguyendangkhoa150899-boop/bialk`). Trên VPS nó **không phải git**. Tài liệu các tính năng nằm trong `docs/` của repo này: `VONG-QUAY.md`, `TUI-BOSS.md`, `GHEP-NGOC.md`.
+Bot là một repo khác (`nguyendangkhoa150899-boop/bialk`). Trên VPS nó **không phải git**. Tài liệu các tính năng nằm trong `docs/` của repo này: `VONG-QUAY.md`, `TUI-BOSS.md`, `GHEP-NGOC.md`, `THUONG-PHO.md` (06/10, kho đồ theo nhân vật, tắt khẩn cấp bằng file `thuongpho-tat`).
 
 **Deploy bot:**
 - Trước khi chép đè, so md5 file trên VPS với `git show HEAD:...` (bỏ `\r` trước khi so). Phiên khác có thể đã sửa thẳng trên VPS.

@@ -115,6 +115,7 @@ function x950000_NhanQua( sceneId, selfId )
 	x950000_CapMin( sceneId, selfId )
 	x950000_TamPhap1( sceneId, selfId )   -- [NetCo4 03/10] tam phap nhan vat cu ve 1 (1 lan)
 	CallScriptFunction( 999999, "NhanWeb", sceneId, selfId )   -- KNB chuyen tu web mini game (CDK/CDK.lua)
+	CallScriptFunction( 999999, "NhanTP", sceneId, selfId )   -- [NetCo4 06/10] do rut tu Thuong Pho (web) - chi dong du o trong
 	x950000_CapNhatTop( sceneId, selfId )   -- [NetCo4 03/10] Bang Top Server: Top Level + Top Tai Phu (KNB)
 	local guid = LuaFnGetGUID( sceneId, selfId )
 	local path = x950000_g_Dir..guid..".txt"
