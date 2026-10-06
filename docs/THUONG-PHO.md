@@ -33,11 +33,11 @@ Mọi file nằm trong `Server/txt/NetCo4Web/`.
 
 **Danh sách món được chuyển** (`thuongpho-cho.txt`):
 - Bot dựng file này lúc khởi động và mỗi 6 giờ.
-- Nguồn: `CommonItem.txt`, `GemInfo.txt`, `ItemRule.txt` và quét các script dùng `SetBagItemParam`. Ra khoảng 6.561 món.
+- Nguồn: `CommonItem.txt`, `GemInfo.txt`, `ItemRule.txt` và quét các script dùng `SetBagItemParam`. Ra khoảng 6.921 món.
 - Điều kiện để món được chuyển:
   - cất được vào ngân hàng;
   - không phải món "duy nhất";
-  - không giới hạn số lượng sở hữu;
+  - không phải đồ nhiệm vụ (`4xxxxxxx`) có cột "最大持有数量" > 0. Với đồ thường, cột này **không phải giới hạn thật**: Yến Huyền Ngọc ghi 1 mà chồng được 30, người chơi giữ 2 ô. Sửa 06/10, mở thêm khoảng 360 món;
   - script của món không ghi tham số riêng.
 - Trang bị (ID `1xxxxxxx`) không có trong 2 bảng nên tự động bị loại.
 - **File rỗng hoặc thiếu = Thương Phố tạm khóa.** NPC không xóa gì.
