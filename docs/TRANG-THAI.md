@@ -1184,3 +1184,37 @@ Trạng thái 16:30 05/10: mọi thứ **đã commit, push, deploy**. **Game CH�
   - cấu hình bán cũ trên panel SUPER để nguyên nhưng không còn tác dụng.
 - **Phiếu KNB** (`ICHKY_PHIEU_KNB`): nút 📦 Nhận đổi thành **🎫 Sử dụng**, cộng thẳng KNB web qua `ichKyDung`. `ichKyClaim` chặn rút phiếu vào game.
 - Cột "Giá bán / cái" đổi thành "Quy đổi": phiếu ghi "🎫 = X KNB web", món khác ghi "—".
+
+### 06/10 16:54 - Dọn Palworld đợt 1 (bot bialk `8a7d86a`, tag `truoc-don-palworld-dot1-06-10`)
+- **Rà bằng 4 agent, kiểm chéo trên VPS.** Palworld đã tắt hẳn:
+  - nút Quay Pal / Chọn Pal đang tắt trong `_featOff`;
+  - không có `pals.json`;
+  - shop 295 món toàn ID Thiên Long;
+  - không ai còn pal / palLuck;
+  - không còn service, cổng hay biến RCON.
+- **Gỡ ~2.900 dòng code chết** (3 agent song song, mỗi agent 1 file):
+  - `webplay.js` (−816): trang Quay Pal / Chọn Pal / Rương Pal, popup, 16 route `/api/palwheel|palpick|pal/*|profile`;
+  - `panel.js` (−529): công tắc Vòng quay Pal, các thẻ cứu hộ / gacha / ép quay / rương pal, 11 route;
+  - `index.js` (−1.530): hàm quay / chọn / rương / bán / giao dịch / cứu hộ / đơn pal, ctx `palwheel` / `profile`, nút và modal Discord `shop_*` cũ.
+  - Bỏ `assets/palboss.png`. `palworld.js` chỉ còn `giveItem` / `countItem` chuyển tiếp sang `tlbb`.
+- **Giữ, vì Thiên Long đang dùng:**
+  - `pal.giveItem` / `pal.countItem` (shop, quà, Rương Ích Kỷ);
+  - `deliverBusy` / `Lock` (pet boss);
+  - `DEFAULT_ITEM_SHOP`, quota implant trong luồng mua shop;
+  - các khóa `dog*` (cầu KNB, tên cũ từ Dogcoin);
+  - liên kết nhân vật `/api/pal/set-name` + tab id `pal`;
+  - lớp CSS `.pwOff`;
+  - `tlbb.pendingIn`.
+- **Kiểm:**
+  - `node --check`; eslint `no-undef` không có lỗi mới;
+  - `check_page` / `check_panel` OK;
+  - mọi `ctx.X` của webplay / panel còn có trong index;
+  - chạy thử bot với `discord.js` giả (scratchpad `bot-gia/`), 0 lỗi;
+  - test repo không hỏng thêm (bỏ 5 phép kiểm "cấp pal gốc" trong `TienLen/kiemtra/panel-test.js`);
+  - deploy xong 0 lỗi log.
+- **Đợt 2 (chưa làm):**
+  - đổi `pal.giveItem` thành `tlbb.giveItem` rồi xóa `palworld.js`;
+  - đổi tên route / tab liên kết nhân vật;
+  - sửa chữ "chuyển pal vào game" (nợ / vay), ghi chú paldb trong shop admin, bộ lọc Kho đồ;
+  - viết lại `README.md` gốc (đang bị lặp 3 lần) và `BotDoMin/README.md`;
+  - dữ liệu sót trong `database.json` (`_palTrades`, `palChest` rỗng…) chưa xóa, vô hại.
