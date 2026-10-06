@@ -1275,3 +1275,7 @@ Trạng thái 16:30 05/10: mọi thứ **đã commit, push, deploy**. **Game CH�
   - Ghép Ngọc `vao.rieng`: 69 món (59 nhóm `yq` 🗡️ YẾU QUYẾT MÔN PHÁI + 10 nhóm `rac` = 4 Thuần Tịnh 6 + 6 ngọc 6 thường) giá bỏ vào = 80% giá shop cũ (YQ 8.000, Thuần Tịnh 19.200, ngọc 6 12.000) → giá trade không đổi. Admin sửa ở tab 💎 Ghép Ngọc (giá riêng).
   - Shop `/api/itemshop/save`: 69 món `off` → còn bán 152/295. Nhóm `yq`/`rac` vẫn còn trong danh sách nhóm (rỗng món bán).
 - Không đụng "Chưởng Quỹ Yếu Quyết" 30008053 (nhóm ⭐, không phải sách kỹ năng).
+- **SỬA LẦN 3 (22:3x, `tools/tienchang-kho60-06-10.js`): KHO TỐI ĐA 60 Ô như bản gốc.** Ô 61–80 (rương 4) làm server đá người chơi: bialk 1010100017 kéo đồ vào rương 4 → `Player_AtServer::onExecutePacketException` 21:56:01, đăng nhập lại vẫn bị 22:30:19 (đồ không mất). Bản gốc tắt mức 60→80 là có lý do (`CGBankAddItemHandler` có mốc 79/99 nhưng chỗ khác của engine chỉ chịu 60).
+  - Tắt mức 60→80 (bảng còn 20→40, 40→60), câu báo "tối đa 60 ô".
+  - Trước mọi `BankBegin` (Lạc Dương 2 chỗ, Tô Châu, `1shengjjll`/`9shengjjll`/`shengjjll`): kho > 60 → `EnableBankRentIndex(5)` (engine: ≤ 80 → đặt 60) + báo. `t_char.bankend` lúc sửa: 1010100017 = 80, **1010100018 = 80** (mua rương 4 20:51, 200.000), còn lại ≤ 60.
+  - Rollback tag `truoc-tienchang-kho60-06-10`. Hoàn tiền rương 4: chờ chủ server.
