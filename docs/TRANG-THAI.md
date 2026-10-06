@@ -1293,3 +1293,7 @@ Trạng thái 16:30 05/10: mọi thứ **đã commit, push, deploy**. **Game CH�
 ### 06/10 khuya: Lâu Lan Tầm Bảo mở 24/24, vẫn 1 lượt/ngày (`tools/lltb-2424-06-10.js`)
 - `x808039_g_activity_time[1]` 19:30–22:00 → -1..2400 (cả ngày; `IsOpenNow` so loại trừ 2 đầu, gọi ở lúc vào + timer phó bản). Khung 2 (11:30–14:30) giữ, nằm trong khung 1.
 - 1 lượt/ngày có sẵn: `MD_SEEK_TREASURE = GetTime2Day()` ghi cho mọi thành viên lúc vào, trùng ngày → "Số lần nhiệm vụ: Chưa đủ". Lua. Rollback tag `truoc-lltb-2424-06-10`.
+
+### 06/10 khuya: BUFF lại cấp phẩm chất đồ chế VL6–8 (chủ server: VL8 C7 50 / C8 10 / C9 5%)
+- `tools/pc-vatlieu-06-10b.js` (mã 240–269, trên 1000): VL6 250/500/220/25/5 (C5–C9, TB 6,04) · VL7 100/450/380/50/20 (TB 6,44) · VL8 C6 350 / C7 500 / C8 100 / C9 50 (TB 6,85, bỏ C5). VL1–5 giữ (C8 ≤ 0,1%, C9 0).
+- Cần cap-nhat + restart. Rollback tag `truoc-pc-vatlieu-buff-06-10`.

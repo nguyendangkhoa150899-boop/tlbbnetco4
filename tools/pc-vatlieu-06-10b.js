@@ -9,10 +9,11 @@ const F = path.join(__dirname, '../server/Server/Config/ItemSegAffect.txt');
 const ghi = process.argv.includes('--ghi');
 //            C1 C2 C3 C4 C5   C6   C7   C8  C9   (C5/C6 = phần dồn, tính bên dưới)
 const MOI = {
-  // chủ server: phần dư vào C5 cho cả VL7/VL8 (giữ C6 58% / 45%); sau đó C7 bớt 5 điểm % mỗi cấp, chuyển sang C5
-  6: { tu: 240, w: [0, 0, 0, 0, null, 520, 140, 1, 0] },
-  7: { tu: 250, w: [0, 0, 0, 0, null, 580, 290, 10, 2] },
-  8: { tu: 260, w: [0, 0, 0, 0, null, 450, 380, 20, 5] },
+  // 06/10 khuya (chủ server buff lại): VL8 C7 50% / C8 10% / C9 5% (phần dư vào C6, bỏ C5); VL6/VL7 cân theo bậc thang
+  // (trước: VL6 339/520/140/1/0, VL7 118/580/290/10/2, VL8 145/450/380/20/5)
+  6: { tu: 240, w: [0, 0, 0, 0, null, 500, 220, 25, 5] },   // C5 25% C6 50% C7 22% C8 2,5% C9 0,5%
+  7: { tu: 250, w: [0, 0, 0, 0, null, 450, 380, 50, 20] },  // C5 10% C6 45% C7 38% C8 5% C9 2%
+  8: { tu: 260, w: [0, 0, 0, 0, 0, null, 500, 100, 50] },   // C6 35% C7 50% C8 10% C9 5%
 };
 for (const v of Object.values(MOI)) { const i = v.w.indexOf(null); v.w[i] = 1000 - v.w.reduce((t, x) => t + (x || 0), 0); }
 const L = fs.readFileSync(F, 'latin1').split('\n');   // giữ \r từng dòng
