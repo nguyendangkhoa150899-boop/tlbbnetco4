@@ -1261,3 +1261,8 @@ Trạng thái 16:30 05/10: mọi thứ **đã commit, push, deploy**. **Game CH�
 
 ### 06/10 tối: túi đồ boss - Miên Bố 8 / Bí Ngân 8 ×2–3 → ×3–6 (cả 16 hoạt động)
 - Cấu hình bot (API SUPER `/api/tuiboss/save`, script tạm trên VPS, sao lưu `/opt/tlbb-backup/tuiboss-cfg-truoc-vb36-*.json`). Dòng gộp `20501008+20502008`: tung tổng 3–6, mỗi cái bốc ngẫu nhiên MB hoặc BN (`tuiboss.js boc`). Túi tạo từ giờ mới theo số mới; túi đã có giữ số cũ.
+
+### 06/10 tối: Tiền Trang Lạc Dương (Trần Tiên Sinh) không mở thêm rương kho - mở lại mức 60→80, 80→100 ô
+- `obj/luoyang/oluoyang_qianzhuang.lua` (000076): bảng `x000076_g_Box` chỉ có 20→40 (50.000) và 40→60 (100.000); mức 60→80 (200.000) và 80→100 (400.000) bị comment trong bản gốc. Có 60 ô thì `FindBoxNum` = 0 → nút "Mua Rương Mới" ẩn, bấm ô rương xám → `x000076_g_Box[0].Cost` lỗi Lua, không phản hồi.
+- Dịch ngược `LuaFnEnableBankRentIndex`: chỉ số 2..5 ↔ 40/60/80/100 ô → **tối đa 100 ô**. Các ô rương xám dư trên giao diện client là quá giới hạn engine.
+- `tools/tienchang-kho-06-10.js`: bỏ comment 2 mức (giá gốc, vàng / giao tử) + chặn `BoxNum == 0` báo "đã mở tối đa (100 ô)". Lua, hiệu lực sau cap-nhat. Rollback tag `truoc-tienchang-kho-06-10`. Chưa kiểm trong game.
