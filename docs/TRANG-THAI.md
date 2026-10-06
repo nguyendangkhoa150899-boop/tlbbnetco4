@@ -1243,3 +1243,12 @@ Trạng thái 16:30 05/10: mọi thứ **đã commit, push, deploy**. **Game CH�
   - repo game: `tools/tile-che.js`, `tools/thuongpho-mophong/mophong.js`;
   - repo bot: `BotDoMin/thu/check_page.js`, `check_panel.js`, `bot-gia/`.
 - Viết lại `README.md` gốc và `BotDoMin/README.md` của repo bot, viết lại `docs/BAN-GIAO.md`.
+
+### 06/10 tối: nerf cấp phẩm chất đồ chế + cân bậc thang vật liệu (`ItemSegAffect.txt`)
+- **VL6–8** (`tools/pc-vatlieu-06-10b.js`, mã 240–269, trên 1000), chủ server đưa số, phần dư vào C5, rồi chọn "C7 bớt 5 điểm % sang C5":
+  - VL6: C5 339 / C6 520 / C7 140 / C8 1 / C9 0 (cấp TB 5,80; trước 6,03)
+  - VL7: C5 118 / C6 580 / C7 290 / C8 10 / C9 2 (6,20; trước 6,51)
+  - VL8: C5 145 / C6 450 / C7 380 / C8 20 / C9 5 (6,29; trước 6,69)
+- **VL1–5 + không vật liệu** (`tools/pc-vatlieu-thap-06-10.js`): sau nerf, VL5 ra C8 2% / C9 0,5% (ngang VL8) và VL1–2 ra C8 3% / C9 0,3% → chủ server chốt hạ C8 tối đa 0,1%, C9 = 0, phần bớt dồn xuống cấp thấp nhất của mã. 15 mã đổi (97–99, 107–108, 213, 217–219, 227–229, 237–239); chỉ mã nằm trong cột chế của quy tắc 17–20, mã nào cũng ở cột rơi đồ (1–7) hoặc cột VL6–8 thì bỏ qua (mã 180, không có C8/C9). Mã 97–108 có total 10000 nhưng trọng số cộng 9130 (dữ liệu gốc) → giữ nguyên phần lệch.
+- **Còn lệch C7:** VL1–2 vẫn C7 18% (> VL6 14%, VL5 10%). Chưa kiểm công thức chế 80–99 có cho dùng vật liệu cấp 1–2 không.
+- Cấp phẩm chất lưu trên món lúc chế (đồ cũ giữ nguyên). Cần cap-nhat + restart. Rollback tag `truoc-pc-vatlieu-06-10b`.
