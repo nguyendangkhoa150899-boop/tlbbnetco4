@@ -1149,7 +1149,7 @@ Trạng thái 16:30 05/10: mọi thứ **đã commit, push, deploy**. **Game CH�
 - 09:09 `systemctl restart tlbb` (Claude, chủ server báo sập): tắt sạch MySQL/billing, bật lại 09:11:03, 6 tiến trình trong `tlbb.service`, cổng 3731/7384 nghe. Đã nạp `2d9eca5`: máu boss 90%, "Lê Vũ Minh Hân" (89 điểm).
 - **Sửa gốc:** `deploy/tlbb.sh` - start/stop/restart gọi tay (không có `INVOCATION_ID` của systemd) tự chuyển `systemctl <lệnh> tlbb`. cap-nhat bấm `y`, panel, SSH đều đi qua systemd; đóng terminal giữa chừng không giết game nữa. Ép chạy trực tiếp: `TLBB_TRUC_TIEP=1`. Đã kiểm: tiến trình do `tlbb.service` bật có `INVOCATION_ID`. Có hiệu lực từ lần `cap-nhat.sh` kế (git pull trước khi gọi tlbb.sh).
 
-### 06/10 14:xx - Đồ chế bằng vật liệu cấp 8 (Miên Bố 8, Bí Ngân 8…): C9 100% → C7 40% / C8 52% / C9 8%
+### 06/10 14:14 - Đồ chế bằng vật liệu cấp 8 (Miên Bố 8, Bí Ngân 8…): C9 100% → C7 40% / C8 52% / C9 8%
 - **Cơ chế:**
   - Cấp phẩm chất của đồ chế (C1–C9) lấy từ `Server/Config/ItemSegQuality.txt`, cột `N级材料三精_<vị trí>`: 8 cấp vật liệu × 19 vị trí.
   - Mỗi ô là 1 mã của `ItemSegAffect.txt`. Mỗi mã có tổng + 9 trọng số C1..C9.
