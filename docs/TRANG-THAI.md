@@ -1252,3 +1252,8 @@ Trạng thái 16:30 05/10: mọi thứ **đã commit, push, deploy**. **Game CH�
 - **VL1–5 + không vật liệu** (`tools/pc-vatlieu-thap-06-10.js`): sau nerf, VL5 ra C8 2% / C9 0,5% (ngang VL8) và VL1–2 ra C8 3% / C9 0,3% → chủ server chốt hạ C8 tối đa 0,1%, C9 = 0, phần bớt dồn xuống cấp thấp nhất của mã. 15 mã đổi (97–99, 107–108, 213, 217–219, 227–229, 237–239); chỉ mã nằm trong cột chế của quy tắc 17–20, mã nào cũng ở cột rơi đồ (1–7) hoặc cột VL6–8 thì bỏ qua (mã 180, không có C8/C9). Mã 97–108 có total 10000 nhưng trọng số cộng 9130 (dữ liệu gốc) → giữ nguyên phần lệch.
 - **Còn lệch C7:** VL1–2 vẫn C7 18% (> VL6 14%, VL5 10%). Chưa kiểm công thức chế 80–99 có cho dùng vật liệu cấp 1–2 không.
 - Cấp phẩm chất lưu trên món lúc chế (đồ cũ giữ nguyên). Cần cap-nhat + restart. Rollback tag `truoc-pc-vatlieu-06-10b`.
+
+### 06/10 19:xx: Túc Cầu reset 00:00 giờ VN (trước: đủ 24 tiếng từ lần vào trước)
+- Chủ server báo không vào được Túc Cầu + Kỳ Cuộc dù "đủ giờ". Đọc `t_char.mdata` (hex, int32 LE, ô = chỉ số MD): ô 193 `MD_CUJU_PRE_TIME` = giây unix lúc vào; 05/10 4 người 18:53, 1010100017 19:05 → 06/10 ~19:00 người đó chưa đủ 24 giờ → cả tổ bị chặn (kiểm mọi thành viên gần).
+- `tools/tuccau-00h-06-10.js`: so ngày VN `floor((t + 25200) / 86400)`, cùng ngày thì chặn; câu báo "sau 24 giờ" → "qua 0 giờ đêm nay". Lua, hiệu lực sau cap-nhat. Rollback tag `truoc-tuccau-00h-06-10`.
+- **Kỳ Cuộc** (401001) đã theo ngày (`GetDayTime()` = năm%100 ×1000 + ngày trong năm 0-based, vd 26277 = 05/10), chung ô 78 `MD_LAST_QIJU_DAY` với bản nhanh 401002. Mọi nhân vật ô 78 = 26277 → 06/10 phải vào được; nếu vẫn bị chặn là điều kiện khác - chờ câu báo của chủ server. Giờ game (chroot) = Asia/Ho_Chi_Minh.

@@ -191,10 +191,10 @@ function x402040_OnDefaultEvent( sceneId, selfId, targetId )
 		end
 		local nCurTime = LuaFnGetCurrentTime()
 		-- ¿´ÉÏ´Î²Î¼ÓtoÕ ğµ Ê±¼äĞúng²»ĞúngºÍÏÖTÕi ÓĞ12cáiĞ¡Ê±ÒÔÉÏtoÕ ğµ CD CVH
-		if nCurTime-time < 60*60*24   then
+		if floor( ( nCurTime + 25200 ) / 86400 ) == floor( ( time + 25200 ) / 86400 ) then   -- [NetCo4 06/10] reset 00:00 gio VN (cu: du 24 gio tu lan vao truoc)
 			BeginEvent(sceneId)
 				AddText(sceneId,"#BHoành täo M¦u Ğan Uy¬n");
-				AddText(sceneId,"  Ğ×ng cho là ta chï biªt ng¡m xem mÛ næ thôi sao. Nhìn ngß½i là ta nh§n ra ngay! Ngß½i không phäi m¾i v×a ğã tham gia quá tr§n ğ¤u  sao?#G Xin m¶i sau 24 gi¶  næa hãy ğªn tìm ta!");
+				AddText(sceneId,"  Ğ×ng cho là ta chï biªt ng¡m xem mÛ næ thôi sao. Nhìn ngß½i là ta nh§n ra ngay! Ngß½i không phäi m¾i v×a ğã tham gia quá tr§n ğ¤u  sao?#G M\178i ng\224y ch\239 1 l\165n, qua 0 gi\182 \240\234m nay h\227y \240\170n t\236m ta!");
 			EndEvent(sceneId)
 			DispatchEventList(sceneId,selfId,targetId)
 			return
