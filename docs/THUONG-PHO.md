@@ -7,10 +7,13 @@ Kho đồ trên web, **mỗi nhân vật một kho**. Người chơi chuyển c�
 - Đồ chỉ rút về **đúng nhân vật đã gửi**. Không tặng, không bán, không giao dịch trên web.
 - Đồ **cố định** (khóa) vẫn chuyển được. Web giữ cờ khóa; rút về thì game khóa lại. Đồ khóa và không khóa của cùng một món là 2 chồng riêng. Ô đồ khóa có 🔒, tooltip ghi "Đã cố định" màu đỏ.
 - NPC có 2 nút chuyển: "Chuyển Đạo cụ" và "Chuyển Nguyên liệu". **Trang bị không chuyển** (xem mục "Không làm").
-- Web xếp giống túi game:
-  - 2 tab Đạo cụ / Nguyên liệu;
-  - tách ô theo số chồng tối đa của game (ngọc không chồng, nên mỗi viên một ô);
-  - bấm một ô là chuyển đúng chồng đó sang túi rút; bấm Xác nhận để rút một lần.
+- Giao diện kho (chốt 06/10):
+  - 2 tab Đạo cụ / Nguyên liệu. Tab đang chọn trống mà tab kia có đồ thì tự chuyển sang.
+  - **Gộp số lượng:** mỗi món (ID + trạng thái khóa) là 1 ô ghi tổng số, không tách chồng như game cho dễ nhìn. Số ô túi game cần trống vẫn tính theo số chồng thật (tooltip, túi rút, hộp xác nhận).
+  - **2 nhóm:** Không cố định ở trên; "🔒 Cố định" ở dưới, ô viền đỏ.
+  - Bấm 1 ô là chuyển cả món sang túi rút; sửa số dưới ô bên phải. Bấm Xác nhận thì hiện hộp `gConfirm` giữa màn hình (không dùng `confirm()` của trình duyệt), rồi rút một lần.
+  - Ô tìm: dấu phẩy tách từ khóa, mỗi từ khóa giữ cả cụm; chỉ toàn số thì là danh sách ID.
+  - Trên máy tính, túi "Rút vào game" bám theo màn hình khi cuộn.
 
 - **Lịch sử** (06/10 trưa):
   - Mỗi lần gửi / rút / hoàn là 1 dòng. Món trùng gộp số lượng theo ID + khóa: phiếu game ghi từng ô, bot gộp lại.
