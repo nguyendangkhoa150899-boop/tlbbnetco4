@@ -1326,3 +1326,10 @@ Trạng thái 16:30 05/10: mọi thứ **đã commit, push, deploy**. **Game CH�
 ### 07/10: Ghép Ngọc khóa nút lúc kim đang quay (bialk `b2b663d`, ĐÃ đưa lên VPS)
 - Lỗi: lúc kim quay (7,6 s) vẫn bấm được 💰 Thêm KNB / bỏ đồ / đổi đích / tab → `ve()` vẽ lại cả bảng: kim mới nhảy thẳng tới kết quả, vòng tỉ lệ vẽ theo KNB/đồ mới → kim dừng lệch vùng. Không ảnh hưởng tiền (server đã chốt lượt trước khi kim quay).
 - Sửa `ghepngoc.client.js`: hàm `ban()` chặn gnThem/gnSl/gnBo/gnXoaHet/gnKnb/gnDich/gnNhan/gnPct/gnTab (+ gnLoc, gnSync im lặng) khi `GN.busy`; ô và nút KNB `disabled`. `/gn.js` đọc lại mỗi lần tải, không restart bot. Sao lưu `/opt/tlbb-backup/ghepngoc.client.js-truoc-khoa-quay-*`, tag bialk `truoc-gn-khoa-quay-07-10`.
+
+### 07/10: Rương Ích Kỷ giao diện kiểu Thương Phố (bialk `6d2e1d7`, ĐÃ lên VPS 02:13)
+- File mới `BotDoMin/ichky.client.js` phục vụ ở `/ik.js` (đọc lại mỗi lần tải, sửa không cần restart), ghi đè `ikDraw()` của trang chơi. Không đổi API server: mỗi món chọn gọi `/api/ichky/claim|give|xoa|dung` lần lượt, dừng ở lỗi đầu tiên.
+- Phải = toàn bộ rương, chia nhóm theo đầu ID (🎫 phiếu `doi>0` · 💎 5x · ⚔️ 1x · 🐎 1014/1055 · 🧪 2x · 🎒 còn lại), có tab lọc + tìm. Trái = 3 nút 📦 Nhận / 🎁 Tặng / 🗑️ Xoá, bấm món bên phải để chọn nhiều, sửa số dưới ô, xác nhận 1 lần. Trần mỗi món: Nhận = `rutMax`, Tặng = `giveMax`.
+- Phiếu KNB: bấm vào phiếu → hộp có 🎫 Sử dụng + 🎁 Tặng phiếu này. Nút vàng "Sử dụng toàn bộ phiếu Kim Nguyên Bảo" chỉ hiện khi có phiếu.
+- VPS `webplay.js` (bản 8a7d86a + vòng quay vá tay, KHÔNG phải HEAD) được chèn tay đúng 2 chỗ (route `/ik.js` + thẻ script) bằng script so mốc; sao lưu `/opt/tlbb-backup/webplay.js-truoc-ik-20261007-0213`, đã restart minigame. Rollback: tag bialk `truoc-ik-thuongpho-07-10`, hoặc xoá thẻ `<script src="/ik.js">` (trang về giao diện cũ, `ikDraw` gốc còn nguyên).
+- Đã thử bằng Chrome headless với dữ liệu giả (PC 1300px, điện thoại 500px, logic gọi API). Chưa thử với tài khoản thật trên prod.
