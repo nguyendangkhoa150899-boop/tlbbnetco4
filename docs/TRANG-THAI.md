@@ -1161,3 +1161,17 @@ Trạng thái 16:30 05/10: mọi thứ **đã commit, push, deploy**. **Game CH�
   - Quy tắc 1–9 (cấp cố định) và quy tắc 20 (C4/C5) không đổi.
 - **Cấp phẩm chất lưu trên món lúc chế:** đồ C9 đã chế giữ nguyên. Có hiệu lực sau `cap-nhat.sh` + **restart game**.
 - Kiểm bằng script bảng tỉ lệ (scratchpad `tile-che.js`). Rollback: tag `truoc-pc-vatlieu8-06-10`.
+- **Chốt cuối (cùng ngày, chủ server):** nerf thêm và cân cả bậc thang. Tỉ lệ tính trên 1000, cấp TB là cấp phẩm chất trung bình.
+
+  | Vật liệu | Mã | C5 | C6 | C7 | C8 | C9 | Cấp TB |
+  |---|---|---|---|---|---|---|---|
+  | cấp 6 | 240–249 | 250 | 520 | 190 | 35 | 5 | 6,03 (cũ 6,61) |
+  | cấp 7 | 250–259 | | 580 | 340 | 70 | 10 | 6,51 (cũ 7,42) |
+  | cấp 8 | 260–269 | | 450 | 430 | 100 | 20 | 6,69 (cũ 9,00) |
+
+  - Cấp 1–5 giữ nguyên. Lưu ý dữ liệu gốc: vật liệu 1–2 (TB 4,83) nhỉnh hơn vật liệu 3 (4,69). Chưa đổi.
+- **Sửa cột Nhẫn** (vị trí 06, quy tắc 10–19, 29 ô `ItemSegQuality`):
+  - Lỗi gốc: ô "không vật liệu" / "VL1" / "VL2" trỏ nhầm mã của VL6 / VL7 / VL8. Hậu quả: chế nhẫn bằng VL1 ra ngang VL7.
+  - Đã trỏ về đúng mã mà Đai (05) và Dây chuyền (07) đang dùng.
+  - Sau khi sửa, mã 240–269 chỉ còn nằm trong cột cấp vật liệu của chính nó.
+- Kiểm 138 công thức chế ra món 80–99: cấp TB tăng đều từ VL3 → VL8, không còn ô lệch. Script: scratchpad `cantbang.js` (sửa, có kiểm giá trị cũ) và `tile-che.js` (bảng tỉ lệ).
