@@ -1258,3 +1258,6 @@ Trạng thái 16:30 05/10: mọi thứ **đã commit, push, deploy**. **Game CH�
 - `tools/tuccau-00h-06-10.js`: so ngày VN `floor((t + 25200) / 86400)`, cùng ngày thì chặn; câu báo "sau 24 giờ" → "qua 0 giờ đêm nay". Lua, hiệu lực sau cap-nhat. Rollback tag `truoc-tuccau-00h-06-10`.
 - **Kỳ Cuộc** (401001) đã theo ngày (`GetDayTime()` = năm%100 ×1000 + ngày trong năm 0-based, vd 26277 = 05/10), chung ô 78 `MD_LAST_QIJU_DAY` với bản nhanh 401002. Mọi nhân vật ô 78 = 26277 → 06/10 phải vào được; nếu vẫn bị chặn là điều kiện khác - chờ câu báo của chủ server. Giờ game (chroot) = Asia/Ho_Chi_Minh.
 - **06/10 19:17–19:19 restart** (chủ server; lần đầu sau sửa `tlbb.sh` → đi đúng `systemctl`, game trong `tlbb.service`). Nạp `ItemSegAffect.txt` mới (VL5 mã 238 = 549/350/100/1/0, VL6 mã 248 = 339/520/140/1/0). Túc Cầu 00:00 (`6fb5d07`) deploy 19:17.
+
+### 06/10 tối: túi đồ boss - Miên Bố 8 / Bí Ngân 8 ×2–3 → ×3–6 (cả 16 hoạt động)
+- Cấu hình bot (API SUPER `/api/tuiboss/save`, script tạm trên VPS, sao lưu `/opt/tlbb-backup/tuiboss-cfg-truoc-vb36-*.json`). Dòng gộp `20501008+20502008`: tung tổng 3–6, mỗi cái bốc ngẫu nhiên MB hoặc BN (`tuiboss.js boc`). Túi tạo từ giờ mới theo số mới; túi đã có giữ số cũ.
