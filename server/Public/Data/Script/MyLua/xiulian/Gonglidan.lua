@@ -98,15 +98,15 @@ end
 --**********************************
 function x390102_OnActivateOnce( sceneId, selfId )
 	local gongli=GetMissionData( sceneId, selfId, XIULIAN_GONGLI )
-	local num=100	--ÕâÀïÊÇÕâ¸öÎïÆ·¼Ó¹¦Á¦µÄÊıÖµ
+	local num=180000	-- [NetCo4 07/10: 1 vien = 1800 vien cu] --ÕâÀïÊÇÕâ¸öÎïÆ·¼Ó¹¦Á¦µÄÊıÖµ
 	local total=gongli+num
-	if total>99999 then	--Õâ¸öÊÇ¿ØÖÆ¹¦Á¦µÄ×î´óÖµÎª100
-		total=99999
+	if total>999999 then -- [NetCo4 07/10]	--Õâ¸öÊÇ¿ØÖÆ¹¦Á¦µÄ×î´óÖµÎª100
+		total=999999
 	end
 	SetMissionData(sceneId, selfId, XIULIAN_GONGLI, total);
 	CallScriptFunction( 390101, "ReturnAttr", sceneId, selfId )	--·²ÊÇĞŞ¸Äµ½ĞŞÁ¶ÊôĞÔµÄ£¬¶¼Òª¼ÓÉÏÕâÒ»ĞĞ£¬ÈÃ¿Í»§¶ËµÄÏÔÊ¾Í¬²½
 	BeginEvent( sceneId )
-		AddText( sceneId, "Công Lñc cüa các hÕ +100" )
+		AddText( sceneId, "Công Lñc cüa các hÕ +180000" )
 	EndEvent( sceneId )
 	DispatchMissionTips( sceneId, selfId )
 	

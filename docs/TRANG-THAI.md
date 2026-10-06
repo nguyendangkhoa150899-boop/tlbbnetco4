@@ -1315,3 +1315,9 @@ Trạng thái 16:30 05/10: mọi thứ **đã commit, push, deploy**. **Game CH�
 ### 07/10: thú cưỡi 10141214 lên C9 + Thảo Nê Mã VIP tàng hình
 - `tools/thucuoi-c9-07-10.js`: EquipBase 10141214 (幻雪羊驼, mã hình 316) cột 90 quy tắc phẩm chất 7 → 9 (như 10141215/16). Tốc độ vẫn +100% (impact 5286; 10141215/16 = +120%). Chỉ món tạo sau restart là C9; lúc sửa không nhân vật nào có món này. Cần cap-nhat + restart. Rollback tag `truoc-thucuoi-c9-07-10`.
 - bialk cưỡi 10141215 (mã hình 317) bị tàng hình. Nghi client thiếu mã 317/318 trong bảng thú cưỡi (Config.axp; bản client ở G:\NetCo4 thiếu Config.axp/Interface.axp nên chưa kiểm được). Mã 199/306/308/309/40 người khác cưỡi bình thường. Chờ thử 10141213/10553609 (mã 315). Sửa: impact 5287/5288 cột 骑乘ID 317/318 → mã hiện được.
+
+### 07/10: Tu Luyện + Công Lực Đan 1 viên = 1800 viên
+- Chi phí 1 sách tầng 0→150 (`MyLua/xiulian/XiuLian.lua`): công lực 33/50/100 mỗi tầng (0–29/30–59/60–149) = 11.490; EXP `g_EXPA` = 804,5 triệu; vàng = tầng×10 vàng (Ngũ Hành 9–13, `AskXiuLianLevelUp`) hoặc tầng×1 vàng (Vô Nhai 21–26 cấp ≥80, Hạo Thiên 31–34 cấp ≥90, `AskXiuLianLevelUp1`). 15 sách = 172.350 công lực, 12,07 tỉ EXP, 670.500 vàng.
+- **Hạo Thiên Chân Kinh đòi cấp 90 → khóa 89 không học được** (chưa sửa). NPC đổi 200 triệu EXP lấy đan đòi cấp 109 (chưa sửa).
+- **`x390101_ReGongLi`: sang ngày mới ĐẶT công lực = 200** (không phải cộng) → công lực dư mất lúc qua ngày (chưa sửa).
+- `tools/congluc-dan-07-10.js`: `Gonglidan.lua` (390102, đan 39999901) +100 → **+180000**, trần 99999 → 999999. Đan có trong Túi Boss (CLD) và quà VIP ≥2 hằng ngày → 1 viên đủ full công lực 15 sách. Lua, có hiệu lực sau cap-nhat. Rollback tag `truoc-congluc-180k-07-10`.
