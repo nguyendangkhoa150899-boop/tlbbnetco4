@@ -12,6 +12,11 @@ Kho đồ trên web, **mỗi nhân vật một kho**. Người chơi chuyển c�
   - tách ô theo số chồng tối đa của game (ngọc không chồng, nên mỗi viên một ô);
   - bấm một ô là chuyển đúng chồng đó sang túi rút; bấm Xác nhận để rút một lần.
 
+- **Lịch sử** (06/10 trưa):
+  - Mỗi lần gửi / rút / hoàn là 1 dòng. Món trùng gộp số lượng theo ID + khóa: phiếu game ghi từng ô, bot gộp lại.
+  - Mỗi lần rút có trạng thái ✅ Đã vào game / ⏳ Đang chờ / ◐ Nhận một phần. Trạng thái tính từ mã lệnh có trong `.tpdone` mà game ghi, nên khớp thực tế.
+  - Giữ 100 lần gần nhất cho mỗi nhân vật (`_tp[GUID].nk`, mỗi dòng có `ds` đã gộp và `tx` là mã lệnh).
+
 ## File
 
 | Repo | File | Việc |
