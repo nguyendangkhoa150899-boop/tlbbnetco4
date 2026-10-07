@@ -1453,3 +1453,8 @@ Trạng thái 16:30 05/10: mọi thứ **đã commit, push, deploy**. **Game CH�
 ### 08/10 - Trùng Lâu Thăng Cấp: Đai / Vai / Giáp không kéo vào ô được → đổi bảng giao diện (game `ffe02f7`, tag `truoc-trunglau-ui-08-10`)
 - Menu 5000 của NPC Tuyết Phi Phi (112000) mở bảng client 20150511: client tự lọc, chỉ nhận Trùng Lâu Liên / Giới / Ngọc. bialk cầm Trùng Lâu Đai 10553106 (đang đeo) → không kéo vào được dù server có cho nâng.
 - Đổi sang bảng chung 21090722 (như menu 5500 tẩy): server truyền ID 10553100–10553114, 100 × 39901012, gọi `x895111_WuhunMagicUp` nhánh 36. Lua, có hiệu lực sau cap-nhat, không restart. **Chưa thử trong game** (server test đã tắt theo chủ server). Chi tiết: `docs/CAN-BANG.md` mục 4.
+
+### 08/10 03:13 - Trang admin 🐉 Custom Trùng Lâu (game `43dc7c1` tag `truoc-trunglau-custom-08-10`; bot bialk tag `truoc-trunglau-ui-08-10`, ĐÃ lên VPS)
+- Chi tiết + cơ chế: `docs/TRUNG-LAU-CUSTOM.md`. Chỉnh dòng thuộc tính, điểm (đoạn riêng 4501–4515), tỉ lệ / thời gian hiệu ứng, xem ai đang giữ / đang mặc. Chỉ Trùng Lâu dòng mới 10553100–114.
+- Bot đã deploy (sao lưu `/opt/tlbb-backup/bot-truoc-trunglau-ui-20261008-0313`). **Phần panel game CHƯA chạy** tới khi chủ server `cap-nhat.sh` (kéo `panel/trunglau.py`) rồi `systemctl restart tlbb-panel` (chỉ restart trang panel, không đụng game). Trước đó trang báo lỗi "khong co API nay".
+- Chưa kiểm trong game: món tạo sau khi lưu ra đúng dòng / điểm; dòng ngoài bộ gốc hiện đúng; tỉ lệ / thời gian mới.
