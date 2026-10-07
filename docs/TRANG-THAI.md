@@ -1439,3 +1439,8 @@ Trạng thái 16:30 05/10: mọi thứ **đã commit, push, deploy**. **Game CH�
 
 ### 08/10 - Đục lỗ 4 Free: Long Văn + Võ Hồn (game `18b7673`, tag `truoc-lo4-vohon-08-10`)
 - `tEquipGemTable = {10,18}`, nhãn "Đục lỗ 4 Long Văn + Võ Hồn (Free)" (byte VISCII lấy lại từ nhãn gốc). Lệnh Bài / Ám Khí vẫn không. Chủ server bảo đẩy thẳng, **CHƯA thử trên local** (server test đã `dongbo`). Chưa biết: Võ Hồn cấp 8 chưa có `&WH` (xem 30/09 `x892101_NetCo4_FixWH`) có nhận lỗ qua đường này không - hàm chỉ gọi `AddBagItemSlot`/`AddBagItemSlotFour`, không kiểm gì riêng cho Võ Hồn.
+
+### 08/10 - Bộ Bộ Sinh Hoa (Tiêu Dao, sách 30307227, chiêu 544): sát thương ×4, hồi chiêu 50 giây (game `07bd473` + `2e77796`, tag `truoc-bubu-08-10`)
+- Cơ chế: SkillData 3470–3481 (cấp 1–12) → StandardImpact 790 (30 giây, mỗi 3 giây) → 777 → script 808230 `MyNew/Skill/Bubushenghua.lua` đặt bẫy SpecialObj 151/231/331 (152/232/332) → sát thương = **StandardImpact 793** (logic 001, giống Phá Thiên Thức). Số trong mô tả chiêu (`{A:141..1526 B:10}`) chỉ là chữ của client: server dùng 793 cho mọi cấp.
+- 793: `5030 / 10` → `20120 / 40` (×4 cả sát thương cố định lẫn hệ số). Dòng 9169 Đại Tần Phong Đích chỉ dùng 793 làm hình ảnh, không đổi.
+- Hồi chiêu: SkillData_V1 3470–3481 cột 7 `120000` → `50000`. Mô tả trong client vẫn ghi 120 giây (client có bảng riêng, không sửa được). **Chưa kiểm trong game:** client có tự chặn theo 120 giây của nó không, và sát thương thật có ×4 không (xem số nhảy trước / sau). Đã nạp lên server test; bảng .txt nên prod cần restart.
