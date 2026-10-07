@@ -43,7 +43,7 @@ Chủ server nói tiếng Việt và muốn được trả lời bằng tiếng 
 
 Trước khi deploy đã kiểm: mọi dòng vá tay trên VPS (bản trộn `8a7d86a` + vòng quay + `/ik.js`) đều có trong git; `node --check` trên VPS; bot thử với data thật của bialk (`BotDoMin/thu/bot-gia/`) bấm qua mọi tab ở PC + điện thoại: 0 lỗi JS. Sau deploy: log 0 lỗi, `play` / `admin` / `mod` trả 200, `/vg.js` `/sh.js` `/ik.js` `/tb.js` đều 200.
 
-**Còn cần chủ server bấm thử trên prod** (chưa ai kiểm bằng tài khoản thật):
+**07/10 22:10 chủ server báo ĐÃ kiểm trên prod, OK** (trước đó ghi là chưa ai kiểm):
 - panel SUPER: tab **🐉 Thiên Long & KNB** (id mới `tlbb`), lưu liên kết nhân vật (route mới `/api/tlbb/lienket`);
 - Shop Item mới: mua thử 1 món vào rương, 1 món vào game, 1 món nhóm **🔥 Hàng giới hạn** (hạn mỗi ngày phải còn chạy);
 - Ví: rút KNB / đổi vàng 1 lần nhỏ; popup 🔑 Mật khẩu.
@@ -64,14 +64,14 @@ Rollback: tag bialk `truoc-vigame-07-10` (= `b670996`, trước trang mới) ho�
 
 ## 5. Đang chờ chủ server quyết
 
+07/10 22:10 chủ server báo: bù đồ Whynot / 1010100018 **đã làm riêng**; tỉ lệ (đồ chế, Sát Tinh, phiếu…) **đã cân bằng xong, đừng đề xuất chỉnh lại**; mọi thứ web mới (Rương Ích Kỷ, Shop, Ví, Thương Phố) **đã kiểm trên prod OK**.
+
 | Việc | Ghi chú |
 |---|---|
 | Mua vào Rương Ích Kỷ giờ **không giới hạn/ngày** (07/10) | Người chơi có thể gom hàng nghìn món theo giá hiện tại trước khi tăng giá shop. Muốn chặn lại: đặt `ICHKY_DAY_MAX` trong `index.js` về một số. |
 | Báo số túi boss chờ nhận trên nút 🪪 Cá nhân | Tab 🎒 Túi boss đã bỏ (gộp vào Cá nhân), người đang ở trang khác không thấy có túi mới; túi hết hạn sau 7 ngày. Chưa làm. |
 | Khi đang nợ có cấm rút đồ / KNB vào game không? | Hiện **không cấm**. Muốn cấm thì thêm 1 dòng `debtBlock` vào `ichKyClaim` / `webRutGame`. |
 | Mã cổ phiếu "DOG" trên web | Tên cũ từ thời Dogcoin, đổi được nếu muốn. |
-| Bù đồ **Whynot** 1010100014 | Còn 3 Hợp Thành Phù kẹt ở quầy 10. **Đừng để họ bấm "Thêm quầy".** |
-| Bù 28 Cao cấp Hợp Thành Phù cho 1010100018 | Lỗi hợp thành xóa nguyên chồng (đã vá `96c5872`) |
 | Sát Tinh ngọc 6 25%; Lộ Quân Dật quá khó; cảnh báo Discord khi game chết; đẩy trang bị lên số tối đa | Treo từ 05/10 |
 | Còn treo từ 05/10 | Kệ 31; ải 3 Q; Thông Thiên Tháp; rương Tam Thần; nội tức Võ Ý ×12 hay ×14 |
 
