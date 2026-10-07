@@ -1342,3 +1342,14 @@ Trạng thái 16:30 05/10: mọi thứ **đã commit, push, deploy**. **Game CH�
 - **Rương Ích Kỷ**: bỏ chú thích; **mua vào rương không giới hạn/ngày** (`ICHKY_DAY_MAX = Infinity`, gửi web `dayMax:null`).
 - Deploy: 9 file (`index.js`, `webplay.js`, `panel.js`, `ichky/shop/vigame/tuiboss/ghepngoc.client.js`, `vongquay.js`), gỡ `palworld.js`. Trước khi ghi đè đã kiểm mọi dòng vá tay của bản trộn trên VPS đều có trong git. Sao lưu `/opt/tlbb-backup/bot-truoc-de571c2-20261007-111511` (có `database.json`). Rollback tag bialk `truoc-vigame-07-10`.
 - Đã thử: bot giả với data thật của bialk (DB rút gọn, token thử), Chrome headless bấm mọi tab PC 1280 / điện thoại 500, popup mật khẩu, chọn món + tìm, 3 túi boss giả (chỉ trong DB bot thử): 0 lỗi JS, không tràn ngang. Sau deploy log 0 lỗi. Chưa bấm mua / rút bằng tài khoản thật trên prod.
+
+### 07/10 - NEFT Hậu Hoa Viên (tag `truoc-hhv-neft-07-10`, CẦN RESTART game; công cụ `tools/hhv-neft-07-10.js`)
+- Kiểm trước khi neft: từ 02/10 (map chỉ mở 22:00–23:59) **0 lượt giết** quái Hậu Hoa Viên. Đo đợt test 28/09–02/10: Audit ghi thiếu `MONSTER_KILLED` (đồ / lượt giết cao gấp ~1,6 lần đều mọi món, kể cả món script Lua roll đúng 30%) → tỉ lệ thật = trang Bảng Rơi (`Mv/BV × 2`), số "mỗi con" đo từ Audit bị thổi ~1,6 lần. 1 người cày ~700+ lượt/giờ khi hồi sinh 5 giây.
+- **Mã Tràng Thủ Vệ 11469** (Mv 30; cùng ID ở Hạn Huyết Lĩnh + Thông Thiên Tháp nên đổi hộp là cả 3 map):
+  - hộp 86000: chỉ còn Miên Bố 8 / Bí Ngân 8, tổng **2%** (trước: cấp 5–8, tổng 17%), BV 350 → 3000;
+  - hộp 86003: Huyền Ky Dược Trần 6% / Thương Hạc 3% / Chí Tôn 3% (giữ), **Tử Vi Linh Phách 3% → 2%**; 14 ô × 1%, BV 400 → 429;
+  - `roimap.lua` Hậu Hoa Viên 62/82/182: Chí Tôn Cường Hóa Tinh Hoa 30% → **17%** (+3% hộp = **20%**). Xích Tiêu cùng map nên cũng 17%;
+  - `newbie_2_monster.ini`: 67 điểm 11469 hồi sinh **5 → 10 giây** (chỉ Hậu Hoa Viên).
+- **Xích Tiêu Hỏa Hồn 1375** (Mv 90): hộp ngọc 90081 (A+B 20%, dùng chung 19 quái MND/Vân Phủ… nên KHÔNG sửa) → hộp mới **90097 = chỉ túi B, 50%** (BV 360, sao 90080). Không còn ngọc túi A (thuộc tính / thể lực / né / chính xác).
+- Mã Tràng cấp **110**, người chơi khóa 89 (chênh 21). Nếu game có trừ rơi khi quái cao hơn người (`DropAttenuation`, chiều này chưa đo được) thì hộp còn ~×0,5; script Lua không bị trừ.
+- Kiểm: byte > 0x7f / CR / LF khớp HEAD (DropBoxContent +1 dòng), không `EF BF BD`; trang Bảng Rơi dựng lại ra đúng số.
