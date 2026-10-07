@@ -13,15 +13,16 @@ const viscii = (s) => [...s].map((c) => { const b = c.charCodeAt(0); if (b < 128
 
 // ---- đội bot: tên hiển thị, phái, mẫu ngoại hình lấy từ quái "donor" (cột 44-50), file AI, chỉ số ----
 //  Mẫu: 9546 Lý Thu Thủy (nữ), 13456 Ngô Dụng, 13537 Võ Tòng, 13465 Lộ Quân Dật, 11539 Hòa thượng, 13483 Quan Thắng.
-//  hp / vlck / mpck / vlpn / ptpn / trung / ne / hieuy  (cột 19 / 15 / 17 / 16 / 18 / 23 / 24 / 25-26)
+//  hp / vlck / mpck / vlpn / ptpn / trung / ne / hieuy  (cột 19 / 15 / 17 / 16 / 18 / 23 / 24 / 25-26). 07/10: chủ server +300k máu mỗi con (240/300/220/380k -> 540/600/520/680k)
 const BOT = [
-  { id: 64601, ten: 'Chu Chỉ Nhược', phai: 'Nga My', donor: 9546, gioi: 1, ai: 349, x: 0, z: 0, hp: 240000, vlck: 6000, mpck: 26000, vlpn: 16000, ptpn: 20000, trung: 11000, ne: 2400, hieuy: 150 },
-  { id: 64602, ten: 'Kiều Phong', phai: 'Cái Bang', donor: 13456, gioi: 0, ai: 347, x: 2, z: -1.5, hp: 300000, vlck: 36000, mpck: 6000, vlpn: 20000, ptpn: 14000, trung: 12000, ne: 2800, hieuy: 300 },
-  { id: 64603, ten: 'Hồng Thất Công', phai: 'Cái Bang', donor: 13537, gioi: 0, ai: 347, x: -2, z: -1.5, hp: 300000, vlck: 36000, mpck: 6000, vlpn: 20000, ptpn: 14000, trung: 12000, ne: 2800, hieuy: 300 },
-  { id: 64604, ten: 'Vô Nhai Tử', phai: 'Tiêu Dao', donor: 13465, gioi: 0, ai: 348, x: 0, z: 2, hp: 220000, vlck: 6000, mpck: 36000, vlpn: 14000, ptpn: 20000, trung: 11500, ne: 2600, hieuy: 250 },
-  { id: 64605, ten: 'Huyền Từ', phai: 'Thiếu Lâm', donor: 11539, gioi: 0, ai: 346, x: 3, z: 1, hp: 380000, vlck: 28000, mpck: 6000, vlpn: 30000, ptpn: 22000, trung: 11000, ne: 2200, hieuy: 150 },
-  { id: 64606, ten: 'Huyền Khổ', phai: 'Thiếu Lâm', donor: 13483, gioi: 0, ai: 346, x: -3, z: 1, hp: 380000, vlck: 28000, mpck: 6000, vlpn: 30000, ptpn: 22000, trung: 11000, ne: 2200, hieuy: 150 },
+  { id: 64601, ten: 'Chu Chỉ Nhược', phai: 'Nga My', donor: 9546, gioi: 1, ai: 349, x: 0, z: 0, hp: 540000, vlck: 6000, mpck: 26000, vlpn: 16000, ptpn: 20000, trung: 11000, ne: 2400, hieuy: 150 },
+  { id: 64602, ten: 'Kiều Phong', phai: 'Cái Bang', donor: 13456, gioi: 0, ai: 347, x: 2, z: -1.5, hp: 600000, vlck: 36000, mpck: 6000, vlpn: 20000, ptpn: 14000, trung: 12000, ne: 2800, hieuy: 300 },
+  { id: 64603, ten: 'Hồng Thất Công', phai: 'Cái Bang', donor: 13537, gioi: 0, ai: 347, x: -2, z: -1.5, hp: 600000, vlck: 36000, mpck: 6000, vlpn: 20000, ptpn: 14000, trung: 12000, ne: 2800, hieuy: 300 },
+  { id: 64604, ten: 'Vô Nhai Tử', phai: 'Tiêu Dao', donor: 13465, gioi: 0, ai: 348, x: 0, z: 2, hp: 520000, vlck: 6000, mpck: 36000, vlpn: 14000, ptpn: 20000, trung: 11500, ne: 2600, hieuy: 250 },
+  { id: 64605, ten: 'Huyền Từ', phai: 'Thiếu Lâm', donor: 11539, gioi: 0, ai: 346, x: 3, z: 1, hp: 680000, vlck: 28000, mpck: 6000, vlpn: 30000, ptpn: 22000, trung: 11000, ne: 2200, hieuy: 150 },
+  { id: 64606, ten: 'Huyền Khổ', phai: 'Thiếu Lâm', donor: 13483, gioi: 0, ai: 346, x: -3, z: 1, hp: 680000, vlck: 28000, mpck: 6000, vlpn: 30000, ptpn: 22000, trung: 11000, ne: 2200, hieuy: 150 },
 ];
+const HE = 5000;   // 07/10 chủ server: công băng / hỏa / huyền / độc mỗi hệ 5000 cho mọi bot (cột 30/33/36/39); thủ hệ giữ 60 như mẫu
 const CAP = 89, MP = 60000, BASE_AI = 21 /* chủ động, không đi lung tung, quét 10m, đuổi 60m, có Lua, gọi đồng bọn */, SCRIPT = 950002;
 const HOI_SINH_MS = 180000, GROUP = 9502, TEMPLATE = '13465', SAU = '64563';
 const INI = 'wuliang_monster.ini', GOC = { x: 176, z: 172 };   // vị trí đội = GOC + lệch (x, z) của từng bot; dời đội: đổi 2 hằng này
@@ -55,6 +56,7 @@ function luu(f, cu, moi) { if (cu === moi) return; doi.push(path.relative(R, f) 
     const dc = d.replace(/\r$/, '').split('\t');
     c[0] = String(b.id); c[1] = viscii(b.ten); c[2] = String(b.gioi); c[3] = String(CAP); c[4] = '0'; c[7] = String(BASE_AI); c[8] = '-1'; c[9] = '9'; c[14] = '0';
     c[15] = String(b.vlck); c[16] = String(b.vlpn); c[17] = String(b.mpck); c[18] = String(b.ptpn); c[19] = String(b.hp); c[20] = String(MP); c[21] = '0'; c[22] = '0';
+    c[30] = String(HE); c[33] = String(HE); c[36] = String(HE); c[39] = String(HE);
     c[23] = String(b.trung); c[24] = String(b.ne); c[25] = String(b.hieuy); c[26] = String(b.hieuy); c[27] = '3500'; c[28] = '800';
     for (let k = 44; k <= 50; k++) c[k] = dc[k];   // ngoại hình, hiện tên, hướng, cao tên, cỡ chọn, bóng, chân dung
     c[53] = String(CAP); c[54] = '0'; c[55] = String(b.vlck); c[56] = String(b.vlpn); c[57] = String(b.mpck); c[58] = String(b.ptpn); c[59] = String(b.hp);
@@ -85,13 +87,14 @@ for (const ten of INI_CU) {
   const F = path.join(R, 'Public/Scene/' + INI);
   const raw = fs.readFileSync(F, 'latin1'); const nl = raw.includes('\r\n') ? '\r\n' : '\n';
   let t = raw;
-  const khoi = (b, k) => ['[monster' + k + ']', 'guid=' + (95000200 + k - 71), 'type=' + b.id, 'name=', 'title=', 'pos_x=' + (GOC.x + b.x), 'pos_z=' + (GOC.z + b.z), 'dir=27', 'script_id=' + SCRIPT, 'respawn_time=' + HOI_SINH_MS,
+  // guid cố định theo bot (95000201–06) để lần chạy sau nhận ra khối cũ (reBot) - KHÔNG tính theo số khối k
+  const khoi = (b, k, i) => ['[monster' + k + ']', 'guid=' + (95000201 + i), 'type=' + b.id, 'name=', 'title=', 'pos_x=' + (GOC.x + b.x), 'pos_z=' + (GOC.z + b.z), 'dir=27', 'script_id=' + SCRIPT, 'respawn_time=' + HOI_SINH_MS,
     'group_id=' + GROUP, 'team_id=' + GROUP, 'base_ai=' + BASE_AI, 'ai_file=' + b.ai, 'patrol_id=-1', 'shop0=-1', 'shop1=-1', 'shop2=-1', 'shop3=-1', 'ReputationID=-1', ''].join(nl);
   // bỏ khối bot cũ (nếu có) rồi nối lại từ đầu -> chạy lại là cập nhật
   t = t.replace(reBot(nl), '');
   t = t.replace(/\s*$/, '') + nl;
   const dem0 = (t.match(/^\[monster\d+\]/gm) || []).length;
-  const blocks = BOT.map((b, i) => khoi(b, dem0 + i)).join(nl);
+  const blocks = BOT.map((b, i) => khoi(b, dem0 + i, i)).join(nl);
   t = t + nl + blocks;
   t = t.replace(/monstercount=\d+/, 'monstercount=' + (dem0 + BOT.length));
   if ((t.match(/^\[monster\d+\]/gm) || []).length !== dem0 + BOT.length) throw new Error('dem khoi ini sai');
