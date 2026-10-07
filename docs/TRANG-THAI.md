@@ -1371,3 +1371,10 @@ Trạng thái 16:30 05/10: mọi thứ **đã commit, push, deploy**. **Game CH�
 - **Trứng cấp mang 95** (server khóa 89, không mở được, chủ server: để vậy): Oa Hoàng Long Đế / Quân, Kỳ Lân ×2, Giao Long, Áp Chủy Thú, Tuyết Hồ, Niên Thú, Bỉ Dực Điểu. 7 quả đang bán ở shop 132 - đã có người mua: Kỳ Lân ×3 (GUID 1010100002 ×1, 1010100004 ×2), Giao Long ×1 (1010100008). Ghép Ngọc (bot) gắn nhãn "🔒 cần cấp 95" cho các trứng này.
 - **Thần Xí Nga** (trứng 30309781) mốc 65–74 trỏ pet 24089 không tồn tại → 24079 (cấp mang 55). Script trừ trứng TRƯỚC khi tạo pet nên trước đó cấp 65–74 mất trứng. Lua, hiệu lực sau `cap-nhat.sh` (không cần restart). Trân Kỳ Ngưu mốc 1–44 (pet cấp mang 5) chỉ ảnh hưởng cấp 1–4, không sửa.
 - **Icon** (`tools/icon-vat-pham/lam.js`): 13 tấm chân dung (PetHeader1/3–8, CommonNPCHeader11/14/17, FightNPCHeader3/8, haiwaizhuanyong1) là lưới ô **48px 5×5**, không phải 64px 4×4 → trước đây pet/NPC cắt sai hình, ô 17–25 bị loại (37 món, vd Tề Thiên). Dựng lại `itemicons.json` (bot) + `itemicon.js` quy đổi tọa độ về thang 64. Ảnh không đổi (không phải tải lại).
+
+### 07/10 tối - Pet đẹp: trứng mặc định bản 95 + tư chất 8000/4000 (tag `truoc-pet-dep-95-07-10`, `truoc-pet-dep-trung95-07-10`)
+- 13 trứng pet đẹp "theo cấp nhân vật" → luôn ra bản **cấp mang 95** (`tools/pet-dep-trung95-07-10.js`, `zhenshoudan.lua` type=1; Lua, hiệu lực sau `cap-nhat.sh`). Chưa tới 95 mở thì báo lỗi, không mất trứng (kiểm cấp trước khi trừ).
+- Tư chất 14 họ (660 ID, mọi cấp mang) = **8000 chính / 4000 phụ** (bỏ 6000/3000). CẦN RESTART game. Pet đã có giữ chỉ số cũ.
+- Rà đủ 347 vật phẩm ấp pet: 31 trứng ra pet cấp mang 95 cố định (24 bán ở shop 132 - chủ server giữ bán, sắp mở cấp 99), 76 trứng "theo cấp lúc mở" (58 bán ở shop 218/219, không đổi).
+- Ghép Ngọc (bot): 14 trứng làm món đích 2.000.000 nhưng **TẮT** chờ người chơi đạt 95; trang người chơi chia 💎 Nguyên liệu / 🐾 Trân thú, chỉ ghi kiểu pet. Chí Tôn Thần Thú / Kỳ Lân vẫn bán shop, không trade.
+- Lúc ghi: game đang chạy từ 11:51 nên shop 218/219 TRONG GAME vẫn bán 12 trứng đẹp (file đã gỡ, chờ restart).

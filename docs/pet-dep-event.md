@@ -31,15 +31,26 @@ Kỹ thuật: `tools/pet-dep-tat-07-10b.js` bỏ 12 trứng khỏi dòng shop 21
 
 ## Tư chất (07/10)
 
-Cả 14 họ trên (660 ID: trưởng thành, biến dị, bảo bảo, mọi cấp mang 5→95) đặt **tư chất chuẩn** trong `PetAttrTable.txt` cột 34–38: thuộc tính chính theo kiểu tấn công **6000**, 4 thuộc tính còn lại **3000**.
+Cả 14 họ trên (660 ID: trưởng thành, biến dị, bảo bảo, mọi cấp mang 5→95) đặt **tư chất chuẩn** trong `PetAttrTable.txt` cột 34–38: thuộc tính chính theo kiểu tấn công **8000**, 4 thuộc tính còn lại **4000** - mọi cấp mang (chủ server chốt 07/10 tối, bỏ mức 6000 / 3000; trứng pet đẹp mặc định ra bản 95).
 
-| Kiểu | 6000 | 3000 |
+| Kiểu | 8000 | 4000 |
 |---|---|---|
 | Ngoại công (Côn Lôn Tiên Tuấn - bảng pet ghi "Côn Luân", trứng 30309822, Nhị Lang Chân Quân) | Cường lực | Thể lực, Nội lực, Thân pháp, Định lực |
 | Nội công (Ngọc Loan Phượng, Ngạo Vân Thương Long, Thái Cổ Long Hồn, Hiên Viên Thiên Phượng, Nhân Ngư Công Chủ, Thiết Phiến Công Chủ) | Nội lực (linh khí) | Cường lực, Thể lực, Thân pháp, Định lực |
 | Cân bằng (Cửu Tiêu Chiến Long, Tề Thiên Đại Thánh, Long Tam Thái Tử, Bích Lạc Thanh Loan, Thiên Mệnh Huyền Phượng, Oa Hoàng Long Đế) | Thể lực | Cường lực, Nội lực, Thân pháp, Định lực |
 
-- Trứng tạo pet bằng ruler 1 (có hệ số ngẫu nhiên) nên 6000 là mức chuẩn, pet thật ra quanh mức đó.
+- Trứng tạo pet bằng ruler 1 (có hệ số ngẫu nhiên) nên 8000 là mức chuẩn, pet thật ra quanh mức đó.
 - Pet người chơi **đã có** giữ chỉ số cũ (tư chất ghi lúc tạo pet).
 - Cần restart game. Công cụ `tools/pet-dep-tuchat-07-10.js`, rollback tag `truoc-pet-dep-tuchat-07-10`.
 - Trade up: đặt làm **món đích riêng** ở 💎 Ghép Ngọc (panel SUPER), giá dự kiến **2.000.000** (chủ server tự đặt). Trứng cấp mang 95 (Oa Hoàng Long Đế) hiện nhãn "🔒 cần cấp 95".
+
+## Trade pet ở Ghép Ngọc (07/10)
+
+Trang người chơi chia món đích thành 2 mục **💎 Nguyên liệu** / **🐾 Trân thú** (trứng: tên có "Thú Đản / Vật Đản / Lân Đản" hoặc cấp mang cố định). Món đích pet đặt sẵn 2.000.000: đúng 14 con trên. Chí Tôn Thần Thú `30309762` (shop 218) và Kỳ Lân `30309035` (shop 132) vẫn **bán ở shop 20.000 NB**, KHÔNG đưa vào trade (chủ server chốt 07/10). Rà đủ 347 vật phẩm ấp pet: **31 trứng ra pet cấp mang 95 cố định** (trong đó 24 bán ở shop 132) - chủ server giữ bán vì sắp mở cấp 99.
+
+## Trứng mặc định bản cấp mang 95 + trade tạm tắt (07/10 tối)
+
+- 13 trứng pet đẹp trước là "theo cấp nhân vật" (mở ở cấp 85–94 ra bản 85, và giữ bản 85 mãi) → đổi sang **luôn ra bản cấp mang 95** (8000 / 4000), giống Oa Hoàng Long Đế. Script kiểm cấp TRƯỚC khi trừ trứng nên nhân vật chưa tới 95 mở thì báo lỗi, không mất trứng. Công cụ `tools/pet-dep-trung95-07-10.js` (`obj/item/zhenshoudan.lua`, Lua - hiệu lực sau `cap-nhat.sh`), rollback tag `truoc-pet-dep-trung95-07-10`.
+- Ghép Ngọc chỉ ghi **kiểu pet** (⚔️ Ngoại công / 🔮 Nội công / ⚖️ Cân bằng), không ghi cấp.
+- 14 trứng nằm sẵn trong món đích 2.000.000 nhưng **⚫ TẮT** (người chơi không thấy) - chủ server bật + nâng giá khi người chơi đạt cấp 95 (sắp mở cấp 99).
+- Trong game còn 76 trứng kiểu "theo cấp lúc mở" (58 quả bán ở shop 218/219) - không đổi, chỉ 14 trứng pet đẹp.

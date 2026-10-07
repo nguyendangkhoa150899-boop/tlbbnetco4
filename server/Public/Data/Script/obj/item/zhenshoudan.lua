@@ -467,14 +467,7 @@ x300027_g_petList[30309779].dataIds[5] = {dataId=23959,minHumanLevel=75,maxHuman
 x300027_g_petList[30309779].dataIds[6] = {dataId=23969,minHumanLevel=85,maxHumanLevel=94}
 x300027_g_petList[30309779].dataIds[7] = {dataId=23979,minHumanLevel=95,maxHumanLevel=255}
 
-x300027_g_petList[30309780] = {type=2, dataIds={}, level=1}	--Óñð½·ï±¦±¦
-x300027_g_petList[30309780].dataIds[1] = {dataId=23989,minHumanLevel=5,maxHumanLevel=44}
-x300027_g_petList[30309780].dataIds[2] = {dataId=23999,minHumanLevel=45,maxHumanLevel=54}
-x300027_g_petList[30309780].dataIds[3] = {dataId=24009,minHumanLevel=55,maxHumanLevel=64}
-x300027_g_petList[30309780].dataIds[4] = {dataId=24019,minHumanLevel=65,maxHumanLevel=74}
-x300027_g_petList[30309780].dataIds[5] = {dataId=24029,minHumanLevel=75,maxHumanLevel=84}
-x300027_g_petList[30309780].dataIds[6] = {dataId=24039,minHumanLevel=85,maxHumanLevel=94}
-x300027_g_petList[30309780].dataIds[7] = {dataId=24049,minHumanLevel=95,maxHumanLevel=255}
+x300027_g_petList[30309780] = {type=1, dataId=24049, level=1}	--Óñð½·ï±¦±¦   -- [07/10] pet dep: mac dinh ban cap mang 95
 
 x300027_g_petList[30309781] = {type=2, dataIds={}, level=1}	--ÉñÆó¶ì±¦±¦
 x300027_g_petList[30309781].dataIds[1] = {dataId=24059,minHumanLevel=5,maxHumanLevel=44}
@@ -567,23 +560,9 @@ x300027_g_petList[30309797].dataIds[5] = {dataId=24779,minHumanLevel=75,maxHuman
 x300027_g_petList[30309797].dataIds[6] = {dataId=24789,minHumanLevel=85,maxHumanLevel=94}
 x300027_g_petList[30309797].dataIds[7] = {dataId=24799,minHumanLevel=95,maxHumanLevel=255}
 
-x300027_g_petList[30309799] = {type=2, dataIds={}, level=1}	--°ÁÔÆ²ÔÁú±¦±¦
-x300027_g_petList[30309799].dataIds[1] = {dataId=24819,minHumanLevel=5,maxHumanLevel=44}
-x300027_g_petList[30309799].dataIds[2] = {dataId=24829,minHumanLevel=45,maxHumanLevel=54}
-x300027_g_petList[30309799].dataIds[3] = {dataId=24839,minHumanLevel=55,maxHumanLevel=64}
-x300027_g_petList[30309799].dataIds[4] = {dataId=24849,minHumanLevel=65,maxHumanLevel=74}
-x300027_g_petList[30309799].dataIds[5] = {dataId=24859,minHumanLevel=75,maxHumanLevel=84}
-x300027_g_petList[30309799].dataIds[6] = {dataId=24869,minHumanLevel=85,maxHumanLevel=94}
-x300027_g_petList[30309799].dataIds[7] = {dataId=24879,minHumanLevel=95,maxHumanLevel=255}
+x300027_g_petList[30309799] = {type=1, dataId=24879, level=1}	--°ÁÔÆ²ÔÁú±¦±¦   -- [07/10] pet dep: mac dinh ban cap mang 95
 
-x300027_g_petList[30309800] = {type=2, dataIds={}, level=1}	--Ì«¹ÅÁú»ê±¦±¦
-x300027_g_petList[30309800].dataIds[1] = {dataId=24889,minHumanLevel=5,maxHumanLevel=44}
-x300027_g_petList[30309800].dataIds[2] = {dataId=24899,minHumanLevel=45,maxHumanLevel=54}
-x300027_g_petList[30309800].dataIds[3] = {dataId=24909,minHumanLevel=55,maxHumanLevel=64}
-x300027_g_petList[30309800].dataIds[4] = {dataId=24919,minHumanLevel=65,maxHumanLevel=74}
-x300027_g_petList[30309800].dataIds[5] = {dataId=24929,minHumanLevel=75,maxHumanLevel=84}
-x300027_g_petList[30309800].dataIds[6] = {dataId=24939,minHumanLevel=85,maxHumanLevel=94}
-x300027_g_petList[30309800].dataIds[7] = {dataId=24949,minHumanLevel=95,maxHumanLevel=255}
+x300027_g_petList[30309800] = {type=1, dataId=24949, level=1}	--Ì«¹ÅÁú»ê±¦±¦   -- [07/10] pet dep: mac dinh ban cap mang 95
 
 x300027_g_petList[30309801] = {type=2, dataIds={}, level=1}	--÷úÊó±¦±¦
 x300027_g_petList[30309801].dataIds[1] = {dataId=27009,minHumanLevel=5,maxHumanLevel=44}
@@ -647,14 +626,7 @@ x300027_g_petList[30309807].dataIds[5] = {dataId=27399,minHumanLevel=75,maxHuman
 x300027_g_petList[30309807].dataIds[6] = {dataId=27409,minHumanLevel=85,maxHumanLevel=94}
 x300027_g_petList[30309807].dataIds[7] = {dataId=27419,minHumanLevel=95,maxHumanLevel=255}
 
-x300027_g_petList[30309808] = {type=2, dataIds={}, level=1}	--ÐùÔ¯Ìì·ï±¦±¦
-x300027_g_petList[30309808].dataIds[1] = {dataId=27429,minHumanLevel=5,maxHumanLevel=44}
-x300027_g_petList[30309808].dataIds[2] = {dataId=27439,minHumanLevel=45,maxHumanLevel=54}
-x300027_g_petList[30309808].dataIds[3] = {dataId=27449,minHumanLevel=55,maxHumanLevel=64}
-x300027_g_petList[30309808].dataIds[4] = {dataId=27459,minHumanLevel=65,maxHumanLevel=74}
-x300027_g_petList[30309808].dataIds[5] = {dataId=27469,minHumanLevel=75,maxHumanLevel=84}
-x300027_g_petList[30309808].dataIds[6] = {dataId=27479,minHumanLevel=85,maxHumanLevel=94}
-x300027_g_petList[30309808].dataIds[7] = {dataId=27489,minHumanLevel=95,maxHumanLevel=255}
+x300027_g_petList[30309808] = {type=1, dataId=27489, level=1}	--ÐùÔ¯Ìì·ï±¦±¦   -- [07/10] pet dep: mac dinh ban cap mang 95
 
 x300027_g_petList[30309809] = {type=2, dataIds={}, level=1}	--°Ù±äÍô×Ð±¦±¦
 x300027_g_petList[30309809].dataIds[1] = {dataId=27499,minHumanLevel=5,maxHumanLevel=44}
@@ -710,14 +682,7 @@ x300027_g_petList[30309821].dataIds[5] = {dataId=28019,minHumanLevel=75,maxHuman
 x300027_g_petList[30309821].dataIds[6] = {dataId=28029,minHumanLevel=85,maxHumanLevel=94}
 x300027_g_petList[30309821].dataIds[7] = {dataId=28039,minHumanLevel=95,maxHumanLevel=255}
 
-x300027_g_petList[30309822] = {type=2, dataIds={}, level=1}	--À¥ÂØÏÉ¿¥±¦±¦
-x300027_g_petList[30309822].dataIds[1] = {dataId=28049,minHumanLevel=5,maxHumanLevel=44}
-x300027_g_petList[30309822].dataIds[2] = {dataId=28059,minHumanLevel=45,maxHumanLevel=54}
-x300027_g_petList[30309822].dataIds[3] = {dataId=28069,minHumanLevel=55,maxHumanLevel=64}
-x300027_g_petList[30309822].dataIds[4] = {dataId=28079,minHumanLevel=65,maxHumanLevel=74}
-x300027_g_petList[30309822].dataIds[5] = {dataId=28089,minHumanLevel=75,maxHumanLevel=84}
-x300027_g_petList[30309822].dataIds[6] = {dataId=28099,minHumanLevel=85,maxHumanLevel=94}
-x300027_g_petList[30309822].dataIds[7] = {dataId=28109,minHumanLevel=95,maxHumanLevel=255}
+x300027_g_petList[30309822] = {type=1, dataId=28109, level=1}	--À¥ÂØÏÉ¿¥±¦±¦   -- [07/10] pet dep: mac dinh ban cap mang 95
 
 x300027_g_petList[30309823] = {type=2, dataIds={}, level=1}	--Ì«²ÔÁú×Ó±¦±¦
 x300027_g_petList[30309823].dataIds[1] = {dataId=28119,minHumanLevel=5,maxHumanLevel=44}
@@ -809,14 +774,7 @@ x300027_g_petList[30309833].dataIds[5] = {dataId=29429,minHumanLevel=75,maxHuman
 x300027_g_petList[30309833].dataIds[6] = {dataId=29439,minHumanLevel=85,maxHumanLevel=94}
 x300027_g_petList[30309833].dataIds[7] = {dataId=29449,minHumanLevel=95,maxHumanLevel=255}
 
-x300027_g_petList[30309835] = {type=2, dataIds={}, level=1}	--ÈËÓã¹«Ö÷±¦±¦
-x300027_g_petList[30309835].dataIds[1] = {dataId=29469,minHumanLevel=5,maxHumanLevel=44}
-x300027_g_petList[30309835].dataIds[2] = {dataId=29479,minHumanLevel=45,maxHumanLevel=54}
-x300027_g_petList[30309835].dataIds[3] = {dataId=29489,minHumanLevel=55,maxHumanLevel=64}
-x300027_g_petList[30309835].dataIds[4] = {dataId=29499,minHumanLevel=65,maxHumanLevel=74}
-x300027_g_petList[30309835].dataIds[5] = {dataId=29509,minHumanLevel=75,maxHumanLevel=84}
-x300027_g_petList[30309835].dataIds[6] = {dataId=29519,minHumanLevel=85,maxHumanLevel=94}
-x300027_g_petList[30309835].dataIds[7] = {dataId=29529,minHumanLevel=95,maxHumanLevel=255}
+x300027_g_petList[30309835] = {type=1, dataId=29529, level=1}	--ÈËÓã¹«Ö÷±¦±¦   -- [07/10] pet dep: mac dinh ban cap mang 95
 
 x300027_g_petList[30309837] = {type=2, dataIds={}, level=1}	--Õ½ÐÞÂÞ±¦±¦
 x300027_g_petList[30309837].dataIds[1] = {dataId=29549,minHumanLevel=5,maxHumanLevel=44}
@@ -845,14 +803,7 @@ x300027_g_petList[30309839].dataIds[5] = {dataId=29729,minHumanLevel=75,maxHuman
 x300027_g_petList[30309839].dataIds[6] = {dataId=29739,minHumanLevel=85,maxHumanLevel=94}
 x300027_g_petList[30309839].dataIds[7] = {dataId=29749,minHumanLevel=95,maxHumanLevel=255}
 
-x300027_g_petList[30309840] = {type=2, dataIds={}, level=1}	--¾ÅÏöÕ½Áú±¦±¦
-x300027_g_petList[30309840].dataIds[1] = {dataId=29759,minHumanLevel=5,maxHumanLevel=44}
-x300027_g_petList[30309840].dataIds[2] = {dataId=29769,minHumanLevel=45,maxHumanLevel=54}
-x300027_g_petList[30309840].dataIds[3] = {dataId=29779,minHumanLevel=55,maxHumanLevel=64}
-x300027_g_petList[30309840].dataIds[4] = {dataId=29789,minHumanLevel=65,maxHumanLevel=74}
-x300027_g_petList[30309840].dataIds[5] = {dataId=29799,minHumanLevel=75,maxHumanLevel=84}
-x300027_g_petList[30309840].dataIds[6] = {dataId=29809,minHumanLevel=85,maxHumanLevel=94}
-x300027_g_petList[30309840].dataIds[7] = {dataId=29819,minHumanLevel=95,maxHumanLevel=255}
+x300027_g_petList[30309840] = {type=1, dataId=29819, level=1}	--¾ÅÏöÕ½Áú±¦±¦   -- [07/10] pet dep: mac dinh ban cap mang 95
 
 x300027_g_petList[30309841] = {type=2, dataIds={}, level=1}	--Í¬ÐÄÔ§Ñì±¦±¦
 x300027_g_petList[30309841].dataIds[1] = {dataId=29829,minHumanLevel=5,maxHumanLevel=44}
@@ -863,14 +814,7 @@ x300027_g_petList[30309841].dataIds[5] = {dataId=29869,minHumanLevel=75,maxHuman
 x300027_g_petList[30309841].dataIds[6] = {dataId=29879,minHumanLevel=85,maxHumanLevel=94}
 x300027_g_petList[30309841].dataIds[7] = {dataId=29889,minHumanLevel=95,maxHumanLevel=255}
 
-x300027_g_petList[30309842] = {type=2, dataIds={}, level=1}	--ÌúÉÈ¹«Ö÷±¦±¦
-x300027_g_petList[30309842].dataIds[1] = {dataId=29899,minHumanLevel=5,maxHumanLevel=44}
-x300027_g_petList[30309842].dataIds[2] = {dataId=29909,minHumanLevel=45,maxHumanLevel=54}
-x300027_g_petList[30309842].dataIds[3] = {dataId=29919,minHumanLevel=55,maxHumanLevel=64}
-x300027_g_petList[30309842].dataIds[4] = {dataId=29929,minHumanLevel=65,maxHumanLevel=74}
-x300027_g_petList[30309842].dataIds[5] = {dataId=29939,minHumanLevel=75,maxHumanLevel=84}
-x300027_g_petList[30309842].dataIds[6] = {dataId=29949,minHumanLevel=85,maxHumanLevel=94}
-x300027_g_petList[30309842].dataIds[7] = {dataId=29959,minHumanLevel=95,maxHumanLevel=255}
+x300027_g_petList[30309842] = {type=1, dataId=29959, level=1}	--ÌúÉÈ¹«Ö÷±¦±¦   -- [07/10] pet dep: mac dinh ban cap mang 95
 
 x300027_g_petList[30309844] = {type=2, dataIds={}, level=1}	--Í¨±ÛÔ³ºï±¦±¦
 x300027_g_petList[30309844].dataIds[1] = {dataId=29979,minHumanLevel=5,maxHumanLevel=44}
@@ -899,14 +843,7 @@ x300027_g_petList[30309846].dataIds[5] = {dataId=30159,minHumanLevel=75,maxHuman
 x300027_g_petList[30309846].dataIds[6] = {dataId=30169,minHumanLevel=85,maxHumanLevel=94}
 x300027_g_petList[30309846].dataIds[7] = {dataId=30179,minHumanLevel=95,maxHumanLevel=255}
 
-x300027_g_petList[30309847] = {type=2, dataIds={}, level=1}	--ÆëÌì´óÊ¥±¦±¦
-x300027_g_petList[30309847].dataIds[1] = {dataId=30189,minHumanLevel=5,maxHumanLevel=44}
-x300027_g_petList[30309847].dataIds[2] = {dataId=30199,minHumanLevel=45,maxHumanLevel=54}
-x300027_g_petList[30309847].dataIds[3] = {dataId=30209,minHumanLevel=55,maxHumanLevel=64}
-x300027_g_petList[30309847].dataIds[4] = {dataId=30219,minHumanLevel=65,maxHumanLevel=74}
-x300027_g_petList[30309847].dataIds[5] = {dataId=30229,minHumanLevel=75,maxHumanLevel=84}
-x300027_g_petList[30309847].dataIds[6] = {dataId=30239,minHumanLevel=85,maxHumanLevel=94}
-x300027_g_petList[30309847].dataIds[7] = {dataId=30249,minHumanLevel=95,maxHumanLevel=255}
+x300027_g_petList[30309847] = {type=1, dataId=30249, level=1}	--ÆëÌì´óÊ¥±¦±¦   -- [07/10] pet dep: mac dinh ban cap mang 95
 
 x300027_g_petList[30309848] = {type=2, dataIds={}, level=1}	--ÖÉÔÂÁé±¦±¦
 x300027_g_petList[30309848].dataIds[1] = {dataId=30259,minHumanLevel=5,maxHumanLevel=44}
@@ -917,23 +854,9 @@ x300027_g_petList[30309848].dataIds[5] = {dataId=30299,minHumanLevel=75,maxHuman
 x300027_g_petList[30309848].dataIds[6] = {dataId=30309,minHumanLevel=85,maxHumanLevel=94}
 x300027_g_petList[30309848].dataIds[7] = {dataId=30319,minHumanLevel=95,maxHumanLevel=255}
 
-x300027_g_petList[30309849] = {type=2, dataIds={}, level=1}	--¶þÀÉÕæ¾ý±¦±¦
-x300027_g_petList[30309849].dataIds[1] = {dataId=30329,minHumanLevel=5,maxHumanLevel=44}
-x300027_g_petList[30309849].dataIds[2] = {dataId=30339,minHumanLevel=45,maxHumanLevel=54}
-x300027_g_petList[30309849].dataIds[3] = {dataId=30349,minHumanLevel=55,maxHumanLevel=64}
-x300027_g_petList[30309849].dataIds[4] = {dataId=30359,minHumanLevel=65,maxHumanLevel=74}
-x300027_g_petList[30309849].dataIds[5] = {dataId=30369,minHumanLevel=75,maxHumanLevel=84}
-x300027_g_petList[30309849].dataIds[6] = {dataId=30379,minHumanLevel=85,maxHumanLevel=94}
-x300027_g_petList[30309849].dataIds[7] = {dataId=30389,minHumanLevel=95,maxHumanLevel=255}
+x300027_g_petList[30309849] = {type=1, dataId=30389, level=1}	--¶þÀÉÕæ¾ý±¦±¦   -- [07/10] pet dep: mac dinh ban cap mang 95
 
-x300027_g_petList[30309851] = {type=2, dataIds={}, level=1}	--ÁúÈýÌ«×Ó±¦±¦
-x300027_g_petList[30309851].dataIds[1] = {dataId=30409,minHumanLevel=5,maxHumanLevel=44}
-x300027_g_petList[30309851].dataIds[2] = {dataId=30419,minHumanLevel=45,maxHumanLevel=54}
-x300027_g_petList[30309851].dataIds[3] = {dataId=30429,minHumanLevel=55,maxHumanLevel=64}
-x300027_g_petList[30309851].dataIds[4] = {dataId=30439,minHumanLevel=65,maxHumanLevel=74}
-x300027_g_petList[30309851].dataIds[5] = {dataId=30449,minHumanLevel=75,maxHumanLevel=84}
-x300027_g_petList[30309851].dataIds[6] = {dataId=30459,minHumanLevel=85,maxHumanLevel=94}
-x300027_g_petList[30309851].dataIds[7] = {dataId=30469,minHumanLevel=95,maxHumanLevel=255}
+x300027_g_petList[30309851] = {type=1, dataId=30469, level=1}	--ÁúÈýÌ«×Ó±¦±¦   -- [07/10] pet dep: mac dinh ban cap mang 95
 
 x300027_g_petList[30309852] = {type=2, dataIds={}, level=1}	--ºüÐ¡ÏÉ±¦±¦
 x300027_g_petList[30309852].dataIds[1] = {dataId=30509,minHumanLevel=5,maxHumanLevel=44}
@@ -964,23 +887,9 @@ x300027_g_petList[30309856].dataIds[5] = {dataId=30699,minHumanLevel=75,maxHuman
 x300027_g_petList[30309856].dataIds[6] = {dataId=30709,minHumanLevel=85,maxHumanLevel=94}
 x300027_g_petList[30309856].dataIds[7] = {dataId=30719,minHumanLevel=95,maxHumanLevel=255}
 
-x300027_g_petList[30309857] = {type=2, dataIds={}, level=1}	--±ÌÂäÇàð½
-x300027_g_petList[30309857].dataIds[1] = {dataId=30749,minHumanLevel=5,maxHumanLevel=44}
-x300027_g_petList[30309857].dataIds[2] = {dataId=30759,minHumanLevel=45,maxHumanLevel=54}
-x300027_g_petList[30309857].dataIds[3] = {dataId=30769,minHumanLevel=55,maxHumanLevel=64}
-x300027_g_petList[30309857].dataIds[4] = {dataId=30779,minHumanLevel=65,maxHumanLevel=74}
-x300027_g_petList[30309857].dataIds[5] = {dataId=30789,minHumanLevel=75,maxHumanLevel=84}
-x300027_g_petList[30309857].dataIds[6] = {dataId=30799,minHumanLevel=85,maxHumanLevel=94}
-x300027_g_petList[30309857].dataIds[7] = {dataId=30809,minHumanLevel=95,maxHumanLevel=255}
+x300027_g_petList[30309857] = {type=1, dataId=30809, level=1}	--±ÌÂäÇàð½   -- [07/10] pet dep: mac dinh ban cap mang 95
 
-x300027_g_petList[30309858] = {type=2, dataIds={}, level=1}	--ÌìÃüÐþ·ï
-x300027_g_petList[30309858].dataIds[1] = {dataId=30819,minHumanLevel=5,maxHumanLevel=44}
-x300027_g_petList[30309858].dataIds[2] = {dataId=30829,minHumanLevel=45,maxHumanLevel=54}
-x300027_g_petList[30309858].dataIds[3] = {dataId=30839,minHumanLevel=55,maxHumanLevel=64}
-x300027_g_petList[30309858].dataIds[4] = {dataId=30849,minHumanLevel=65,maxHumanLevel=74}
-x300027_g_petList[30309858].dataIds[5] = {dataId=30859,minHumanLevel=75,maxHumanLevel=84}
-x300027_g_petList[30309858].dataIds[6] = {dataId=30869,minHumanLevel=85,maxHumanLevel=94}
-x300027_g_petList[30309858].dataIds[7] = {dataId=30879,minHumanLevel=95,maxHumanLevel=255}
+x300027_g_petList[30309858] = {type=1, dataId=30879, level=1}	--ÌìÃüÐþ·ï   -- [07/10] pet dep: mac dinh ban cap mang 95
 
 x300027_g_petList[30309859] = {type=2, dataIds={}, level=1}	--Ì«¼«Êó
 x300027_g_petList[30309859].dataIds[1] = {dataId=30889,minHumanLevel=5,maxHumanLevel=44}
