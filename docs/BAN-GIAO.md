@@ -22,6 +22,8 @@ Chủ server nói tiếng Việt và muốn được trả lời bằng tiếng 
 
 ## 2. Quyền và cách deploy (quan trọng)
 
+- **Server LOCAL để test (07/10):** WSL2 Ubuntu-22.04 trên máy chủ server, code nhánh `local` ở `D:\tlbb-local\code` (git worktree), client `G:\NetCo4-Local`. Chủ server muốn **thử trên local trước, ổn mới gộp `main` lên VPS**. Lệnh + quy trình: `D:\tlbb-local\HUONG-DAN.txt`, TRANG-THAI mục 07/10 22:51. Claude chạy được mọi lệnh local (`wsl -d Ubuntu-22.04 -u root -- bash /mnt/d/tlbb-local/local.sh ...`), kể cả restart local thoải mái.
+
 - **Claude KHÔNG chạy `cap-nhat.sh`.** Classifier đã chặn nhiều lần ("Blind Apply"), đừng lách. Đưa lệnh cho chủ server: `cd /opt/tlbb-deploy && ./cap-nhat.sh`.
   - Script NPC (CDK.lua…) tự nạp lại, không cần restart game.
   - Bảng `Server/Config/*.txt` và `Public/Config/*.txt` cần restart game.

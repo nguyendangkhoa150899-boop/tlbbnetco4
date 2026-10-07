@@ -1413,3 +1413,13 @@ Trạng thái 16:30 05/10: mọi thứ **đã commit, push, deploy**. **Game CH�
 - Túi boss: `tuiboss.js poll()` bỏ qua GUID của ví clone (không tạo túi). Túi tạo trước khi tích clone vẫn còn nhưng không nhận được (API bị chặn), 7 ngày tự hết hạn.
 - KHÔNG chặn: NPC Ví Web trong game chuyển KNB game → web của nhân vật clone vẫn cộng vào ví clone (ví không tiêu được gì; chặn thì KNB trong game đã trừ sẽ mất). Đổi mật khẩu web của clone: admin làm (nút Mật khẩu bị ẩn/chặn).
 - Đã thử: bot giả (`thu/bot-gia`) với DB giả 1 ví thường + 1 ví clone - 9 API hành động: thường qua, clone 403; panel tích/hủy đúng; `tuiboss.poll` thường + chưa liên kết có túi, clone không. Sao lưu VPS `/opt/tlbb-backup/bot-truoc-clone-20261007-2223`. Rollback tag bialk `truoc-clone-07-10`.
+
+### 07/10 22:51 - SERVER LOCAL để test (máy chủ server, WSL2)
+- Lý do: chủ server ngại restart VPS lúc đông. VPS không chạy được bản thứ 2 (game 3,3GB, còn trống ~2,8GB; ShareMemory dùng khóa SysV 1001–11001, sót 1 khóa là ghi đè dữ liệu nhân vật thật) → dựng trên máy nhà (63GB RAM).
+- WSL2 Ubuntu-22.04 (systemd bật). `/opt/tlbb-root` = gói nén từ VPS 07/10 22:37 (bỏ `Server/Log`), `/opt/tlbb-deploy` = deploy của VPS (CÓ `secrets.env`), cài `tlbb.service` như VPS. Chạy 32-bit trong WSL2 OK. 6 tiến trình lên lúc 22:50, RAM 3,3GB.
+- Chỉ `ServerInfo.ini` ghi IP VPS (2 dòng IP0) → đổi `127.0.0.1` (bản gốc `ServerInfo.ini.vps`).
+- Client test: `G:\NetCo4-Local` (chép từ `G:\NetCo4`), `Patch/LoginServer.txt` → "NetCo4 TEST" `127.0.0.1:7384`, `RemoteAddr.txt` → 127.0.0.1.
+- **Code riêng cho local:** `git worktree` ở `D:\tlbb-local\code`, nhánh **`local`** (từ `main` e5906d7). Sửa/thử ở đó → ổn thì gộp vào `main` → push → `cap-nhat.sh` VPS.
+- Lệnh: `wsl -d Ubuntu-22.04 -u root -- bash /mnt/d/tlbb-local/local.sh start|stop|restart|status|log|dongbo [--thu]`. `dongbo` = rsync nội dung (không so giờ, không xóa) từ `D:\tlbb-local\code\server` vào `/opt/tlbb-root/home/tlbb`, **bỏ qua `ServerInfo.ini` + `ConfigInfo.ini`** (repo ghi 119 / ×12; VPS áp khóa cấp 89 / exp ×5 từ `NetCo4Cfg`). Hướng dẫn: `D:\tlbb-local\HUONG-DAN.txt`.
+- Bot web không chạy ở local (cần token Discord) → local chỉ test phần game. Gói `/root/local-pack` trên VPS đã xóa sau khi tải.
+- Phát hiện lúc dựng: VPS repo đã ở `cd25b31` (đã cap-nhat đội bot) nhưng game chạy từ 18:14 → đội bot CHƯA có trong game thật cho tới lần restart tới. Server local bật sau nên đã có đội bot.

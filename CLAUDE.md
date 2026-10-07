@@ -30,6 +30,7 @@ Máy nhà: sửa server/...  →  git commit + push  →  VPS: cd /opt/tlbb-depl
 - `server/` trong repo = bản sao đúng từng byte của các file sửa được trên VPS (danh sách ở `deploy/dong-bo.list`).
 - `./cap-nhat.sh`: `git pull`, hiện trước danh sách file sẽ đổi, cảnh báo file lưu nhầm UTF-8, sao lưu bản cũ, chép lên server, rồi **hỏi** trước khi restart. Script Lua và cấu hình chỉ có hiệu lực sau `./tlbb.sh restart`.
 - Ai đó sửa trực tiếp trên VPS thì chạy `./lay-tu-server.sh --push` để đưa thay đổi về repo, nếu không lần `cap-nhat` sau sẽ ghi đè.
+- **Server LOCAL để test (07/10):** WSL2 trên máy nhà, code nhánh `local` (git worktree `D:\tlbb-local\code`), client `G:\NetCo4-Local`. Việc mới: làm + thử trên local trước, ổn mới gộp vào `main` rồi lên VPS. Lệnh: `wsl -d Ubuntu-22.04 -u root -- bash /mnt/d/tlbb-local/local.sh start|stop|restart|status|dongbo`, xem `D:\tlbb-local\HUONG-DAN.txt`.
 - **Không tự động deploy khi push.** Restart sẽ đá người đang chơi. Trước khi restart, hỏi người dùng hoặc kiểm tra: `ss -tn state established '( sport = :3731 )'`.
 - Lần đầu clone trên Windows: `git config core.autocrlf false`. `.gitattributes` đã giữ nguyên byte cho `server/**`.
 - Web: https://netco4.click/ = Bảng Rơi (file tĩnh `/var/www/netco4/index.html`, dựng bằng `node tools/bang-roi/lam.js`), https://play.netco4.click/ = trang chơi (bot 3002), admin. = panel bot, gm. = panel game.
