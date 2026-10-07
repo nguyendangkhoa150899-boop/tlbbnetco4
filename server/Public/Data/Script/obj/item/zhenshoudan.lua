@@ -480,7 +480,7 @@ x300027_g_petList[30309781] = {type=2, dataIds={}, level=1}	--舞二苦右右
 x300027_g_petList[30309781].dataIds[1] = {dataId=24059,minHumanLevel=5,maxHumanLevel=44}
 x300027_g_petList[30309781].dataIds[2] = {dataId=24069,minHumanLevel=45,maxHumanLevel=54}
 x300027_g_petList[30309781].dataIds[3] = {dataId=24079,minHumanLevel=55,maxHumanLevel=64}
-x300027_g_petList[30309781].dataIds[4] = {dataId=24089,minHumanLevel=65,maxHumanLevel=74}
+x300027_g_petList[30309781].dataIds[4] = {dataId=24079,minHumanLevel=65,maxHumanLevel=74}
 x300027_g_petList[30309781].dataIds[5] = {dataId=24099,minHumanLevel=75,maxHumanLevel=84}
 x300027_g_petList[30309781].dataIds[6] = {dataId=24109,minHumanLevel=85,maxHumanLevel=94}
 x300027_g_petList[30309781].dataIds[7] = {dataId=24119,minHumanLevel=95,maxHumanLevel=255}

@@ -70,6 +70,12 @@ function kichThuoc(b) {   // jpg / png -> [w, h]
   return null;
 }
 
+// 07/10: phần lớn tấm là lưới ô 64px (4x4), nhưng 13 tấm chân dung (pet / NPC) là ô 48px, 5x5 = 25 ô (240px, dư dải đen 16px
+// mép phải + dưới). Trước đây coi mọi tấm là 64px -> trứng pet bị cắt sai hình và ô 17-25 bị loại (vd Tề Thiên PetHeader7_25).
+// Xác định bằng cách đo độ nhô chênh màu ở đường ranh 48 vs 64px trên ảnh (gấp 3-4 lần) + xem mắt; Xiezi_Ride / EquipAmulet2
+// đo không rõ (viền ô thụt 2px) nhưng xem ảnh là 64px. Ghi ô 48 ở cột thứ 4 của sets: [file, w, h, 48].
+const O48 = new Set(['PetHeader1', 'PetHeader3', 'PetHeader4', 'PetHeader5', 'PetHeader6', 'PetHeader7', 'PetHeader8',
+  'CommonNPCHeader11', 'CommonNPCHeader14', 'CommonNPCHeader17', 'FightNPCHeader3', 'FightNPCHeader8', 'haiwaizhuanyong1']);
 // 3) chép tấm
 fs.mkdirSync(path.join(OUT, 'sheet'), { recursive: true });
 const sets = {}, thieu = [];
@@ -80,13 +86,14 @@ for (const bo of can) {
   const wh = kichThuoc(buf); if (!wh) { thieu.push(bo + '(khong doc duoc kich thuoc)'); continue; }
   const file = bo + '.' + ext;
   fs.writeFileSync(path.join(OUT, 'sheet', file), buf);
-  sets[bo] = [file, wh[0], wh[1]];
+  sets[bo] = O48.has(bo) ? [file, wh[0], wh[1], 48] : [file, wh[0], wh[1]];
 }
 // 4) chỉ mục: món trỏ số ô lớn hơn số ô của tấm là tham chiếu hỏng sẵn trong game -> không có hình
 const items = {}; let co = 0, hong = 0;
 for (const [id, v] of Object.entries(icon)) {
   const m = v.match(/^(.+)_(\d+)$/); const s = sets[m[1]]; if (!s) continue;
-  if (+m[2] > Math.floor(s[1] / 64) * Math.floor(s[2] / 64)) { hong++; continue; }
+  const o = s[3] || 64;
+  if (+m[2] > Math.floor(s[1] / o) * Math.floor(s[2] / o)) { hong++; continue; }
   items[id] = [m[1], +m[2]]; co++;
 }
 fs.writeFileSync(path.join(OUT, 'itemicons.json'), JSON.stringify({ v: 1, cell: 64, sets, items }));
