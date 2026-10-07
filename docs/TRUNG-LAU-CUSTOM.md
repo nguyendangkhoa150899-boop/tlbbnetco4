@@ -45,7 +45,7 @@ Nút **👥 Ai đang giữ Trùng Lâu** đọc `t_iteminfo` + `t_char`:
 - nhân vật, tài khoản, mã, món;
 - vị trí: túi (pos < 100), **đang mặc** (100–118 = 100 + vị trí trang bị), kho (≥ 119).
 
-DB trễ vài phút so với trong game vì ShareMemory lưu định kỳ. Ví dụ 08/10: bialk đã nâng Đai lên Chân nhưng DB vẫn ghi 10553106.
+DB trễ tới **~15 phút** so với trong game: ShareMemory ghi từng nhân vật xuống DB ~15 phút/lần (log "普通存盘成功 Player Guid=...", đo 07/10: 01:38:40 → 01:53:41 → 02:08:42) và khi thoát game. Ví dụ 08/10: bialk đã nâng Đai lên Chân nhưng DB vẫn ghi 10553106.
 
 ## Cách ghi (an toàn)
 
