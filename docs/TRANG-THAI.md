@@ -1382,3 +1382,10 @@ Trạng thái 16:30 05/10: mọi thứ **đã commit, push, deploy**. **Game CH�
 ### 07/10 tối - Vá lỗ hổng học tâm pháp PHÁI KHÁC (tag `truoc-tamphap-dungphai-07-10`; Lua, hiệu lực sau `cap-nhat.sh`)
 - `event/prize/yuanbaoshop.lua` nhánh 1002 (nút Học ở sư phụ): `x888902_g_CheckXinFa` chỉ kiểm ID có trong bảng của bất kỳ phái nào → client sửa gửi ID phái khác là học được. Thêm `x888902_g_XinFaPhai(shopB) ~= LuaFnGetMenPai` → báo "Tâm pháp này không thuộc môn phái của các hạ", dừng TRƯỚC khi trừ tiền / EXP. Dòng k của `x888902_XinFaList` = phái {0..8,10,11,12}; đã đối chiếu 96/96 ID với `XinFa_V1.txt` cột 1. Công cụ `tools/tamphap-dungphai-07-10.js`.
 - Lỗ hổng 2 (gửi tay gói `CGAskStudyXinfa` vượt trần tâm pháp, tới cấp + 5) nằm trong engine C++, KHÔNG vá được bằng Lua. Cách giảm thiệt hại (chưa làm, chờ chủ server): kiểm lúc đăng nhập - tâm pháp chính quá trần kéo về trần, tâm pháp phái khác xoá (trừ tâm pháp 8 Điển Bí).
+
+### 07/10 tối - Chủ server CHỐT không làm (đừng đề xuất lại)
+- Công lực: `x390101_ReGongLi` sang ngày ĐẶT = 200 (dư mất) - giữ nguyên.
+- Thảo Nê Mã VIP 10141215 tàng hình (mã hình 317) - không sửa, thú cưỡi này KHÔNG phát / bán ra (không public).
+- Tiền Trang giữ tối đa 60 ô, không vá binary lên 100.
+- Tiệm người chơi "Dọn tủ" mất đồ quầy cuối - bỏ qua.
+- Lỗ hổng gửi tay gói học tâm pháp vượt trần (engine) - chưa làm phần kiểm lúc đăng nhập.
