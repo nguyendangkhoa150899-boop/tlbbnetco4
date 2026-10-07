@@ -1,0 +1,18 @@
+; NetCo4 07/10: bot doi Hau Hoa Vien - Thieu Lam (ID SkillData bac 12). Hoi mau dong doi: NetCo4/botdoi.lua
+[common]
+[commonend]
+[skill]
+0:if(AIS_IsCanSkill(0)=1){AIS_ToSkill(0);AIS_SetTimes(-1);AIS_SetPRI(30);};
+1:if(AIS_GetAIState()=SATTACK&AIS_Rand()<60&AIS_IsCanSkill(292)=1){AIS_ToSkill(292);AIS_SetTimes(-1);AIS_SetPRI(33);};
+2:if(AIS_GetAIState()=SATTACK&AIS_Rand()<35&AIS_IsCanSkill(316)=1){AIS_ToSkill(316);AIS_SetTimes(-1);AIS_SetPRI(34);};
+3:if(AIS_GetAIState()=SATTACK&AIS_Rand()<25&AIS_IsCanSkill(460)=1){AIS_ToSkill(460);AIS_SetTimes(-1);AIS_SetPRI(34);};
+4:if(AIS_GetAIState()=SATTACK&AIS_Rand()<30&AIS_IsCanSkill(496)=1){AIS_ToSkill(496);AIS_SetTimes(-1);AIS_SetPRI(35);};
+5:if(AIS_GetAIState()=SATTACK&AIS_Rand()<20&AIS_IsCanSkill(304)=1){AIS_ToSkill(304);AIS_SetTimes(-1);AIS_SetPRI(36);};
+6:if(AIS_GetAIState()=SATTACK&AIS_Rand()<15&AIS_IsCanSkill(340)=1){AIS_ToSkill(340);AIS_SetTimes(-1);AIS_SetPRI(37);};
+[skillend]
+[beskill]
+[beskillend]
+[damage]
+[damageend]
+[dead]
+[deadend]

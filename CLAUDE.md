@@ -82,6 +82,8 @@ Repo có thể là public. Không commit `secrets.env`, `config.env`, `LoginInfo
 
 Xem `docs/PHAT-TRIEN.md`: cách đăng ký script, đặt NPC, bảng rơi đồ, tra ID vật phẩm (`docs/vat-pham/`), dialect Lua 4, và những gì **không làm được** (giao diện, vật phẩm mới hoàn toàn).
 
+**Đội bot Hậu Hoa Viên (07/10):** 6 quái đội tên người (64601–64606, `NetCo4/botdoi.lua`, `.ai` 346–349, `newbie_2_monster.ini`), sinh bằng `tools/botdoi-07-10.js`; chỉ số chỉnh trong tool rồi `!!RELOADMONSTERATTR`. Chi tiết TRANG-THAI mục 07/10 khuya.
+
 **Boss / phó bản báo lỗi:** mở `docs/BOSS-PHO-BAN.md` trước (hồ sơ 17 phó bản, loại lỗi đã gặp, quy trình) và dùng `node tools/soat-boss/soat.js <ID script>`.
 
 ### Boss rơi Nguyên Bảo Phiếu (29/09, luật hiện hành 05/10)

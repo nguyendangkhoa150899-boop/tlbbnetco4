@@ -77,6 +77,8 @@ Rollback: tag bialk `truoc-vigame-07-10` (= `b670996`, trước trang mới) ho�
 
 ## 6. Đã deploy nhưng CHƯA kiểm trong game
 
+- **Đội bot Hậu Hoa Viên** (07/10 khuya, cần restart): 6 bot mọc quanh (40, 97) scene 62/82/182, đánh người tới gần, Nga My hồi máu đồng đội, hồi sinh 3 phút. Kiểm 6 điểm ở TRANG-THAI mục đó; chỉ số là ước lượng, chỉnh `tools/botdoi-07-10.js` + `!!RELOADMONSTERATTR`.
+
 - **Thương Phố:**
   - rút 1 món 🔒 về: trong game còn "cố định" không;
   - `GetBagItemParam` của đồ thường có bằng 0 không (nếu NPC báo "có thuộc tính riêng" cho đồ thường thì kiểm này quá chặt);

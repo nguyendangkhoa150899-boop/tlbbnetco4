@@ -1,0 +1,21 @@
+; NetCo4 07/10: bot doi Hau Hoa Vien - Tieu Dao (ID SkillData bac 12). Hoi mau dong doi: NetCo4/botdoi.lua
+[common]
+[commonend]
+[skill]
+0:if(AIS_IsCanSkill(0)=1){AIS_ToSkill(0);AIS_SetTimes(-1);AIS_SetPRI(30);};
+1:if(AIS_GetAIState()=SATTACK&AIS_Rand()<60&AIS_IsCanSkill(3172)=1){AIS_ToSkill(3172);AIS_SetTimes(-1);AIS_SetPRI(33);};
+2:if(AIS_GetAIState()=SATTACK&AIS_Rand()<35&AIS_IsCanSkill(3196)=1){AIS_ToSkill(3196);AIS_SetTimes(-1);AIS_SetPRI(34);};
+3:if(AIS_GetAIState()=SATTACK&AIS_Rand()<30&AIS_IsCanSkill(3316)=1){AIS_ToSkill(3316);AIS_SetTimes(-1);AIS_SetPRI(35);};
+4:if(AIS_GetAIState()=SATTACK&AIS_Rand()<30&AIS_IsCanSkill(3340)=1){AIS_ToSkill(3340);AIS_SetTimes(-1);AIS_SetPRI(35);};
+5:if(AIS_GetAIState()=SATTACK&AIS_Rand()<25&AIS_IsCanSkill(3376)=1){AIS_ToSkill(3376);AIS_SetTimes(-1);AIS_SetPRI(34);};
+6:if(AIS_GetAIState()=SATTACK&AIS_Rand()<25&AIS_IsCanSkill(3412)=1){AIS_ToSkill(3412);AIS_SetTimes(-1);AIS_SetPRI(34);};
+7:if(AIS_GetAIState()=SATTACK&AIS_Rand()<20&AIS_IsCanSkill(3400)=1){AIS_ToSkill(3400);AIS_SetTimes(-1);AIS_SetPRI(36);};
+8:if(AIS_GetAIState()=SATTACK&AIS_Rand()<20&AIS_IsCanSkill(3220)=1){AIS_ToSkill(3220);AIS_SetTimes(-1);AIS_SetPRI(37);};
+9:if(AIS_GetAIState()=SATTACK&AIS_Rand()<15&AIS_IsCanSkill(3464)=1){AIS_ToSkill(3464);AIS_SetTimes(-1);AIS_SetPRI(38);};
+[skillend]
+[beskill]
+[beskillend]
+[damage]
+[damageend]
+[dead]
+[deadend]
