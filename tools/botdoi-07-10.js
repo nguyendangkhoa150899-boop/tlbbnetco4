@@ -1,7 +1,7 @@
-// 07/10 (chủ server): ĐỘI BOT 6 "người giả" ở Hậu Hoa Viên (scene 62/82/182, bản đồ newbie_2): 1 Nga My + 2 Cái Bang + 1 Tiêu Dao + 2 Thiếu Lâm.
+// 07/10 (chủ server): ĐỘI BOT 6 "người giả" - thử ở VÔ LƯỢNG SƠN (wuliang_monster.ini, scene 6/73/74; lúc đầu định Hậu Hoa Viên newbie_2): 1 Nga My + 2 Cái Bang + 1 Tiêu Dao + 2 Thiếu Lâm.
 // Là quái (MonsterAttrExTable) đội tên người, đứng 1 cụm, đánh người chơi tới gần, gọi nhau; Nga My hồi máu đồng đội qua Lua AI
 // (NetCo4/botdoi.lua, 950002, kiểu ai_hadaba.lua). Không exp, không rơi đồ (ID không có trong MonsterDropBoxs), chết 3 phút mọc lại (ini).
-// Sinh ra / sửa: 6 dòng MonsterAttrExTable 64601-64606 (chèn sau 64563, giữ thứ tự tăng), 6 điểm trong Public/Scene/newbie_2_monster.ini,
+// Sinh ra / sửa: 6 dòng MonsterAttrExTable 64601-64606 (chèn sau 64563, giữ thứ tự tăng), 6 điểm trong Public/Scene/<INI> (đổi hằng INI + GOC để dời đội; ini cũ được dọn),
 // đăng ký Script.dat 950002 + AIScript.dat 346-349, viết 4 file .ai. Chạy lại = cập nhật dòng/điểm (idempotent).
 // Chỉ số là ƯỚC LƯỢNG (chưa có số đo người chơi) -> chỉnh trong bảng BOT rồi chạy lại; trong game GM gõ !!RELOADMONSTERATTR (không cần restart).
 // Lần đầu CẦN restart (ini + .ai + Script.dat). node tools/botdoi-07-10.js [--ghi]
@@ -15,15 +15,17 @@ const viscii = (s) => [...s].map((c) => { const b = c.charCodeAt(0); if (b < 128
 //  Mẫu: 9546 Lý Thu Thủy (nữ), 13456 Ngô Dụng, 13537 Võ Tòng, 13465 Lộ Quân Dật, 11539 Hòa thượng, 13483 Quan Thắng.
 //  hp / vlck / mpck / vlpn / ptpn / trung / ne / hieuy  (cột 19 / 15 / 17 / 16 / 18 / 23 / 24 / 25-26)
 const BOT = [
-  { id: 64601, ten: 'Chu Chỉ Nhược', phai: 'Nga My', donor: 9546, gioi: 1, ai: 349, x: 40.0, z: 97.0, hp: 240000, vlck: 6000, mpck: 26000, vlpn: 16000, ptpn: 20000, trung: 11000, ne: 2400, hieuy: 150 },
-  { id: 64602, ten: 'Kiều Phong', phai: 'Cái Bang', donor: 13456, gioi: 0, ai: 347, x: 42.0, z: 95.5, hp: 300000, vlck: 36000, mpck: 6000, vlpn: 20000, ptpn: 14000, trung: 12000, ne: 2800, hieuy: 300 },
-  { id: 64603, ten: 'Hồng Thất Công', phai: 'Cái Bang', donor: 13537, gioi: 0, ai: 347, x: 38.0, z: 95.5, hp: 300000, vlck: 36000, mpck: 6000, vlpn: 20000, ptpn: 14000, trung: 12000, ne: 2800, hieuy: 300 },
-  { id: 64604, ten: 'Vô Nhai Tử', phai: 'Tiêu Dao', donor: 13465, gioi: 0, ai: 348, x: 40.0, z: 99.0, hp: 220000, vlck: 6000, mpck: 36000, vlpn: 14000, ptpn: 20000, trung: 11500, ne: 2600, hieuy: 250 },
-  { id: 64605, ten: 'Huyền Từ', phai: 'Thiếu Lâm', donor: 11539, gioi: 0, ai: 346, x: 43.0, z: 98.0, hp: 380000, vlck: 28000, mpck: 6000, vlpn: 30000, ptpn: 22000, trung: 11000, ne: 2200, hieuy: 150 },
-  { id: 64606, ten: 'Huyền Khổ', phai: 'Thiếu Lâm', donor: 13483, gioi: 0, ai: 346, x: 37.0, z: 98.0, hp: 380000, vlck: 28000, mpck: 6000, vlpn: 30000, ptpn: 22000, trung: 11000, ne: 2200, hieuy: 150 },
+  { id: 64601, ten: 'Chu Chỉ Nhược', phai: 'Nga My', donor: 9546, gioi: 1, ai: 349, x: 0, z: 0, hp: 240000, vlck: 6000, mpck: 26000, vlpn: 16000, ptpn: 20000, trung: 11000, ne: 2400, hieuy: 150 },
+  { id: 64602, ten: 'Kiều Phong', phai: 'Cái Bang', donor: 13456, gioi: 0, ai: 347, x: 2, z: -1.5, hp: 300000, vlck: 36000, mpck: 6000, vlpn: 20000, ptpn: 14000, trung: 12000, ne: 2800, hieuy: 300 },
+  { id: 64603, ten: 'Hồng Thất Công', phai: 'Cái Bang', donor: 13537, gioi: 0, ai: 347, x: -2, z: -1.5, hp: 300000, vlck: 36000, mpck: 6000, vlpn: 20000, ptpn: 14000, trung: 12000, ne: 2800, hieuy: 300 },
+  { id: 64604, ten: 'Vô Nhai Tử', phai: 'Tiêu Dao', donor: 13465, gioi: 0, ai: 348, x: 0, z: 2, hp: 220000, vlck: 6000, mpck: 36000, vlpn: 14000, ptpn: 20000, trung: 11500, ne: 2600, hieuy: 250 },
+  { id: 64605, ten: 'Huyền Từ', phai: 'Thiếu Lâm', donor: 11539, gioi: 0, ai: 346, x: 3, z: 1, hp: 380000, vlck: 28000, mpck: 6000, vlpn: 30000, ptpn: 22000, trung: 11000, ne: 2200, hieuy: 150 },
+  { id: 64606, ten: 'Huyền Khổ', phai: 'Thiếu Lâm', donor: 13483, gioi: 0, ai: 346, x: -3, z: 1, hp: 380000, vlck: 28000, mpck: 6000, vlpn: 30000, ptpn: 22000, trung: 11000, ne: 2200, hieuy: 150 },
 ];
 const CAP = 89, MP = 60000, BASE_AI = 21 /* chủ động, không đi lung tung, quét 10m, đuổi 60m, có Lua, gọi đồng bọn */, SCRIPT = 950002;
 const HOI_SINH_MS = 180000, GROUP = 9502, TEMPLATE = '13465', SAU = '64563';
+const INI = 'wuliang_monster.ini', GOC = { x: 176, z: 172 };   // vị trí đội = GOC + lệch (x, z) của từng bot; dời đội: đổi 2 hằng này
+const INI_CU = ['newbie_2_monster.ini'];   // ini từng chứa bot -> dọn sạch khối bot
 
 // ---- 4 file .ai: skill = ID SkillData bậc 12 (tâm pháp 12), như các .ai gốc dùng thẳng ID SkillData ----
 const S = (id, pct, pri) => `if(AIS_GetAIState()=SATTACK&AIS_Rand()<${pct}&AIS_IsCanSkill(${id})=1){AIS_ToSkill(${id});AIS_SetTimes(-1);AIS_SetPRI(${pri});};`;
@@ -70,22 +72,30 @@ function luu(f, cu, moi) { if (cu === moi) return; doi.push(path.relative(R, f) 
   console.log('MonsterAttrExTable byte>127', dem(raw), '->', dem(out), '(them', dem(out) - dem(raw), 'cua ten VISCII) CR', cnt(raw, /\r/g), '->', cnt(out, /\r/g));
   luu(F, raw, out);
 }
-// 2) newbie_2_monster.ini
+// 2) ini bản đồ: dọn khối bot khỏi ini cũ, rồi ghi vào INI
+const reBot = (nl) => new RegExp('(' + nl + ')?\\[monster\\d+\\]' + nl + 'guid=950002\\d+' + nl + '(?:(?!\\[monster)[^\\n]*' + nl + ')*', 'g');
+for (const ten of INI_CU) {
+  const F = path.join(R, 'Public/Scene/' + ten); if (!fs.existsSync(F)) continue;
+  const raw = fs.readFileSync(F, 'latin1'); const nl = raw.includes('\r\n') ? '\r\n' : '\n';
+  let t2 = raw.replace(reBot(nl), ''); if (t2 === raw) continue;
+  t2 = t2.replace(/\s*$/, '') + nl; const dem = (t2.match(/^\[monster\d+\]/gm) || []).length; t2 = t2.replace(/monstercount=\d+/, 'monstercount=' + dem);
+  console.log('don bot khoi ' + ten + ' -> monstercount=' + dem); luu(F, raw, t2);
+}
 {
-  const F = path.join(R, 'Public/Scene/newbie_2_monster.ini');
+  const F = path.join(R, 'Public/Scene/' + INI);
   const raw = fs.readFileSync(F, 'latin1'); const nl = raw.includes('\r\n') ? '\r\n' : '\n';
   let t = raw;
-  const khoi = (b, k) => ['[monster' + k + ']', 'guid=' + (95000200 + k - 71), 'type=' + b.id, 'name=', 'title=', 'pos_x=' + b.x, 'pos_z=' + b.z, 'dir=27', 'script_id=' + SCRIPT, 'respawn_time=' + HOI_SINH_MS,
+  const khoi = (b, k) => ['[monster' + k + ']', 'guid=' + (95000200 + k - 71), 'type=' + b.id, 'name=', 'title=', 'pos_x=' + (GOC.x + b.x), 'pos_z=' + (GOC.z + b.z), 'dir=27', 'script_id=' + SCRIPT, 'respawn_time=' + HOI_SINH_MS,
     'group_id=' + GROUP, 'team_id=' + GROUP, 'base_ai=' + BASE_AI, 'ai_file=' + b.ai, 'patrol_id=-1', 'shop0=-1', 'shop1=-1', 'shop2=-1', 'shop3=-1', 'ReputationID=-1', ''].join(nl);
   // bỏ khối bot cũ (nếu có) rồi nối lại từ đầu -> chạy lại là cập nhật
-  t = t.replace(new RegExp('(' + nl + ')?\\[monster\\d+\\]' + nl + 'guid=950002\\d+' + nl + '(?:(?!\\[monster)[^\\n]*' + nl + ')*', 'g'), '');
+  t = t.replace(reBot(nl), '');
   t = t.replace(/\s*$/, '') + nl;
-  const m = t.match(/\[monster(\d+)\][\s\S]*$/); const dem0 = (t.match(/^\[monster\d+\]/gm) || []).length;
+  const dem0 = (t.match(/^\[monster\d+\]/gm) || []).length;
   const blocks = BOT.map((b, i) => khoi(b, dem0 + i)).join(nl);
   t = t + nl + blocks;
   t = t.replace(/monstercount=\d+/, 'monstercount=' + (dem0 + BOT.length));
   if ((t.match(/^\[monster\d+\]/gm) || []).length !== dem0 + BOT.length) throw new Error('dem khoi ini sai');
-  console.log('ini: ' + dem0 + ' diem co san + ' + BOT.length + ' bot, monstercount=' + (dem0 + BOT.length) + ', bot cach nhau quanh (40, 97)');
+  console.log('ini: ' + dem0 + ' diem co san + ' + BOT.length + ' bot, monstercount=' + (dem0 + BOT.length) + ', doi quanh (' + GOC.x + ', ' + GOC.z + ') trong ' + INI);
   luu(F, raw, t);
 }
 // 3) Script.dat + AIScript.dat
