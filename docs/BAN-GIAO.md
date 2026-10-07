@@ -1,4 +1,4 @@
-# Bàn giao cho phiên Claude tiếp theo (06/10/2026, 17:30)
+# Bàn giao cho phiên Claude tiếp theo (cập nhật 07/10/2026 sáng; bản đầy đủ viết 06/10 17:30)
 
 **Đọc theo thứ tự:**
 1. `CLAUDE.md` (quy tắc bắt buộc của repo game).
@@ -14,10 +14,10 @@ Chủ server nói tiếng Việt và muốn được trả lời bằng tiếng 
 
 | Thành phần | Trạng thái |
 |---|---|
-| **Game** | Chạy từ 06/10 **14:23**, đủ 6 tiến trình trong `tlbb.service`. Khóa cấp **89**, exp **×5**. Hai số này nằm trong `NetCo4Cfg/capmax.txt` và `expparam.txt`; `cap-nhat.sh` tự áp lại. |
-| **Repo game** (`tlbbnetco4`) | VPS đã deploy **`1e0ee14`**. Các commit sau đó chỉ là docs. |
+| **Game** | Chạy từ 07/10 **01:37**, đủ 6 tiến trình trong `tlbb.service`. Đã có: đồ chế VL8 C8 65% / C9 35%, thú cưỡi 10141214 C9, Sát Tinh −60% máu / −30% công, Lâu Lan Tầm Bảo 24/24, Tiền Trang tối đa 60 ô. Khóa cấp **89**, exp **×5**. Hai số này nằm trong `NetCo4Cfg/capmax.txt` và `expparam.txt`; `cap-nhat.sh` tự áp lại. |
+| **Repo game** (`tlbbnetco4`) | VPS đã deploy **`aba2f44`** (07/10). Mọi file game khớp repo (đã kiểm 07/10). Các commit sau đó chỉ là docs. |
 | **Panel GM** (`panel/panel.py`, 8443) | Restart 14:36, đã có bản sửa tên nhân vật. Tên hiện đúng: ÁnhDương / HuyềnSát / HỏaThần. |
-| **Bot** (`bialk`, `/opt/minigame/BotDoMin`) | VPS chạy **`8a7d86a`** (dọn Palworld đợt 1) từ 16:54. **Commit `a5a109c` (dọn Palworld đợt 2) CHƯA deploy**, xem mục 3. |
+| **Bot** (`bialk`, `/opt/minigame/BotDoMin`) | VPS chạy **bản trộn**: `8a7d86a` (dọn Palworld đợt 1) + vá tay vòng quay (`5ae6c04`) + chèn `/ik.js` (Rương Ích Kỷ kiểu mới `b670996`); `ghepngoc.client.js` = `b2b663d`; `panel.js` = `8a7d86a`; `palworld.js` vẫn còn. **Đợt 2 (`a5a109c`) CHƯA deploy.** Đã kiểm 07/10: mọi dòng vá tay trên VPS đều có trong HEAD, nên deploy HEAD là đủ, xem mục 3. |
 | **netco4.click** | Dựng lần cuối 05/10 khuya. Chiều nay không đổi tỉ lệ rơi nên không cần dựng lại. |
 
 ## 2. Quyền và cách deploy (quan trọng)
@@ -39,7 +39,7 @@ Chủ server nói tiếng Việt và muốn được trả lời bằng tiếng 
 - **Đổi cấu hình bot:** gọi API cổng SUPER bằng script chạy trên VPS. Script đọc `PANEL_SUPER_PASSWORD` từ `.env` và **không in ra**. Mẫu: lần sửa túi boss 06/10. Không sửa `database.json` khi bot đang chạy. Nếu bắt buộc phải sửa: dừng bot, sao lưu, sửa, chạy lại (mẫu: lần gỡ ngọc test 06/10).
 - Có người khác (hoặc chủ server lúc khuya) deploy qua OneDash ngay sau khi Claude push repo game. **Mỗi lần push repo game, coi như code có thể lên game bất cứ lúc nào.**
 
-## 3. VIỆC ĐẦU TIÊN: deploy bot `a5a109c` (dọn Palworld đợt 2)
+## 3. VIỆC ĐẦU TIÊN: deploy bot HEAD (gồm dọn Palworld đợt 2 `a5a109c` + vòng quay + Rương Ích Kỷ mới)
 
 Đã kiểm kỹ trên máy:
 - `node --check` và eslint `no-undef` không lỗi;
@@ -51,10 +51,7 @@ Chủ server nói tiếng Việt và muốn được trả lời bằng tiếng 
 Chưa deploy vì chủ server vắng nhà. Các bước:
 1. Hỏi chủ server có muốn deploy không.
 2. Deploy 3 file `index.js`, `webplay.js`, `panel.js` theo mục 2. Trên VPS **xóa thêm `BotDoMin/palworld.js`** (đợt 2 không còn `require` nó, file trên VPS vẫn còn).
-3. md5 trên VPS phải khớp `git show 8a7d86a:BotDoMin/<file>`:
-   - `index.js` = `070c981b2f29`
-   - `webplay.js` = `a44133d07474`
-   - `panel.js` = `6a02834c7e10`
+3. md5 trên VPS (07/10 sáng, bản trộn): `index.js` = `8c9dc182…`, `webplay.js` = `31d64bdc…`, `panel.js` = `6a02834c…` (= `8a7d86a`). Khác thì có người vừa sửa thêm, kiểm lại trước. Các file `vongquay.js`, `ichky.client.js`, `ghepngoc.client.js` trên VPS đã bằng HEAD.
 4. Sau deploy, kiểm:
    - panel SUPER: tab **🐉 Thiên Long & KNB** (id mới `tlbb`), lưu liên kết nhân vật (route mới `/api/tlbb/lienket`);
    - trang Chuyển/Rút của người chơi: không còn thẻ nạp;
