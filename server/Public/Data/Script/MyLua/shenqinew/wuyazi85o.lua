@@ -1010,12 +1010,12 @@ x895111_NotifyTips( sceneId, selfId, "sai l¥m ko biªt" )
 return
 end
 
-if LuaFnGetAvailableItemCount(sceneId, selfId, 39901012) < 100 then
-x895111_NotifyTips( sceneId, selfId, "C¥n [Thiên ð¸a huy«n tinh] 100 cái" )	
+if LuaFnGetAvailableItemCount(sceneId, selfId, 39901012) < 500 then
+x895111_NotifyTips( sceneId, selfId, "C¥n [Thiên ð¸a huy«n tinh] 500 cái" )	
 return
 end
 
-if  LuaFnDelAvailableItem(sceneId,selfId,39901012, 100) ~= 1 then
+if  LuaFnDelAvailableItem(sceneId,selfId,39901012, 500) ~= 1 then
 x895111_NotifyTips( sceneId, selfId, "[Thiên ð¸a huy«n tinh] kh¤u tr× th¤t bÕi" )
 return
 end
