@@ -12,9 +12,9 @@ function  x002101_OnDefaultEvent(  sceneId,  selfId,  targetId  )
 	         BeginEvent(  sceneId  )
 	 	     AddText(  sceneId,  "        chï c¥n là yêu thích hoa tß½i ngß¶i cüa , chính là ta tôn quý nh¤t ðích b¢ng hæu , ngß½i thay ta bäo t°n nhæng thÑ này Ba Tß hoa h°ng , bây gi¶ là h°i báo ngß½i lúc . ngß½i có ð¥y ðü Ba Tß hoa h°ng l¶i cüa , có th¬ ð±i nhß sau ðích v§t ph¦m . ")
 	 	     AddNumText(  sceneId,  x002101_g_ScriptId,  "30 cá Ba Tß hoa h°ng ð±i tß·ng thß·ng ",6,1  )
-	 	     -- [07/10] bo doi trung tran thu (pet dep chi phat qua event)
-	 	     -- [07/10] bo doi trung tran thu (pet dep chi phat qua event)
-	 	     -- [07/10] bo doi trung tran thu (pet dep chi phat qua event)
+	 	     AddNumText(  sceneId,  x002101_g_ScriptId,  "60 cá Ba Tß hoa h°ng ð±i tß·ng thß·ng ",6,2  )
+	 	     AddNumText(  sceneId,  x002101_g_ScriptId,  "70 cá Ba Tß hoa h°ng ð±i tß·ng thß·ng ",6,3  )
+	 	     AddNumText(  sceneId,  x002101_g_ScriptId,  "80 cá Ba Tß hoa h°ng ð±i tß·ng thß·ng ",6,4  )
 	 	     AddNumText(  sceneId,  x002101_g_ScriptId,  " liên quan t¾i loÕi hoa ",11,15  )	 	   
 
 	         EndEvent(  sceneId  )
@@ -26,14 +26,6 @@ end
 --**************************************************************************
 function  x002101_OnEventRequest(  sceneId,  selfId,  targetId,  eventId  )
 	     local	 key	 =  GetNumText()
-	     -- [07/10] chan doi trung tran thu (60/70/80 hoa hong) TRUOC khi tru hoa
-	     if key == 2 or key == 3 or key == 4 or key == 201 or key == 301 or key == 401 or key == 402 or key == 403 then
-	 	 BeginEvent( sceneId )
-	 	 AddText( sceneId, "        \208\177i tr\226n th\250 \240\228n \240\227 ng\223ng. Tr\226n th\250 \240\169p ch\239 ph\225t qua s\241 ki\174n." )
-	 	 EndEvent( sceneId )
-	 	 DispatchEventList( sceneId, selfId, targetId )
-	 	 return
-	     end
 
 	     if  key  ==  1  then
 	                 BeginEvent(sceneId)
