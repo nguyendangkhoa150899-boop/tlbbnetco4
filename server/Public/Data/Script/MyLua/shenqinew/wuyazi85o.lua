@@ -970,7 +970,7 @@ if tepp ==36 then
      return
   end
 
-      if whz ~= 10553100 and whz ~= 10553101 and whz ~= 10553102 and whz ~= 10553106 and whz ~= 10553108 and whz ~= 10553110 and whz ~= 10553112 and whz ~= 10553113 and whz ~= 10553114 then 
+      if whz ~= 10553100 and whz ~= 10553101 and whz ~= 10553102 and whz ~= 10553106 and whz ~= 10553108 and whz ~= 10553110 and whz ~= 10553112 and whz ~= 10553113 and whz ~= 10553114 and whz ~= 10422016 and whz ~= 10422018 and whz ~= 10423024 and whz ~= 10423026 then   -- [NetCo4 08/10] them Trung Lau cu (Gioi/Ngoc 1042xxxx) 
          x895111_NotifyTips( sceneId, selfId, "Bö vào tr÷ng lâu" )	
          return
       end
@@ -999,6 +999,10 @@ elseif whz == 10553112 then
 elseif whz == 10553113 then
       idx = 10553104
 elseif whz == 10553114 then
+      idx = 10553105
+elseif whz == 10422016 or whz == 10422018 then   -- [NetCo4 08/10] Trung Lau Gioi cu -> Chan Trung Lau Gioi
+      idx = 10553104
+elseif whz == 10423024 or whz == 10423026 then   -- [NetCo4 08/10] Trung Lau Ngoc cu -> Chan Trung Lau Ngoc
       idx = 10553105
 end
 if idx ==0 then 
