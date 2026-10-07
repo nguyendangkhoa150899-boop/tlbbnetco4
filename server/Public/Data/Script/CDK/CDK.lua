@@ -27,8 +27,8 @@ function x999999_OnDefaultEvent( sceneId, selfId, targetId )
 		AddNumText( sceneId, x999999_g_ScriptId, "Chuy\172n ra web "..x999999_g_Amounts[i].." KNB", 6, i )   -- [NetCo4 05/10] them chu KNB
 	end
 	AddNumText( sceneId, x999999_g_ScriptId, "Chuy\172n ra web ".."To\224n b\181 KNB", 6, 99 )
-	AddNumText( sceneId, x999999_g_ScriptId, "Chuy\172n Long V\229n ra R\223\189ng \205ch K\214 (web)", 6, 98 )   -- [NetCo4 03/10] o cuoi
-	AddNumText( sceneId, x999999_g_ScriptId, "Chuy\172n Ng\247c c\164p 6 (kh\244ng c\175 \240\184nh) ra R\223\189ng \205ch K\214 (web)", 6, 96 )   -- [NetCo4 05/10] chi ngoc cap 6
+	--AddNumText( sceneId, x999999_g_ScriptId, "Chuy\172n Long V\229n ra R\223\189ng \205ch K\214 (web)", 6, 98 )   -- [NetCo4 03/10] o cuoi -- [NetCo4 08/10] AN: chu server bo nut (Long Van khong con duong khac ra web)
+	--AddNumText( sceneId, x999999_g_ScriptId, "Chuy\172n Ng\247c c\164p 6 (kh\244ng c\175 \240\184nh) ra R\223\189ng \205ch K\214 (web)", 6, 96 )   -- [NetCo4 05/10] chi ngoc cap 6 -- [NetCo4 08/10] AN: chu server bo nut (ngoc 6 di Thuong Pho -> Ruong Ich Ky)
 	AddNumText( sceneId, x999999_g_ScriptId, "Chuy\172n \208\213o c\248 ra Th\223\189ng Ph\175 (web)", 6, 94 )   -- [NetCo4 06/10] Thuong Pho
 	AddNumText( sceneId, x999999_g_ScriptId, "Chuy\172n Nguy\234n li\174u ra Th\223\189ng Ph\175 (web)", 6, 93 )
 	AddNumText( sceneId, x999999_g_ScriptId, "Nh\167n \240\176 Th\223\189ng Ph\175 \240ang ch\182", 6, 90 )
