@@ -1353,3 +1353,9 @@ Trạng thái 16:30 05/10: mọi thứ **đã commit, push, deploy**. **Game CH�
 - **Xích Tiêu Hỏa Hồn 1375** (Mv 90): hộp ngọc 90081 (A+B 20%, dùng chung 19 quái MND/Vân Phủ… nên KHÔNG sửa) → hộp mới **90097 = chỉ túi B, 50%** (BV 360, sao 90080). Không còn ngọc túi A (thuộc tính / thể lực / né / chính xác).
 - Mã Tràng cấp **110**, người chơi khóa 89 (chênh 21). Nếu game có trừ rơi khi quái cao hơn người (`DropAttenuation`, chiều này chưa đo được) thì hộp còn ~×0,5; script Lua không bị trừ.
 - Kiểm: byte > 0x7f / CR / LF khớp HEAD (DropBoxContent +1 dòng), không `EF BF BD`; trang Bảng Rơi dựng lại ra đúng số.
+
+### 07/10 - Hậu Hoa Viên mở 24/24, mỗi NHÂN VẬT 2 tiếng/ngày (tag `truoc-hhv-2gio-07-10`; Lua, không cần restart nhưng đi chung đợt neft nên restart luôn; công cụ `tools/hhv-2gio-07-10.js`)
+- Chủ server chốt: tính theo **nhân vật** (script game không lấy được tên tài khoản; `GetAccountName` trong file chạy là hàm C++, không phải hàm Lua), cộng dồn trong ngày, **0h làm mới**. Acc có nhiều nhân vật thì mỗi nhân vật 2 tiếng riêng.
+- `MyNew/jiarumenpai.lua`: `x990010_g_HHV_Mo = 0` (Dong 24), `x990010_g_HHV_Giay = 7200`. Timer 1 giây sẵn có (`scene.lua` đặt cho 62/82/182) giờ cộng giây thật (`LuaFnGetCurrentTime`, chỉ cộng khi 2 lần quét cách ≤ 10 giây), báo trước 10 phút / 1 phút, hết giờ → `TransferFunc` về Lạc Dương (0,198,325). Menu NPC hiện "hôm nay còn X phút", hết giờ thì không cho vào.
+- Trạng thái `Server/txt/NetCo4Web/<GUID>.hhv` (4 dòng: ngày / giây đã ở / lần quét cuối / đã báo), đọc + ghi mỗi lần quét, KHÔNG dựa vào biến toàn cục Lua. Muốn trả giờ cho 1 người: xoá file đó.
+- Kiểm: chỉ đổi 5 dòng cũ (giờ mở, câu menu, câu đuổi, 2 biến không dùng), CRLF khớp, không `EF BF BD`, `luaparse` OK như HEAD, chữ tiếng Việt ghi bằng escape `\ddd`. **Chưa thử trong game**: vào map 2–3 phút, ra, mở lại NPC phải thấy số phút giảm.

@@ -13,8 +13,52 @@ x990010_g_VangNgay = 2000        -- [NetCo4 30/09] vang khong khoa mien phi moi 
 x990010_g_VangDir = "./txt/NetCo4Web/"   -- trang thai <GUID>.vang = so ngay yyyymmdd
 x990010_g_VangKhoaNgay = 8000    -- [NetCo4 01/10] vang KHOA mien phi moi ngay (1 lan / nhan vat / ngay), them ngoai 2.000 vang khong khoa. Trang thai <GUID>.vangkhoa
 -- [NetCo4 30/09] Gio mo cua Hau Hoa Vien (scene 62/82/182). Mo tu HHV_Mo gio den truoc HHV_Dong gio. Mo=0, Dong=24 = mo ca ngay.
-x990010_g_HHV_Mo = 22    -- [02/10] mo 22:00 - 23:59 moi ngay (chu server chot, ca ngay mo server)
+x990010_g_HHV_Mo = 0     -- [07/10] mo 24/24, gioi han bang x990010_g_HHV_Giay (truoc: 22 - 24)
 x990010_g_HHV_Dong = 24
+-- [NetCo4 07/10] moi NHAN VAT chi o Hau Hoa Vien x990010_g_HHV_Giay giay / ngay (cong don, qua 0h lam moi), het -> ve Lac Duong.
+-- Trang thai <GUID>.hhv trong x990010_g_VangDir: ngay yyyymmdd / giay da o / lan quet cuoi / da bao. Doc + ghi file moi lan quet.
+x990010_g_HHV_Giay = 7200
+function x990010_HHV_Ngay()
+	return GetTodayYear() * 10000 + GetTodayMonth() * 100 + GetTodayDate()
+end
+function x990010_HHV_Doc( guid )
+	local today = x990010_HHV_Ngay()
+	local r = { ngay = today, giay = 0, last = 0, bao = 0 }
+	local h = openfile( x990010_g_VangDir..guid..".hhv", "r" )
+	if h then
+		local d = tonumber( read( h, "*l" ) or "" )
+		local g = tonumber( read( h, "*l" ) or "" )
+		local t = tonumber( read( h, "*l" ) or "" )
+		local b = tonumber( read( h, "*l" ) or "" )
+		closefile( h )
+		if d == today and g then
+			r.giay = g
+			if b then
+				r.bao = b
+			end
+		end
+		if t then
+			r.last = t
+		end
+	end
+	return r
+end
+function x990010_HHV_Ghi( guid, r )
+	local h = openfile( x990010_g_VangDir..guid..".hhv", "w" )
+	if h then
+		write( h, r.ngay.."\n"..r.giay.."\n"..r.last.."\n"..r.bao.."\n" )
+		closefile( h )
+	end
+end
+-- so giay con duoc o hom nay
+function x990010_HHV_ConLai( sceneId, selfId )
+	local r = x990010_HHV_Doc( LuaFnGetGUID( sceneId, selfId ) )
+	local c = x990010_g_HHV_Giay - r.giay
+	if c < 0 then
+		c = 0
+	end
+	return c
+end
 function x990010_HHV_DangMo()
 	local h = GetHour()
 	if h >= x990010_g_HHV_Mo and h < x990010_g_HHV_Dong then
@@ -207,7 +251,8 @@ if GetNumText() == 2000 then --danh hieu
           end
 				if GetNumText() == 600 then		
 			    BeginEvent( sceneId )
-				AddText(sceneId,"Map #cFF0000H§u Hoa Viên #Wm· cØa t× #Y"..x990010_g_HHV_Mo.."h#W ðªn #Y"..x990010_g_HHV_Dong.."h#W h¢ng ngày, #Wmap trian chü yªu r½i #GVäi Bông, Bí Ngân các loÕi, Nguyên Li®u Tinh Thông, Nguyên Li®u Ngû Hành Ng÷c, vàng khóa và vàng không không khóa!")
+				local nHHVPhut = floor( x990010_HHV_ConLai( sceneId, selfId ) / 60 )   -- [07/10]
+				AddText(sceneId,"Map #cFF0000H\167u Hoa Vi\234n #Wm\183 c\228 ng\224y, m\178i nh\226n v\167t \240\223\254c \183 #Y"..floor( x990010_g_HHV_Giay / 60 ).." ph\250t#W m\178i ng\224y (h\244m nay c\242n #Y"..nHHVPhut.." ph\250t#W, qua 0h l\224m m\190i). Map ch\252 y\170u r\189i #GV\228i B\244ng, B\237 Ng\226n c\225c lo\213i, Nguy\234n Li\174u Tinh Th\244ng, Nguy\234n Li\174u Ng\251 H\224nh Ng\247c, v\224ng kh\243a v\224 v\224ng kh\244ng kh\243a!")
 					AddNumText( sceneId, x990010_g_ScriptId, "Ði ðªn H§u Hoa Viên",9,601)
 					AddNumText( sceneId, x990010_g_ScriptId, " Quay lÕi",8,602)
 		    	EndEvent( sceneId )
@@ -217,6 +262,12 @@ if GetNumText() == 2000 then --danh hieu
 				x990010_NotifyFailBox( sceneId, selfId, targetId, "H§u Hoa Viên chï m· t× #Y"..x990010_g_HHV_Mo.."h#W ðªn #Y"..x990010_g_HHV_Dong.."h#W. Các hÕ quay lÕi sau nhé." )
 				return
 			end
+			local nHHVCon = x990010_HHV_ConLai( sceneId, selfId )   -- [07/10] 2 tieng / nhan vat / ngay
+			if nHHVCon <= 0 then
+				x990010_NotifyFailBox( sceneId, selfId, targetId, "H\244m nay c\225c h\213 \240\227 \183 H\167u Hoa Vi\234n \240\252 #Y"..floor( x990010_g_HHV_Giay / 60 ).." ph\250t#W. Qua 0h quay l\213i nh\233." )
+				return
+			end
+			x990010_NotifyTip( sceneId, selfId, "H\167u Hoa Vi\234n: h\244m nay c\242n "..floor( nHHVCon / 60 ).." ph\250t." )
 			CallScriptFunction((400900), "TransferFunc",sceneId, selfId, 182,50,50)			
 		end
 			    if GetNumText() == 602 then  
@@ -404,16 +455,35 @@ end
 function x990010_OnSceneTimer(sceneId)
 
 	local nHumanCount = LuaFnGetCopyScene_HumanCount(sceneId)
+	local now = LuaFnGetCurrentTime()
 	for i=0, nHumanCount-1 do
 		local nHumanId = LuaFnGetCopyScene_HumanObjId(sceneId, i)
 		if LuaFnIsObjValid(sceneId, nHumanId) == 1 and LuaFnIsCanDoScriptLogic(sceneId, nHumanId) == 1 and LuaFnIsCharacterLiving(sceneId, nHumanId) == 1  then
-		local nHour	 = GetHour()--Ð¡Ê±
-		local nQuarter = mod(GetQuarterTime(),100); 
 		if  x990010_HHV_DangMo() == 0 then -- [NetCo4 30/09] truoc: nHour < 20 or nHour > 22
-		x990010_NotifyTip( sceneId, nHumanId, "Th¶i gian m· cØa Map ðã hªt xin các hÕ lßþng thÑ " )
+		x990010_NotifyTip( sceneId, nHumanId, "Th\182i gian m\183 c\216a Map \240\227 h\170t xin c\225c h\213 l\223\254ng th\209 " )
 		CallScriptFunction((400900), "TransferFunc",sceneId, nHumanId, 0,198,325)
+		else
+			-- [NetCo4 07/10] dem gio o map (giay that), het x990010_g_HHV_Giay -> ve Lac Duong
+			local guid = LuaFnGetGUID( sceneId, nHumanId )
+			local r = x990010_HHV_Doc( guid )
+			local d = now - r.last
+			if r.last > 0 and d > 0 and d <= 10 then
+				r.giay = r.giay + d
+			end
+			r.last = now
+			local con = x990010_g_HHV_Giay - r.giay
+			if con <= 0 then
+				x990010_NotifyTip( sceneId, nHumanId, "H\170t th\182i gian \183 H\167u Hoa Vi\234n h\244m nay, \240\223a c\225c h\213 v\171 L\213c D\223\189ng. Qua 0h quay l\213i nh\233." )
+				CallScriptFunction((400900), "TransferFunc",sceneId, nHumanId, 0,198,325)
+			elseif con <= 60 and r.bao < 2 then
+				r.bao = 2
+				x990010_NotifyTip( sceneId, nHumanId, "H\167u Hoa Vi\234n: c\242n 1 ph\250t h\244m nay." )
+			elseif con <= 600 and r.bao < 1 then
+				r.bao = 1
+				x990010_NotifyTip( sceneId, nHumanId, "H\167u Hoa Vi\234n: c\242n 10 ph\250t h\244m nay." )
+			end
+			x990010_HHV_Ghi( guid, r )
 		end
-		
 		end
 	end
 
