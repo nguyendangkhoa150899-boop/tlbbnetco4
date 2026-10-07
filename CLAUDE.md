@@ -83,7 +83,7 @@ Repo có thể là public. Không commit `secrets.env`, `config.env`, `LoginInfo
 
 Xem `docs/PHAT-TRIEN.md`: cách đăng ký script, đặt NPC, bảng rơi đồ, tra ID vật phẩm (`docs/vat-pham/`), dialect Lua 4, và những gì **không làm được** (giao diện, vật phẩm mới hoàn toàn).
 
-**Đội bot "người giả" (07/10, đang thử ở Vô Lượng Sơn (176,172)):** 6 quái đội tên người (64601–64606, `NetCo4/botdoi.lua`, `.ai` 346–349, `wuliang_monster.ini`; dời đội = đổi `INI`/`GOC` trong tool), sinh bằng `tools/botdoi-07-10.js`; chỉ số chỉnh trong tool rồi `!!RELOADMONSTERATTR`. Chi tiết TRANG-THAI mục 07/10 khuya.
+**Đội bot "người giả" (07/10): ĐÃ GỠ khỏi `main` (prod) 07/10 23:5x, chỉ phát triển trên nhánh `local` + server test.** Bản prod dùng mã mới 64601–64606 bị TÀNG HÌNH (client không có mã quái mới trong bảng của nó) mà vẫn đánh chết người. Bản `local`: mã quái có sẵn 2068/2048/2198/2108/2028/2178, chiêu môn phái thật (mã mẫu SkillTemplate như boss script301/337/338), AI 33 không xích. Công cụ `tools/botdoi-07-10.js` (bản đúng nằm ở nhánh `local`). Chi tiết TRANG-THAI mục 07/10 khuya.
 
 **Boss / phó bản báo lỗi:** mở `docs/BOSS-PHO-BAN.md` trước (hồ sơ 17 phó bản, loại lỗi đã gặp, quy trình) và dùng `node tools/soat-boss/soat.js <ID script>`.
 

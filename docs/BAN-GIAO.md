@@ -79,7 +79,7 @@ Rollback: tag bialk `truoc-vigame-07-10` (= `b670996`, trước trang mới) ho�
 
 ## 6. Đã deploy nhưng CHƯA kiểm trong game
 
-- **Đội bot "người giả"** (07/10 khuya, cần restart): 6 bot mọc quanh (176, 172) Vô Lượng Sơn scene 6/73/74 (thử; định cuối là Hậu Hoa Viên), đánh người tới gần, Nga My hồi máu đồng đội, hồi sinh 3 phút. Kiểm 6 điểm ở TRANG-THAI mục đó; chỉ số là ước lượng, chỉnh `tools/botdoi-07-10.js` + `!!RELOADMONSTERATTR`.
+- **Đội bot "người giả":** đã GỠ khỏi `main` 07/10 23:5x (bản prod tàng hình mà vẫn đánh người). Đang làm trên nhánh `local` + server test. VPS cần `cap-nhat.sh` (không cần restart) để xóa file bot đã chép xuống đĩa.
 
 - **Thương Phố:**
   - rút 1 món 🔒 về: trong game còn "cố định" không;
