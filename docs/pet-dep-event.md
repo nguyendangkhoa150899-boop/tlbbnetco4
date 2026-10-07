@@ -127,3 +127,10 @@ Phát thẳng pet bảo bảo (hàng đợi `pet <ID>`, 4 con / lượt) cho bia
 30309812 Lượng Lượng Mã ("Tịnh Tịnh Mã"), 30309817 Phong Điểu, 30309836 Bàng Giải, 30309843 Tùng Thử - cả 4 là trứng cố định cấp mang 20 → **bán lại shop 219, 20.000** (đúng nhóm cột gốc), tư chất cả họ (16 ID) chép lại nguyên dòng gốc, bỏ khỏi món đích Ghép Ngọc + nhãn kiểu. Còn **51 con** trong trade (14 pet đẹp + 37 Cao Cấp), đều ⚫ TẮT.
 
 **Số đời biến dị** (ghi trên thẻ Ghép Ngọc 🧬, bot `DOI`): đếm ID biến dị cùng mã họ + tên ở cấp mang pet trứng ra. Bản 95: **8 đời**; cấp 20 và Chung Tiểu Hắc (5): 2; Chung Tiểu Hoa (45): 3; **Oa Hoàng Long Đế và Nguyên Nguyên: chỉ 1 đời** (bảng gốc của game - không thêm được đời vì client cần dòng pet tương ứng). Mỗi đời +500 cả 5 tư chất (tối đa +3500) → bản 95 đời 8 tổng tư chất 41.500, Oa Hoàng Long Đế tối đa 26.500. Lưu ý: bảng cũ (trước restart) 14 họ pet đẹp có biến dị **bằng y bảo bảo** - chủ server thấy "biến dị rất ít chỉ số" là do chưa restart.
+
+## Tư chất chuẩn 7000 / 3500 (07/10 tối, sau restart)
+
+Chủ server mở thử An Tử: tư chất 9765 / ~4750 (chuẩn 8000/4000 × hệ số 1.185–1.22). Engine nhân chuẩn với hệ số ngẫu nhiên **≥ 1.000** (`Server/Config/PetConfigTable.ini` ruler 0: bậc 0 `PerParam0-1` 1.000–1.035 xác suất 50%, bậc 1 25%, … bậc 9 1.357–1.404 0,1%; cả con bốc 1 bậc, từng chỉ số random trong bậc) → pet không bao giờ dưới chuẩn, cao nhất ~+40%. Chủ server hạ chuẩn **pet trade (51 con)** xuống **7000 chính / 3500 phụ** "cho cân bằng" (`tools/pet-tuchat-7000-07-10.js`, rollback tag `truoc-pet-tuchat-7000-07-10`, cần restart):
+- 14 họ pet đẹp mọi cấp + 37 họ Cao Cấp (cấp 85 giữ 6000/3000 - không trứng nào ra bản 85); biến dị đời k vẫn +500×k cả 5 chỉ số (tối đa +3500) → bản 95 đời 8: 10500 / 7000.
+- Từng chỉ số = max(**bảng gốc game** - tag `truoc-pet-dep-tuchat-07-10` / `truoc-pet-caocap-07-10`, mức mới) - so với bản gốc, không so với 8000/4000 trước đó.
+- Pet đã tạo (vd An Tử của bialk) giữ chỉ số lúc tạo.
