@@ -159,6 +159,24 @@ StandardImpact 793 "步步生花陷阱伤害" (logic 001 = sát thương trực 
   - Tẩy Chân Trùng Lâu: 1 Ma Huyết Thạch 30505813 + 100 vàng (nhánh 23). Bảng tẩy truyền "cần 13" nguyên liệu và hiện 80 vàng (`duihuanxitong.lua` menu 5500), server chỉ trừ 1 viên và 100 vàng. **Chưa đo:** client có đòi đủ 13 viên mới cho bấm không.
   - Lúc sửa: 4 nhân vật (1010100014 / 016 / 017 / 018) đều có Trùng Lâu Đai 10553106, chưa ai nâng.
 
+- **Soát toàn bộ Trùng Lâu 08/10** (so bản gốc `651afc2` / repo / prod; công cụ scratchpad `trunglau-audit/soat.js`, `con.js`):
+  - 20 dòng EquipBase, bộ 155 / 156, đoạn thuộc tính 100 / 4321: **giống gốc**, prod = repo.
+  - Hiệu ứng thần khí: giống gốc, **trừ 7506** (Phá Quân Trùng Lâu Đai) 15000 → 5000 ms, chủ server yêu cầu 01/10 (`9649d6b`, tag `truoc-trunglau-dai-01-10`).
+  - Số thật (tỉ lệ kích hoạt % khi đánh trúng / thời gian hiệu ứng con):
+
+    | Món | Thường | Chân |
+    |---|---|---|
+    | Giới cũ 10422016/018 (Vọng Nguyệt) | 3% / **20 giây** (tooltip ghi 15) | không có |
+    | Ngọc cũ 10423024/026 (Nghịch Thiên) | 3% / 20 giây | 10423025: **2%** / 20 giây (tooltip "tỉ lệ cao hơn" nhưng thật thấp hơn - lỗi dữ liệu gốc) |
+    | Liên 10553100 (Già Mục) | 2% / 5 giây | 10553103: 4% / 10 giây |
+    | Giới 10553101 (Vọng Nguyệt) | 2% / 5 giây | 10553104: 4% / 10 giây |
+    | Ngọc 10553102 (Nghịch Thiên) | 2% / 5 giây | 10553105: 4% / 10 giây |
+    | **Đai 10553106 (Phá Quân, bỏ qua phòng thủ)** | 3% / **5 giây** (gốc 15) | 10553107: **6% / 30 giây** (chưa nerf) |
+    | Vai 10553108 (giảm miễn) | miễn 15% | 10553109: 30% |
+    | Giáp 10553110 (phản đòn) | phản 15%, trần 150.000 | 10553111: 30%, trần 300.000 |
+
+  - **Lệch lớn nhất:** Đai thường đã nerf còn 5 giây, Chân Đai vẫn **30 giây** và tỉ lệ gấp đôi → nâng Đai lên Chân = Phá Quân ×6 thời gian ×2 tỉ lệ. Chờ chủ server quyết.
+
 ---
 
 ## 5. Tu luyện / tài nguyên
