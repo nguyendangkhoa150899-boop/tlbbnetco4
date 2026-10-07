@@ -234,10 +234,25 @@ local nam = LuaFnGetName(sceneId,selfId)
 	 end
 
 	if nNumText == 5000  then
-		BeginUICommand(sceneId)
-			UICommand_AddInt(sceneId,targetId)
-		EndUICommand(sceneId)
-		DispatchUICommand(sceneId,selfId,20150511)
+		-- [NetCo4 08/10] bang 20150511 cua client chi nhan Trung Lau Lien/Gioi/Ngoc (Dai/Vai/Giap khong keo vao duoc).
+		-- Dung bang chung 21090722 nhu menu 5500: nhan ID 10553100-10553114, 100 Thien Dia Huyen Tinh 39901012, goi 895111 nhanh 36 (WuhunMagicUp).
+		-- Ban cu: BeginUICommand / UICommand_AddInt(sceneId,targetId) / DispatchUICommand(sceneId,selfId,20150511). Rollback tag truoc-trunglau-ui-08-10
+		BeginUICommand( sceneId )
+		UICommand_AddInt( sceneId, selfId )
+		UICommand_AddInt( sceneId, 100 )
+		UICommand_AddInt( sceneId, 0 )
+		UICommand_AddInt( sceneId, 10553100 )
+		UICommand_AddInt( sceneId, 10553114 )
+		UICommand_AddInt( sceneId, 39901012 )
+		UICommand_AddString( sceneId, "#cFF0000Tr\249ng L\226u Th\229ng C\164p" )
+		UICommand_AddString( sceneId, "    #Y\208\163t Tr\249ng L\226u (Li\234n, Gi\190i, Ng\247c, \208ai, Vai, Gi\225p) v\224 100 Thi\234n \208\184a Huy\171n Tinh \240\172 n\226ng l\234n Ch\226n Tr\249ng L\226u. Gi\230 nguy\234n l\178, b\228o th\213ch, c\223\182ng h\243a." )
+		UICommand_AddString( sceneId, "#YTr\249ng L\226u:" )
+		UICommand_AddString( sceneId, "#YThi\234n \208\184a Huy\171n Tinh:" )
+		UICommand_AddString( sceneId, "WuhunMagicUp" )
+		UICommand_AddInt( sceneId, 895111 )
+		UICommand_AddInt( sceneId, 36 )
+		EndUICommand( sceneId )
+		DispatchUICommand( sceneId, selfId, 21090722 )
 		return
 	end
 
