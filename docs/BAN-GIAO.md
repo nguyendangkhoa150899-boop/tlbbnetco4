@@ -27,7 +27,7 @@ Chủ server nói tiếng Việt và muốn được trả lời bằng tiếng 
   - Bảng `Server/Config/*.txt` và `Public/Config/*.txt` cần restart game.
   - Panel GM chạy thẳng từ `/opt/tlbb-repo`, nên sau `cap-nhat.sh` phải chạy thêm `systemctl restart tlbb-panel` (script không tự restart panel).
 - **Câu "Restart server ngay?"**: trả lời `y` giờ đã an toàn. `tlbb.sh` gọi tay sẽ tự chuyển sang `systemctl`, có chốt `TLBB_TRUC_TIEP`. Nếu có người online thì trả lời `N` rồi hẹn giờ.
-- **Claude được chạy `systemctl restart tlbb` khi chủ server yêu cầu.** Trước khi chạy, đếm người online ở cổng 3731 và 7384. Sau khi chạy, kiểm cgroup.
+- **Claude được chạy `systemctl restart tlbb` khi chủ server yêu cầu.** Trước khi chạy, đếm người online: `ss -tn state established '( sport = :3731 )'` = **người đang TRONG GAME** (tiến trình `Server`, quan trọng nhất), cổng 7384 = người đang đăng nhập. Cộng cả hai phải bằng 0 mới gọi là "không ai online" (07/10 Claude đọc 7384 = 0 rồi báo nhầm "0 người" trong khi 3731 có 3). Sau khi chạy, kiểm cgroup.
 - **Bot: Claude được tự deploy.** Các bước:
   1. Lấy bản LF từ commit: `git show HEAD:BotDoMin/<file>`. Bản làm việc trên máy là CRLF.
   2. scp file lên `/tmp` của VPS, chạy `node --check`.
