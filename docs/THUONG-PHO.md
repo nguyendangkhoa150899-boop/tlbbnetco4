@@ -107,3 +107,11 @@ Bản mô phỏng chạy đúng `CDK.lua` bằng fengari, với API game giả, 
 ## Rủi ro còn lại
 
 Game xóa đồ trong RAM (ShareMemory) trước rồi mới ghi phiếu. Nếu ShareMemory sập trước khi kịp lưu xuống DB, nhân vật quay về bản cũ (còn đồ) mà phiếu đã ghi, tức là dup. KNB và ngọc 6 đang chịu cùng rủi ro này. Không `kill` game ngoài `systemctl`.
+
+## Rút qua Rương Ích Kỷ (08/10, bialk `f49df23`)
+
+- Chủ server: admin gắn ID món nào thì món đó được chuyển từ Thương Phố sang 🧰 Rương Ích Kỷ (từ rương: nhận vào game / tặng / Ghép Ngọc).
+- Admin: tab **🛠️ GM Thiên Long** → thẻ "🏪 Thương Phố → 🧰 Rương Ích Kỷ": nhập ID (nhiều ID cách dấu phẩy / khoảng trắng) → ➕ Thêm, ✕ để bỏ. Lưu ngay, không cần restart. Route `/api/tpik/state`, `/api/tpik/save` (chỉ SUPER, có trong `VIEWONLY_PATHS`). Dữ liệu `dbCache._tpCfg.ik`; trống = không món nào.
+- Người chơi: túi bên phải có 2 nút **🎮 Rút vào game / 🧰 Qua Rương Ích Kỷ** (chỉ hiện khi admin đã gắn ít nhất 1 món). Chế độ rương: kho bên trái CHỈ hiện món được phép và không cố định; xác nhận gọi `POST /api/tp/ik` → `thuongpho.js rutIk()`: trừ kho `<id>|0`, `ctx.ichKyAdd` cộng thẳng vào rương (không qua game, không cần online), lịch sử loại `ik`.
+- **Đồ 🔒 cố định không bao giờ qua rương** (rương tặng / Ghép Ngọc được → thành đường gỡ khoá). Ví clone bị chặn ở cổng clone của `webplay.js` (route không nằm trong danh sách chừa).
+- Kinh tế: món đưa vào danh sách trở thành đồ giao dịch được trên web. Nếu món đó cũng là "đồ vào" của Ghép Ngọc thì đồ farm trong game đổi được thành món đích - cân nhắc trước khi gắn.
