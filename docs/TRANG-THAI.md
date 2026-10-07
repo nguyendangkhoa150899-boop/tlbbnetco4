@@ -1449,3 +1449,7 @@ Trạng thái 16:30 05/10: mọi thứ **đã commit, push, deploy**. **Game CH�
 - Ghép Ngọc `vao.rieng` 20 món = **1.000 KNB** (chủ server định 2.000, chốt 1.000 sau khi thấy kệ game **#217** bán 11 món 30120001–010 + 016 giá **1.000 KNB** (đơn vị 5 = KNB). 2.000 = mua kệ game bỏ vào Ghép Ngọc lời gấp đôi). Dòng kệ ghi `#217` (có `#`), chưa kiểm kệ còn mở trong game không; giá 1.000 thì không lách được dù kệ mở.
 - Thương Phố → Rương Ích Kỷ: 158 → **178 món** (20 món này, cả 20 NPC Ví Web cho chuyển).
 - Kiểm: cấu hình Ghép Ngọc sau = trước + đúng 20 dòng, không cảnh báo giá. Sao lưu `/opt/tlbb-backup/gncfg-truoc-dieuvan-202610071754.json`, `tpik-truoc-dieuvan-202610071754.json` (giờ UTC). Admin đang mở tab Ghép Ngọc / GM từ trước thì F5 trước khi bấm Lưu.
+
+### 08/10 - Trùng Lâu Thăng Cấp: Đai / Vai / Giáp không kéo vào ô được → đổi bảng giao diện (game `ffe02f7`, tag `truoc-trunglau-ui-08-10`)
+- Menu 5000 của NPC Tuyết Phi Phi (112000) mở bảng client 20150511: client tự lọc, chỉ nhận Trùng Lâu Liên / Giới / Ngọc. bialk cầm Trùng Lâu Đai 10553106 (đang đeo) → không kéo vào được dù server có cho nâng.
+- Đổi sang bảng chung 21090722 (như menu 5500 tẩy): server truyền ID 10553100–10553114, 100 × 39901012, gọi `x895111_WuhunMagicUp` nhánh 36. Lua, có hiệu lực sau cap-nhat, không restart. **Chưa thử trong game** (server test đã tắt theo chủ server). Chi tiết: `docs/CAN-BANG.md` mục 4.

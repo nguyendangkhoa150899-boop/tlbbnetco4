@@ -151,6 +151,13 @@ StandardImpact 793 "步步生花陷阱伤害" (logic 001 = sát thương trực 
   - Chỉ món tạo sau restart mới là C9.
   - Tag `truoc-thucuoi-c9-07-10`.
 
+- **Trùng Lâu → Chân Trùng Lâu (08/10):** NPC Tuyết Phi Phi (Lạc Dương 218,318, script 112000 `MyNew/duihuanxitong.lua`).
+  - Server (`wuyazi85o.lua` 895111 nhánh 36) nhận 10553100 / 101 / 102 (Liên / Giới / Ngọc), 106 (Đai), 108 (Vai), 110 (Giáp), 112–114. Trừ **100** Thiên Địa Huyền Tinh 39901012, không tốn vàng. Giữ lỗ, đá, cường hóa, người chế, khóa, ràng buộc; xóa món cũ.
+  - Bảng client cũ 20150511 chỉ nhận Liên / Giới / Ngọc và ghi "800 cái" → Đai / Vai / Giáp không kéo vào được. 08/10 đổi sang bảng chung 21090722 (game `ffe02f7`, tag `truoc-trunglau-ui-08-10`).
+  - **Huyền Tinh chỉ admin phát** (gỡ khỏi shop kệ 212 ngày 08/10, tag `truoc-go-huyentinh-08-10`). Còn Rương Thiên Tam Thần 1/5 mỗi lần mở (chìa 100.000 KNB).
+  - Tẩy Chân Trùng Lâu: 1 Ma Huyết Thạch 30505813 + 100 vàng (nhánh 23). Bảng tẩy truyền "cần 13" nguyên liệu và hiện 80 vàng (`duihuanxitong.lua` menu 5500), server chỉ trừ 1 viên và 100 vàng. **Chưa đo:** client có đòi đủ 13 viên mới cho bấm không.
+  - Lúc sửa: 4 nhân vật (1010100014 / 016 / 017 / 018) đều có Trùng Lâu Đai 10553106, chưa ai nâng.
+
 ---
 
 ## 5. Tu luyện / tài nguyên
