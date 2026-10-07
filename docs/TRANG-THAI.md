@@ -1432,3 +1432,6 @@ Trạng thái 16:30 05/10: mọi thứ **đã commit, push, deploy**. **Game CH�
 
 ### 08/10 00:06 - Thương Phố: rút qua Rương Ích Kỷ (bialk `f49df23`, ĐÃ lên VPS + restart minigame)
 - Chi tiết `docs/THUONG-PHO.md` mục "Rút qua Rương Ích Kỷ". Danh sách món đang TRỐNG - chủ server tự gắn ID ở tab 🛠️ GM Thiên Long. Thử trên bot giả: món chưa phép / đồ khoá / quá số đều bị chặn, món phép ×12 → kho −12, rương +12; clone 403; cổng mod 403. Sao lưu `/opt/tlbb-backup/bot-truoc-tpik-20261008-0006`, tag `truoc-tp-ik-08-10`.
+
+### 08/10 - NPC Quách Kiến An: đục lỗ 4 Free CHỈ Long Văn (game `12cc1a2`, tag `truoc-lo4-longvan-08-10`)
+- Bật lại menu 2021 (tắt 03/10 ở `32b98cf`) với nhãn "Đục lỗ 4 Long Văn (Free)"; `x000110_yiqianaddbiaoshi1` chỉ còn loại trang bị 18 (Long Văn), bỏ 9 Lệnh Bài / 10 Võ Hồn / 17 Ám Khí. Đục đủ 3 + lỗ 4 cho MỌI Long Văn trong túi, dừng nếu gặp món khoá mật khẩu (code gốc). Chủ server đã thử trên server local OK. Lua NPC, cap-nhat là có, không cần restart.
