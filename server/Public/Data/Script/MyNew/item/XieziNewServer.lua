@@ -406,7 +406,7 @@ end
 function  x070052_DaRenGift(sceneId,selfId,index)
 
 local  DarenGift  =  {}
-            DarenGift[1]  =  {20310110,30309831,10125019,30308059,38000187}--{38000497,30309831,10125019,30308059}
+            DarenGift[1]  =  {20310110,10125019,30308059,38000187}--{38000497,30309831,10125019,30308059}
             DarenGift[2]  =  {38000531,38001107,38001099,31000100}--{38000531,38001107,38001099,31000100}
             DarenGift[3]  =  {38000396,38000399,38000396,38000399}--{38000398,38000401,10156100,10156200}
             DarenGift[4]  =  {39910002,30505907,30503185,38001103}--{39910004,30505907,30503185,38001103}   
@@ -426,7 +426,7 @@ local  DarenGift  =  {}
                 return
           elseif  mod(DaRenCK,10)  ==  1  then
                SetMissionData(sceneId,selfId,MF_GetNewUserCard2,DaRenCK+1)
-                for  i  =  1,5  do
+                for  i  =  1,getn(DarenGift[index])  do
                         TryRecieveItem(sceneId,selfId,DarenGift[index][i],1)
                end
                 x070052_Tips(sceneId,selfId," thành công nh§n l¤y kªt hôn tß·ng thß·ng ! ")
