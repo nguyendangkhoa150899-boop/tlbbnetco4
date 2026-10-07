@@ -1402,3 +1402,14 @@ Trạng thái 16:30 05/10: mọi thứ **đã commit, push, deploy**. **Game CH�
 - Giới hạn cố hữu: không mặc trang bị / không hiện đồ, không exp, không nhặt đồ, không đi bản đồ khác, không farm quái (cùng phe 9). Muốn farm quái phải thử `SetMonsterFightWithNpcFlag` + camp riêng.
 - **Đổi chỗ thử (chủ server, ngay sau đó): đội bot sang VÔ LƯỢNG SƠN** (`wuliang_monster.ini`, scene 6/73/74, giữa khu farm Võ Ý quanh **(176, 172)**); `newbie_2_monster.ini` trả về như cũ (tool có `INI`/`GOC`/`INI_CU`: đổi 2 hằng là dời đội, ini cũ tự dọn). Bot phe 9 không đánh quái Võ Ý (cùng phe); người farm tới gần 10 m là bị cả đội đánh.
 - **Chủ server thêm:** mỗi bot +300k máu (540/600/520/680k) và công băng/hỏa/huyền/độc = 5000 mỗi hệ (cột 30/33/36/39; thủ hệ giữ 60). Sửa lỗi tool: guid khối ini cố định 95000201–06 (trước tính theo số khối nên chạy lại bị nối đôi).
+
+### 07/10 22:23 - Ví CLONE (bialk `e346837`, ĐÃ lên VPS + restart minigame)
+- Chủ server: tài khoản clone (nhân vật phụ) chỉ được dùng **đúng 🏪 Thương Phố của nhân vật đó**, không nhận túi boss.
+- Admin: tab 🐉 Thiên Long & KNB → cột **🧬 Clone**, tích là lưu ngay (`/api/tlbb/lienket` nhận `clone: true/false`; không gửi = giữ nguyên). Chưa liên kết thì không tích được; hủy liên kết thì mất cờ. Cờ lưu ở `userData.clone`.
+- Chặn 3 tầng, giống chưa liên kết:
+  - web `webplay.js`: ví clone chỉ qua `/api/state`, `/api/tp/state`, `/api/tp/rut`, `/api/logout` (danh sách CHỪA - route mới tự bị chặn), còn lại 403 `{clone:true}`. `/api/state` trả `clone` → client thêm class `cloneMode` (ẩn nav, chat, nợ/taxi, nút Mật khẩu, popup) và mọi `go()` về trang `tp`; nhớ qua F5 bằng `localStorage.play_clone`, Thoát thì xóa, admin bỏ tích thì trang tự tải lại.
+  - Discord `interactionCreate`: chỉ `/sodu` + nút PIN web.
+  - `lienKetGuard()` (chuyển tiền, điểm danh…) trả `CLONE_MSG`.
+- Túi boss: `tuiboss.js poll()` bỏ qua GUID của ví clone (không tạo túi). Túi tạo trước khi tích clone vẫn còn nhưng không nhận được (API bị chặn), 7 ngày tự hết hạn.
+- KHÔNG chặn: NPC Ví Web trong game chuyển KNB game → web của nhân vật clone vẫn cộng vào ví clone (ví không tiêu được gì; chặn thì KNB trong game đã trừ sẽ mất). Đổi mật khẩu web của clone: admin làm (nút Mật khẩu bị ẩn/chặn).
+- Đã thử: bot giả (`thu/bot-gia`) với DB giả 1 ví thường + 1 ví clone - 9 API hành động: thường qua, clone 403; panel tích/hủy đúng; `tuiboss.poll` thường + chưa liên kết có túi, clone không. Sao lưu VPS `/opt/tlbb-backup/bot-truoc-clone-20261007-2223`. Rollback tag bialk `truoc-clone-07-10`.
