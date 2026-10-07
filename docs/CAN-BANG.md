@@ -177,6 +177,8 @@ StandardImpact 793 "步步生花陷阱伤害" (logic 001 = sát thương trực 
 
   - **Lệch lớn nhất:** Đai thường đã nerf còn 5 giây, Chân Đai vẫn **30 giây** và tỉ lệ gấp đôi → nâng Đai lên Chân = Phá Quân ×6 thời gian ×2 tỉ lệ. Chờ chủ server quyết.
 
+- **Từ 08/10 chỉnh Trùng Lâu dòng mới qua trang admin 🐉 Custom Trùng Lâu** (dòng, điểm, tỉ lệ, thời gian): `docs/TRUNG-LAU-CUSTOM.md`. Số trong bảng trên là bản gốc; số đang chạy xem trên trang.
+
 ---
 
 ## 5. Tu luyện / tài nguyên

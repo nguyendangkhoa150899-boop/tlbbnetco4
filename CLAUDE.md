@@ -2,6 +2,7 @@
 
 Đọc hết file này trước khi sửa bất cứ thứ gì. Các quy tắc ở đây có từ những lỗi đã gặp thật.
 **Tiến độ, việc tiếp theo, những gì chưa kiểm chứng: `docs/TRANG-THAI.md`.** Cập nhật file đó mỗi khi xong một việc.
+**Custom Trùng Lâu (trang admin, dòng / điểm / tỉ lệ / thời gian, ai đang giữ): `docs/TRUNG-LAU-CUSTOM.md`.**
 **Cân bằng gameplay (chiêu, boss, tỉ lệ chế, trang bị, nhịp hoạt động): `docs/CAN-BANG.md`.** Đọc trước khi chỉnh sức mạnh; mỗi lần đổi cân bằng phải ghi vào đó (trước → sau, file/dòng, tag, "chưa đo").
 **Bàn giao gần nhất (06/10): `docs/BAN-GIAO.md`** — trạng thái deploy, việc chờ chủ server quyết, thứ chưa kiểm trong game, quyền của Claude (KHÔNG chạy được `cap-nhat.sh`; được `systemctl restart tlbb` khi chủ server bảo).
 

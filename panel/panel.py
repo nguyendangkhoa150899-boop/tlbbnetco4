@@ -20,6 +20,7 @@ from urllib.parse import parse_qs, urlencode, urlparse
 
 import maudoche   # 02/10: mau do che 8x/9x (panel/maudoche.py)
 import amkhi      # 04/10: trong so tay 3 dong am khi (panel/amkhi.py)
+import trunglau   # 08/10: custom Trung Lau dong moi (panel/trunglau.py)
 
 HOST, PORT = "0.0.0.0", 8443         # HTTPS, mo ra internet (ufw allow 8443), bat buoc dang nhap
 PUBLIC_IP = "103.216.118.123"
@@ -961,6 +962,45 @@ class H(BaseHTTPRequestHandler):
                 if qs.get("all") == ["1"]:  # ca danh muc cho bot mini game (shop item / qua moi ngay)
                     return self._json({"ok": True, "items": [{"id": i, "name": n, "kind": k} for i, n, k in ITEMS]})
                 return self._json({"ok": True, "items": api_items(qs.get("q", [""])[0])})
+            if method == "GET" and u.path == "/api/trunglau":   # 08/10: custom Trung Lau (dong, diem, hieu ung) - doc
+                return self._json({"ok": True, "data": trunglau.du_lieu(), "online": online_count()})
+            if method == "GET" and u.path == "/api/trunglau/giu":   # 08/10: ai dang giu / dang mac Trung Lau dong moi (doc DB)
+                return self._json({"ok": True, "giu": trunglau.nguoi_giu(sql, viscii)})
+            if method == "POST" and u.path == "/api/trunglau":   # 08/10: ghi cau hinh Trung Lau (bot chi goi tu cong SUPER)
+                n = int(self.headers.get("Content-Length", 0) or 0)
+                if n > 40000:
+                    return self._json({"ok": False, "error": "du lieu qua lon"}, 413)
+                b = json.loads(self.rfile.read(n).decode("utf-8", "replace") or "{}")
+                op, ai = str(b.get("op", "")), str(b.get("ai", ""))[:60]
+                if op == "mon":
+                    id_ = str(b.get("id", ""))
+                    try:
+                        m = {"dong": [int(k) for k in b.get("dong") or []], "diem": {str(int(k)): int(v) for k, v in (b.get("diem") or {}).items()}}
+                    except (TypeError, ValueError):
+                        return self._json({"ok": False, "error": "Dữ liệu dòng / điểm không hợp lệ"})
+                    ok, msg = trunglau.luu_mon(id_, m, ai)
+                elif op == "xoa":
+                    ok, msg = trunglau.luu_mon(str(b.get("id", "")), None, ai)
+                elif op == "hu":
+                    try:
+                        hu = {str(h): {str(k): int(v) for k, v in (t or {}).items()} for h, t in (b.get("hu") or {}).items()}
+                    except (TypeError, ValueError, AttributeError):
+                        return self._json({"ok": False, "error": "Dữ liệu hiệu ứng không hợp lệ"})
+                    ok, msg = trunglau.luu_hu(hu, ai)
+                elif op == "tra":
+                    ok, msg = trunglau.tra_tat_ca()
+                elif op == "restart":
+                    ok, msg = True, "Restart theo yeu cau trang Trung Lau"
+                else:
+                    return self._json({"ok": False, "error": "op khong hop le"})
+                if not ok:
+                    return self._json({"ok": False, "error": msg})
+                rs = op == "restart" or b.get("restart") is True
+                audit("trung lau [%s] %s: %s%s (online: %d)" % (ai, op, msg, ", restart" if rs else "", online_count()))
+                if rs:
+                    restart_game()
+                    msg += " Dang restart server (khoang 3 phut)."
+                return self._json({"ok": True, "msg": msg, "data": trunglau.du_lieu()})
             if method == "POST" and u.path == "/api/act":
                 n = int(self.headers.get("Content-Length", 0) or 0)
                 form = json.loads(self.rfile.read(min(n, 10000)).decode("utf-8", "replace") or "{}")

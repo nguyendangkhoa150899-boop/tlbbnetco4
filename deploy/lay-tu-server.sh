@@ -10,6 +10,10 @@ need_root
 REPO="$(cd "$DEPLOY_DIR/.." && pwd)"
 mkdir -p "$REPO/server"
 rsync -rlt --delete --filter="merge $DEPLOY_DIR/dong-bo.list" "$ROOT/home/tlbb/" "$REPO/server/"
+# 08/10: cau hinh Trung Lau admin ap tren web (panel/trunglau.py) KHONG duoc lot vao repo -> tra phan do ve ban git HEAD
+if [ -s "$ROOT/home/tlbb/Server/txt/NetCo4Cfg/trunglau.json" ]; then
+    log "Trung Lau: $(python3 "$REPO/panel/trunglau.py" --go-khoi-repo 2>&1 | tail -1)"
+fi
 git -C "$REPO" add -A server
 git -C "$REPO" status --short server | head -30
 n=$(git -C "$REPO" status --short server | wc -l)
