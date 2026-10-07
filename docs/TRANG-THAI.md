@@ -1444,3 +1444,8 @@ Trạng thái 16:30 05/10: mọi thứ **đã commit, push, deploy**. **Game CH�
 - Cơ chế: SkillData 3470–3481 (cấp 1–12) → StandardImpact 790 (30 giây, mỗi 3 giây) → 777 → script 808230 `MyNew/Skill/Bubushenghua.lua` đặt bẫy SpecialObj 151/231/331 (152/232/332) → sát thương = **StandardImpact 793** (logic 001, giống Phá Thiên Thức). Số trong mô tả chiêu (`{A:141..1526 B:10}`) chỉ là chữ của client: server dùng 793 cho mọi cấp.
 - 793: `5030 / 10` → `20120 / 40` (×4 cả sát thương cố định lẫn hệ số). Dòng 9169 Đại Tần Phong Đích chỉ dùng 793 làm hình ảnh, không đổi.
 - Hồi chiêu: SkillData_V1 3470–3481 cột 7 `120000` → `50000`. Mô tả trong client vẫn ghi 120 giây (client có bảng riêng, không sửa được). **Chưa kiểm trong game:** client có tự chặn theo 120 giây của nó không, và sát thương thật có ×4 không (xem số nhảy trước / sau). Đã nạp lên server test; bảng .txt nên prod cần restart.
+
+### 08/10 00:54 - Điêu Văn Đồ Dạng 30120001–30120020: Ghép Ngọc giá 1.000 + rút qua Rương Ích Kỷ (cấu hình bot, API SUPER)
+- Ghép Ngọc `vao.rieng` 20 món = **1.000 KNB** (chủ server định 2.000, chốt 1.000 sau khi thấy kệ game **#217** bán 11 món 30120001–010 + 016 giá **1.000 KNB** (đơn vị 5 = KNB). 2.000 = mua kệ game bỏ vào Ghép Ngọc lời gấp đôi). Dòng kệ ghi `#217` (có `#`), chưa kiểm kệ còn mở trong game không; giá 1.000 thì không lách được dù kệ mở.
+- Thương Phố → Rương Ích Kỷ: 158 → **178 món** (20 món này, cả 20 NPC Ví Web cho chuyển).
+- Kiểm: cấu hình Ghép Ngọc sau = trước + đúng 20 dòng, không cảnh báo giá. Sao lưu `/opt/tlbb-backup/gncfg-truoc-dieuvan-202610071754.json`, `tpik-truoc-dieuvan-202610071754.json` (giờ UTC). Admin đang mở tab Ghép Ngọc / GM từ trước thì F5 trước khi bấm Lưu.
