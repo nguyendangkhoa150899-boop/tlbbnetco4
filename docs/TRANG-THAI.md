@@ -1348,8 +1348,8 @@ Trạng thái 16:30 05/10: mọi thứ **đã commit, push, deploy**. **Game CH�
 - **Mã Tràng Thủ Vệ 11469** (Mv 30; cùng ID ở Hạn Huyết Lĩnh + Thông Thiên Tháp nên đổi hộp là cả 3 map):
   - hộp 86000: chỉ còn Miên Bố 8 / Bí Ngân 8, tổng **2%** (trước: cấp 5–8, tổng 17%), BV 350 → 3000;
   - hộp 86003: Huyền Ky Dược Trần 6% / Thương Hạc 3% / Chí Tôn 3% (giữ), **Tử Vi Linh Phách 3% → 2%**; 14 ô × 1%, BV 400 → 429;
-  - `roimap.lua` Hậu Hoa Viên 62/82/182: Chí Tôn Cường Hóa Tinh Hoa 30% → **17%** (+3% hộp = **20%**). Xích Tiêu cùng map nên cũng 17%;
-  - `newbie_2_monster.ini`: 67 điểm 11469 hồi sinh **5 → 10 → 15 → 18 giây** (chỉ Hậu Hoa Viên; 18 giây chốt sau cùng ngày 07/10 sau khi đo 6 người cày 1,5 tiếng ra ~1.850 Chí Tôn; tag `truoc-hhv-18s-07-10`).
+  - `roimap.lua` Hậu Hoa Viên 62/82/182: Chí Tôn Cường Hóa Tinh Hoa 30% → 17% → **12%** (+3% hộp = **15%**; 15% chốt sau cùng 07/10, tag `truoc-hhv-15pct-07-10`). Đo 11:51–13:20 với bản 20%: 20,1% (6 người, ~1.850 Chí Tôn / 1,5 tiếng). Max xuyên thích cấp 49→99 cần ~1.125 Chí Tôn (`MyLua/chuanci/equip_enchance.lua`: mỗi thất bại +100/bảo hiểm %). Xích Tiêu cùng map nên cũng 17%;
+  - `newbie_2_monster.ini`: 67 điểm 11469 hồi sinh **5 → 10 → 15 giây** (chỉ Hậu Hoa Viên; có lúc đặt 18 giây nhưng chưa lên game, chủ server chốt lại 15 giây).
 - **Xích Tiêu Hỏa Hồn 1375** (Mv 90): hộp ngọc 90081 (A+B 20%, dùng chung 19 quái MND/Vân Phủ… nên KHÔNG sửa) → hộp mới **90097 = chỉ túi B, 50%** (BV 360, sao 90080). Không còn ngọc túi A (thuộc tính / thể lực / né / chính xác).
 - Mã Tràng cấp **110**, người chơi khóa 89 (chênh 21). Nếu game có trừ rơi khi quái cao hơn người (`DropAttenuation`, chiều này chưa đo được) thì hộp còn ~×0,5; script Lua không bị trừ.
 - Kiểm: byte > 0x7f / CR / LF khớp HEAD (DropBoxContent +1 dòng), không `EF BF BD`; trang Bảng Rơi dựng lại ra đúng số.
