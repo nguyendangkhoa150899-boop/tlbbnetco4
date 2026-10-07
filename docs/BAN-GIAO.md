@@ -17,7 +17,7 @@ Chủ server nói tiếng Việt và muốn được trả lời bằng tiếng 
 | **Game** | Chạy từ 07/10 **01:37**, đủ 6 tiến trình trong `tlbb.service`. Đã có: đồ chế VL8 C8 65% / C9 35%, thú cưỡi 10141214 C9, Sát Tinh −60% máu / −30% công, Lâu Lan Tầm Bảo 24/24, Tiền Trang tối đa 60 ô. Khóa cấp **89**, exp **×5**. Hai số này nằm trong `NetCo4Cfg/capmax.txt` và `expparam.txt`; `cap-nhat.sh` tự áp lại. |
 | **Repo game** (`tlbbnetco4`) | VPS đã deploy **`aba2f44`** (07/10). Mọi file game khớp repo (đã kiểm 07/10). Các commit sau đó chỉ là docs. |
 | **Panel GM** (`panel/panel.py`, 8443) | Restart 14:36, đã có bản sửa tên nhân vật. Tên hiện đúng: ÁnhDương / HuyềnSát / HỏaThần. |
-| **Bot** (`bialk`, `/opt/minigame/BotDoMin`) | VPS chạy **bản trộn**: `8a7d86a` (dọn Palworld đợt 1) + vá tay vòng quay (`5ae6c04`) + chèn `/ik.js` (Rương Ích Kỷ kiểu mới `b670996`); `ghepngoc.client.js` = `b2b663d`; `panel.js` = `8a7d86a`; `palworld.js` vẫn còn. **Đợt 2 (`a5a109c`) CHƯA deploy.** Đã kiểm 07/10: mọi dòng vá tay trên VPS đều có trong HEAD, nên deploy HEAD là đủ, xem mục 3. |
+| **Bot** (`bialk`, `/opt/minigame/BotDoMin`) | VPS = **HEAD `de571c2`** (deploy 07/10 11:15, gồm dọn Palworld đợt 2 + trang Cá nhân/header/Shop mới). `palworld.js` đã gỡ khỏi VPS. md5 (LF): `index.js` `f099b565`, `webplay.js` `bf45ad22`, `panel.js` `e2d19cb4`, `shop.client.js` `184733f0`, `vigame.client.js` `73d75a54`, `ichky.client.js` `652923a4`, `tuiboss.client.js` `28103d2c`. Sao lưu bản trước: `/opt/tlbb-backup/bot-truoc-de571c2-20261007-111511` (có cả `database.json`, `palworld.js`). |
 | **netco4.click** | Dựng lần cuối 05/10 khuya. Chiều nay không đổi tỉ lệ rơi nên không cần dựng lại. |
 
 ## 2. Quyền và cách deploy (quan trọng)
@@ -35,30 +35,20 @@ Chủ server nói tiếng Việt và muốn được trả lời bằng tiếng 
   4. `systemctl list-jobs | grep -c tlbb` phải bằng 0. Nếu game đang restart mà restart bot thì mọi web chết theo.
   5. Sao lưu file cũ vào `/opt/tlbb-backup/…`, chép file mới, `systemctl restart minigame`.
   6. Xem `journalctl -u minigame` và curl các cổng 3002 / 1234.
-  - File client (`/tp.js`, `/tb.js`, `/gn.js`, `/br.js`) được đọc lại mỗi lần tải trang, chỉ cần chép file, không cần restart.
+  - File client (`/tp.js`, `/tb.js`, `/gn.js`, `/br.js`, `/ik.js`, `/vg.js`, `/sh.js`) được đọc lại mỗi lần tải trang, chỉ cần chép file, không cần restart.
 - **Đổi cấu hình bot:** gọi API cổng SUPER bằng script chạy trên VPS. Script đọc `PANEL_SUPER_PASSWORD` từ `.env` và **không in ra**. Mẫu: lần sửa túi boss 06/10. Không sửa `database.json` khi bot đang chạy. Nếu bắt buộc phải sửa: dừng bot, sao lưu, sửa, chạy lại (mẫu: lần gỡ ngọc test 06/10).
 - Có người khác (hoặc chủ server lúc khuya) deploy qua OneDash ngay sau khi Claude push repo game. **Mỗi lần push repo game, coi như code có thể lên game bất cứ lúc nào.**
 
-## 3. VIỆC ĐẦU TIÊN: deploy bot HEAD (gồm dọn Palworld đợt 2 `a5a109c` + vòng quay + Rương Ích Kỷ mới)
+## 3. Bot HEAD `de571c2` ĐÃ DEPLOY 07/10 11:15 (dọn Palworld đợt 2 + trang Cá nhân / header / Shop Item mới)
 
-Đã kiểm kỹ trên máy:
-- `node --check` và eslint `no-undef` không lỗi;
-- mọi `ctx.X` của web / panel đều còn trong `index.js`;
-- chạy bot với `discord.js` giả (repo bot `BotDoMin/thu/bot-gia/`): 0 lỗi;
-- database mới chạy 2 lần thì shop vẫn rỗng;
-- test repo khớp bản gốc.
+Trước khi deploy đã kiểm: mọi dòng vá tay trên VPS (bản trộn `8a7d86a` + vòng quay + `/ik.js`) đều có trong git; `node --check` trên VPS; bot thử với data thật của bialk (`BotDoMin/thu/bot-gia/`) bấm qua mọi tab ở PC + điện thoại: 0 lỗi JS. Sau deploy: log 0 lỗi, `play` / `admin` / `mod` trả 200, `/vg.js` `/sh.js` `/ik.js` `/tb.js` đều 200.
 
-Chưa deploy vì chủ server vắng nhà. Các bước:
-1. Hỏi chủ server có muốn deploy không.
-2. Deploy 3 file `index.js`, `webplay.js`, `panel.js` theo mục 2. Trên VPS **xóa thêm `BotDoMin/palworld.js`** (đợt 2 không còn `require` nó, file trên VPS vẫn còn).
-3. md5 trên VPS (07/10 sáng, bản trộn): `index.js` = `8c9dc182…`, `webplay.js` = `31d64bdc…`, `panel.js` = `6a02834c…` (= `8a7d86a`). Khác thì có người vừa sửa thêm, kiểm lại trước. Các file `vongquay.js`, `ichky.client.js`, `ghepngoc.client.js` trên VPS đã bằng HEAD.
-4. Sau deploy, kiểm:
-   - panel SUPER: tab **🐉 Thiên Long & KNB** (id mới `tlbb`), lưu liên kết nhân vật (route mới `/api/tlbb/lienket`);
-   - trang Chuyển/Rút của người chơi: không còn thẻ nạp;
-   - thẻ nợ ghi đúng luật;
-   - shop mua thử 1 món bình thường và 1 món nhóm **🔥 Hàng giới hạn** (hạn mỗi ngày phải còn chạy).
+**Còn cần chủ server bấm thử trên prod** (chưa ai kiểm bằng tài khoản thật):
+- panel SUPER: tab **🐉 Thiên Long & KNB** (id mới `tlbb`), lưu liên kết nhân vật (route mới `/api/tlbb/lienket`);
+- Shop Item mới: mua thử 1 món vào rương, 1 món vào game, 1 món nhóm **🔥 Hàng giới hạn** (hạn mỗi ngày phải còn chạy);
+- Ví: rút KNB / đổi vàng 1 lần nhỏ; popup 🔑 Mật khẩu.
 
-Rollback: tag `truoc-don-palworld-dot2-06-10`, hoặc thư mục sao lưu tạo lúc deploy.
+Rollback: tag bialk `truoc-vigame-07-10` (= `b670996`, trước trang mới) hoặc `truoc-don-palworld-dot2-06-10`; nhanh nhất là chép lại thư mục sao lưu `/opt/tlbb-backup/bot-truoc-de571c2-20261007-111511` (kể cả `palworld.js.go-khoi-vps` → `palworld.js`) rồi `systemctl restart minigame`.
 
 ## 4. Việc đã làm ngày 06/10 (chi tiết trong TRANG-THAI)
 
@@ -70,13 +60,14 @@ Rollback: tag `truoc-don-palworld-dot2-06-10`, hoặc thư mục sao lưu tạo 
 | Rương Ích Kỷ: bỏ Bán (ép đi Ghép Ngọc); phiếu KNB chỉ còn nút Sử dụng (cộng thẳng KNB web) | bot `707b520` |
 | Tên nhân vật bị MySQL mã hóa 2 lần (VISCII → UTF-8): sửa giải mã ở panel GM và bot, bot tự đồng bộ tên theo GUID | `panel.py viscii()`, `tlbb.js viscii()` |
 | Bỏ mọi `confirm()` của trình duyệt trên trang người chơi; dùng `gConfirm` | bot `01eb3f8` |
-| Dọn Palworld: đợt 1 (−2.900 dòng, **đã deploy**), đợt 2 (**chưa deploy**) | bot `8a7d86a`, `a5a109c` |
+| Dọn Palworld: đợt 1 (−2.900 dòng) và đợt 2, **cả hai đã deploy** (đợt 2 lên cùng `de571c2` ngày 07/10) | bot `8a7d86a`, `a5a109c` |
 
 ## 5. Đang chờ chủ server quyết
 
 | Việc | Ghi chú |
 |---|---|
-| Deploy bot đợt 2 | Mục 3 |
+| Mua vào Rương Ích Kỷ giờ **không giới hạn/ngày** (07/10) | Người chơi có thể gom hàng nghìn món theo giá hiện tại trước khi tăng giá shop. Muốn chặn lại: đặt `ICHKY_DAY_MAX` trong `index.js` về một số. |
+| Báo số túi boss chờ nhận trên nút 🪪 Cá nhân | Tab 🎒 Túi boss đã bỏ (gộp vào Cá nhân), người đang ở trang khác không thấy có túi mới; túi hết hạn sau 7 ngày. Chưa làm. |
 | Khi đang nợ có cấm rút đồ / KNB vào game không? | Hiện **không cấm**. Muốn cấm thì thêm 1 dòng `debtBlock` vào `ichKyClaim` / `webRutGame`. |
 | Mã cổ phiếu "DOG" trên web | Tên cũ từ thời Dogcoin, đổi được nếu muốn. |
 | Bù đồ **Whynot** 1010100014 | Còn 3 Hợp Thành Phù kẹt ở quầy 10. **Đừng để họ bấm "Thêm quầy".** |
