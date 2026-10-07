@@ -102,6 +102,17 @@ def _ten_viet():
     return ten
 
 
+def _dong_co(eb_row, seg, rr):
+    """Dong game CO cho ma nay: dong mon tu ra (co bat o ban repo) + dong doan gia tri goc co so > 0 (va he so cap > 0).
+    Dong khong co so goc (vd Giam thoi gian huyen, V = 0) bi an / chan - chu server 08/10: 'giu nhung gi game co thoi'."""
+    co = []
+    for k in range(58):
+        v = int(seg[k + 1]) if seg[k + 1].lstrip("-").isdigit() else 0
+        if rr[k] > 0 and (eb_row[k + 32] != "-1" or v > 0):
+            co.append(k)
+    return co
+
+
 def _hieu_ung(si, eb_row):
     """hieu ung than khi cua 1 dong EquipBase: {id, ten, tham:{rate|mien|phan|tran: gia tri}, sub, dur(ms)}"""
     hid = eb_row[19]
@@ -141,6 +152,7 @@ def du_lieu():
             "id": i, "ten": t["ten"], "loai": t["loai"], "gd": t["gd"], "chan": t["ten"].startswith("Chân"),
             "cap": cap, "T": _so(g[100]), "rate": rr,
             "dongGoc": [k for k in range(58) if g[k + 32] != "-1"], "dong": [k for k in range(58) if c[k + 32] != "-1"],
+            "dongCo": _dong_co(g, seg_g, rr),
             "soDongGoc": [int(g[92]), int(g[93])], "soDong": [int(c[92]), int(c[93])],
             "diemGoc": [diem(seg_g, k) for k in range(58)], "diem": [diem(seg_c, k) for k in range(58)],
             "segGoc": g[91], "seg": c[91],
@@ -194,7 +206,7 @@ def nguoi_giu(sql, viscii):
 
 
 # ------------------------------------------------------------------ kiem + ap
-def kiem_mon(i, m, rate_cap):
+def kiem_mon(i, m, rate_cap, co=None):
     if i not in IDS:
         return "Mã %s không thuộc Trùng Lâu dòng mới (10553100-10553114)" % i
     dong = m.get("dong")
@@ -202,6 +214,8 @@ def kiem_mon(i, m, rate_cap):
         return "Mã %s: chưa chọn dòng nào" % i
     if any(not isinstance(k, int) or not 0 <= k < 58 for k in dong) or len(set(dong)) != len(dong):
         return "Mã %s: dòng không hợp lệ" % i
+    if co is not None and any(k not in co for k in dong):
+        return "Mã %s: có dòng game không có số cho món này (%s)" % (i, ", ".join(DONG[k] for k in dong if k not in co))
     if len(dong) > MAX_DONG:
         return "Mã %s: tối đa %d dòng" % (i, MAX_DONG)
     for k, x in (m.get("diem") or {}).items():
@@ -273,7 +287,8 @@ def ap(cfg):
     for i, m in mon.items():
         if i not in eb_r:
             return False, "Mã %s không có trong EquipBase" % i
-        err = kiem_mon(i, m, rate.get(int(eb_r[i][90]), [0] * 58))
+        rr = rate.get(int(eb_r[i][90]), [0] * 58)
+        err = kiem_mon(i, m, rr, _dong_co(eb_r[i], sv_r[eb_r[i][91]], rr))
         if err:
             return False, err
     err = kiem_hu(hu, si_r, cho_phep)

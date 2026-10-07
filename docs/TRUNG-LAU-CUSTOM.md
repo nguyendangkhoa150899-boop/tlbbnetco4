@@ -30,6 +30,12 @@ Bảng số liệu từng món (tỉ lệ, thời gian, bộ, đường nâng): 
   - Trang hiện cột **"sẽ ra"** kèm ⚠ trước khi lưu.
 - **Nhiều cờ hơn số dòng thì bốc ngẫu nhiên.** Bản gốc Trùng Lâu Ngọc bật 15 cờ nhưng ra 13 dòng. Lưu trên trang thì số dòng = số dòng đã tick, nên món ra **đúng** các dòng đó.
 
+## Dòng được chọn (08/10, chủ server: "giữ những gì game có thôi")
+
+- **Trang mặc định chỉ hiện dòng món tự ra** (Liên / Giới / Ngọc 15, Chân 19, Đai / Vai / Giáp 11, Chân 15).
+- Ô **"Hiện thêm dòng game có số"** mở thêm các dòng có số gốc > 0 trong đoạn giá trị (26 dòng với Ngọc).
+- **17 dòng không có số gốc** (Giảm thời gian băng / hỏa / huyền / độc, Hồi sinh lực, Tốc đánh, Hồi chiêu…) bị ẩn, và **server chặn** (`_dong_co` trong `kiem_mon`).
+
 ## Ai đang giữ
 
 Nút **👥 Ai đang giữ Trùng Lâu** đọc `t_iteminfo` + `t_char`:
