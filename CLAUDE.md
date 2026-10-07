@@ -83,7 +83,7 @@ Repo có thể là public. Không commit `secrets.env`, `config.env`, `LoginInfo
 
 Xem `docs/PHAT-TRIEN.md`: cách đăng ký script, đặt NPC, bảng rơi đồ, tra ID vật phẩm (`docs/vat-pham/`), dialect Lua 4, và những gì **không làm được** (giao diện, vật phẩm mới hoàn toàn).
 
-**Đội bot "người giả" (07/10): ĐÃ GỠ khỏi `main` (prod) 07/10 23:5x, chỉ phát triển trên nhánh `local` + server test.** Bản prod dùng mã mới 64601–64606 bị TÀNG HÌNH (client không có mã quái mới trong bảng của nó) mà vẫn đánh chết người. Bản `local`: mã quái có sẵn 2068/2048/2198/2108/2028/2178, chiêu môn phái thật (mã mẫu SkillTemplate như boss script301/337/338), AI 33 không xích. Công cụ `tools/botdoi-07-10.js` (bản đúng nằm ở nhánh `local`). Chi tiết TRANG-THAI mục 07/10 khuya.
+**Đội bot "người giả" (07–08/10, TẠM DỪNG):** không có trên server thật; bản thử ở nhánh `local` + server test. Cơ chế đã tìm ra (mã quái mới bị tàng hình, `AIS_ToSkill` nhận mã MẪU chiêu, xích trong `MonsterAITable.ini`, giới hạn tạo hình / mana / nộ của quái, hướng nhân vật thật + Auto Chicken): **`docs/BOT-NGUOI-GIA.md`** - đọc trước khi làm tiếp.
 
 **Boss / phó bản báo lỗi:** mở `docs/BOSS-PHO-BAN.md` trước (hồ sơ 17 phó bản, loại lỗi đã gặp, quy trình) và dùng `node tools/soat-boss/soat.js <ID script>`.
 
