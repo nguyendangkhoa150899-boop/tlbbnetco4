@@ -120,3 +120,10 @@ Chủ server chốt: **bỏ hết 41 trứng còn lại của tab "Trân Thú-Ca
 | 30309836 | Bàng Giải Bảo Bảo | ⚔️ Ngoại công | 29539 (20) |
 | 30309843 | Tùng Thử Bảo Bảo | 🔮 Nội công | 29969 (20) |
 | 30309850 | Đông Tử Bảo Bảo | ⚔️ Ngoại công | 30399 (20) |
+
+## Chủ server test từng con trên bialk → loại 4 con (07/10 tối)
+
+Phát thẳng pet bảo bảo (hàng đợi `pet <ID>`, 4 con / lượt) cho bialk xem. **Loại 4 con** khỏi trade, trả về **mặc định** (`tools/pet-caocap-tra4-07-10.js`, rollback tag `truoc-pet-caocap-tra4-07-10`, cần restart):
+30309812 Lượng Lượng Mã ("Tịnh Tịnh Mã"), 30309817 Phong Điểu, 30309836 Bàng Giải, 30309843 Tùng Thử - cả 4 là trứng cố định cấp mang 20 → **bán lại shop 219, 20.000** (đúng nhóm cột gốc), tư chất cả họ (16 ID) chép lại nguyên dòng gốc, bỏ khỏi món đích Ghép Ngọc + nhãn kiểu. Còn **51 con** trong trade (14 pet đẹp + 37 Cao Cấp), đều ⚫ TẮT.
+
+**Số đời biến dị** (ghi trên thẻ Ghép Ngọc 🧬, bot `DOI`): đếm ID biến dị cùng mã họ + tên ở cấp mang pet trứng ra. Bản 95: **8 đời**; cấp 20 và Chung Tiểu Hắc (5): 2; Chung Tiểu Hoa (45): 3; **Oa Hoàng Long Đế và Nguyên Nguyên: chỉ 1 đời** (bảng gốc của game - không thêm được đời vì client cần dòng pet tương ứng). Mỗi đời +500 cả 5 tư chất (tối đa +3500) → bản 95 đời 8 tổng tư chất 41.500, Oa Hoàng Long Đế tối đa 26.500. Lưu ý: bảng cũ (trước restart) 14 họ pet đẹp có biến dị **bằng y bảo bảo** - chủ server thấy "biến dị rất ít chỉ số" là do chưa restart.
