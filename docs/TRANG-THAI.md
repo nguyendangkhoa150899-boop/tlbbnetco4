@@ -1378,3 +1378,7 @@ Trạng thái 16:30 05/10: mọi thứ **đã commit, push, deploy**. **Game CH�
 - Rà đủ 347 vật phẩm ấp pet: 31 trứng ra pet cấp mang 95 cố định (24 bán ở shop 132 - chủ server giữ bán, sắp mở cấp 99), 76 trứng "theo cấp lúc mở" (58 bán ở shop 218/219, không đổi).
 - Ghép Ngọc (bot): 14 trứng làm món đích 2.000.000 nhưng **TẮT** chờ người chơi đạt 95; trang người chơi chia 💎 Nguyên liệu / 🐾 Trân thú, chỉ ghi kiểu pet. Chí Tôn Thần Thú / Kỳ Lân vẫn bán shop, không trade.
 - Lúc ghi: game đang chạy từ 11:51 nên shop 218/219 TRONG GAME vẫn bán 12 trứng đẹp (file đã gỡ, chờ restart).
+
+### 07/10 tối - Vá lỗ hổng học tâm pháp PHÁI KHÁC (tag `truoc-tamphap-dungphai-07-10`; Lua, hiệu lực sau `cap-nhat.sh`)
+- `event/prize/yuanbaoshop.lua` nhánh 1002 (nút Học ở sư phụ): `x888902_g_CheckXinFa` chỉ kiểm ID có trong bảng của bất kỳ phái nào → client sửa gửi ID phái khác là học được. Thêm `x888902_g_XinFaPhai(shopB) ~= LuaFnGetMenPai` → báo "Tâm pháp này không thuộc môn phái của các hạ", dừng TRƯỚC khi trừ tiền / EXP. Dòng k của `x888902_XinFaList` = phái {0..8,10,11,12}; đã đối chiếu 96/96 ID với `XinFa_V1.txt` cột 1. Công cụ `tools/tamphap-dungphai-07-10.js`.
+- Lỗ hổng 2 (gửi tay gói `CGAskStudyXinfa` vượt trần tâm pháp, tới cấp + 5) nằm trong engine C++, KHÔNG vá được bằng Lua. Cách giảm thiệt hại (chưa làm, chờ chủ server): kiểm lúc đăng nhập - tâm pháp chính quá trần kéo về trần, tâm pháp phái khác xoá (trừ tâm pháp 8 Điển Bí).

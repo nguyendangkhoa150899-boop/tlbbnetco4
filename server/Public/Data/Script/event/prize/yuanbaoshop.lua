@@ -200,6 +200,10 @@ end
 	                 x888902_NotifyTip(  sceneId,  selfId,  " tâm pháp s¯ li®u sai l¥m ! "  )
 	 	 return
 	   end
+	   if  x888902_g_XinFaPhai(shopB)  ~=  andid  then   -- [NetCo4 07/10] chi hoc tam phap CUA PHAI MINH (chan client sua gui ID phai khac)
+	                 x888902_NotifyTip(  sceneId,  selfId,  "T\226m ph\225p n\224y kh\244ng thu\181c m\244n ph\225i c\252a c\225c h\213"  )
+	 	 return
+	   end
 
                   if  shopC  ~=  x888902_XinFaMoney[XinFaCK][XinFalev  +  1]  then
 	                 x888902_NotifyTip(  sceneId,  selfId,  " cänh cáo : ngài g·i ðªn phøc vø bßng ðích s¯ li®u sai l¥m , nªu nhß không phäi là in t¶ nªt v¤n ð« , nhß v§y chính là ngß½i sØa ð±i khách hàng bßng vån ki®n "  )
@@ -272,6 +276,18 @@ end
 	 DispatchUICommand(  sceneId,  selfId,  20160227  )	 
 end	 
 
+-- [NetCo4 07/10] ID tam phap -> mon phai. Dong k cua x888902_XinFaList = phai x888902_XinFaPhaiDong[k] (XinFa_V1.txt cot 1); khong co = -1
+x888902_XinFaPhaiDong  =  {0,1,2,3,4,5,6,7,8,10,11,12}
+function  x888902_g_XinFaPhai(shopB)
+	for  k,Data  in  x888902_XinFaList  do
+		for  _,id  in  Data  do
+			if  id  ==  shopB  then
+				return  x888902_XinFaPhaiDong[k]
+			end
+		end
+	end
+	return  -1
+end
 function  x888902_g_CheckXinFa(sceneId,  selfId,  shopB)	 
     for  _,Data  in  x888902_XinFaList  do  
               if  Data[1]  ==  shopB  then
