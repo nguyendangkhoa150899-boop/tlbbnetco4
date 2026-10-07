@@ -69,7 +69,7 @@ Trước khi chơi thật: trả chat Thế giới về `180000` (ở trên), đ
 - [x] Client mặc định chạy cửa sổ 1280x720 (`Accounts/System.cfg`: `View_FullScreen=0`, `View_Resoution`)
 - [x] Database sạch: 0 nhân vật, chỉ còn tài khoản `admin`, GUID mới bắt đầu từ `1010100000`
 - [x] Đổi tên server cũ "Tân Thần Long" thành **NetCo4** (17 file script, danh sách server trong client)
-- [x] Gói client `NetCo4.zip` (2.42GB, nằm trên máy của Khoa ở `D:\TeraBoxDownload\TLBBFULLTOOL\`): thư mục `NetCo4\`, mở bằng `NetCo4.cmd`, đã trỏ sẵn về server
+- [x] Gói client `NetCo4.zip` (2.42GB, nằm trên máy của Khoa ở `D:\TeraBoxDownload\TLBBFULLTOOL\rác\`): thư mục `NetCo4\`, mở bằng `NetCo4.cmd`, đã trỏ sẵn về server
 - [x] Repo GitHub và quy trình deploy `cap-nhat.sh` (đã thử commit → push → VPS pull)
 - [x] Danh mục vật phẩm `docs/vat-pham/`, công cụ tiếng Việt `tools/vn.py`
 
@@ -105,8 +105,9 @@ Trước khi chơi thật: trả chat Thế giới về `180000` (ở trên), đ
 | | Đường dẫn |
 |---|---|
 | Client đang chạy (đã có ngoại lệ Defender) | `D:\TeraBoxDownload\TLBBFULLTOOL\netco4\Thien Long 3D\Thien Long Gate` |
-| Gói client gửi bạn bè | `D:\TeraBoxDownload\TLBBFULLTOOL\NetCo4.zip` |
-| Ổ đĩa máy ảo gốc | `D:\TeraBoxDownload\TLBBFULLTOOL\netco4\ServerTLBB3D\ServerTLBB\Ubuntu.vmdk` (đã có bản trên VPS: `/root/Ubuntu.vmdk`) |
+| Gói client gửi bạn bè | `D:\TeraBoxDownload\TLBBFULLTOOL\rác\NetCo4.zip` (tên thư mục "rác" nhưng **đừng xoá file này**) |
+| Ổ đĩa máy ảo gốc | 07/10 đã xoá bản giải nén trên Windows. Còn bản trên VPS `/root/Ubuntu.vmdk` và bản nén gốc `D:\TeraBoxDownload\TLBBFULLTOOL\rác\ServerTLBB3D.rar` |
+| Bản nén client gốc (chưa sửa) | `D:\TeraBoxDownload\TLBBFULLTOOL\rác\Thien Long 3D.rar` |
 | Bản đọc tham khảo của `/home` gốc | `netco4\vm_home\` (**chỉ để đọc**, đã bị hỏng tên 36 file khi giải nén trên Windows) |
 | Tài liệu lệnh GM gốc | `netco4\tlbb code\` |
 
