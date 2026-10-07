@@ -70,3 +70,14 @@ DB trễ vài phút so với trong game vì ShareMemory lưu định kỳ. Ví d
 - Món tạo sau khi lưu ra đúng dòng, đúng điểm. Món cũ đổi điểm sau restart.
 - Dòng **ngoài bộ gốc** (ví dụ Phòng ngoại trên Ngọc): engine có cho, client hiện đúng tên. Thử 1 món trước khi phát hàng loạt.
 - Tỉ lệ / thời gian mới đúng như đặt (đánh thử, đếm giây).
+
+## Hướng "tẩy may rủi" (nghiên cứu 08/10, chủ server chọn KHÔNG làm, giữ ép điểm cố định)
+
+- Điểm không lưu trên món. Thứ duy nhất khác nhau giữa từng món là **cấp phẩm chất** (lưu lúc tạo), cộng số rand trong cấp nếu cột 101 (T) > 0.
+- Muốn tẩy ra điểm khác nhau:
+  - đổi cột 91 (quy tắc phẩm chất) từ 9 cố định sang một quy tắc có tỉ lệ nhiều cấp (`ItemSegQuality` dòng quy tắc → mã `ItemSegAffect` → trọng số C1..C9);
+  - mỗi lần tẩy (`TryRecieveItem`) bốc lại cấp, mọi dòng lên xuống cùng nhau. Ví dụ Băng công V = 167: 34 · 37 · 51 · 74 · 91 · 121 · 164 · 219 · 301 (C1..C9).
+- **Vướng:**
+  1. Món đang có lưu cấp 9 = mức tối đa, nên sau restart nhảy lên max.
+  2. Thêm dòng quy tắc / mã tỉ lệ mới chưa rõ engine có chịu không (ghi chép 06/10). Phải thử trên server test.
+  3. Chỉ Chân Trùng Lâu có đường tẩy (tepp 23); bản thường phải thêm mục NPC.
