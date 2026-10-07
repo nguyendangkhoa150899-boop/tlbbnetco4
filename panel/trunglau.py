@@ -32,8 +32,9 @@ F_EB, F_SV, F_SI = "Public/Config/EquipBase.txt", "Public/Config/ItemSegValue.tx
 F_RATE = "Server/Config/ItemSegRate.txt"
 TENVIET = os.path.join(REPO, "docs", "vat-pham", "ten-viet.tsv")
 
-IDS = [str(i) for i in range(10553100, 10553115)]
-SEG0 = 4501                      # doan rieng: ma 10553100 -> 4501 ... 10553114 -> 4515
+# dong moi 10553100-10553114 + 2 ma CU giao dich duoc han (khong khoa): Gioi 10422016, Ngoc 10423024 (them 08/10, chu server can ban trade)
+IDS = [str(i) for i in range(10553100, 10553115)] + ["10422016", "10423024"]
+SEG0 = 4501                      # doan rieng theo thu tu IDS: 10553100 -> 4501 ... 10553114 -> 4515, 10422016 -> 4516, 10423024 -> 4517
 MAX_DONG = 16                    # tran so dong cua engine (cot 93)
 DONG = ["Sinh lực tối đa", "Sinh lực tối đa %", "Hồi sinh lực", "Nội lực tối đa (MP)", "Nội lực tối đa % (MP)", "Hồi nội lực (MP)",
         "Băng công", "Kháng băng", "Giảm thời gian băng", "Hỏa công", "Kháng hỏa", "Giảm thời gian hỏa",
@@ -140,6 +141,10 @@ def du_lieu():
     si_r, si_g = _rows(_repo(F_SI)), _rows(_game(F_SI))
     rate = {int(i): [int(x) for x in c[1:59]] for i, c in _rows(_repo(F_RATE)).items()}
     ten = _ten_viet()
+    cung = {}   # hieu ung -> MOI ma EquipBase dung no (ke ca ma khong co tren trang, vd 10422018 / 10423026 ban khoa)
+    for r in eb_g.values():
+        if len(r) > 19 and r[19] not in ("", "-1", "0"):
+            cung.setdefault(r[19], []).append(r[0])
     mon = []
     for i in IDS:
         g, c = eb_r[i], eb_g.get(i, eb_r[i])
@@ -156,7 +161,7 @@ def du_lieu():
             "soDongGoc": [int(g[92]), int(g[93])], "soDong": [int(c[92]), int(c[93])],
             "diemGoc": [diem(seg_g, k) for k in range(58)], "diem": [diem(seg_c, k) for k in range(58)],
             "segGoc": g[91], "seg": c[91],
-            "huGoc": _hieu_ung(si_r, g), "hu": _hieu_ung(si_g, c),
+            "huGoc": _hieu_ung(si_r, g), "hu": _hieu_ung(si_g, c), "huCung": sorted(cung.get(c[19], [i])),
         })
     return {"mon": mon, "dongTen": DONG, "maxDong": MAX_DONG, "cfg": doc_cfg()}
 
@@ -195,7 +200,7 @@ def nguoi_giu(sql, viscii):
     pos: < 100 tui, 100-118 dang mac (100 + vi tri trang bi), >= 119 kho."""
     rows = sql("SELECT c.charguid, c.charname, c.accname, i.itemtype, i.pos FROM tlbbdb.t_iteminfo i "
                "JOIN tlbbdb.t_char c ON c.charguid = i.charguid WHERE i.isvalid = 1 "
-               "AND i.itemtype BETWEEN %s AND %s ORDER BY i.itemtype, i.pos" % (IDS[0], IDS[-1]))
+               "AND i.itemtype IN (%s) ORDER BY i.itemtype, i.pos" % ",".join(IDS))
     ten = _ten_viet()
     out = []
     for r in rows:
@@ -208,7 +213,7 @@ def nguoi_giu(sql, viscii):
 # ------------------------------------------------------------------ kiem + ap
 def kiem_mon(i, m, rate_cap, co=None):
     if i not in IDS:
-        return "Mã %s không thuộc Trùng Lâu dòng mới (10553100-10553114)" % i
+        return "Mã %s không nằm trong danh sách Trùng Lâu chỉnh được (10553100-10553114, 10422016, 10423024)" % i
     dong = m.get("dong")
     if not isinstance(dong, list) or not dong:
         return "Mã %s: chưa chọn dòng nào" % i

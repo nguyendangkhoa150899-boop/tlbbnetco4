@@ -1,6 +1,9 @@
 # Custom Trùng Lâu (trang admin, 08/10)
 
-Trang **🐉 Custom Trùng Lâu** ở admin.netco4.click → tab 🛠️ GM (chỉ cổng SUPER thao tác). Chỉ cho **Trùng Lâu dòng mới 10553100–10553114**. Dòng cũ 1042xxxx cố ý bỏ qua.
+Trang **🐉 Custom Trùng Lâu** ở admin.netco4.click → tab 🛠️ GM (chỉ cổng SUPER thao tác). Chỉnh được **Trùng Lâu dòng mới 10553100–10553114** và **2 mã cũ giao dịch được hẳn**: Giới **10422016**, Ngọc **10423024** (thêm 08/10, chủ server cần bản trade; dòng mới mã nào cũng khóa / khóa khi mặc).
+- Mã cũ: cùng cơ chế (cấp 9 cố định, đoạn 100, không rand điểm), bật 20 loại dòng, bốc 7–16 dòng. Đoạn riêng 4516 (10422016), 4517 (10423024).
+- Hiệu ứng mã cũ **dùng chung với bản khóa**: 5952 = 10422016 + 10422018, 5953 = 10423024 + 10423026. Trang liệt kê mọi mã dùng chung (tính trên toàn EquipBase).
+- Các mã cũ còn lại (10422018, 10423026, Chân cũ 10423025) không có trên trang.
 
 Bảng số liệu từng món (tỉ lệ, thời gian, bộ, đường nâng): `docs/CAN-BANG.md` mục 4.
 
