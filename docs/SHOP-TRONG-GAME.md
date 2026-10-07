@@ -35,6 +35,7 @@ Khi sửa shop game thì **không đụng shop web**.
 
 | 04/10 | 153 | Tiệm Bảo Thạch (tab Hợp Thành Phù / Điêu Trác Phù) | **Bảo Thạch Điêu Trác Phù cấp 4/5/6/7** (30900029–32): 4.000/5.000/6.000/7.000 → **500/1.000/2.000/3.000 KNB** (lần đầu 2b5571f đặt nhầm 1.000/2.000/3.000/7.000) | 765cd01 | truoc-dieutrac-actac-04-10 |
 | 05/10 | 153, 180 | Tiệm Bảo Thạch / Khu Buôn Bán > Vật phẩm mới | **Điểm Kim Chi Tiễn 20109101** (kệ 153) 20.000 → **5.000 KNB**; **Hàn Ngọc Tinh Túy 20310111** (kệ 180) 20.000 → **7.000 KNB**. Mỗi món chỉ có ở 1 kệ. Sửa bằng `node tools/shop-gia.js --doi <kệ> <ID> <giá> --ghi` | (commit này) | truoc-gia-kimchi-hanngoc-05-10 |
+| 08/10 | 212 | Shop KNB > Chí Tôn Cửa Hàng (888902 `shoplist[101]`) | **Gỡ Thiên Địa Huyền Tinh 39901012** (200.000 KNB): chủ server chốt chỉ admin phát. Dồn 2 ô sau lên (38001105 2.000, 38001106 2.500 giữ). Nguồn còn lại: Rương Thiên Tam Thần (1/5, cần chìa 100.000 KNB). Dùng để nâng Trùng Lâu → Chân Trùng Lâu (100 viên, `wuyazi85o.lua` tepp 36) | a2ede5a | truoc-go-huyentinh-08-10 |
 
 ### Chưa đổi, còn chờ chủ server
 
