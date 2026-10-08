@@ -102,11 +102,6 @@ end
 	 	 AddNumText(  sceneId,  x000110_g_scriptId,  "#cFF0000 Ðøc Nhanh 3 l²",  6,  2010  )
 	 	 AddNumText(  sceneId,  x000110_g_scriptId,  "#G Khäm Ng÷c Tñ Ðµng Bµ Tân Thü 3 l²",  6,  2020  )
 		 AddNumText(  sceneId,  x000110_g_scriptId,  "#G Ðøc l² 4 Long Vån + Võ H°n + L®nh Bài + T÷a KÜ (Free)",  6,  2021  )   -- [NetCo4 08/10] bat lai, Long Van + Vo Hon + Lenh Bai + Toa Ky (khong Am Khi)
-		if GetName( sceneId, selfId ) == "bialk" then   -- [NetCo4 08/10] AUTO CHE DO - BAN THU (chi bialk). Mo cho moi nguoi: bo dieu kien ten
-			AddNumText( sceneId, x000110_g_scriptId, "#GCh\170 h\224ng lo\213t Nh\231n 9x (10 c\225i)", 6, 2101 )
-			AddNumText( sceneId, x000110_g_scriptId, "#GGi\225m \240\184nh t\164t c\228 trang b\184 (Gi\225m \208\184nh Ph\249)", 6, 2102 )
-			AddNumText( sceneId, x000110_g_scriptId, "#Y[GM] Xem trang thai giam dinh", 6, 2103 )
-		end
 	 	 AddNumText(  sceneId,  x000110_g_scriptId,  "#G Ðøc L² Cñc HÕn ",  6,  10  )
 	 	 --AddNumText(  sceneId,  x000110_g_scriptId,  " trang b¸ ðánh l² ",  6,  2  )  -- ði r½i ðánh l² chÑc nång , không thñc døng 
 	 	 --AddNumText(  sceneId,  x000110_g_scriptId,  " Cß¶ng Hóa Trang B¸ ",  6,  1001  )
@@ -216,10 +211,6 @@ end
 		   x000110_yiqianaddbiaoshi1(  sceneId,  selfId,targetId)   -- [NetCo4 08/10] bat lai, chi Long Van
 	 	   return
 	 end
-	if GetNumText() >= 2101 and GetNumText() <= 2113 then   -- [NetCo4 08/10] AUTO CHE DO - BAN THU (chi bialk)
-		if GetName( sceneId, selfId ) == "bialk" then x000110_NetCo4AutoChe( sceneId, selfId, targetId, GetNumText() ) end
-		return
-	end
 if  GetNumText()  ==  889  then	 
 	 	 BeginUICommand(  sceneId  )
 	 	 UICommand_AddInt(  sceneId,  targetId  )
@@ -771,100 +762,4 @@ local tEquipGemTable = {8,9,10,18}   -- [NetCo4 08/10] Long Van + Vo Hon + Lenh 
 	end
 		LuaFnSendSpecificImpactToUnit( sceneId, selfId, selfId, selfId, 18, 0 )
 
-end
-
--- [NetCo4 08/10] AUTO CHE DO (NPC Quach Kien An) - BAN THU chi bialk. docs/TRANG-THAI.md muc 08/10 auto che do.
---  Che: tru 10 ban ve Gioi Chi Da Tao Do cap 10, TryRecieveItem(..., 7) = cot "che khong nguyen lieu" cua quy tac pham chat
---  (cong thuc nhan 9x ItemCompound cot 31 = 7). Tao thieu thi tra lai ban ve. Giam dinh: tru 1 Giam Dinh Phu du cap / mon.
-x000110_NetCo4BanVe = 20308120
-x000110_NetCo4PhamChat = 7
-x000110_NetCo4Nhan = { [2111] = 10222020, [2112] = 10222035, [2113] = 10222036 }
-x000110_NetCo4Phu = { 30505050, 30505051, 30505052, 30505053, 30505054, 30505055, 30505056, 30505057, 30505058, 30505059 }
-
-function x000110_NetCo4Bao( sceneId, selfId, s )
-	BeginEvent( sceneId )
-		AddText( sceneId, s )
-	EndEvent( sceneId )
-	DispatchMissionTips( sceneId, selfId )
-end
-
-function x000110_NetCo4AutoChe( sceneId, selfId, targetId, so )
-	if so == 2101 then
-		BeginEvent( sceneId )
-			AddText( sceneId, "Ch\247n nh\231n mu\175n ch\170. M\178i l\165n ch\170 10 c\225i, c\165n 10 Gi\190i Chi \208\228 T\213o \208\176 c\164p 10 v\224 10 \244 tr\175ng trong t\250i." )
-			AddNumText( sceneId, x000110_g_scriptId, "Ph\167t Ng\230 (10 c\225i)", 6, 2111 )
-			AddNumText( sceneId, x000110_g_scriptId, "Kinh T\226m (10 c\225i)", 6, 2112 )
-			AddNumText( sceneId, x000110_g_scriptId, "Ho\224nh \208\184ch (10 c\225i)", 6, 2113 )
-		EndEvent( sceneId )
-		DispatchEventList( sceneId, selfId, targetId )
-		return
-	end
-	if x000110_NetCo4Nhan[so] then
-		local nhan = x000110_NetCo4Nhan[so]
-		local sl = 10
-		if LuaFnGetPropertyBagSpace( sceneId, selfId ) < sl then
-			x000110_NetCo4Bao( sceneId, selfId, "T\250i c\165n \237t nh\164t 10 \244 tr\175ng." )
-			return
-		end
-		if LuaFnGetAvailableItemCount( sceneId, selfId, x000110_NetCo4BanVe ) < sl then
-			x000110_NetCo4Bao( sceneId, selfId, "C\165n 10 Gi\190i Chi \208\228 T\213o \208\176 c\164p 10 (kh\244ng kh\243a)." )
-			return
-		end
-		if LuaFnDelAvailableItem( sceneId, selfId, x000110_NetCo4BanVe, sl ) ~= 1 then
-			x000110_NetCo4Bao( sceneId, selfId, "Tr\215 b\228n v\168 th\164t b\213i, th\216 l\213i." )
-			return
-		end
-		local n = 0
-		for k = 1, sl do
-			local pos = TryRecieveItem( sceneId, selfId, nhan, x000110_NetCo4PhamChat )
-			if pos and pos >= 0 then n = n + 1 end
-		end
-		for k = n + 1, sl do
-			TryRecieveItem( sceneId, selfId, x000110_NetCo4BanVe, QUALITY_MUST_BE_CHANGE )   -- tao thieu -> tra ban ve
-		end
-		LuaFnSendSpecificImpactToUnit( sceneId, selfId, selfId, selfId, 18, 0 )
-		x000110_NetCo4Bao( sceneId, selfId, "\208\227 ch\170 " .. n .. "/" .. sl .. " nh\231n." )
-		return
-	end
-	if so == 2102 or so == 2103 then
-		local bb = GetBasicBagStartPos( sceneId, selfId )
-		local be = GetBasicBagEndPos( sceneId, selfId )
-		local xem, n, thieu, khoa = "", 0, 0, 0
-		for i = bb, be do
-			local id = LuaFnGetItemTableIndexByIndex( sceneId, selfId, i )
-			if id >= 10000000 and id < 20000000 then
-				local gd = GetBagItemIdent( sceneId, selfId, i )
-				local lv = GetBagItemLevel( sceneId, selfId, i )
-				if so == 2103 then
-					xem = xem .. "o " .. i .. ": " .. id .. " cap " .. lv .. " ident " .. gd .. "#r"
-				elseif gd == 0 then
-					if LuaFnIsItemLocked( sceneId, selfId, i ) ~= 0 then
-						khoa = khoa + 1
-					else
-						local phu = 0
-						for c = 1, 10 do
-							if phu == 0 and c * 10 >= lv and LuaFnGetAvailableItemCount( sceneId, selfId, x000110_NetCo4Phu[c] ) > 0 then phu = x000110_NetCo4Phu[c] end
-						end
-						if phu == 0 then
-							thieu = thieu + 1
-						elseif LuaFnDelAvailableItem( sceneId, selfId, phu, 1 ) == 1 then
-							SetBagItemIdent( sceneId, selfId, i )
-							LuaFnRefreshItemInfo( sceneId, selfId, i )
-							n = n + 1
-						end
-					end
-				end
-			end
-		end
-		if so == 2103 then
-			BeginEvent( sceneId )
-				AddText( sceneId, "[GM] Trang thai giam dinh (ident) trang bi trong tui:#r" .. xem )
-			EndEvent( sceneId )
-			DispatchEventList( sceneId, selfId, targetId )
-			return
-		end
-		if n > 0 then LuaFnSendSpecificImpactToUnit( sceneId, selfId, selfId, selfId, 18, 0 ) end
-		x000110_NetCo4Bao( sceneId, selfId, "\208\227 gi\225m \240\184nh " .. n .. " m\243n. Thi\170u ph\249: " .. thieu .. ". \208ang kh\243a: " .. khoa )
-		return
-	end
 end
