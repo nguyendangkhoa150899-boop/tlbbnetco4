@@ -33,8 +33,8 @@ F_RATE = "Server/Config/ItemSegRate.txt"
 TENVIET = os.path.join(REPO, "docs", "vat-pham", "ten-viet.tsv")
 
 # dong moi 10553100-10553114 + 2 ma CU giao dich duoc han (khong khoa): Gioi 10422016, Ngoc 10423024 (them 08/10, chu server can ban trade)
-IDS = [str(i) for i in range(10553100, 10553115)] + ["10422016", "10423024"]
-SEG0 = 4501                      # doan rieng theo thu tu IDS: 10553100 -> 4501 ... 10553114 -> 4515, 10422016 -> 4516, 10423024 -> 4517
+IDS = [str(i) for i in range(10553100, 10553115)] + ["10422016", "10423024"] + [str(i) for i in range(10157001, 10157010)]   # 09/10: + Long Van +1..+9 (doan 4518-4526)
+SEG0 = 4501                      # doan rieng theo thu tu IDS: 10553100 -> 4501 ... 10553114 -> 4515, 10422016 -> 4516, 10423024 -> 4517, Long Van 10157001..009 -> 4518..4526 (doan goc 4244 dung chung ~430 mon)
 MAX_DONG = 16                    # tran so dong cua engine (cot 93)
 DONG = ["Sinh lực tối đa", "Sinh lực tối đa %", "Hồi sinh lực", "Nội lực tối đa (MP)", "Nội lực tối đa % (MP)", "Hồi nội lực (MP)",
         "Băng công", "Kháng băng", "Giảm thời gian băng", "Hỏa công", "Kháng hỏa", "Giảm thời gian hỏa",
@@ -213,7 +213,7 @@ def nguoi_giu(sql, viscii):
 # ------------------------------------------------------------------ kiem + ap
 def kiem_mon(i, m, rate_cap, co=None):
     if i not in IDS:
-        return "Mã %s không nằm trong danh sách Trùng Lâu chỉnh được (10553100-10553114, 10422016, 10423024)" % i
+        return "Mã %s không nằm trong danh sách chỉnh được (Trùng Lâu 10553100-10553114, 10422016, 10423024; Long Văn 10157001-10157009)" % i
     dong = m.get("dong")
     if not isinstance(dong, list) or not dong:
         return "Mã %s: chưa chọn dòng nào" % i

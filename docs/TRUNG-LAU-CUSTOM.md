@@ -7,6 +7,13 @@ Trang **🐉 Custom Trùng Lâu** ở admin.netco4.click → tab 🛠️ GM (ch�
 
 Bảng số liệu từng món (tỉ lệ, thời gian, bộ, đường nâng): `docs/CAN-BANG.md` mục 4.
 
+## Long Văn (thêm 09/10)
+
+- Trang này chỉnh được cả **Long Văn +1 → +9** (10157001–10157009): dòng thuộc tính + điểm. Không có hiệu ứng thần khí.
+- Long Văn +N: cấp phẩm chất cố định = N, đoạn gốc 4244 (**dùng chung ~430 món**: thú cưỡi, nhiều mã 10553200–615) → mỗi mã có đoạn riêng **4518–4526**. Bật 11 loại dòng (SL, 4 hệ công, chính xác, cường lực, nội lực, thể lực, trí lực, thân pháp); số dòng +1 = 2 … +5 = 6, +9 bốc 6–16.
+- Mẫu dòng áp cho Long Văn **tạo mới**: rơi, nâng cấp +N ở NPC Long Văn (`MyLua/longwennew/LongWenExt.lua` 892003 `LevelUp` tạo mã lw+1), **trọng tẩy** (`ResetProperty` tạo lại cùng mã) → người chơi đem tẩy ra đúng mẫu. Điểm áp cả Long Văn đang có.
+- **Không đụng** phần "Mở rộng thuộc tính" (Huyết / Thuộc tính / Làm giảm kháng) - hệ khác, lưu trong chuỗi người chế như Võ Hồn.
+
 ## Admin chỉnh được gì
 
 | Thứ | Ở đâu | Áp cho ai | Khi nào có hiệu lực |
