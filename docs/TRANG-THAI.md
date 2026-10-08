@@ -1476,3 +1476,8 @@ Trạng thái 16:30 05/10: mọi thứ **đã commit, push, deploy**. **Game CH�
   - Hoàng Chỉ 20502009 (q5, loại 2 như Bí Ngân, cấp 9) có thể vào ô vật liệu trang sức khi chế tay → cột "cấp 9" = cột để trống (mã -1), không rõ engine xử lý ra sao. Chưa thử.
   - Giám định tất cả: trừ phù cho MỌI trang bị có `GetBagItemIdent == 0` - chưa xác nhận đồ không cần giám định (Trùng Lâu, thần khí, tọa kỵ…) trả 1. Không kiểm kết quả `SetBagItemIdent`. NPC không kiểm cấp kỹ năng Tinh Công / Công Nghệ.
 - **08/10 khuya: chủ server thử xong, báo ổn → gỡ khóa tạm** (`e2d119d` revert `3b6b8d5`), chế hàng loạt mở lại cho mọi người. File = đúng bản tag `truoc-chedo-khoa-08-10`.
+
+### 09/10 - Võ Hồn cấp 9 / Nhuận Hồn Thạch cấp 8–9: KHÔNG làm được (chỉ nghiên cứu, không sửa)
+- **Võ Hồn cấp 9:** client (EquipBase tách từ RAM 09/10, `tools/pet3d` dumpmod + tachgoi + trich) chỉ có 10156100–108 / 10156200–208, giống server → không có mã cấp 9; mã mới client không biết.
+- **Nhuận Hồn Thạch:** Ngự / Kích / Phá / Bạo cấp 1–9 (20310122–157). Học thuộc tính mở rộng (`MyLua/wuhunxt/odali_wuyazi.lua` 892101, `new/event/wuhun/wutong.lua` 895099): nâng ô từ cấp L → L+1 cần đá cấp L (`WuhunSuxingve[chữ][L]`, bảng chỉ có cấp 1–8), chặn khi ô đã cấp 8 → **đá cấp 8 và 9 không bao giờ dùng được** (thiết kế gốc). Ô max cấp 8 = đá cấp 7.
+- Mở thêm cấp 9: tooltip client (gói Interface, `x892101_iText`) chỉ có mục "q1".."q8" → cấp 9 làm tooltip lỗi (nil). Client không sửa được (thử Config.axp ngoài đĩa 08/10 thất bại). → Không mở.
