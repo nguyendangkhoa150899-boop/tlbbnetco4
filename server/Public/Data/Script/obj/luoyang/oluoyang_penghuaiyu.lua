@@ -102,7 +102,11 @@ end
 	 	 AddNumText(  sceneId,  x000110_g_scriptId,  "#cFF0000 Ðøc Nhanh 3 l²",  6,  2010  )
 	 	 AddNumText(  sceneId,  x000110_g_scriptId,  "#G Khäm Ng÷c Tñ Ðµng Bµ Tân Thü 3 l²",  6,  2020  )
 		 AddNumText(  sceneId,  x000110_g_scriptId,  "#G Ðøc l² 4 Long Vån + Võ H°n + L®nh Bài + T÷a KÜ (Free)",  6,  2021  )   -- [NetCo4 08/10] bat lai, Long Van + Vo Hon + Lenh Bai + Toa Ky (khong Am Khi)
-		if GetName( sceneId, selfId ) == "bialk" then AddNumText( sceneId, x000110_g_scriptId, "#Y[GM] Do ham che do / loc", 6, 2099 ) end   -- [NetCo4 08/10] TAM: do ham cho auto che do (chi bialk)
+		if GetName( sceneId, selfId ) == "bialk" then   -- [NetCo4 08/10] AUTO CHE DO - BAN THU (chi bialk). Mo cho moi nguoi: bo dieu kien ten
+			AddNumText( sceneId, x000110_g_scriptId, "#GCh\170 h\224ng lo\213t Nh\231n 9x (10 c\225i)", 6, 2101 )
+			AddNumText( sceneId, x000110_g_scriptId, "#GGi\225m \240\184nh t\164t c\228 trang b\184 (Gi\225m \208\184nh Ph\249)", 6, 2102 )
+			AddNumText( sceneId, x000110_g_scriptId, "#Y[GM] Xem trang thai giam dinh", 6, 2103 )
+		end
 	 	 AddNumText(  sceneId,  x000110_g_scriptId,  "#G Ðøc L² Cñc HÕn ",  6,  10  )
 	 	 --AddNumText(  sceneId,  x000110_g_scriptId,  " trang b¸ ðánh l² ",  6,  2  )  -- ði r½i ðánh l² chÑc nång , không thñc døng 
 	 	 --AddNumText(  sceneId,  x000110_g_scriptId,  " Cß¶ng Hóa Trang B¸ ",  6,  1001  )
@@ -212,8 +216,8 @@ end
 		   x000110_yiqianaddbiaoshi1(  sceneId,  selfId,targetId)   -- [NetCo4 08/10] bat lai, chi Long Van
 	 	   return
 	 end
-	if GetNumText() == 2099 then   -- [NetCo4 08/10] TAM: do ham cho auto che do (chi bialk)
-		if GetName( sceneId, selfId ) == "bialk" then x000110_NetCo4DoHam( sceneId, selfId, targetId ) end
+	if GetNumText() >= 2101 and GetNumText() <= 2113 then   -- [NetCo4 08/10] AUTO CHE DO - BAN THU (chi bialk)
+		if GetName( sceneId, selfId ) == "bialk" then x000110_NetCo4AutoChe( sceneId, selfId, targetId, GetNumText() ) end
 		return
 	end
 if  GetNumText()  ==  889  then	 
@@ -769,90 +773,98 @@ local tEquipGemTable = {8,9,10,18}   -- [NetCo4 08/10] Long Van + Vo Hon + Lenh 
 
 end
 
--- [NetCo4 08/10] TAM: do xem engine co cac ham doc mon do (dong / cap pham chat / tu chat) khong - phuc vu auto che do / loc.
--- Chi kiem TON TAI (bien chua co = nil), KHONG goi ham la. O tui 0: chi dung ham script goc da dung (cap, so lo, da giam dinh tu chat chua).
-function x000110_NetCo4DoHam( sceneId, selfId, targetId )
-	local s = ""
-	local n = 0
-	if GetEquipAttr then s = s.."GetEquipAttr  " n = n + 1 end
-	if LuaFnGetEquipAttr then s = s.."LuaFnGetEquipAttr  " n = n + 1 end
-	if GetEquipExtraAttrTB then s = s.."GetEquipExtraAttrTB  " n = n + 1 end
-	if LuaFnGetEquipExtraAttrTB then s = s.."LuaFnGetEquipExtraAttrTB  " n = n + 1 end
-	if GetBagItemAttr then s = s.."GetBagItemAttr  " n = n + 1 end
-	if LuaFnGetBagItemAttr then s = s.."LuaFnGetBagItemAttr  " n = n + 1 end
-	if GetBagEquipAttr then s = s.."GetBagEquipAttr  " n = n + 1 end
-	if LuaFnGetBagEquipAttr then s = s.."LuaFnGetBagEquipAttr  " n = n + 1 end
-	if GetAttrValueTo then s = s.."GetAttrValueTo  " n = n + 1 end
-	if LuaFnGetAttrValueTo then s = s.."LuaFnGetAttrValueTo  " n = n + 1 end
-	if GetAppendAttr then s = s.."GetAppendAttr  " n = n + 1 end
-	if LuaFnGetAppendAttr then s = s.."LuaFnGetAppendAttr  " n = n + 1 end
-	if GetExtAttr then s = s.."GetExtAttr  " n = n + 1 end
-	if LuaFnGetExtAttr then s = s.."LuaFnGetExtAttr  " n = n + 1 end
-	if GetExtAttrCount then s = s.."GetExtAttrCount  " n = n + 1 end
-	if LuaFnGetExtAttrCount then s = s.."LuaFnGetExtAttrCount  " n = n + 1 end
-	if GetBaseAttrValue then s = s.."GetBaseAttrValue  " n = n + 1 end
-	if LuaFnGetBaseAttrValue then s = s.."LuaFnGetBaseAttrValue  " n = n + 1 end
-	if GetItemAptitude then s = s.."GetItemAptitude  " n = n + 1 end
-	if LuaFnGetItemAptitude then s = s.."LuaFnGetItemAptitude  " n = n + 1 end
-	if GetItemApt then s = s.."GetItemApt  " n = n + 1 end
-	if LuaFnGetItemApt then s = s.."LuaFnGetItemApt  " n = n + 1 end
-	if JudgeApt then s = s.."JudgeApt  " n = n + 1 end
-	if LuaFnJudgeApt then s = s.."LuaFnJudgeApt  " n = n + 1 end
-	if IsJudgeApt then s = s.."IsJudgeApt  " n = n + 1 end
-	if LuaFnIsJudgeApt then s = s.."LuaFnIsJudgeApt  " n = n + 1 end
-	if GetItemQualityTB then s = s.."GetItemQualityTB  " n = n + 1 end
-	if LuaFnGetItemQualityTB then s = s.."LuaFnGetItemQualityTB  " n = n + 1 end
-	if GetItemQuality then s = s.."GetItemQuality  " n = n + 1 end
-	if LuaFnGetItemQuality then s = s.."LuaFnGetItemQuality  " n = n + 1 end
-	if GetBagItemQuality then s = s.."GetBagItemQuality  " n = n + 1 end
-	if LuaFnGetBagItemQuality then s = s.."LuaFnGetBagItemQuality  " n = n + 1 end
-	if GetItemIdent then s = s.."GetItemIdent  " n = n + 1 end
-	if LuaFnGetItemIdent then s = s.."LuaFnGetItemIdent  " n = n + 1 end
-	if GetBagItemIdent then s = s.."GetBagItemIdent  " n = n + 1 end
-	if LuaFnGetBagItemIdent then s = s.."LuaFnGetBagItemIdent  " n = n + 1 end
-	if SetBagItemIdent then s = s.."SetBagItemIdent  " n = n + 1 end
-	if LuaFnSetBagItemIdent then s = s.."LuaFnSetBagItemIdent  " n = n + 1 end
-	if GetItemParam then s = s.."GetItemParam  " n = n + 1 end
-	if LuaFnGetItemParam then s = s.."LuaFnGetItemParam  " n = n + 1 end
-	if GetItemParamValue then s = s.."GetItemParamValue  " n = n + 1 end
-	if LuaFnGetItemParamValue then s = s.."LuaFnGetItemParamValue  " n = n + 1 end
-	if GetBagItemParam then s = s.."GetBagItemParam  " n = n + 1 end
-	if LuaFnGetBagItemParam then s = s.."LuaFnGetBagItemParam  " n = n + 1 end
-	if CompoundRandom then s = s.."CompoundRandom  " n = n + 1 end
-	if LuaFnCompoundRandom then s = s.."LuaFnCompoundRandom  " n = n + 1 end
-	if GetDarkAttrForBag then s = s.."GetDarkAttrForBag  " n = n + 1 end
-	if LuaFnGetDarkAttrForBag then s = s.."LuaFnGetDarkAttrForBag  " n = n + 1 end
-	if CallScriptRecycleFunc then s = s.."CallScriptRecycleFunc  " n = n + 1 end
-	if LuaFnCallScriptRecycleFunc then s = s.."LuaFnCallScriptRecycleFunc  " n = n + 1 end
-	if EquipLevelUp then s = s.."EquipLevelUp  " n = n + 1 end
-	if LuaFnEquipLevelUp then s = s.."LuaFnEquipLevelUp  " n = n + 1 end
-	if TryRecieveItem then s = s.."TryRecieveItem  " n = n + 1 end
-	if LuaFnTryRecieveItem then s = s.."LuaFnTryRecieveItem  " n = n + 1 end
-	if GetBagItemLevel then s = s.."GetBagItemLevel  " n = n + 1 end
-	if LuaFnGetBagItemLevel then s = s.."LuaFnGetBagItemLevel  " n = n + 1 end
-	if GetBagItemDur then s = s.."GetBagItemDur  " n = n + 1 end
-	if LuaFnGetBagItemDur then s = s.."LuaFnGetBagItemDur  " n = n + 1 end
-	if GetBagItemMaxDur then s = s.."GetBagItemMaxDur  " n = n + 1 end
-	if LuaFnGetBagItemMaxDur then s = s.."LuaFnGetBagItemMaxDur  " n = n + 1 end
-	if GetItemLevel then s = s.."GetItemLevel  " n = n + 1 end
-	if LuaFnGetItemLevel then s = s.."LuaFnGetItemLevel  " n = n + 1 end
-	if GetEquipPoint then s = s.."GetEquipPoint  " n = n + 1 end
-	if LuaFnGetEquipPoint then s = s.."LuaFnGetEquipPoint  " n = n + 1 end
-	if GetItemEquipPoint then s = s.."GetItemEquipPoint  " n = n + 1 end
-	if LuaFnGetItemEquipPoint then s = s.."LuaFnGetItemEquipPoint  " n = n + 1 end
-	if GetBagEquipType then s = s.."GetBagEquipType  " n = n + 1 end
-	if LuaFnGetBagEquipType then s = s.."LuaFnGetBagEquipType  " n = n + 1 end
-	s = "CO (" .. n .. "): " .. s
-	local id = LuaFnGetItemTableIndexByIndex( sceneId, selfId, 0 )
-	local o = "#rO tui 0: " .. id
-	if id > 0 then
-		if GetBagItemLevel then o = o .. " cap " .. GetBagItemLevel( sceneId, selfId, 0 ) end
-		if GetBagGemCount then o = o .. " lo " .. GetBagGemCount( sceneId, selfId, 0 ) end
-		if LuaFnIsJudgeApt then o = o .. " da gd tu chat " .. LuaFnIsJudgeApt( sceneId, selfId, 0 ) end
-	end
+-- [NetCo4 08/10] AUTO CHE DO (NPC Quach Kien An) - BAN THU chi bialk. docs/TRANG-THAI.md muc 08/10 auto che do.
+--  Che: tru 10 ban ve Gioi Chi Da Tao Do cap 10, TryRecieveItem(..., 7) = cot "che khong nguyen lieu" cua quy tac pham chat
+--  (cong thuc nhan 9x ItemCompound cot 31 = 7). Tao thieu thi tra lai ban ve. Giam dinh: tru 1 Giam Dinh Phu du cap / mon.
+x000110_NetCo4BanVe = 20308120
+x000110_NetCo4PhamChat = 7
+x000110_NetCo4Nhan = { [2111] = 10222020, [2112] = 10222035, [2113] = 10222036 }
+x000110_NetCo4Phu = { 30505050, 30505051, 30505052, 30505053, 30505054, 30505055, 30505056, 30505057, 30505058, 30505059 }
+
+function x000110_NetCo4Bao( sceneId, selfId, s )
 	BeginEvent( sceneId )
 		AddText( sceneId, s )
-		AddText( sceneId, o )
 	EndEvent( sceneId )
-	DispatchEventList( sceneId, selfId, targetId )
+	DispatchMissionTips( sceneId, selfId )
+end
+
+function x000110_NetCo4AutoChe( sceneId, selfId, targetId, so )
+	if so == 2101 then
+		BeginEvent( sceneId )
+			AddText( sceneId, "Ch\247n nh\231n mu\175n ch\170. M\178i l\165n ch\170 10 c\225i, c\165n 10 Gi\190i Chi \208\228 T\213o \208\176 c\164p 10 v\224 10 \244 tr\175ng trong t\250i." )
+			AddNumText( sceneId, x000110_g_scriptId, "Ph\167t Ng\230 (10 c\225i)", 6, 2111 )
+			AddNumText( sceneId, x000110_g_scriptId, "Kinh T\226m (10 c\225i)", 6, 2112 )
+			AddNumText( sceneId, x000110_g_scriptId, "Ho\224nh \208\184ch (10 c\225i)", 6, 2113 )
+		EndEvent( sceneId )
+		DispatchEventList( sceneId, selfId, targetId )
+		return
+	end
+	if x000110_NetCo4Nhan[so] then
+		local nhan = x000110_NetCo4Nhan[so]
+		local sl = 10
+		if LuaFnGetPropertyBagSpace( sceneId, selfId ) < sl then
+			x000110_NetCo4Bao( sceneId, selfId, "T\250i c\165n \237t nh\164t 10 \244 tr\175ng." )
+			return
+		end
+		if LuaFnGetAvailableItemCount( sceneId, selfId, x000110_NetCo4BanVe ) < sl then
+			x000110_NetCo4Bao( sceneId, selfId, "C\165n 10 Gi\190i Chi \208\228 T\213o \208\176 c\164p 10 (kh\244ng kh\243a)." )
+			return
+		end
+		if LuaFnDelAvailableItem( sceneId, selfId, x000110_NetCo4BanVe, sl ) ~= 1 then
+			x000110_NetCo4Bao( sceneId, selfId, "Tr\215 b\228n v\168 th\164t b\213i, th\216 l\213i." )
+			return
+		end
+		local n = 0
+		for k = 1, sl do
+			local pos = TryRecieveItem( sceneId, selfId, nhan, x000110_NetCo4PhamChat )
+			if pos and pos >= 0 then n = n + 1 end
+		end
+		for k = n + 1, sl do
+			TryRecieveItem( sceneId, selfId, x000110_NetCo4BanVe, QUALITY_MUST_BE_CHANGE )   -- tao thieu -> tra ban ve
+		end
+		LuaFnSendSpecificImpactToUnit( sceneId, selfId, selfId, selfId, 18, 0 )
+		x000110_NetCo4Bao( sceneId, selfId, "\208\227 ch\170 " .. n .. "/" .. sl .. " nh\231n." )
+		return
+	end
+	if so == 2102 or so == 2103 then
+		local bb = GetBasicBagStartPos( sceneId, selfId )
+		local be = GetBasicBagEndPos( sceneId, selfId )
+		local xem, n, thieu, khoa = "", 0, 0, 0
+		for i = bb, be do
+			local id = LuaFnGetItemTableIndexByIndex( sceneId, selfId, i )
+			if id >= 10000000 and id < 20000000 then
+				local gd = GetBagItemIdent( sceneId, selfId, i )
+				local lv = GetBagItemLevel( sceneId, selfId, i )
+				if so == 2103 then
+					xem = xem .. "o " .. i .. ": " .. id .. " cap " .. lv .. " ident " .. gd .. "#r"
+				elseif gd == 0 then
+					if LuaFnIsItemLocked( sceneId, selfId, i ) ~= 0 then
+						khoa = khoa + 1
+					else
+						local phu = 0
+						for c = 1, 10 do
+							if phu == 0 and c * 10 >= lv and LuaFnGetAvailableItemCount( sceneId, selfId, x000110_NetCo4Phu[c] ) > 0 then phu = x000110_NetCo4Phu[c] end
+						end
+						if phu == 0 then
+							thieu = thieu + 1
+						elseif LuaFnDelAvailableItem( sceneId, selfId, phu, 1 ) == 1 then
+							SetBagItemIdent( sceneId, selfId, i )
+							LuaFnRefreshItemInfo( sceneId, selfId, i )
+							n = n + 1
+						end
+					end
+				end
+			end
+		end
+		if so == 2103 then
+			BeginEvent( sceneId )
+				AddText( sceneId, "[GM] Trang thai giam dinh (ident) trang bi trong tui:#r" .. xem )
+			EndEvent( sceneId )
+			DispatchEventList( sceneId, selfId, targetId )
+			return
+		end
+		if n > 0 then LuaFnSendSpecificImpactToUnit( sceneId, selfId, selfId, selfId, 18, 0 ) end
+		x000110_NetCo4Bao( sceneId, selfId, "\208\227 gi\225m \240\184nh " .. n .. " m\243n. Thi\170u ph\249: " .. thieu .. ". \208ang kh\243a: " .. khoa )
+		return
+	end
 end
