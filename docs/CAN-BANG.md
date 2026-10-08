@@ -145,6 +145,7 @@ StandardImpact 793 "步步生花陷阱伤害" (logic 001 = sát thương trực 
   - 08/10: bật lại **chỉ Long Văn** (`12cc1a2`), tag `truoc-lo4-longvan-08-10`.
   - 08/10: **Long Văn + Võ Hồn** (`18b7673`), tag `truoc-lo4-vohon-08-10`.
   - 08/10: **Long Văn + Võ Hồn + Lệnh Bài** (`tEquipGemTable = {9,10,18}`), tag `truoc-lo4-lenhbai-08-10`.
+  - 08/10: **+ Tọa Kỵ** (`{8,9,10,18}`), tag `truoc-lo4-toaky-08-10`. Bảng client "Đục Lỗ Cực Hạn" (`stiletto.lua` có nhánh loại 8, 1 Kim Chi Tiễn / Hàn Ngọc Tinh Túy + 3.000 vàng) **không cho kéo tọa kỵ vào** → dùng đường NPC quét túi. Trước đó 93 lần đục lỗ 4 trong Audit, 0 lần tọa kỵ. **Chưa đo:** client có hiện / cho khảm ô 4 trên tọa kỵ không.
   - Ám Khí vẫn phải dùng Kim Chi Tiễn: Điểm Kim Chi Tiễn 20109101 = 20.000 KNB (03/10).
   - **Chưa đo:** Võ Hồn cấp 8 chưa có `&WH` có nhận lỗ qua đường này không.
 - **Thú cưỡi 10141214** (幻雪羊驼): quy tắc phẩm chất 7 → **9** (07/10).
