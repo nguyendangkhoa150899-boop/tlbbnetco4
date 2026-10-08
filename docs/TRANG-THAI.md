@@ -1458,3 +1458,10 @@ Trạng thái 16:30 05/10: mọi thứ **đã commit, push, deploy**. **Game CH�
 - Chi tiết + cơ chế: `docs/TRUNG-LAU-CUSTOM.md`. Chỉnh dòng thuộc tính, điểm (đoạn riêng 4501–4515), tỉ lệ / thời gian hiệu ứng, xem ai đang giữ / đang mặc. Chỉ Trùng Lâu dòng mới 10553100–114.
 - Bot đã deploy (sao lưu `/opt/tlbb-backup/bot-truoc-trunglau-ui-20261008-0313`). **Phần panel game CHƯA chạy** tới khi chủ server `cap-nhat.sh` (kéo `panel/trunglau.py`) rồi `systemctl restart tlbb-panel` (chỉ restart trang panel, không đụng game). Trước đó trang báo lỗi "khong co API nay".
 - Chưa kiểm trong game: món tạo sau khi lưu ra đúng dòng / điểm; dòng ngoài bộ gốc hiện đúng; tỉ lệ / thời gian mới.
+
+### 08/10 tối - Auto chế đồ ở NPC Quách Kiến An (BẢN THỬ, chỉ bialk thấy; tag `truoc-autoche-08-10`)
+- Chủ server chốt: NPC 2 dòng (chế hàng loạt nhẫn 9x 10 cái / giám định tất cả bằng Giám Định Phù), người chơi tự lọc.
+- Dò hàm engine (mục GM tạm, 08/10): CÓ `GetItemApt(sceneId, selfId, ô, loại)` (tư chất, loại 1 ngoại / 2 nội), `LuaFnJudgeApt`, `LuaFnIsJudgeApt`, `GetBagItemIdent`, `SetBagItemIdent`, `TryRecieveItem`, `GetBagItemLevel` (KHÔNG có tiền tố LuaFn - `LuaFnGetBagItemLevel` = nil làm script dừng). **KHÔNG có hàm đọc dòng thuộc tính / cấp phẩm chất từng món** → không lọc tự động theo dòng / cấp được.
+- Nhẫn 9x: Phật Ngữ 10222020 / Kinh Tâm 10222035 / Hoành Địch 10222036 (cấp 95). Công thức Tinh Công (kỹ năng 48) = 1 Giới Chi Đả Tạo Đồ cấp 10 (20308120); Công Nghệ (kỹ năng 6 cấp 9) = 69 Long Huyết Quáng Thạch + 138 Luyện Ngọc 10 + bản vẽ. Cột quy tắc phẩm chất công thức = 7 = "chế không nguyên liệu" → quy tắc 19 mã tỉ lệ 89 = **C2 65,9% / C3 33% / C4 1%** (cấp thấp). Script tạo bằng `TryRecieveItem(…, 7)`.
+- **Chưa kiểm:** (1) cấp phẩm chất nhẫn chế bằng NPC có giống chế tay Tinh Công không (so ~10 món); (2) `GetBagItemIdent` / `SetBagItemIdent(sceneId, selfId, ô)` đúng nghĩa không (mục [GM] Xem trang thái giám định để đọc giá trị); (3) không kiểm cấp kỹ năng Tinh Công của người chơi.
+- Mở cho mọi người: bỏ điều kiện `GetName == "bialk"` ở menu 18 và khối xử lý 2101–2113.
