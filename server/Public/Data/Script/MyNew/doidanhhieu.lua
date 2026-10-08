@@ -576,7 +576,6 @@ x111997_NetCo4ViTri = {
 	{ ten = "\193o", banve = 20308080, mon = { { 10213020, "Huy\173n Th\170 Ma Y" }, { 10213040, "Ph\174 L\226n Th\225nh C\215u" }, { 10213060, "Hung M\213ch Th\225nh Gi\225p" } } },   -- 2 Ao
 	{ ten = "Bao tay", banve = 20308090, mon = { { 10212020, "Huy\173n Th\170 Th\252 S\225o" }, { 10212040, "Ph\174 L\226n Huy\171n Th\252" }, { 10212060, "Hung M\213ch Th\225nh Ch\223\183ng" } } },   -- 3 Bao tay
 	{ ten = "Gi\224y", banve = 20308100, mon = { { 10211020, "Huy\173n Th\170 Th\225nh Ngoa" }, { 10211040, "Ph\174 L\226n Th\225nh L\253" }, { 10211060, "Hung M\213ch Th\225nh Ngoa" } } },   -- 4 Giay
-	{ ten = "\208ai l\223ng", banve = 20308160, mon = { { 10221020, "B\181 Nguy\174t" } } },   -- 5 dai lung
 	{ ten = "H\181 uy\172n", banve = 20308140, mon = { { 10214020, "Huy\173n Th\170 Ma O\228n" } } },   -- 6 Ho uyen
 	{ ten = "H\181 ki\234n", banve = 20308150, mon = { { 10215020, "Huy\173n Th\170 Ma Ki\234n" } } },   -- 7 Ho kien
 	{ ten = "D\226y chuy\171n", banve = 20308110, mon = { { 10220020, "\208i\174p Luy\170n" } } },   -- 8 Day chuyen
