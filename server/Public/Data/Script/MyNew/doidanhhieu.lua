@@ -566,21 +566,23 @@ function x111997_ZhuanSheng( sceneId, selfId, targetId )
 end
 
 -- [NetCo4 08/10] NPC CHE DO (Muc Thanh Danh). docs/TRANG-THAI.md muc 08/10 auto che do.
---  9500 chon vi tri -> 9510+s chon mon -> 9600+10s+k che 10 cai: tru 10 ban ve, TryRecieveItem(mon, 7) (cot "che khong nguyen lieu",
+--  9500 chon vi tri -> 9510+s chon mon -> 9600+10s+k che 10 cai: tru 10 ban ve + 10 vat lieu cap 8 (Mien Bo 8 giap / Bi Ngan 8 trang suc),
+--  TryRecieveItem(mon, 16) = cot "duc bang vat lieu cap 8" (ty le VL8 C8 65% / C9 35%). Truoc 08/10 toi dung 7 (khong vat lieu, C2-C3) - SAI.
+--  (cu: cot "che khong nguyen lieu",
 --  ItemCompound cot 31 = 7, giong che tay Tinh Cong / Cong Nghe cap 1). Tao thieu thi tra lai ban ve.
 --  9501 giam dinh tat ca: moi trang bi chua giam dinh (GetBagItemIdent = 0) tru 1 Giam Dinh Phu du cap. 9502 [GM] xem.
 x111997_NetCo4SoLuong = 10
 x111997_NetCo4Phu = { 30505050, 30505051, 30505052, 30505053, 30505054, 30505055, 30505056, 30505057, 30505058, 30505059 }
 x111997_NetCo4ViTri = {
-	{ ten = "M\251", banve = 20308070, mon = { { 10210020, "Huy\173n Th\170 Th\225nh C\226n" }, { 10210040, "Ph\174 L\226n Th\225nh Quan" }, { 10210060, "Hung M\213ch Th\225nh Kh\244i" } } },   -- 1 Mu
-	{ ten = "\193o", banve = 20308080, mon = { { 10213020, "Huy\173n Th\170 Ma Y" }, { 10213040, "Ph\174 L\226n Th\225nh C\215u" }, { 10213060, "Hung M\213ch Th\225nh Gi\225p" } } },   -- 2 Ao
-	{ ten = "Bao tay", banve = 20308090, mon = { { 10212020, "Huy\173n Th\170 Th\252 S\225o" }, { 10212040, "Ph\174 L\226n Huy\171n Th\252" }, { 10212060, "Hung M\213ch Th\225nh Ch\223\183ng" } } },   -- 3 Bao tay
-	{ ten = "Gi\224y", banve = 20308100, mon = { { 10211020, "Huy\173n Th\170 Th\225nh Ngoa" }, { 10211040, "Ph\174 L\226n Th\225nh L\253" }, { 10211060, "Hung M\213ch Th\225nh Ngoa" } } },   -- 4 Giay
-	{ ten = "H\181 uy\172n", banve = 20308140, mon = { { 10214020, "Huy\173n Th\170 Ma O\228n" } } },   -- 6 Ho uyen
-	{ ten = "H\181 ki\234n", banve = 20308150, mon = { { 10215020, "Huy\173n Th\170 Ma Ki\234n" } } },   -- 7 Ho kien
-	{ ten = "D\226y chuy\171n", banve = 20308110, mon = { { 10220020, "\208i\174p Luy\170n" } } },   -- 8 Day chuyen
-	{ ten = "H\181 ph\249", banve = 20308130, mon = { { 10223020, "Phi Tuy\170t" }, { 10223035, "B\237ch L\226u" }, { 10223036, "Thi\172n L\227ng" } } },   -- 9 Ho phu
-	{ ten = "Nh\231n", banve = 20308120, mon = { { 10222020, "Ph\167t Ng\230" }, { 10222035, "Kinh T\226m" }, { 10222036, "Ho\224nh \208\184ch" } } },   -- 10 Nhan
+	{ ten = "M\251", banve = 20308070, vl = 20501008, vlten = "Mi\234n B\175 c\164p 8", mon = { { 10210020, "Huy\173n Th\170 Th\225nh C\226n" }, { 10210040, "Ph\174 L\226n Th\225nh Quan" }, { 10210060, "Hung M\213ch Th\225nh Kh\244i" } } },   -- 1 Mu
+	{ ten = "\193o", banve = 20308080, vl = 20501008, vlten = "Mi\234n B\175 c\164p 8", mon = { { 10213020, "Huy\173n Th\170 Ma Y" }, { 10213040, "Ph\174 L\226n Th\225nh C\215u" }, { 10213060, "Hung M\213ch Th\225nh Gi\225p" } } },   -- 2 Ao
+	{ ten = "Bao tay", banve = 20308090, vl = 20501008, vlten = "Mi\234n B\175 c\164p 8", mon = { { 10212020, "Huy\173n Th\170 Th\252 S\225o" }, { 10212040, "Ph\174 L\226n Huy\171n Th\252" }, { 10212060, "Hung M\213ch Th\225nh Ch\223\183ng" } } },   -- 3 Bao tay
+	{ ten = "Gi\224y", banve = 20308100, vl = 20501008, vlten = "Mi\234n B\175 c\164p 8", mon = { { 10211020, "Huy\173n Th\170 Th\225nh Ngoa" }, { 10211040, "Ph\174 L\226n Th\225nh L\253" }, { 10211060, "Hung M\213ch Th\225nh Ngoa" } } },   -- 4 Giay
+	{ ten = "H\181 uy\172n", banve = 20308140, vl = 20501008, vlten = "Mi\234n B\175 c\164p 8", mon = { { 10214020, "Huy\173n Th\170 Ma O\228n" } } },   -- 6 Ho uyen
+	{ ten = "H\181 ki\234n", banve = 20308150, vl = 20501008, vlten = "Mi\234n B\175 c\164p 8", mon = { { 10215020, "Huy\173n Th\170 Ma Ki\234n" } } },   -- 7 Ho kien
+	{ ten = "D\226y chuy\171n", banve = 20308110, vl = 20502008, vlten = "B\237 Ng\226n c\164p 8", mon = { { 10220020, "\208i\174p Luy\170n" } } },   -- 8 Day chuyen
+	{ ten = "H\181 ph\249", banve = 20308130, vl = 20502008, vlten = "B\237 Ng\226n c\164p 8", mon = { { 10223020, "Phi Tuy\170t" }, { 10223035, "B\237ch L\226u" }, { 10223036, "Thi\172n L\227ng" } } },   -- 9 Ho phu
+	{ ten = "Nh\231n", banve = 20308120, vl = 20502008, vlten = "B\237 Ng\226n c\164p 8", mon = { { 10222020, "Ph\167t Ng\230" }, { 10222035, "Kinh T\226m" }, { 10222036, "Ho\224nh \208\184ch" } } },   -- 10 Nhan
 }
 
 function x111997_NetCo4Bao( sceneId, selfId, s )
@@ -594,7 +596,7 @@ function x111997_NetCo4CheDo( sceneId, selfId, targetId, so )
 	local sl = x111997_NetCo4SoLuong
 	if so == 9500 then
 		BeginEvent( sceneId )
-			AddText( sceneId, "Ch\247n lo\213i trang b\184 9x mu\175n ch\170. M\178i l\165n ch\170 10 c\225i, c\165n 10 b\228n v\168 \208\228 T\213o \208\176 c\164p 10 c\249ng lo\213i v\224 10 \244 tr\175ng trong t\250i." )
+			AddText( sceneId, "Ch\247n lo\213i trang b\184 9x mu\175n ch\170. M\178i l\165n ch\170 10 c\225i, c\165n 10 b\228n v\168 \208\228 T\213o \208\176 c\164p 10 c\249ng lo\213i + 10 v\167t li\174u c\164p 8 (Mi\234n B\175 8 cho gi\225p, B\237 Ng\226n 8 cho trang s\209c) v\224 10 \244 tr\175ng trong t\250i." )
 			for s = 1, getn( x111997_NetCo4ViTri ) do
 				AddNumText( sceneId, x111997_g_scriptId, x111997_NetCo4ViTri[s].ten, 6, 9510 + s )
 			end
@@ -605,7 +607,7 @@ function x111997_NetCo4CheDo( sceneId, selfId, targetId, so )
 	if so >= 9511 and so <= 9510 + getn( x111997_NetCo4ViTri ) then
 		local v = x111997_NetCo4ViTri[so - 9510]
 		BeginEvent( sceneId )
-			AddText( sceneId, v.ten .. ": ch\247n m\243n. M\178i l\165n tr\215 10 b\228n v\168, ra 10 c\225i." )
+			AddText( sceneId, v.ten .. ": ch\247n m\243n. M\178i l\165n tr\215 10 b\228n v\168 + 10 " .. v.vlten .. ", ra 10 c\225i." )
 			for k = 1, getn( v.mon ) do
 				AddNumText( sceneId, x111997_g_scriptId, v.mon[k][2] .. " (10)", 6, 9600 + ( so - 9510 ) * 10 + k )
 			end
@@ -626,17 +628,27 @@ function x111997_NetCo4CheDo( sceneId, selfId, targetId, so )
 			x111997_NetCo4Bao( sceneId, selfId, "C\165n 10 b\228n v\168 \208\228 T\213o \208\176 c\164p 10 lo\213i " .. v.ten .. " (kh\244ng kh\243a)." )
 			return
 		end
+		if LuaFnGetAvailableItemCount( sceneId, selfId, v.vl ) < sl then   -- [08/10] vat lieu cap 8 nhu che tay
+			x111997_NetCo4Bao( sceneId, selfId, "C\165n 10 " .. v.vlten .. " (kh\244ng kh\243a)." )
+			return
+		end
 		if LuaFnDelAvailableItem( sceneId, selfId, v.banve, sl ) ~= 1 then
 			x111997_NetCo4Bao( sceneId, selfId, "Tr\215 b\228n v\168 th\164t b\213i, th\216 l\213i." )
 			return
 		end
+		if LuaFnDelAvailableItem( sceneId, selfId, v.vl, sl ) ~= 1 then
+			for k = 1, sl do TryRecieveItem( sceneId, selfId, v.banve, QUALITY_MUST_BE_CHANGE ) end   -- tru vat lieu loi -> tra ban ve
+			x111997_NetCo4Bao( sceneId, selfId, "Tr\215 v\167t li\174u th\164t b\213i, \240\227 tr\228 b\228n v\168." )
+			return
+		end
 		local n = 0
 		for k = 1, sl do
-			local pos = TryRecieveItem( sceneId, selfId, m[1], 7 )
+			local pos = TryRecieveItem( sceneId, selfId, m[1], 16 )   -- 16 = duc bang vat lieu cap 8
 			if pos and pos >= 0 then n = n + 1 end
 		end
 		for k = n + 1, sl do
-			TryRecieveItem( sceneId, selfId, v.banve, QUALITY_MUST_BE_CHANGE )   -- tao thieu -> tra ban ve
+			TryRecieveItem( sceneId, selfId, v.banve, QUALITY_MUST_BE_CHANGE )   -- tao thieu -> tra ban ve + vat lieu
+			TryRecieveItem( sceneId, selfId, v.vl, QUALITY_MUST_BE_CHANGE )
 		end
 		LuaFnSendSpecificImpactToUnit( sceneId, selfId, selfId, selfId, 18, 0 )
 		x111997_NetCo4Bao( sceneId, selfId, "\208\227 ch\170 " .. n .. "/" .. sl .. " " .. m[2] )
