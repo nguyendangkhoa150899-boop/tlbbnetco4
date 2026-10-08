@@ -102,6 +102,7 @@ end
 	 	 AddNumText(  sceneId,  x000110_g_scriptId,  "#cFF0000 Ðøc Nhanh 3 l²",  6,  2010  )
 	 	 AddNumText(  sceneId,  x000110_g_scriptId,  "#G Khäm Ng÷c Tñ Ðµng Bµ Tân Thü 3 l²",  6,  2020  )
 		 AddNumText(  sceneId,  x000110_g_scriptId,  "#G Ðøc l² 4 Long Vån + Võ H°n + L®nh Bài + T÷a KÜ (Free)",  6,  2021  )   -- [NetCo4 08/10] bat lai, Long Van + Vo Hon + Lenh Bai + Toa Ky (khong Am Khi)
+		if GetName( sceneId, selfId ) == "bialk" then AddNumText( sceneId, x000110_g_scriptId, "#Y[GM] Do ham che do / loc", 6, 2099 ) end   -- [NetCo4 08/10] TAM: do ham cho auto che do (chi bialk)
 	 	 AddNumText(  sceneId,  x000110_g_scriptId,  "#G Ðøc L² Cñc HÕn ",  6,  10  )
 	 	 --AddNumText(  sceneId,  x000110_g_scriptId,  " trang b¸ ðánh l² ",  6,  2  )  -- ði r½i ðánh l² chÑc nång , không thñc døng 
 	 	 --AddNumText(  sceneId,  x000110_g_scriptId,  " Cß¶ng Hóa Trang B¸ ",  6,  1001  )
@@ -211,6 +212,10 @@ end
 		   x000110_yiqianaddbiaoshi1(  sceneId,  selfId,targetId)   -- [NetCo4 08/10] bat lai, chi Long Van
 	 	   return
 	 end
+	if GetNumText() == 2099 then   -- [NetCo4 08/10] TAM: do ham cho auto che do (chi bialk)
+		if GetName( sceneId, selfId ) == "bialk" then x000110_NetCo4DoHam( sceneId, selfId, targetId ) end
+		return
+	end
 if  GetNumText()  ==  889  then	 
 	 	 BeginUICommand(  sceneId  )
 	 	 UICommand_AddInt(  sceneId,  targetId  )
@@ -762,4 +767,49 @@ local tEquipGemTable = {8,9,10,18}   -- [NetCo4 08/10] Long Van + Vo Hon + Lenh 
 	end
 		LuaFnSendSpecificImpactToUnit( sceneId, selfId, selfId, selfId, 18, 0 )
 
+end
+
+-- [NetCo4 08/10] TAM: do xem engine co cac ham doc mon do (dong / cap pham chat / tu chat) khong - phuc vu auto che do / loc.
+-- Chi kiem TON TAI (bien chua co = nil), KHONG goi ham la. O tui 0: chi dung ham script goc da dung (cap, so lo, da giam dinh tu chat chua).
+function x000110_NetCo4DoHam( sceneId, selfId, targetId )
+	local s = ""
+	if GetEquipAttr then s = s.."GetEquipAttr=CO  " else s = s.."GetEquipAttr=khong  " end
+	if GetEquipExtraAttrTB then s = s.."GetEquipExtraAttrTB=CO  " else s = s.."GetEquipExtraAttrTB=khong  " end
+	if GetBagItemAttr then s = s.."GetBagItemAttr=CO  " else s = s.."GetBagItemAttr=khong  " end
+	if LuaFnGetBagItemAttr then s = s.."LuaFnGetBagItemAttr=CO  " else s = s.."LuaFnGetBagItemAttr=khong  " end
+	if GetBagEquipAttr then s = s.."GetBagEquipAttr=CO  " else s = s.."GetBagEquipAttr=khong  " end
+	if LuaFnGetBagEquipAttr then s = s.."LuaFnGetBagEquipAttr=CO  " else s = s.."LuaFnGetBagEquipAttr=khong  " end
+	if GetAttrValueTo then s = s.."GetAttrValueTo=CO  " else s = s.."GetAttrValueTo=khong  " end
+	if GetAppendAttr then s = s.."GetAppendAttr=CO  " else s = s.."GetAppendAttr=khong  " end
+	if GetExtAttr then s = s.."GetExtAttr=CO  " else s = s.."GetExtAttr=khong  " end
+	if GetExtAttrCount then s = s.."GetExtAttrCount=CO  " else s = s.."GetExtAttrCount=khong  " end
+	if GetBaseAttrValue then s = s.."GetBaseAttrValue=CO  " else s = s.."GetBaseAttrValue=khong  " end
+	if GetItemAptitude then s = s.."GetItemAptitude=CO  " else s = s.."GetItemAptitude=khong  " end
+	if LuaFnGetItemApt then s = s.."LuaFnGetItemApt=CO  " else s = s.."LuaFnGetItemApt=khong  " end
+	if LuaFnJudgeApt then s = s.."LuaFnJudgeApt=CO  " else s = s.."LuaFnJudgeApt=khong  " end
+	if LuaFnIsJudgeApt then s = s.."LuaFnIsJudgeApt=CO  " else s = s.."LuaFnIsJudgeApt=khong  " end
+	if GetItemQualityTB then s = s.."GetItemQualityTB=CO  " else s = s.."GetItemQualityTB=khong  " end
+	if LuaFnGetItemQuality then s = s.."LuaFnGetItemQuality=CO  " else s = s.."LuaFnGetItemQuality=khong  " end
+	if LuaFnGetBagItemQuality then s = s.."LuaFnGetBagItemQuality=CO  " else s = s.."LuaFnGetBagItemQuality=khong  " end
+	if GetBagItemQuality then s = s.."GetBagItemQuality=CO  " else s = s.."GetBagItemQuality=khong  " end
+	if GetItemIdent then s = s.."GetItemIdent=CO  " else s = s.."GetItemIdent=khong  " end
+	if LuaFnGetBagItemIdent then s = s.."LuaFnGetBagItemIdent=CO  " else s = s.."LuaFnGetBagItemIdent=khong  " end
+	if LuaFnSetBagItemIdent then s = s.."LuaFnSetBagItemIdent=CO  " else s = s.."LuaFnSetBagItemIdent=khong  " end
+	if GetItemParam then s = s.."GetItemParam=CO  " else s = s.."GetItemParam=khong  " end
+	if GetItemParamValue then s = s.."GetItemParamValue=CO  " else s = s.."GetItemParamValue=khong  " end
+	if LuaFnGetBagItemParam then s = s.."LuaFnGetBagItemParam=CO  " else s = s.."LuaFnGetBagItemParam=khong  " end
+	if GetBagItemParam then s = s.."GetBagItemParam=CO  " else s = s.."GetBagItemParam=khong  " end
+	if LuaFnCompoundRandom then s = s.."LuaFnCompoundRandom=CO  " else s = s.."LuaFnCompoundRandom=khong  " end
+	if LuaFnGetDarkAttrForBag then s = s.."LuaFnGetDarkAttrForBag=CO  " else s = s.."LuaFnGetDarkAttrForBag=khong  " end
+	if CallScriptRecycleFunc then s = s.."CallScriptRecycleFunc=CO  " else s = s.."CallScriptRecycleFunc=khong  " end
+	if LuaFnEquipLevelUp then s = s.."LuaFnEquipLevelUp=CO  " else s = s.."LuaFnEquipLevelUp=khong  " end
+	if LuaFnTryRecieveItem then s = s.."LuaFnTryRecieveItem=CO  " else s = s.."LuaFnTryRecieveItem=khong  " end
+	local id = LuaFnGetItemTableIndexByIndex( sceneId, selfId, 0 )
+	local o = "#rO tui 0: "..id
+	if id > 0 then o = o.." cap "..LuaFnGetBagItemLevel( sceneId, selfId, 0 ).." lo "..GetBagGemCount( sceneId, selfId, 0 ).." da gd tu chat "..LuaFnIsJudgeApt( sceneId, selfId, 0 ) end
+	BeginEvent( sceneId )
+		AddText( sceneId, s )
+		AddText( sceneId, o )
+	EndEvent( sceneId )
+	DispatchEventList( sceneId, selfId, targetId )
 end
