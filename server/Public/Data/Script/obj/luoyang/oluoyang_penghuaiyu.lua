@@ -101,7 +101,7 @@ end
 	 	 AddText(  sceneId,  "#{OBJ_suzhou_0020}"  )
 	 	 AddNumText(  sceneId,  x000110_g_scriptId,  "#cFF0000 Ðøc Nhanh 3 l²",  6,  2010  )
 	 	 AddNumText(  sceneId,  x000110_g_scriptId,  "#G Khäm Ng÷c Tñ Ðµng Bµ Tân Thü 3 l²",  6,  2020  )
-		 AddNumText(  sceneId,  x000110_g_scriptId,  "#G Ðøc l² 4 Long Vån + Võ H°n + L®nh Bài (Free)",  6,  2021  )   -- [NetCo4 08/10] bat lai, Long Van + Vo Hon + Lenh Bai (khong Am Khi)
+		 AddNumText(  sceneId,  x000110_g_scriptId,  "#G Ðøc l² 4 Long Vån + Võ H°n + L®nh Bài + T÷a KÜ (Free)",  6,  2021  )   -- [NetCo4 08/10] bat lai, Long Van + Vo Hon + Lenh Bai + Toa Ky (khong Am Khi)
 	 	 AddNumText(  sceneId,  x000110_g_scriptId,  "#G Ðøc L² Cñc HÕn ",  6,  10  )
 	 	 --AddNumText(  sceneId,  x000110_g_scriptId,  " trang b¸ ðánh l² ",  6,  2  )  -- ði r½i ðánh l² chÑc nång , không thñc døng 
 	 	 --AddNumText(  sceneId,  x000110_g_scriptId,  " Cß¶ng Hóa Trang B¸ ",  6,  1001  )
@@ -733,7 +733,7 @@ local  mybiaoshilist_g_Gem  =
 end
 
 function  x000110_yiqianaddbiaoshi1(  sceneId,  selfId,targetId)
-local tEquipGemTable = {9,10,18}   -- [NetCo4 08/10] Long Van + Vo Hon + Lenh Bai (goc {9 Lenh Bai,10 Vo Hon,17 Am Khi,18 Long Van}) --8ºÅ×øÆï¡¢16ºÅÊ±×°²»¿ª¿×£¬·Â¹Ù
+local tEquipGemTable = {8,9,10,18}   -- [NetCo4 08/10] Long Van + Vo Hon + Lenh Bai + Toa Ky (8: bang client Duc Lo Cuc Han khong nhan toa ky) (goc {9 Lenh Bai,10 Vo Hon,17 Am Khi,18 Long Van}) --8ºÅ×øÆï¡¢16ºÅÊ±×°²»¿ª¿×£¬·Â¹Ù
     local bagbegin = GetBasicBagStartPos(sceneId, selfId)
     local bagend = GetBasicBagEndPos(sceneId, selfId)
     for i = 0,10 do
