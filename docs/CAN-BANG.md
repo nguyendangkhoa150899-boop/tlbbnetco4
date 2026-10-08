@@ -185,6 +185,7 @@ StandardImpact 793 "步步生花陷阱伤害" (logic 001 = sát thương trực 
   - Trước (GM cũ): quy tắc phẩm chất 9 cố định, T = -1 (điểm luôn max), 11 loại dòng, số dòng ra **6–16** → khi số bốc ≥ 11 thì đủ 11 dòng (≈ 55% nếu engine bốc đều). Chủ server: "chế rất dễ max". Tẩy dòng chính = 10 Tịnh Vân Thủy + 50 vàng (`LongWenExt.lua` `ResetProperty` idx 2 tạo lại món).
   - Sau: bật thêm **4 dòng Kháng Băng / Hỏa / Huyền / Độc** (+99 mỗi dòng, số gốc đoạn 4244 = 55 × hệ số 180) → 15 loại dòng, **ra đúng 13 dòng** mỗi lần → đủ 11 dòng chính ≈ **5,7%** (C(4,2)/C(15,13), giả định engine bốc đều). Điểm 11 dòng chính giữ nguyên.
   - Cách áp: trang 🐲 Custom Long Văn, mã 10157009, tick thêm 4 dòng Kháng, "Số dòng ra mỗi lần tạo" 13–13 (trường `so` mới trong `panel/trunglau.py`, cột 93/94 EquipBase). Chỉ món tạo / tẩy SAU restart mới theo luật mới; Long Văn đang có giữ dòng.
+  - **ĐÃ TRẢ VỀ GỐC 09/10 03:10** (chủ server: "trả long văn về mặc định"). Chạy 03:03–03:10 (lưu 03:01, restart 03:03). Kết quả: món tẩy ra đúng 13 dòng (DB: đủ 4 Kháng, thiếu Chính xác + Thân pháp), nhưng chủ server báo **tẩy nhiều lần vẫn ra cùng bộ dòng** → engine KHÔNG bốc đều như giả định (Long Văn +4 GM cũ thì mỗi món một bộ khác nhau - chưa hiểu vì sao). Chưa đo nhiều mẫu. Muốn làm lại: đo trước (phát ~8 món qua hàng đợi quà, thoát game, đọc `p10`/`p11`). Hiệu lực trả gốc: sau restart game kế tiếp. Long Văn tạo trong 03:03–restart kế tiếp vẫn 13 dòng.
   - Tag `truoc-custom-vohon-09-10`. **Chưa đo:** đếm số dòng + dòng nào trong DB (`t_iteminfo` 10157009: byte 2 của `p6` = số dòng, `p10` / `p11` = bitmask dòng 0–31 / 32–63, đã khớp +4 / +5 / +6 / +7 / +9 ngày 09/10) sau ~20 lần tẩy để xem engine có bốc đều không.
 
 - **Kỹ năng Võ Hồn (09/10, chủ server: "tẩy ra chiêu Hỏa" + bảng config admin):** `MyLua/wuhunxt/odali_wuyazi.lua` 892101 (client chỉ gọi script này; 895099 / 760419 là bản sao không dùng).
@@ -227,5 +228,5 @@ StandardImpact 793 "步步生花陷阱伤害" (logic 001 = sát thương trực 
 - [ ] Sát Tinh sau nerf: thời gian hạ, tổ có bị đánh chết không.
 - [ ] Đục lỗ 4 Võ Hồn cấp 8 chưa có `&WH`.
 - [ ] VL8 65 / 35: đếm C8 / C9 thật qua log chế sau ~20 lần.
-- [ ] Long Văn +9 ra 13 / 15 dòng: tỉ lệ đủ 11 dòng chính thật (DB `p6` / `p10` / `p11`) sau ~20 lần tẩy.
+- [ ] (đã trả gốc 09/10) Long Văn: engine chọn dòng có ngẫu nhiên không khi số dòng ra < số dòng bật - đo ~8 mẫu trước khi dùng lại "số dòng ra".
 - [ ] Võ Hồn: lĩnh ngộ / tẩy theo trang Custom Võ Hồn, giữ cấp, Lưu Ly Diễm ra bộ ô 3 riêng.
