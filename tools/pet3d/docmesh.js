@@ -53,13 +53,20 @@ function doc(buf) {
       const idx = []; for (let i = 0; i < cnt; i++) idx.push(b32 ? u32() : u16());
       let g = null;
       if (!dung) { const gid = u16(), glen = u32(); if (gid !== 0x5000) throw new Error('submesh thieu geometry, gap ' + gid.toString(16)); g = geometry(p - 6 + glen); }
-      // bo qua khoi con (0x4010 op, 0x4100 bone, 0x4200 alias)
-      while (p + 6 <= buf.length) { const cid = buf.readUInt16LE(p); if (cid !== 0x4010 && cid !== 0x4100 && cid !== 0x4200) break; p += buf.readUInt32LE(p + 2); }
-      out.sub.push({ mat, dung: !!dung, idx, g });
+      // khoi con: 0x4100 gan dinh-xuong (dinh u32, xuong u16, trong so f32); bo qua 0x4010 op, 0x4200 alias
+      const bw = [];
+      while (p + 6 <= buf.length) {
+        const cid = buf.readUInt16LE(p), cl = buf.readUInt32LE(p + 2); if (cid !== 0x4010 && cid !== 0x4100 && cid !== 0x4200) break;
+        if (cid === 0x4100) bw.push(buf.readUInt32LE(p + 6), buf.readUInt16LE(p + 10), buf.readFloatLE(p + 12));
+        p += cl;
+      }
+      out.sub.push({ mat, dung: !!dung, idx, g, bw });
       continue;
     }
     if (id === 0x5000) { out.shared = geometry(e); p = Math.max(p, e); continue; }
-    p = e;   // 0x6000 skeleton link, 0x7000 bone, 0x9000 bounds, 0xA000 ten, 0xB000 edge, 0xD000 anim...
+    if (id === 0x6000) { out.skel = str(); p = e; continue; }   // ten file .skeleton
+    if (id === 0x7000) { (out.bw || (out.bw = [])).push(u32(), u16(), buf.readFloatLE(p)); p = e; continue; }   // gan xuong cho hinh dung chung
+    p = e;   // 0x9000 bounds, 0xA000 ten, 0xB000 edge, 0xD000 anim...
   }
   return out;
 }

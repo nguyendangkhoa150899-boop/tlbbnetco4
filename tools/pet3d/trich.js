@@ -15,7 +15,9 @@ function mo(GOI) {
   const ds = lb.toString('latin1').split(/\r?\n/).map((l) => l.split('|')).filter((c) => c.length >= 3 && /^[0-9A-F]{8}$/i.test(c[1]))
     .map((c) => ({ goc: c[0], ten: new TextDecoder('gbk').decode(Buffer.from(c[0], 'latin1')), size: parseInt(c[1], 16), hb: parseInt(c[2], 16) >>> 0 }));
   function doc(f) {
-    const ung = (theoB.get(f.hb) || []).filter((bi) => B.readUInt32LE(bi * 12 + 4) === f.size);
+    let ung = (theoB.get(f.hb) || []).filter((bi) => B.readUInt32LE(bi * 12 + 4) === f.size);
+    // 08/10: Effect.axp (3 file lon) bang bam khong khop cot 3 -> du phong: dung 1 khoi co dung kich thuoc
+    if (!ung.length) { ung = []; for (let bi = 0; bi < bc; bi++) if (B.readUInt32LE(bi * 12 + 4) === f.size) ung.push(bi); }
     if (ung.length !== 1) return { loi: ung.length ? 'trung ' + ung.length : 'khong thay' };
     const off = B.readUInt32LE(ung[0] * 12); const buf = Buffer.alloc(f.size); fs.readSync(fd, buf, 0, f.size, off); return { buf };
   }

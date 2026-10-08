@@ -49,7 +49,7 @@ Dùng khi thêm hoặc bớt trứng trong `DOI` của `ghepngoc.js`, hoặc khi
 ```bash
 node noi.js          # trứng -> pet -> 9 bản -> .obj -> mesh   => ra/noi.json
 node dungall.js      # giải mã + đổi sang định dạng web        => ra/pet3d/  (~80 MB)
-node xem.js          # xem thử: http://127.0.0.1:8091/xem.html?t=30309847
+node xem.js          # xem thử: http://127.0.0.1:8091/xem.html?t=30309847  (bộ xem /p3.js lấy từ repo bot: BotDoMin/pet3d.client.js)
 ```
 
 - `noi.js 30309847 30309780` chỉ nối các trứng được ghi.
@@ -179,28 +179,94 @@ Texture nằm trong `Material.axp`, một số ở `Effect.axp`.
 
 ---
 
-## 5. Định dạng dữ liệu web (`ra/pet3d`)
+## 5. Xương, động tác, hiệu ứng (`docskel.js`, `dungall.js`)
 
-```
-index.json                 { "<trứng>": { ten, so, f: ["m1.bin", ..., "t0.dds", ...] } }
-<trứng>/m<k>.bin           k = 1 bản thường, 2.. = biến dị đời 1..
-<trứng>/t<n>.dds           texture (tên ASCII, khỏi lỗi mã hóa tên file trên Linux)
-<trứng>/info.json          chi tiết pet / mã ngoại hình từng bản
-```
+### Xương `.skeleton` (Ogre `[Serializer_v1.10]`, đã giải mã)
 
-`m<k>.bin` gồm:
-1. `u32` độ dài JSON;
-2. JSON `{ parts: [{ nv, ni, i32, tex, alpha, o: { pos, nor, uv, idx } }] }`;
-3. đệm cho tròn 4 byte;
-4. dữ liệu `Float32` (pos / nor / uv) và `Uint16` / `Uint32` (idx). `o.*` là offset tính từ sau phần đệm.
+| Chunk | Nội dung | Bẫy |
+|---|---|---|
+| `0x2000` xương | tên, handle `u16`, vị trí 3f, quay x,y,z,w | **Độ dài chunk KHÔNG tính tên xương** → phải đọc tuần tự, không nhảy theo độ dài |
+| `0x3000` cha | con `u16`, cha `u16` | |
+| `0x4000` động tác | tên, độ dài (giây) | |
+| `0x4100` track | xương `u16` | |
+| `0x4120` khung (riêng của Fairy) | `[số khung u16][cờ u16: 1 quay, 2 dịch, 4 tỉ lệ]`, mỗi khung `t f32 (+ quay 4f)(+ dịch 3f)(+ tỉ lệ 3f)` | Ogre chuẩn là `0x4110` từng khung |
 
-Bên đọc là `docBin()` trong `ghepngoc.client.js` (bot) và trong `xem.html`.
+- Khung động tác **tương đối** so với tư thế gốc: `pos = gốc + t`, `quay = gốc × q`. `dungall.js` đổi sẵn sang biến đổi cục bộ cuối cùng.
+- Pet có các động tác 站立 (đứng), 休闲 (nghỉ), 跑步, 攻击, 受击, 倒地… Bộ xem chạy **站立** lặp, cứ 3 vòng xen 1 lần 休闲.
+
+### Mesh: gán đỉnh-xương
+
+- Liên kết skeleton: chunk `0x6000` (tên file).
+- Gán đỉnh-xương: `0x4100` trong submesh, hoặc `0x7000` cho hình dùng chung. Mỗi lần gán là `[đỉnh u32][xương u16][trọng số f32]`.
+- `dungall.js` giữ tối đa 4 xương/đỉnh, chuẩn hóa trọng số.
+
+### Hiệu ứng: chuỗi tra
+
+1. `.obj` có `<Effects><Effect effect="…" locator="…">`.
+2. `<Locator bonename x y z qx qy qz qw>` = gắn vào xương, dịch rồi quay. `qx,qy,qz` là **trục**, `qw` là **góc (radian)**, không phải quaternion.
+3. `Effect.axp/all.effect` → `effect <tên> { element Particle { Position, Orientation (w x y z), ParticleSystem, StartTime } }`.
+4. `Effect.axp/all.particle` → hệ hạt `<tên> { quota, material, particle_width/height, renderer, billboard_type, … emitter X {…} affector Y {…} }`. Không có từ khóa `particle_system`.
+5. `Material.axp/all.material` → vật liệu hạt: `texture`, `scene_blend add|alpha_blend`, `colour_op_ex modulate_x4` (sáng ×4), `tex_address_mode clamp`.
+
+Số liệu của 51 trứng: 1892 hệ hạt.
+
+| Loại | Số lượng |
+|---|---|
+| renderer | billboard 3934, texcoord_billboard 622, mesh 173, ribbon 13 |
+| emitter | Box, Ring, Cylinder, Point, PolarEmitter (+ Ellipsoid, HollowEllipsoid) |
+| affector | ColourFading, ScaleInterpolator, Rotator, Movement, Revolution, RevoluMove, MeshRotator, MeshAnimationAffector |
+
+`node khaosat-fx.js` in lại thống kê này. `node mau-fx.js > ra/mau-fx.txt` in mẫu tham số từng loại.
+
+### Nghĩa tham số đã dò ra (so với hình trong game)
+
+- **`ScaleInterpolator`.** Khi `use_interpolated_scale true`, cỡ = `particle_width/height × scaleN` (mắt Tề Thiên: 0.2 × 30 = 6). `width_range` chỉ dùng khi không nội suy. Nếu nhân cả hai, hạt to gấp hàng trăm lần.
+- **`ColourFading`.** `colourN` tại `timeN` (phần đời 0..1), `repeat_times`, `opacity`, `fade_in_time` / `fade_out_time`.
+- **Hòa trộn cộng trên canvas trong suốt** phải **không ghi kênh alpha** (`blendSrcAlpha 0, blendDstAlpha 1`). Ghi alpha thì thành mảng đen trên nền trang.
+- **Hướng vùng phát** theo `AreaEmitter::genAreaAxes` của Ogre: `up = direction × X` (hoặc `× Y`); `width` theo `up × direction`, `height` theo `up`, `depth` theo `direction`.
+- **Hạt kiểu mesh** (cánh, vật bay) là mesh riêng `p<n>.bin` (có thể có xương), xoay theo `MeshRotator`.
+
+Bộ mô phỏng nằm ở repo bot, file `BotDoMin/pet3d.client.js`, phục vụ ở `/p3.js`. Nó gần giống game, không giống từng điểm ảnh.
 
 ---
 
-## 6. Giới hạn và bẫy đã gặp
+## 6. Định dạng dữ liệu web (`ra/pet3d`)
 
-- **Tư thế gốc.** Mô hình ở bind pose (đứng, dang tay). Vũ khí là Entity riêng, gắn xương, nên đứng lơ lửng cạnh người (ví dụ Huyền Nữ Xà). Muốn vũ khí cầm đúng tay thì phải giải `.skeleton` (cũng mã hóa, `giaima.js` giải được) rồi áp động tác đứng.
-- **Mesh phụ** kiểu `...1eye.mesh` không nằm trong `.obj` thì **bỏ qua**. Chúng gắn theo xương, đặt bừa sẽ lệch.
+```
+index.json          { "<trứng>": { ten, so, f: [file...] } }   (dungall.js vài trứng thì GỘP với index cũ)
+<trứng>/m<k>.bin    k = 1 bản thường, 2.. = biến dị đời 1..
+<trứng>/p<n>.bin    mesh của hạt kiểu mesh
+<trứng>/k<n>.json   xương + động tác: { bones:[{n,c,p,q,s}], anims:{ 站立:{ d, tr:[{b,t,q,p}] }, 休闲:… } }
+<trứng>/fx.json     { ps: {tên hệ hạt: tham số + em:[...] + af:[...] (+ pm: p<n>.bin)}, mat: {tên: {tex, blend, x4, clamp, cull, rej, scroll}} }
+<trứng>/t<n>.dds    texture (tên ASCII)
+<trứng>/info.json   chi tiết pet / mã ngoại hình / số hiệu ứng từng bản
+```
+
+`.bin` gồm:
+1. `u32` độ dài JSON;
+2. JSON;
+3. đệm cho tròn 4 byte;
+4. dữ liệu.
+
+JSON của `.bin`:
+
+```
+{ parts: [{ nv, ni, i32, tex, alpha, o: { pos, nor, uv, idx, bi, bw } }],
+  skel: "k0.json",
+  loc: { tên điểm gắn: { b: xương, p: [x,y,z], r: [trục x,y,z, góc] } },
+  eff: [{ loc, el: [{ ps, pos, q (w,x,y,z), t0 }] }] }
+```
+
+- `o.*` là offset tính từ sau phần đệm.
+- `bi` là `Uint8 ×4`, `bw` là `Float32 ×4` mỗi đỉnh.
+
+---
+
+## 7. Giới hạn và bẫy đã gặp
+
+- **Hiệu ứng là mô phỏng lại.** Vài affector của Fairy (`RevoluMove`, `increment_*` của `ScaleInterpolator`, `use_constant_scale`) chỉ làm gần đúng. Nếu một pet trông khác game, so tham số trong `fx.json` với `ra/mau-fx.txt`.
+- **Khung nhìn** tính theo tư thế đang đứng (đỉnh qua da xương). Con bay đứng cao hơn tư thế gốc.
+- **Mesh phụ** kiểu `...1eye.mesh` không nằm trong `.obj` thì **bỏ qua**.
 - **Sửa file JS chứa `\` qua heredoc / `node -e` trong bash dễ mất dấu `\`** (regex hỏng âm thầm). Dùng trình sửa file.
 - **Bảng `MonsterAttrExTable` / `PetAttrTable` của client có thể khác bản server.** Mã ngoại hình lấy theo **server** (cột 44), tên `.obj` lấy theo **client**.
+- **Bảng phân loại `trich.js`.** Ở `Effect.axp`, cột 3 của `(list)` không khớp hashB; dự phòng là khớp khối theo kích thước (chỉ khi có đúng 1 khối).
