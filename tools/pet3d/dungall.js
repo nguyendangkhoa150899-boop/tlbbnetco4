@@ -51,8 +51,11 @@ function matHat(ten) {
   const g = (re) => { const m = k.match(re); return m ? m[1].trim() : ''; };
   const tex = g(/\btexture\s+([^\s]+)/), sb = g(/scene_blend\s+([^\r\n]+)/), co = g(/colour_op_ex\s+(\S+)/);
   const blend = /^add\b|one one\b/.test(sb) ? 'add' : /alpha_blend|src_alpha one_minus_src_alpha/.test(sb) ? 'alpha' : /modulate|dest_colour zero/.test(sb) ? 'mod' : /colour_blend/.test(sb) ? 'add' : sb ? 'alpha' : 'none';
+  // 2 he so hoa tron dung nhu Ogre (vd khoi "lam toi": zero one_minus_src_colour - neu coi la alpha se thanh o vuong den)
+  const TAT = { add: ['one', 'one'], modulate: ['dest_colour', 'zero'], colour_blend: ['src_colour', 'one_minus_src_colour'], alpha_blend: ['src_alpha', 'one_minus_src_alpha'] };
+  const tk = sb.split(/\s+/).filter(Boolean); const bf = TAT[tk[0]] || (tk.length >= 2 ? tk.slice(0, 2) : null);
   const sc = k.match(/scroll_anim\s+(\S+)\s+(\S+)/), ro = k.match(/rotate_anim\s+(\S+)/);
-  return { tex, blend, x4: co === 'modulate_x4' ? 4 : co === 'modulate_x2' ? 2 : 1, clamp: /tex_address_mode\s+clamp/.test(k) ? 1 : 0,
+  return { tex, blend, bf, x4: co === 'modulate_x4' ? 4 : co === 'modulate_x2' ? 2 : 1, clamp: /tex_address_mode\s+clamp/.test(k) ? 1 : 0,
     cull: /cull_hardware\s+none/.test(k) ? 0 : 1, rej: /alpha_rejection/.test(k) ? 1 : 0, scroll: sc ? [+sc[1], +sc[2]] : null, rot: ro ? +ro[1] : 0 };
 }
 // ---- he hat / hieu ung -> JSON
@@ -96,6 +99,8 @@ function xuongJson(k) {
 }
 
 const noi = JSON.parse(fs.readFileSync(path.join(__dirname, 'ra', 'noi.json'), 'utf8'));
+// ma phien ban moi lan dung (index.json -> v): trang gan ?v= vao duong dan -> file cache 7 ngay van tai lai khi dung lai
+const PB = Date.now().toString(36);
 const tong = { trung: 0, ban: 0, byte: 0, thieu: [], hat: 0, hatThieu: new Set() };
 // chi dung lai vai trung -> giu cac trung khac trong index.json cu
 let CHI = {}; if (CHON.length) { try { CHI = JSON.parse(fs.readFileSync(path.join(RA, 'index.json'), 'utf8')); } catch { /* chua co */ } }
@@ -182,7 +187,7 @@ for (const x of noi) {
   fs.writeFileSync(path.join(dir, 'fx.json'), JSON.stringify(FX));
   for (const f of fs.readdirSync(dir)) if (/\.(dds|json)$/.test(f)) tong.byte += fs.statSync(path.join(dir, f)).size;
   info.so = info.ban.length; info.f = fs.readdirSync(dir).filter((f) => /^([mp]\d+\.bin|t\d+\.dds|k\d+\.json|fx\.json)$/.test(f));
-  fs.writeFileSync(path.join(dir, 'info.json'), JSON.stringify(info)); CHI[x.trung] = { ten: x.ten, so: info.so, f: info.f }; tong.trung++;
+  fs.writeFileSync(path.join(dir, 'info.json'), JSON.stringify(info)); CHI[x.trung] = { ten: x.ten, so: info.so, v: PB, f: info.f }; tong.trung++;
   console.log(x.trung, x.ten, 'hieu ung/ban:', info.ban.map((b) => b.hieuUng).join(','), '| tex', texFile.size, '| xuong', skelFile.size, '| mesh hat', meshHat.size);
 }
 fs.writeFileSync(path.join(RA, 'index.json'), JSON.stringify(CHI));

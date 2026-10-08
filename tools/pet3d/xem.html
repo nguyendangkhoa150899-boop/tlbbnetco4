@@ -38,7 +38,7 @@
   sel.onchange = function () { history.replaceState(null, '', '?t=' + sel.value); mo(sel.value); };
   function mo(id) {
     t = id; if (V) V.dongLai(); var cv = document.getElementById('cv'), moi = cv.cloneNode(); cv.parentNode.replaceChild(moi, cv);
-    V = P3V.tao(moi, 'p/' + id + '/'); var so = idx[id].so, h = '';
+    V = P3V.tao(moi, 'p/' + id + '/', idx[id].v); var so = idx[id].so, h = '';
     for (var k = 1; k <= so; k++) h += '<button data-k="' + k + '">' + (k === 1 ? 'Bản thường' : '🧬 Đời ' + (k - 1)) + '</button>';
     document.getElementById('chips').innerHTML = h;
     [].forEach.call(document.querySelectorAll('#chips button'), function (b) { b.onclick = function () { chon(+b.dataset.k); }; });
