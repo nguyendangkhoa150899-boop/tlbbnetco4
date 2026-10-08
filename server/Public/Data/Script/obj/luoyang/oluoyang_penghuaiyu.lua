@@ -773,40 +773,83 @@ end
 -- Chi kiem TON TAI (bien chua co = nil), KHONG goi ham la. O tui 0: chi dung ham script goc da dung (cap, so lo, da giam dinh tu chat chua).
 function x000110_NetCo4DoHam( sceneId, selfId, targetId )
 	local s = ""
-	if GetEquipAttr then s = s.."GetEquipAttr=CO  " else s = s.."GetEquipAttr=khong  " end
-	if GetEquipExtraAttrTB then s = s.."GetEquipExtraAttrTB=CO  " else s = s.."GetEquipExtraAttrTB=khong  " end
-	if GetBagItemAttr then s = s.."GetBagItemAttr=CO  " else s = s.."GetBagItemAttr=khong  " end
-	if LuaFnGetBagItemAttr then s = s.."LuaFnGetBagItemAttr=CO  " else s = s.."LuaFnGetBagItemAttr=khong  " end
-	if GetBagEquipAttr then s = s.."GetBagEquipAttr=CO  " else s = s.."GetBagEquipAttr=khong  " end
-	if LuaFnGetBagEquipAttr then s = s.."LuaFnGetBagEquipAttr=CO  " else s = s.."LuaFnGetBagEquipAttr=khong  " end
-	if GetAttrValueTo then s = s.."GetAttrValueTo=CO  " else s = s.."GetAttrValueTo=khong  " end
-	if GetAppendAttr then s = s.."GetAppendAttr=CO  " else s = s.."GetAppendAttr=khong  " end
-	if GetExtAttr then s = s.."GetExtAttr=CO  " else s = s.."GetExtAttr=khong  " end
-	if GetExtAttrCount then s = s.."GetExtAttrCount=CO  " else s = s.."GetExtAttrCount=khong  " end
-	if GetBaseAttrValue then s = s.."GetBaseAttrValue=CO  " else s = s.."GetBaseAttrValue=khong  " end
-	if GetItemAptitude then s = s.."GetItemAptitude=CO  " else s = s.."GetItemAptitude=khong  " end
-	if LuaFnGetItemApt then s = s.."LuaFnGetItemApt=CO  " else s = s.."LuaFnGetItemApt=khong  " end
-	if LuaFnJudgeApt then s = s.."LuaFnJudgeApt=CO  " else s = s.."LuaFnJudgeApt=khong  " end
-	if LuaFnIsJudgeApt then s = s.."LuaFnIsJudgeApt=CO  " else s = s.."LuaFnIsJudgeApt=khong  " end
-	if GetItemQualityTB then s = s.."GetItemQualityTB=CO  " else s = s.."GetItemQualityTB=khong  " end
-	if LuaFnGetItemQuality then s = s.."LuaFnGetItemQuality=CO  " else s = s.."LuaFnGetItemQuality=khong  " end
-	if LuaFnGetBagItemQuality then s = s.."LuaFnGetBagItemQuality=CO  " else s = s.."LuaFnGetBagItemQuality=khong  " end
-	if GetBagItemQuality then s = s.."GetBagItemQuality=CO  " else s = s.."GetBagItemQuality=khong  " end
-	if GetItemIdent then s = s.."GetItemIdent=CO  " else s = s.."GetItemIdent=khong  " end
-	if LuaFnGetBagItemIdent then s = s.."LuaFnGetBagItemIdent=CO  " else s = s.."LuaFnGetBagItemIdent=khong  " end
-	if LuaFnSetBagItemIdent then s = s.."LuaFnSetBagItemIdent=CO  " else s = s.."LuaFnSetBagItemIdent=khong  " end
-	if GetItemParam then s = s.."GetItemParam=CO  " else s = s.."GetItemParam=khong  " end
-	if GetItemParamValue then s = s.."GetItemParamValue=CO  " else s = s.."GetItemParamValue=khong  " end
-	if LuaFnGetBagItemParam then s = s.."LuaFnGetBagItemParam=CO  " else s = s.."LuaFnGetBagItemParam=khong  " end
-	if GetBagItemParam then s = s.."GetBagItemParam=CO  " else s = s.."GetBagItemParam=khong  " end
-	if LuaFnCompoundRandom then s = s.."LuaFnCompoundRandom=CO  " else s = s.."LuaFnCompoundRandom=khong  " end
-	if LuaFnGetDarkAttrForBag then s = s.."LuaFnGetDarkAttrForBag=CO  " else s = s.."LuaFnGetDarkAttrForBag=khong  " end
-	if CallScriptRecycleFunc then s = s.."CallScriptRecycleFunc=CO  " else s = s.."CallScriptRecycleFunc=khong  " end
-	if LuaFnEquipLevelUp then s = s.."LuaFnEquipLevelUp=CO  " else s = s.."LuaFnEquipLevelUp=khong  " end
-	if LuaFnTryRecieveItem then s = s.."LuaFnTryRecieveItem=CO  " else s = s.."LuaFnTryRecieveItem=khong  " end
+	local n = 0
+	if GetEquipAttr then s = s.."GetEquipAttr  " n = n + 1 end
+	if LuaFnGetEquipAttr then s = s.."LuaFnGetEquipAttr  " n = n + 1 end
+	if GetEquipExtraAttrTB then s = s.."GetEquipExtraAttrTB  " n = n + 1 end
+	if LuaFnGetEquipExtraAttrTB then s = s.."LuaFnGetEquipExtraAttrTB  " n = n + 1 end
+	if GetBagItemAttr then s = s.."GetBagItemAttr  " n = n + 1 end
+	if LuaFnGetBagItemAttr then s = s.."LuaFnGetBagItemAttr  " n = n + 1 end
+	if GetBagEquipAttr then s = s.."GetBagEquipAttr  " n = n + 1 end
+	if LuaFnGetBagEquipAttr then s = s.."LuaFnGetBagEquipAttr  " n = n + 1 end
+	if GetAttrValueTo then s = s.."GetAttrValueTo  " n = n + 1 end
+	if LuaFnGetAttrValueTo then s = s.."LuaFnGetAttrValueTo  " n = n + 1 end
+	if GetAppendAttr then s = s.."GetAppendAttr  " n = n + 1 end
+	if LuaFnGetAppendAttr then s = s.."LuaFnGetAppendAttr  " n = n + 1 end
+	if GetExtAttr then s = s.."GetExtAttr  " n = n + 1 end
+	if LuaFnGetExtAttr then s = s.."LuaFnGetExtAttr  " n = n + 1 end
+	if GetExtAttrCount then s = s.."GetExtAttrCount  " n = n + 1 end
+	if LuaFnGetExtAttrCount then s = s.."LuaFnGetExtAttrCount  " n = n + 1 end
+	if GetBaseAttrValue then s = s.."GetBaseAttrValue  " n = n + 1 end
+	if LuaFnGetBaseAttrValue then s = s.."LuaFnGetBaseAttrValue  " n = n + 1 end
+	if GetItemAptitude then s = s.."GetItemAptitude  " n = n + 1 end
+	if LuaFnGetItemAptitude then s = s.."LuaFnGetItemAptitude  " n = n + 1 end
+	if GetItemApt then s = s.."GetItemApt  " n = n + 1 end
+	if LuaFnGetItemApt then s = s.."LuaFnGetItemApt  " n = n + 1 end
+	if JudgeApt then s = s.."JudgeApt  " n = n + 1 end
+	if LuaFnJudgeApt then s = s.."LuaFnJudgeApt  " n = n + 1 end
+	if IsJudgeApt then s = s.."IsJudgeApt  " n = n + 1 end
+	if LuaFnIsJudgeApt then s = s.."LuaFnIsJudgeApt  " n = n + 1 end
+	if GetItemQualityTB then s = s.."GetItemQualityTB  " n = n + 1 end
+	if LuaFnGetItemQualityTB then s = s.."LuaFnGetItemQualityTB  " n = n + 1 end
+	if GetItemQuality then s = s.."GetItemQuality  " n = n + 1 end
+	if LuaFnGetItemQuality then s = s.."LuaFnGetItemQuality  " n = n + 1 end
+	if GetBagItemQuality then s = s.."GetBagItemQuality  " n = n + 1 end
+	if LuaFnGetBagItemQuality then s = s.."LuaFnGetBagItemQuality  " n = n + 1 end
+	if GetItemIdent then s = s.."GetItemIdent  " n = n + 1 end
+	if LuaFnGetItemIdent then s = s.."LuaFnGetItemIdent  " n = n + 1 end
+	if GetBagItemIdent then s = s.."GetBagItemIdent  " n = n + 1 end
+	if LuaFnGetBagItemIdent then s = s.."LuaFnGetBagItemIdent  " n = n + 1 end
+	if SetBagItemIdent then s = s.."SetBagItemIdent  " n = n + 1 end
+	if LuaFnSetBagItemIdent then s = s.."LuaFnSetBagItemIdent  " n = n + 1 end
+	if GetItemParam then s = s.."GetItemParam  " n = n + 1 end
+	if LuaFnGetItemParam then s = s.."LuaFnGetItemParam  " n = n + 1 end
+	if GetItemParamValue then s = s.."GetItemParamValue  " n = n + 1 end
+	if LuaFnGetItemParamValue then s = s.."LuaFnGetItemParamValue  " n = n + 1 end
+	if GetBagItemParam then s = s.."GetBagItemParam  " n = n + 1 end
+	if LuaFnGetBagItemParam then s = s.."LuaFnGetBagItemParam  " n = n + 1 end
+	if CompoundRandom then s = s.."CompoundRandom  " n = n + 1 end
+	if LuaFnCompoundRandom then s = s.."LuaFnCompoundRandom  " n = n + 1 end
+	if GetDarkAttrForBag then s = s.."GetDarkAttrForBag  " n = n + 1 end
+	if LuaFnGetDarkAttrForBag then s = s.."LuaFnGetDarkAttrForBag  " n = n + 1 end
+	if CallScriptRecycleFunc then s = s.."CallScriptRecycleFunc  " n = n + 1 end
+	if LuaFnCallScriptRecycleFunc then s = s.."LuaFnCallScriptRecycleFunc  " n = n + 1 end
+	if EquipLevelUp then s = s.."EquipLevelUp  " n = n + 1 end
+	if LuaFnEquipLevelUp then s = s.."LuaFnEquipLevelUp  " n = n + 1 end
+	if TryRecieveItem then s = s.."TryRecieveItem  " n = n + 1 end
+	if LuaFnTryRecieveItem then s = s.."LuaFnTryRecieveItem  " n = n + 1 end
+	if GetBagItemLevel then s = s.."GetBagItemLevel  " n = n + 1 end
+	if LuaFnGetBagItemLevel then s = s.."LuaFnGetBagItemLevel  " n = n + 1 end
+	if GetBagItemDur then s = s.."GetBagItemDur  " n = n + 1 end
+	if LuaFnGetBagItemDur then s = s.."LuaFnGetBagItemDur  " n = n + 1 end
+	if GetBagItemMaxDur then s = s.."GetBagItemMaxDur  " n = n + 1 end
+	if LuaFnGetBagItemMaxDur then s = s.."LuaFnGetBagItemMaxDur  " n = n + 1 end
+	if GetItemLevel then s = s.."GetItemLevel  " n = n + 1 end
+	if LuaFnGetItemLevel then s = s.."LuaFnGetItemLevel  " n = n + 1 end
+	if GetEquipPoint then s = s.."GetEquipPoint  " n = n + 1 end
+	if LuaFnGetEquipPoint then s = s.."LuaFnGetEquipPoint  " n = n + 1 end
+	if GetItemEquipPoint then s = s.."GetItemEquipPoint  " n = n + 1 end
+	if LuaFnGetItemEquipPoint then s = s.."LuaFnGetItemEquipPoint  " n = n + 1 end
+	if GetBagEquipType then s = s.."GetBagEquipType  " n = n + 1 end
+	if LuaFnGetBagEquipType then s = s.."LuaFnGetBagEquipType  " n = n + 1 end
+	s = "CO (" .. n .. "): " .. s
 	local id = LuaFnGetItemTableIndexByIndex( sceneId, selfId, 0 )
-	local o = "#rO tui 0: "..id
-	if id > 0 then o = o.." cap "..LuaFnGetBagItemLevel( sceneId, selfId, 0 ).." lo "..GetBagGemCount( sceneId, selfId, 0 ).." da gd tu chat "..LuaFnIsJudgeApt( sceneId, selfId, 0 ) end
+	local o = "#rO tui 0: " .. id
+	if id > 0 then
+		if GetBagItemLevel then o = o .. " cap " .. GetBagItemLevel( sceneId, selfId, 0 ) end
+		if GetBagGemCount then o = o .. " lo " .. GetBagGemCount( sceneId, selfId, 0 ) end
+		if LuaFnIsJudgeApt then o = o .. " da gd tu chat " .. LuaFnIsJudgeApt( sceneId, selfId, 0 ) end
+	end
 	BeginEvent( sceneId )
 		AddText( sceneId, s )
 		AddText( sceneId, o )
