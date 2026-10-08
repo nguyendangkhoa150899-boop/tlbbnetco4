@@ -14,7 +14,7 @@ Tài liệu này gom toàn bộ những gì đã tìm ra về **client** (`Thien
 | Đọc mô hình / skeleton / `.obj` / bảng trong gói client | Không (70% file bị mã hóa) | **Được.** Đã giải hết thuật toán (49 kiểu) |
 | Đọc bảng client (`EquipBase.txt`, `CharModelEx.txt`…) | Không, vì `Config.axp` / `Interface.axp` không có trên đĩa | **Được**, tách từ RAM game |
 | Dựng 3D pet trên web (tư thế đứng + hiệu ứng) | Không | **Đã làm** và đã deploy: Ghép Ngọc → "✨ Xem biến dị" |
-| **Sửa** bảng / chữ phía client (tên món, mô tả, số giây Trùng Lâu…) | Không | **Chưa biết.** Đang thử `Bin/Config.axp` (mục 4) |
+| **Sửa** bảng / chữ phía client (tên món, mô tả, số giây Trùng Lâu…) | Không | **Không** bằng file ngoài đĩa: đã thử 08/10, client bỏ qua `Bin/Config.axp` (mục 4) |
 
 `docs/PHAT-TRIEN.md` cột "Không làm được" (giao diện mới, vật phẩm mới…) vẫn đúng **cho tới khi** mục 4 thử thành công.
 
@@ -48,7 +48,7 @@ Giới hạn: hiệu ứng là **mô phỏng gần đúng**, chưa thử trên �
 
 ---
 
-## 4. Đang thử: sửa chữ phía client (Config.axp ngoài đĩa)
+## 4. Đã thử (thất bại): sửa chữ phía client bằng Config.axp ngoài đĩa
 
 ### Vấn đề gốc
 
@@ -78,9 +78,20 @@ Số hiện trên client (đọc 08/10):
    - **"99 giây"** → client đọc gói ngoài đĩa. Làm tiếp mục kế hoạch dưới.
    - **"10 giây"** hoặc game lỗi → xóa `Bin/Config.axp` là về như cũ. Hướng sửa client coi như **không khả thi** (phải sửa thẳng OgreMain.dll có Themida, rủi ro hỏng client).
 
-Kết quả: _(chưa có - ghi vào đây sau khi thử)_
+**Kết quả 08/10 17:09: THẤT BẠI.**
 
-### Kế hoạch nếu thử thành công
+- Game mở lại lúc 17:03:18, sau khi có `Bin/Config.axp` (16:41). `Fairy.log` 17:03:30 vẫn ghi đã thêm `../Bin/Config.axp`.
+- Nhưng tooltip món Chân Trùng Lâu Liên vẫn ghi **"liên tục 10 giây"**, không phải 99.
+- Kết luận: hook trong `OgreMain.dll` luôn trả bản **nhúng sẵn**, file cùng tên trên đĩa bị bỏ qua. File thử đã xóa.
+- Phát hiện thêm trong lúc thử: con số còn nằm ở chỗ thứ 3 là chú thích biểu tượng **buff** khi đang mặc. Đó là `ImpactSEData_V1.txt` id 2311 / 2313 / 2315 (Chân Giới / Ngọc / Liên): "tấn công thì hữu **6%** tỷ lệ … duy trì liên tục **10 giây**".
+
+**Hướng còn lại (chưa làm, không khuyên làm):** vá chữ trong RAM sau khi OgreMain tự giải nén. Cách này cần một launcher/DLL chèn vào game trên máy từng người. Phức tạp, dễ bị antivirus chặn, và phải làm lại mỗi khi đổi client.
+
+**Thay thế thực tế:** cho người chơi xem số thật ở chỗ khác. Ví dụ trang web (Ghép Ngọc / Shop / một mục "Trùng Lâu" đọc thẳng cấu hình panel), hoặc lời thoại NPC trong game (server sửa được, không cần client). Còn tooltip trong game thì chấp nhận ghi số gốc.
+
+_Phần dưới giữ lại để tham khảo nếu sau này tìm được cách cho client đọc gói ngoài._
+
+### Kế hoạch nếu thử thành công (không áp dụng - phép thử đã thất bại)
 
 1. **Công cụ sinh `Config.axp`** từ cấu hình thật của server (ước vài giờ):
    - Đọc `dur` / `rate` từ panel Custom Trùng Lâu, viết lại câu mô tả của mỗi mã cho đúng số.
@@ -105,4 +116,4 @@ Kết quả: _(chưa có - ghi vào đây sau khi thử)_
 | Kiểm "✨ Xem biến dị" trên điện thoại thật | Nếu nặng: giảm hạt (quota) khi màn nhỏ |
 | So hiệu ứng với game cho vài pet | Chỗ nào lệch thì so `fx.json` với `ra/mau-fx.txt`, chỉnh trong `pet3d.client.js` |
 | Dùng lại bộ xem cho thú cưỡi / trang phục / boss | Cùng chuỗi `.obj` → mesh → skeleton → effect; chỉ cần danh sách mã ngoại hình |
-| Sửa chữ client (mục 4) | Chờ phép thử |
+| Hiện số Trùng Lâu thật cho người chơi | Không sửa được tooltip client (mục 4). Làm qua web hoặc NPC nếu cần |

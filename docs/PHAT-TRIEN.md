@@ -14,7 +14,7 @@
 
 Lý do cột phải: giao diện và bảng vật phẩm phía client (`Interface.axp`, `Config.axp`) đã bị nhúng vào `Bin/OgreMain.dll` (file 94MB, nội dung bị nén hoặc mã hóa). Server có thể phát một vật phẩm mới, nhưng client không biết vật phẩm đó là gì.
 
-**Cập nhật 08/10:** giờ đã **đọc** được hết các gói này: tách từ RAM game, giải mã toàn bộ. Việc **sửa** chúng (đặt `Bin/Config.axp` ngoài đĩa cho client đọc) đang được thử. Nếu được thì cột phải mở ra một phần: tên / mô tả vật phẩm, số giây Trùng Lâu… nhưng mọi người chơi phải cập nhật client. Xem `docs/CLIENT-GIAI-MA.md`.
+**Cập nhật 08/10:** giờ đã **đọc** được hết các gói này: tách từ RAM game, giải mã toàn bộ. Nhưng **sửa** thì không được: đã thử đặt `Bin/Config.axp` ngoài đĩa, client vẫn dùng bản nhúng trong OgreMain. Vì vậy cột phải vẫn đúng. Xem `docs/CLIENT-GIAI-MA.md` mục 4.
 
 ## Tra ID vật phẩm
 

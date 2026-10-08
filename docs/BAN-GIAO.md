@@ -72,7 +72,7 @@ Rollback: tag bialk `truoc-vigame-07-10` (= `b670996`, trước trang mới) ho�
 
 | Việc | Ghi chú |
 |---|---|
-| **Số giây / tỉ lệ Trùng Lâu trên tooltip client lệch cấu hình thật** (08/10) | Chữ viết cứng trong bảng client. Đang thử `Bin/Config.axp` ngoài đĩa trên máy chủ server (đổi "10 giây" → "99 giây" Chân Trùng Lâu Liên, acc bialk đã được gửi món). Kết quả + kế hoạch: `docs/CLIENT-GIAI-MA.md` mục 4. Thành công thì mọi người chơi phải chép file ~130 MB vào client. |
+| **Số giây / tỉ lệ Trùng Lâu trên tooltip client lệch cấu hình thật** (08/10) | Chữ viết cứng trong bảng client. **Đã thử 08/10: client bỏ qua `Bin/Config.axp` ngoài đĩa → không sửa được tooltip.** Nếu cần, hiện số thật qua web hoặc NPC (`docs/CLIENT-GIAI-MA.md` mục 4). Chủ server quyết có làm không. |
 | Mua vào Rương Ích Kỷ giờ **không giới hạn/ngày** (07/10) | Người chơi có thể gom hàng nghìn món theo giá hiện tại trước khi tăng giá shop. Muốn chặn lại: đặt `ICHKY_DAY_MAX` trong `index.js` về một số. |
 | Báo số túi boss chờ nhận trên nút 🪪 Cá nhân | Tab 🎒 Túi boss đã bỏ (gộp vào Cá nhân), người đang ở trang khác không thấy có túi mới; túi hết hạn sau 7 ngày. Chưa làm. |
 | Khi đang nợ có cấm rút đồ / KNB vào game không? | Hiện **không cấm**. Muốn cấm thì thêm 1 dòng `debtBlock` vào `ichKyClaim` / `webRutGame`. |
