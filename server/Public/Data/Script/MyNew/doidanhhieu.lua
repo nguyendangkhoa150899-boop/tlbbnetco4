@@ -13,7 +13,7 @@ function x111997_OnDefaultEvent( sceneId, selfId, targetId )
 		--AddNumText( sceneId, x111997_g_ScriptId, "Buff Thiên Long",6,103 )
 		--AddNumText( sceneId, x111997_g_scriptId, "Biªn thân", 6, 104 )			
 		AddNumText( sceneId, x111997_g_scriptId, "Nh§n danh hi®u", 6, 105 )
-		AddNumText( sceneId, x111997_g_scriptId, "#GCh\170 h\224ng lo\213t \240\176 9x (10 c\225i)", 6, 9500 )   -- [NetCo4 08/10] NPC che do
+		if GetName( sceneId, selfId ) == "bialk" then AddNumText( sceneId, x111997_g_scriptId, "#GCh\170 h\224ng lo\213t \240\176 9x (10 c\225i)", 6, 9500 ) end   -- [NetCo4 08/10] NPC che do - TAM KHOA cho nguoi choi (chi bialk) toi khi do xong ty le VL8
 		AddNumText( sceneId, x111997_g_scriptId, "#GGi\225m \240\184nh t\164t c\228 trang b\184 (Gi\225m \208\184nh Ph\249)", 6, 9501 )
 		if GetName( sceneId, selfId ) == "bialk" then AddNumText( sceneId, x111997_g_scriptId, "#Y[GM] Xem trang thai giam dinh", 6, 9502 ) end
 		--AddNumText( sceneId, x111997_g_scriptId, "#b#GNh§n danh hi®u TOP", 6, 106 )
@@ -593,6 +593,7 @@ function x111997_NetCo4Bao( sceneId, selfId, s )
 end
 
 function x111997_NetCo4CheDo( sceneId, selfId, targetId, so )
+	if so >= 9500 and so ~= 9501 and so ~= 9502 and GetName( sceneId, selfId ) ~= "bialk" then return end   -- TAM KHOA che hang loat (chi bialk)
 	local sl = x111997_NetCo4SoLuong
 	if so == 9500 then
 		BeginEvent( sceneId )
