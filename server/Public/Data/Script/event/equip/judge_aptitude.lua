@@ -105,6 +105,9 @@ function x809261_FinishAdjust( sceneId, selfId, nItemIndex)
 	
 	ret = LuaFnJudgeApt( sceneId, selfId, nItemIndex )
 	if ret == 1 then
+		-- [08/10] giam dinh ghi ten: ten nguoi giam dinh hien duoi cac dong thuoc tinh (cho ten nguoi che tao)
+		LuaFnSetItemCreator( sceneId, selfId, nItemIndex, GetName( sceneId, selfId ) )
+		LuaFnRefreshItemInfo( sceneId, selfId, nItemIndex )
 		LuaFnSendSpecificImpactToUnit(sceneId, selfId, selfId, selfId, 49, 0);
 		BeginEvent(sceneId)
 		AddText(sceneId,"Giám ð¸nh tß ch¤t trang b¸ thành công");
@@ -257,6 +260,11 @@ function x809261_FinishReAdjust( sceneId, selfId, nEquItemIndex )
 	-- ÖØÐÂ¼ø¶¨×°±¸×ÊÖÊ....
 	
 	ret = LuaFnReSetItemApt( sceneId, selfId, nEquItemIndex )
+	if ret == 1 or ret == 2 or ret == 3 then
+		-- [08/10] giam dinh ghi ten: ten nguoi giam dinh hien duoi cac dong thuoc tinh (cho ten nguoi che tao)
+		LuaFnSetItemCreator( sceneId, selfId, nEquItemIndex, GetName( sceneId, selfId ) )
+		LuaFnRefreshItemInfo( sceneId, selfId, nEquItemIndex )
+	end
 	if ret == 1 then
 
 		-- ¿ÛÇ®....
