@@ -81,3 +81,13 @@ DB trễ tới **~15 phút** so với trong game: ShareMemory ghi từng nhân v
   1. Món đang có lưu cấp 9 = mức tối đa, nên sau restart nhảy lên max.
   2. Thêm dòng quy tắc / mã tỉ lệ mới chưa rõ engine có chịu không (ghi chép 06/10). Phải thử trên server test.
   3. Chỉ Chân Trùng Lâu có đường tẩy (tepp 23); bản thường phải thêm mục NPC.
+
+## 📋 Chép dòng sang Chân (08/10)
+
+Nâng Chân ở NPC Tuyết Phi Phi (`wuyazi85o.lua` nhánh 36) **tạo món mới** bằng `TryRecieveItem` → engine bốc dòng theo cấu hình **mã Chân**; script chỉ chép lỗ / bảo thạch / cường hóa / khóa / ràng buộc / chữ người chế. Engine **không có hàm Lua đọc / ghi dòng** của 1 món → không chép được dòng riêng của từng món. Cách làm: cho mã Chân dùng đúng bộ dòng của mã Thường.
+
+- Nút trên trang mã Thường (có bảng xem trước Thường → Chân, bấm 2 lần mới chép; mã đang sửa chưa lưu thì chặn): Chân = **đúng bộ dòng đang có hiệu lực** của mã Thường, số dòng = số dòng đó (Thường 15 dòng → Chân 15 dòng; admin mở thêm ở trang Chân sau khi chép - chép lại sẽ đè).
+- Điểm Chân tính từ **điểm admin đặt cho mã Thường** (chủ server chốt, không so với Chân gốc): **Băng / Hỏa / Huyền / Độc công +50** (engine không ra đúng thì +51), **mọi dòng khác ×1,3** (làm tròn). Ví dụ 10423024 công thuộc tính 301 → Chân 351 (Chân gốc 360), Ngoại công 1.991 → 2.589 (Chân gốc 2.711), Sinh lực 20.000 → 26.000.
+- Bảng Thường → Chân (`trunglau.py` `CHAN`, khớp script NPC): Liên 10553100 / 10553112 → 10553103; Giới 10553101 / 10553113 / 10422016 → 10553104; Ngọc 10553102 / 10553114 / 10423024 → 10553105; Đai 10553106 → 10553107; Vai 10553108 → 10553109; Giáp 10553110 → 10553111. Nhóm dùng chung không tách: chép mã nào thì Chân theo mã đó.
+- Món đang có: **điểm** tự đổi theo mã (sau restart); **dòng** chỉ đổi khi tạo lại món - Chân: Tẩy Chân-Trùng Lâu (1 Ma Huyết Thạch 30505813 + 100 vàng, ra đúng bộ dòng 1 lần); Thường: không có đường tẩy.
+- Code: `panel/trunglau.py` `chep_sang_chan` / `diem_chan`, API `POST /api/trunglau` `op: chep`; bot `trunglau.panel.js` (`tlChep`), `panel.js` cho phép op `chep` (chỉ cổng SUPER). Đã thử trên bản sao 3 bảng game ở `/tmp` VPS (đã xóa).

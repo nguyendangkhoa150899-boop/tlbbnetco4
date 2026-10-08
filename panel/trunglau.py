@@ -154,7 +154,7 @@ def du_lieu():
         diem = lambda seg, k: math.ceil(int(seg[k + 1]) * rr[k] / 100) if seg[k + 1].lstrip("-").isdigit() and int(seg[k + 1]) > 0 else 0
         t = ten.get(i, {"ten": "#" + i, "loai": "", "gd": ""})
         mon.append({
-            "id": i, "ten": t["ten"], "loai": t["loai"], "gd": t["gd"], "chan": t["ten"].startswith("Chân"),
+            "id": i, "ten": t["ten"], "loai": t["loai"], "gd": t["gd"], "chan": t["ten"].startswith("Chân"), "chanDich": CHAN.get(i, ""),
             "cap": cap, "T": _so(g[100]), "rate": rr,
             "dongGoc": [k for k in range(58) if g[k + 32] != "-1"], "dong": [k for k in range(58) if c[k + 32] != "-1"],
             "dongCo": _dong_co(g, seg_g, rr),
@@ -352,6 +352,53 @@ def luu_mon(i, m, ai=""):
     ok, msg = ap(cfg)
     if ok:
         _ghi_cfg(cfg)
+    return ok, msg
+
+
+# 08/10 (chu server): Thuong -> Chan khi nang o NPC Tuyet Phi Phi (wuyazi85o.lua tepp 36). 10422018 / 10423026 khong co tren trang.
+# Nhieu ma Thuong chung 1 Chan (Lien / Gioi / Ngoc): chep ma nao thi Chan theo ma do (lan sau de lan truoc) - chu server: khong tach.
+CHAN = {"10553100": "10553103", "10553112": "10553103",
+        "10553101": "10553104", "10553113": "10553104", "10422016": "10553104",
+        "10553102": "10553105", "10553114": "10553105", "10423024": "10553105",
+        "10553106": "10553107", "10553108": "10553109", "10553110": "10553111"}
+CONG_TT = (6, 9, 12, 15)          # Bang / Hoa / Huyen / Doc cong ("thuoc tinh"): Chan = Thuong + 50 (khong ra dung thi + 51)
+CONG_TT_THEM, NHAN_KHAC = 50, 1.3  # moi dong con lai: Chan = Thuong x 1,3
+
+
+def diem_chan(x, k, r):
+    """Diem Chan cho 1 dong tu diem Thuong x (r = he so cap cua Chan o dong k)."""
+    if x <= 0:
+        return 0
+    if k in CONG_TT:
+        for d in (CONG_TT_THEM, CONG_TT_THEM + 1):
+            if r > 0 and math.ceil(v_cho(x + d, r) * r / 100) == x + d:
+                return x + d
+        return x + CONG_TT_THEM
+    return max(1, int(math.floor(x * NHAN_KHAC + 0.5)))
+
+
+def chep_sang_chan(i, ai=""):
+    """📋 Chep dong sang Chan: Chan (CHAN[i]) = DUNG bo dong dang co hieu luc cua ma Thuong i, so dong = so dong do (khong boc ngau nhien);
+    diem = diem Thuong dang co hieu luc: 4 cong thuoc tinh +50 (khong ra dung thi +51), con lai x1,3. Luu nhu luu tay (kiem + sao luu)."""
+    if i not in CHAN:
+        return False, "Mã %s không phải Trùng Lâu thường có bản Chân" % i
+    j = CHAN[i]
+    d = {m["id"]: m for m in du_lieu()["mon"]}
+    t, c = d[i], d[j]
+    dong = list(t["dong"])
+    if len(dong) > MAX_DONG:
+        return False, "Mã %s đang bật %d dòng (> %d): lưu lại mã này trước" % (i, len(dong), MAX_DONG)
+    thieu = [k for k in dong if k not in c["dongCo"]]
+    if thieu:
+        return False, "Chân %s không có số gốc cho dòng: %s - bỏ các dòng đó ở mã %s rồi chép lại" % (j, ", ".join(DONG[k] for k in thieu), i)
+    diem = {}
+    for k in dong:
+        x = diem_chan(t["diem"][k], k, c["rate"][k])
+        if x > 0:
+            diem[k] = x
+    ok, msg = luu_mon(j, {"dong": dong, "diem": diem}, (ai + " chep tu " + i).strip())
+    if ok:
+        msg = "Chép %d dòng %s -> Chân %s (cong thuoc tinh +50/51, con lai x1,3). %s" % (len(dong), i, j, msg)
     return ok, msg
 
 
