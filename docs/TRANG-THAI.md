@@ -1475,3 +1475,4 @@ Trạng thái 16:30 05/10: mọi thứ **đã commit, push, deploy**. **Game CH�
   - CHƯA RÕ: chế tay của bialk 20:10–20:42 ghi x=4 nhưng ra C9 196 lần, trong khi bảng quy tắc 19 VL4 = C9 0% → hoặc x không phải cấp vật liệu, hoặc có lỗ. Hỏi chủ server đã bỏ vật liệu gì.
   - Hoàng Chỉ 20502009 (q5, loại 2 như Bí Ngân, cấp 9) có thể vào ô vật liệu trang sức khi chế tay → cột "cấp 9" = cột để trống (mã -1), không rõ engine xử lý ra sao. Chưa thử.
   - Giám định tất cả: trừ phù cho MỌI trang bị có `GetBagItemIdent == 0` - chưa xác nhận đồ không cần giám định (Trùng Lâu, thần khí, tọa kỵ…) trả 1. Không kiểm kết quả `SetBagItemIdent`. NPC không kiểm cấp kỹ năng Tinh Công / Công Nghệ.
+- **08/10 khuya: chủ server thử xong, báo ổn → gỡ khóa tạm** (`e2d119d` revert `3b6b8d5`), chế hàng loạt mở lại cho mọi người. File = đúng bản tag `truoc-chedo-khoa-08-10`.
