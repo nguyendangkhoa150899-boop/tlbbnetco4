@@ -1820,12 +1820,10 @@ function x892101_NetCo4_Roll3( myitemid, capcu )
 	return s, ids
 end
 
--- go MOI chieu Vo Hon khoi nhan vat (cap 1-6: 1361-1600, cap 7-8: 1652-1731; ban goc sot 1384 Ngu The cap 6) roi them 3 chieu moi
+-- go MOI chieu Vo Hon khoi nhan vat (1361-1600 = 40 chieu x cap 1-6; ban goc sot 1384 Ngu The cap 6) roi them 3 chieu moi.
+-- KHONG dung 1652-1731: skillstrtoid cap 7-8 tro nham sang chieu KHAC (1652 Sieu Cap Cuc Bang Ngung Sat, 1690-1731 chieu #eaf0c14...) - Vo Hon khong co cap 7-8 that.
 function x892101_NetCo4_GanChieu( sceneId, selfId, ids )
 	for i = 1361, 1600 do
-		DelSkill( sceneId, selfId, i )
-	end
-	for i = 1652, 1731 do
 		DelSkill( sceneId, selfId, i )
 	end
 	for o = 1, 3 do
