@@ -142,6 +142,8 @@ Bước 3: lấy khóa mới. Chép `img/RSSParser.dll_<base>.img` thành `khoa/
 - Tìm lại `key480` (96 byte đầu XOR với header một file mã hóa phải ra `SEPCIAL_FILE_HD`) và `keyT`. Ghi chúng ra `khoa/key480.bin` và `khoa/keyT.bin`.
 - Chạy `node lapbang.js`. Kết quả phải là `OK n / n`, trừ 6 và 13..18 (đã biết, xử lý riêng trong `giaima.js`).
 
+Tạo gói thử để kiểm client có đọc `Bin/Config.axp` ngoài đĩa không: `node thu-config.js img\goi2.axp <client>\Bin\Config.axp.THU "<đầu dòng>" "<chuỗi cũ>" "<chuỗi mới cùng độ dài>"`. Chỉ đổi byte tại chỗ, không đóng gói lại. Bối cảnh và kết quả thử: `docs/CLIENT-GIAI-MA.md` mục 4.
+
 Bước 4: kiểm tra. Chạy `node giaima.js` trên 1 mesh mã hóa. Kết quả phải bắt đầu bằng `00 10 [MeshSerializer_v1.40]`.
 
 Đọc mã máy trong ảnh RAM:

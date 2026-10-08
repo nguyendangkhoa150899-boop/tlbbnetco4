@@ -6,7 +6,9 @@
 3. `docs/TRANG-THAI.md`: nhật ký chi tiết, đọc từ cuối lên.
 4. Bot web: README của repo bot `bialk` (`BotDoMin/README.md`).
 
-Tài liệu riêng từng tính năng nằm trong `docs/`: `THUONG-PHO.md`, `TUI-BOSS.md`, `GHEP-NGOC.md`, `VONG-QUAY.md`, `BOSS-PHO-BAN.md`, `SHOP-TRONG-GAME.md`.
+Tài liệu riêng từng tính năng nằm trong `docs/`: `THUONG-PHO.md`, `TUI-BOSS.md`, `GHEP-NGOC.md`, `VONG-QUAY.md`, `BOSS-PHO-BAN.md`, `SHOP-TRONG-GAME.md`, `TRUNG-LAU-CUSTOM.md`.
+
+**08/10: client đã giải mã được** (mô hình, skeleton, hiệu ứng, bảng `Config.axp` ẩn trong OgreMain). Toàn bộ nghiên cứu, việc đã làm ("✨ Xem biến dị" ở Ghép Ngọc) và **phép thử sửa chữ client đang treo** (số giây Trùng Lâu) nằm ở **`docs/CLIENT-GIAI-MA.md`**. Công cụ: `tools/pet3d/README.md`.
 
 Chủ server nói tiếng Việt và muốn được trả lời bằng tiếng Việt. Khi họ chỉ **hỏi / nhờ check** thì trả lời rồi dừng, không tự sửa.
 
@@ -70,6 +72,7 @@ Rollback: tag bialk `truoc-vigame-07-10` (= `b670996`, trước trang mới) ho�
 
 | Việc | Ghi chú |
 |---|---|
+| **Số giây / tỉ lệ Trùng Lâu trên tooltip client lệch cấu hình thật** (08/10) | Chữ viết cứng trong bảng client. Đang thử `Bin/Config.axp` ngoài đĩa trên máy chủ server (đổi "10 giây" → "99 giây" Chân Trùng Lâu Liên, acc bialk đã được gửi món). Kết quả + kế hoạch: `docs/CLIENT-GIAI-MA.md` mục 4. Thành công thì mọi người chơi phải chép file ~130 MB vào client. |
 | Mua vào Rương Ích Kỷ giờ **không giới hạn/ngày** (07/10) | Người chơi có thể gom hàng nghìn món theo giá hiện tại trước khi tăng giá shop. Muốn chặn lại: đặt `ICHKY_DAY_MAX` trong `index.js` về một số. |
 | Báo số túi boss chờ nhận trên nút 🪪 Cá nhân | Tab 🎒 Túi boss đã bỏ (gộp vào Cá nhân), người đang ở trang khác không thấy có túi mới; túi hết hạn sau 7 ngày. Chưa làm. |
 | Khi đang nợ có cấm rút đồ / KNB vào game không? | Hiện **không cấm**. Muốn cấm thì thêm 1 dòng `debtBlock` vào `ichKyClaim` / `webRutGame`. |
