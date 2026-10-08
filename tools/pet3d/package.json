@@ -1,0 +1,8 @@
+{
+  "name": "pet3d",
+  "private": true,
+  "description": "Giai ma goi client TLBB (SEPCIAL_FILE_HD) + dung mo hinh 3D tran thu cho Ghep Ngoc",
+  "dependencies": {
+    "iced-x86": "^1.21.0"
+  }
+}
