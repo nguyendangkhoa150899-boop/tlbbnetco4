@@ -21,6 +21,7 @@ from urllib.parse import parse_qs, urlencode, urlparse
 import maudoche   # 02/10: mau do che 8x/9x (panel/maudoche.py)
 import amkhi      # 04/10: trong so tay 3 dong am khi (panel/amkhi.py)
 import trunglau   # 08/10: custom Trung Lau dong moi (panel/trunglau.py)
+import vohon      # 09/10: custom Vo Hon - ti le chieu tung o linh ngo / tay (panel/vohon.py)
 
 HOST, PORT = "0.0.0.0", 8443         # HTTPS, mo ra internet (ufw allow 8443), bat buoc dang nhap
 PUBLIC_IP = "103.216.118.123"
@@ -976,6 +977,8 @@ class H(BaseHTTPRequestHandler):
                     id_ = str(b.get("id", ""))
                     try:
                         m = {"dong": [int(k) for k in b.get("dong") or []], "diem": {str(int(k)): int(v) for k, v in (b.get("diem") or {}).items()}}
+                        if b.get("so"):   # 09/10: so dong ra moi lan tao [min, max]
+                            m["so"] = [int(x) for x in b["so"]][:2]
                     except (TypeError, ValueError):
                         return self._json({"ok": False, "error": "Dữ liệu dòng / điểm không hợp lệ"})
                     ok, msg = trunglau.luu_mon(id_, m, ai)
@@ -1003,6 +1006,29 @@ class H(BaseHTTPRequestHandler):
                     restart_game()
                     msg += " Dang restart server (khoang 3 phut)."
                 return self._json({"ok": True, "msg": msg, "data": trunglau.du_lieu()})
+            if method == "GET" and u.path == "/api/vohon":   # 09/10: custom Vo Hon (ti le chieu tung o linh ngo / tay) - doc
+                return self._json({"ok": True, "data": vohon.du_lieu()})
+            if method == "POST" and u.path == "/api/vohon":   # 09/10: ghi vohon.txt (bot chi goi tu cong SUPER); hieu luc ngay, khong restart
+                n = int(self.headers.get("Content-Length", 0) or 0)
+                if n > 20000:
+                    return self._json({"ok": False, "error": "du lieu qua lon"}, 413)
+                b = json.loads(self.rfile.read(n).decode("utf-8", "replace") or "{}")
+                op, ai = str(b.get("op", "")), str(b.get("ai", ""))[:60]
+                if op == "luu":
+                    try:
+                        w = {int(k): {str(c): int(x) for c, x in (t or {}).items()} for k, t in (b.get("w") or {}).items()}
+                        giucap = int(b.get("giucap", 0))
+                    except (TypeError, ValueError, AttributeError):
+                        return self._json({"ok": False, "error": "Dữ liệu trọng số không hợp lệ"})
+                    ok, msg = vohon.luu(w, giucap, ai)
+                elif op == "tra":
+                    ok, msg = vohon.ve_mac_dinh()
+                else:
+                    return self._json({"ok": False, "error": "op khong hop le"})
+                if not ok:
+                    return self._json({"ok": False, "error": msg})
+                audit("vo hon [%s] %s: %s" % (ai, op, msg))
+                return self._json({"ok": True, "msg": msg, "data": vohon.du_lieu()})
             if method == "POST" and u.path == "/api/act":
                 n = int(self.headers.get("Content-Length", 0) or 0)
                 form = json.loads(self.rfile.read(min(n, 10000)).decode("utf-8", "replace") or "{}")

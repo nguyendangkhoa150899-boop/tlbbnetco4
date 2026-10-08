@@ -1491,3 +1491,9 @@ Script dùng: `MyLua/wuhunxt/odali_wuyazi.lua` (892101; hàm `WuhunSkillStudy` ~
 - **Lỗi 2:** nhánh Lưu Ly Diễm so `GetItemName == "#cFF0000 lưu ly diễm "` (VISCII, do Việt hóa) nhưng EquipBase tên GBK `琉璃焰` → không bao giờ khớp → Lưu Ly Diễm cũng ra bộ ô 3 của Ngự Dao Bàn. Sửa: so theo mã 10156200–208. Chưa có Lưu Ly Diễm nào lĩnh ngộ để xác nhận bằng dữ liệu.
 - **Lỗi 3 (chưa thử):** `WuhunSkillStudy` gọi `AddSkill` cho nhân vật TRƯỚC khi kiểm đủ 5 vàng → thiếu tiền vẫn được cộng kỹ năng vào nhân vật (không ghi vào Võ Hồn). Chưa kiểm kỹ năng đó có mất khi tháo Võ Hồn / đăng nhập lại không. Sửa: dời kiểm tiền lên đầu.
 - Hướng sửa lỗi 1 chờ chủ server chốt: giữ cấp từng ô (đúng như giao diện, khuyên dùng) hoặc giữ cơ chế về cấp 1. Lua → có hiệu lực sau cap-nhat, không restart. Ghi `docs/CAN-BANG.md`.
+- **09/10 khuya ĐÃ SỬA cùng trang 🔮 Custom Võ Hồn** (tag `truoc-custom-vohon-09-10`): lỗi 1 thành tuỳ chọn "tẩy giữ cấp" (mặc định TẮT = như GM cũ), lỗi 2 / 3 sửa luôn, thêm lỗi 4 (tẩy sót chiêu 1384). Chỉ sửa 892101 (client chỉ gọi script này). Đã chạy thử hàm Lua bằng fengari (trọng số, giữ cấp, Lưu Ly Diễm ra bộ riêng) + backend trên bản sao VPS `/tmp/thuvh`. Chưa thử trong game. Chi tiết: `docs/TRUNG-LAU-CUSTOM.md` mục Custom Võ Hồn, `docs/CAN-BANG.md` mục 4.
+
+### 09/10 khuya - Custom Võ Hồn + Long Văn +9 "số dòng ra" (tag `truoc-custom-vohon-09-10`)
+- **Cần chủ server:** `cd /opt/tlbb-deploy && ./cap-nhat.sh` (Lua 892101 tự nạp, panel mới) rồi `systemctl restart tlbb-panel` (chỉ trang panel). Bot đã / sẽ deploy riêng (`panel.js` + `trunglau.panel.js` + `vohon.panel.js`).
+- Sau đó: trang 🐲 Custom Long Văn mã 10157009 tick 4 dòng Kháng + số dòng ra 13–13 → **restart game** mới có hiệu lực. Trang 🔮 Custom Võ Hồn: hiệu lực ngay.
+- **Lưu Ly Diễm đổi ngay khi cap-nhat:** lĩnh ngộ / tẩy ô 3 ra bộ riêng (Cương Mãnh / Nhu Xà / Hàn Băng / Liệt Diễm / Thiên Lôi / Vụ Hủ / Lôi Đình) thay vì bộ Ngự Dao Bàn.

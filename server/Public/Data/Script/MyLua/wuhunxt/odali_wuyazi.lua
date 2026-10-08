@@ -1730,6 +1730,111 @@ end
 --*************************************************************************************************
 -- Võ H°n phát tri¬n kÛ nång n£ng t¡m 
 --*************************************************************************************************	 
+-- [NetCo4 09/10] Custom Vo Hon (trang admin bot: Cong cu > Custom Vo Hon). Linh ngo / tay chieu doc ti le tu file duoi
+-- moi lan bam (sua file co hieu luc ngay, khong can restart). Dong file: "<nhom> <chu>:<trong so> ..." - nhom 1 = o 1,
+-- 2 = o 2, 3 = o 3 Luu Ly Diem (10156200-208), 4 = o 3 Ngu Dao Ban (10156100-108); "giucap 1" = tay giu cap tung o.
+-- Khong co file / nhom khong co dong / tong trong so 0 -> chon deu nhu GM cu.
+x892101_NetCo4_VHFile = "./txt/NetCo4Cfg/vohon.txt"
+function x892101_NetCo4_VHCfg()
+	local cfg = { w = {}, giucap = 0 }
+	local h = openfile( x892101_NetCo4_VHFile, "r" )
+	if h == nil then
+		return cfg
+	end
+	local line = read( h, "*l" )
+	while line do
+		local _, _, k, rest = strfind( line, "^(%w+)%s+(.*)$" )
+		if k == "giucap" then
+			if strfind( rest, "^1" ) then
+				cfg.giucap = 1
+			end
+		elseif k and tonumber( k ) then
+			local w = {}
+			local pos = 1
+			while 1 do
+				local a, b, c, n = strfind( rest, "(%a):(%d+)", pos )
+				if a == nil then
+					break
+				end
+				w[c] = tonumber( n )
+				pos = b + 1
+			end
+			cfg.w[ tonumber( k ) ] = w
+		end
+		line = read( h, "*l" )
+	end
+	closefile( h )
+	return cfg
+end
+
+-- chon 1 chi so trong x892101_g_WuHunSkill[nhom] theo trong so
+function x892101_NetCo4_Chon( cfg, nhom )
+	local ds = x892101_g_WuHunSkill[nhom]
+	local w = cfg.w[nhom]
+	local tong = 0
+	if w then
+		for i = 1, getn( ds ) do
+			tong = tong + ( w[ ds[i] ] or 0 )
+		end
+	end
+	if tong <= 0 then
+		return random( 1, getn( ds ) )
+	end
+	local r = random( 1, tong )
+	for i = 1, getn( ds ) do
+		r = r - ( w[ ds[i] ] or 0 )
+		if r <= 0 then
+			return i
+		end
+	end
+	return getn( ds )
+end
+
+-- 3 chieu moi: tra ve chuoi 6 ky tu (chu + cap x 3) va 3 ma ky nang. capcu = chuoi cu (jn) khi tay, nil khi linh ngo.
+-- O 3: Luu Ly Diem theo MA (ban goc so ten VISCII "luu ly diem" voi ten GBK trong EquipBase -> khong bao gio khop).
+function x892101_NetCo4_Roll3( myitemid, capcu )
+	local cfg = x892101_NetCo4_VHCfg()
+	local nhom = { 1, 2, 4 }
+	if myitemid >= 10156200 then
+		nhom[3] = 3
+	end
+	local s = ""
+	local ids = {}
+	for o = 1, 3 do
+		local chu = x892101_g_WuHunSkill[ nhom[o] ][ x892101_NetCo4_Chon( cfg, nhom[o] ) ]
+		local cap = 1
+		if capcu and cfg.giucap == 1 then
+			cap = tonumber( strsub( capcu, o * 2, o * 2 ) ) or 1
+			if cap < 1 or cap > 6 then
+				cap = 1
+			end
+		end
+		local id = x892101_skillstrtoid[ chu .. cap ]
+		if id == nil then
+			cap = 1
+			id = x892101_skillstrtoid[ chu .. "1" ]
+		end
+		s = s .. chu .. cap
+		ids[o] = id
+	end
+	return s, ids
+end
+
+-- go MOI chieu Vo Hon khoi nhan vat (cap 1-6: 1361-1600, cap 7-8: 1652-1731; ban goc sot 1384 Ngu The cap 6) roi them 3 chieu moi
+function x892101_NetCo4_GanChieu( sceneId, selfId, ids )
+	for i = 1361, 1600 do
+		DelSkill( sceneId, selfId, i )
+	end
+	for i = 1652, 1731 do
+		DelSkill( sceneId, selfId, i )
+	end
+	for o = 1, 3 do
+		if ids[o] then
+			AddSkill( sceneId, selfId, ids[o] )
+		end
+	end
+end
+
 function  x892101_WuhunSkillReSet(  sceneId,  selfId,  equitid)
 local  myitemid  =  LuaFnGetItemTableIndexByIndex(  sceneId,  selfId,  equitid  )
 ret  =  LuaFnIsItemAvailable(  sceneId,  selfId,  equitid  )
@@ -1778,41 +1883,15 @@ x892101_NotifyFailBox(  sceneId,  selfId,    "[#{_ITEM30700213}] chßa ðü 10 cá !
 return
 end  
 
-local  aas  =  random(1,getn(x892101_g_WuHunSkill[1]))	 
-henbuhuostr  =  x892101_g_WuHunSkill[1][aas].."1"
-for  i=x892101_g_WuHunSkillK[1][1],1383  do
-DelSkill(sceneId,  selfId,  i)
-end
-AddSkill(    sceneId,  selfId,  x892101_g_WuHunSkillK[1][aas])
-
-local  aas1  =  random(1,getn(x892101_g_WuHunSkill[2]))	 
-henbuhuostr1  =  x892101_g_WuHunSkill[2][aas1].."1"
-for  i=x892101_g_WuHunSkillK[2][1],1516  do
-DelSkill(sceneId,  selfId,  i)
-end
-AddSkill(    sceneId,  selfId,  x892101_g_WuHunSkillK[2][aas1])  
-if  GetItemName(  sceneId,myitemid)  =="#cFF0000 lßu ly di­m "  then
-local  aas2  =  random(1,getn(x892101_g_WuHunSkill[3]))	 
-henbuhuostr2  =  x892101_g_WuHunSkill[3][aas2].."1"
-for  i=x892101_g_WuHunSkillK[3][1],1600  do
-DelSkill(sceneId,  selfId,  i)
-end
-AddSkill(    sceneId,  selfId,  x892101_g_WuHunSkillK[3][aas2])
-else
-local  aas2  =  random(1,getn(x892101_g_WuHunSkill[4]))	 
-henbuhuostr2  =  x892101_g_WuHunSkill[4][aas2].."1"	 	 
-for  i=x892101_g_WuHunSkillK[4][1],1558  do
-DelSkill(sceneId,  selfId,  i)
-end
-AddSkill(    sceneId,  selfId,  x892101_g_WuHunSkillK[4][aas2])
-end
-friendName,gsubnumis  =  gsub(  skilstring,  "(&WH"..strrep("%w",18)..")".."%w%w".."%w%w".."%w%w(%w)",  "%1"..henbuhuostr..henbuhuostr1..henbuhuostr2.."%2",1  )
+local  chuoimoi,  idsmoi  =  x892101_NetCo4_Roll3(  myitemid,  jn  )   -- [NetCo4 09/10] ti le theo trang admin (vohon.txt), giu cap neu bat
+friendName,gsubnumis  =  gsub(  skilstring,  "(&WH"..strrep("%w",18)..")".."%w%w".."%w%w".."%w%w(%w)",  "%1"..chuoimoi.."%2",1  )
 
 if  gsubnumis  ==  0  then
 x892101_NotifyFailBox(  sceneId,  selfId," T¦y KÛ Nång Võ H°n Th¤t BÕi "  )
 return	 
 end	 
 
+x892101_NetCo4_GanChieu(  sceneId,  selfId,  idsmoi  )   -- [NetCo4 09/10] doi chieu SAU khi kiem xong (ban goc doi truoc roi moi kiem gsub)
 LuaFnDelAvailableItem(sceneId,selfId,30700213,10)
 LuaFnSetItemCreator(sceneId,  selfId,  equitid,  friendName);
 local  szItemTransfer  =  GetBagItemTransfer(  sceneId,  selfId,  equitid  )
@@ -1856,64 +1935,7 @@ x892101_NotifyFailBox(  sceneId,  selfId,    " trß¾c m£t Võ H°n không th¬ lînh n
 end	 
 
 
-if  tonumber(number2)  >=  3  and  strsub(jn,1,2)  ==  "00"  then
-local  aas  =  random(1,getn(x892101_g_WuHunSkill[1]))	 
-henbuhuostr  =  x892101_g_WuHunSkill[1][aas].."1"	 
-for  i=x892101_g_WuHunSkillK[1][1],1383  do
-DelSkill(sceneId,  selfId,  i)
-end
-AddSkill(    sceneId,  selfId,  x892101_g_WuHunSkillK[1][aas])
-else
-henbuhuostr  =  "00"
-end
-if  tonumber(number2)  >=  5  and  strsub(jn,3,4)  ==  "00"  then
-local  aas  =  random(1,getn(x892101_g_WuHunSkill[2]))	 
-henbuhuostr1  =  x892101_g_WuHunSkill[2][aas].."1"
-
-for  i=x892101_g_WuHunSkillK[2][1],1516  do
-DelSkill(sceneId,  selfId,  i)
-end
-AddSkill(    sceneId,  selfId,  x892101_g_WuHunSkillK[2][aas])
-else
-henbuhuostr1  =  "00"
-end
-if  tonumber(number2)  >=  7  and  strsub(jn,5,6)  ==  "00"  then
-
-if  GetItemName(  sceneId,myitemid)  =="#cFF0000 lßu ly di­m "  then
-
-local  aas  =  random(1,getn(x892101_g_WuHunSkill[3]))	 
-henbuhuostr2  =  x892101_g_WuHunSkill[3][aas].."1"
-
-for  i=x892101_g_WuHunSkillK[3][1],1600  do
-DelSkill(sceneId,  selfId,  i)
-end
-AddSkill(    sceneId,  selfId,  x892101_g_WuHunSkillK[3][aas])
-
-else
-
-local  aas  =  random(1,getn(x892101_g_WuHunSkill[4]))	 
-henbuhuostr2  =  x892101_g_WuHunSkill[4][aas].."1"	 
-
-for  i=x892101_g_WuHunSkillK[4][1],1558  do
-DelSkill(sceneId,  selfId,  i)
-end
-AddSkill(    sceneId,  selfId,  x892101_g_WuHunSkillK[4][aas])
-
-end
-else
-henbuhuostr2  =  "00"
-end
-
-
-friendName,gsubnumis  =  gsub(  skilstring,  "(&WH"..strrep("%w",18)..")".."%w%w".."%w%w".."%w%w(%w)",  "%1"..henbuhuostr..henbuhuostr1..henbuhuostr2.."%2",1  )
-if  0  ==  gsubnumis    then
-x892101_NotifyFailBox(  sceneId,  selfId,    " lînh ngµ kÛ nång th¤t bÕi "  )
-return
-end  
-
-
-
-
+-- [NetCo4 09/10] kiem "da linh ngo" + tien TRUOC (ban goc them chieu cho nhan vat roi moi kiem -> thieu tien van duoc chieu)
   if  strsub(jn,1,2)  ~=  "00"  or  strsub(jn,3,4)  ~=  "00"    or  strsub(jn,5,6)  ~=  "00"    then
         x892101_NotifyFailBox(  sceneId,  selfId,    " trß¾c m¡t c¤p b§c không có có th¬ lînh ngµ kÛ nång "  )
 	 return
@@ -1927,6 +1949,17 @@ if  nMoneySelf  <  50000  then
 x892101_NotifyFailBox(  sceneId,  selfId,    "Vàng không ðü "  )
 return
 end
+local  chuoimoi,  idsmoi  =  x892101_NetCo4_Roll3(  myitemid,  nil  )   -- [NetCo4 09/10] ti le theo trang admin (vohon.txt), cap 1
+friendName,gsubnumis  =  gsub(  skilstring,  "(&WH"..strrep("%w",18)..")".."%w%w".."%w%w".."%w%w(%w)",  "%1"..chuoimoi.."%2",1  )
+if  0  ==  gsubnumis    then
+x892101_NotifyFailBox(  sceneId,  selfId,    " lînh ngµ kÛ nång th¤t bÕi "  )
+return
+end  
+
+
+
+
+x892101_NetCo4_GanChieu(  sceneId,  selfId,  idsmoi  )
 LuaFnSetItemCreator(sceneId,  selfId,  equitid,  friendName);
 LuaFnSendSpecificImpactToUnit(sceneId,  selfId,  selfId,  selfId,  49,  0);
 LuaFnCostMoneyWithPriority(  sceneId,  selfId,  50000  );

@@ -223,6 +223,10 @@ def kiem_mon(i, m, rate_cap, co=None):
         return "Mã %s: có dòng game không có số cho món này (%s)" % (i, ", ".join(DONG[k] for k in dong if k not in co))
     if len(dong) > MAX_DONG:
         return "Mã %s: tối đa %d dòng" % (i, MAX_DONG)
+    so = m.get("so")
+    if so is not None:   # 09/10: so dong ra moi lan tao [min, max] (cot 92 / 93) - it hon so dong bat = boc ngau nhien
+        if not isinstance(so, list) or len(so) != 2 or any(not isinstance(x, int) for x in so) or not 1 <= so[0] <= so[1] <= len(dong):
+            return "Mã %s: số dòng ra phải 1 ≤ tối thiểu ≤ tối đa ≤ %d (số dòng đang bật)" % (i, len(dong))
     for k, x in (m.get("diem") or {}).items():
         if not str(k).isdigit() or int(k) not in dong:
             return "Mã %s: có điểm cho dòng không bật" % i
@@ -308,7 +312,8 @@ def ap(cfg):
             seg = str(SEG0 + IDS.index(i))
             for k in range(58):
                 c[k + 32] = "1" if k in m["dong"] else "-1"
-            c[92] = c[93] = str(len(m["dong"]))
+            so = m.get("so") or [len(m["dong"])] * 2   # 09/10: mac dinh ra du moi dong bat (nhu truoc)
+            c[92], c[93] = str(so[0]), str(so[1])
             c[91] = seg
             s = list(sv_r[eb_r[i][91]])
             s[0] = seg
@@ -316,7 +321,7 @@ def ap(cfg):
             for k, x in (m.get("diem") or {}).items():
                 s[int(k) + 1] = str(v_cho(x, rr[int(k)]))
             them_sv.append(s)
-            ghi.append("%s %d dòng" % (i, len(m["dong"])))
+            ghi.append("%s %d dòng" % (i, len(m["dong"])) + (" (ra %d-%d)" % tuple(m["so"]) if m.get("so") else ""))
         thay_eb[i] = c
     # StandardImpact: moi dong hieu ung Trung Lau ve repo, roi dat tham so cau hinh
     thay_si = {}
@@ -349,6 +354,8 @@ def luu_mon(i, m, ai=""):
     else:
         cfg["mon"][i] = {"dong": sorted(m["dong"]), "diem": {str(k): int(v) for k, v in (m.get("diem") or {}).items()},
                          "t": int(time.time()), "ai": ai}
+        if m.get("so") and list(m["so"]) != [len(m["dong"])] * 2:
+            cfg["mon"][i]["so"] = [int(x) for x in m["so"]]
     ok, msg = ap(cfg)
     if ok:
         _ghi_cfg(cfg)

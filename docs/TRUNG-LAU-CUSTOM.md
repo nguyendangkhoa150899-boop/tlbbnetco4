@@ -13,7 +13,18 @@ Bảng số liệu từng món (tỉ lệ, thời gian, bộ, đường nâng): 
 - Mục Long Văn chỉnh được cả **Long Văn +1 → +9** (10157001–10157009): dòng thuộc tính + điểm. Không có hiệu ứng thần khí.
 - Long Văn +N: cấp phẩm chất cố định = N, đoạn gốc 4244 (**dùng chung ~430 món**: thú cưỡi, nhiều mã 10553200–615) → mỗi mã có đoạn riêng **4518–4526**. Bật 11 loại dòng (SL, 4 hệ công, chính xác, cường lực, nội lực, thể lực, trí lực, thân pháp); số dòng +1 = 2 … +5 = 6, +9 bốc 6–16.
 - Mẫu dòng áp cho Long Văn **tạo mới**: rơi, nâng cấp +N ở NPC Long Văn (`MyLua/longwennew/LongWenExt.lua` 892003 `LevelUp` tạo mã lw+1), **trọng tẩy** (`ResetProperty` tạo lại cùng mã) → người chơi đem tẩy ra đúng mẫu. Điểm áp cả Long Văn đang có.
-- **Không đụng** phần "Mở rộng thuộc tính" (Huyết / Thuộc tính / Làm giảm kháng) - hệ khác, lưu trong chuỗi người chế như Võ Hồn.
+- **Không đụng** phần "Mở rộng thuộc tính" (Huyết / Thuộc tính / Làm giảm kháng) - hệ khác, lưu trong chuỗi người chế như Võ Hồn. Tẩy mở rộng (10 Chuế Long Thạch Bạo + 10 Thương + 1 vàng, `ResetProperty` idx 1) chỉ quay lại **hệ** (Băng / Hỏa / Huyền / Độc, 1/4 mỗi hệ) của 2 dòng, giữ cấp.
+- **Số dòng ra mỗi lần tạo (09/10):** ô dưới bảng dòng, ghi trường `so` = [tối thiểu, tối đa] (cột 93 / 94). Để trống = ra đủ mọi dòng tick (như trước). Nhỏ hơn số dòng tick = bốc ngẫu nhiên; trang hiện xác suất ra đủ các dòng gốc (giả định engine bốc đều, chưa đo). Long Văn +9: 11 dòng gốc + 4 Kháng, ra 13 → ≈ 5,7% đủ 11 dòng chính (`docs/CAN-BANG.md` mục 4). Dùng được cho cả Trùng Lâu.
+- Đọc số dòng / dòng nào của món trong DB: `t_iteminfo` byte 2 của `p6` = số dòng, `p10` = bitmask dòng 0–31, `p11` = dòng 32–63 (khớp Long Văn +4 / +5 / +6 / +7 / +9 ngày 09/10).
+
+## Custom Võ Hồn (09/10)
+
+Mục **🔮 Custom Võ Hồn** trong khu 🧰 Công cụ (chỉ cổng SUPER), ngay dưới Trùng Lâu / Long Văn. Bot: `vohon.panel.js` ở `/vh.js`, API `/api/gm/vohon`. Panel game: `panel/vohon.py`, `/api/vohon`.
+- **Chỉnh được:** trọng số từng chiêu ở từng ô (0 = tắt), riêng ô 3 Ngự Dao Bàn và ô 3 Lưu Ly Diễm; tuỳ chọn **tẩy giữ cấp** từng ô. Ô không chỉnh = chọn đều như GM cũ. Mỗi chiêu có ghi chú cấp 1 → cấp 6 (theo tooltip client `SuperToolTip` `skilllistaec`). Nút "🔥 Ô 3 chỉ ra chiêu Hỏa" soạn sẵn (chưa lưu).
+- **Hiệu lực:** script 892101 `x892101_NetCo4_Roll3` đọc `Server/txt/NetCo4Cfg/vohon.txt` **mỗi lần** người chơi bấm Lĩnh ngộ / Tẩy → lưu xong có hiệu lực ngay, không restart. Võ Hồn đang có giữ nguyên chiêu. Xoá file (nút "Về mặc định GM cũ") = chọn đều + tẩy về cấp 1.
+- **File** (ASCII, ngoài repo): `<nhom> <chu>:<trong so> ...`, nhóm 1 = ô 1, 2 = ô 2, 3 = ô 3 Lưu Ly Diễm (10156200–208), 4 = ô 3 Ngự Dao Bàn (10156100–108); `giucap 0|1`. Sao lưu bản cũ: `/opt/tlbb-backup/vohon-<thời gian>.txt`. Nhật ký: audit panel GM + log ADMIN bot `[VÕ HỒN]`.
+- **Chữ = chiêu:** chuỗi `&WH` trên món giữ 3 cặp (chữ + cấp), vd `q1k1E1`. Mã kỹ năng cấp L = mã cấp 1 + L − 1 (`x892101_skillstrtoid`). Kỹ năng gắn vào **nhân vật** (AddSkill), không theo món; lĩnh ngộ / tẩy gỡ sạch mọi chiêu Võ Hồn rồi thêm 3 chiêu mới.
+- **Giới hạn:** chiêu cố định theo ô (ô 1 chỉ có chiêu vũ khí / phòng cụ, ô 2 chỉ có chiêu tăng / giảm chỉ số) → 1 Võ Hồn tối đa **1 chiêu Hỏa** (ô 3). Chưa thử cho chiêu ô 3 vào ô 1 / 2 (tooltip client hiện theo chữ nên về lý thuyết được, nhưng 2 chiêu ô 3 cùng lúc chưa ai kiểm).
 
 ## Admin chỉnh được gì
 

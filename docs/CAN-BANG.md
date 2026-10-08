@@ -181,6 +181,19 @@ StandardImpact 793 "步步生花陷阱伤害" (logic 001 = sát thương trực 
 
 - **Từ 08/10 chỉnh Trùng Lâu dòng mới qua trang admin 🐉 Custom Trùng Lâu** (dòng, điểm, tỉ lệ, thời gian): `docs/TRUNG-LAU-CUSTOM.md`. Số trong bảng trên là bản gốc; số đang chạy xem trên trang.
 
+- **Long Văn +9 (10157009) tẩy khó hơn (09/10, chủ server):** "tỉ lệ ra đủ dòng ~5%, còn lại ra dòng khác hoặc thiếu, điểm vẫn cố định".
+  - Trước (GM cũ): quy tắc phẩm chất 9 cố định, T = -1 (điểm luôn max), 11 loại dòng, số dòng ra **6–16** → khi số bốc ≥ 11 thì đủ 11 dòng (≈ 55% nếu engine bốc đều). Chủ server: "chế rất dễ max". Tẩy dòng chính = 10 Tịnh Vân Thủy + 50 vàng (`LongWenExt.lua` `ResetProperty` idx 2 tạo lại món).
+  - Sau: bật thêm **4 dòng Kháng Băng / Hỏa / Huyền / Độc** (+99 mỗi dòng, số gốc đoạn 4244 = 55 × hệ số 180) → 15 loại dòng, **ra đúng 13 dòng** mỗi lần → đủ 11 dòng chính ≈ **5,7%** (C(4,2)/C(15,13), giả định engine bốc đều). Điểm 11 dòng chính giữ nguyên.
+  - Cách áp: trang 🐲 Custom Long Văn, mã 10157009, tick thêm 4 dòng Kháng, "Số dòng ra mỗi lần tạo" 13–13 (trường `so` mới trong `panel/trunglau.py`, cột 93/94 EquipBase). Chỉ món tạo / tẩy SAU restart mới theo luật mới; Long Văn đang có giữ dòng.
+  - Tag `truoc-custom-vohon-09-10`. **Chưa đo:** đếm số dòng + dòng nào trong DB (`t_iteminfo` 10157009: byte 2 của `p6` = số dòng, `p10` / `p11` = bitmask dòng 0–31 / 32–63, đã khớp +4 / +5 / +6 / +7 / +9 ngày 09/10) sau ~20 lần tẩy để xem engine có bốc đều không.
+
+- **Kỹ năng Võ Hồn (09/10, chủ server: "tẩy ra chiêu Hỏa" + bảng config admin):** `MyLua/wuhunxt/odali_wuyazi.lua` 892101 (client chỉ gọi script này; 895099 / 760419 là bản sao không dùng).
+  - GM cũ: lĩnh ngộ ở Võ Hồn hợp thành cấp 8 (5 vàng, 3 ô cùng lúc, cấp 1); thăng 6 vàng + Hồn Băng Châu cấp đích (2..6), tối đa cấp 6; tẩy 10 Ức Hồn Thạch 30700213 + 5 vàng, quay lại cả 3 ô. Mỗi ô chọn đều: ô 1 = 4 chiêu, ô 2 = 22, ô 3 = 7 (bộ Ngự Dao Bàn / Lưu Ly Diễm khác nhau).
+  - Chỉ có **2 chiêu Hỏa**, đều ở ô 3: Thiên Hỏa Liệu Nguyên (R, Ngự Dao Bàn) và Liệt Diễm Chước Thân (A, Lưu Ly Diễm), Hỏa công +528 → +3567. Ô 1 / ô 2 không có chiêu Hỏa.
+  - Sửa 4 lỗi gốc: (1) tẩy đưa cả 3 chiêu về cấp 1 dù client ghi "giữ cấp cũ" → thành tuỳ chọn **giữ cấp** trên trang (mặc định TẮT = như GM cũ); (2) Lưu Ly Diễm không bao giờ ra bộ ô 3 riêng (so tên VISCII với tên GBK) → so theo mã 10156200–208, **có hiệu lực ngay khi deploy**; (3) lĩnh ngộ thêm chiêu cho nhân vật trước khi kiểm tiền → kiểm trước; (4) tẩy không gỡ chiêu 1384 (Ngự Thể cấp 6) → gỡ sạch 1361–1600 + 1652–1731.
+  - Tỉ lệ từng chiêu: trang **🔮 Custom Võ Hồn** → file `Server/txt/NetCo4Cfg/vohon.txt`, script đọc mỗi lần bấm (không restart). Chi tiết: `docs/TRUNG-LAU-CUSTOM.md` mục Custom Võ Hồn.
+  - Tag `truoc-custom-vohon-09-10`. **Chưa đo:** tẩy / lĩnh ngộ thật trong game (chuỗi `&WH` + chiêu trên nhân vật), giữ cấp, Lưu Ly Diễm ra bộ ô 3 riêng hiển thị đúng tooltip.
+
 ---
 
 ## 5. Tu luyện / tài nguyên
@@ -213,3 +226,5 @@ StandardImpact 793 "步步生花陷阱伤害" (logic 001 = sát thương trực 
 - [ ] Sát Tinh sau nerf: thời gian hạ, tổ có bị đánh chết không.
 - [ ] Đục lỗ 4 Võ Hồn cấp 8 chưa có `&WH`.
 - [ ] VL8 65 / 35: đếm C8 / C9 thật qua log chế sau ~20 lần.
+- [ ] Long Văn +9 ra 13 / 15 dòng: tỉ lệ đủ 11 dòng chính thật (DB `p6` / `p10` / `p11`) sau ~20 lần tẩy.
+- [ ] Võ Hồn: lĩnh ngộ / tẩy theo trang Custom Võ Hồn, giữ cấp, Lưu Ly Diễm ra bộ ô 3 riêng.
