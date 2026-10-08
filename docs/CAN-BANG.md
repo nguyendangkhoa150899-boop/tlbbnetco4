@@ -144,7 +144,8 @@ StandardImpact 793 "步步生花陷阱伤害" (logic 001 = sát thương trực 
   - 03/10: **tắt hẳn**, tag `truoc-tat-lo4free-03-10`.
   - 08/10: bật lại **chỉ Long Văn** (`12cc1a2`), tag `truoc-lo4-longvan-08-10`.
   - 08/10: **Long Văn + Võ Hồn** (`18b7673`), tag `truoc-lo4-vohon-08-10`.
-  - Lệnh Bài / Ám Khí vẫn phải dùng Kim Chi Tiễn: Điểm Kim Chi Tiễn 20109101 = 20.000 KNB (03/10).
+  - 08/10: **Long Văn + Võ Hồn + Lệnh Bài** (`tEquipGemTable = {9,10,18}`), tag `truoc-lo4-lenhbai-08-10`.
+  - Ám Khí vẫn phải dùng Kim Chi Tiễn: Điểm Kim Chi Tiễn 20109101 = 20.000 KNB (03/10).
   - **Chưa đo:** Võ Hồn cấp 8 chưa có `&WH` có nhận lỗ qua đường này không.
 - **Thú cưỡi 10141214** (幻雪羊驼): quy tắc phẩm chất 7 → **9** (07/10).
   - Tốc độ vẫn +100%; 10141215/16 là +120%.
