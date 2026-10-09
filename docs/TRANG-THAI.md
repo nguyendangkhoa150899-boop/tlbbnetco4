@@ -1532,3 +1532,11 @@ Script dùng: `MyLua/wuhunxt/odali_wuyazi.lua` (892101; hàm `WuhunSkillStudy` ~
 
 ### 09/10 tối - NPC Mục Thanh Danh: dòng cuối "Bán đồ chế (mở cửa hàng)" (tag `truoc-mtd-tiem-09-10`)
 - `MyNew/doidanhhieu.lua` (111997) menu 9503 → `DispatchShopItem(..., 73)` = cửa hàng Nghiêm Bách Thảo (Điếu Ngư Can / Quáng Sừ / Thải Dược Liêm, tiền vàng, thu mua đồ tới cấp 120 loại 9) → người chơi bán đồ chế 9x bằng nút "Bán hàng" ngay tại NPC chế. Không đổi kinh tế (bán cho NPC tiệm nào cũng được, cùng giá). Lua, hiệu lực sau cap-nhat, không restart. Chưa thử trong game.
+
+### 10/10 - 20 mẫu thời trang 9 sao: cả 9 màu 9 sao + nhuộm được + chỉ admin phát (tag `truoc-thoitrang9-du-mau-10-10`)
+- Chủ server: nhuộm áo 9 sao được (trước đây bị chặn vì màu 2–9 là 5 sao → nhuộm là tụt sao).
+- `EquipBase` cột 90: **cả 9 màu** của 20 mẫu (180 mã, mỗi mẫu mã gốc .. gốc+8) quy tắc 5 → 9 (160 mã mới đổi, 20 màu 1 đã 9 sẵn).
+- Nhuộm `New/paodian/ShiZhuangRanSe.lua` (830001): trả về bản gốc (trước `fca7037`) → nhuộm trong cùng mẫu, mọi màu đều 9 sao.
+- **Chỉ admin phát:** 2 NPC đổi thời trang (`MyNew/duihuanxitong.lua` 112000, `obj/loulangucheng/oloulan_malan.lua` 001113) bỏ cả 180 mã khỏi `x…_Thoitrang` (288 → 108 mã của 12 mẫu thường) và `random(1,280)` → `random(1,getn(mảng))` (6 chỗ / file; bản gốc 288 mã mà chỉ bốc 1..280). `obj/bingshen/bingshen.lua` danh sách thưởng 10553286 (Phi Long Thừa Vân màu 6) → 10553304 (Phiên Điệp Lạc Vũ màu 6, 5 sao). Quét toàn bộ script + bảng: 180 mã chỉ còn ở EquipBase, script nhuộm, `EquipBase111.txt` (bảng cũ không dùng).
+- DB 10/10: ngoài bialk không ai giữ món nào của 20 mẫu → không ai nhuộm "lên 9 sao" được từ đồ cũ 5 sao. Món đã có giữ số sao lúc tạo.
+- EquipBase cần cap-nhat + **restart**; script NPC tự nạp. Chưa thử trong game: nhuộm ra 9 sao.
