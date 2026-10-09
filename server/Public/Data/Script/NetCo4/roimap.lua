@@ -9,7 +9,7 @@ x950001_g_ScriptId = 950001
 
 -- [sceneId] = { ID vat pham, % roi moi nguoi }
 x950001_g_Roi = {
-	[432] = { 20310166, 30 },   -- Han Huyet Linh: Kim Tam Ti (cuong hoa dieu van)
+	[432] = { 20310168, 15 },   -- Han Huyet Linh: Kim Tam Ti (cuong hoa dieu van). [10/10] 20310166 30% -> 20310168 15% (809272 chi nhan 167/168)
 	[62]  = { 38000571, 7 },   -- [07/10] 30 -> 17 -> 12; [09/10] 12 -> 7 (+3% hop 86003 = ~10%). Hau Hoa Vien: Chi Ton Cuong Hoa Tinh Hoa (map chi mo theo gio, MyNew/jiarumenpai.lua x990010_g_HHV_Mo/Dong)
 	[82]  = { 38000571, 7 },   -- Hau Hoa Vien 2
 	[182] = { 38000571, 7 },   -- Hau Hoa Vien 3
