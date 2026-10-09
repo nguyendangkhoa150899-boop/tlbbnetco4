@@ -117,3 +117,23 @@ _Phần dưới giữ lại để tham khảo nếu sau này tìm được cách
 | So hiệu ứng với game cho vài pet | Chỗ nào lệch thì so `fx.json` với `ra/mau-fx.txt`, chỉnh trong `pet3d.client.js` |
 | Dùng lại bộ xem cho thú cưỡi / trang phục / boss | Cùng chuỗi `.obj` → mesh → skeleton → effect; chỉ cần danh sách mã ngoại hình |
 | Hiện số Trùng Lâu thật cho người chơi | Không sửa được tooltip client (mục 4). Làm qua web hoặc NPC nếu cần |
+
+---
+
+## 6. Thư mục `netco4/tlbb code` (đọc 09/10)
+
+Thư mục ngoài repo, 6 file (2021). Đã đọc hết:
+
+| File | Thực chất | Dùng được không |
+|---|---|---|
+| `Lệnh GM.txt` | Danh sách lệnh `!!` | **Trùng y hệt** `docs/lenh-gm.txt` |
+| 3 file `.docx` (lệnh GM, các lệnh trong game) | Danh sách mã `!!createitem` (ngọc, điêu văn, thần khí 106, pet 75/85/95, đồ tân thủ, "SPECIAL SET") | Một phần. Mã đúng với bản của mình thì dùng được; nhiều mã Trùng Lâu ghi trong đó (10413104 / 10415056 / 10420089) **không tồn tại** ở bản này, còn 10553237 là "Thanh Phong Di Giang" chứ không phải Trùng Lâu |
+| `ImpactColVN.txt` | Tên sai: thực ra là **EquipBase tiếng Trung** của một **phiên bản game khác** (21.200 món). Byte GBK bị lưu như VISCII trong UTF-16; khôi phục = ký tự → byte VISCII (`tools/viscii-map.json`) → giải GBK | **Không.** 6.571 mã không có ở server lẫn client của mình (client không biết thì không hiện được). Trong đó cũng **không có** Trùng Lâu Ngoa / Thủ / Khôi |
+| `CommonItemVN.txt` | CommonItem tiếng Trung của bản đó, cùng kiểu lỗi mã hóa | **Không.** 1.792 mã không có ở bản của mình |
+
+Ứng viên "mượn món" cho Trùng Lâu Khôi / Ngoa (có ở **cả** server lẫn client):
+- **Mũ:** `10410098–10410127` Hoan Lạc / Hạnh Phúc Thánh Đản Mạo. Ví dụ `10410121` "Mão Giáng Sinh 3x".
+- **Giày:** `10411032` Cẩm Bạch Hài ("Hài cấp 4").
+- **Bao tay:** chưa chọn.
+
+Mô tả client của mũ Giáng Sinh ghi "thời hạn 7 thiên". Chữ này cứng, server bỏ hạn được nhưng chữ vẫn còn.
