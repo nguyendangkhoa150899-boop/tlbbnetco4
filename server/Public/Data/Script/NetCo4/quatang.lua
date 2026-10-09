@@ -112,7 +112,11 @@ function x950000_TamPhap1( sceneId, selfId )
 end
 
 -- [NetCo4 10/10] chu server: doi ban do / dang nhap -> moi tran thu day mau (giong NPC thuan duong pet_domestication.lua)
-x950000_g_ChoHoiPet = {}   -- [10/10] "<scene>:<selfId>" -> { timer, guid, con } hoi mau pet tre (pet chua co mat luc vao ban do)
+-- [NetCo4 10/10] chu server: doi ban do / dang nhap -> moi tran thu day mau.
+-- 1) LuaFnSetPetHP = mau toi da GOC (GetPet_MaxHP chua cong buff do tran thu, vd 191049 / 723376).
+-- 2) Luc OnScenePlayerEnter pet chua co mat (GetCurrentPetGUID rong, SetTimer tra -1) -> gan buff an 9990 (logic 90, 3 giay, chep 1399):
+--    het 3 giay engine goi x950000_OnImpactFadeOut -> pet dang tha da co mat -> RestoreHp = day theo mau toi da that.
+x950000_g_BuffHoiPet = 9990
 function x950000_HoiMauPet( sceneId, selfId )
 	local n = LuaFnGetPetCount( sceneId, selfId )
 	if n == nil or n < 1 then
@@ -125,67 +129,33 @@ function x950000_HoiMauPet( sceneId, selfId )
 			LuaFnSetPetHP( sceneId, selfId, h, l, maxHP )
 		end
 	end
-	-- pet dang tha: GetPet_MaxHP chua cong buff do tran thu (vd 191049 / 723376) -> RestoreHp tren doi tuong = day theo mau toi da that
-	local objId = -1
-	local ph, pl = LuaFnGetCurrentPetGUID( sceneId, selfId )
-	if ph and pl then
-		objId = LuaFnGetPetObjIdByGUID( sceneId, selfId, ph, pl )
-		if objId and objId >= 0 then
-			RestoreHp( sceneId, objId )
-		end
-	end
-	-- pet chua co mat (luc vao ban do pet duoc tha sau) -> hoi tre: SetTimer goi x950000_HoiPetTre moi giay (file nay tu nap lai; scene.lua thi khong)
-	local tm = -2
-	if objId == nil or objId < 0 then   -- [10/10] khong doi biet pet nao luc vao (GetCurrentPetGUID co the rong): co pet la bat bo dem
-		local key = sceneId..":"..selfId
-		if x950000_g_ChoHoiPet[key] == nil then
-			tm = SetTimer( sceneId, selfId, 950000, "HoiPetTre", 1000 )
-			if tm and tm >= 0 then
-				x950000_g_ChoHoiPet[key] = { tm, LuaFnGetGUID( sceneId, selfId ), 10 }
-			end
-		end
-	end
-	if GetName( sceneId, selfId ) == "bialk" then   -- [10/10] TAM de do loi, xong thi bo
-		x950000_Tip( sceneId, selfId, "[GM] vao ban do: pet "..n..", GUID pet "..tostring( ph ).."/"..tostring( pl )..", objId "..tostring( objId )..", bo dem "..tostring( tm ) )
+	if x950000_HoiPetDangTha( sceneId, selfId ) == 0 then
+		LuaFnSendSpecificImpactToUnit( sceneId, selfId, selfId, selfId, x950000_g_BuffHoiPet, 0 )
 	end
 end
 
--- [10/10] bo dem SetTimer 1 giay: pet da co mat -> day mau that; chua -> thu lai (toi da 10 lan); sai nguoi / roi ban do -> dung
-function x950000_HoiPetTre( sceneId, selfId )
-	local key = sceneId..":"..selfId
-	local e = x950000_g_ChoHoiPet[key]
-	if e == nil then
-		return
-	end
-	if LuaFnIsCanDoScriptLogic( sceneId, selfId ) ~= 1 or LuaFnGetGUID( sceneId, selfId ) ~= e[2] then
-		StopTimer( sceneId, e[1] )
-		x950000_g_ChoHoiPet[key] = nil
-		return
-	end
-	local con = e[3]
+-- pet dang tha co mat tren ban do -> RestoreHp (day theo mau toi da that). Tra ve 1 neu da hoi, 0 neu chua thay pet
+function x950000_HoiPetDangTha( sceneId, selfId )
 	local ph, pl = LuaFnGetCurrentPetGUID( sceneId, selfId )
-	local objId = -1
 	if ph and pl then
-		objId = LuaFnGetPetObjIdByGUID( sceneId, selfId, ph, pl )
-	end
-	if GetName( sceneId, selfId ) == "bialk" then   -- [10/10] TAM de do loi
-		x950000_Tip( sceneId, selfId, "[GM] bo dem lan "..( 11 - con )..": GUID pet "..tostring( ph ).."/"..tostring( pl )..", objId "..tostring( objId ) )
-	end
-	if objId and objId >= 0 then
-		RestoreHp( sceneId, objId )
-		StopTimer( sceneId, e[1] )
-		x950000_g_ChoHoiPet[key] = nil
-		if GetName( sceneId, selfId ) == "bialk" then   -- [10/10] TAM de kiem, xong thi bo
-			x950000_Tip( sceneId, selfId, "[GM] hoi mau pet tre: objId = "..objId..", lan "..( 11 - con ) )
+		local objId = LuaFnGetPetObjIdByGUID( sceneId, selfId, ph, pl )
+		if objId and objId >= 0 then
+			RestoreHp( sceneId, objId )
+			return 1
 		end
+	end
+	return 0
+end
+
+-- buff 9990 het han (3 giay sau khi vao ban do) -> hoi pet dang tha
+function x950000_OnImpactFadeOut( sceneId, selfId, impactId )
+	if impactId ~= x950000_g_BuffHoiPet then
 		return
 	end
-	if con <= 1 then
-		StopTimer( sceneId, e[1] )
-		x950000_g_ChoHoiPet[key] = nil
-		return
+	local ok = x950000_HoiPetDangTha( sceneId, selfId )
+	if GetName( sceneId, selfId ) == "bialk" then   -- [10/10] TAM de kiem, xong thi bo
+		x950000_Tip( sceneId, selfId, "[GM] buff het han: hoi pet = "..ok )
 	end
-	e[3] = con - 1
 end
 
 function x950000_NhanQua( sceneId, selfId )
