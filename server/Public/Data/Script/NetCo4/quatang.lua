@@ -112,7 +112,7 @@ function x950000_TamPhap1( sceneId, selfId )
 end
 
 -- [NetCo4 10/10] chu server: doi ban do / dang nhap -> moi tran thu day mau (giong NPC thuan duong pet_domestication.lua)
-x950000_g_ChoHoiPet = {}   -- [10/10] selfId -> so lan con thu hoi mau pet tre (pet chua co mat luc vao ban do)
+x950000_g_ChoHoiPet = {}   -- [10/10] "<scene>:<selfId>" -> { timer, guid, con } hoi mau pet tre (pet chua co mat luc vao ban do)
 function x950000_HoiMauPet( sceneId, selfId )
 	local n = LuaFnGetPetCount( sceneId, selfId )
 	if n == nil or n < 1 then
@@ -134,19 +134,31 @@ function x950000_HoiMauPet( sceneId, selfId )
 			RestoreHp( sceneId, objId )
 		end
 	end
-	-- pet chua co mat (luc vao ban do pet duoc tha sau) -> hoi tre qua bo dem gio nhan vat (scene.lua OnScenePlayerTimer)
-	if ph and pl and ( objId == nil or objId < 0 ) and IsHaveMission( sceneId, selfId, 4021 ) <= 0 then
-		x950000_g_ChoHoiPet[selfId] = 10
-		SetCharacterTimer( sceneId, selfId, 1000 )
+	-- pet chua co mat (luc vao ban do pet duoc tha sau) -> hoi tre: SetTimer goi x950000_HoiPetTre moi giay (file nay tu nap lai; scene.lua thi khong)
+	if ph and pl and ( objId == nil or objId < 0 ) then
+		local key = sceneId..":"..selfId
+		if x950000_g_ChoHoiPet[key] == nil then
+			local tm = SetTimer( sceneId, selfId, 950000, "HoiPetTre", 1000 )
+			if tm and tm >= 0 then
+				x950000_g_ChoHoiPet[key] = { tm, LuaFnGetGUID( sceneId, selfId ), 10 }
+			end
+		end
 	end
 end
 
--- [10/10] goi tu scene.lua x888888_OnScenePlayerTimer (cuoi ham): pet da co mat -> day mau that; chua -> thu lai sau 1 giay (toi da 10 lan)
+-- [10/10] bo dem SetTimer 1 giay: pet da co mat -> day mau that; chua -> thu lai (toi da 10 lan); sai nguoi / roi ban do -> dung
 function x950000_HoiPetTre( sceneId, selfId )
-	local con = x950000_g_ChoHoiPet[selfId]
-	if con == nil then
+	local key = sceneId..":"..selfId
+	local e = x950000_g_ChoHoiPet[key]
+	if e == nil then
 		return
 	end
+	if LuaFnIsCanDoScriptLogic( sceneId, selfId ) ~= 1 or LuaFnGetGUID( sceneId, selfId ) ~= e[2] then
+		StopTimer( sceneId, e[1] )
+		x950000_g_ChoHoiPet[key] = nil
+		return
+	end
+	local con = e[3]
 	local ph, pl = LuaFnGetCurrentPetGUID( sceneId, selfId )
 	local objId = -1
 	if ph and pl then
@@ -154,18 +166,19 @@ function x950000_HoiPetTre( sceneId, selfId )
 	end
 	if objId and objId >= 0 then
 		RestoreHp( sceneId, objId )
-		x950000_g_ChoHoiPet[selfId] = nil
+		StopTimer( sceneId, e[1] )
+		x950000_g_ChoHoiPet[key] = nil
 		if GetName( sceneId, selfId ) == "bialk" then   -- [10/10] TAM de kiem, xong thi bo
 			x950000_Tip( sceneId, selfId, "[GM] hoi mau pet tre: objId = "..objId..", lan "..( 11 - con ) )
 		end
 		return
 	end
-	if con <= 1 or IsHaveMission( sceneId, selfId, 4021 ) > 0 then
-		x950000_g_ChoHoiPet[selfId] = nil
+	if con <= 1 then
+		StopTimer( sceneId, e[1] )
+		x950000_g_ChoHoiPet[key] = nil
 		return
 	end
-	x950000_g_ChoHoiPet[selfId] = con - 1
-	SetCharacterTimer( sceneId, selfId, 1000 )
+	e[3] = con - 1
 end
 
 function x950000_NhanQua( sceneId, selfId )
