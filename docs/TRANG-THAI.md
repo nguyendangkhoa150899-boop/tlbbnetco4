@@ -1497,3 +1497,9 @@ Script dùng: `MyLua/wuhunxt/odali_wuyazi.lua` (892101; hàm `WuhunSkillStudy` ~
 - **Cần chủ server:** `cd /opt/tlbb-deploy && ./cap-nhat.sh` (Lua 892101 tự nạp, panel mới) rồi `systemctl restart tlbb-panel` (chỉ trang panel). Bot đã / sẽ deploy riêng (`panel.js` + `trunglau.panel.js` + `vohon.panel.js`).
 - Sau đó: trang 🐲 Custom Long Văn mã 10157009 tick 4 dòng Kháng + số dòng ra 13–13 → **restart game** mới có hiệu lực. Trang 🔮 Custom Võ Hồn: hiệu lực ngay.
 - **Lưu Ly Diễm đổi ngay khi cap-nhat:** lĩnh ngộ / tẩy ô 3 ra bộ riêng (Cương Mãnh / Nhu Xà / Hàn Băng / Liệt Diễm / Thiên Lôi / Vụ Hủ / Lôi Đình) thay vì bộ Ngự Dao Bàn.
+
+
+## 09/10 - Võ Ý: Vô Lượng Sơn nội tức tổng ×48 (Lua, hiệu lực khi cap-nhat, không cần restart)
+- Chủ server chốt ×48. `MyNew/guaiwu_die.lua` dòng Vô Lượng Sơn (scene 6/73/74): `Neixi * 3` → `Neixi * 12` (công thức gốc đã ×4) → (770 + 10×cấp) × 48 = **37.440–41.760/con**. Nơi khác (Thông Thiên Tháp, Mai Nha, Vân Phù) giữ ×4.
+- Trần 3.000 con/ngày giữ nguyên → ~118 triệu/ngày: cấp 50 ≈ 5,5 ngày, cấp 100 ≈ 36 ngày, cấp 150 ≈ 120 ngày (cày đủ trần mỗi ngày). Mỗi con vẫn chỉ lên tối đa 1 cấp.
+- Rollback: tag `truoc-voy-x48-09-10`.
