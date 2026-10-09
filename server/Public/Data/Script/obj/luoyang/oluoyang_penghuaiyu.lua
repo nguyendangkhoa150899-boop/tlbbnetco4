@@ -601,11 +601,11 @@ function  x000110_OneKey4Slot(  sceneId,  selfId,isTips  )
 	 	 	 	 	 	 find  =  1
 	 	 	 	 	 end
 	 	 	 	 end
-	 	 	 	 if  find  ==  1  then
-	 	 	 	 	 --local  equipMaxGemCount  =  GetBagGemCount(  sceneId,  selfId,  i  )	 
-	 	 	 	 	 --local  ret  =  AddBagItemSlot(  sceneId,  selfId,  i  )
+	 	 	 	 if  find  ==  1  then  -- [NetCo4 09/10] bat lai duc 3 lo cho thoi trang (GM cu comment); lo 4 van tat
+	 	 	 	 	 local  equipMaxGemCount  =  GetBagGemCount(  sceneId,  selfId,  i  )	 
+	 	 	 	 	 local  ret  =  AddBagItemSlot(  sceneId,  selfId,  i  )
 	 	 	 	 	 --**--local  ret1  =  AddBagItemSlotFour(  sceneId,  selfId,  i  )    --- b¯n l² , th¶i trang không ra khäi 
-	 	 	 	 	 --equipMaxGemCount  =  GetBagGemCount(  sceneId,  selfId,  i  )
+	 	 	 	 	 equipMaxGemCount  =  GetBagGemCount(  sceneId,  selfId,  i  )
 
 	 	 	 	 end
 	 	 	 end
