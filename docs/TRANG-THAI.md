@@ -1503,3 +1503,10 @@ Script dùng: `MyLua/wuhunxt/odali_wuyazi.lua` (892101; hàm `WuhunSkillStudy` ~
 - Chủ server chốt ×48. `MyNew/guaiwu_die.lua` dòng Vô Lượng Sơn (scene 6/73/74): `Neixi * 3` → `Neixi * 12` (công thức gốc đã ×4) → (770 + 10×cấp) × 48 = **37.440–41.760/con**. Nơi khác (Thông Thiên Tháp, Mai Nha, Vân Phù) giữ ×4.
 - Trần 3.000 con/ngày giữ nguyên → ~118 triệu/ngày: cấp 50 ≈ 5,5 ngày, cấp 100 ≈ 36 ngày, cấp 150 ≈ 120 ngày (cày đủ trần mỗi ngày). Mỗi con vẫn chỉ lên tối đa 1 cấp.
 - Rollback: tag `truoc-voy-x48-09-10`.
+
+
+## 09/10 - 20 thời trang thuộc tính lên 9 sao, chỉ GM có (cần cap-nhat + RESTART)
+- Chủ server chọn 20 mẫu (màu 1): 10553236, 281, 308, 326, 344, 353, 362, 371, 380, 389, 398, 407, 416, 425, 434, 443, 452, 461, 470, 479. `EquipBase` cột 90 quy tắc phẩm chất **5 → 9** (cấp phẩm chất cố định 9 → chỉ số ×3,33 như thú cưỡi cùng đoạn 4244, vd Ngoại công 1087 → 3622, SL 2700 → 9000).
+- Chỉ GM có: gỡ 20 mã khỏi NPC đổi thời trang (`MyNew/duihuanxitong.lua` 112000 Tuyết Phi Phi, `obj/loulangucheng/oloulan_malan.lua` 001113) và nhuộm (`New/paodian/ShiZhuangRanSe.lua` 830001) → thay bằng màu 2 cùng mẫu (mã +1, vẫn 5 sao), độ dài danh sách giữ nguyên.
+- Món đã có giữ cấp 5 (cấp phẩm chất lưu trên món lúc tạo) → sau restart xóa + gửi lại cho bialk qua hàng quà.
+- Công cụ `tools/thoitrang9-09-10.js`, rollback tag `truoc-thoitrang9-09-10`.
