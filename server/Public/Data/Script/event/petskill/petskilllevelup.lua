@@ -87,10 +87,50 @@ end
 
 -- [NetCo4 10/10] chu server: giu bang Thang cap ky nang tran thu sau khi bam (client tu dong bang). Server mo lai bang voi NPC da nho
 -- (OnDefaultEvent). Client tu xoa lua chon khi mo -> chon lai pet / ky nang / Linh Thu Dan. Khong nho duoc NPC (mo tu cho khac) -> khong mo lai.
+-- [NetCo4 10/10] nang tiep toi da 9 cap: moi cap Linh Thu Dan dung loai (bang PetSkillLevelup) + tien, du thi tru va nang, thieu thi dung + bao
+function x311112_NangNhanh( sceneId, selfId, petHid, petLid, skillindex )
+	local them = 0
+	local lydo = ""
+	for lan = 1, 9 do
+		local SkillID, UpID, Goods, Money = GetPetSkillLevelupTbl( sceneId, selfId, petHid, petLid, skillindex )
+		if not SkillID or SkillID == -1 or not UpID or UpID == -1 or not Goods or Goods <= 0 or not Money then
+			break
+		end
+		if LuaFnGetAvailableItemCount( sceneId, selfId, Goods ) < 1 then
+			lydo = " - d\215ng: thi\170u #{_ITEM"..Goods.."}"
+			break
+		end
+		if GetMoney( sceneId, selfId ) + GetMoneyJZ( sceneId, selfId ) < Money then
+			lydo = " - d\215ng: kh\244ng \240\252 ti\171n"
+			break
+		end
+		if Money > 0 then
+			local jz = LuaFnCostMoneyWithPriority( sceneId, selfId, Money )
+			if jz == -1 then
+				break
+			end
+		end
+		if LuaFnDelAvailableItem( sceneId, selfId, Goods, 1 ) ~= 1 then
+			break
+		end
+		LuaFnPetSkillUp( sceneId, selfId, petHid, petLid, skillindex, UpID )
+		AuditPetSkillLevelUpAndCompound( sceneId, selfId, 1, Goods )
+		them = them + 1
+	end
+	if them > 0 or lydo ~= "" then
+		x311112_NotifyFailTips( sceneId, selfId, "N\226ng nhanh: th\234m "..them.." c\164p"..lydo )
+	end
+end
+
 x311112_g_Npc = {}
 x311112_PetSkillLevelup_Goc = x311112_PetSkillLevelup
 function x311112_PetSkillLevelup( sceneId, selfId, petHid, petLid, skillindex, ItemIndexInBag )
+	local truoc = GetPetSkillLevelupTbl( sceneId, selfId, petHid, petLid, skillindex )
 	x311112_PetSkillLevelup_Goc( sceneId, selfId, petHid, petLid, skillindex, ItemIndexInBag )
+	local sau = GetPetSkillLevelupTbl( sceneId, selfId, petHid, petLid, skillindex )
+	if truoc and sau and truoc ~= -1 and sau ~= truoc then   -- [NetCo4 10/10] cap 1 thanh cong -> NANG NHANH cac cap sau
+		x311112_NangNhanh( sceneId, selfId, petHid, petLid, skillindex )
+	end
 	local e = x311112_g_Npc[ sceneId..":"..selfId ]
 	if e and e[2] == LuaFnGetGUID( sceneId, selfId ) then
 		BeginUICommand( sceneId )
