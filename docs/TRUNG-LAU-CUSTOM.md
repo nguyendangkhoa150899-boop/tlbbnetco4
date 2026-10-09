@@ -26,6 +26,18 @@ Mục **🔮 Custom Võ Hồn** trong khu 🧰 Công cụ (chỉ cổng SUPER), 
 - **Chữ = chiêu:** chuỗi `&WH` trên món giữ 3 cặp (chữ + cấp), vd `q1k1E1`. Mã kỹ năng cấp L = mã cấp 1 + L − 1 (`x892101_skillstrtoid`). Kỹ năng gắn vào **nhân vật** (AddSkill), không theo món; lĩnh ngộ / tẩy gỡ sạch mọi chiêu Võ Hồn rồi thêm 3 chiêu mới.
 - **Giới hạn:** chiêu cố định theo ô (ô 1 chỉ có chiêu vũ khí / phòng cụ, ô 2 chỉ có chiêu tăng / giảm chỉ số) → 1 Võ Hồn tối đa **1 chiêu Hỏa** (ô 3). Chưa thử cho chiêu ô 3 vào ô 1 / 2 (tooltip client hiện theo chữ nên về lý thuyết được, nhưng 2 chiêu ô 3 cùng lúc chưa ai kiểm).
 
+## Custom % tẩy tư chất (10/10)
+
+Mục **💎 Custom % tẩy tư chất** trong khu 🧰 Công cụ (chỉ cổng SUPER), dưới Custom Võ Hồn. Bot: `tuchat.panel.js` ở `/tc.js`, API `/api/gm/tuchat`. Panel game: `panel/tuchat.py`, `/api/tuchat`. Tag `truoc-tuchat-custom-10-10`.
+- **Engine gốc** (dịch ngược `Server.elf`, `ItemContainer::ReSetItemAptitude` 0x083411d4): mỗi lần tẩy quay lại **cả 6 chỉ số** (ngoại / nội công, ngoại / nội thủ, né, chính xác), mỗi chỉ số độc lập, đều trong **[cột 94 EquipBase, 255]** (vũ khí: 2936 dòng min 1, 641 dòng đồ chế min 126). Lúc chế chỉ ra [cột 94, cột 95] (tối đa 250) → mốc 25–60% **chỉ có qua tẩy**.
+- **% = `Public/Config/ItemAptRate.txt`** (bảng gốc): 250 → 20%, 251 → 25, 252 → 30, 253 → 35, 254 → 45, 255 → 60 (né / chính xác trần 19–20). Server tính chỉ số **trực tiếp từ bảng** mỗi lần (`Obj_Human::ItemEffectFlush`) → sửa bảng = đổi % **mọi món đang có**. Client có **bản riêng** (trong `Config.axp` của `OgreMain.dll`), đã **lệch sẵn** với server ở né / chính xác 250–255 (client 20–60, server 19–20) → tooltip do client tự tính. **Không sửa bảng này.**
+- Engine **không có hàm Lua ghi tư chất** (chỉ `LuaFnReSetItemApt` quay, `GetItemApt(scene, self, ô, loại)` đọc % - loại 1–4 công / thủ, 5–6 né / chính xác, chỉ số món không có → 0). `LuaFnReSetItemApt` trả 1; 2 nếu % công > 17; 3 nếu chỉ số > 250 (thông báo thế giới trong script đã bị comment từ gốc).
+- Chi phí mỗi lần: 1 Kim Cương Sa 30008034 hoặc 1 lượt Kim Cương Tỏa 30008048 (11 lượt) + tiền 20 × cấp + 50. Dùng Sa khóa cho món chưa khóa → món bị khóa.
+- **Custom:** `event/equip/judge_aptitude.lua` (809261) `x809261_NetCo4_TuChat` gọi ngay sau `LuaFnReSetItemApt`, đọc `Server/txt/NetCo4Cfg/tuchat.txt` **mỗi lần tẩy** (lưu là có hiệu lực, không restart): chọn mốc đích theo tỉ lệ (`random(1,10000)`), rồi quay lại trong server (không tốn thêm Sa) tới khi **% công / thủ cao nhất** của món (`GetItemApt` loại 1–4) đúng mốc, tối đa 3000 lần (60% với món min 1: trung bình ~128 lần). Phần còn lại (100 − tổng) ra dưới 20%. Tư chất ra là thật → tooltip đúng; món đang có giữ nguyên.
+- **File** (ASCII, ngoài repo): `bat 0|1` + dòng `<mốc> <tỉ lệ %>` cho 60 / 45 / 35 / 30 / 25 / 20. Không có file / `bat 0` = engine gốc. Nút "Về mặc định" xóa file. Sao lưu: `/opt/tlbb-backup/tuchat-<thời gian>.txt`. Nhật ký: audit panel GM + log ADMIN bot `[TƯ CHẤT]`.
+- **Tỉ lệ gốc để so** (% công cao nhất của vũ khí = max 2 chỉ số): min 1 → mỗi mốc 20–60 ≈ 0,77–0,78%, dưới 20% ≈ 95,3%; min 126 → mỗi mốc ≈ 1,47–1,53%, dưới 20% ≈ 91,0%.
+- **Đã thử trên server test 10/10** (60% = 100%): chủ server OK.
+
 ## Admin chỉnh được gì
 
 | Thứ | Ở đâu | Áp cho ai | Khi nào có hiệu lực |

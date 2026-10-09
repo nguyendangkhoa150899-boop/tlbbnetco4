@@ -22,6 +22,7 @@ import maudoche   # 02/10: mau do che 8x/9x (panel/maudoche.py)
 import amkhi      # 04/10: trong so tay 3 dong am khi (panel/amkhi.py)
 import trunglau   # 08/10: custom Trung Lau dong moi (panel/trunglau.py)
 import vohon      # 09/10: custom Vo Hon - ti le chieu tung o linh ngo / tay (panel/vohon.py)
+import tuchat     # 10/10: custom % tay tu chat - giam dinh lai o Trieu Tiet (panel/tuchat.py)
 
 HOST, PORT = "0.0.0.0", 8443         # HTTPS, mo ra internet (ufw allow 8443), bat buoc dang nhap
 PUBLIC_IP = "103.216.118.123"
@@ -1029,6 +1030,29 @@ class H(BaseHTTPRequestHandler):
                     return self._json({"ok": False, "error": msg})
                 audit("vo hon [%s] %s: %s" % (ai, op, msg))
                 return self._json({"ok": True, "msg": msg, "data": vohon.du_lieu()})
+            if method == "GET" and u.path == "/api/tuchat":   # 10/10: custom % tay tu chat (giam dinh lai o Trieu Tiet) - doc
+                return self._json({"ok": True, "data": tuchat.du_lieu()})
+            if method == "POST" and u.path == "/api/tuchat":   # 10/10: ghi tuchat.txt (bot chi goi tu cong SUPER); hieu luc ngay, khong restart
+                n = int(self.headers.get("Content-Length", 0) or 0)
+                if n > 5000:
+                    return self._json({"ok": False, "error": "du lieu qua lon"}, 413)
+                b = json.loads(self.rfile.read(n).decode("utf-8", "replace") or "{}")
+                op, ai = str(b.get("op", "")), str(b.get("ai", ""))[:60]
+                if op == "luu":
+                    try:
+                        p = {int(k): float(x) for k, x in (b.get("p") or {}).items()}
+                        bat = int(b.get("bat", 0))
+                    except (TypeError, ValueError, AttributeError):
+                        return self._json({"ok": False, "error": "Dữ liệu tỉ lệ không hợp lệ"})
+                    ok, msg = tuchat.luu(bat, p, ai)
+                elif op == "tra":
+                    ok, msg = tuchat.ve_mac_dinh()
+                else:
+                    return self._json({"ok": False, "error": "op khong hop le"})
+                if not ok:
+                    return self._json({"ok": False, "error": msg})
+                audit("tu chat [%s] %s: %s" % (ai, op, msg))
+                return self._json({"ok": True, "msg": msg, "data": tuchat.du_lieu()})
             if method == "POST" and u.path == "/api/act":
                 n = int(self.headers.get("Content-Length", 0) or 0)
                 form = json.loads(self.rfile.read(min(n, 10000)).decode("utf-8", "replace") or "{}")

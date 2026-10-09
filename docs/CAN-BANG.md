@@ -205,6 +205,12 @@ StandardImpact 793 "步步生花陷阱伤害" (logic 001 = sát thương trực 
 
 ---
 
+### Tẩy tư chất trang bị (Triệu Tiết) - custom 10/10
+
+- **Trước:** engine gốc, mỗi chỉ số đều trong [cột 94, 255] → vũ khí đồ chế (min 126) ra 60% ≈ 1/130 lần mỗi chỉ số; lúc chế tối đa 20%.
+- **Sau:** admin đặt tỉ lệ từng mốc 60 / 45 / 35 / 30 / 25 / 20% trên trang 💎 Custom % tẩy tư chất (`tuchat.txt`, đọc mỗi lần tẩy). **Mặc định khi deploy: không có file = engine gốc** (chưa đổi cân bằng tới khi admin lưu).
+- File: `event/equip/judge_aptitude.lua` `x809261_NetCo4_TuChat`, `panel/tuchat.py`; tag `truoc-tuchat-custom-10-10`. Mốc 60% gấp 3 lần 20% lúc chế: cân theo lượng Kim Cương Sa lưu hành. **Chưa đo** trên prod.
+
 ## 5. Tu luyện / tài nguyên
 
 - **Công Lực Đan** (`Gonglidan.lua` 390102, đan 39999901): đang **+100, trần 99.999** (bản gốc).

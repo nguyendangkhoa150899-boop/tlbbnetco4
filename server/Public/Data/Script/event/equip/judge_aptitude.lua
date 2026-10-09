@@ -129,6 +129,89 @@ end
 --**********************************
 --重新鉴定装备资质(洗资质)
 --**********************************
+-- [NetCo4 10/10] CUSTOM % TAY TU CHAT (trang admin bot: Cong cu > Custom tay tu chat). Doc file moi lan tay, sua file co hieu luc ngay.
+-- Engine goc (dich nguoc Server.elf): moi lan tay quay lai CA 6 chi so, moi chi so deu trong [cot 94 EquipBase, 255],
+-- % = ItemAptRate.txt (250 = 20%, 251 = 25, 252 = 30, 253 = 35, 254 = 45, 255 = 60). Engine khong co ham GHI tu chat ->
+-- chon moc dich theo file roi goi lai LuaFnReSetItemApt (trong server, khong ton them Kim Cuong Sa) toi khi % cong/thu CAO NHAT
+-- cua mon (GetItemApt loai 1-4) bang dung moc, toi da 3000 lan. Tu chat ra la that -> tooltip client van dung.
+-- File ./txt/NetCo4Cfg/tuchat.txt: "bat 1" = bat (khong co file / "bat 0" = engine goc); "<moc> <ti le %>" voi moc
+-- 60 / 45 / 35 / 30 / 25 / 20 = ti le tay ra DUNG moc do; phan con lai (100 - tong) ra duoi 20%.
+x809261_NetCo4_TCFile = "./txt/NetCo4Cfg/tuchat.txt"
+x809261_NetCo4_TCMoc = { 60, 45, 35, 30, 25, 20 }
+
+function x809261_NetCo4_TCCfg()
+	local cfg = { bat = 0, p = {} }
+	local h = openfile( x809261_NetCo4_TCFile, "r" )
+	if h == nil then
+		return cfg
+	end
+	local line = read( h, "*l" )
+	while line do
+		local _, _, k, v = strfind( line, "^%s*(%w+)%s+([%d%.]+)" )
+		if k == "bat" then
+			cfg.bat = tonumber( v ) or 0
+		elseif k and tonumber( k ) then
+			cfg.p[ tonumber( k ) ] = tonumber( v ) or 0
+		end
+		line = read( h, "*l" )
+	end
+	closefile( h )
+	return cfg
+end
+
+-- % cong/thu cao nhat cua mon (GetItemApt loai 1-4; loai 5-6 la ne / chinh xac, tran 20%; chi so mon khong co -> 0)
+function x809261_NetCo4_TCMax( sceneId, selfId, idx )
+	local m = 0
+	for t = 1, 4 do
+		local v = GetItemApt( sceneId, selfId, idx, t )
+		if v and v > m then
+			m = v
+		end
+	end
+	return m
+end
+
+function x809261_NetCo4_TuChat( sceneId, selfId, idx, ret )
+	if ret ~= 1 and ret ~= 2 and ret ~= 3 then
+		return ret
+	end
+	local cfg = x809261_NetCo4_TCCfg()
+	if cfg.bat ~= 1 then
+		return ret
+	end
+	local m = x809261_NetCo4_TCMax( sceneId, selfId, idx )
+	if m <= 0 then
+		return ret
+	end
+	local r = random( 1, 10000 )
+	local cong = 0
+	local dich = 0
+	for i = 1, getn( x809261_NetCo4_TCMoc ) do
+		local moc = x809261_NetCo4_TCMoc[ i ]
+		cong = cong + floor( ( cfg.p[ moc ] or 0 ) * 100 + 0.5 )
+		if dich == 0 and r <= cong then
+			dich = moc
+		end
+	end
+	local lan = 0
+	while lan < 3000 do
+		if dich > 0 and m == dich then
+			break
+		end
+		if dich == 0 and m < 20 then
+			break
+		end
+		local r2 = LuaFnReSetItemApt( sceneId, selfId, idx )
+		if r2 ~= 1 and r2 ~= 2 and r2 ~= 3 then
+			break
+		end
+		ret = r2
+		lan = lan + 1
+		m = x809261_NetCo4_TCMax( sceneId, selfId, idx )
+	end
+	return ret
+end
+
 function x809261_FinishReAdjust( sceneId, selfId, nEquItemIndex )
 
 	-- 检测装备是否可用....
@@ -260,6 +343,7 @@ function x809261_FinishReAdjust( sceneId, selfId, nEquItemIndex )
 	-- 重新鉴定装备资质....
 	
 	ret = LuaFnReSetItemApt( sceneId, selfId, nEquItemIndex )
+	ret = x809261_NetCo4_TuChat( sceneId, selfId, nEquItemIndex, ret )   -- [NetCo4 10/10] custom % tay tu chat
 	if ret == 1 or ret == 2 or ret == 3 then
 		-- [08/10] giam dinh ghi ten: ten nguoi giam dinh hien duoi cac dong thuoc tinh (cho ten nguoi che tao)
 		LuaFnSetItemCreator( sceneId, selfId, nEquItemIndex, GetName( sceneId, selfId ) )
