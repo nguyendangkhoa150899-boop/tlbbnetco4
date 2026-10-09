@@ -111,7 +111,23 @@ function x950000_TamPhap1( sceneId, selfId )
 	end
 end
 
+-- [NetCo4 10/10] chu server: doi ban do / dang nhap -> moi tran thu day mau (giong NPC thuan duong pet_domestication.lua)
+function x950000_HoiMauPet( sceneId, selfId )
+	local n = LuaFnGetPetCount( sceneId, selfId )
+	if n == nil or n < 1 then
+		return
+	end
+	for i = 0, n - 1 do
+		local maxHP = LuaFnGetPet_MaxHP( sceneId, selfId, i )
+		local h, l = LuaFnGetPetGUID( sceneId, selfId, i )
+		if maxHP and maxHP > 0 and h and l then
+			LuaFnSetPetHP( sceneId, selfId, h, l, maxHP )
+		end
+	end
+end
+
 function x950000_NhanQua( sceneId, selfId )
+	x950000_HoiMauPet( sceneId, selfId )   -- [NetCo4 10/10] tran thu day mau khi doi ban do
 	x950000_CapMin( sceneId, selfId )
 	x950000_TamPhap1( sceneId, selfId )   -- [NetCo4 03/10] tam phap nhan vat cu ve 1 (1 lan)
 	CallScriptFunction( 999999, "NhanWeb", sceneId, selfId )   -- KNB chuyen tu web mini game (CDK/CDK.lua)

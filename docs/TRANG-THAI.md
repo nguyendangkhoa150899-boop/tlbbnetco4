@@ -1540,3 +1540,12 @@ Script dùng: `MyLua/wuhunxt/odali_wuyazi.lua` (892101; hàm `WuhunSkillStudy` ~
 - **Chỉ admin phát:** 2 NPC đổi thời trang (`MyNew/duihuanxitong.lua` 112000, `obj/loulangucheng/oloulan_malan.lua` 001113) bỏ cả 180 mã khỏi `x…_Thoitrang` (288 → 108 mã của 12 mẫu thường) và `random(1,280)` → `random(1,getn(mảng))` (6 chỗ / file; bản gốc 288 mã mà chỉ bốc 1..280). `obj/bingshen/bingshen.lua` danh sách thưởng 10553286 (Phi Long Thừa Vân màu 6) → 10553304 (Phiên Điệp Lạc Vũ màu 6, 5 sao). Quét toàn bộ script + bảng: 180 mã chỉ còn ở EquipBase, script nhuộm, `EquipBase111.txt` (bảng cũ không dùng).
 - DB 10/10: ngoài bialk không ai giữ món nào của 20 mẫu → không ai nhuộm "lên 9 sao" được từ đồ cũ 5 sao. Món đã có giữ số sao lúc tạo.
 - EquipBase cần cap-nhat + **restart**; script NPC tự nạp. Chưa thử trong game: nhuộm ra 9 sao.
+
+### 10/10 - Trân thú đầy máu khi đổi bản đồ / đăng nhập (tag `truoc-pet-daymau-10-10`)
+- `NetCo4/quatang.lua` hàm mới `x950000_HoiMauPet` (gọi đầu `x950000_NhanQua` ← `scene.lua` `OnScenePlayerEnter` + đăng nhập): mọi trân thú trong ô (`LuaFnGetPetCount`) đặt máu = `LuaFnGetPet_MaxHP` qua `LuaFnSetPetHP` - cách NPC thuần dưỡng gốc (`pet_domestication.lua`) làm. Lua, hiệu lực sau cap-nhat, không restart. Chưa thử trong game.
+
+### CHỜ chủ server OK - Rồng bay cho thần khí cao nhất (làm trên SERVER TEST trước)
+- Chủ server 10/10: "nên làm ở server test, chuẩn bị, khi nào mình OK rồi làm". Chưa làm gì.
+- Đã tìm (client `ImpactSEData_V1`): hình Thiên Long 4 màu SE 515 xanh dương / 516 đỏ / **517 VÀNG** / 518 xanh lá (buff server 200 / 261 / 263 / 264, debuff giảm kháng 20 giây); 831 "Thanh Long đặc hiệu" dưới chân (buff 79, 1 giây); 1007 / 1008 Giao Long / Thận Long Loạn Vũ (buff 10076+, 20 giây); 1671 Quần Long Khiếu Thiên (chưa có buff server nào dùng).
+- Kế hoạch: (1) mục GM chỉ bialk ở NPC gắn thử từng hình để chọn; (2) buff mới chỉ có hình, không chỉ số, luôn bật khi mặc thần khí đó - EquipBase cột 19 thần khí đã có hiệu ứng riêng, cần cách gắn không mất hiệu ứng gốc. Chưa biết "thần khí cao nhất" là mã nào.
+- Con rồng xanh của nhân vật nam là một phần mô hình nhân vật gốc, không phải hiệu ứng.
