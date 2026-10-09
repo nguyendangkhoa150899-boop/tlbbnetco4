@@ -1529,3 +1529,6 @@ Script dùng: `MyLua/wuhunxt/odali_wuyazi.lua` (892101; hàm `WuhunSkillStudy` ~
 - Kết quả: server đục thật (Audit `EQUIP_STILETTO` 10553344 lỗ 1-3 lúc 16:14), nhưng client từ chối khảm ("Thiết bị lắp đặt này không có cách nào gắn vào"), tooltip không vẽ ô lỗ vì bảng client ghi 0 lỗ. Ngọc thời trang (Phối Sức 50431001-50433010) cũng không có chỉ số, chỉ để trang trí.
 - Server KHÔNG kiểm cột 18 khi đục bằng script (`AddBagItemSlot`): Sáp Huyết Lệnh 10158004 bảng ghi 0 lỗ vẫn đục được 4.
 - Rollback cả 3 commit (`399d492`, `f937936`, `dfc76de`). 3 lỗ đã đục trên Mặc Vũ Tiềm U của bialk vô hại, để nguyên. Câu "chúc mừng… đã đục 3 lỗ" của NPC luôn hiện kể cả khi không đục được món nào (lỗi có sẵn của GM cũ).
+
+### 09/10 tối - NPC Mục Thanh Danh: dòng cuối "Bán đồ chế (mở cửa hàng)" (tag `truoc-mtd-tiem-09-10`)
+- `MyNew/doidanhhieu.lua` (111997) menu 9503 → `DispatchShopItem(..., 73)` = cửa hàng Nghiêm Bách Thảo (Điếu Ngư Can / Quáng Sừ / Thải Dược Liêm, tiền vàng, thu mua đồ tới cấp 120 loại 9) → người chơi bán đồ chế 9x bằng nút "Bán hàng" ngay tại NPC chế. Không đổi kinh tế (bán cho NPC tiệm nào cũng được, cùng giá). Lua, hiệu lực sau cap-nhat, không restart. Chưa thử trong game.

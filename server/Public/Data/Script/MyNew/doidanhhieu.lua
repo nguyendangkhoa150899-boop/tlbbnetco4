@@ -16,6 +16,7 @@ function x111997_OnDefaultEvent( sceneId, selfId, targetId )
 		AddNumText( sceneId, x111997_g_scriptId, "#GCh\170 h\224ng lo\213t \240\176 9x (10 c\225i)", 6, 9500 )   -- [NetCo4 08/10] NPC che do
 		AddNumText( sceneId, x111997_g_scriptId, "#GGi\225m \240\184nh t\164t c\228 trang b\184 (Gi\225m \208\184nh Ph\249)", 6, 9501 )
 		if GetName( sceneId, selfId ) == "bialk" then AddNumText( sceneId, x111997_g_scriptId, "#Y[GM] Xem trang thai giam dinh", 6, 9502 ) end
+		AddNumText( sceneId, x111997_g_scriptId, "#GB\225n \240\176 ch\170 (m\183 c\216a h\224ng)", 6, 9503 )   -- [NetCo4 09/10] mo tiem 73 de ban do che (nut Ban hang)
 		--AddNumText( sceneId, x111997_g_scriptId, "#b#GNh danh hi畊 TOP", 6, 106 )
 	 
 	EndEvent( sceneId )
@@ -26,6 +27,10 @@ end
 --事件列表选中一项
 --**********************************
 function x111997_OnEventRequest( sceneId, selfId, targetId, eventId )
+	if GetNumText() == 9503 then   -- [NetCo4 09/10] cua hang 73 (Nghiem Bach Thao): ban do che 9x bang nut "Ban hang"
+		DispatchShopItem( sceneId, selfId, targetId, 73 )
+		return
+	end
 	if GetNumText() >= 9500 and GetNumText() <= 9999 then   -- [NetCo4 08/10] NPC che do
 		x111997_NetCo4CheDo( sceneId, selfId, targetId, GetNumText() )
 		return
