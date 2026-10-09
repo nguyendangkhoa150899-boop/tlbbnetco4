@@ -112,6 +112,7 @@ function x950000_TamPhap1( sceneId, selfId )
 end
 
 -- [NetCo4 10/10] chu server: doi ban do / dang nhap -> moi tran thu day mau (giong NPC thuan duong pet_domestication.lua)
+x950000_g_ChoHoiPet = {}   -- [10/10] selfId -> so lan con thu hoi mau pet tre (pet chua co mat luc vao ban do)
 function x950000_HoiMauPet( sceneId, selfId )
 	local n = LuaFnGetPetCount( sceneId, selfId )
 	if n == nil or n < 1 then
@@ -133,9 +134,38 @@ function x950000_HoiMauPet( sceneId, selfId )
 			RestoreHp( sceneId, objId )
 		end
 	end
-	if GetName( sceneId, selfId ) == "bialk" then   -- [10/10] TAM: biet luc vao ban do pet da co mat chua; xong thi bo
-		x950000_Tip( sceneId, selfId, "[GM] hoi mau pet: objId = "..tostring( objId ) )
+	-- pet chua co mat (luc vao ban do pet duoc tha sau) -> hoi tre qua bo dem gio nhan vat (scene.lua OnScenePlayerTimer)
+	if ph and pl and ( objId == nil or objId < 0 ) and IsHaveMission( sceneId, selfId, 4021 ) <= 0 then
+		x950000_g_ChoHoiPet[selfId] = 10
+		SetCharacterTimer( sceneId, selfId, 1000 )
 	end
+end
+
+-- [10/10] goi tu scene.lua x888888_OnScenePlayerTimer (cuoi ham): pet da co mat -> day mau that; chua -> thu lai sau 1 giay (toi da 10 lan)
+function x950000_HoiPetTre( sceneId, selfId )
+	local con = x950000_g_ChoHoiPet[selfId]
+	if con == nil then
+		return
+	end
+	local ph, pl = LuaFnGetCurrentPetGUID( sceneId, selfId )
+	local objId = -1
+	if ph and pl then
+		objId = LuaFnGetPetObjIdByGUID( sceneId, selfId, ph, pl )
+	end
+	if objId and objId >= 0 then
+		RestoreHp( sceneId, objId )
+		x950000_g_ChoHoiPet[selfId] = nil
+		if GetName( sceneId, selfId ) == "bialk" then   -- [10/10] TAM de kiem, xong thi bo
+			x950000_Tip( sceneId, selfId, "[GM] hoi mau pet tre: objId = "..objId..", lan "..( 11 - con ) )
+		end
+		return
+	end
+	if con <= 1 or IsHaveMission( sceneId, selfId, 4021 ) > 0 then
+		x950000_g_ChoHoiPet[selfId] = nil
+		return
+	end
+	x950000_g_ChoHoiPet[selfId] = con - 1
+	SetCharacterTimer( sceneId, selfId, 1000 )
 end
 
 function x950000_NhanQua( sceneId, selfId )

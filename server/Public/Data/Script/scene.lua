@@ -635,6 +635,7 @@ function x888888_OnScenePlayerTimer( sceneId, selfId, nowtime )
 	else
 		SetCharacterTimer(sceneId,selfId,0)
 	end
+	CallScriptFunction( 950000, "HoiPetTre", sceneId, selfId )   -- [NetCo4 10/10] pet day mau tre sau khi vao ban do (tu bat lai bo dem neu can)
 
 end
 
