@@ -1,8 +1,12 @@
 // 09/10 (chu server, THU): 20 thoi trang thuoc tinh 9 sao (xem thoitrang9-09-10.js) -> so lo ngoc toi da 0 -> 4
 // (EquipBase cot 18 "镶嵌宝石上限"; trang bi thuong 3, mon dac biet 4). Thoi trang cap 1 -> SlotCost 101-104 da co:
-// lo 1-3 = 3000-4200 bac + 1 x 20109001, lo 4 = 20.000.000 bac + 20109101 va 3.000.000 bac + 20310111.
-// CHUA BIET chay duoc: bang client van ghi 0 lo (client khoa, khong sua) + quy tac ngoc -> o trang bi nam trong binary server
-// (diem 16 thoi trang khong co trong mo ta ngoc nao). Can cap-nhat + restart roi ra NPC thu. Rollback: tag truoc-thoitrang-lo-09-10.
+// lo 1-3 = 3000-4200 bac + 1 x 20109001 (SlotCost 101-103).
+// Script NPC CO SAN da cho thoi trang: event/stiletto/stiletto.lua (311200) - OnStiletto danh sach loai co 16;
+//   OnStiletto_Four nhanh rieng loai 8/9/10/16/18: lo 4 = 30.000.000 bac + 1 vien 20109101 HOAC 20310111 (khong dung SlotCost 104).
+// Kham: event/liveabilityevent/gem_embed.lua (701614) HEQUIP_DRESS = ngoc loai 31/32/33/34 = "Phoi Suc" Kien/Yeu/Cuoc
+//   50431001-50433010 (30 vien, ban o shop) - KHONG chi so, chi hien phu kien (cot 77 hieu ung 1-10). Moi loai 1 vien (lo 1-3);
+//   vien thu 4 (GemEmbed_Four) khong kiem trung loai, loai 34 khong co trong GemInfo.
+// Con chua biet: bang client van ghi 0 lo (client khoa). Can cap-nhat + restart roi ra NPC thu. Rollback: tag truoc-thoitrang-lo-09-10.
 //   node tools/thoitrang-lo-09-10.js [--ghi]
 const fs = require('fs'), path = require('path');
 const F = path.join(__dirname, '..', 'server', 'Public/Config/EquipBase.txt');
