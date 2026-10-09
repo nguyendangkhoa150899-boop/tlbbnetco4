@@ -218,7 +218,7 @@ StandardImpact 793 "步步生花陷阱伤害" (logic 001 = sát thương trực 
 
 ---
 
-- **Kim Tàm Ti ở Hãn Huyết Lĩnh (10/10, chủ server):** `NetCo4/roimap.lua` `[432]` (quái 11466–11478: Liêu Quốc Chiến Sĩ / Tát Mãn, Thuần Mã Sư, Mã Trường Thủ Vệ, Đại Uyển Mã) **20310166 30% → 20310168 15%** mỗi người / lần hạ → **10/10 sau đó: 25%** (tag `truoc-kimtamti-25-10-10`). Lý do: cường hóa Điêu Văn (809272 `aHaDiaoWenSys_1.lua`) chỉ đếm 20310167 + 20310168, bản 166 vô dụng. Audit 01–09/10: 685 viên 166 đã rơi; đang giữ (DB 10/10): bialk 50, Huyền Sát 5, Hỏa Thần 57. Lua → hiệu lực sau cap-nhat, không restart. Tag `truoc-kimtamti-168-10-10`. netco4.click dựng lại.
+- **Kim Tàm Ti ở Hãn Huyết Lĩnh (10/10, chủ server):** `NetCo4/roimap.lua` `[432]` (quái 11466–11478: Liêu Quốc Chiến Sĩ / Tát Mãn, Thuần Mã Sư, Mã Trường Thủ Vệ, Đại Uyển Mã) **20310166 30% → 20310168 15%** mỗi người / lần hạ → **10/10 sau đó: 25%** (tag `truoc-kimtamti-25-10-10`) → **35%** (tag `truoc-kimtamti-35-10-10`). Lý do: cường hóa Điêu Văn (809272 `aHaDiaoWenSys_1.lua`) chỉ đếm 20310167 + 20310168, bản 166 vô dụng. Audit 01–09/10: 685 viên 166 đã rơi; đang giữ (DB 10/10): bialk 50, Huyền Sát 5, Hỏa Thần 57. Lua → hiệu lực sau cap-nhat, không restart. Tag `truoc-kimtamti-168-10-10`. netco4.click dựng lại.
 
 ---
 
