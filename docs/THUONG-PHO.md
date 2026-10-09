@@ -115,3 +115,15 @@ Game xóa đồ trong RAM (ShareMemory) trước rồi mới ghi phiếu. Nếu 
 - Người chơi: túi bên phải có 2 nút **🎮 Rút vào game / 🧰 Qua Rương Ích Kỷ** (chỉ hiện khi admin đã gắn ít nhất 1 món). Chế độ rương: kho bên trái CHỈ hiện món được phép và không cố định; xác nhận gọi `POST /api/tp/ik` → `thuongpho.js rutIk()`: trừ kho `<id>|0`, `ctx.ichKyAdd` cộng thẳng vào rương (không qua game, không cần online), lịch sử loại `ik`.
 - **Đồ 🔒 cố định không bao giờ qua rương** (rương tặng / Ghép Ngọc được → thành đường gỡ khoá). Ví clone bị chặn ở cổng clone của `webplay.js` (route không nằm trong danh sách chừa).
 - Kinh tế: món đưa vào danh sách trở thành đồ giao dịch được trên web. Nếu món đó cũng là "đồ vào" của Ghép Ngọc thì đồ farm trong game đổi được thành món đích - cân nhắc trước khi gắn.
+
+## Nhận Rương Ích Kỷ vào game qua NPC (10/10, bialk `dd59e22`)
+
+- Chủ server: nhận đồ 🧰 Rương Ích Kỷ qua NPC giống Thương Phố, **dùng chung nút** NPC Ví Web "Nhận đồ Thương Phố".
+- Web bấm 📦 Nhận (**không cần online**) → `ichKyClaim` (index.js) trừ rương → `TP.rutTuRuong` ghi lệnh vào `<GUID>.tpin` (mã lệnh bắt đầu `r`, khoá 0, số chồng theo CommonItem cột 12 cho cả món ngoài danh sách Thương Phố, túi 2 cho mã 2x/5x còn lại túi 1). Ghi lỗi → trả rương. Game không sửa gì (`x999999_NhanTP` không lọc mã món).
+- Lịch sử Thương Phố có dòng "🧰 … (từ Rương Ích Kỷ)" kèm trạng thái ✅ / ⏳ / ◐ (đọc `.tpdone`).
+- **Phiếu HOAN** (phát lỗi giữa chừng): món KHÔNG thuộc danh sách Thương Phố (vd trang bị Long Văn) trả về **rương** của ví liên kết GUID đó (`userCuaGuid`; nhiều ví cùng GUID → không đoán, vào kho Thương Phố); món trong danh sách vào kho Thương Phố (rút lại được). Hệ quả nhỏ: món admin vừa chặn (`chan`) mà bị hoàn cũng về rương.
+- Thương Phố tắt (`thuongpho-tat`) → không nhận lệnh mới, đồ vẫn trong rương.
+- Giữ giới hạn cũ: Long Văn +1..+3 / ngọc tối đa 10 cái mỗi lần nhận; mỗi lần tối đa 1.000 cái.
+- Mô phỏng `thuongpho.js` thật + `x999999_NhanTP` thật (fengari, scratchpad `iksim/sim.js`): 23/23 (nhận đủ, không phát trùng, túi đầy chờ, hoàn về đúng chỗ, đọc phiếu 2 lần không cộng trùng, 2 ví cùng GUID, tắt, chưa liên kết).
+- Chủ server 10/10 chốt **không sửa** 2 kẽ hở đã báo: Long Văn +1..+3 đi game → web → game là món mới (quay lại dòng, thay cho tẩy); tặng giữa các rương không tính hạn mua / ⭐ mua 1 lần của người nhận (ví phụ gom về ví chính).
+- **Chưa kiểm trong game:** bấm Nhận trên web → NPC Ví Web "Nhận đồ Thương Phố" nhận đúng; trang bị (Long Văn) vào túi Đạo cụ.
