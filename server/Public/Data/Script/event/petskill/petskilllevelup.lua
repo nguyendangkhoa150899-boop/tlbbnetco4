@@ -15,6 +15,7 @@ function x311112_OnDefaultEvent(sceneId, selfId, targetId)
 		BeginUICommand( sceneId )
 			UICommand_AddInt( sceneId, targetId )
 		EndUICommand( sceneId )
+		x311112_g_Npc[ sceneId..":"..selfId ] = { targetId, LuaFnGetGUID( sceneId, selfId ) }   -- [NetCo4 10/10] nho NPC de mo lai bang sau khi thang cap
 		DispatchUICommand( sceneId, selfId, 19823 )	--调用珍兽技能升级界面
 	end
 	
@@ -81,6 +82,21 @@ function x311112_PetSkillLevelup( sceneId, selfId, petHid, petLid, skillindex, I
 		
 	else
 		x311112_NotifyFailTips(sceneId, selfId, "#{JNHC_81015_05}")
+	end
+end
+
+-- [NetCo4 10/10] chu server: giu bang Thang cap ky nang tran thu sau khi bam (client tu dong bang). Server mo lai bang voi NPC da nho
+-- (OnDefaultEvent). Client tu xoa lua chon khi mo -> chon lai pet / ky nang / Linh Thu Dan. Khong nho duoc NPC (mo tu cho khac) -> khong mo lai.
+x311112_g_Npc = {}
+x311112_PetSkillLevelup_Goc = x311112_PetSkillLevelup
+function x311112_PetSkillLevelup( sceneId, selfId, petHid, petLid, skillindex, ItemIndexInBag )
+	x311112_PetSkillLevelup_Goc( sceneId, selfId, petHid, petLid, skillindex, ItemIndexInBag )
+	local e = x311112_g_Npc[ sceneId..":"..selfId ]
+	if e and e[2] == LuaFnGetGUID( sceneId, selfId ) then
+		BeginUICommand( sceneId )
+			UICommand_AddInt( sceneId, e[1] )
+		EndUICommand( sceneId )
+		DispatchUICommand( sceneId, selfId, 19823 )
 	end
 end
 

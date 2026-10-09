@@ -1549,3 +1549,8 @@ Script dùng: `MyLua/wuhunxt/odali_wuyazi.lua` (892101; hàm `WuhunSkillStudy` ~
 - Đã tìm (client `ImpactSEData_V1`): hình Thiên Long 4 màu SE 515 xanh dương / 516 đỏ / **517 VÀNG** / 518 xanh lá (buff server 200 / 261 / 263 / 264, debuff giảm kháng 20 giây); 831 "Thanh Long đặc hiệu" dưới chân (buff 79, 1 giây); 1007 / 1008 Giao Long / Thận Long Loạn Vũ (buff 10076+, 20 giây); 1671 Quần Long Khiếu Thiên (chưa có buff server nào dùng).
 - Kế hoạch: (1) mục GM chỉ bialk ở NPC gắn thử từng hình để chọn; (2) buff mới chỉ có hình, không chỉ số, luôn bật khi mặc thần khí đó - EquipBase cột 19 thần khí đã có hiệu ứng riêng, cần cách gắn không mất hiệu ứng gốc. Chưa biết "thần khí cao nhất" là mã nào.
 - Con rồng xanh của nhân vật nam là một phần mô hình nhân vật gốc, không phải hiệu ứng.
+
+### 10/10 - Giữ bảng "Thăng cấp kỹ năng trân thú" sau khi bấm (tag `truoc-petskill-molai-10-10`)
+- Client `PetLevelup_Do()` gửi `PetSkillLevelup` (311112) rồi tự `PetLevelup_Hide()` - không sửa được client.
+- `event/petskill/petskilllevelup.lua`: `OnDefaultEvent` nhớ NPC (`x311112_g_Npc["scene:self"] = {targetId, GUID}`); bọc `x311112_PetSkillLevelup` (bản gốc giữ ở `_Goc`) → xong mỗi lần (thành công hay lỗi) gửi lại UI 19823 với NPC đã nhớ → bảng mở lại (client tự xoá lựa chọn: chọn lại pet / kỹ năng / Linh Thú Đan). Mở bảng từ chỗ khác (shengjjll) không nhớ NPC → không mở lại. Lua, không restart. Chưa thử trong game.
+- Cũng 10/10: pet đầy máu khi đổi bản đồ - bản cuối dùng `SetTimer(950000 "HoiPetTre", 1000)` (scene.lua không tự nạp lại sau cap-nhat, đã trả về gốc). Dòng báo `[GM] hoi mau pet tre` chỉ bialk thấy, gỡ khi xác nhận chạy.
