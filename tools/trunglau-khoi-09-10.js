@@ -4,7 +4,8 @@
 //  2. StandardImpact 7580 "重楼盔" (sua lan 2 09/10): logic 88 khuon 7505 - danh trung 100% kich hoat, he so sat thuong 10 = x1,1 -> +10% sat thuong
 //     MOI don (thuong 50k -> 55k, chi mang 100k -> 110k). Ban truoc: 5% kich hoat, he so 100 (= x2,
 //     "chi mang" cua TLBB = don gap doi) -> ~5 don chi mang them / 100 don. KHONG dung logic 13 (+5 DIEM hoi cong ~ +0,13%) hay 21 (gan de ti le).
-//     Luon bat khi mac, KHONG icon buff (cot 5 = -1), nhom loai tru rieng 7580, khong hieu ung con.
+//     Luon bat khi mac, nhom loai tru rieng 7580, khong hieu ung con. Icon buff (cot 5) = 755 (sua 09/10 chieu): mo ta client ImpactSEData
+//     "Xuc Cuc Vong Sang: Tao Thanh So Huu Thuong Ton De Cao 10%" - khop +10% sat thuong; co hao quang quanh nguoi, nguoi choi tu huy duoc.
 //     Cong thuc chi mang server (RE SkillLogic_T::IsCriticalHit): % = 4 x (Hoi cong + 0,1) / (Hoi thu doi phuong + 0,1), tran 100.
 //  3. NetCo4/quatang.lua: lenh moi "itemten <ID> <chu>" = phat 1 mon + ghi dong ten nguoi che (chu custom duoi tooltip).
 // File latin1, giu CR. Rollback: tag truoc-trunglau-khoi-09-10.   node tools/trunglau-khoi-09-10.js [--ghi]
@@ -38,7 +39,7 @@ const doc = (f) => fs.readFileSync(path.join(R, f), 'latin1'); const ghi = (f, s
   const ten7517 = L.find((l) => l.startsWith('7517\t')).split('\t')[1]; let khoi = null;
   for (const l of doc('Public/Config/EquipBase.txt').split('\n')) { const t = l.split('\t')[10] || ''; for (let k = 0; k + 1 < t.length && !khoi; k++) if (gbk(t.slice(k, k + 2)) === '盔') khoi = t.slice(k, k + 2); if (khoi) break; }
   if (!khoi || gbk(ten7517.slice(0, 4)) !== '重楼') { console.log('LOI: khong ghep duoc ten GBK'); loi++; }
-  Object.assign(c, { 0: '7580', 1: ten7517.slice(0, 4) + khoi, 5: '-1', 7: '7580', 28: '100', 37: '70', 40: '10', 43: '-1' });
+  Object.assign(c, { 0: '7580', 1: ten7517.slice(0, 4) + khoi, 5: '755', 7: '7580', 28: '100', 37: '70', 40: '10', 43: '-1' });
   const moi = c.join('\t') + cr; let k = L.findIndex((l) => { const id = +l.split('\t')[0]; return /^\d+\t/.test(l) && id > 7580; });
   if (k < 0) k = L.length - (L[L.length - 1] === '' ? 1 : 0);
   L.splice(k, 0, moi); console.log('StandardImpact: them 7580 "' + gbk(c[1]) + '" truoc dong ' + (k + 1) + ', kich hoat ' + c[28] + '%, he so sat thuong ' + c[40]); ghi(f, L.join('\n'));
