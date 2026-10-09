@@ -156,6 +156,19 @@ function x950000_NhanQua( sceneId, selfId )
 			if k < n then
 				tinsert( left, "item "..id.." "..( n - k ) )
 			end
+		elseif kind == "itemten" then
+			-- [09/10] "itemten <ID> <chu>": phat 1 mon + ghi chu vao dong ten nguoi che (hien duoi tooltip). Chu VISCII, toi da ~30 ky tu.
+			local s2, e2, ten = strfind( lines[i], "^itemten%s+%d+%s+(.+)$" )
+			local r = TryRecieveItem( sceneId, selfId, tonumber( a ), 1 )
+			if r == nil or r < 0 then
+				tinsert( left, lines[i] )
+			else
+				if ten ~= nil then
+					LuaFnSetItemCreator( sceneId, selfId, r, ten )
+					LuaFnRefreshItemInfo( sceneId, selfId, r )
+				end
+				got = got + 1
+			end
 		elseif kind == "knb" then
 			YuanBao( sceneId, selfId, -1, 1, tonumber( a ) )
 			got = got + 1

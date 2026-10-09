@@ -1510,3 +1510,11 @@ Script dùng: `MyLua/wuhunxt/odali_wuyazi.lua` (892101; hàm `WuhunSkillStudy` ~
 - Chỉ GM có: gỡ 20 mã khỏi NPC đổi thời trang (`MyNew/duihuanxitong.lua` 112000 Tuyết Phi Phi, `obj/loulangucheng/oloulan_malan.lua` 001113) và nhuộm (`New/paodian/ShiZhuangRanSe.lua` 830001) → thay bằng màu 2 cùng mẫu (mã +1, vẫn 5 sao), độ dài danh sách giữ nguyên.
 - Món đã có giữ cấp 5 (cấp phẩm chất lưu trên món lúc tạo) → sau restart xóa + gửi lại cho bialk qua hàng quà.
 - Công cụ `tools/thoitrang9-09-10.js`, rollback tag `truoc-thoitrang9-09-10`.
+
+
+## 09/10 - "Trùng Lâu Khôi" = mũ Giáng Sinh 10410121 (cần cap-nhat + RESTART)
+- Client không sửa được → trong game vẫn hiện tên / icon / mô tả mũ Giáng Sinh (kể cả chữ "7 ngày", không có hạn thật). Chữ custom ghi ở **dòng tên người chế** khi phát.
+- `EquipBase` 10410121: 9 sao (quy tắc 9), đoạn giá trị 100 + 11 dòng (thêm Giới hạn SL cột 32), bộ dòng giống Trùng Lâu Đái 10553106; hiệu ứng thần khí 7580. Giữ cấp 32 / phòng thủ / độ bền của mũ (tooltip client đọc bảng client).
+- `StandardImpact` **7580 "重楼盔"**: logic 13 (khuôn 235 Khí Quán Trường Hồng), 会心攻击+ = **5** (+5% bạo kích), luôn bật khi mặc, không icon buff, nhóm loại trừ riêng 7580. Chưa đo trong game: bảng nhân vật "Hội công" phải +5 khi mặc.
+- `NetCo4/quatang.lua` lệnh mới **`itemten <ID> <chữ>`**: phát 1 món + ghi chữ vào dòng tên người chế (chữ VISCII, ~30 ký tự).
+- Công cụ `tools/trunglau-khoi-09-10.js`, rollback tag `truoc-trunglau-khoi-09-10`.
