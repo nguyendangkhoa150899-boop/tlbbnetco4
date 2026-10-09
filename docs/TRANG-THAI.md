@@ -1518,3 +1518,5 @@ Script dùng: `MyLua/wuhunxt/odali_wuyazi.lua` (892101; hàm `WuhunSkillStudy` ~
 - `StandardImpact` **7580 "重楼盔"**: logic 13 (khuôn 235 Khí Quán Trường Hồng), 会心攻击+ = **5** (+5% bạo kích), luôn bật khi mặc, không icon buff, nhóm loại trừ riêng 7580. Chưa đo trong game: bảng nhân vật "Hội công" phải +5 khi mặc.
 - `NetCo4/quatang.lua` lệnh mới **`itemten <ID> <chữ>`**: phát 1 món + ghi chữ vào dòng tên người chế (chữ VISCII, ~30 ký tự).
 - Công cụ `tools/trunglau-khoi-09-10.js`, rollback tag `truoc-trunglau-khoi-09-10`.
+
+- **Sửa 09/10 (cùng ngày):** 7580 đổi từ logic 13 (+5 **điểm** Hội công ≈ +0,13% chí mạng) sang **logic 88 khuôn 7505**: đánh trúng **5%** kích hoạt, hệ số sát thương 100 (= ×2 như đòn chí mạng) → ~5 đòn chí mạng thêm / 100 đòn. Không dùng logic 21 (会心率 **gán đè** tỉ lệ chí mạng của chiêu, đọc từ binary `StdImpact021_T::RefixSkill`). Công thức chí mạng server: % = 4 × (Hội công + 0,1) / (Hội thủ đối phương + 0,1), trần 100 (`ConfigInfo.ini` C0/C1/C2 = 100/10/25, chia 100). Chưa đo: đòn x2 này có hiện chữ "chí mạng" không.

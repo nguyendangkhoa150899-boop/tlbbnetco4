@@ -1,8 +1,10 @@
 // 09/10 (chu server): "TRUNG LAU KHOI" = mu Giang Sinh 10410121 (client van hien ten / icon mu Giang Sinh - client khong sua duoc).
 //  1. EquipBase 10410121: giong Trung Lau Dai 10553106 - 9 sao (quy tac 9), doan gia tri 100, 11 dong (them dong Gioi han SL, cot 32),
 //     hieu ung than khi 7580. Giu cap 32 / phong thu / do ben cua mu (tooltip client doc bang client).
-//  2. StandardImpact 7580 "重楼盔": logic 13 (giong 235 Khi Quan Truong Hong), 会心攻击+ = 5 (+5% bao kich), luon bat khi mac
-//     (thoi gian -1, chet van giu, khong huy tay), KHONG icon buff (cot 5 = -1 nhu am khi 7539..), nhom loai tru rieng 7580.
+//  2. StandardImpact 7580 "重楼盔" (sua 09/10): logic 88 khuon 7505 Trung Lau Dai - danh trung 5% kich hoat, he so sat thuong 100 (= x2,
+//     "chi mang" cua TLBB = don gap doi) -> ~5 don chi mang them / 100 don. KHONG dung logic 13 (+5 DIEM hoi cong ~ +0,13%) hay 21 (gan de ti le).
+//     Luon bat khi mac, KHONG icon buff (cot 5 = -1), nhom loai tru rieng 7580, khong hieu ung con.
+//     Cong thuc chi mang server (RE SkillLogic_T::IsCriticalHit): % = 4 x (Hoi cong + 0,1) / (Hoi thu doi phuong + 0,1), tran 100.
 //  3. NetCo4/quatang.lua: lenh moi "itemten <ID> <chu>" = phat 1 mon + ghi dong ten nguoi che (chu custom duoi tooltip).
 // File latin1, giu CR. Rollback: tag truoc-trunglau-khoi-09-10.   node tools/trunglau-khoi-09-10.js [--ghi]
 const fs = require('fs'), path = require('path');
@@ -30,15 +32,15 @@ const doc = (f) => fs.readFileSync(path.join(R, f), 'latin1'); const ghi = (f, s
   if (L.some((l) => l.startsWith('7580\t'))) { console.log('LOI: 7580 da co'); loi++; }
   const mau = L.find((l) => l.startsWith('235\t')); const cr = mau.endsWith('\r') ? '\r' : '';
   const c = mau.replace(/\r$/, '').split('\t');
-  if (gbk(c[33]) !== '会心攻击+' || c[2] !== '13') { console.log('LOI: mau 235 khong dung khuon (cot 33 = ' + gbk(c[33]) + ')'); loi++; }
+  if (gbk(c[27]) !== '伤害目标时的激发几率' || c[2] !== '88') { console.log('LOI: mau 7505 khong dung khuon'); loi++; }
   // ten GBK "重楼盔": "重楼" lay tu 7517, "盔" tim trong ten trang bi
   const ten7517 = L.find((l) => l.startsWith('7517\t')).split('\t')[1]; let khoi = null;
   for (const l of doc('Public/Config/EquipBase.txt').split('\n')) { const t = l.split('\t')[10] || ''; for (let k = 0; k + 1 < t.length && !khoi; k++) if (gbk(t.slice(k, k + 2)) === '盔') khoi = t.slice(k, k + 2); if (khoi) break; }
   if (!khoi || gbk(ten7517.slice(0, 4)) !== '重楼') { console.log('LOI: khong ghep duoc ten GBK'); loi++; }
-  Object.assign(c, { 0: '7580', 1: ten7517.slice(0, 4) + khoi, 5: '-1', 7: '7580', 8: '100', 10: '1', 12: '0', 20: '-1', 34: '5' });
+  Object.assign(c, { 0: '7580', 1: ten7517.slice(0, 4) + khoi, 5: '-1', 7: '7580', 28: '5', 37: '70', 40: '100', 43: '-1' });
   const moi = c.join('\t') + cr; let k = L.findIndex((l) => { const id = +l.split('\t')[0]; return /^\d+\t/.test(l) && id > 7580; });
   if (k < 0) k = L.length - (L[L.length - 1] === '' ? 1 : 0);
-  L.splice(k, 0, moi); console.log('StandardImpact: them 7580 "' + gbk(c[1]) + '" truoc dong ' + (k + 1) + ', 会心攻击+ = ' + c[34]); ghi(f, L.join('\n'));
+  L.splice(k, 0, moi); console.log('StandardImpact: them 7580 "' + gbk(c[1]) + '" truoc dong ' + (k + 1) + ', kich hoat ' + c[28] + '%, he so sat thuong ' + c[40]); ghi(f, L.join('\n'));
 }
 // 3. quatang.lua: lenh itemten (chen ngay truoc nhanh "knb")
 {
