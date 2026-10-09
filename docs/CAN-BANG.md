@@ -72,10 +72,10 @@ StandardImpact 793 "步步生花陷阱伤害" (logic 001 = sát thương trực 
   - Số lần nổ: sửa StandardImpact 790 cột thời lượng / chu kỳ (30000 / 3000).
   - Số mục tiêu mỗi bẫy: sửa SpecialObjData cột 23 (đang 3).
 
-### Cộng Sinh (chiêu pet) — 09/10 trả về gốc + hồi chiêu 100 giây, chủ server yêu cầu
+### Cộng Sinh (chiêu pet) — 09/10 chủ nhận 50% / 100% máu pet + hồi chiêu 100 giây, chủ server chốt
 
 - Sơ cấp Cộng Sinh (sách 30402035, skill 686 → SkillData 15141 → impact 7033), Cao cấp (30402036, 687 → 15153 → 7034). Logic 57: pet mất 50% máu (cột 29), chủ nhận (máu pet mất) × cột 32 / 100, không trần (chỉ chặn ở HP tối đa của chủ).
-- Lịch sử cột 32: gốc 75 / 100 → 01/10 `170d45c` **200 / 400** (chủ nhận 100% / 200% máu pet) → **09/10 về gốc 75 / 100** (chủ nhận 37,5% / 50% máu pet). Dòng 7033 / 7034 giống hệt bản trước `170d45c`.
+- Lịch sử cột 32: gốc 75 / 100 → 01/10 `170d45c` **200 / 400** (chủ nhận 100% / 200% máu pet) → 09/10 về gốc 75 / 100 (chủ nhận 37,5% / 50% máu pet) → **09/10 chủ server chốt 100 / 200** (chủ nhận **50% / 100% máu pet**).
 - Hồi chiêu cả 2: SkillData_V1 cột 7 **120000 → 100000** (100 giây).
 - Bảng `.txt` → cần cap-nhat + restart. Tag `truoc-congsinh-goc-09-10`. **Chưa đo:** client có chặn trước 120 giây không (tooltip + SkillData client vẫn ghi 120 giây, như Bộ Bộ Sinh Hoa).
 
