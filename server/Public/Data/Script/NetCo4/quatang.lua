@@ -124,6 +124,18 @@ function x950000_HoiMauPet( sceneId, selfId )
 			LuaFnSetPetHP( sceneId, selfId, h, l, maxHP )
 		end
 	end
+	-- pet dang tha: GetPet_MaxHP chua cong buff do tran thu (vd 191049 / 723376) -> RestoreHp tren doi tuong = day theo mau toi da that
+	local objId = -1
+	local ph, pl = LuaFnGetCurrentPetGUID( sceneId, selfId )
+	if ph and pl then
+		objId = LuaFnGetPetObjIdByGUID( sceneId, selfId, ph, pl )
+		if objId and objId >= 0 then
+			RestoreHp( sceneId, objId )
+		end
+	end
+	if GetName( sceneId, selfId ) == "bialk" then   -- [10/10] TAM: biet luc vao ban do pet da co mat chua; xong thi bo
+		x950000_Tip( sceneId, selfId, "[GM] hoi mau pet: objId = "..tostring( objId ) )
+	end
 end
 
 function x950000_NhanQua( sceneId, selfId )
