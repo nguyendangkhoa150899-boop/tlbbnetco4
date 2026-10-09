@@ -135,14 +135,18 @@ function x950000_HoiMauPet( sceneId, selfId )
 		end
 	end
 	-- pet chua co mat (luc vao ban do pet duoc tha sau) -> hoi tre: SetTimer goi x950000_HoiPetTre moi giay (file nay tu nap lai; scene.lua thi khong)
-	if ph and pl and ( objId == nil or objId < 0 ) then
+	local tm = -2
+	if objId == nil or objId < 0 then   -- [10/10] khong doi biet pet nao luc vao (GetCurrentPetGUID co the rong): co pet la bat bo dem
 		local key = sceneId..":"..selfId
 		if x950000_g_ChoHoiPet[key] == nil then
-			local tm = SetTimer( sceneId, selfId, 950000, "HoiPetTre", 1000 )
+			tm = SetTimer( sceneId, selfId, 950000, "HoiPetTre", 1000 )
 			if tm and tm >= 0 then
 				x950000_g_ChoHoiPet[key] = { tm, LuaFnGetGUID( sceneId, selfId ), 10 }
 			end
 		end
+	end
+	if GetName( sceneId, selfId ) == "bialk" then   -- [10/10] TAM de do loi, xong thi bo
+		x950000_Tip( sceneId, selfId, "[GM] vao ban do: pet "..n..", GUID pet "..tostring( ph ).."/"..tostring( pl )..", objId "..tostring( objId )..", bo dem "..tostring( tm ) )
 	end
 end
 
@@ -163,6 +167,9 @@ function x950000_HoiPetTre( sceneId, selfId )
 	local objId = -1
 	if ph and pl then
 		objId = LuaFnGetPetObjIdByGUID( sceneId, selfId, ph, pl )
+	end
+	if GetName( sceneId, selfId ) == "bialk" then   -- [10/10] TAM de do loi
+		x950000_Tip( sceneId, selfId, "[GM] bo dem lan "..( 11 - con )..": GUID pet "..tostring( ph ).."/"..tostring( pl )..", objId "..tostring( objId ) )
 	end
 	if objId and objId >= 0 then
 		RestoreHp( sceneId, objId )
