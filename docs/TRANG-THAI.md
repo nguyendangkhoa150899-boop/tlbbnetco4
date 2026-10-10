@@ -1578,5 +1578,8 @@ Script dùng: `MyLua/wuhunxt/odali_wuyazi.lua` (892101; hàm `WuhunSkillStudy` ~
 - Đồ công (Băng / Hỏa / Huyền / Độc / đủ 4): Nhẫn 10422120/119/118/117/10522000, Hạng liên 10420079/078/077/076/075 [bảng Hạng Liên VIP, thêm Né 500], Hộ phù 10423045/044/043/042/10523000, Hộ uyển 10414044/043/042/041/10514000: 1 thuộc tính = 1000 Bí Ngân cấp 8 `20502008`, đủ 4 = 2000.
 - Chỉ số cố định (EquipBase cột 32-89 chỉ bật đúng dòng, quy tắc 9, số dòng min=max, đoạn riêng **4401-4426** trong ItemSegValue - dưới 4501 của Custom Trùng Lâu). Hệ số cấp 9 = x1,8 nên 300 thuộc tính ra **301**, kháng 70 ra **71** (chủ server chọn lệch lên); mọi dòng khác đúng y bảng.
 - 26 mã mượn từ danh sách chỉ-GM (không nguồn, chưa ai giữ 11/10). Tên/hình là của mã gốc (client khóa). Rollback tag `truoc-dovip-11-10`; script `tools/dovip-11-10.js`.
+## 11/10 - Thử mở trứng trân thú chọn giới tính (08d0206) - THẤT BẠI
+
+- Giới tính pet = bit cuối GUID thấp `t_pet.lpetguid`: **lẻ = Đực, chẵn = Cái** (client `Pet.lua`; server `PetProcreateSystem::CheckRegister` so `low & 1`).
 - **11/10 00:33 THẤT BẠI, đã rollback** (revert 08d0206): hộp thoại mở từ vật phẩm (`DispatchEventList(-1)`) hiện được nhưng bấm lựa chọn bị engine chặn trước khi tới Lua: debug log `CGEventRequestHandler Faild ... NPCID:-1 ScriptID = 300027` + `Mission_EventRequest ErrorType1 [idNPC=-1]`. Khóa túi `elock.lua` chạy được là trường hợp riêng của engine. => Chọn giới tính phải qua NPC (có idNPC thật), không làm được trong hộp thoại của vật phẩm.
 
