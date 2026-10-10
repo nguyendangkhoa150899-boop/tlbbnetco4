@@ -23,6 +23,7 @@ import amkhi      # 04/10: trong so tay 3 dong am khi (panel/amkhi.py)
 import trunglau   # 08/10: custom Trung Lau dong moi (panel/trunglau.py)
 import vohon      # 09/10: custom Vo Hon - ti le chieu tung o linh ngo / tay (panel/vohon.py)
 import tuchat     # 10/10: custom % tay tu chat - giam dinh lai o Trieu Tiet (panel/tuchat.py)
+import tinhthong  # 10/10: Tinh Thong admin chon 3 dong cho do cong / do thu (panel/tinhthong.py)
 
 HOST, PORT = "0.0.0.0", 8443         # HTTPS, mo ra internet (ufw allow 8443), bat buoc dang nhap
 PUBLIC_IP = "103.216.118.123"
@@ -1053,6 +1054,27 @@ class H(BaseHTTPRequestHandler):
                     return self._json({"ok": False, "error": msg})
                 audit("tu chat [%s] %s: %s" % (ai, op, msg))
                 return self._json({"ok": True, "msg": msg, "data": tuchat.du_lieu()})
+            if method == "GET" and u.path == "/api/tinhthong":   # 10/10: Tinh Thong admin chon 3 dong - doc
+                return self._json({"ok": True, "data": tinhthong.du_lieu()})
+            if method == "POST" and u.path == "/api/tinhthong":   # 10/10: ghi tinhthong.txt (bot chi goi tu cong SUPER); hieu luc ngay, khong restart
+                n = int(self.headers.get("Content-Length", 0) or 0)
+                if n > 5000:
+                    return self._json({"ok": False, "error": "du lieu qua lon"}, 413)
+                b = json.loads(self.rfile.read(n).decode("utf-8", "replace") or "{}")
+                op, ai = str(b.get("op", "")), str(b.get("ai", ""))[:60]
+                if op == "luu":
+                    c = b.get("cfg") or {}
+                    if not isinstance(c, dict):
+                        return self._json({"ok": False, "error": "Dữ liệu không hợp lệ"})
+                    ok, msg = tinhthong.luu({k: c.get(k) for k in tinhthong.NHOM}, ai)
+                elif op == "tra":
+                    ok, msg = tinhthong.ve_mac_dinh()
+                else:
+                    return self._json({"ok": False, "error": "op khong hop le"})
+                if not ok:
+                    return self._json({"ok": False, "error": msg})
+                audit("tinh thong [%s] %s: %s" % (ai, op, msg))
+                return self._json({"ok": True, "msg": msg, "data": tinhthong.du_lieu()})
             if method == "POST" and u.path == "/api/act":
                 n = int(self.headers.get("Content-Length", 0) or 0)
                 form = json.loads(self.rfile.read(min(n, 10000)).decode("utf-8", "replace") or "{}")

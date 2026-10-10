@@ -144,6 +144,15 @@ function x890087_chuilian( sceneId, selfId, EQItem,sun1,sun2,sun3 )
       return
  end
 
+ -- [NetCo4 10/10] Tinh Thong admin chon 3 dong: mon da dung 3 dong theo cau hinh -> bao, KHONG tru Ly Hoa / vang
+ local tt0 = x890087_TTDong( iio )
+ if tt0 ~= nil then
+	local _, mn0 = LuaFnGetItemCreator( sceneId, selfId, EQItem )
+	if mn0 ~= nil and x890087_TTGhep( mn0, tt0, sun1, sun2, sun3 ) == mn0 then
+		x890087_Tips( sceneId, selfId, "Trang b¸ ðã có ðü 3 dòng Tinh Thông theo c¤u hình, t¦y næa không ð±i gì (không tr× Ly Höa)" )
+		return
+	end
+ end
  if LuaFnGetAvailableItemCount(sceneId, selfId, lihuoID) <10 then
       x890087_Tips( sceneId, selfId, "[Ly Höa] không ðü ho£c ít h½n 10 cái nên không th¬ T¦y luy®n" )	
       return
@@ -164,6 +173,10 @@ end
 
 local _, myname = LuaFnGetItemCreator(sceneId, selfId,EQItem);
 local JTsre ="" 
+local tt = x890087_TTDong( iio )   -- [NetCo4 10/10] admin chon 3 dong (trang bot) -> tay chac chan ra 3 dong do
+if tt ~= nil then
+	JTsre = x890087_TTGhep( myname, tt, sun1, sun2, sun3 )
+else
 if myname == nil then 
 JTsre ="&JT"..JTtable[iio][(random(shuiji))]..JTtable[iio][(random(shuiji))]..JTtable[iio][(random(shuiji))] 
 else
@@ -193,6 +206,7 @@ else
 JTsre = myname.."&JT"..JTtable[iio][(random(shuiji))]..JTtable[iio][(random(shuiji))]..JTtable[iio][(random(shuiji))] 		
 end
 end 
+end   -- [NetCo4 10/10] het nhanh ngau nhien goc
 
 LuaFnSetItemCreator( sceneId, selfId, EQItem, JTsre )
 LuaFnRefreshItemInfo( sceneId, selfId, EQItem )	
@@ -381,4 +395,71 @@ function x890087_fenjie( sceneId, selfId, EQItem , sun1 )
 		AddGlobalCountNews( sceneId, "chª "..GetName(sceneId,selfId).." ðã làm nên kÏ tích, phân giäi thành công" )
 	end
    
+end
+---**************
+--- [NetCo4 10/10] TINH THONG: ADMIN CHON 3 DONG (trang admin bot -> panel/tinhthong.py -> file duoi)
+--- File ASCII, moi nhom 1 dong: "cong BG HG XG" / "thu TL TL TL". Khong co file / thieu nhom -> tay ngau nhien nhu goc.
+---**************
+x890087_g_TTFile = "./txt/NetCo4Cfg/tinhthong.txt"
+x890087_g_TTThu = { [1] = 1, [2] = 1, [3] = 1, [4] = 1, [5] = 1, [15] = 1 }   -- mu, ao, bao tay, giay, dai, ho kien
+x890087_g_TTCong = { [6] = 1, [7] = 1, [12] = 1, [14] = 1 }                 -- nhan, hang lien, ho phu, ho uyen
+
+-- 3 ma dong admin chon cho diem trang bi iio, hoac nil (khong cau hinh -> ngau nhien goc)
+function x890087_TTDong( iio )
+	local nhom = nil
+	if x890087_g_TTThu[iio] ~= nil then
+		nhom = "thu"
+	elseif x890087_g_TTCong[iio] ~= nil then
+		nhom = "cong"
+	end
+	if nhom == nil then
+		return nil
+	end
+	local h = openfile( x890087_g_TTFile, "r" )
+	if h == nil then
+		return nil
+	end
+	local kq = nil
+	local line = read( h, "*l" )
+	while line do
+		local _, _, k, a, b, c = strfind( line, "^%s*(%a+)%s+(%u%u)%s+(%u%u)%s+(%u%u)" )
+		if k == nhom then
+			kq = { a, b, c }
+		end
+		line = read( h, "*l" )
+	end
+	closefile( h )
+	return kq
+end
+
+-- Ghep chuoi nguoi che tao moi: dong KHOA giu nguyen; dong trung ma cau hinh giu cap; con lai = ma cau hinh cap 01
+function x890087_TTGhep( myname, tt, sun1, sun2, sun3 )
+	if myname == nil then
+		myname = ""
+	end
+	local khoa = { sun1, sun2, sun3 }
+	local _, _, a1, l1, a2, l2, a3, l3 = strfind( myname, "&JT(%u%u)(%d%d)(%u%u)(%d%d)(%u%u)(%d%d)" )
+	local cu = nil
+	if a1 ~= nil then
+		cu = { { a1, l1 }, { a2, l2 }, { a3, l3 } }
+	end
+	local moi = "&JT"
+	for i = 1, 3 do
+		local ma = tt[i]
+		local cap = "01"
+		if cu ~= nil then
+			if khoa[i] == 1 then
+				ma = cu[i][1]
+				cap = cu[i][2]
+			elseif cu[i][1] == tt[i] then
+				cap = cu[i][2]
+			end
+		end
+		moi = moi .. ma .. cap
+	end
+	if cu ~= nil then
+		local r = gsub( myname, "&JT(%u%u)(%d%d)(%u%u)(%d%d)(%u%u)(%d%d)", moi, 1 )
+		return r
+	end
+	return myname .. moi
 end

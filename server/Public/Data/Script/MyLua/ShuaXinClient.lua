@@ -2167,7 +2167,7 @@ local aay = {1,2,3,4,5,15,6,7,12,14,11,13}
 	 if JT2str == "NF"	then 
 		tinsert(nf1,tonumber(JT2un))
 	 end	
-	 if JT3str == "FN"	then 
+	 if JT3str == "NF"	then 
 		tinsert(nf1,tonumber(JT3un))
 	 end	
 -------------------------Уќжа	

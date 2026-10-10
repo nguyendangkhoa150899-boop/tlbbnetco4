@@ -1562,3 +1562,12 @@ Script dùng: `MyLua/wuhunxt/odali_wuyazi.lua` (892101; hàm `WuhunSkillStudy` ~
 - Server test (nhánh `local` `b883edf`, có dòng báo `[GM]` cho bialk): đặt 60% = 100% → chủ server OK.
 - `main`: Lua bản không có dòng `[GM]` + `panel/tuchat.py` + route `/api/tuchat`; bot `tuchat.panel.js` (/tc.js) + `/api/gm/tuchat` + khung trong Công cụ.
 - **Cần chủ server:** `./cap-nhat.sh` (Lua 809261 tự nạp, không restart game) rồi `systemctl restart tlbb-panel` (chỉ trang panel). Trước đó tab báo lỗi "khong co API nay". Chưa có file `tuchat.txt` trên VPS = tẩy vẫn như gốc.
+
+## 10/10 - Tinh Thông: admin chọn 3 dòng (cần cap-nhat + restart tlbb-panel; KHÔNG restart game)
+
+- Cơ chế gốc (`MyLua/jingtong/jingtongClient.lua` 890087): Tinh Thông lưu trong ô người chế tạo `&JT` + 3 dòng (mã 2 chữ + cấp 2 số). Tôi luyện = 10 Ly Hỏa 20700063 + 100 vàng, quay ngẫu nhiên theo nhóm. Thăng cấp = **Tinh Kim Thạch 20700055** (dòng 1/2/3 tốn 8/16/24 viên + 60 vàng, tối đa cấp 10). Chỉ số cộng dồn cấp ở `ShuaXinClient.lua` `x892002_LPbuffa`.
+- Nhóm: **thủ** = mũ/áo/bao tay/giày/đai/hộ kiên (điểm 1,2,3,4,5,15; mã XS SB TL LL LQ DL SF WF NF), **công** = nhẫn/hạng liên/hộ phù/hộ uyển (6,7,12,14; MZ BG HG XG DG WG NG). Vũ khí không tôi luyện được.
+- Mới: file `Server/txt/NetCo4Cfg/tinhthong.txt` (`cong BG HG XG` / `thu TL TL TL`) do `panel/tinhthong.py` ghi, trang admin bot Công cụ > ⚒️ Tinh Thông (`BotDoMin/tinhthong.panel.js`, `/api/gm/tinhthong`, chỉ SUPER). Lua đọc mỗi lần tôi luyện: chắc chắn ra 3 dòng đó; dòng khóa giữ nguyên, dòng trùng mã giữ cấp, món đã đủ 3 dòng thì không trừ Ly Hỏa. Không có file / nhóm bỏ tick = ngẫu nhiên gốc.
+- Sửa lỗi có sẵn: `ShuaXinClient.lua` kiểm `"FN"` thay vì `"NF"` -> dòng Nội thủ ở vị trí 3 trước đây không được cộng chỉ số.
+- Rollback tag `truoc-tinhthong-3dong-10-10` (repo game). Script sửa: `tools/tinhthong-3dong-10-10.js`.
+
