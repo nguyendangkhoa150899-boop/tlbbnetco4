@@ -65,6 +65,7 @@ function  x111998_UpdateEventList(  sceneId,  selfId,targetId  )
 		--if LuaFnGetGUID( sceneId, selfId ) == 1010000010     then
 	 	 AddNumText(  sceneId,  x111998_g_ScriptId,  "#H Ğ±i HÕnh V§n Quä ",  6,  8000  )		
 		--end		
+	 	 AddNumText(  sceneId,  x111998_g_ScriptId,  "#cFF0000 Ğ±i Ğ° VIP",  6,  20000  )   -- [NetCo4 11/10] event doi do VIP
 	 	 AddNumText(  sceneId,  x111998_g_ScriptId,  " R¶i ği",  0,  0  )
 
 	 EndEvent(sceneId)
@@ -83,6 +84,10 @@ end
 --**********************************
 function  x111998_OnEventRequest(  sceneId,  selfId,  targetId,  eventId  )
 	 local  nNumText  =  GetNumText()
+	 if nNumText >= 20000 and nNumText < 21000 then   -- [NetCo4 11/10] event doi do VIP
+	 	 x111998_VipMenu( sceneId, selfId, targetId, nNumText )
+	 	 return
+	 end
 	 if  nNumText  ==  0    then
 	 	 --  t¡t cØa s± 
 	 	 BeginUICommand(sceneId)
@@ -370,6 +375,9 @@ end
 -- ğ« giao ğã làm xong ğích nhi®m vø 
 --**********************************
 function  x111998_OnMissionSubmit(  sceneId,  selfId,  targetId,  missionScriptId,  selectRadioId  )
+	 if x111998_VipNop( sceneId, selfId, selectRadioId ) == 1 then   -- [NetCo4 11/10] event doi do VIP
+	 	 return
+	 end
 
 	 -- xØ lı ğ« giao sau ğích bi¬u hi®n tình hu¯ng 
 	 -- vì an toàn , n½i này phäi c¦n th§n , không th¬ ra l²i 
@@ -575,4 +583,136 @@ end
 -- tØ vong sñ ki®n 
 --**********************************
 function  x111998_OnDie(  sceneId,  selfId,  killerId  )
+end
+
+--**********************************
+-- [NetCo4 11/10] EVENT DOI DO VIP (tools/dovip-11-10.js). Chi so co dinh trong EquipBase / ItemSegValue (doan 4401-4426).
+-- Thu: 1000 Mien Bo cap 8 (20501008). Cong: 1 thuoc tinh = 1000 Bi Ngan cap 8 (20502008), 4 thuoc tinh = 2000. Phat ra KHOA.
+-- Menu: 20000 danh sach o -> 20100+i (thu i) | 20200+j (cong j -> chon thuoc tinh) -> 20300+j*10+e -> bang Tra (OnMissionSubmit).
+--**********************************
+x111998_g_VipMienBo = 20501008
+x111998_g_VipBiNgan = 20502008
+x111998_g_VipThu = {
+	{ o = "Mû", id = 10410081 }, { o = "Áo", id = 10413082 }, { o = "Bao Tay", id = 10412079 },
+	{ o = "Giày", id = 10411087 }, { o = "Ğai", id = 10421077 }, { o = "Hµ Kiên", id = 10420021 },
+}
+-- moi o cong: Bang, Hoa, Huyen, Doc, 4 thuoc tinh
+x111998_g_VipCong = {
+	{ o = "Nhçn", ids = { 10422120, 10422119, 10422118, 10422117, 10522000 } },
+	{ o = "HÕng Liên", ids = { 10420079, 10420078, 10420077, 10420076, 10420075 } },
+	{ o = "Hµ Phù", ids = { 10423045, 10423044, 10423043, 10423042, 10523000 } },
+	{ o = "Hµ Uy¬n", ids = { 10414044, 10414043, 10414042, 10414041, 10514000 } },
+}
+x111998_g_VipTT = { "Bång Công", "Höa Công", "Huy«n Công", "Ğµc Công", "Ğü 4 Thuµc Tính" }
+
+function x111998_VipTip( sceneId, selfId, str )
+	BeginEvent( sceneId )
+		AddText( sceneId, str )
+	EndEvent( sceneId )
+	DispatchMissionTips( sceneId, selfId )
+end
+
+-- ma VIP -> nguyen lieu, so luong, ten (nil neu khong phai ma VIP)
+function x111998_VipGia( id )
+	for i, v in x111998_g_VipThu do
+		if v.id == id then
+			return x111998_g_VipMienBo, 1000, "Miên B¯ c¤p 8"
+		end
+	end
+	for i, v in x111998_g_VipCong do
+		for e = 1, 5 do
+			if v.ids[e] == id then
+				if e == 5 then
+					return x111998_g_VipBiNgan, 2000, "Bí Ngân c¤p 8"
+				end
+				return x111998_g_VipBiNgan, 1000, "Bí Ngân c¤p 8"
+			end
+		end
+	end
+	return nil, 0, ""
+end
+
+-- bang Tra: hien mon + gia
+function x111998_VipBang( sceneId, selfId, targetId, id, tieude )
+	local nl, sl, ten = x111998_VipGia( id )
+	BeginEvent( sceneId )
+		AddText( sceneId, "#Y" .. tieude )
+		AddText( sceneId, "Ğ±i món này c¥n #Y" .. sl .. " " .. ten .. "#W. Chï s¯ c¯ ğ¸nh 9 sao, ğ±i ra là khóa." )
+		AddRadioItemBonus( sceneId, id, 4 )
+	EndEvent( sceneId )
+	DispatchMissionContinueInfo( sceneId, selfId, targetId, x111998_g_ScriptId, 0 )
+end
+
+function x111998_VipMenu( sceneId, selfId, targetId, n )
+	if n == 20000 then
+		BeginEvent( sceneId )
+			AddText( sceneId, "    Ğ° VIP chï s¯ c¯ ğ¸nh 9 sao. #YĞ° thü#W: 1000 Miên B¯ c¤p 8. #YĞ° công#W: ch÷n 1 thuµc tính = 1000 Bí Ngân c¤p 8, ğü 4 thuµc tính = 2000 Bí Ngân c¤p 8." )
+			for i, v in x111998_g_VipThu do
+				AddNumText( sceneId, x111998_g_ScriptId, "#G[Thü] " .. v.o .. " VIP", 6, 20100 + i )
+			end
+			for j, v in x111998_g_VipCong do
+				AddNumText( sceneId, x111998_g_ScriptId, "#cFF0000[Công] " .. v.o .. " VIP", 6, 20200 + j )
+			end
+			AddNumText( sceneId, x111998_g_ScriptId, " R¶i Ği", 0, 0 )
+		EndEvent( sceneId )
+		DispatchEventList( sceneId, selfId, targetId )
+		return
+	end
+	if n > 20100 and n <= 20100 + getn( x111998_g_VipThu ) then
+		local v = x111998_g_VipThu[ n - 20100 ]
+		x111998_VipBang( sceneId, selfId, targetId, v.id, v.o .. " VIP" )
+		return
+	end
+	if n > 20200 and n <= 20200 + getn( x111998_g_VipCong ) then
+		local j = n - 20200
+		local v = x111998_g_VipCong[ j ]
+		BeginEvent( sceneId )
+			AddText( sceneId, "#Y" .. v.o .. " VIP#W: ch÷n thuµc tính (1 thuµc tính = 1000 Bí Ngân c¤p 8, ğü 4 = 2000)." )
+			for e = 1, 5 do
+				AddNumText( sceneId, x111998_g_ScriptId, "#G" .. x111998_g_VipTT[ e ], 6, 20300 + j * 10 + e )
+			end
+			AddNumText( sceneId, x111998_g_ScriptId, " Tr· v«", 6, 20000 )
+		EndEvent( sceneId )
+		DispatchEventList( sceneId, selfId, targetId )
+		return
+	end
+	if n > 20300 and n < 20400 then
+		local j = floor( ( n - 20300 ) / 10 )
+		local e = mod( n - 20300, 10 )
+		local v = x111998_g_VipCong[ j ]
+		if v ~= nil and e >= 1 and e <= 5 then
+			x111998_VipBang( sceneId, selfId, targetId, v.ids[ e ], v.o .. " VIP - " .. x111998_g_VipTT[ e ] )
+		end
+		return
+	end
+end
+
+-- bam Tra: 1 = da xu ly (ma VIP), 0 = khong phai ma VIP
+function x111998_VipNop( sceneId, selfId, id )
+	local nl, sl, ten = x111998_VipGia( id )
+	if nl == nil then
+		return 0
+	end
+	if LuaFnGetPropertyBagSpace( sceneId, selfId ) < 1 then
+		x111998_VipTip( sceneId, selfId, "Túi ğÕo cø c¥n ít nh¤t 1 ô tr¯ng" )
+		return 1
+	end
+	if LuaFnGetAvailableItemCount( sceneId, selfId, nl ) < sl then
+		x111998_VipTip( sceneId, selfId, "Không ğü " .. sl .. " " .. ten )
+		return 1
+	end
+	local pos = TryRecieveItem( sceneId, selfId, id, 1 )
+	if pos == nil or pos < 0 then
+		x111998_VipTip( sceneId, selfId, "Túi ğ¥y, không nh§n ğßşc ğ°" )
+		return 1
+	end
+	if LuaFnDelAvailableItem( sceneId, selfId, nl, sl ) ~= 1 then
+		LuaFnEraseItem( sceneId, selfId, pos )
+		x111998_VipTip( sceneId, selfId, "Tr× nguyên li®u th¤t bÕi, chßa ğ±i" )
+		return 1
+	end
+	LuaFnItemBind( sceneId, selfId, pos )
+	x111998_VipTip( sceneId, selfId, "Ğ±i ğ° VIP thành công" )
+	LuaFnSendSpecificImpactToUnit( sceneId, selfId, selfId, selfId, 148, 0 )
+	return 1
 end

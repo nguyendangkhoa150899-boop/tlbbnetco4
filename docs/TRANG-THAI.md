@@ -1571,3 +1571,11 @@ Script dùng: `MyLua/wuhunxt/odali_wuyazi.lua` (892101; hàm `WuhunSkillStudy` ~
 - Sửa lỗi có sẵn: `ShuaXinClient.lua` kiểm `"FN"` thay vì `"NF"` -> dòng Nội thủ ở vị trí 3 trước đây không được cộng chỉ số.
 - Rollback tag `truoc-tinhthong-3dong-10-10` (repo game). Script sửa: `tools/tinhthong-3dong-10-10.js`.
 
+## 11/10 - Event Đổi Đồ VIP ở NPC đổi Trùng Lâu (cần cap-nhat + RESTART)
+
+- NPC `MyNew/doitrunglau2.lua` (111998) thêm mục **Đổi Đồ VIP** (menu số 20000-20999; bấm Trả -> `x111998_VipNop` trong `OnMissionSubmit`). Phát ra **khóa**.
+- Đồ thủ (Mũ 10410081, Áo 10413082 [bảng Y Phục VIP], Bao tay 10412079, Giày 10411087, Đai 10421077, Hộ kiên 10420021): 1000 Miên Bố cấp 8 `20501008`.
+- Đồ công (Băng / Hỏa / Huyền / Độc / đủ 4): Nhẫn 10422120/119/118/117/10522000, Hạng liên 10420079/078/077/076/075 [bảng Hạng Liên VIP, thêm Né 500], Hộ phù 10423045/044/043/042/10523000, Hộ uyển 10414044/043/042/041/10514000: 1 thuộc tính = 1000 Bí Ngân cấp 8 `20502008`, đủ 4 = 2000.
+- Chỉ số cố định (EquipBase cột 32-89 chỉ bật đúng dòng, quy tắc 9, số dòng min=max, đoạn riêng **4401-4426** trong ItemSegValue - dưới 4501 của Custom Trùng Lâu). Hệ số cấp 9 = x1,8 nên 300 thuộc tính ra **301**, kháng 70 ra **71** (chủ server chọn lệch lên); mọi dòng khác đúng y bảng.
+- 26 mã mượn từ danh sách chỉ-GM (không nguồn, chưa ai giữ 11/10). Tên/hình là của mã gốc (client khóa). Rollback tag `truoc-dovip-11-10`; script `tools/dovip-11-10.js`.
+
