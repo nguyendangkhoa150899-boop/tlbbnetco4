@@ -105,9 +105,13 @@ function x809261_FinishAdjust( sceneId, selfId, nItemIndex)
 	
 	ret = LuaFnJudgeApt( sceneId, selfId, nItemIndex )
 	if ret == 1 then
-		-- [08/10] giam dinh ghi ten: ten nguoi giam dinh hien duoi cac dong thuoc tinh (cho ten nguoi che tao)
-		LuaFnSetItemCreator( sceneId, selfId, nItemIndex, GetName( sceneId, selfId ) )
-		LuaFnRefreshItemInfo( sceneId, selfId, nItemIndex )
+		-- [08/10] giam dinh ghi ten (cho ten nguoi che tao). [10/10] CHI ghi khi o nay TRONG: o nay con chua thang linh (w#p/t#p),
+		-- dieu van (&DW), than khi (#S, &QHD)... -> ghi de = mat het (loi 08/10 -> 10/10).
+		local _, cu = LuaFnGetItemCreator( sceneId, selfId, nItemIndex )
+		if cu == nil or cu == "" then
+			LuaFnSetItemCreator( sceneId, selfId, nItemIndex, GetName( sceneId, selfId ) )
+			LuaFnRefreshItemInfo( sceneId, selfId, nItemIndex )
+		end
 		LuaFnSendSpecificImpactToUnit(sceneId, selfId, selfId, selfId, 49, 0);
 		BeginEvent(sceneId)
 		AddText(sceneId,"Giám ð¸nh tß ch¤t trang b¸ thành công");
@@ -345,9 +349,13 @@ function x809261_FinishReAdjust( sceneId, selfId, nEquItemIndex )
 	ret = LuaFnReSetItemApt( sceneId, selfId, nEquItemIndex )
 	ret = x809261_NetCo4_TuChat( sceneId, selfId, nEquItemIndex, ret )   -- [NetCo4 10/10] custom % tay tu chat
 	if ret == 1 or ret == 2 or ret == 3 then
-		-- [08/10] giam dinh ghi ten: ten nguoi giam dinh hien duoi cac dong thuoc tinh (cho ten nguoi che tao)
-		LuaFnSetItemCreator( sceneId, selfId, nEquItemIndex, GetName( sceneId, selfId ) )
-		LuaFnRefreshItemInfo( sceneId, selfId, nEquItemIndex )
+		-- [08/10] giam dinh ghi ten (cho ten nguoi che tao). [10/10] CHI ghi khi o nay TRONG: o nay con chua thang linh (w#p/t#p),
+		-- dieu van (&DW), than khi (#S, &QHD)... -> ghi de = mat het (loi 08/10 -> 10/10).
+		local _, cu = LuaFnGetItemCreator( sceneId, selfId, nEquItemIndex )
+		if cu == nil or cu == "" then
+			LuaFnSetItemCreator( sceneId, selfId, nEquItemIndex, GetName( sceneId, selfId ) )
+			LuaFnRefreshItemInfo( sceneId, selfId, nEquItemIndex )
+		end
 	end
 	if ret == 1 then
 
