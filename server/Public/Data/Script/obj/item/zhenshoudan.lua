@@ -701,7 +701,7 @@ x300027_g_petList[30309859] = {type=1, dataId=30949, level=1}	--Ì«¼«Êó   -- [07/
 -- ·µ»Ø1£º¼¼ÄÜÀàËÆµÄÎïÆ·£¬¿ÉÒÔ¼ÌÐøÀàËÆ¼¼ÄÜµÄÖ´ÐÐ£»·µ»Ø0£ºÖ´ÐÐ OnDefaultEvent¡£
 --**********************************
 function x300027_IsSkillLikeScript( sceneId, selfId )
-	return 1
+	return 0   -- [NetCo4 11/10] hop thoai chon gioi tinh (x300027_OnDefaultEvent); truoc la 1 = dung ngay
 end
 
 --**********************************
@@ -904,5 +904,137 @@ function x300027_OnGivePlayerPet( sceneId, selfId, petId, petGUID_H, petGUID_L, 
 		local Msg = "#{_INFOUSR%s}#{XZS_15}#{_INFOMSG%s}#{XZS_16}#{_INFOMSG%s}#{DSSJ_4}"
 		local str = format( Msg, GetName(sceneId,selfId), ItemInfo, szPetTrans )
 		BroadMsgByChatPipe(sceneId, selfId, str, 4)
+	end
+end
+
+--**********************************
+-- [NetCo4 11/10] MO TRUNG CHON GIOI TINH (tools/trung-gioitinh-11-10.js)
+-- Gioi tinh = bit cuoi GUID thap cua pet: le = Duc, chan = Cai. Sai gioi -> xoa con vua tao, tao lai (toi da 12 lan).
+--**********************************
+x300027_g_Cho = {}     -- [selfId] = { bag = o tui, id = ma trung, k = ma lua chon }
+x300027_g_Dem = 0
+
+-- 1 = Duc (GUID thap le), 2 = Cai (chan)
+function x300027_GioiTinh( l )
+	if mod( l, 2 ) ~= 0 then
+		return 1
+	end
+	return 2
+end
+
+-- kiem nhu x300027_OnConditionCheck (o pet, cap mang). 1 = duoc
+function x300027_KiemMo( sceneId, selfId, petItem )
+	local c = TryCreatePet( sceneId, selfId, 1 )
+	if not c or c ~= 1 then
+		x300027_NotifyFailTips( sceneId, selfId, "Các hÕ không th¬ mang thêm Trân Thú." )
+		return 0
+	end
+	if petItem.type ~= 2 then
+		local takeLevel = GetPetTakeLevel( petItem.dataId )
+		local humanLevel = LuaFnGetLevel( sceneId, selfId )
+		if not takeLevel or not humanLevel or takeLevel > humanLevel then
+			x300027_NotifyFailTips( sceneId, selfId, "C¤p cüa các hÕ th¤p h½n c¤p mang cüa Trân Thú." )
+			return 0
+		end
+	end
+	return 1
+end
+
+-- dung trung: lan dau hien hop thoai; bam lua chon (cung goi vao day, GetNumText = ma da cap) -> mo trung
+function x300027_OnDefaultEvent( sceneId, selfId, bagIndex )
+	local key = GetNumText()
+	local cho = x300027_g_Cho[ selfId ]
+	if cho ~= nil and key ~= nil and key >= cho.k and key <= cho.k + 2 then
+		x300027_g_Cho[ selfId ] = nil
+		x300027_MoTrung( sceneId, selfId, cho.bag, cho.id, key - cho.k )
+		return
+	end
+	if bagIndex == nil or bagIndex < 0 then
+		return
+	end
+	local id = LuaFnGetItemTableIndexByIndex( sceneId, selfId, bagIndex )
+	local petItem = x300027_g_petList[ id ]
+	if not petItem then
+		x300027_NotifyFailTips( sceneId, selfId, "V§t ph¦m chßa m·, không th¬ dùng." )
+		return
+	end
+	if x300027_KiemMo( sceneId, selfId, petItem ) ~= 1 then
+		return
+	end
+	x300027_g_Dem = x300027_g_Dem + 3
+	if x300027_g_Dem > 30000 then
+		x300027_g_Dem = 3
+	end
+	local k = 70000 + x300027_g_Dem
+	x300027_g_Cho[ selfId ] = { bag = bagIndex, id = id, k = k }
+	BeginEvent( sceneId )
+		AddText( sceneId, "    Ch÷n gi¾i tính Trân Thú s¨ n· (chï s¯ không ð±i):" )
+		AddNumText( sceneId, x300027_g_scriptId, "Ðñc", 2, k + 1 )
+		AddNumText( sceneId, x300027_g_scriptId, "Cái", 2, k + 2 )
+		AddNumText( sceneId, x300027_g_scriptId, "Ngçu nhiên", 2, k )
+	EndEvent( sceneId )
+	DispatchEventList( sceneId, selfId, -1 )
+end
+
+-- phong khi client gui lua chon qua OnEventRequest
+function x300027_OnEventRequest( sceneId, selfId, targetId, eventId )
+	x300027_OnDefaultEvent( sceneId, selfId, -1 )
+end
+
+-- gt: 0 = ngau nhien, 1 = Duc, 2 = Cai
+function x300027_MoTrung( sceneId, selfId, bag, id, gt )
+	if LuaFnGetItemTableIndexByIndex( sceneId, selfId, bag ) ~= id then
+		x300027_NotifyFailTips( sceneId, selfId, "TrÑng ðã b¸ di chuy¬n, hãy dùng lÕi." )
+		return
+	end
+	local petItem = x300027_g_petList[ id ]
+	if not petItem or x300027_KiemMo( sceneId, selfId, petItem ) ~= 1 then
+		return
+	end
+	local ItemInfo = GetBagItemTransfer( sceneId, selfId, bag )
+	local dataId = petItem.dataId
+	if petItem.type == 2 then
+		dataId = nil
+		local level = GetLevel( sceneId, selfId )
+		for i, pet in petItem.dataIds do
+			if level >= pet.minHumanLevel and level <= pet.maxHumanLevel then
+				dataId = pet.dataId
+			end
+		end
+		if dataId == nil then
+			x300027_NotifyFailTips( sceneId, selfId, "C¤p cüa các hÕ chßa hþp v¾i trÑng này." )
+			return
+		end
+	end
+	local ret, h, l = 0, 0, 0
+	local lan = 0
+	while lan < 12 do
+		lan = lan + 1
+		if petItem.type == 0 then
+			ret, h, l = LuaFnCreatePetToHuman( sceneId, selfId, dataId, petItem.level, 0 )
+		else
+			ret, h, l = CallScriptFunction( 800105, "CreateRMBPetToHuman", sceneId, selfId, dataId, petItem.level )
+		end
+		if not ret or ret ~= 1 or not h or not l then
+			x300027_NotifyFailTips( sceneId, selfId, "M· trÑng th¤t bÕi, trÑng vçn còn." )
+			return
+		end
+		if gt == 0 or x300027_GioiTinh( l ) == gt then
+			break
+		end
+		if lan < 12 then
+			LuaFnDeletePetByGUID( sceneId, selfId, h, l )
+		end
+	end
+	if LuaFnEraseItem( sceneId, selfId, bag ) ~= 1 then
+		LuaFnDeletePetByGUID( sceneId, selfId, h, l )
+		x300027_NotifyFailTips( sceneId, selfId, "Không tr× ðßþc trÑng (ðang khóa?), chßa m·." )
+		return
+	end
+	x300027_OnGivePlayerPet( sceneId, selfId, dataId, h, l, ItemInfo )
+	if x300027_GioiTinh( l ) == 1 then
+		x300027_NotifyFailTips( sceneId, selfId, "Trân Thú n· ra: Ðñc" )
+	else
+		x300027_NotifyFailTips( sceneId, selfId, "Trân Thú n· ra: Cái" )
 	end
 end

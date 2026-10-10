@@ -1579,3 +1579,9 @@ Script dùng: `MyLua/wuhunxt/odali_wuyazi.lua` (892101; hàm `WuhunSkillStudy` ~
 - Chỉ số cố định (EquipBase cột 32-89 chỉ bật đúng dòng, quy tắc 9, số dòng min=max, đoạn riêng **4401-4426** trong ItemSegValue - dưới 4501 của Custom Trùng Lâu). Hệ số cấp 9 = x1,8 nên 300 thuộc tính ra **301**, kháng 70 ra **71** (chủ server chọn lệch lên); mọi dòng khác đúng y bảng.
 - 26 mã mượn từ danh sách chỉ-GM (không nguồn, chưa ai giữ 11/10). Tên/hình là của mã gốc (client khóa). Rollback tag `truoc-dovip-11-10`; script `tools/dovip-11-10.js`.
 
+## 11/10 - Mở trứng trân thú chọn giới tính (Lua, cần cap-nhat, KHÔNG restart)
+
+- Giới tính pet KHÔNG lưu riêng: = bit cuối GUID thấp (`t_pet.lpetguid`): **lẻ = Đực, chẵn = Cái**. Client `Pet.lua` (sex == 1 -> Đực); server `PetProcreateSystem::CheckRegister` so `low & 1` hai con, bằng nhau -> từ chối phồn thực. GUID thấp gần như ngẫu nhiên (DB 11/10: 9 chẵn / 7 lẻ).
+- `obj/item/zhenshoudan.lua` (300027): `IsSkillLikeScript` 1 -> 0; dùng trứng hiện hộp thoại Đực / Cái / Ngẫu nhiên (giống khóa túi `elock.lua`, `DispatchEventList(-1)`, bấm -> gọi lại `OnDefaultEvent`, `GetNumText()`; mỗi lần hiện dùng mã riêng k..k+2). Tạo pet bằng đúng hàm cũ (`CreateRMBPetToHuman` / `LuaFnCreatePetToHuman`), sai giới thì `LuaFnDeletePetByGUID` con vừa tạo và tạo lại (tối đa 12 lần). Tạo pet trước, xóa trứng sau (xóa hỏng -> xóa pet).
+- **Chưa thử trong game**: nếu bấm lựa chọn mà không ra pet thì rollback tag `truoc-trung-gioitinh-11-10` (trứng về dùng ngay như cũ). Script: `tools/trung-gioitinh-11-10.js`.
+
